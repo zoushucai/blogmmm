@@ -1,7 +1,7 @@
 {{ partial "header" . }}
 <div class = "div-content" >
     <!-- style="z-index:999" 把该div 置于最上层 -->
-    <div class = 'inner-left' style="position:fixed;z-index:999;height: 60%;width:30%;overflow: scroll;" >
+    <div class = 'inner-left' style="position:fixed;z-index:999;height: 60%;overflow: scroll;bottom: 5%;width: 22%;top: 18%" >
             <!-- 显示目录 -->
             {{ if .Params.toc }}
             {{ .TableOfContents }}
