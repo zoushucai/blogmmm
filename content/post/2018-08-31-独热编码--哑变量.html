@@ -45,17 +45,17 @@ output:
 
 head(testFrame)
 #&gt;   First Second Third Fourth Fifth Sixth Seventh
-#&gt; 1     8     20     1     =A    =E    =a      =J
-#&gt; 2     7     14     2     =B    =F    =b      =K
-#&gt; 3     4      4     8     =C    =G    =a      =L
-#&gt; 4     2     12    10     =D    =H    =b      =J
-#&gt; 5     8     10     4     =A    =I    =a      =K
-#&gt; 6     3      6     1     =B    =E    =b      =L
+#&gt; 1     8      7     8     =A    =E    =a      =J
+#&gt; 2     9      2     5     =B    =F    =b      =K
+#&gt; 3     7     20    10     =C    =G    =a      =L
+#&gt; 4     4      9     3     =D    =H    =b      =J
+#&gt; 5     1      6     2     =A    =I    =a      =K
+#&gt; 6     1     13     1     =B    =E    =b      =L
 str(testFrame)
 #&gt; &#39;data.frame&#39;:    20 obs. of  7 variables:
-#&gt;  $ First  : int  8 7 4 2 8 3 9 9 8 5 ...
-#&gt;  $ Second : int  20 14 4 12 10 6 8 17 18 14 ...
-#&gt;  $ Third  : int  1 2 8 10 4 1 8 8 9 3 ...
+#&gt;  $ First  : int  8 9 7 4 1 1 2 10 4 9 ...
+#&gt;  $ Second : int  7 2 20 9 6 13 5 19 20 14 ...
+#&gt;  $ Third  : int  8 5 10 3 2 1 1 7 6 9 ...
 #&gt;  $ Fourth : Factor w/ 4 levels &quot;=A&quot;,&quot;=B&quot;,&quot;=C&quot;,..: 1 2 3 4 1 2 3 4 1 2 ...
 #&gt;  $ Fifth  : Ord.factor w/ 5 levels &quot;=E&quot;&lt;&quot;=F&quot;&lt;&quot;=G&quot;&lt;..: 1 2 3 4 5 1 2 3 4 5 ...
 #&gt;  $ Sixth  : chr  &quot;=a&quot; &quot;=b&quot; &quot;=a&quot; &quot;=b&quot; ...
@@ -264,12 +264,12 @@ dummy.data.frame(iris, dummy.class=&quot;factor&quot;) %&gt;% head()
 #&gt; 6                 0                0
 dummy.data.frame(testFrame, dummy.class=&quot;factor&quot;) %&gt;% head() 
 #&gt;   First Second Third Fourth=A Fourth=B Fourth=C Fourth=D Fifth Sixth Seventh=J
-#&gt; 1     8     20     1        1        0        0        0    =E    =a         1
-#&gt; 2     7     14     2        0        1        0        0    =F    =b         0
-#&gt; 3     4      4     8        0        0        1        0    =G    =a         0
-#&gt; 4     2     12    10        0        0        0        1    =H    =b         1
-#&gt; 5     8     10     4        1        0        0        0    =I    =a         0
-#&gt; 6     3      6     1        0        1        0        0    =E    =b         0
+#&gt; 1     8      7     8        1        0        0        0    =E    =a         1
+#&gt; 2     9      2     5        0        1        0        0    =F    =b         0
+#&gt; 3     7     20    10        0        0        1        0    =G    =a         0
+#&gt; 4     4      9     3        0        0        0        1    =H    =b         1
+#&gt; 5     1      6     2        1        0        0        0    =I    =a         0
+#&gt; 6     1     13     1        0        1        0        0    =E    =b         0
 #&gt;   Seventh=K Seventh=L
 #&gt; 1         0         0
 #&gt; 2         1         0
@@ -345,12 +345,12 @@ build.y(Species~.,data = iris) # 直接把公式左边的保留即可，不做�
 <pre class="r"><code>###### 独热编码8
 head(model.matrix(First~ Second + Fourth + Fifth, testFrame)) 
 #&gt;   (Intercept) Second Fourth=B Fourth=C Fourth=D    Fifth.L    Fifth.Q
-#&gt; 1           1     20        0        0        0 -0.6324555  0.5345225
-#&gt; 2           1     14        1        0        0 -0.3162278 -0.2672612
-#&gt; 3           1      4        0        1        0  0.0000000 -0.5345225
-#&gt; 4           1     12        0        0        1  0.3162278 -0.2672612
-#&gt; 5           1     10        0        0        0  0.6324555  0.5345225
-#&gt; 6           1      6        1        0        0 -0.6324555  0.5345225
+#&gt; 1           1      7        0        0        0 -0.6324555  0.5345225
+#&gt; 2           1      2        1        0        0 -0.3162278 -0.2672612
+#&gt; 3           1     20        0        1        0  0.0000000 -0.5345225
+#&gt; 4           1      9        0        0        1  0.3162278 -0.2672612
+#&gt; 5           1      6        0        0        0  0.6324555  0.5345225
+#&gt; 6           1     13        1        0        0 -0.6324555  0.5345225
 #&gt;         Fifth.C    Fifth^4
 #&gt; 1 -3.162278e-01  0.1195229
 #&gt; 2  6.324555e-01 -0.4780914
@@ -360,12 +360,12 @@ head(model.matrix(First~ Second + Fourth + Fifth, testFrame))
 #&gt; 6 -3.162278e-01  0.1195229
 head(model.matrix(First~ .-1, testFrame))
 #&gt;   Second Third Fourth=A Fourth=B Fourth=C Fourth=D    Fifth.L    Fifth.Q
-#&gt; 1     20     1        1        0        0        0 -0.6324555  0.5345225
-#&gt; 2     14     2        0        1        0        0 -0.3162278 -0.2672612
-#&gt; 3      4     8        0        0        1        0  0.0000000 -0.5345225
-#&gt; 4     12    10        0        0        0        1  0.3162278 -0.2672612
-#&gt; 5     10     4        1        0        0        0  0.6324555  0.5345225
-#&gt; 6      6     1        0        1        0        0 -0.6324555  0.5345225
+#&gt; 1      7     8        1        0        0        0 -0.6324555  0.5345225
+#&gt; 2      2     5        0        1        0        0 -0.3162278 -0.2672612
+#&gt; 3     20    10        0        0        1        0  0.0000000 -0.5345225
+#&gt; 4      9     3        0        0        0        1  0.3162278 -0.2672612
+#&gt; 5      6     2        1        0        0        0  0.6324555  0.5345225
+#&gt; 6     13     1        0        1        0        0 -0.6324555  0.5345225
 #&gt;         Fifth.C    Fifth^4 Sixth=b Seventh=K Seventh=L
 #&gt; 1 -3.162278e-01  0.1195229       0         0         0
 #&gt; 2  6.324555e-01 -0.4780914       1         1         0
@@ -375,12 +375,12 @@ head(model.matrix(First~ .-1, testFrame))
 #&gt; 6 -3.162278e-01  0.1195229       1         0         1
 head(model.matrix(First~ ., testFrame))
 #&gt;   (Intercept) Second Third Fourth=B Fourth=C Fourth=D    Fifth.L    Fifth.Q
-#&gt; 1           1     20     1        0        0        0 -0.6324555  0.5345225
-#&gt; 2           1     14     2        1        0        0 -0.3162278 -0.2672612
-#&gt; 3           1      4     8        0        1        0  0.0000000 -0.5345225
-#&gt; 4           1     12    10        0        0        1  0.3162278 -0.2672612
-#&gt; 5           1     10     4        0        0        0  0.6324555  0.5345225
-#&gt; 6           1      6     1        1        0        0 -0.6324555  0.5345225
+#&gt; 1           1      7     8        0        0        0 -0.6324555  0.5345225
+#&gt; 2           1      2     5        1        0        0 -0.3162278 -0.2672612
+#&gt; 3           1     20    10        0        1        0  0.0000000 -0.5345225
+#&gt; 4           1      9     3        0        0        1  0.3162278 -0.2672612
+#&gt; 5           1      6     2        0        0        0  0.6324555  0.5345225
+#&gt; 6           1     13     1        1        0        0 -0.6324555  0.5345225
 #&gt;         Fifth.C    Fifth^4 Sixth=b Seventh=K Seventh=L
 #&gt; 1 -3.162278e-01  0.1195229       0         0         0
 #&gt; 2  6.324555e-01 -0.4780914       1         1         0

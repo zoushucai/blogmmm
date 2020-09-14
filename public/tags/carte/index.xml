@@ -29,21 +29,5 @@ dummyVars(formula, data, sep = &#34;.&#34;,levelsOnly = FALSE, fullRank = FALSE,
   library(caret) dummy &amp;lt;- dummyVars(formula = ~ ., data = iris,levelsOnly=TRUE)#把因子作为变量名 pred &amp;lt;- predict(dummy, newdata = iris) head(pred) ## Sepal.Length Sepal.Width Petal.Length Petal.Width setosa versicolor virginica ## 1 5.1 3.5 1.4 0.2 1 0 0 ## 2 4.</description>
     </item>
     
-    <item>
-      <title>1、carte包的训练</title>
-      <link>/post/2017-01-25-caret1train/</link>
-      <pubDate>Wed, 25 Jan 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017-01-25-caret1train/</guid>
-      <description>1. 使用caret包进行自动参数调整 与其对模型的每个参数选择任意值，这样做不仅耗费时而且不科学，不如对搜索参数值的过程进行引导从而找出最优组合
-caret包最核心的功能是提供了一个train()函数作为标准接口，为分类和回归任务训练233种(不断在增加)不同的机器学习模型
-需要考虑的3个问题
-+ 需要使用数据来训练那种机器学习模型？ + 那些模型的参数是可以调整的，他们调整的空间有多大？
-+ 使用何种评价标准来评估模型从而找到最优的候选者？
-可参考238个模型以及相关参数的详细信息以及每种模型的详细参数解释，可能需要翻墙。可解决以上前两个问题
-列出一些常用的模型：
-  模型 学习任务 方法名 参数    k 近邻 分类 knn k  朴素贝叶斯 分类 nb fL, usekernel  决策树 分类 C5.0 model, trials, winnow  OneR 规则学习器 分类 OneR 无  RIPPER 规则学习器 分类 JRip NumOpt  线性回归 回归 lm 无  回归树 回归 rpart cp  模型树 回归 M5 pruned,smoothed , rules  神经网络 二者皆可 nnet size, decay  支持向量机（线性核） 二者皆可 svmLinear C ｀  支持向量机（径向基核） 二者皆可 svmRadial C, sigma  随机森林 二者皆可 rf mtry    自动调整的目标是搜索候选模型的集合，由所有参数组合的矩阵或者网格的形式构成，caret默认对每个参数最多搜索3个可能值(由参数tuneLength控制)，假设一共有p个参数，这意味着\(3^p\)候选模型将会被测试,若某个参数所有的值都不超过3，则可能改变，例如：C5.</description>
-    </item>
-    
   </channel>
 </rss>

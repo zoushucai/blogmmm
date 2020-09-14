@@ -67,7 +67,7 @@ quote(xfun(a = 1:n)) # xfun都么有定义
 <p>eg： <code>rnorm()</code>就是一个可以被调用的函数(可以使用<code>rnorm(5)</code>进行调用,产生5个随机数)，但是<code>quote(rnorm)</code>返回一个符号对象，<code>quote(rnorm(5))</code>返回一个调用的对象，这两者都是语言本身。</p>
 <pre class="r"><code>rm(list  = ls() )
 rnorm(5)
-#&gt; [1]  0.80839449  0.07587922  1.07328747  1.36143392 -0.48896145
+#&gt; [1] -1.3411512  0.5169571 -0.7042230 -1.0307851  0.3519320
 x = quote(rnorm)
 typeof(x) # 返回一个符号对象
 #&gt; [1] &quot;symbol&quot;

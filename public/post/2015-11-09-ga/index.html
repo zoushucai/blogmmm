@@ -249,10 +249,10 @@ summary(GA)
 #&gt; 
 #&gt; GA results: 
 #&gt; Iterations             = 100 
-#&gt; Fitness function value = -1 
+#&gt; Fitness function value = -1.000133 
 #&gt; Solution = 
-#&gt;               x1
-#&gt; [1,] 4.48626e-07
+#&gt;                 x1
+#&gt; [1,] -0.0001326799
 plot(GA)  #  #默认情况下，ga函数通过打印每个迭代的平均值和最佳适应度值来监视搜索,画出每代最佳的适应度函数值与每代的平均适应度函数值</code></pre>
 <p><img src="/post/2015-11-09-GA_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>curve(f, -20, 20)  # 画出最优值
@@ -293,7 +293,7 @@ plot(GA)# 画图</code></pre>
 #&gt; Fitness function value = 47.70562 
 #&gt; Solution = 
 #&gt;            x1
-#&gt; [1,] 6.560402</code></pre>
+#&gt; [1,] 6.560595</code></pre>
 <pre class="r"><code>xfun::pkg_load2(&#39;gifski&#39;)</code></pre>
 <pre class="r"><code>########################
 ##编写自己的跟踪功能,点代表一个解，来监视搜索
@@ -345,7 +345,7 @@ summary(GA)
 #&gt; Fitness function value = 47.70562 
 #&gt; Solution = 
 #&gt;            x1
-#&gt; [1,] 6.560555
+#&gt; [1,] 6.560292
 
 ##画出图像
 monitor(GA)
@@ -393,10 +393,10 @@ summary(GA)
 #&gt; 
 #&gt; GA results: 
 #&gt; Iterations             = 100 
-#&gt; Fitness function value = -0.0004389682 
+#&gt; Fitness function value = -1.065104e-05 
 #&gt; Solution = 
-#&gt;                x1           x2
-#&gt; [1,] 0.0008917368 -0.001190564
+#&gt;                 x1            x2
+#&gt; [1,] -0.0001737326 -0.0001533031
 
 plot(GA)</code></pre>
 <p><img src="/post/2015-11-09-GA_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
@@ -432,14 +432,14 @@ plot(GA)</code></pre>
 #&gt; upper 4000 1 4
 #&gt; 
 #&gt; GA results: 
-#&gt; Iterations             = 1128 
-#&gt; Fitness function value = -2773.889 
+#&gt; Iterations             = 774 
+#&gt; Fitness function value = -2773.81 
 #&gt; Solution = 
-#&gt;             a          b        c
-#&gt; [1,] 3597.946 0.01540525 2.778617
+#&gt;             a         b        c
+#&gt; [1,] 3596.355 0.0154166 2.780246
  GA2@solution
-#&gt;             a          b        c
-#&gt; [1,] 3597.946 0.01540525 2.778617</code></pre>
+#&gt;             a         b        c
+#&gt; [1,] 3596.355 0.0154166 2.780246</code></pre>
 <p>注意，给定了x和y中的观测数据后，我们要求在参数<span class="math inline">\(θ\)</span> 下，适应度函数fitnessL2最大化，后者在调用函数ga时提供了进一步的参数，并且在搜索过程中保持不变。</p>
 </div>
 <div id="子集的选择" class="section level4">
@@ -578,7 +578,7 @@ plot(GA)</code></pre>
 #&gt; Mutation probability  =  0.1 
 #&gt; 
 #&gt; GA results: 
-#&gt; Iterations             = 201 
+#&gt; Iterations             = 225 
 #&gt; Fitness function value = 21 
 #&gt; Solution = 
 #&gt;      x1 x2 x3 x4 x5 x6 x7
@@ -626,15 +626,15 @@ summary(GA3)
 #&gt; Mutation probability  =  0.2 
 #&gt; 
 #&gt; GA results: 
-#&gt; Iterations             = 5000 
-#&gt; Fitness function value = 6.339347e-05 
+#&gt; Iterations             = 3531 
+#&gt; Fitness function value = 6.18836e-05 
 #&gt; Solutions = 
 #&gt;      x1 x2 x3 x4 x5 x6 x7 x8 x9 x10  ...  x30 x31
-#&gt; [1,] 19 17  3 18 22 21 20 24 25  26        16  23
-#&gt; [2,] 23 19 17  3 18 22 21 20 24  25         5  16</code></pre>
+#&gt; [1,]  8  4 16  5  7  6 11 13 12  14        10   9
+#&gt; [2,]  9 10  2 23 19 17  3 22 21  18         4   8</code></pre>
 <pre class="r"><code>#找到的解决方案对应于一条独特的路径，其行程长度等于:
 apply(GA3@solution, 1, tourLength, D)
-#&gt; [1] 15774.5 15774.5</code></pre>
+#&gt; [1] 16159.37 16159.37</code></pre>
 <p>图形对比</p>
 <pre class="r"><code>library(ggplot2)
 library(tibble)
@@ -735,7 +735,7 @@ j </code></pre>
     </li>
     <li style="float:right;list-style:none">
         
-        <a class="next" href="/post/2017-01-25-caret1train/"> 下一篇: 1、carte包的训练</a>
+        <a class="next" href="/post/2017-01-28-caret1otherfun/"> 下一篇: 2、caret包其他函数介绍</a>
         
     </li>
     
