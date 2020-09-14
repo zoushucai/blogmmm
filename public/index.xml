@@ -152,7 +152,7 @@ Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/li
       <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</guid>
-      <description>基本绘图中添加指定中文字体 方法一: 使用par(family=&#39;STKaiti&#39;) , 在R.3.6.x 已经不可以了 方法二: 直接在画图函数后添加family 参数指定字体 barplot(df[sex == &#39;男&#39;,table(Year)],main = &amp;quot;男性条形统计图&amp;quot;,family = &#39;Songti SC&#39;) 方法三: 使用showtext包,需要xquartz软件,可以使用brew cask install xquartz library(showtext) #使用下面的函数查看所有字体,选择中文字体添加 font_files() showtext_auto(enable = TRUE) font_add(&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;,&#39;STXihei&#39;) #添加中文字体 quartz(family = &amp;quot;STXihei&amp;quot;) #可以把STXihei替换成任意想要的字体，如&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;等 方法四: extrafontdb 软件包 方法五: ggplot2绘图中添加指定中文字体 library(ggplot2) p = ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, col = Species)) + geom_point() p = p + labs(title = &amp;quot;iris数据集&amp;quot;) p = p + theme(plot.title = element_text(hjust = 0.</description>
+      <description>基本绘图中添加指定中文字体 方法一: 使用par(family=&#39;STKaiti&#39;) , 方法二: 直接在画图函数后添加family 参数指定字体,在R.3.6.x 已经不可以了 barplot(df[sex == &#39;男&#39;,table(Year)],main = &amp;quot;男性条形统计图&amp;quot;,family = &#39;Songti SC&#39;) 方法三: 使用showtext包,需要xquartz软件,可以使用brew cask install xquartz library(showtext) #使用下面的函数查看所有字体,选择中文字体添加 font_files() showtext_auto(enable = TRUE) font_add(&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;,&#39;STXihei&#39;) #添加中文字体 quartz(family = &amp;quot;STXihei&amp;quot;) #可以把STXihei替换成任意想要的字体，如&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;等 方法四: extrafontdb 软件包 方法五: ggplot2绘图中添加指定中文字体 library(ggplot2) p = ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, col = Species)) + geom_point() p = p + labs(title = &amp;quot;iris数据集&amp;quot;) p = p + theme(plot.title = element_text(hjust = 0.</description>
     </item>
     
     <item>
@@ -1381,11 +1381,11 @@ dummyVars(formula, data, sep = &#34;.&#34;,levelsOnly = FALSE, fullRank = FALSE,
     
     <item>
       <title>GA包---遗传算法</title>
-      <link>/post/2015-11-09-ga/</link>
+      <link>/md/2015-11-09-ga/</link>
       <pubDate>Mon, 09 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>/post/2015-11-09-ga/</guid>
-      <description>1、用法：(默认求解最大值) ga(type = c(&amp;quot;binary&amp;quot;, &amp;quot;real-valued&amp;quot;, &amp;quot;permutation&amp;quot;), fitness, ..., # fitness:适应度函数 min, max, #解得下界/解得上界(多元变量为一个向量) nBits, #一个种群用二进制编码的长度是多少(长度越大代表精度越高) population = gaControl(type)$population, # 初始种群 selection = gaControl(type)$selection, #选择 crossover = gaControl(type)$crossover, #交叉 mutation = gaControl(type)$mutation, #变异 popSize = 50, #种群大小 pcrossover = 0.8, #交叉概率（默认0.8） pmutation = 0.1, #变异概率（默认0.1） elitism = base::max(1, round(popSize*0.05)), #代沟(默认情况下,前5%个体将在每个迭代中保留) updatePop = FALSE, postFitness = NULL, maxiter = 100, # 最大迭代次数(默认100) run = maxiter, maxFitness = Inf, # 适应度函数的上界,GA搜索后中断 names = NULL, suggestions = NULL, optim = FALSE, optimArgs = list(method = &amp;quot;L-BFGS-B&amp;quot;, poptim = 0.</description>
+      <guid>/md/2015-11-09-ga/</guid>
+      <description>GA包&amp;mdash;遗传算法 1、用法：(默认求解最大值)  ga(type = c(&amp;#34;binary&amp;#34;, &amp;#34;real-valued&amp;#34;, &amp;#34;permutation&amp;#34;), fitness, ..., # fitness:适应度函数  min, max, #解得下界/解得上界(多元变量为一个向量) nBits, #一个种群用二进制编码的长度是多少(长度越大代表精度越高) population = gaControl(type)$population, # 初始种群 selection = gaControl(type)$selection, #选择 crossover = gaControl(type)$crossover, #交叉 mutation = gaControl(type)$mutation, #变异 popSize = 50, #种群大小 pcrossover = 0.8, #交叉概率（默认0.8） pmutation = 0.1, #变异概率（默认0.1） elitism = base::max(1, round(popSize*0.05)), #代沟(默认情况下,前5%个体将在每个迭代中保留) updatePop = FALSE, postFitness = NULL, maxiter = 100, # 最大迭代次数(默认100) run = maxiter, maxFitness = Inf, # 适应度函数的上界,GA搜索后中断 names = NULL, suggestions = NULL, optim = FALSE, optimArgs = list(method = &amp;#34;L-BFGS-B&amp;#34;, poptim = 0.</description>
     </item>
     
   </channel>

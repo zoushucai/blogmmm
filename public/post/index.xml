@@ -323,14 +323,5 @@ dummyVars(formula, data, sep = &#34;.&#34;,levelsOnly = FALSE, fullRank = FALSE,
   library(caret) dummy &amp;lt;- dummyVars(formula = ~ ., data = iris,levelsOnly=TRUE)#把因子作为变量名 pred &amp;lt;- predict(dummy, newdata = iris) head(pred) ## Sepal.Length Sepal.Width Petal.Length Petal.Width setosa versicolor virginica ## 1 5.1 3.5 1.4 0.2 1 0 0 ## 2 4.</description>
     </item>
     
-    <item>
-      <title>GA包---遗传算法</title>
-      <link>/post/2015-11-09-ga/</link>
-      <pubDate>Mon, 09 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2015-11-09-ga/</guid>
-      <description>1、用法：(默认求解最大值) ga(type = c(&amp;quot;binary&amp;quot;, &amp;quot;real-valued&amp;quot;, &amp;quot;permutation&amp;quot;), fitness, ..., # fitness:适应度函数 min, max, #解得下界/解得上界(多元变量为一个向量) nBits, #一个种群用二进制编码的长度是多少(长度越大代表精度越高) population = gaControl(type)$population, # 初始种群 selection = gaControl(type)$selection, #选择 crossover = gaControl(type)$crossover, #交叉 mutation = gaControl(type)$mutation, #变异 popSize = 50, #种群大小 pcrossover = 0.8, #交叉概率（默认0.8） pmutation = 0.1, #变异概率（默认0.1） elitism = base::max(1, round(popSize*0.05)), #代沟(默认情况下,前5%个体将在每个迭代中保留) updatePop = FALSE, postFitness = NULL, maxiter = 100, # 最大迭代次数(默认100) run = maxiter, maxFitness = Inf, # 适应度函数的上界,GA搜索后中断 names = NULL, suggestions = NULL, optim = FALSE, optimArgs = list(method = &amp;quot;L-BFGS-B&amp;quot;, poptim = 0.</description>
-    </item>
-    
   </channel>
 </rss>
