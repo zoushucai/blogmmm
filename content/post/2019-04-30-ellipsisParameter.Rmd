@@ -1,0 +1,156 @@
+---
+title: "省略号参数— 可变长参数"
+date: "2019-04-30"
+tags:
+  - R
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+# 省略号参数— 可变长参数
+
+​		在R中我们查看别人的函数或者内部函数，经常用到`…`这种参数，`...`也称把可变长参数，今天就来聊一聊中方法的使用。
+
+## 1.捕获省略号中的内容
+
+先看一个例子：构造一个函数然后对所有的参数进行相加求和。
+
+```{r}
+addemup <- function(x, ...){
+   args <- list(...)# 推荐把省略号的内容分配给list,然后在对该list进行操作
+   for (a in args){
+   			    x <- x + a 
+   } 
+   x
+ }
+
+addemup(1,1)
+addemup(1,2,3,4,5)
+
+```
+
+我们还可以通过**`..1`,`..2`到`..9`等直接引用列表`…`中的内容。`..1`表示第一项，`..2`表示第二项，以此类推**。
+
+对list操作可以结合**purrr包中的map, reduce, accumulate**和基础函数**do.call**等 操作更方便。一个实际的例子，
+
+```
+DGM_U = function(...){
+  #######  第一部分是对参数的检查 #####################
+  # 输入的参数为U_{k}，U_{k}代表一个完整的区间乘积互反判断矩阵。
+  n = nrow(..1)
+  m = ncol(..1)
+  args <- list(...)
+  stopifnot( length(args) >=2, all( map_lgl(args,is.matrix)),2*n ==m )
+  # 检查所有的矩阵维度是否一样
+  library(purrr)
+  t = map(args,dim) %>% do.call(rbind, .) 
+  stopifnot( nrow(unique(t)) == 1)
+  
+  ####### 第二部分 对参数的操作，达到想要的目的###########
+  ## 1. 使用快捷的函数
+  k = 1 / length(args)
+  UB = reduce( map(args,function(x)fenjie(x)$B),`*`)^k
+  UD = reduce( map(args, function(x)fenjie(x)$D), `*`)^k
+  
+  ## 2. 使用循环操作 -- 对比操作
+  # UB = matrix(1,nrow = n, ncol = n)
+  # UD = matrix(1,nrow = n, ncol = n)
+  # for(xx in args){
+  #   B = fenjie(xx)$B
+  #   D = fenjie(xx)$D
+  #   for(i in 1:n){
+  #     for(j in 1:n){
+  #       UB[i,j] = UB[i,j] * B[i,j]
+  #       UD[i,j] = UD[i,j] * D[i,j]
+  #     }
+  #   }
+  # }
+  # k = 1 / length(args)
+  # UB = UB^( k)
+  # UD = UD^(k)
+  return( hecheng(UB,UD))
+}
+# 由于该函数引用了部分其他函数，故这里不能运行
+DGM_U(U_t1,U_t2,U_t3)
+```
+
+
+
+## 2. 用省略号传递给图形参数
+
+我们知道R中的图形参数是有很多的，可以把它传递给图形参数。
+
+```{r}
+nicePlot = function(X,Y,...){
+  xlabel = deparse(substitute(X)) # 捕获X的输入
+  ylabel = deparse(substitute(Y)) # 捕获Y的输入
+  
+  plot(X,Y,type ='o',
+      xlab = xlabel,ylab = ylabel,main = paste(xlabel,ylabel,sep = '--'),
+      ...)
+}
+
+Date = 1:7
+Sales = c(100,120,150,130,160,210,120)
+nicePlot(Date,Sales,col='red')
+```
+
+其中**substitute()**函数捕获输入的内容(无论输入什么样的内容，则原样输出)，**deparse() **函数将其转变为字符串
+
+
+
+## 3. 将省略号与其他参数结合
+
+```{r}
+v <- c(sqrt(1:100))
+f <- function(x, ...) { 
+   print(x); 
+   summary(...)
+  }
+f("Here is the summary for v.", v, digits=2)
+```
+
+
+
+## 4. 也可对省略号取名称
+
+实际上，参数本身的值不是通过省略号参数传递的唯一信息。也可以使用参数的名称（如果指定），例如：
+
+```{r}
+f <- function(...) {
+  names(list(...))
+  
+   # 进一步的分析
+}
+
+f(some_number = 123,some_string ='abc',some_missing_value = NA)
+
+```
+
+## 5. 将省略号参数解压缩为本地函数变量（甚至是全局变量）
+
+```{r}
+rm(list = ls())
+f <- function(...) {
+  args <- list(...)
+  for( i in 1:length(args) ){ 
+    assign( x = names(args)[i],value = args[[i]] )
+  }
+  ls()#显示可用的变量 #使用省略号参数作为当前变量进行进一步操作
+  
+  # 进一步的分析
+}
+
+f( some_number = 123,some_string ="abc")
+```
+
+```{r}
+sessionInfo()
+```

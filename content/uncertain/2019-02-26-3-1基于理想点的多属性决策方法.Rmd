@@ -1,0 +1,167 @@
+---
+title: 3.1 基于理想点的多属性决策方法
+author: zsc
+date: "2019-02-26"
+categories: ["决策方法"]
+tags:
+  - R
+  - 决策方法
+series: "不确定多属性决策方法---徐泽水"
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+## 徐泽水《不确定多属性决策方法与应用》78页
+
+```{r}
+##  3.1 基于理想点的多属性决策方法---徐泽水《不确定多属性决策方法与应用》78页 --3.1.2 实例分析
+
+library(data.table)
+library(dplyr)
+A = c(0.37,1800,2,19,90,
+      0.58,2800,5,28,105,
+      0.52,3500,5,32,130,
+      0.43,1900,3,27,98)
+      
+A= matrix(A,nrow = 4,ncol = 5,byrow = T) %>% data.table()
+A # 原始决策矩阵
+
+####################################################### ##############################
+##################  正理想点偏差 -----  且 决策者不能提供任何权重信息  ###############
+####################################################### ##############################
+#### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵
+### norm_matrix()函数，根据书中收益型属性（按公式1.2）与成本型属性(按公式1.4)分别进行归一化
+norm_matrix = function(A,shouyi=NULL,chengben=NULL){
+  if(is.matrix(A))A = data.table(A)
+  stopifnot(!is.null(shouyi) | !is.null(chengben))
+  m = ncol(A)
+  if(is.null(chengben)) chengben =setdiff(1L:m,shouyi) 
+  if(is.null(shouyi)) shouyi = setdiff(1:m,chengben)
+  stopifnot(length(intersect(shouyi,chengben))==0,setequal(union(shouyi,chengben),1:m))
+
+  if( length(chengben) == 0 ){
+    # 对决策矩阵进行重命名
+    names(A)=paste0('V',1:m)
+    shouyi = paste0("V",shouyi)
+    R = A    
+    # 归一化
+    R[,':='(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+  }else if( length(shouyi) == 0 ){
+    #对决策矩阵进行重命名
+    names(A)=paste0('V',1:m)
+    chengben = paste0("V",chengben)
+    R = A
+    # 归一化
+    R[,':='(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcols = chengben]# 成本型属性归一化 （书中1.3式）
+  }else{
+    #对决策矩阵进行重命名
+    names(A)=paste0('V',1:m)
+    shouyi = paste0("V",shouyi)
+    chengben = paste0("V",chengben)
+    R = A
+    # 归一化
+    R[,':='(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+    R[,':='(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcols = chengben]# 成本型属性归一化 （书中1.3式）    
+  }
+  R = as.data.frame(R)
+  return(R)
+}
+R = norm_matrix(A,shouyi = c(1:5))
+R
+#### 第二步  最小化方案与正理想点之间的偏差，得出属性权重向量
+M_position = function(R){ # 输入归一化后的决策矩阵。
+  m =  ncol(R)
+  n = nrow(R)
+  # ## 程序 1 
+   temp = apply(R, 2, FUN = function(x)1/(n-sum(x)) )
+   w = temp/sum(temp) 
+   return(w)
+  # ## 程序 2 
+  # w = rep(0,m)
+  # s = 0
+  # for(j in 1:m){
+  #   s = s + 1/(n - sum(R[,j]))
+  # }
+  # for(j in 1:m){
+  #   w[j] = (1/(n - sum(R[,j])))/s 
+  # }
+  # return(w)
+}
+w = M_position(R)
+w
+#### 第三步  计算出的权重向量，带入目标函数，并对目标函数值升序排序，排序结果，即为方案的优劣结果
+f_obj = apply(R, 1, function(x){ sum( (1-x)*w*w ) })
+round(f_obj,4) # 按升序排列，则最优结果为: x3 > x2 > x4 > x1
+
+
+####################################################### ##############################
+##################  负（或正）理想点偏差 -----  且 决策者提供权重信息  ########## 
+######################   （本质求解线性规划问题） 书中77页M3.3 和 M-3.6###############################
+####################################################### ##############################
+########  方法一： 正理想点偏差
+# 第一步： 归一化决策矩阵
+# 第二步： 得出属性权重向量
+# M_position_tigong_w 输入决策矩阵(为规范化后的决策矩阵)，以及提供权重信息,以向量形式给出
+# 该函数输入结果为： 得出属性权重向量
+
+M_position_tigong_w = function(R,lower_c,upper_c){
+  library(Rglpk)
+  n = nrow(R)
+  m = ncol(R)
+  obj = n - c(apply(R, 2, sum)) # 设置目标函数
+  mat = matrix(rep(1,m),nrow = 1) # 约束条件，权和向量为1 
+  dir = c("==")
+  rhs = c(1)
+  types = c("C")
+  bounds <- list(lower = list(ind = 1L:m, val = lower_c),
+                 upper = list(ind = 1L:m, val = upper_c))
+  return(Rglpk_solve_LP(obj, mat, dir, rhs, bounds, types)$solution)
+}
+
+
+w = M_position_tigong_w(R,lower_c = c(0.15,0.13,0.15,0.20,0.20),
+                    upper_c = c(0.25,0.15,0.20,0.25,0.23))
+w
+round(w,2)
+####  第三步： 把计算出的权重向量，带入目标函数，并对目标函数值升序排序，排序结果，即为方案的优劣结果
+apply(R, 1, function(x) sum( (1-x)*w ) )
+apply(R, 1, function(x) sum( (1-x)*w ) ) %>% rank %>% order()# 按升序排列，则最优结果为: x3 > x2 > x4 > x1
+
+
+
+########  方法二： 负理想点偏差
+# 第一步： 归一化决策矩阵
+# 第二步： 得出属性权重向量
+# M_negative_w 输入决策矩阵(为规范化后的决策矩阵)，以及提供权重信息,以向量形式给出
+# 该函数输入结果为： 得出属性权重向量
+M_negative_w = function(R,lower_c,upper_c){
+  library(Rglpk)
+  n = nrow(R)
+  m = ncol(R)
+  obj = c(apply(R, 2, sum)) # 设置目标函数
+  mat = matrix(rep(1,m),nrow = 1) # 约束条件，权和向量为1 
+  dir = c("==")
+  rhs = c(1)
+  types = c("C")
+  bounds <- list(lower = list(ind = 1L:m, val = lower_c),
+                 upper = list(ind = 1L:m, val = upper_c))
+  return(Rglpk_solve_LP(obj, mat, dir, rhs, bounds, types,max =TRUE )$solution)
+}
+w = M_position_tigong_w(R,lower_c = c(0.15,0.13,0.15,0.20,0.20),
+                        upper_c = c(0.25,0.15,0.20,0.25,0.23))
+w
+round(w,2)
+####  第三步： 把计算出的权重向量，带入目标函数，并对目标函数值升序排序，排序结果，即为方案的优劣结果
+apply(R, 1, function(x) sum( (1-x)*w ) )
+apply(R, 1, function(x) sum( (1-x)*w ) ) %>% rank %>% order()# 按升序排列，则最优结果为: x3 > x2 > x4 > x1
+
+```
+

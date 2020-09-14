@@ -1,0 +1,158 @@
+---
+title: "list 操作重要的函数"
+date: "2019-04-30"
+tags:
+  - R
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+#  list 操作重要的函数
+
+​		我们知道R中比较复杂的数据结构为list，它可以构造出很多我们想要的数据格式，今天我们结合函数`…`的操作，讲解一下对一个长度不定的list如何便捷的操作。
+
+以前提过可参考：(这里直接copy)
+
+## 1.捕获省略号中的内容
+
+​		先看一个例子：构造一个函数然后对所有的参数进行相加求和。
+
+```{r}
+addemup <- function(x, ...){
+   args <- list(...)# 推荐把省略号的内容分配给list,然后在对该list进行操作
+   for (a in args){
+   			    x <- x + a 
+   } 
+   x
+ }
+
+addemup(1,1)
+addemup(1,2,3,4,5)
+
+```
+
+​		我们还可以通过**`..1`,`..2`到`..9`等直接引用列表`…`中的内容。`..1`表示第一项，`..2`表示第二项，以此类推**。
+
+对list操作可以结合**purrr包中的map, reduce, accumulate**和基础函数**do.call**等 操作更方便。一个实际的例子，
+
+```
+DGM_U = function(...){
+  #######  第一部分是对参数的检查 #####################
+  # 输入的参数为U_{k}，U_{k}代表一个完整的区间乘积互反判断矩阵。
+  n = nrow(..1)
+  m = ncol(..1)
+  args <- list(...)
+  stopifnot( length(args) >=2, all( map_lgl(args,is.matrix)),2*n ==m )
+  # 检查所有的矩阵维度是否一样
+  library(purrr)
+  t = map(args,dim) %>% do.call(rbind, .) 
+  stopifnot( nrow(unique(t)) == 1)
+  
+  ####### 第二部分 对参数的操作，达到想要的目的###########
+  ## 1. 使用快捷的函数
+  k = 1 / length(args)
+  UB = reduce( map(args,function(x)fenjie(x)$B),`*`)^k
+  UD = reduce( map(args, function(x)fenjie(x)$D), `*`)^k
+  
+  ## 2. 使用循环操作
+  # UB = matrix(1,nrow = n, ncol = n)
+  # UD = matrix(1,nrow = n, ncol = n)
+  # for(xx in args){
+  #   B = fenjie(xx)$B
+  #   D = fenjie(xx)$D
+  #   for(i in 1:n){
+  #     for(j in 1:n){
+  #       UB[i,j] = UB[i,j] * B[i,j]
+  #       UD[i,j] = UD[i,j] * D[i,j]
+  #     }
+  #   }
+  # }
+  # k = 1 / length(args)
+  # UB = UB^( k)
+  # UD = UD^(k)
+  return( hecheng(UB,UD))
+}
+
+DGM_U(U_t1,U_t2,U_t3)
+```
+
+## 2.map函数
+
+​		当然R自带也提供类似的Map函数，但是我们这里只讨论**purrr::map函数** ,类似的有**map2()  , pmap()**
+
+```
+map(.x, .f, ...)
+# 该函数作用是把每一个函数应用在list中的每一个元素上，或者向量中的每一个元素上。
+# x为一个list或者向量
+# .f 提供的函数
+```
+
+什么叫list中的每一个元素，比如：
+
+```{r}
+l = list(a = 1:3,b=matrix(1:9,nrow =3), d = list(1:9))
+l
+```
+
+​		该list 中只有3个元素，第一个元素是向量1:3, 第二个元素是矩阵，第三个元素是一个list。我们可以用**length()**函数求一个list中元素的个数。
+
+注意： 我们在利用函数参数`...`包装成list时候，一般输入的`...`的内容具有统一的格式.类似上面的情况。
+
+## 3.reduce 函数和accumulate 函数
+
+​		这些函数都是对list中每一个元素进行操作的。无论这个元素的数据结构是什么，该元素可以是数值型向量，字符型向量、矩阵、数据框、list，这些都可以。
+
+## 4. do.call函数
+
+​		操作对象也是list中的每一个元素，该函数有点类似于reduce,eg: 把list中的元素转变为matrix
+
+```
+l = list(a= 1:3,b = 4:6,d = 7:9)
+reduce(l,rbind) # purrr包中的函数
+do.call(rbind,l)
+
+reduce(l,cbind)
+do.call(cbind,l)
+```
+
+## 5. 把正常数据(数据框)转变为list
+
+​		常常结合split函数进行使用,  首先给一个数据框，按照某种准则划分为一个list，最后利用purrr包中的函数对list中的每一个元素进行处理，
+
+```{r}
+## 以下分类建立一个线性回归模型
+library(dplyr)
+library(tidyr)
+library(purrr)
+## 方法1：
+mod_fun <- function(df) lm(Sepal.Length ~ ., data = df)
+n_iris = iris %>% group_by(Species) %>% nest()
+n_iris %>% mutate(model = map(data, mod_fun))
+
+n_iris
+
+
+# 方法2：
+n_iris_1 = split(iris,iris$Species) 
+n_iris_1 %>% map(., function(df)lm(Sepal.Length ~ ., data = df[,-5] )  )
+
+
+n_iris_1
+```
+
+```{r}
+sessionInfo()
+```
+
+## 6. 更多list操作
+
+可以参考purrr包，并且rstudio官网上提供相应的总结表(备忘单)。
+
+

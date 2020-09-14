@@ -1,0 +1,249 @@
+---
+title: "ggfortify包简介"
+author: "zsc"
+date: "2017-02-12"
+tags:
+  - R
+keywords:
+  - R
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
+ggfortify 是一个简单易用的R软件包，它可以仅仅使用一行代码来对许多受欢迎的R软件包结果进行二维可视化，这让统计学家以及数据科学家省去了许多繁琐和重复的过程，不用对结果进行任何处理就能以 ggplot 的风格画出好看的图，大大地提高了工作的效率。
+
+接下来我将简单介绍一下怎么用 ggplot2 和 ggfortify 来很快地对PCA、聚类以及LFDA的结果进行可视化，然后将简单介绍用 ggfortify 来对时间序列进行快速可视化的方法。一下都是个人理解，
+
+## 1、PCA (主成分分析)
+
+**其实本包，大多数画图都是采用主成分（不包括因子分析）降维得到两个主成分，在进一步使其主成分为坐标，对应与每个点给出相应的颜色和类别**
+
+ggfortify 使 ggplot2 知道怎么诠释PCA对象。加载好 ggfortify 包之后, 你可以对stats::prcomp 和stats::princomp对象使用 ggplot2::autoplot。
+
+autoplot()函数是ggplot2中的，不过ggfortify包里面有泛函s3类的autoplot解释这个函数
+
+ggbiplot()函数中的参数就是autoplot()函数中的参数
+```yaml
+autoplot(object, data = NULL, scale = 1, x = 1, y = 2, ...)
+
+object                          :  对象
+data                            :  对应的数据框
+colour = 'Species'              :  若有分类因子变量，可以对不同的类别添加颜色,当为连续值时为逐渐变色
+shape = FALSE                   ： 调整点的形状，可以让所有的点消失，只留下标识（可以为具体的数字，就是形状类型）
+main	、xlab	、ylab            ： 标题
+label = TRUE 
+      label.size = 3            :  可以给每个点加上标识（以rownames为标准），也可以调整标识的大小.（默认为FALSE）
+      label.label               :  标识标签（默认rownames）
+      label.colour              :  文本标签的颜色
+      label.alpha               ： 透明度
+      label.angle               ： 旋转的角度
+      label.family              :  字体
+      label.fontface
+      label.lineheight
+      label.hjust
+      label.vjust
+      label.repel
+
+
+loadings = TRUE                 ： 可以很快地画出特征向量
+      loadings.colour = 'blue'  ： 特征向量的颜色
+      loadings.label = TRUE     ：  特征向量的标识(默认为特征向量的名字)
+          loadings.label.size = 3   ：  特征向量的大小
+          loadings.label.label      :
+          loadings.label.colour
+          loadings.label.alpha
+          loadings.label.angle
+          loadings.label.family
+          loadings.label.fontface
+          loadings.label.lineheight
+          loadings.label.hjust
+          loadings.label.vjust
+          loadings.label.repel
+          
+
+frame = TRUE                    ： 可以把每个类圈出来。图中没有分类则看成一类，全部圈出来（支持 stats::kmeans 和 cluster::* 等等）
+      frame.colour = 'Species'   :  对分类变量进行颜色标注，并把它们类别圈出来（类似colour = 'Species'  ）
+      frame.type = 't'          ： 选择圈的类型(默认多边形)
+      frame.level
+      frame.alpha
+```
+
+
+
+```{r}
+library(ggfortify)
+df <- iris[c(1, 2, 3, 4)]
+autoplot(prcomp(df))#等价autoplot(prcomp(iris[-5]), data = iris)
+
+```
+
+你还可以选择数据中的一列来给画出的点按类别自动分颜色。输入help(autoplot.prcomp) 可以了解到更多的其他选择。
+```{r}
+autoplot(prcomp(df), data = iris, colour = 'Species')
+```
+
+比如说给定label = TRUE 可以给每个点加上标识（以rownames为标准），也可以调整标识的大小。
+```{r}
+autoplot(prcomp(df), data = iris, colour = 'Species', label = TRUE,label.size = 3)
+```
+
+给定 shape = FALSE 可以让所有的点消失，只留下标识，这样可以让图更清晰，辨识度更大。
+```{r}
+autoplot(prcomp(df), data = iris, colour = 'Species', shape =14,label.size = 3,label = TRUE)
+```
+给定 loadings = TRUE 可以很快地画出特征向量。
+```{r}
+autoplot(prcomp(df), data = iris, colour = 'Species', loadings = TRUE)
+```
+
+同样的，你也可以显示特征向量的标识以及调整他们的大小，更多选择请参考帮助文件。
+```{r}
+autoplot(prcomp(df), data = iris, colour = 'Species',
+         loadings = TRUE, loadings.colour = 'blue',
+         loadings.label = TRUE, loadings.label.size = 3)
+```
+
+## 2、因子分析
+和PCA类似，ggfortify 也支持 stats::factanal 对象。可调的选择也很广泛。以下给出了简单的例子：
+注意 当你使用 factanal 来计算分数的话，你必须给定 scores 的值。
+下面都是建立在因子分析模型上，但是几乎参数和主成分分析一样。。
+```{r message=FALSE,warning=FALSE}
+#因子分析 ，记住3个因子和2个因子画出来的图是不一样的
+
+(d.factanal <- factanal(state.x77, factors = 3, scores = 'regression'))#因子分析,
+#图的坐标应该和因子有关系，但是因子为3个的时候，图中有时怎么表达的呢？
+autoplot(d.factanal, data = state.x77, colour = 'Income')# colour为连续值(data、和colour只是纯粹的添加颜色而已)
+
+autoplot(d.factanal, label = TRUE, label.size = 3,
+         loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 3)#把特征向量画出来
+```
+
+## 3、聚类
+
+3.1K-均值聚类-----若是聚类的话（自带类别，会自动画出颜色分类）
+
+  和因子分析、主成分类似
+```{r message=FALSE, warning=FALSE}
+autoplot(kmeans(iris[,-5], 3), data = iris)#坐标用的是主成分的坐标
+autoplot(kmeans(iris[,-5], 3), data = iris, label = TRUE, label.size = 3)
+```
+
+#### 3.2其他聚类
+
+`ggfortify` 也支持 `cluster::clara`, `cluster::fanny`, `cluster::pam`。
+
+**其实本包，大多数画图都是采用主成分（不包括因子分析）降维得到两个主成分，在进一步使其主成分为坐标，对应与每个点给出相应的颜色和类别**
+
+```{r message=FALSE,warning=FALSE}
+library(cluster)
+autoplot(clara(iris[-5], 3))
+
+
+autoplot(fanny(iris[-5], 3), frame = TRUE)#给定 frame = TRUE，可以把stats::kmeans 和 cluster::* 的每个集群圈出来。
+
+
+autoplot(pam(iris[-5], 3), frame = TRUE, frame.type = 'norm')#你也可以通过 frame.type 来选择圈的类型。更多选择请参照ggplot2::stat_ellipse里面的frame.type的type关键词。
+
+
+```
+
+### 3.3、lfda(Fisher局部判别分析)
+
+[`lfda`](https://cran.r-project.org/package=lfda)包支持一系列的Fisher局部判别分析方法，包括半监督lfda，非线性lfda。你也可以使用`{ggfortify}`来对他们的结果进行可视化。
+
+```{r message=FALSE,warning=FALSE}
+library(lfda)
+# Fisher局部判别分析 (LFDA)
+model <- lfda(iris[-5], iris[, 5], 4, metric="plain")
+autoplot(model, data = iris, frame = TRUE, frame.colour = 'Species')#给定 frame = TRUE，可以把 stats::kmeans 和 cluster::* 中的每个类圈出来。
+
+
+# 半监督Fisher局部判别分析 (SELF)
+model <- self(iris[-5], iris[, 5], beta = 0.1, r = 3, metric="plain")
+autoplot(model, data = iris, frame = TRUE, frame.colour = 'Species')
+```
+
+
+
+## 4、时间序列的可视化
+
+用 `{ggfortify}` 使时间序列的可视化变得及其简单。接下来我将给出一些简单的例子。
+
+- `autoplot `可支持的R包有：
+  - 基本stats:: ts对象
+  - zoo::zooreg
+  - xts::xts
+  - timeSeries::timSeries
+  - tseries::irts
+
+## 4.1、ts对象
+
+```{r}
+library(ggfortify)
+class(AirPassengers)#时间序列的对象为ts
+AirPassengers
+autoplot(AirPassengers)
+#可以使用 ts.colour 和 ts.linetype来改变线的颜色和形状。更多的选择请参考 help(autoplot.ts)。
+# 也可以像ggplot函数那样设置样式，比如
+autoplot(AirPassengers, ts.colour = 'red', ts.linetype = 'dashed',xlab = "时间",ylab = "飞机乘客数量",main= "飞机乘客人数的变化")
+#等价
+autoplot(AirPassengers, ts.colour = 'red', ts.linetype = 'dashed')+xlab("时间")+ylab("飞机乘客数量")+ggtitle( "飞机乘客人数的变化")
+
+
+```
+
+##### 4.1.1、多变量时间序列
+
+```{r}
+library(vars)
+data(Canada)
+class(Canada)
+Canada
+autoplot(Canada)## 需要用到的数据集，包含e、prod、rw和U四个变量，自动把全部变量添加到图中，
+
+
+#也可以指定相应变量，画前面3列
+autoplot(Canada[,-4])
+
+
+#使用 facets = FALSE 可以把所有变量画在一条轴上。
+autoplot(Canada, facets = FALSE)
+
+```
+
+#### 4.2 xts对象
+
+```R
+library(xts)
+autoplot(as.xts(AirPassengers),ts.colour = 'green')#好像出问题
+```
+
+#### 4.3 timSeries对象
+
+```{r}
+library(timeSeries)
+autoplot(as.timeSeries(AirPassengers), ts.colour = ('dodgerblue3'))
+
+```
+
+
+
+## 5、面板设计
+
+```{r fig.width=10, message=FALSE,warning=FALSE}
+
+library(purrr)
+res <- purrr::map(c(3, 4, 5), ~ kmeans(iris[-5], .))
+autoplot(res, data = iris[-5], ncol = 3)
+
+```
+
+
+```{r}
+sessionInfo()
+```
+
+

@@ -1,0 +1,108 @@
+---
+title: 4.1 基于可能度的多属性决策方法
+author: zsc
+date: "2019-02-26"
+categories: ["决策方法"]
+tags:
+  - R
+  - 决策方法
+series: "不确定多属性决策方法---徐泽水"
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<script src="2019-02-26-4-1基于可能度的多属性决策方法_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#第四章属性权重为实数且属性值为区间数的多属性决策方法及应用">第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用</a>
+<ul>
+<li><a href="#徐泽水不确定多属性决策方法与应用109页">徐泽水《不确定多属性决策方法与应用》109页</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="第四章属性权重为实数且属性值为区间数的多属性决策方法及应用" class="section level1">
+<h1>第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用</h1>
+<div id="徐泽水不确定多属性决策方法与应用109页" class="section level2">
+<h2>徐泽水《不确定多属性决策方法与应用》109页</h2>
+<pre class="r"><code>#####  第四章--属性权重为实数且属性值为区间数的多属性决策方法及应用
+## 4.1 基于可能度的多属性决策方法---徐泽水《不确定多属性决策方法与应用》109页 
+## 4.1.4 实例分析
+
+#####  第一步： 求出规范化矩阵
+A = c(0.214,0.220,0.166,0.178,0.184,0.190,
+      0.206,0.225,0.220,0.229,0.182,0.191,
+      0.195,0.204,0.192,0.198,0.220,0.231,
+      0.181,0.190,0.195,0.205,0.185,0.195,
+      0.175,0.184,0.193,0.201,0.201,0.211) 
+R = matrix(A,nrow = 5,byrow = T) # R为规范化后的决策矩阵
+R # 矩阵R的奇数列代表属性的下界 ，偶数列代表属性的上界
+#&gt;       [,1]  [,2]  [,3]  [,4]  [,5]  [,6]
+#&gt; [1,] 0.214 0.220 0.166 0.178 0.184 0.190
+#&gt; [2,] 0.206 0.225 0.220 0.229 0.182 0.191
+#&gt; [3,] 0.195 0.204 0.192 0.198 0.220 0.231
+#&gt; [4,] 0.181 0.190 0.195 0.205 0.185 0.195
+#&gt; [5,] 0.175 0.184 0.193 0.201 0.201 0.211
+
+#####  第二步：通过规范化的决策矩阵和指定的权重（利用WAA算子）求出个方案的综合属性值
+zongheshuxin_z = function(R,w){
+  # zongheshuxin_z 函数，输入参数为规范化后的决策矩阵R，以及属性权重值w向量，
+  # 返回一个n*2的矩阵，代表输出各个方案的综合属性值得区间数，第一列为下界，第二列为上界，行代表个方案
+  stopifnot( length(w) == (ncol(R)/2) ) #检验输入的权重长度与决策矩阵的属性个数是否相等
+  col_L = seq(1, ncol(R)-1, by = 2) # 属性的下界
+  col_U = seq(2, ncol(R), by = 2)# 属性的上界  
+  z_L = apply(R[,col_L],1,function(x)sum(x*w))
+  z_U = apply(R[,col_U],1,function(x)sum(x*w))
+  z = matrix(c(z_L,z_U), ncol= 2 )
+  return(z)
+}
+w = c(0.4,0.4, 0.2) # 指定属性的权重
+Z = zongheshuxin_z(R,w) # 返回一个n*2的矩阵，每一行代表输出各个方案的综合属性值得区间数
+ 
+##### 第三步，利用区间数两两比较，得出可能度矩阵
+probability_matrix = function(Z){
+  #probability_matrix函数输入一个n*2的矩阵，每一行代表输出各个方案的综合属性值得区间数
+  # 此函数输出各方案两两比较的可能度矩阵。
+  
+  #degree_probability函数求两个区间数的可能度，
+  # a，b代表输入的区间数，输入这两个 
+  degree_probability = function(a,b){
+    stopifnot(length(a) == length(b) ,length(b)==2)
+    stopifnot(a[1] &lt;= a[2], b[1] &lt;= b[2])
+    l_a = a[2] - a[1];l_b = b[2]- b[1];
+    p = min(l_a + l_b, max(a[2]-b[1],0) ) / (l_a + l_b)
+    return(p)
+  } 
+  
+  P = matrix(0, ncol = nrow(Z),nrow = nrow(Z))
+  for (i in 1:nrow(Z)) {
+    for(j in 1:nrow(Z)){
+      P[i,j] = degree_probability(Z[i,],Z[j,])
+    }
+  }
+  return(P)
+}
+P = probability_matrix(Z)
+
+##### 第四步。根据可能度矩阵，利用4.6式求出可能度矩阵的排序向量,值越大越好
+probability_matrix_oder_v = function(P){
+  v = rep(0,nrow(P))
+  n = nrow(P)
+  for(i in 1:nrow(P)){
+    v[i] =  ( 1 / (n*(n-1)) ) * ( sum(P[i,]) + n/2 -1)
+  }
+  return(v)
+}
+
+probability_matrix_oder_v(P)
+#&gt; [1] 0.1557106 0.2995283 0.2504717 0.1488647 0.1454247
+library(magrittr)
+probability_matrix_oder_v(P) %&gt;% rank() %&gt;% order(.,decreasing = T)
+#&gt; [1] 2 3 1 4 5
+# 故方案2综合评估结果最好</code></pre>
+</div>
+</div>

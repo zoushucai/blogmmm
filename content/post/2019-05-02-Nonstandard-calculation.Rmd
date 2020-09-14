@@ -1,0 +1,296 @@
+---
+title: "非标准计算"
+date: "2019-05-02"
+tags:
+  - R
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+# 非标准计算
+
+## 1. 捕获表达式
+
+将表达式捕获转为语言对象，捕获表达式意味着防止表达式被执行，而将其本身存储为变量的形式。具有这个功能的函数有如下几个函数，注意其不同。
+
+### 1.1 quote() :
+
+​		`quote()`捕获到函数调用是会返回调用，而捕获到变量名时会返回一个符号，只要代码语法正确，它就会返回表示被捕获表达式本身的语言对象。即便函数不存在或者变量未定义，也可以捕获表达式本身。
+
+```{r}
+rm(list  = ls() )
+x =  quote(a+b)   # 定义一个表达式调用,但是这些变量没有定义
+x
+class(x)
+typeof(x) # 变成语言对象类型，
+
+x = quote(rnorm)
+x
+class(x)
+typeof(x) # 变成符号对象类型，
+
+quote(xfun(a = 1:n)) # xfun都么有定义
+```
+
+**理解：变量和符号对象的区别，以及函数和调用对象的区别。**
+
+变量是对象的名称，而符号对象就是名称的本身。函数是可以被调用的对象，而调用对象是不会被计算的，它表示整个函数调用的语言对象。
+
+eg： `rnorm()`就是一个可以被调用的函数(可以使用`rnorm(5)`进行调用,产生5个随机数)，但是`quote(rnorm)`返回一个符号对象，`quote(rnorm(5))`返回一个调用的对象，这两者都是语言本身。
+
+```{r}
+rm(list  = ls() )
+rnorm(5)
+x = quote(rnorm)
+typeof(x) # 返回一个符号对象
+
+x1 = quote(rnorm(5))
+typeof(x1) # 返回一个调用对象
+
+as.list(x1) # 将调用对象转变为list，以便查看其内部结构， 可以看出本次调用有两部分组成：函数符号和一个参数
+x1[[1]]
+typeof(x1[[1]]) # 第一个元素是一个符号对象
+class(x1[[1]])
+
+x1[[2]] 
+typeof(x1[[2]]) # 第二个元素是一个数值
+class(x1[[2]])
+## 总结：
+# 1.quote()将变量名捕获为符号对象，将一个函数捕获为调用对象。这两者都是语言对象
+# 2.可以用is.symbol() / is.name() 和 is.call 分别检查对象是否为符号对象或调用对象
+# 3.可以用is.language()同时检查符号和调用
+# 4. quote不把字面值(这里指的的表达式里使用数值等，而非数值变量。eg：数字、逻辑值、字符串)转变为语言对象，而是使其保持原样。--- 少用
+```
+
+
+
+		**常常捕获全局环境中的表达式，函数环境中建议用`substitute()`，`substitute()`用于捕获表达式，并且用捕获的表达式替换现有的符号,而`quote()`不会进行第二步，把表达式替换成现有的符号** 
+
+### 1.2 substitute
+
+#### 1.2.1 用来捕获函数参数表达式
+
+​			`substitute()`可以作用任意的用户输入，该函数用于捕获表达式，并且用捕获的表达式替换现有的符号。常常与`deparse()`连用，出现在函数环境中(对表达式进行替换, 不能替换的则保留下来)。
+
+`deparse(substitute())`函数以`substitute()` 的结果(一个表达式)为参数，并把它转变成一个字符串。
+
+```{r}
+rm(list  = ls() )
+### 1.substitute() 的使用对比
+a = 1
+b = 2
+substitute(a + b + z)
+
+f = function(){
+  a= 1
+  b = 2
+  substitute(a+b+z)
+}
+f()
+
+
+substitute(a+b+z)
+substitute(a+b+z , list(a = 1,b = 2))# 可以指定list(用名称--值的形式)，进行表达式替换
+```
+
+`substitute()`还可以替换表达式中的函数.
+
+```{r}
+rm(list  = ls() )
+substitute(a+b+z ,list('+' =quote(f)) )
+substitute(a+b+z ,list('+' =quote(sin)) )
+substitute(a+b+z ,list('+' =quote(`*`)) )
+```
+
+总结： 形式上，通过用list的形式对表达式中的所有名字进行检查替换(注意R中的所有动作都是函数，也可以对函数进行替换，如上)，其表达式中的名字替换规则如下：
+
+1. 一个普通变量，它就被变量的值替换。
+2. 一个函数参数，它就被与约定相关联的表达式替换。
+3. `...`，它被`...`的内容替换。
+4. 以上都没有，则名字原样保留不变
+
+#### 1.2.2.  substitute的缺点
+
+- 如果某个表达式存储在变量中，则它不会对表达式进行替换。这时需要用到pryr::substitute_q()函数。
+- 如果substitute它在全局环境中运行时(不特殊指定替换)，它从不进行替换，最好用作函数环境中。这时可以用pryr::subs()函数
+
+```{r}
+rm(list  = ls() )
+x  = quote(a + b)  # x存储了一个表达式
+substitute(x,list(a = 1,b = 2)) # 对x调用参数替换，无效
+
+a = 3 
+b = 5
+substitute(a+b+z) # 无效
+```
+
+**注意：**`subs()`和`substitute()`函数都可以用第二个参数重写正在使用的当前环境，并通过名字—值的列表对来提供替换。后面讲解`subs()`函数
+
+### 1. 3. 创建函数调用
+
+前面已学习函数调用相关内容，我们可以通过以下方式创建函数调用，注意：下面方式得到的结果等价(一模一样)
+
+```{r}
+rm(list  = ls() )
+call_1 = quote(rnorm(5,mean = 3))
+call_2 = call("rnorm",5,mean = 3)
+call_3 = as.call( list(quote(rnorm),5,mean = 3) )
+
+call_1
+
+identical(call_1,call_2)
+identical(call_2,call_3)
+```
+
+### 1.4 .substitute_q() 对substituted()的补充
+
+前面提到`substitute()`存在缺点，当某个表达式存储在变量中，则它不会对表达式进行替换。此时可以用`substitute_q()`函数。
+
+```{r}
+rm(list  = ls() )
+x  = quote(a + b)  # x存储了一个表达式
+substitute(x,list(a = 1,b = 2)) # 对x调用参数替换，无效
+substitute(a+b,list(a = 1,b = 2))  # 对直接变量参数替换,有效
+
+pryr::substitute_q(x, list(a = 1,b=2)) # 对x调用参数替换，有效
+```
+
+
+
+### 1.5. subs()函数
+
+`subs()`函数，可以在全局环境中直接对变量表达式替换。**subs() 和substitute()的第二个参数都可以重写正在使用的当前环境**。并通过名字—值的列表对来提供替换。这里就不在多说。subs的其它的工作方式与substitute()函数相同。
+
+```{r}
+rm(list  = ls() )
+a = 1
+b = 2
+substitute(a+b) #  对变量表达式替换，无效
+pryr::subs(a+b) # 对变量表达式替换
+
+substitute(a+b,list(a =10,b =20)) 
+pryr::subs(a+b,list(a =10,b =20)) 
+```
+
+
+
+## 2. 对捕获表达式后的处理方式
+
+### 2.1. 执行表达式 — — eval()
+
+​		前面提到的几种方法都可以捕获表达式，捕获表达式之后，下一步就是对其进行求值，可以用eval()函数完成。 
+
+​		比如：我们直接在控制台输入sin(1),其本质相当于执行了两个步骤：1.先捕获这个表达式，2在执行这个这个表达式。于是我们可以通过quote和eval进行分步计算.
+
+```{r}
+rm(list  = ls() )
+sin(1) # 直接一步完成。
+
+## 分步进行
+call_1 = quote(sin(1))
+call_1
+eval(call_1)
+
+
+# 由于quote可以捕获未定义的变量，故eval执行时可能会报错,eg:
+call_2 = quote(sin(xx))
+call_2
+try( eval(call_2) )
+
+try( sin(xx) ) # 报错信息和上面的类似
+
+
+# eval()可以允许我们提供一个list来计算给定的表达式，从而可以不需要创建一个变量x
+
+eval(call_2 ,list(xx =1))
+```
+
+### 2.2 eval 函数的用法
+
+```
+eval(expr, envir = parent.frame(),
+           enclos = if(is.list(envir) || is.pairlist(envir))
+                       parent.frame() else baseenv())
+```
+
+`expr` :  要计算的表达式，如果只提供这一个参数，即在当前环境中对表达式求值
+
+`envir`： 是一个用于计算`expr`的环境，数据框或者列表。
+
+`encols`： 如果在`envir`中找不到相应的变量，它会在`encols`参数中找，然后在`encols`参数的父环境中查找。如果能在`envir`参数中找到，则`encols`会被忽略。
+
+以下有是哪个便捷函数：(其实本质上都可以用eval来实现)
+
+- `evalq(expr, envir, enclos)`     等价于 ` eval(quote(expr),…)`  ，在当前环境中计算表达式。
+- `eval.parent(expr, n = 1) `         等价于 `eval(expr,parent.frame(n))`，在父环境中计算表达式。
+- `local(expr, envir = new.env())` 等价于 `eval(quote(expr),environment = new.nev())`，在新环境中计算表达式。
+
+```{r}
+rm(list  = ls() )
+## 参考《R语言编程指南》
+rm(list = ls())
+qs = function(x,range){
+  range = substitute(range)
+  selector = eval(range,list(. = length(x)), parent.frame())
+  # parent.frame()指的是eval()的调用环境，也就是qs()的执行环境。
+  return( x[selector])
+}
+
+# trim_margin删除向量x的前n个元素和后n个元素，保留中间的元素
+trim_margin = function(x,n){
+  qs(x,(n+1):(.-n-1))
+}
+x= 1:10
+trim_margin(x,3)
+```
+
+### 2 .3 .表达式与字符串相互转变 
+
+- `deparse()`: 将表达式转变为字符串.
+- `parse()`: 将字符串转变成表达式.由于parse的主要用途是将代码文件解析到硬盘，所以第一个参数是文件路径。注意如果代码是字符向量，那么需要使用text参数。
+
+```
+parse(file = "", n = NULL, text = NULL, prompt = "?",
+      keep.source = getOption("keep.source"), srcfile,
+      encoding = "unknown")
+      
+deparse(expr, width.cutoff = 60L,
+        backtick = mode(expr) %in% c("call", "expression", "(", "function"),
+        control = c("keepNA", "keepInteger", "niceNames", "showAttributes"),
+        nlines = -1L)
+```
+
+
+
+```{r}
+rm(list = ls())
+
+z <- quote(y <- x*10) # 表达式里面用 <- ,等号为出错
+deparse(z)
+
+parse(text = deparse(z))
+
+## 把代码写入一个文件中
+# cat("x <- c(1, 4)\n  x ^ 3 -10 ; outer(1:7, 5:9)\n", file = 'aa.txt')
+# parse(file = 'a.txt', n = 3)# 把文件中的代码转变为表达式
+```
+
+```{r}
+sessionInfo()
+```
+
+## 参考
+
+《高级R语言编程》
+
+《R语言编程指南》
+
+《R语言核心编程技巧第二版》
+

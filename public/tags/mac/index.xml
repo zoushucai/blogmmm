@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mac on zsc</title>
+    <link>/tags/mac/</link>
+    <description>Recent content in mac on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 10 Aug 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>latex 笔记</title>
+      <link>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</guid>
+      <description>1, 交叉引用 \eqref{eq:eq1} :交叉引用公式编号自动带括号: 2, 完整模板解析 \documentclass[review]{elsarticle} %\usepackage{ctex} \usepackage{lineno, hyperref} \hypersetup{colorlinks=true, citecolor=blue, anchorcolor=blue} \modulolinenumbers[5] %\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue]{hyperref}  \usepackage{amsmath} \usepackage{amssymb} \usepackage{amsthm} \usepackage[american]{babel} % 具有多语种处理功能的宏包,英文为默认文字,和microtype包一起使用,用于页面两端对齐 \usepackage{microtype} % 用于页面两端对齐  \usepackage{graphicx} % 插图包 --- \includegraphics[height=高度][angle=旋转角度]{图片文件名} \usepackage{multirow} % 处理表格 --列合并用”\multicolumn“，行合并用。\multirow{2}{*}{显示的文本} % 引用 --- \multirow 函数/标志符： {占用行数} {方框边界竖线|文字居左中右|方框边界竖线} {内容} % 引用 --- \multicolumn 函数/标志符： {占用列数} {方框边界竖线|文字居左中右|方框边界竖线} {内容}  \usepackage{indentfirst} %段首缩进需要的宏包 \setlength{\parindent}{2em}%设置段首缩进两个汉字 %\noindent强制不缩进 % \setlength{\parskip}{1em}%paragraph skip,调整的是段落间距离  %\usepackage{lscape} % 表格横置, 只需要引用 landscape 环境即可 %\usepackage{pdflscape} % 页面横置,只需引用landscape环境即可 %\usepackage[figuresright]{rotating} % 将表格旋转为纵向放置，使用rotating宏包 % 要使用 sidewaystable 环境 %\usepackage{natbib}\usepackage[authoryear]{natbib}  \usepackage{enumerate} % enumerate 宏包 ,可以给有序列表设置 label,以及有缩进 %\usepackage{enumitem} % 可以给出缩进调整间距, label %\usepackage{showkeys} % 引用时显示引用的 label %\usepackage{paralist} % 列表相互嵌套是的缩进 ,也可以给出相应 label ,但是 label 和缩进都要设置  %%%%%% 交叉引用 开始%%%%%%% %% 第一部分 自定义新环境, \theoremstyle{definition} %自定义环境内的风格,比如字体是否为斜体,等等,这里采用的是正体 \newtheorem{thm}{Theorem} \newtheorem{cor}{Corollary} \newtheorem{lem}{Lemma} \newtheorem{pot}{\bf Proof} \newtheorem{rmk}{Definition} \newtheorem{pro}{Property} \newtheorem{example}{Example} %\newtheorem{exmp}{Example}  %% 第二部分 ,如果想要在引用时,自动添加definition,Theorem等字样,使用下面这部分 \usepackage[capitalize, nameinlink]{cleveref} %交叉应用 在数字前自动添加某些字符; 引用时 用\cref{}的形式 \crefname{thm}{Theorem}{Theorems} %\crefname{cor}{Corollary}{Corollarys} \crefname{lem}{Lemma}{Lemmas} \crefname{pot}{Proof} {Proofs} \crefname{rmk}{Definition}{Definitions} \crefname{pro}{Property}{Propertys} \crefname{example}{Example}{Examples} \crefname{figure}{Figure}{Figures} % 图片以及表格有默认的,但是也可以重新定义 % \DeclareUnicodeCharacter{0301}{\&amp;#39;{e}} %pdflatex 需要用到 UTF-8 字符时，需要此命令  %%%%%% 交叉引用结束 %%%%%%%  \journal{European Journal of Operational Research} % 参考文献的引用样式,可以去网上找各大期刊的模板 \bibliographystyle{elsarticle-harv}\biboptions{authoryear} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%一下为正文部分 \begin{document} \section{Introduction} \section{Preliminaries} \section*{Acknowledgements} \setcitestyle{numbers} \bibliography{references} % 这里引用的 bibtex 参考文献 \end{document} 注释:</description>
+    </item>
+    
+    <item>
+      <title>git 笔记</title>
+      <link>/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</guid>
+      <description>1. git 的安装与配置 安装不多说,
+初次运行 git前的配置, 配置全局信息: 用户名与邮箱,(此处的用户名与邮箱需要到 github 注册)
+$ git config --global user.name &amp;#34;XXX&amp;#34; $ git config --global user.email &amp;#34;email@example.com&amp;#34; 如果已经多次使用 git ,可以用以下命令进行查看
+$ git config -l % 查看所有配置信息 $ git config --global -l % 查看全局配置信息 $ cat ~/.gitconfig % 用户的配置文件 注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
+一些终端基础命令
+$ ls -al # 查看所有文件夹 $ pwd # 查看当前所在的目录 $ clear # 清屏(终端) 2 . 创建本地仓库 2.1 创建版本库 (即初始化一个空仓库, 这个目录下的所有路径都称作工作区) 版本库又名仓库(repository)，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。
+$ git init # 该命令会在当前目录下创建了隐藏目录.</description>
+    </item>
+    
+    <item>
+      <title>mac 常用软件</title>
+      <link>/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
+      <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 2. homebrew 主页: https://brew.sh/ 2.1安装 /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 卸载(未试过) 方法一: 网上找的,
+可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
+方法 2: 官方版本
+ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;quot; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
+https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
+2.3 安装包 和卸载包 brew install &amp;lt;packageName&amp;gt; % 这个安装的是只有命令行的工具 brew cask install google-chrome % 注意 brew cask install 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew cask uninstall &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 brew cask reinstall qq % 推荐，直接重新安装 brew cask install qlcolorcode # 预览使得文本具有颜色,即给代码上色 brew cask install qlstephen # 语法高亮 超级右键 macApp 安装 2.</description>
+    </item>
+    
+    <item>
+      <title>R中常用的批处理操作</title>
+      <link>/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</guid>
+      <description>批量重命名文件名 setwd(&amp;#39;/Users/zsc/Desktop/音乐mp3/&amp;#39;) d = list.files() library(stringr) d1 = str_extract(d,&amp;#39;(?&amp;lt;=! ).*?.mp3$&amp;#39;) d1[is.na(d1)] = d[is.na(d1)] d1 file.rename(d, d1) 批量统计 pdf 的页数 library(qpdf) setwd(&amp;#39;/Users/zsc/Desktop/pdf/&amp;#39;) d = list.files() d d1 = str_extract(d,&amp;#39;.*?.pdf$&amp;#39;) library(purrr) map_dbl(d1, pdf_length) map_dbl(d1, pdf_length) %&amp;gt;% sum() 移除latex生成的临时文件 p = getwd() cat(p,&amp;#39;\n&amp;#39;) t = &amp;#39;*.aux|*.bbl|*.bcf|*.blg|*.log|*.xml|*.out|*.spl|*.synctex.gz&amp;#39; del = list.files(path = p,pattern = t) file.remove(del) </description>
+    </item>
+    
+  </channel>
+</rss>

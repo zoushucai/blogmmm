@@ -1,0 +1,141 @@
+---
+title: 1.7方案有偏好信息的多属性决策方法
+author: zsc
+date: "2019-02-26"
+categories: ["决策方法"]
+series: "不确定多属性决策方法---徐泽水"
+tags:
+  - R
+  - 决策方法
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<script src="2019-02-26-1-7方案有偏好信息的多属性决策方法_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#徐泽水不确定多属性决策方法与应用2737页">徐泽水《不确定多属性决策方法与应用》27–37页</a>
+<ul>
+<li><a href="#对方案的偏好信息为互反判断矩阵的情形">1.对方案的偏好信息为互反判断矩阵的情形</a></li>
+<li><a href="#对方案的偏好信息为模糊互补判断矩阵的情形">2.对方案的偏好信息为模糊互补判断矩阵的情形</a></li>
+<li><a href="#对方案的偏好信息为效用值的情形">3.对方案的偏好信息为效用值的情形</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="徐泽水不确定多属性决策方法与应用2737页" class="section level2">
+<h2>徐泽水《不确定多属性决策方法与应用》27–37页</h2>
+<div id="对方案的偏好信息为互反判断矩阵的情形" class="section level3">
+<h3>1.对方案的偏好信息为互反判断矩阵的情形</h3>
+<pre class="r"><code>## 1 对方案的偏好信息为互反判断矩阵的情形
+library(data.table)
+library(dplyr)
+A = c(3.0,100,10,7,
+      2.5,80,8,5,
+      1.8,50,20,11,
+      2.2,70,12,9)
+A= matrix(A,nrow = 4,ncol = 4,byrow = T) %&gt;% data.table()
+A # 原始决策矩阵
+#&gt;     V1  V2 V3 V4
+#&gt; 1: 3.0 100 10  7
+#&gt; 2: 2.5  80  8  5
+#&gt; 3: 1.8  50 20 11
+#&gt; 4: 2.2  70 12  9
+
+#######################################################
+##### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵
+##########################################################
+### norm_matrix()函数，根据书中收益型属性（按公式1.2）与成本型属性(按公式1.4)分别进行归一化
+# 参数A表示决策矩阵,shouyi参数代表收益型属性，输入收益型属性在决策矩阵中第几列，若有多列，用数值型向量即可，
+# chengben参数代表成本型属性，与收益型属性类型。
+# 该参数可任选其一输入，也可同时指定。
+norm_matrix = function(A,shouyi=NULL,chengben=NULL){
+  if(is.matrix(A))A = data.table(A)
+  stopifnot(!is.null(shouyi) | !is.null(chengben))
+  m = ncol(A)
+  if(is.null(chengben)) chengben =setdiff(1:m,shouyi) 
+  if(is.null(shouyi)) shouyi = setdiff(1:m,chengben)
+  stopifnot(length(intersect(shouyi,chengben))==0,setequal(union(shouyi,chengben),1:m))
+  #对决策矩阵进行重命名
+  names(A)=paste0(&#39;V&#39;,1:m)
+  shouyi = paste0(&quot;V&quot;,shouyi)
+  chengben = paste0(&quot;V&quot;,chengben)
+  R = A
+  R[,&#39;:=&#39;(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+  R[,&#39;:=&#39;(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcol = chengben]# 成本型属性归一化 （书中1.3式）
+  R = as.data.frame(R)
+  return(R)
+}
+
+R = norm_matrix(A,chengben = c(1,3))
+round(R,3)
+#&gt;      V1  V2    V3    V4
+#&gt; 1 0.600 1.0 0.800 0.636
+#&gt; 2 0.720 0.8 1.000 0.455
+#&gt; 3 1.000 0.5 0.400 1.000
+#&gt; 4 0.818 0.7 0.667 0.818
+#########################################################
+##### 第二步 根据决策方案(即决策矩阵的行)进行成对比较，构造出判断矩阵
+#################################################
+# 假设如下判断矩阵
+H = c(1,2,1/4,1/5,
+      1/2,1,1/2,1/3,
+      4,2,1,1/2,
+      5,3,2,1)
+H = matrix(H, nrow = 4, ncol = 4, byrow = T)
+H
+#&gt;      [,1] [,2] [,3]      [,4]
+#&gt; [1,]  1.0    2 0.25 0.2000000
+#&gt; [2,]  0.5    1 0.50 0.3333333
+#&gt; [3,]  4.0    2 1.00 0.5000000
+#&gt; [4,]  5.0    3 2.00 1.0000000
+Q = matrix(0,nrow = 4,ncol = 4)
+for(k in 1:4) {
+  for (l in 1:4) {
+    for (i in 1:4) {
+      for (j in 1:4) {
+        Q[k, l] = Q[k, l] + (H[i, j] * R[i, k] - R[i, k]) * ((H[i, j] * R[i, l] - R[i, l]))
+      }
+    }
+  }
+}
+Q
+#&gt;          [,1]     [,2]     [,3]     [,4]
+#&gt; [1,] 25.59035 19.01777 17.29175 25.45790
+#&gt; [2,] 19.01777 15.65944 14.36756 18.89730
+#&gt; [3,] 17.29175 14.36756 13.32738 17.10511
+#&gt; [4,] 25.45790 18.89730 17.10511 25.39491
+e_m = matrix(rep(1,4),nrow = 1)
+t(e_m)
+#&gt;      [,1]
+#&gt; [1,]    1
+#&gt; [2,]    1
+#&gt; [3,]    1
+#&gt; [4,]    1</code></pre>
+<pre class="r"><code>
+(solve(Q) %*% t(e_m) )/as.vector(e_m %*% solve(Q) %*% t(e_m))
+#&gt;           [,1]
+#&gt; [1,] -8.823475
+#&gt; [2,] -6.429099
+#&gt; [3,]  7.436625
+#&gt; [4,]  8.815949
+(solve(Q) %*% t(e_m) ) /0.2014189
+#&gt;           [,1]
+#&gt; [1,] -8.823476
+#&gt; [2,] -6.429100
+#&gt; [3,]  7.436626
+#&gt; [4,]  8.815950</code></pre>
+</div>
+<div id="对方案的偏好信息为模糊互补判断矩阵的情形" class="section level3">
+<h3>2.对方案的偏好信息为模糊互补判断矩阵的情形</h3>
+<p>（待完善）</p>
+</div>
+<div id="对方案的偏好信息为效用值的情形" class="section level3">
+<h3>3.对方案的偏好信息为效用值的情形</h3>
+<p>（待完善）</p>
+</div>
+</div>

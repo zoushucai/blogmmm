@@ -1,0 +1,176 @@
+---
+title: "knn算法简介"
+author: "zsc"
+date: "2017-03-23"
+tags:
+  - R
+keywords:
+  - R
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+```
+***
+
+- 行业应用：比如文字识别、面部识别、预测某人是否喜欢推荐电影     
+   　　　　基因模式识别：比如用于检测某种疾病，更适合于稀有事件的分类问题（客户流失识别）  
+- 应用场合：通常最近邻分类器适用特征与目标类之间的关系比较复杂的数字类型或者二者关系难以理解，但是相似类间的特征都是相似的   
+
+***
+特点：  
+1. 简单有效，对数据分布没有假设，数据训练也很快。    
+
+2. 但是他没有模型输出，因此限制了对特征的理解。    
+
+3. 分类阶段比较慢。     
+
+4. 需要标准化(nominal)特征以及缺少数据需要预先处理    
+
+  | 优点         | 缺点                    |
+  | ---------- | :-------------------- |
+  | 简单且有效      | 不产生模型．在发现特彻之间关系上的能力有限 |
+  | 对数据的分布没有要求 | 分类阶段很慢,  需要大量的内存      |
+  | 训练阶段很快     | 名义变量（特征变量）和缺失数据需要额外处理 |
+
+**k的取值：**   
+1. **k通常在3~10之间直接取值（看分析者的心情）**  
+2. **可采用一般方法：k等于训练数据个数的平方根（15个数据，k可能取4）**  
+
+## 1. 导入数据   
+```{r}
+#导入数据
+# import the CSV file
+wbcd <- read.csv("wisc_bc_data.csv", stringsAsFactors = FALSE)
+
+# 查看一下数据结构，发现除了要预测的变量diagnosis是字符型变量其余全是数字型变量
+str(wbcd)
+dim(wbcd)
+```
+乳腺癌数据包括 569 例细胞活检案例， 每个案例有32 个特征。一个特征是识别号码(id变量)，一 个特征是癌症诊断结果(diagnosis变量)， 其他 30 个特征是数值型的实验室测挝结果。癌症诊断结果用编码"M"表示恶性，用编码"B"表示良性。
+
+## 2. 数据预处理————（因子变量转化为数字变量）
+```{r}
+#第一个名为ID的整形变量（作用起唯一性，不能提供有用的信息）
+wbcd <- wbcd[-1]
+
+#对目标属性重新编码为因子类型
+wbcd$diagnosis <- factor(wbcd$diagnosis, levels = c("B", "M"),
+                         labels = c("良性B", "恶性M"))
+
+
+# 查看变量diagnosis目标属性的结果数目
+table(wbcd$diagnosis)
+#计算变量diagnosis目标属性的占比情况
+round(prop.table(table(wbcd$diagnosis)) * 100, digits = 1)
+
+#分析其余30个特征都是数字型变量，因此不需要进一步处理
+#但是仔细观察每个变量之间存在数量级差异，则需要标准化——数据处理
+
+```
+## 3.数据预处理————标准化处理（max-min）和划分训练集以及测试集
+```{r}
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+wbcd_n <- as.data.frame(lapply(wbcd[2:31], normalize))
+##由于排列随机性，所以我们之间选取则可
+wbcd_train <- wbcd_n[1:469, ]
+wbcd_test <- wbcd_n[470:569, ]
+##训练数据和测试数据的目标变量（分类结果先行保留）
+wbcd_train_labels <- wbcd[1:469, 1]
+wbcd_test_labels <- wbcd[470:569, 1]
+```
+
+# 4. knn算法实现(class包)
+
+```
+创建分类器并进行预测：
+p <- knn(train, test, class, k)
+            train: 一个包含数值型训练数据的数据框
+            test:   一个包含数值型测试数据的数据框
+            class :  包含训练数据每一行分类的一个因子向量
+             k:    标识最近邻数目的一个整数
+
+该函数返回一个因子向量,  该向量含有测试数据框中每一行的预测分类。
+例子：
+wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test,
+                      cl = wbcd_train_labels, k=3)
+
+```
+
+
+**建议k用奇数**，这样会减少各个类别票数相等这一情况的发生
+```{r}
+library(class)
+wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test,
+                      cl = wbcd_train_labels, k=21)
+```
+
+
+# 5. 模型性能的评估（gmodels包）
+
+```{r,message=FALSE}
+library(gmodels)
+
+# 创建两个识别向量的交叉表（类似table）,prop.chisq=FALSE讲话从输出中除去不需要的卡方值
+CrossTable(x = wbcd_test_labels, y = wbcd_test_pred,
+           prop.chisq=FALSE)
+library(caret)
+confusionMatrix(wbcd_test_labels,wbcd_test_pred,positive = "良性B")#confusionMatrix(真实值，预测值，positive =“  ” 阳性积极的为什么，根据不同模型数据而不同
+```
+
+# 6. 改善模型的性能
+   + 可尝试 用不同的标准化
+   + 可尝试用不同的k值
+   + 可尝试10折交叉重复验证（随机）
+   + 。。。。。。
+
+# 7. 分析最终结果
+按上述5 来分析，只有两个分析错了，有可能是病人的原因。。。。。。。。当然原因有很多种，需要分析者对这个结果有充分的解释能力以及判断能力.
+
+表格中单元格的百分比表示落在4个分类里的值所占的比例。在左上角的单元格（标记为TN)中，是真阴性(True  Negative)的结果。100个值中有61个值标识肿块是良性的，而kNN算法也正确地把它们标识为良性的。在右下角的单元格（标记为TP)中，显示的是真阳性(True  Positive)的结果，这里表示的是分类器和临床确定的标签一致认为肿块是恶性的情形。100个预测值中有37个是真阳性(True Positive)的。
+
+落在另一条对角线上的单元格包含了kNN算法与真实标签不一致的案例计数。位于左下角FN单元格的2个案例是假阴性(False Negative)的结果。在这种情况下，预测的值是良性的，但肿瘤实际上是恶性的。这个方向上的错误可能会产生极其高昂的代价，因为它们可能导致一位病人认为自己没有癌症，而实际上这种疾病可能会继续蔓延。如果右上角标记为FP的单元格里有值．它包含的是假阳性(False Positive)的结果。当模型把肿块标识为恶性时而事实上它是良性时就会产生这里的值。尽管这类错误没有假阴性(False Negative)的结果那么危险，但这类错误也应该避免，因为它们可能会导致医疗系统的额外财政负担，或者病人的额外压力，毕竟这需要提供额外的检查或者治疗。
+
+一共有2%,即根据kNN算法，100个肿块中．有2个是被错误分类的。虽然对于仅用几行的R代码，就得到98%的准确度似乎令入印象深刻，但是我们可以尝试一些其他的模型迭代方法来看看我们是否可以提高性能并减少错误分类值的数量，特别当错误是危险的假阴性(False Negative)结果时
+
+
+
+
+
+***
+***
+***
+
+<h1 align=center> 附件</h1>
+##  knn实现方法
+
+1. **class包 ---- knn**
+2. **caret包 ---- knn3**
+3. **Rweka包 ---- IBK**
+
+```{r}
+library(RWeka)
+
+Rweka_knn=IBk(Species~.,data=iris)#,control=Weka_control(k=21,x=TRUE))
+table(predict(Rweka_knn,iris[1:4]),iris$Species)#不用交叉验证，直接预测
+
+
+#上面knn中的k好像自己选取1，那么我们需要自动选取怎么办呢？用Weka_control()调参
+#如下，自动选取1:k=20里面最合适的参数
+Rweka_knns=IBk(Species~.,data=iris,control = Weka_control(K = 20,X = TRUE))#注意k、x的大小写，这里都是大写
+table(predict(Rweka_knns,iris[1:4]),iris$Species)#不用交叉验证，直接预测
+
+
+#Rweka_knn为分类器，evaluate_Weka_classifier()这个函数把分类器的数据平均分成10分，做10折交叉验证，查看结果
+#类似于CrossTable()函数
+evaluate_Weka_classifier(Rweka_knn,numFolds = 10)
+evaluate_Weka_classifier(Rweka_knns,numFolds = 10)
+
+```
+
+```{r}
+sessionInfo()
+```
+

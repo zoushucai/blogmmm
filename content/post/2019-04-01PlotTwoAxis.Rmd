@@ -1,0 +1,88 @@
+---
+title: "R语言绘制双坐标图"
+date: "2019-04-01"
+tags:
+  - 可视化
+keywords:
+  - 可视化
+output:
+  blogdown::html_page:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 使用plotrix包
+
+```{r}
+#png("2y_1.png")
+rm(list = ls())
+library(plotrix)
+library(dplyr)
+new_iris = arrange(iris,Sepal.Length)# 按照花瓣的长度进行排序 --- 为了后面好看  
+head(new_iris,10)
+
+# 设置数据 -
+y1 = new_iris$Sepal.Length[1:10]
+x1_axis = 1:length(y1)
+
+y2 = new_iris$Petal.Length[1:10]
+x2_axis = 1:length(y2)
+
+
+par(family='STKaiti')
+twoord.plot(x1_axis, y1, x2_axis, y2,main = '双折线图') #  这线图
+
+
+par(family='STKaiti')
+twoord.plot(x1_axis, y1, x2_axis, y2,lylim=c(4.2,4.8),rylim=c(1,1.5),lcol=4,rcol=2,main = '折线图和条形图',
+            xlab="x轴",ylab="y1轴",rylab="y2轴",type=c("bar","b"),halfwidth=0.2) # 折线图和条形图
+#dev.off()
+
+
+```
+
+
+## twoord.plot() 参数解释 
+
+**twoord.plot()函数语法及参数含义：**
+
+```
+ twoord.plot(lx,ly,rx,ry,data=NULL,main="",xlim=NULL,lylim=NULL,rylim=NULL,
+ 		mar=c(5,4,4,4),lcol=1,rcol=2,xlab="",lytickpos=NA,ylab="",ylab.at=NA,
+ 		rytickpos=NA,rylab="",rylab.at=NA,lpch=1,rpch=2,
+ 		type="b",xtickpos=NULL,xticklab=NULL,halfwidth=0.4,axislab.cex=1,do.first=NULL,...)
+```
+
+- lx,ly,rx,ry：分别指定左坐标轴和右坐标轴的值，必须是连续的值
+- data：需要绘制双轴图形的数据框
+- main：为图形指定标题
+- xlim：限制横坐标值的范围
+- lylim,rylim：限制左右纵坐标值的范围
+- mar：设置图形边界距，默认值为(5,4,4,4)
+- lcol,rcol：设置左右坐标轴的颜色，这样可以起到图例的作用
+- xlab：设置横坐标轴标签
+- lytickpos：设置左坐标轴刻度标签的位置
+- ylab：设置左坐标轴标签
+- ylab.at：设置左坐标轴标签位置
+- rytickpos：设置右坐标轴刻度标签的位置
+- rylab：设置又坐标轴标签
+- rylab.at：设置右坐标轴标签位置
+- lpch,rpch：设置左右坐标轴图形的外观
+- type：指定图形类型,参考plot参数的类型
+  - `p` 为 points，`I` for lines， `b` for both，"c" for the lines part alone of "b",
+  - "o" for both ‘overplotted’，"h" for ‘histogram’ like (or ‘high-density’) vertical lines,
+  - "s" for stair steps, "S" for other steps, "n" for no plotting.
+- xtickpos：设置横坐标轴刻度标签位置
+- xticklab：设置横坐标轴刻度标签
+- halfwidth：设置用户给定条形图宽度的一半
+- axislab.cex：设置坐标轴标签和刻度标签的大小
+- do.first：通过该参数可以往图形中添加背景色或网格线
+
+
+```{r}
+sessionInfo()
+```

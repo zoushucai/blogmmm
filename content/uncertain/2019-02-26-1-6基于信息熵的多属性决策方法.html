@@ -1,0 +1,118 @@
+---
+title: 1.6 基于信息熵的多属性决策方法
+author: zsc
+date: "2019-02-26"
+categories: ["决策方法"]
+tags:
+  - R
+  - 决策方法
+series: "不确定多属性决策方法---徐泽水"
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<script src="2019-02-26-1-6基于信息熵的多属性决策方法_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#徐泽水不确定多属性决策方法与应用26页">徐泽水《不确定多属性决策方法与应用》26页</a></li>
+</ul>
+</div>
+
+<div id="徐泽水不确定多属性决策方法与应用26页" class="section level2">
+<h2>徐泽水《不确定多属性决策方法与应用》26页</h2>
+<pre class="r"><code>##  1.6 基于信息熵的多属性决策方法---徐泽水《不确定多属性决策方法与应用》26页 --1.62 实例分析
+
+library(data.table)
+library(dplyr)
+A = c(2,1.5,2,5.5,5,9,
+      2.5,2.7,1.8,6.5,3,5,
+      1.8,2,2.1,4.5,7,7,
+      2.2,1.8,2,5,5,5)
+A= matrix(A,nrow = 4,ncol = 6,byrow = T) %&gt;% data.table()
+A # 原始决策矩阵
+#&gt;     V1  V2  V3  V4 V5 V6
+#&gt; 1: 2.0 1.5 2.0 5.5  5  9
+#&gt; 2: 2.5 2.7 1.8 6.5  3  5
+#&gt; 3: 1.8 2.0 2.1 4.5  7  7
+#&gt; 4: 2.2 1.8 2.0 5.0  5  5</code></pre>
+<pre class="r"><code>#######################################################
+##### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵
+##########################################################
+### norm_matrix()函数，根据书中收益型属性（按公式1.2）与成本型属性(按公式1.4)分别进行归一化
+# 参数A表示决策矩阵,shouyi参数代表收益型属性，输入收益型属性在决策矩阵中第几列，若有多列，用数值型向量即可，
+# chengben参数代表成本型属性，与收益型属性类型。
+# 该参数可任选其一输入，也可同时指定。
+norm_matrix = function(A,shouyi=NULL,chengben=NULL){
+  if(is.matrix(A))A = data.table(A)
+  stopifnot(!is.null(shouyi) | !is.null(chengben))
+  m = ncol(A)
+  if(is.null(chengben)) chengben =setdiff(1:m,shouyi) 
+  if(is.null(shouyi)) shouyi = setdiff(1:m,chengben)
+  stopifnot(length(intersect(shouyi,chengben))==0,setequal(union(shouyi,chengben),1:m))
+  #对决策矩阵进行重命名
+  names(A)=paste0(&#39;V&#39;,1:m)
+  shouyi = paste0(&quot;V&quot;,shouyi)
+  chengben = paste0(&quot;V&quot;,chengben)
+  R = A
+  R[,&#39;:=&#39;(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+  R[,&#39;:=&#39;(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcol = chengben]# 成本型属性归一化 （书中1.3式）
+  R = as.data.frame(R)
+  return(R)
+}
+
+R = norm_matrix(A,chengben = 4)
+round(R,3)
+#&gt;     V1    V2    V3    V4    V5    V6
+#&gt; 1 0.80 0.556 0.952 0.818 0.714 1.000
+#&gt; 2 1.00 1.000 0.857 0.692 0.429 0.556
+#&gt; 3 0.72 0.741 1.000 1.000 1.000 0.778
+#&gt; 4 0.88 0.667 0.952 0.900 0.714 0.556</code></pre>
+<pre class="r"><code>#########################################################
+##### 第二步 计算矩阵R，得到列归一化矩阵R&#39;
+#################################################
+R_t = sapply(R, function(x)x/sum(x))
+round(R_t,3)
+#&gt;         V1    V2    V3    V4   V5    V6
+#&gt; [1,] 0.235 0.187 0.253 0.240 0.25 0.346
+#&gt; [2,] 0.294 0.338 0.228 0.203 0.15 0.192
+#&gt; [3,] 0.212 0.250 0.266 0.293 0.35 0.269
+#&gt; [4,] 0.259 0.225 0.253 0.264 0.25 0.192
+#########################################################
+##### 第三步 根据R_t计算属性u_j的信息熵
+#################################################
+entropy = function(R_t){
+  if(!is.data.frame(R_t)) R_t = as.data.frame(R_t)
+  n = nrow(R_t)
+  E = sapply(R_t, function(x) (-1/log(n)) * sum( ifelse(x == 0 , 0 , x*log(x) ) ) )
+  return(E)
+}
+E = entropy(R_t)
+E
+#&gt;        V1        V2        V3        V4        V5        V6 
+#&gt; 0.9946889 0.9829482 0.9988876 0.9936177 0.9703227 0.9771412
+#########################################################
+##### 第四步 根据信息熵计算权重向量
+#################################################
+w = (1-E)/sum(1-E)
+round(w,3)
+#&gt;    V1    V2    V3    V4    V5    V6 
+#&gt; 0.064 0.207 0.014 0.077 0.360 0.277
+#########################################################
+##### 第五步 根据权重向量按照1.12式计算每一个方案的综合属性值Z
+#################################################
+z = t(as.matrix(R) %*% as.matrix(w,ncol=1)) %&gt;% as.data.frame() # 计算综合属性值
+round(z,4)
+#&gt;       V1     V2     V3     V4
+#&gt; 1 0.7775 0.6451 0.8666 0.6887
+#########################################################
+##### 第六步 根据综合属性值Z对方案进行排序
+#################################################
+#rank(z) #输出排序
+sort(rank(z),decreasing = T)
+#&gt; V3 V1 V4 V2 
+#&gt;  4  3  2  1</code></pre>
+</div>

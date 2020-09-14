@@ -1,0 +1,799 @@
+---
+title: "glmnet包解读1"
+author: zsc
+date: "2018-09-13"
+tags:
+  - R
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+## 1 介绍
+
+`glmnet` 包解决了一下问题（目标函数）
+$$
+\min_{\beta_0,\beta} \frac{1}{N} \sum_{i=1}^{N} w_i l(y_i,\beta_0+\beta^T x_i) + \lambda\left[(1-\alpha)||\beta||_2^2/2 + \alpha ||\beta||_1\right],
+$$
+#### 1.1  glmnet包安装
+
+```{r, eval=FALSE}
+install.packages("glmnet", repos = "http://cran.us.r-project.org")
+```
+
+## 2  快速开始
+
+这节介绍`glmnet`包中的主要函数以及它们的一般用法，对常用函数的输入参数以及输出结果做简要的说明。 
+
+#### 2.1 加载glmnet包
+
+```{r}
+library(glmnet)# 加载glmnet包
+```
+以线性回归为例，来说明`glmnet`包的用法。
+
+#### 2.2 准备数据 
+
+```{r}
+data(QuickStartExample)#x为100*20的矩阵 ,y为100 * 1的矩阵。
+```
+该命令R数据存档中加载输入矩阵`x`和响应向量`y`。 `x`为`100*20`的矩阵 ,`y`为`100 * 1`的矩阵。
+
+#### 2.3 拟合模型
+
+数据有了，我们就可以调用包中与之同名的`glmnet`函数来做线性回归了： 
+
+```{r}
+fit = glmnet(x, y)
+```
+这里生成的结果 “fit”是类的对象`glmnet`，包含拟合模型的所有相关信息。不鼓励用户直接提取组件（像list那样提取）。推荐使用各种方法`plot`，`print`，`coef`和`predict`提取信息，这样能够使我们更优雅执行这些任务。 
+
+#### 2.4 模型对象的可视化
+
+采用`plot`函数对拟合出的模型系数进行可视化： 
+
+```{r}
+# label = T，可以显示变量的标签。
+# 参数xvar = c("norm", "lambda", "dev")
+# norm（默认）:  显示系数值和L1范数之间的变化关系
+# lambda： 显示系数值和对数lambda之间的变化关系
+# dev : 显示系数值如何随解释偏差百分比（dev）之间的变化关系
+plot(fit,label = T)
+```
+
+上图中，每一条曲线代表一个变量的系数。Y轴是回归系数的值，X轴是L1范数，图中上方有另一条x轴，其数值表示模型的特征数，
+
+#### 2.5 模型对象信息的提取
+
+回到我们的拟合结果`fit`。作为一个 R 对象，我们可以把它当作很多函数的输入。比如说，我们可以查看详细的拟合结果： 
+
+```{r height = 4}
+print(fit)
+```
+每一行代表了一个模型 ,它从左到右显示非零系数的个数（`Df`），模型所解释的偏差的百分比（`%dev`）和λ的值（`Lambda`） （注意岭回归中列`Df`的值是不会变的）
+
+通过`coef`来提取模型的系数： 
+
+```{r}
+# 参数s：指定lambda的值，可以是一个向量，则提取多个模型的系数，每一列对应一个模型的系数
+# 参数complete: 逻辑值,表示是否应该返回全系数向量.
+coef(fit,s=0.1,exact=FALSE)
+```
+用`coef`来提取模型的系数,参数采用的是`s` 而不是`lambda`,---同样在`predict`函数中一样的道理,eg:
+
+#### 2.6 预测
+
+预测采用`predict`函数，参数`newx`用来设置输入数据，`s`用来设置$\lambda$的值：
+
+```{r}
+nx = matrix(rnorm(10*20),10,20)
+#predict函数与coef函数相比多了一些参数的设置，参数newx设置待预测的输入数据集，以及tpye参数选项
+predict(fit,newx=nx,s=c(0.1,0.05))
+
+```
+
+#### 2.7  交叉验证
+
+`glmnet`提供了一系列的模型可供选择，而在大多数情况下我们需要从中挑选出一个最合适的来用就可以了。这时可以通过交叉验证的方法来筛选最优的λ值了，`cv.glmnet`函数实现了这一功能。 也支持绘图和预测方法。 
+
+继续沿用之前的样本数据，调用`cv.glmnet`函数： 
+
+```{r}
+cvfit = cv.glmnet(x, y)
+```
+可以看到，`cv.glmnet`返回的结果是一个`cv.glmnet`类的对象，该对象的类型和`glmnet`函数返回的结果一样，它们本质上都是R中的list。 不鼓励直接提取信息，推荐使用各种函数提取.
+
+我们用可视化的图形来展示`cv.glmnet`的结果： 
+
+```{r}
+plot(cvfit)
+```
+
+从图中可以看到MSE是如何随着lambda的不同取值而变化的。红色的散点为交叉验证的散点图，横轴为logλ，纵轴为均方误差，每个点的标准偏差上界和下界也画出来了。图的顶部字数表示非零系数的个数，第一条垂直线对应的是lambda.min的值，它是交叉验证提取出的最优值，第二条（从左往右看）是lambda.lse属性的值，它对应了距离lambda.min一个标准误差的值，并产生了一个更为正则化的模型 （`lambda.1se `为离最小均方误差一倍标准差的λ值。 ）
+
+最优的λ 值可以直接采用如下命令来提取： 
+
+```{r}
+cvfit$lambda.min
+cvfit$lambda.1se
+```
+用`coef`函数来提取回归模型的系数： 
+
+```{r}
+coef(cvfit, s = "lambda.min")
+```
+可以看到回归模型的系数是采用稀疏矩阵的形式来存储的。由于计算出的模型系数经常是稀疏的，这时采用稀疏矩阵的方式来存储和计算更有效率。如果你不习惯稀疏矩阵的输出形式，可以用`as.matrix()`将其转化为传统的矩阵形式。 
+
+预测同`glmnet`，直接采用`predict`泛型函数即可： 
+
+```{r}
+predict(cvfit, newx = x[1:5,], s = "lambda.min")
+```
+自此，`glmnet`的入门介绍完了，你可以用来他做一些基本的回归模型了。
+
+接下来，我们对`glmnet`包进行更为深入的介绍。
+
+## 3 线性回归
+
+`glmnet`中的线性回归主要包含两类。一定是高斯簇`gaussian`，还有一类是多响应高斯簇`mgaussian`。我们依次介绍： 
+
+### 3.1 高斯簇
+
+`gaussian ` 是`glmnet`函数中的默认函数簇，它本质上是带正则项的多元线性回归的估计问题。
+
+#### 3.1.1 优化目标
+
+优化的目标函数如下：（高斯族采用的是平方损失函数）
+$$
+\min_{(\beta_0, \beta) \in \mathbb{R}^{p+1}}\frac{1}{2N} \sum_{i=1}^N (y_i -\beta_0-x_i^T \beta)^2+\lambda \left[ \dfrac{1}{2}(1-\alpha)||\beta||_2^2 + \alpha||\beta||_1\right],
+$$
+其中 $\lambda \geq 0$ 是模型复杂度参数 ;$0 \leq \alpha \leq 1$ ，当$\alpha = 0$ 时为岭回归，当$\alpha = 1$为lasso，在$0 <\alpha < 1$则为两者的折中.
+
+#### 3.1.2 glmnet参数设置
+
+`glmnet`提供了很多参数可以供我们选择。下面介绍一些常用的参数设置：
+
+- `alpha`之前介绍过，它是弹性网的参数，取值范围是[0, 1], (且只能一个一个取，不能为向量)
+- `weights`配置观测的权重。默认每个观测的权重取值均为1。
+- `nlambda`默认值是100。(系统自动挑选 100 个不同的 λ 值，拟合出 100 个系数不同的模型 ）
+- `lambda`一般是程序自动构建，也可以自己定义（可以是向量）。
+- `standardize`表示在拟合模型前，`x`变量是否需要标准化。默认`standardize=TRUE`。
+
+更多参数设置参考帮助文档`help(glmnet)`。
+
+我们用下面的例子来看看这些参数的用法： 还是用原来的样本数据，不同的是取α = 0.2（接近岭回归的正则项），设置观测的权重以及 λ序列的数量： 
+
+```{r}
+fit = glmnet(x, y, alpha = 0.2, weights = c(rep(1,50),rep(2,50)), nlambda = 20)
+```
+用`print`函数打印结果： 
+
+```{r}
+print(fit)
+```
+打印结果之前已做过说明，这里不再赘述。可以看到这里λ并没有达到预设的20。这是因为在偏差解释率达到0.999或者其变化小于10e-5时计算就会终止。而这些预设的计算终止条件可以通过`glmnet.control`来设置，详见`help(glmnet.control)`。 
+
+注意，可以设置`digits`选项可用于指定打印输出中的有效数字 
+
+#### 3.1.3 plot参数设置
+
+Y轴为模型的系数值。
+
+`plot`函数可以用`xvar`来定义X轴的度量，有三种选项：
+
+- “norm” 表示系数的L1-范数(默认)，显示系数值和L1范数之间的变化关系
+- “lambda” 表示对数lambda值，显示系数值和对数lambda之间的变化关系
+- “dev” 表示偏差解释率，显示系数值如何随解释偏差百分比（dev）之间的变化关系
+
+在`plot`函数中添加参数`label = TRUE`可以显示变量的标签 
+
+```{r}
+layout(matrix(c(1,2,3),1,3))
+plot(fit, xvar = "norm", label = TRUE,main='nrom\n')
+plot(fit, xvar = "lambda", label = TRUE,main='lambda\n')
+plot(fit, xvar = "dev", label = TRUE,main='dev\n')
+```
+
+每一条曲线代表一个变量的系数。Y轴是回归系数的值，X轴是L1范数(默认)，图中上方有另一条x轴，其数值表示模型的特征数，
+
+#### 3.1.4 coef参数设置
+
+coef函数中最常用的两个参数为:
+
+- `s` 指定λ值
+- `complete` 表示是否应该返回全系数向量.
+
+```{r}
+any(fit$lambda == 0.5)
+coef.exact = coef(fit, s = 0.5, complete = TRUE)
+coef.apprx = coef(fit, s = 0.5, complete = FALSE)
+cbind2(coef.exact, coef.apprx)
+```
+
+结论： 当`exact`选取不同的参数时，提取的系数也存在一定程度的差异，但差距不大。没有特别要求的话，使用线性插值得到的结果已经够用了。 
+
+#### 3.1.5 predict参数设置
+
+`predict`函数与`coef`函数相比多了一些参数的设置：`newx`是待预测的输入数据集。
+
+`type`有多个选项可供选择：
+
+- “link” 给出预测值
+- “response” 对于gaussian簇，同“link”
+- “coefficients” 计算给定`s`下的系数矩阵
+- “nonzero” list对象，存储每个`s`下非0系数对应的下标
+
+```{r}
+predict(fit, newx = x[1:5,], type = "response", s = 0.05)
+```
+上述命令表示在λ = 0.05时计算`x`头5条观测的预测值。这里的`s`可以是一个向量，当`s`是一个多数值向量时，预测值则为一个矩阵。 
+
+#### 3.1.6 交叉验证
+
+##### 3.1.6.1 普通计算
+
+这小节对`cv.glmnet`函数的参数做简要说明：
+
+- `nfolds` – 交叉验证数据集划分的份数
+- `foldid` – 自定义划分数据
+- `type.measure` – 定义交叉验证的损失函数，“deviance”和“mse”用的是平方损失，“mae”用的是平均绝对损失
+
+举一个列子：
+```{r}
+# 做20重交叉验证，采用平均绝对损失
+cvfit <- cv.glmnet(x, y, type.measure = "mse", nfolds = 20)
+```
+##### 3.1.6.2  并行计算
+
+`cv.glmnet `也支持并行计算，不过要使其工作，用户必须加载`doMC`并注册并行数量. 在这里给出一个简单的比较示例。 (不过很遗憾，win不能用)
+
+```{r}
+require(doMC) # win不能用,可以下载下来，但是不能平行计算。
+# install.packages("doMC", repos="http://R-Forge.R-project.org")
+registerDoMC(cores=2)
+X = matrix(rnorm(1e4 * 200), 1e4, 200)
+Y = rnorm(1e4)
+system.time(cv.glmnet(X, Y))
+system.time(cv.glmnet(X, Y, parallel = TRUE))
+```
+
+```{r}
+# 看了一下帮助文档 可以改成doParallel 也不能用很奇怪
+library(doParallel)
+# Windows 可以使用的并行包，但在这里也不能进行并行计算，时间不变
+cl<-makeCluster(6)
+registerDoParallel(cl)
+system.time({cvfit = cv.glmnet(x,y,parallel=TRUE)})
+stopCluster(cl)# 时间也没有明显提高
+```
+如上所述，并行计算可以显着加速计算过程，尤其是对于大规模问题。 
+
+##### **3.1.6.3 提取最优参数**
+
+函数  `coef` 和 `predict` 处理` cv.glmnet` 对象和处理  `glmnet` 对象类似。不过处理` cv.glmnet`对象时，在指定$s$参数是可以用两个特殊的字符:`lambda.1se`和`lambda.min`
+
+* "lambda.1se": 为离最小均方误差MSE一倍标准差的$\lambda$值。
+* "lambda.min": 达到最小MSE对应的$\lambda$值（即 交叉验证提取出的最优值）
+
+```{r}
+cvfit$lambda.min
+coef(cvfit, s = "lambda.min")
+predict(cvfit, newx = x[1:5,], s = "lambda.min")
+```
+
+##### 3.1.6.4  数据划分问题
+
+除了可以设置`nfolds`来寻找合适的模型外，我们还可以通过`foldid`设置相同的数据划分来选择最优的α值。 
+
+```{r}
+foldid=sample(1:10,size=length(y),replace=TRUE)
+cv1=cv.glmnet(x,y,foldid=foldid,alpha=1)
+cv.5=cv.glmnet(x,y,foldid=foldid,alpha=.5)
+cv0=cv.glmnet(x,y,foldid=foldid,alpha=0)
+```
+进行对比
+```{r}
+par(mfrow=c(2,2))
+plot(cv1);plot(cv.5);plot(cv0)
+plot(log(cv1$lambda),cv1$cvm,pch=19,col="red",xlab="log(Lambda)",ylab=cv1$name)
+points(log(cv.5$lambda),cv.5$cvm,pch=19,col="grey")
+points(log(cv0$lambda),cv0$cvm,pch=19,col="blue")
+legend("topleft",legend=c("alpha= 1","alpha= .5","alpha 0"),pch=19,col=c("red","grey","blue"))
+```
+
+我们可以看到这里选择lasso(`alpha=1`)时，模型的均方误差最小。 
+
+#### 3.1.7 系数上限和下限
+
+这些是最近添加的功能，可以增强模型的范围。假设我们想要拟合我们的模型，但是要将系数限制为大于-0.7且小于0.5。这可以通过`upper.limits`和`lower.limits`参数轻松实现： 
+
+```{r}
+tfit=glmnet(x,y,lower=-.7,upper=.5)
+plot(tfit)
+```
+
+这些是相当随意的限制; 通常我们希望系数为正，所以我们只能设置`lower.limit`为0 
+
+> 注意,上下限的取值范围 ：upper.limits的值不能小于0，lower.limits的值不能大于0 ,另外，如果想对每一个变量的系数对不同的限定，需要将这里的单点值即标量改为向量的形式就可以了。
+
+#### 3.1.8  惩罚因子 
+
+这个参数可以给每一个系数提供一个单独的惩罚因子。该惩罚因子默认是1，它也支持自定义。如果将惩罚因子全部设置成为0的话，相当于就没有惩罚项了。 
+
+看看以下公式就一目了然了： 
+$$
+\lambda \sum_{j=1}^p \boldsymbol{v_j} P_\alpha(\beta_j) = \lambda \sum_{j=1}^p \boldsymbol{v_j} \left[ (1-\alpha)\frac{1}{2} \beta_j^2 + \alpha |\beta_j| \right].
+$$
+这个参数设置选项很有用，假如我们知道了一些先验信息，知道了其中一些变量很重要，需要在建模正则化的同时一直保留这些变量，那么可以把这些变量对应系数的惩罚因子设置为0。 
+
+同样用之前的数据，我们把第5、10、15个变量对应的惩罚因子设置为0： 
+
+```{r}
+p.fac = rep(1, 20)
+p.fac[c(5, 10, 15)] = 0
+pfit = glmnet(x, y, penalty.factor = p.fac)
+plot(pfit, label = TRUE)
+```
+
+从上图中可以看到，变量5、10、15对应的系数一直都在模型中。 
+
+还有一些其它的有用的参数，比如，`exclude`参数可以用来限制指定的变量入选模型；`intercept`参数可以用来设定模型是否含有截距项等等。更多设置参考帮助文档`help(cv.glmnet)`. 
+
+#### 3.1.9  自定义图
+
+有时，特别是当变量数量很少时，我们希望将变量标签添加到绘图中，而不是用变量的所在数据集中的下标。 如下：简单生成一组数据，拟合一个glmnet模型 ，并画出图
+
+```{r}
+set.seed(101)
+x=matrix(rnorm(1000),100,10)
+y=rnorm(100)
+vn=paste("var",1:10) 
+fit=glmnet(x,y)
+plot(fit)
+```
+
+然而我们想要的是用变量名称标记曲线 ，如下：
+
+```{r}
+par(mar=c(4.5,4.5,1,4))
+plot(fit)
+vnat=coef(fit)
+vnat=vnat[-1,ncol(vnat)] # remove the intercept, and get the coefficients at the end of the path
+axis(4, at=vnat,line=-.5,label=vn,las=1,tick=FALSE, cex.axis=0.5)
+```
+
+
+
+### 3.2  多响应高斯簇
+
+多响应高斯簇模型的估计需要在`glmnet`函数中设置`family = "mgaussian"`。与以上单变量响应模型类似，它只是响应变量增多了，我们通常称之为“多任务学习”问题。虽然响应变量增多了，但是建模时所选择的自变量是完全一样的，只是待估系数不同而已。
+
+很显然，模型的因变量不再是一个向量形式，而是一个二维矩阵，这时估计出的系数也会是一个矩阵，先看看多响应高斯簇模型解决的问题：
+$$
+\min_{(\beta_0, \beta) \in \mathbb{R}^{(p+1)\times K}}\frac{1}{2N} \sum_{i=1}^N ||y_i -\beta_0-\beta^T x_i||^2_F+\lambda \left[ (1-\alpha)||\beta||_F^2/2 + \alpha\sum_{j=1}^p||\beta_j||_2\right].
+$$
+这里的βj是$p\times K$维的系数矩阵$\beta$的第j行。
+
+#### 3.2.1 载入演示数据
+
+```{r}
+data(MultiGaussianExample)# 产生x,y两个矩阵，x的维度100*20 ,y的维度100 * 4。
+```
+#### 3.2.2 拟合模型
+
+```{r}
+mfit = glmnet(x, y, family = "mgaussian")
+```
+多响应高斯模型与单响应高斯模型的大部分参数设置相同，如`alpha`,`weights`,`nlambda`,`standardize`。**但是`mgaussian`簇有一个额外的参数`standardize.response`，它可以用来给响应变量做标准化，默认为`FALSE`**。 
+
+#### 3.2.3 查看拟合效果
+
+用`plot`函数查看系数的变化： 
+
+```{r}
+plot(mfit, xvar = "lambda", label = TRUE, type.coef = "2norm")
+plot(mfit, xvar = "lambda", label = TRUE, type.coef = "coef")
+```
+
+其中`xvar`并且`label`两个参数的设置与单响应的高斯模型一样 。这里的`type.coef = "2norm"`表示每个变量的系数以二范数的形式展现。默认设置为`type.coef = "coef"`，这时每个响应变量会展示一张系数变化的图。 
+
+#### 3.2.4 预测
+
+可以通过`coef`函数提取系数 ，`predict`函数进行预测。用法和但响应的高斯模型一样，下面看看`predict`的用法：
+
+```{r}
+predict(mfit, newx = x[1:5,], s = c(0.1, 0.01))
+```
+#### 3.2.5 交叉验证
+
+同样的交叉验证用`cv.glmnet`函数： 
+
+```{r}
+cvmfit = cv.glmnet(x, y, family = "mgaussian")
+```
+画出交叉验证的结果： 
+
+```{r}
+plot(cvmfit)
+```
+
+想要查看最优的$\lambda$,,采用如下命令:
+
+```{r}
+cvmfit$lambda.min
+cvmfit$lambda.1se
+```
+和以前一样，第一个是达到最小均方误差的值，第二个是最正则化模型，其均方误差在最小值的一个标准误差范围内 
+
+
+## 4 逻辑回归
+
+逻辑回归是分类问题中最常用的模型之一。如果是一个二分类问题，一般假定响应变量服从二项分布，如果是多分类问题，则假定服从多项式分布。 
+
+### 4.1 二项分布逻辑回归
+
+假定响应变量的取值为 $\mathcal{G}=\{1,2\}$.定义 $y_i = I(g_i=1)$.则有
+$$\mbox{Pr}(G=2|X=x)+\frac{e^{\beta_0+\beta^Tx}}{1+e^{\beta_0+\beta^Tx}},$$
+我们可以两边取对数，改写为如下形式（称为对数似然函数）：
+$$\log\frac{\mbox{Pr}(G=2|X=x)}{\mbox{Pr}(G=1|X=x)}=\beta_0+\beta^Tx,$$
+
+这个带惩罚逻辑回归的目标函数的对数似然如下： 
+$$
+\min_{(\beta_0, \beta) \in \mathbb{R}^{p+1}} -\left[\frac{1}{N} \sum_{i=1}^N y_i \cdot (\beta_0 + x_i^T \beta) - \log (1+e^{(\beta_0+x_i^T \beta)})\right] + \lambda \big[ (1-\alpha)||\beta||_2^2/2 + \alpha||\beta||_1\big].
+$$
+当  $p > N$ 时，逻辑回归常常伴随着退化的困扰 ，当$N$接近$p$时，甚至在表现出野蛮的行为 。弹性网惩罚缓解了这些问题。
+
+#### 4.1.1 载入示例数据集
+
+```{r}
+data(BinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的int向量（0、1向量）
+```
+这里的输入x与其他分布簇相同，对于二项Logistic回归，响应变量y应该是具有两个级别的因子，或者是计数或比例的两列矩阵  
+
+#### 4.1.2 拟合模型
+
+`glmnet`二项式回归的其他可选参数与高斯族的几乎相同.仅需要把函数簇改为`family = "binomial"`即可： 
+
+```{r}
+fit = glmnet(x, y, family = "binomial")
+```
+#### 4.1.3 查看拟合效果
+
+同样， 我们可以用`print`和`plot`函数去查看对象 , 用`coef`提取特定λ的系数，用`predict`可以做出预测 .
+
+```{r}
+plot(fit, xvar = "dev", label = TRUE)
+```
+
+#### 4.1.4 预测
+
+逻辑回归的预测同高斯簇函数的用法有点不同，主要体现在参数`type`的设置上，详细概括如下：
+
+- “link” 线性拟合值
+- “response” 拟合的概率值
+- “class” 给出计算出的最大概率对应的类的标签
+- “coefficients” 计算给定`s`下的系数的估计值
+- “nonzero” 返回一个list对象，该list包含每一个`s`对应非零系数的索引
+
+> 对于“二项式”模型，预测结果仅仅是针对响应变量的第二个水平(“link”, “response”, “coefficients”, “nonzero”)  (可以用`level`函数查看第二级别的类)
+
+```{r}
+predict(fit, newx = x[1:5,], type = "class", s = c(0.05, 0.01))
+```
+#### 4.1.5 交叉验证
+
+逻辑回归的`cv.glmnet`的用法同高斯簇函数，`nfolds`, `weights`, `lambda`,`parallel`的设置一样，区别主要在`type.measure`：
+
+* “mse” 用平方损失
+* “deviance” 用真实偏差
+* “mae” 用平均绝对误差
+* “class” 用误分类率
+* “auc” ROC曲线的下面积(这个选项仅针对两分类逻辑回归)。是现在最流行的综合考量模型性能的一种参数 
+
+例如，用误分类率误差为标准做十折交叉验证，代码如下： 
+
+```{r}
+cvfit = cv.glmnet(x, y, family = "binomial", type.measure = "class")
+```
+用`plot`查看`cv.glmnet`生成的结果： . 
+
+```{r}
+plot(cvfit)
+```
+```{r}
+cvfit$lambda.min #查看最优的λ值
+cvfit$lambda.1se
+```
+
+`coef`和`predict`与高斯簇类似： 
+
+```{r}
+coef(cvfit, s = "lambda.min") # 如前所述，此处返回的结果仅适用于响应变量的第二个水平。
+```
+As mentioned previously, the results returned here are only for the second level of the factor response.
+
+```{r}
+predict(cvfit, newx = x[1:10,], s = "lambda.min", type = "class")
+```
+
+### 4.2 多分类逻辑回归
+
+多分类逻辑回归假定响应变量服从多项式分布, 假定响应变量有K个水平 ${\cal G}=\{1,2,\ldots,K\}$。则有
+
+$$\mbox{Pr}(G=k|X=x)=\frac{e^{\beta_{0k}+\beta_k^Tx}}{\sum_{\ell=1}^Ke^{\beta_{0\ell}+\beta_\ell^Tx}}.$$
+
+${Y}$ 应该是 $N \times K$ 的响应矩阵（把离散变量进行one-hot编码即可）  ,那么带弹性网惩罚项的非负对数似然函数如下： 
+$$
+\ell(\{\beta_{0k},\beta_{k}\}_1^K) = -\left[\frac{1}{N} \sum_{i=1}^N \Big(\sum_{k=1}^Ky_{il} (\beta_{0k} + x_i^T \beta_k)- \log \big(\sum_{k=1}^K e^{\beta_{0k}+x_i^T \beta_k}\big)\Big)\right] +\lambda \left[ (1-\alpha)||\beta||_F^2/2 + \alpha\sum_{j=1}^p||\beta_j||_q\right].
+$$
+这里β是一个$p\times K$维的系数矩阵 $\beta_k$ 是其中的第$k$列,表示第$k$个模型对应模型的系数  , $\beta_j$ 第$j$行，表示第$j$个变量前面的系数。 
+
+后面的惩罚项  $||\beta_j||_q$, 有两种情形 $q\in \{1,2\}$.当q=1时，它是一个lasso惩罚项；当q=2时，它是一个grouped-lasso惩罚项。 
+
+#### 4.2.1 载入示例数据集
+
+首先载入数据集：
+
+```{r}
+data(MultinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的数字向量（水平1,2,3组成）训练是内部自动转换
+```
+#### 4.2.2 拟合模型
+
+多分类逻辑回归的模型拟和二分类逻辑回归类似，只是这里新增加了一个特殊的参数`type.multinomial`，当`type.multinomial = "grouped"`时，模型拟合时会让每个变量前面的系数全为0或者全不为零，其实就是对于每个类建立逻辑回归时所用到的变量完全相同。
+
+```{r}
+fit = glmnet(x, y, family = "multinomial", type.multinomial = "grouped")
+```
+
+#### 4.2.3 查看拟合效果
+
+用`plot`查看模型拟合结果：
+
+```{r}
+plot(fit, xvar = "lambda", label = TRUE, type.coef = "2norm")
+plot(fit, xvar = "lambda", label = TRUE, type.coef = "coef")
+```
+
+这里`xvar`和`label`的使用和之前相同，但是多了一个`type.coef`选项，这个选项仅适用于对多分类逻辑回归以及多响应变量线性回归，若`type.coef = "coef"`会用多张图分别展示每个响应变量的系数，若`type.coef = "2norm"`则会展示系数的L2-范数。 
+
+#### 4.2.4 交叉验证和预测
+
+我们同样也可以做交叉验证：
+
+```{r}
+library(doParallel)
+# Windows System
+cl<-makeCluster(7)
+registerDoParallel(cl)
+cvfit=cv.glmnet(x, y, family="multinomial", type.multinomial = "grouped", parallel = TRUE)
+stopCluster(cl)
+plot(cvfit)
+
+```
+
+用拟合的模型来预测： 
+
+```{r}
+predict(cvfit, newx = x[1:10,], s = "lambda.min", type = "class")
+```
+
+
+
+## 5 泊松回归
+
+泊松回归经常会用到计数模型中，假定其误差满足泊松分布。
+
+经常用其均值的对数来建模：$\log \mu(x) = \beta_0+\beta' x$.
+
+给定  $\{x_i,y_i\}_1^N$下的对数似然为:
+$$
+l(\beta|X, Y) = \sum_{i=1}^N (y_i (\beta_0+\beta' x_i) - e^{\beta_0+\beta^Tx_i}.
+$$
+于是问题变成优化如下带惩罚的对数似然： 
+$$
+\min_{\beta_0,\beta} -\frac1N l(\beta|X, Y)  + \lambda \left((1-\alpha) \sum_{i=1}^N \beta_i^2/2) +\alpha \sum_{i=1}^N |\beta_i|\right).
+$$
+
+
+
+### 5.1 加载数据集
+
+```{r}
+data(PoissonExample)# 产生名为x维度为500*20的矩阵 ,名为y长度为500的数字向量,全是大于0的数字（泊松函数也是大于0的函数）
+```
+
+### 5.2 拟合模型
+
+采用`glmnet`函数，设置`family = "poisson"`：
+
+```{r}
+fit = glmnet(x, y, family = "poisson")
+```
+### 5.3 查看拟合效果
+
+```{r}
+plot(fit)
+```
+
+### 5.4 预测
+
+用`predict`做预测,在参数选项的设置中，主要是`type`存在一些差异，做出说明如下：
+
+- “link” 给出线性拟合值
+- “response” 给出拟合的均值
+- “coefficients” 计算给定`s`下的系数，也可以直接用`coef`函数
+- “nonzero” 返回一个list对象，该list包含每一个`s`对应非零系数的索引
+
+```{r}
+coef(fit, s = 1)
+predict(fit, newx = x[1:5,], type = "response", s = c(0.1,1))
+```
+
+我们同样也可以做交叉验证：
+
+```{r}
+cvfit = cv.glmnet(x, y, family = "poisson")
+```
+选项与高斯族几乎相同，除了 `type.measure` 
+
+* `cv.glmnet`中`type.measure`的设置：
+  - “deviance” 偏差
+  - “mse” 均方误差
+  - “mae” 平均绝对误差
+
+绘制`cv.glmnet`对象。 
+
+```{r}
+plot(cvfit)
+```
+
+提取最优λ对应的模型系数：
+
+```{r}
+opt.lam = c(cvfit$lambda.min, cvfit$lambda.1se)
+coef(cvfit, s = opt.lam)
+```
+可以使用`predict`进行预测，方法类似，在重复 
+
+
+
+## 6  Cox模型
+
+不是很了解。
+
+The Cox proportional hazards model is commonly used for the study of the relationship beteween predictor variables and survival time. In the usual survival analysis framework, we have data of the form $(y_1, x_1, \delta_1), \ldots, (y_n, x_n, \delta_n)$ where $y_i$, the observed time, is a time of failure if $\delta_i$ is 1 or right-censoring if $\delta_i$ is 0. We also let $t_1 < t_2 < \ldots < t_m$ be the increasing list of unique failure times, and $j(i)$ denote the index of the observation failing at time $t_i$.
+
+The Cox model assumes a semi-parametric form for the hazard
+$$
+h_i(t) = h_0(t) e^{x_i^T \beta},
+$$
+where $h_i(t)$ is the hazard for patient $i$ at time $t$, $h_0(t)$ is a shared baseline hazard, and $\beta$ is a fixed, length $p$ vector. In the classic setting $n \geq p$, inference is made via the partial likelihood
+$$
+L(\beta) = \prod_{i=1}^m \frac{e^{x_{j(i)}^T \beta}}{\sum_{j \in R_i} e^{x_j^T \beta}},
+$$
+where $R_i$ is the set of indices $j$ with $y_j \geq t_i$ (those at risk at time $t_i$).
+
+Note there is no intercept in the Cox mode (its built into the baseline hazard, and like it, would cancel in the partial likelihood.)
+
+We penalize the negative log of the partial likelihood, just like the other models, with an elastic-net penalty.
+
+### 6.1 载入数据集
+
+同样地，我们加载预先生成好的样本数据和响应变量，但是这里需要注意的是，这里采用了生存分析的分析框架，输入数据略有差别。首先，我们加载数据集：
+
+```{r}
+data(CoxExample)# 产生名为x的矩阵，其维度为1000*30 ，名为y的矩阵，其维度为1000*2
+y[1:5,] # status列表示time列对应下的状态，第一列必须是数值型的时间，第二列参数是逻辑向量，0/1表示死亡与否
+```
+可以看到加载的数据还是包含自变量x以及响应变量y两部分：x是n×p维的矩阵；不同的是y，y为$n \times 1$维的矩阵，其中名为`time`的列是观察时间，名为`status`的列为该观察时间下对应的状态，0表示生成，1表示死亡。 
+
+### 6.2 拟合模型
+
+同样用`glmnet`建模:
+
+```{r}
+fit = glmnet(x, y, family = "cox")
+```
+### 6.3 查看拟合效果
+
+```{r}
+plot(fit)
+```
+
+提取给定  $\lambda$下对应的系数：
+
+```{r}
+coef(fit, s = 0.05)
+```
+
+由于Cox模型不常用于预测，所以没有给出预测的样例 。如果需要，可以参考帮助文件`help(predict.glmnet)`。 
+
+### 6.4 交叉验证
+
+用`cv.glmnet`做K折交叉验证时，`type.measure`的选项仅支持“deviance”：
+
+```{r}
+cvfit = cv.glmnet(x, y, family = "cox")
+```
+```{r}
+plot(cvfit)
+```
+
+提取最优的 $\lambda$ 值
+```{r}
+cvfit$lambda.min
+cvfit$lambda.1se
+```
+提取模型系数： 
+
+```{r}
+coef.min = coef(cvfit, s = "lambda.min")
+active.min = which(coef.min != 0)
+index.min = coef.min[active.min]
+```
+```{r}
+index.min
+coef.min
+```
+
+[Back to Top](#top)
+
+<a id="spa"></a>
+
+## 7 稀疏矩阵
+
+除了`cox`模型外，`glmnet`均支持稀疏矩阵作为输入，它的用法同常规矩阵的用法相同。
+
+我们加载一个稀疏矩阵示例：
+
+我们加载一个稀疏矩阵示例：
+
+```{r}
+data(SparseExample)
+```
+加载的数据`x`为100*20的一个稀疏矩阵，`y`为响应变量(长度为100的向量）。
+```{r}
+class(x)
+```
+创建稀疏矩阵有两种方式，一种方式是采用`sparseMatrix`生成；还有一种方式是直接采用`Matrix`来构建。 
+
+当输入是稀疏矩阵时，调用`glmnet`的方式跟普通矩阵没有差别： 
+
+```{r}
+fit = glmnet(x, y)
+```
+交叉验证也一样： 
+
+```{r}
+cvfit = cv.glmnet(x, y)
+plot(cvfit)
+```
+
+稀疏矩阵除了可以用作`glmnet`的输入`x`，还可以用作`predict`函数的输入`newx`，我们来看看如下的例子： 
+
+```{r}
+i = sample(1:5, size = 25, replace = TRUE)
+j = sample(1:20, size = 25, replace = TRUE)
+x = rnorm(25)
+nx = sparseMatrix(i = i, j = j, x = x, dims = c(5, 20))
+predict(cvfit, newx = nx, s = "lambda.min")
+```
+
+
+
+```{r}
+sessionInfo()
+```
+
+
+参考：https://web.stanford.edu/~hastie/glmnet/glmnet_beta.html
+
+
+

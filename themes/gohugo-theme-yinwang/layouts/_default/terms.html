@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    {{ with .Site.LanguageCode }}<meta http-equiv="content-language" content="{{ . }}" />{{ end }}
+    {{ if .IsHome }}
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no">
+    {{ else }}
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    {{ end }}
+    <!-- load bootstrap css -->
+    <title>{{.Title}}</title>
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{.Site.BaseURL}}css/stylesheet.css">
+    <link rel="stylesheet" href="{{.Site.BaseURL}}css/home.css">
+    <!-- 多点背景色，不要老白老白的 -->
+    {{ with .Site.Params.backgroundColor }}
+    <style type="text/css">
+    body {background-color: {{ . }};}
+    </style>
+    {{end}}
+
+</head>
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        // ignore resize events as long as an actualResizeHandler execution is in the queue
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            // The actualResizeHandler will execute at a rate of 15fps
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+
+
+{{ partial "term" . }}
+{{ partial "footer" .}}

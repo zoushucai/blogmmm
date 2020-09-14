@@ -1,0 +1,761 @@
+---
+title: "残缺区间群体决策模型（GDM Liu 2012)"
+date: "2019-05-05"
+categories: ["决策方法"]
+tags:
+  - R
+  - 决策方法
+  - AHP
+series: "不确定多属性决策方法---徐泽水"
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+options(width = 600)
+knitr::opts_chunk$set(autodep=TRUE,message = F,warning = F,comment = "#>",collapse = TRUE)
+
+```
+
+# 残缺区间群体决策模型（GDM）
+
+## 0. 参考论文:
+
+徐泽水： [A consistency improving method in the analytic hierarchy process](http://www.sciencedirect.com/science/article/pii/S037722179800109X) 1999年
+
+刘芳：[Acceptable consistency analysis of interval reciprocal comparison matrices](http://dl.acm.org/citation.cfm?id=1619182)  2009年
+
+刘芳： [A goal programming model for incomplete interval multiplicative preference relations and its application in group decision-making](http://www.sciencedirect.com/science/article/pii/S0377221711010514) 2012年
+
+## 1. 主要思路（刘芳2012年）：
+
+1. 先把残缺区间矩阵$U_k$通过某种方法(LOP2)或者利用粒子群算法)进行补全成$U_k^{’}$，
+2. 检查补全以后的矩阵$U_{k}^{'}$是否具有一致性($U_{k}^{'}$具有一致性  的充要条件 是 $U_{k}^{'}$ 分解成单个的正互反判断矩阵B 和D，矩阵B和D的CR <= 0.1)，不具有则调整（按照徐泽水1999年提出的论文进行调整)
+3. 若$U_{k}^{'}$具有一致性，则进行群体决策模型构建，生成最终的区间判断矩阵U
+4. 通过最终的区间判断矩阵U生成区间权重，注意生成区间权重并没有归一化权重，根据区间权重生成可能度矩阵P.
+
+
+
+## 2.主要函数构建：
+
+0. `consistency(A):` 求正互反判断矩阵的一致性指标，返回一个list
+
+1. `em_get_w(A) :` 特征值求权重 ——  没有归一化权重
+2. `gm_get_w(A)：` 几何平均求权重 — — 没有归一化权重
+3. `get_w(B,D):` 分别获取B，D的权重（可以指定几何平均或者特征值求权重），然后组成区间权重向量（即小的在前，大的在后），这里返回的是一个矩阵，把每一个区间数看做矩阵的一行。
+4. `fenjie(U ):` 把区间矩阵U分解成正互反判断矩阵B和D
+5. `adjust_w(A,lambda) :` 利用论文的方法进行调整，返回调整后符合一致性条件的一致性矩阵。
+6. `degree_probability(a,b)` 函数计算两个区间数的可能度
+7. `probability_matrix(w)` 给一个n*2 的区间数，求其可能度矩阵
+
+
+
+介绍几个函数----这几个函数都是利用粒子群算法把$U_{k}$变成$U_{k}^{'}$
+
+以下是补全区间的关键元素。
+
+8. `index_matrix():`此函数可以查找到区间正互反判断矩阵中那些元素是缺失的（缺失用0表示)，并生成一个矩阵，每一列都有其相关含义。
+
+9. `hecheng(B,D):`  对应fenjie的逆向操作，把两个正互反矩阵进行合并成一个区间判断矩阵。`  
+
+10.  `jianyan_yuesu(U): `检验输入的区间判断矩阵U是否满足要求，即有没有输入上的出错。
+
+11. `set_x(x,U):`函数把x向量赋值给U中缺失的元素
+
+12. `obj_fun(Ut): `求补全好的区间矩阵的目标函数值
+
+13. 随机初始化残缺元素
+
+	1. `U_to_UU()` 函数是把区间矩阵U 重塑成(n * n ) 2形式的矩阵，以两列为单位，因为每两列是一个区间，第一列代表区间的下界，第二列代表区间的上界，故 形成2列矩阵，每一行代表一个区间数，
+	2. `UU_to_U()`  函数是通过找出UU中的缺失元素，然后赋予缺失元素一个随机值（ 该随机值保证了在1/9 ~ 9之间，且保证了UU中的下界与上界的关系，若某行只缺失一个数据，也能得到相应的保证），并把赋予好的完整矩阵变成区间判断矩阵的形式。
+	3. `U_runif()`是` U_to_UU()` 和`UU_to_U()` 函数的融合，先利用`U_to_UU()`变成我们需要的格式，然后利用`UU_to_U() `产生随机值进行填充最后返回我们随机填充好的区间判断矩阵
+	4. `init_x()`    通过随机初始化U，找出解
+
+14. `GDM_PSO() `主要的函数，通过利用粒子群算法把$U_{k}$变成$U_{k}^{'}$
+
+15. `DGM_U()`群体决策，把若干个完整的区间判断矩阵合并成一个区间判断矩阵。
+
+	
+
+```{r}
+rm(list = ls())
+# 0。 一致性指标的求解
+consistency = function(A){
+  lambda = Re(eigen(A)$values[1]) # 矩阵A的最大特征值
+  n  = nrow(A)
+  RI = c(0,0,0.58,0.90,1.12,1.24,1.32,1.41,1.45);
+  CI = (lambda-n) / (n-1);
+  CR = CI / RI[n];
+  eig_w = eigen(A)$vectors[,1] / sum( eigen(A)$vectors[,1]);
+  return(list("eig_value"=lambda,"CI"=CI,"RI"=RI[n],"CR"=CR,'eig_w'=Re( eig_w )))
+}
+
+
+# 1. 特征值求权重
+em_get_w = function(A){
+  n = nrow(A)
+  stopifnot(nrow(A) ==  ncol(A))
+  
+  lambda = Re(eigen(A)$values[1]) # 矩阵A的最大特征值
+  n = nrow(A)
+  RI = c(0,0,0.58,0.90,1.12,1.24,1.32,1.41,1.45);
+  CI=(lambda-n)/(n-1);
+  CR=CI/RI[n];
+  eig_origin = eigen(A)$vectors[,1]
+  eig_w = eigen(A)$vectors[,1] # /sum(eigen(A)$vectors[,1]);
+  eig_w = Re(eig_w)
+  return(eig_w)
+}
+# 2. 几何平均求权重
+gm_get_w =function(A){
+  n = nrow(A)
+  stopifnot(nrow(A) ==  ncol(A))
+  temp = apply(A, 1, function(x) prod(x)^(1/n) )
+  w = temp # /sum(temp)
+  return(w)
+}
+# 3. 合并权重
+get_w = function(B,D,method = c('gm_get_w','em_get_w') ){
+  n = nrow(B)
+  stopifnot(n == nrow(D))
+  method <- match.arg(method)
+  f = get(method)
+  w_B = f(B)
+  w_D = f(D)
+  w_L = rep(0,length(w_B))
+  w_U = rep(0,length(w_B))
+  for(i in 1:length(w_B)){
+    w_L[i] = min(w_B[i],w_D[i])
+    w_U[i] = max(w_B[i],w_D[i])
+  }
+  w = matrix(c(w_L,w_U), ncol= 2 )
+  return(w)
+}
+
+
+
+# 4. 通过U进行分解，分解出B，D矩阵，
+fenjie = function(U){
+  n = nrow(U)
+  stopifnot(ncol(U) == 2*n)
+  
+  B = matrix(0,nrow = n,ncol = n)
+  D = matrix(0,nrow = n,ncol = n)
+  
+  for(i in 1:n){
+    for(j in 1:n){
+      if(i<j){
+        B[i,j] = U[i,j*2]
+        D[i,j] = U[i,2*j-1]
+      }else if(i>j){
+        B[i,j] = U[i,2*j-1]
+        D[i,j] = U[i,j*2]
+      }else{
+        B[i,j] = U[i,2*j]
+        D[i,j] =U[i,2*j]
+      }
+    }
+  }
+  return(list('B'=B,'D'=D))
+}
+
+
+# 5. 徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准(CR <=0.1).
+adjust_w <- function(A, lambda) {
+  k <- 0
+  n = nrow(A)
+  m = ncol(A)
+  stopifnot(n == m)
+  temp_CR <- consistency(A)$CR
+  temp_w <- consistency(A)$eig_w
+  while (temp_CR >= 0.1 && k < 1000) {
+    for (i in 1:n) {
+      for (j in 1:n) {
+          A[i, j] <- (A[i, j]^lambda) * (temp_w[i] / temp_w[j])^(1 - lambda)
+      }
+    }
+    temp_CR <- consistency(A)$CR
+    temp_w <- consistency(A)$eig_w
+    k <- k + 1
+  }
+  return(A)
+}
+
+
+
+# 6. degree_probability 函数计算两个区间数的可能度
+degree_probability <- function(a, b) {
+  # 输入的a,b代表一个区间，即是一个二维向量，且小的在前面，大的元素在后面
+  stopifnot(length(a) == length(b), length(a) == 2, a[1] <= a[2], b[1] <= b[2])
+  temp <- 0
+  if (a[1] == a[2] && b[1] == b[2]) {
+    if (a[1] > b[1]) {
+      temp <- 1
+    } else if (a[1] == b[1]) {
+      temp <- 0.5
+    } else {
+      temp <- 0
+    }
+  } else if (a[1] == a[2] && b[1] != b[2]) {
+    if (a[1] > b[2]) {
+      temp <- 1
+    } else if (b[1] <= a[1] & a[1] <= b[2]) {
+      temp <- (a[1] - b[1]) / (b[2] - b[1])
+    } else {
+      temp <- 0
+    }
+  } else if (a[1] != a[2] && b[1] == b[2]) {
+    if (a[1] > b[1]) {
+      temp <- 1
+    } else if (a[1] <= b[1] & b[1] <= a[2]) {
+      temp <- (a[2] - b[1]) / (a[2] - a[1])
+    } else {
+      temp <- 0
+    }
+  } else if (a[1] != a[2] && b[1] != b[2]) {
+    if (a[1] < a[2] && a[2] <= b[1] && b[1] < b[2]) {
+      temp <- 0
+    } else if (a[1] <= b[1] && b[1] < a[2] && a[2] <= b[2]) {
+      s_t <- (a[2] - b[1]) * (a[2] - b[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      temp <- s_t / s
+    } else if (a[1] <= b[1] && b[1] <= b[2] && b[2] <= a[2]) {
+      s_t <- ((a[2] - b[2]) + (a[2] - b[1])) * (b[2] - b[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      temp <- s_t / s
+    } else if (b[1] < a[1] && a[1] < a[2] && a[2] < b[2]) { 
+      # 可写等号b[1] <= a[1] && a[1]<a[2] &&a[2]<=b[2]
+      s_t <- ((a[1] - b[1]) + (a[2] - b[1])) * (a[2] - a[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      temp <- s_t / s
+    } else if (b[1] < a[1] && a[1] < b[2] && b[2] < a[2]) {
+      s_tt <- (b[2] - a[1]) * (b[2] - a[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      s_t <- s - s_tt
+      temp <- s_t / s
+    } else if (b[1] < b[2] && b[2] <= a[1] && a[1] < a[2]) {
+      temp <- 1
+    } else {
+    stop("运行出错,请检查")
+    }
+  } else {
+    stop("运行出错,请检查")
+  }
+  return(temp)
+}
+
+# 7. probability_matrix 给一个n*2 的区间数，求其可能度矩阵
+probability_matrix <- function(Z) {
+  # probability_matrix函数输入一个n*2的矩阵，每一行代表输出各个方案的综合属性值得区间数
+  # 此函数输出各方案两两比较的可能度矩阵。
+  # degree_probability函数求两个区间数的可能度，
+  # a，b代表输入的区间数，输入这两个
+  P <- matrix(0, ncol = nrow(Z), nrow = nrow(Z))
+  for (i in 1:nrow(Z)) {
+    for (j in 1:nrow(Z)) {
+      P[i, j] <- degree_probability(Z[i, ], Z[j, ])
+    }
+  }
+  return(P)
+}
+
+
+# 8. index_matrix此函数可以查找到区间正互反判断矩阵中那些元素是缺失的（缺失用0表示)
+index_matrix <- function(U) {
+  nnn <- which(U == 0, arr.ind = T)[, 1] # 行
+  mmm <- which(U == 0, arr.ind = T)[, 2] # 列
+  index <- matrix(0, nrow = length(nnn), ncol = 8)
+  # 矩阵index 每一行相当于一个变量
+  # 第一列代表 X索引，即变量X1,X2,...Xn
+  # 第二三列 代表变量Xi 所在U中的位置，用行和列表示
+  # 第四列，第五列，根据变量Xi在U的位置，
+  # 第6 列，判断Xi与Xj 是否为同一个位置，
+  index[, 1] <- 1:length(nnn)
+  index[, 2] <- nnn #
+  index[, 3] <- mmm
+  index
+  for (i in 1:nrow(index)) {
+    if (index[i, 3] %% 2 == 0) {
+      # 第3列的数字是偶数,检查U矩阵向前一列是否为0
+      if (U[index[i, 2], index[i, 3] - 1] == 0) {
+        index[i, 4] <- 0
+        index[i, 5] <- 0
+      } else {
+        index[i, 4] <- U[index[i, 2], index[i, 3] - 1]
+        index[i, 5] <- 0
+      }
+    } else {
+      if (U[index[i, 2], index[i, 3] + 1] == 0) {
+        index[i, 4] <- 0
+        index[i, 5] <- 0
+      } else {
+        index[i, 4] <- 0
+        index[i, 5] <- U[index[i, 2], index[i, 3] + 1]
+      }
+    }
+  }
+  
+  for (i in 1:nrow(index)) {
+    if (index[i, 4] != 0 & index[i, 5] == 0) {
+      index[i, 5] <- 9
+    }
+  }
+  for (i in 1:nrow(index)) {
+    if (index[i, 5] != 0 & index[i, 4] == 0) {
+      index[i, 4] <- 1 / 9
+    }
+  }
+  index[, 6] <- ifelse((index[, 4] == index[, 5] & index[, 4] == 0), 1, 0)
+  jinjibiao <- c()
+  for (i in 1:nrow(index)) {
+    for (j in 1:nrow(index)) {
+      if (index[i, 6] == 1 & index[j, 6] == 1 & j != i) {
+        if (index[i, 2] == index[j, 2] & abs(index[i, 3] - index[j, 3]) == 1) {
+          if (!(index[i, 7] %in% jinjibiao)) {
+            jinjibiao <- c(jinjibiao, j)
+            index[i, 7] <- index[i, 1]
+            index[i, 8] <- index[j, 1]
+          }
+        }
+      }
+    }
+  }
+  for (i in 1:nrow(index)) {
+    if (index[i, 7] > index[i, 8]) {
+      t <- index[i, 8]
+      index[i, 8] <- index[i, 7]
+      index[i, 7] <- t
+    }
+  }
+  
+  return(index)
+}
+
+
+# 9. 合成
+hecheng <- function(B, D) {
+  n = nrow(B)
+  m = ncol(B)
+  stopifnot(n == m, n == nrow(D) )
+  UU <- matrix(0, nrow = n, ncol = n * 2)
+  
+  for (i in 1:n) {
+    for (j in 1:(2*n) ) {
+      k <- (j + 1) %/% 2
+      if (i > k) {
+        if (j %% 2 == 0) {
+          UU[i, j] <- D[i, k]
+        } else {
+          UU[i, j] <- B[i, k]
+        }
+      } else if (i < k) {
+        if (j %% 2 == 0) {
+          UU[i, j] <- B[i, k]
+        } else {
+          UU[i, j] <- D[i, k]
+        }
+      } else {
+        UU[i, j] <- 1
+      }
+    }
+  }
+  return(UU)
+}
+
+
+####################################################################################
+######################## 构建 目标函数 补全区间残缺矩阵 ################## 
+# 10. 检验U矩阵是否符合条件 
+jianyan_yuesu <- function(U) {
+  if (!all(U >= 1 / 9 & U <= 9)) {
+    stop("U矩阵不满足约束条件")
+  }
+  B <- fenjie(U)$B # 先对U进行分解，分解成B，D约束条件
+  D <- fenjie(U)$D
+  R <- matrix(0, nrow = nrow(D), ncol = ncol(D)) # 存储C与D比较的结果
+  for (i in 1:nrow(B)) {
+    for (j in 1:ncol(B)) {
+      if (i < j) {
+        R[i, j] <- (B[i, j] >= D[i, j])
+      } else if (i > j) {
+        R[i, j] <- (B[i, j] <= D[i, j])
+      } else {
+        R[i, j] <- all(B[i, j] == D[i, j], B[i, j] == 1)
+      }
+    }
+  }
+  if (!all(R == 1)) {
+    stop("U矩阵分解后的B,D矩阵不满足约束条件")
+  }
+  return(1) # 返回结果为1 即满足约束
+}
+
+
+# 11. 把x的值赋予U中的残缺元素
+set_x <- function(x, U) {
+  U[which(U == 0)] <- x
+  return(U)
+}
+
+# 12，U补全后的矩阵记为Ut，计算补全后的目标函数值
+obj_fun <- function(Ut) {
+  s_sum <- 0
+  B_sum <- 0
+  D_sum <- 0
+  B <- fenjie(Ut)$B
+  D <- fenjie(Ut)$D
+  n <- nrow(B)
+  if (jianyan_yuesu(Ut)) {
+    for (i in 1:n) {
+      for (j in 1:n) {
+        for (k in 1:n) {
+          B_sum <- B_sum + (log(B[i, j], 9) - log(B[i, k], 9) - log(B[k, j], 9))^2
+          D_sum <- D_sum + (log(D[i, j], 9) - log(D[i, k], 9) - log(D[k, j], 9))^2
+        }
+      }
+    }
+    s_sum <- s_sum + B_sum + D_sum
+    return(s_sum)
+  } else {
+    stop("!!!输入的矩阵不符合约束条件")
+  }
+}
+
+
+
+#########################################################
+#######################################################
+######################## 13. 初始化x #######
+######### U_runif 通过U产生 符合要求的随机矩阵U2
+# 13.1 重塑U ---把U变成UU（即(n*n )*2)形式的矩阵）
+U_to_UU <- function(U) {
+  n <- nrow(U)
+  m <- ncol(U) / 2
+  stopifnot(m >= 4, m == nrow(U))
+  # 先重塑U,U的每两列进行列合并成UU，通过UU产生0所在位置的随机数，并返回0所在的行下标，
+  # 即矩阵B，D为0的下标
+  UU <- U[, 1:2]
+  for (j in 2:(ncol(U) / 2)) {
+    temp1 <- U[, c(2 * j - 1, 2 * j)]
+    UU <- rbind(UU, temp1)
+  }
+  return(UU)
+}
+
+# 13.2 UU 转变成U的形式，并赋予随机值
+UU_to_U <- function(UU) {
+  n <- sqrt(nrow(UU))
+  if (!as.integer(n)) stop("n不是整数")
+  BD_index2 <- t(apply(UU, 1, function(x) {
+    temp <- c(0, 0)
+    if (x[1] == 0 && x[2] != 0) {
+      temp[1] <- runif(1, 1 / 9, x[2])
+      temp[2] <- x[2]
+    } else if (x[1] != 0 && x[2] == 0) {
+      temp[1] <- x[1]
+      temp[2] <- runif(1, x[1], 9)
+    } else if (x[1] == 0 && x[2] == 0) {
+      temp <- sort(runif(2, 1 / 9, 9))
+    } else {
+      temp <- x
+    }
+    return(temp)
+  }))
+  # 把BD_index2 转变为 U的形式
+  stopifnot(nrow(BD_index2) %% n == 0)
+  U2 <- BD_index2[1:n, ]
+  for (j in 2:(nrow(BD_index2) / n)) {
+    temp2 <- BD_index2[(n * j - n + 1):(n * j), ]
+    U2 <- cbind(U2, temp2)
+  }
+  return(U2)
+}
+
+# 13.3 直接通过U随机初始化U
+U_runif <- function(U) {
+  UU <- U_to_UU(U)
+  # 对UU的每一行进行判断，产生出符合要求的随机数，并使BD_index2的形式与UU的形式一样，都为 (n*m) * 2矩阵
+  U2 <- UU_to_U(UU)
+  return(U2)
+}
+
+# 13.4 通过随机初始化U，找出解
+init_x <- function(U) {
+  U2 <- U_runif(U)
+  return(U2[which(U == 0)])
+}
+
+
+###############################################################
+## 14。通过粒子群算法求目标函数最小值，来补全残缺区间矩阵的元素
+GDM_PSO <- function(U) {
+  Popsize <- 100 # 种群的大小
+  Dim <- sum(U == 0) # 粒子的维度
+  c1 <- 2 # 学习因子
+  c2 <- 2 # 学习因子
+  LB <- 1 / 9 # 下限
+  UB <- 9 # 上限
+  w_start <- 0.9
+  w_end <- 0.4
+  Vmax <- 5
+  Vmin <- -Vmax
+  MaxIter <- 3000
+  
+  
+  index <- index_matrix(U)
+  
+  # 初始化粒子位置和速度
+  X <- matrix(0, nrow = Popsize, ncol = Dim)
+  for (i in 1:Popsize) {
+    X[i, ] <- init_x(U)
+  }
+  V <- matrix(runif(Popsize * Dim), nrow = Popsize, ncol = Dim)
+  
+  # 设置当前位置为粒子的最好位置，并记录其最好值
+  PBest <- X
+  FPBest <- apply(X, 1, function(xx) obj_fun(set_x(xx, U)))
+  # FPBest
+  
+  if (anyNA(FPBest)) {
+    stop("适应度函数出现NA 或NaN，请检查")
+  }
+  # 找出初始微粒群体的最好微粒
+  Best <- PBest[which.min(FPBest), ] # 最好的微粒
+  FGBest <- min(FPBest) # 以及最好的微粒对应的适应度值
+  
+  FX <- c(FGBest, rep(0, MaxIter - 1)) # 用来记录每一代的最粒子对应的适应度值
+  iter <- 0 # 初始迭代次数
+  
+  while (iter < MaxIter) {
+    # if(iter%%100 == 0) print(iter) # 显示循环进度条
+    iter <- iter + 1
+    # 更新权重的值
+    w_now <- (w_start - (w_start - w_end) / MaxIter * iter)
+    A <- matrix(rep(Best, each = Popsize), nrow = Popsize, ncol = Dim)
+    # 生成随机数
+    R1 <- matrix(runif(Popsize * Dim), nrow = Popsize, ncol = Dim)
+    R2 <- matrix(runif(Popsize * Dim), nrow = Popsize, ncol = Dim)
+    
+    # 速度更新
+    V <- w_now * V + c1 * R1 * (PBest - X) + c2 * R2 * (A - X)
+    
+    # 对进化后速度大于最大素的的微粒进行处理
+    changes <- V > Vmax
+    V[changes] <- Vmax
+    changes <- V < Vmin
+    V[changes] <- Vmin
+    
+    # 微粒位置进行更新
+    X <- X + 1.0 * V
+    # 对进化后微粒位置 大于搜索空间的的微粒进行处理
+    changes <- X > UB
+    X[changes] <- UB
+    changes <- X < LB
+    X[changes] <- LB
+    # 并再次检验是否满足约束，如果不满足约束，则进行调整
+    
+    for (ii in 1:nrow(index)) {
+      if (index[ii, 6] == 0) {
+        X[which(X[, ii] < index[ii, 4]), ii ] <- index[ii, 4]
+        X[which(X[, ii] > index[ii, 5]), ii] <- index[ii, 5]
+      } else {
+        X[which(X[, ii] < 1 / 9), ii ] <- 1 / 9
+        X[which(X[, ii] > 9), ii] <- 9
+        # 交换值 ，
+        if (ii %in% index[, 7] & index[ii, 7] != 0) {
+          kkkk <- ii
+          jjjj <- index[ii, 8]
+          
+          Low <- ifelse(X[, kkkk] > X[, jjjj], X[, jjjj], X[, kkkk])
+          UP <- ifelse(X[, kkkk] > X[, jjjj], X[, kkkk], X[, jjjj])
+          X[, kkkk] <- Low
+          X[, jjjj] <- UP
+        }
+      }
+    }
+    
+    
+    # 重新计算新位置的适应度值
+    
+    FPBest2 <- apply(X, 1, function(xx) obj_fun(set_x(xx, U)))
+    
+    # 更新每个微粒最好的位置
+    P <- (FPBest2 < FPBest)
+    FPBest[P] <- FPBest2[P] # 适应度值更换
+    PBest[P, ] <- X[P, ] # 粒子位置更换
+    
+    # 保存最好的粒子和适应度值
+    Best <- PBest[which.min(FPBest), ]
+    FGBest <- min(FPBest)
+    FX[iter] <- FGBest
+  }
+  # Best 为找到的最优解，把最优解赋值给区间型矩阵
+  Ut = set_x(Best,U) # Ut 即补全后的区间型矩阵
+  obj = obj_fun(Ut ) # 最优区间矩阵对于的目标函数值
+  return(list("best" = Best, "FGBest" = FGBest,"Ut" = Ut,"obj"= obj))
+}
+
+## 15. DGM_U()群体决策，把若干个完整的区间判断矩阵合并成一个区间判断矩阵。
+DGM_U = function(...){
+  #######  第一部分是对参数的检查 #####################
+  # 输入的参数为U_{k}，U_{k}代表一个完整的区间乘积互反判断矩阵。
+  n = nrow(..1)
+  m = ncol(..1)
+  args <- list(...)
+  stopifnot( length(args) >=2, all( map_lgl(args,is.matrix)),2*n ==m )
+  # 检查所有的矩阵维度是否一样
+  library(purrr)
+  t = map(args,dim) %>% do.call(rbind, .) 
+  stopifnot( nrow(unique(t)) == 1)
+  
+  ####### 第二部分 对参数的操作，达到想要的目的###########
+  ## 1. 使用快捷的函数
+  k = 1 / length(args)
+  UB = reduce( map(args,function(x)fenjie(x)$B),`*`)^k
+  UD = reduce( map(args, function(x)fenjie(x)$D), `*`)^k
+  
+  return( hecheng(UB,UD))
+}
+```
+
+	
+
+	
+
+## 3.测试
+
+### 3.1 测试1
+
+先利用一个区间残缺矩阵进行补全操作，然后计算其可能度矩阵P。
+
+```{r}
+U = matrix(c(1,1,1,2,0,2,2,3,
+             1/2,1,1,1,0,0,2,5,
+             1/2,0,0,0,1,1,3,0,
+             1/3,1/2,1/5,1/2,0,1/3,1,1),nrow = 4,byrow = T)
+U
+best_U = GDM_PSO(U)
+best_U
+
+library(magrittr)
+library(purrr)
+## # 矩阵U进行分解成B，D，并检验B，D的CR值
+best_U$Ut %>%fenjie() %>%  map(.,function(x)consistency(x)$CR)
+
+# 直接求出区间权重，以及根据权重求出区间可能度矩阵
+( w = get_w(B= fenjie(best_U$Ut)$B ,D = fenjie(best_U$Ut)$D) ) #每一行对应第i个方案的区间权重
+( P = probability_matrix(w) ) # 可能度矩阵P
+```
+
+### 3.2 测试2 
+
+多个区间矩阵的操作
+
+```{r}
+U1 = matrix(c(1,1,2,4,0,0,0,0,
+              1/4,1/2,1,1,1,3,0,0,
+              0,0,1/3,1,1,1,1/2,1,
+              0,0,0,0,1,2,1,1),nrow = 4,byrow = T)
+U2 = matrix(c(1,1,1,3,2,5,3,6,
+              1/3,1,1,1,3,0,1/2,4,
+              1/5,1/2,0,1/3,1,1,0,0,
+              1/6,1/3,1/4,2,0,0,1,1),nrow = 4,byrow = T)
+U3 = matrix(c(1,1,0,0,1/3,2,2,4,
+              0,0,1,1,0,0,1/3,2,
+              1/2,3,0,0,1,1,1/2,3,
+              1/4,1/2,1/2,3,1/3,2,1,1),nrow = 4,byrow = T)
+
+#########################################################################
+############### 对U1进行操作 ###########
+best_U1 = GDM_PSO(U1) 
+best_U1
+### 矩阵U进行分解成B，D，并检验B，D的CR值
+best_U1$Ut %>%fenjie() %>%  map(.,function(x)consistency(x)$CR)
+```
+
+```{r}
+#########################################################################
+############### 对U2进行操作 ###########
+best_U2 = GDM_PSO(U2)
+best_U2
+## # 矩阵U进行分解成B，D，并检验B，D的CR值
+best_U2$Ut %>%fenjie() %>%  map(.,function(x)consistency(x)$CR)
+```
+
+```{r}
+#########################################################################
+############### 对U3进行操作 ###########
+best_U3 = GDM_PSO(U3)
+best_U3
+## # 矩阵U进行分解成B，D，并检验B，D的CR值
+best_U3$Ut %>%fenjie() %>%  map(.,function(x)consistency(x)$CR)
+```
+
+发现U2 和U3 填充后没有满足一致性条件，于是需要调整
+
+```{r}
+## U2调整后的矩阵
+temp2 = best_U2$Ut %>% fenjie() %>% map2(.,list(0.6,0.88),adjust_w) 
+hecheng(temp2$B,temp2$D)
+
+## U3调整后的矩阵
+temp3 = best_U3$Ut %>% fenjie() %>% map2(.,list(0.6,0.88),adjust_w) 
+hecheng(temp3$B,temp3$D)
+```
+
+​		如果分解后的B和D没有达到一致性，则进行调整，由于这里用的是PSO算法进行残缺元素的填充，因此带有一定的随机值。于是我们用以下三个矩阵代代替补全后的矩阵(论文中给出的)
+
+```{r}
+U_t1 = matrix(c(1,1,2,4,2,9,1,9,
+                1/4,1/2,1,1,1,3,0.5,2.25,
+                1/9,1/2,1/3,1,1,1,1/2,1,
+                1/9,1,0.4444,2,1,2,1,1),nrow = 4,byrow = T)
+
+U_t2 = matrix(c(1,1,1.0815,3,2.0609,5,2.5209,6,
+                 1/3,0.9246,1,1,2.5515,3,0.6414,4,
+                 1/5,0.4852,1/3,0.3919,1,1,1.1237,1.3333,
+                 1/6,0.3967,1/4,1.5587,0.75,0.8899,1,1),nrow = 4,byrow = T)
+
+
+U_t3 = matrix(c(1,1,0.7256,2.1183,0.4837,2,1.2234,4,
+                 0.4721,1.3782,1,1,0.6666,0.8008,0.4299,2,
+                 1/2,2.0675,1.2488,1.5001,1,1,0.6449,3,
+                 1/4,0.8174,1/2,2.3262,1/3,1.5507,1,1),nrow = 4,byrow = T)
+( U = DGM_U(U_t1,U_t2,U_t3) ) # 多个区间矩阵融合为一个综合的区间矩阵
+( w = get_w(fenjie(U)$B,fenjie(U)$D) )# 对综合区间矩阵进行求权重--注意：权重没归一化
+probability_matrix(w)#可能度矩阵
+
+```
+
+## 4 .总结
+
+如果区间矩阵是残缺的，那么用以下函数去补全：
+
+```R
+U = matrix(c(1,1,1,2,0,2,2,3,
+             1/2,1,1,1,0,0,2,5,
+             1/2,0,0,0,1,1,3,0,
+             1/3,1/2,1/5,1/2,0,1/3,1,1),nrow = 4,byrow = T)
+U
+best_U = GDM_PSO(U)
+best_U
+
+## 补全以后要进行一致性检验：
+best_U$Ut %>%fenjie() %>%  map(.,function(x)consistency(x)$CR
+
+## 一致性检验没通过，则用下面的方法进行调整
+temp = best_U$Ut %>% fenjie() %>% map2(.,list(0.6,0.88),adjust_w) 
+U1 = hecheng(temp$B,temp$D) # 一定是一致性检验通过的区间判断矩阵
+```
+
+若是多个完整的区间矩阵，要综合成一个矩阵，则可以直接用下面的方法：
+
+```R
+# U_t1 ,U_t2,... ,是完整的区间判断矩阵，且符合一致性检验条件
+( U = DGM_U(U_t1,U_t2,U_t3) ) # 多个区间矩阵融合为一个综合的区间矩阵，
+( w = get_w(fenjie(U)$B,fenjie(U)$D) )# 对综合区间矩阵进行求权重--注意：权重没归一化
+probability_matrix(w)#可能度矩阵
+```
+

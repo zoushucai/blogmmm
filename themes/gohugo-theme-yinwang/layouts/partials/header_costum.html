@@ -1,0 +1,17 @@
+        <!-- 多点背景色，不要老白老白的 -->
+        <!-- 单博文 css 文件  -->
+        {{ if .Params.css }}
+            {{range .Params.css }} <link rel="stylesheet" href="{{ . }}"></link>{{ end }}
+        {{ else }}
+            <link rel="stylesheet" href="{{.Site.BaseURL}}css/main.css">
+        {{end}}
+
+        <!-- 代码高亮风格 -->
+        {{ with .Site.Params.highlight | default "github" }}
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/{{ . }}.min.css" rel="stylesheet">
+        {{end}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        {{range .Site.Params.langs }} <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/{{ . }}.min.js"></script>{{ end }}
+        {{range .Params.langs }} <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/{{ . }}.min.js"></script>{{ end }}
+
+        <script>hljs.initHighlightingOnLoad();</script>

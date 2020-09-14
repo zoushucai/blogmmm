@@ -1,0 +1,161 @@
+---
+title: "R语言标准化数据处理"
+author: zsc
+date: 2017-11-13
+tags:
+  - R
+keywords:
+  - R
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
+##　1、标准化——数据处理
+***
+```
+preProcess(x, method = c("center", "scale"),  
+  　　　　　thresh = 0.95, 　pcaComp = NULL, 　na.remove = TRUE, 　k = 5,  
+  　　　　　knnSummary = mean, 　outcome = NULL, 　fudge = 0.2, 　numUnique = 3,  
+  　　　　　verbose = FALSE, 　freqCut = 95/5,　 uniqueCut = 10, 　cutoff = 0.9, ...)   predict(object, newdata, ...)  
+```
+
+***
+
+1. **x:** 为一个矩阵或数据框，对于非数值型变量将被忽略　　
+
+2. **method:** 指定数据标准化的方法，默认为"center"和"scale"。（必须同时使用这两个，若选一个只能对应中心化或均值化）     
+   - 其中center表示预测变量值减去均值；scale表示预测变量值除以标准差，故默认标准化方法就是$(x-mu)/std$。   
+   - 如果使用range方法，则数据标准为[0,1]的范围，即$(x-min)/(max-min)$。  
+
+```
+ppMethods <- c("BoxCox", "YeoJohnson", "expoTrans", "invHyperbolicSine",
+               "center", "scale", "range", 
+               "knnImpute", "bagImpute", "medianImpute", 
+               "pca", "ica", 
+               "spatialSign", 
+               "ignore", "keep", 
+               "remove", 
+               "zv", "nzv", "conditionalX",
+               "corr")
+```
+- **thresh:**如果使用主成分分析（PCA)方法，该参数指定累计方差至少达到0.95  
+
+- **pcaComp:**如果使用主成分分析（PCA)方法，该参数可指定保留的主成分个数，该参数的优先级高于thresh  
+
+- **na.remove:**默认剔除缺失值数据  
+
+- **k:**如果使用k-近邻方法填补缺失值的话，可以指定具体的k值，默认为5  
+
+- **knnSummary:**使用k个近邻的均值替代缺失值  
+
+- **outcome:**指定数据集的输出变量，当使用BOX-COX变换数据时，该参数需要指定输出变量  
+
+- **fudge:**指定BOX-COX变换的lambda值波动范围  
+
+- **numUnique:**指定多少个唯一值需要因变量y估计BOX-COX转换  
+
+- **verbose:**指定是否需要输出详细的结果  
+
+- **object:**为preProcess对象  
+
+- **newdata:**指定需要处理的新数据集  
+
+
+
+## 2. iris实例 ————scale（均值方差标准化）
+```{r,message=FALSE}
+library(caret)
+library(dplyr)
+head(scale(iris[,1:4]))
+
+stand_scale <- preProcess(iris)  #采用(x-mu)/std的标准化方法，与scale()函数效果一样
+head(predict(stand_scale ,iris[,1:4]))
+
+all(scale(iris[,1:4])==predict(stand_scale ,iris[,1:4])) #中间存在误差，但是大多数以及相等了
+```
+
+## 3. iris实例————max-min(标准化)
+```{r,message=FALSE}
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+iris_max=as.data.frame(lapply(iris[1:4],normalize))
+head(iris_max)
+
+stand_range <- preProcess(iris[1:4],method = "range")
+iris_max_prePro=predict(stand_range ,iris[1:4])
+head(iris_max_prePro)
+all(iris_max==iris_max_prePro)# 正常，和我们预期的一样，两个数据相等
+
+```
+
+## 4. 还原标准化数据-----salce(均值-方差标准化)   
+
+比如: 我们经常对train数据进行标准化，并且用train数据的参数去标准化test数据,R中没有内置的函数。   
+还有：有些模型和数据 存在量纲差异，需要标准化后建模，并预测，预测出来的值是标准化后的数据，此时需要把预测的数据还原成真实数据，此时就需要原始数据的标准化参数了   
+```{r,message=FALSE}
+stand_scale <- preProcess(iris)  #采用(x-mu)/std的标准化方法，与scale()函数效果一样
+iris_scale=predict(stand_scale,iris[,1:4])
+
+
+iris_new <- t(apply(iris_scale,1,function(x){x*stand_scale$std+stand_scale$mean}))
+iris_new %>% head(.,10)
+head(iris,10)
+
+```
+
+
+## 5. 还原标准化数据-----max-min
+
+```{r,message=FALSE}
+stand_range <- preProcess(iris[1:4],method = "range")
+iris_max_prePro=predict(stand_range ,iris[1:4])
+
+t(apply(iris_max_prePro,1,function(x){x*(stand_range$ranges[2,]-stand_range$ranges[1,])+stand_range$ranges[1,] })) %>% head(.,10)
+
+head(iris,10)
+
+```
+
+## 6. 还原标准化数据---DMwR::unscale()函数
+
+```
+unscale(vals, norm.data, col.ids)
+
+    vals	: 要还原标准化的数值型矩阵，或者数值型数据框  
+    norm.data	 ： 以及标准化后的数据，必须是用scale()函数标准化后的数据  
+    col.ids	： 那些列可以不用标准化（默认全部列都有进行)  
+```
+```{r}
+# 我把iris数据集分为7:3
+library(caret)
+library(dplyr)
+library(DMwR)
+library(e1071)
+
+
+
+#############################################################
+########## 标准化数据
+# 
+data(algae)
+algae[,4:12] %>% head() # 可以发现数据存在量纲的差异，我们要预测a1（因变量） ,其他为自变量
+normData <- scale(algae[,4:12]) # 把train数据进行标准化
+t <- svm(a1 ~ .,normData[1:100,] %>% as.data.frame() ) #决策树模型
+normPs <- predict(t,as.data.frame(normData[101:nrow(normData),])) # 可以发现预测的数据不是最终的数据，需要进行标准化还原
+normPs %>% head() # 预测值 ,预测数据,都在0--1范围
+algae[101:nrow(normData),"a1"] %>% head()# 真实值
+unscale(normPs,normData) %>% head()#于是还原预测数据
+
+
+
+```
+
+
+```{r}
+sessionInfo()
+```
+
+
