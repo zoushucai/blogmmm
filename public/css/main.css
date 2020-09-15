@@ -475,4 +475,5 @@ nav#TableOfContents li{
 nav#TableOfContents ul{
   margin:0px 0px 0px 4px;
   padding:0px 0px 0px 4px;
+  font-size: 90%;
 }
