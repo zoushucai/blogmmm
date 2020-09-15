@@ -184,8 +184,8 @@ pre {
 }
 
 pre > code {
-  padding: 12px !important;
-  display: block;
+/*  padding: 12px !important;
+*/  display: block;
 }
 
 code {
@@ -201,13 +201,20 @@ li code,
 p code {
   background-color: #eff0f1;
   border-radius: 3px;
+  /*以下两句才可以---自动换行*/
+  white-space: normal;
+  word-break: break-all;
 }
 
+p {
+  word-break:break-all; /* 超链接以及文本强制换行*/
+}
 a {
   text-decoration: none;
   cursor: crosshair;
   border-bottom: 1px dashed orange;
   color: #930ee4;
+  word-break:break-all;
 }
 
 a:hover {
@@ -477,3 +484,6 @@ nav#TableOfContents ul{
   padding:0px 0px 0px 4px;
   font-size: 90%;
 }
+
+
+
