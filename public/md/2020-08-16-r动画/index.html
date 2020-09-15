@@ -115,7 +115,11 @@
 
 <div class = "div-content" >
     
-    <div class = 'inner-left' style="position:fixed;z-index:999;height: 60%;overflow: scroll;bottom: 5%;width: 22%;top: 18%" >
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
             
             
             <nav id="TableOfContents">
@@ -297,6 +301,25 @@ for (i in 1:2) {
 
 
 
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("TableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("TableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="20%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
 
 </body>
 

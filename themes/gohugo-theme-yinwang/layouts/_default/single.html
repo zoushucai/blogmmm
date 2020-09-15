@@ -1,7 +1,11 @@
 {{ partial "header" . }}
 <div class = "div-content" >
     <!-- style="z-index:999" 把该div 置于最上层 -->
-    <div class = 'inner-left' style="position:fixed;z-index:999;height: 60%;overflow: scroll;bottom: 5%;width: 22%;top: 18%" >
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
             <!-- 显示目录 -->
             {{ if .Params.toc }}
             {{ .TableOfContents }}
