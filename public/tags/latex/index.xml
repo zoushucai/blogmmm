@@ -13,24 +13,25 @@
     
     <item>
       <title>latex 参考文献格式: GB/7714</title>
-      <link>/md/2020-08-14-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E6%A0%BC%E5%BC%8Fgb7714/</link>
+      <link>/md/2020-08-14-gb7714/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-14-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E6%A0%BC%E5%BC%8Fgb7714/</guid>
+      <guid>/md/2020-08-14-gb7714/</guid>
       <description>1. bst 文件 bst样式文件来源:
 https://github.com/CTeX-org/gbt7714-bibtex-style
-1.1. 使用方法 方法一: 直接使用gbt7714 宏包,一般texlive自带该宏包,不过版本应该比较旧是1.XX
+1.1. 使用方法 方法一: 直接使用gbt7714 宏包,一般texlive自带该宏包,不过版本应该比较旧是1.XX 可以更新到2.*
 \documentclass{article} \usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \bibliographystyle{gbt7714-numerical} \usepackage[super]{gbt7714} \begin{document} 正文 \cite{herrera2004some} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{xu2014weak,xu2018methods} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究} \bibliography{test} \end{document} 方法二: 也可以下载单个的bst文件, 放在.tex所在的目录下,这样使用
-\documentclass{article} \usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \usepackage[super,sort&amp;amp;compress,square]{natbib} \bibliographystyle{gbt7714-numerical} \begin{document} 正文 \cite{herrera2004some} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{xu2014weak,xu2018methods} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究} \bibliography{test} \end{document} 1.2. 修改默认样式 作者样式 如果使用上面的默认样式,可能不是我们想要的. 比如,默认样式作者名全是大写,然而我们有些时候,喜欢第一个字母大写,比如XU Y, WANG H, YU D 可能需要改成Xu Y, Wang H, Yu D, 这需要找到*.bst源文件中这句话
-#1 &amp;#39;uppercase.name := 改成:</description>
+\documentclass{article} \usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \usepackage[super,sort&amp;amp;compress,square]{natbib} \bibliographystyle{gbt7714-numerical} \begin{document} 正文 \cite{herrera2004some} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{xu2014weak,xu2018methods} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究} \bibliography{test} \end{document} 1.2. 修改默认样式 在 bst 文件开始处的 load.config 函数中，有一组配置参数用来控制样 式，下表列出了每一项的默认值和功能。若变量被设为#1则表示该项被启用， 设为#0则不启用。默认的值是严格遵循国标的配置。
+2. biblatex 格式 由于版本原因,需要biblatex-gb7714-2015 下载对应的文件,放入当前目录
+ 最简单的方法是从本项目源码中下载 gb7714-2015.bbx, gb7714-2015ay.bbx, gb7714-2015.cbx, gb7714-2015ay.cbx 四个文件放到你要编译的主文档所在目录，如果需要使用gbk编码，则还需复制 gb7714-2015-gbk.</description>
     </item>
     
     <item>
       <title>latex 参考文献生成(总结)</title>
-      <link>/md/2020-08-13-latex-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90%E6%80%BB%E7%BB%93/</link>
+      <link>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</link>
       <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-13-latex-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90%E6%80%BB%E7%BB%93/</guid>
+      <guid>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</guid>
       <description>生成latex参考文献大致有4种方法&amp;hellip;..
 使用环境: MacTeX 2018 + texstudio, texstudio编译器改为xelatex
 0. 什么是*.bib 文件 注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为.bib的文件,这里我建立一个bib文件, 如text.bib, 去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:
@@ -69,30 +70,32 @@ https://github.com/CTeX-org/gbt7714-bibtex-style
     </item>
     
     <item>
-      <title>`*.bib`  与`*.enw` 文件之间的相互转换</title>
+      <title>bib与enw文件之间的相互转换</title>
       <link>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</guid>
       <description>*.bib 与*.enw 文件之间的相互转换 方法一: JabRef 软件
-方法二: bibutils 命令工具
+方法二: bibutils
 为了将BibTeX转换为带标签的Endnote，只需调用：
 $ bib2xml input.bib | xml2end &amp;gt; output.enw 转换为RIS类似于：
 $ bib2xml input.bib | xml2ris &amp;gt; output.ris </description>
     </item>
     
     <item>
-      <title>卸载 mactex</title>
-      <link>/md/2020-07-01-%E5%8D%B8%E8%BD%BD-mactex/</link>
+      <title>mactex卸载</title>
+      <link>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-07-01-%E5%8D%B8%E8%BD%BD-mactex/</guid>
-      <description>卸载 mactex 参考：http://www.tug.org/mactex/uninstalling.html
+      <guid>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</guid>
+      <description>mactex卸载 参考： http://www.tug.org/mactex/uninstalling.html
+https://blog.csdn.net/nicekwell/article/details/97279215
 MacTeX是mac下的latex工具，卸载方法：
 1、/usr/local/texlive/2018/ 目录，这是占用空间最大的目录
-2、卸载GUI，到/Application/ 目录里删掉几个app即可。 3、/Library/TeX
+2、卸载GUI，到/Application/ 目录里删掉几个app即可。
+3、/Library/TeX
 4、~/Library/texlive/2019
-cd /usr/local/ sudo rm -rf texlive/ cd /Library/ sudo rm -rf TeX/ cd ~/Library/texlive sudo rm -rf 2018 </description>
+cd /usr/local/ sudo rm -rf texlive/ cd /Library/ sudo rm -rf TeX/ cd ~/Library/texlive sudo rm -rf 2018 cd ~/Library sudo rm -rf texlive </description>
     </item>
     
     <item>
