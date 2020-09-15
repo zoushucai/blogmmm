@@ -121,6 +121,7 @@
                 <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
             </p>
             
+            <div id="divtocTableOfContents">
             
             <nav id="TableOfContents">
   <ul>
@@ -132,8 +133,11 @@
   </ul>
 </nav>
             
+            </div>
     </div>
+</div>
 
+<div class = "div-content" >
 <div class="inner">
     
 
@@ -401,7 +405,7 @@ gbbiblabel=bracket]{biblatex}
     </style>
     <script type="text/javascript">
     function showdiv(){
-        document.getElementById("TableOfContents").style.display="block";
+        document.getElementById("divtocTableOfContents").style.display="block";
         document.getElementById("strHref").innerHTML="目录收起-";
         document.getElementById('divTableOfContents').style.width="22%";
         document.getElementById('divTableOfContents').style.height="55%";
@@ -410,14 +414,13 @@ gbbiblabel=bracket]{biblatex}
         document.getElementById("strHref").href="javascript:hidediv()";
     }
     function hidediv(){
-        document.getElementById("TableOfContents").style.display="none";
+        document.getElementById("divtocTableOfContents").style.display="none";
         document.getElementById("strHref").innerHTML="目录展开+";
         document.getElementById("strHref").href="javascript:showdiv()";
-        document.getElementById('divTableOfContents').style.width="20%";
+        document.getElementById('divTableOfContents').style.width="10%";
         document.getElementById('divTableOfContents').style.height="5%";
     }
     </script>
-
 </body>
 
 </html>

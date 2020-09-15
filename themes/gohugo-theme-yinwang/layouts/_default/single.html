@@ -7,11 +7,15 @@
                 <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
             </p>
             <!-- 显示目录 -->
+            <div id="divtocTableOfContents">
             {{ if .Params.toc }}
             {{ .TableOfContents }}
             {{ end }}
+            </div>
     </div>
+</div>
 
+<div class = "div-content" >
 <div class="inner">
     <!-- 单个页面左边有 home 链接 -->
 <!--     {{ if eq .Site.Params.single false }} {{ else }} <div class="side-btn"><a href="{{.Site.BaseURL}}" class="back">Home</a></div>{{ end }}-->

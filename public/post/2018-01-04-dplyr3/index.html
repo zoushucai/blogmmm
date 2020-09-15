@@ -121,9 +121,13 @@
                 <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
             </p>
             
+            <div id="divtocTableOfContents">
             
+            </div>
     </div>
+</div>
 
+<div class = "div-content" >
 <div class="inner">
     
 
@@ -468,7 +472,7 @@ by_cyl %&gt;% arrange(desc(wt), .by_group = TRUE) #默认忽视对组的升序�
     </style>
     <script type="text/javascript">
     function showdiv(){
-        document.getElementById("TableOfContents").style.display="block";
+        document.getElementById("divtocTableOfContents").style.display="block";
         document.getElementById("strHref").innerHTML="目录收起-";
         document.getElementById('divTableOfContents').style.width="22%";
         document.getElementById('divTableOfContents').style.height="55%";
@@ -477,14 +481,13 @@ by_cyl %&gt;% arrange(desc(wt), .by_group = TRUE) #默认忽视对组的升序�
         document.getElementById("strHref").href="javascript:hidediv()";
     }
     function hidediv(){
-        document.getElementById("TableOfContents").style.display="none";
+        document.getElementById("divtocTableOfContents").style.display="none";
         document.getElementById("strHref").innerHTML="目录展开+";
         document.getElementById("strHref").href="javascript:showdiv()";
-        document.getElementById('divTableOfContents').style.width="20%";
+        document.getElementById('divTableOfContents').style.width="10%";
         document.getElementById('divTableOfContents').style.height="5%";
     }
     </script>
-
 </body>
 
 </html>
