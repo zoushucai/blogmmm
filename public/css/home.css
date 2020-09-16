@@ -91,6 +91,16 @@ body.mobile div.outer {
   margin: 0 1rem 1rem 1rem;
 }
 
+div.outerfoot {
+margin: -8% 10% 2% 10%;
+padding: 1.5em 0
+}
+
+body.mobile div.outerfoot {
+  margin: -17rem 1rem 0.5rem 1rem;
+}
+
+
 body.mobile .big-icon {
   width: 4.3rem;
   height: 6px;
