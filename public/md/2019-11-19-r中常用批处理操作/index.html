@@ -13,6 +13,7 @@
 
     
     <title>R中常用的批处理操作</title>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
@@ -35,10 +36,14 @@
 
         
         
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/github.min.css" rel="stylesheet">
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/R.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/r.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/yaml.min.js"></script>
+        
         
 
         <script>hljs.initHighlightingOnLoad();</script>
@@ -163,14 +168,12 @@
             <h2 id="批量重命名文件名">批量重命名文件名</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#39;/Users/zsc/Desktop/音乐mp3/&#39;</span>)
 
-d <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files</span>()
 <span style="color:#a6e22e">library</span>(stringr)
-d1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_extract</span>(d,<span style="color:#e6db74">&#39;(?&lt;=! ).*?.mp3$&#39;</span>)
-d1<span style="color:#a6e22e">[is.na</span>(d1)] <span style="color:#f92672">=</span> d<span style="color:#a6e22e">[is.na</span>(d1)]
-d1
-
-<span style="color:#a6e22e">file.rename</span>(d, d1)   
-
+oldname <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files</span>(pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;.*mp3&#39;</span>)
+newname <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_extract</span>(d,<span style="color:#e6db74">&#39;.*(?=158)&#39;</span>)
+df <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(oldname <span style="color:#f92672">=</span> oldname, newname <span style="color:#f92672">=</span> newname)
+df
+<span style="color:#a6e22e">file.rename</span>(df<span style="color:#f92672">$</span>oldname, df<span style="color:#f92672">$</span>newname)   
 </code></pre></div><h2 id="批量统计-pdf-的页数">批量统计 pdf 的页数</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(qpdf)
 <span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#39;/Users/zsc/Desktop/pdf/&#39;</span>)
@@ -247,7 +250,8 @@ del <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files<
     </li>
     
     
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
     [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
         var wrapper = document.createElement('div');
@@ -267,8 +271,6 @@ del <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files<
     <hr>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-  crossorigin="anonymous"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 

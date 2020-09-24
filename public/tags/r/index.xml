@@ -95,7 +95,7 @@ Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/li
       <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</guid>
-      <description>批量重命名文件名 setwd(&amp;#39;/Users/zsc/Desktop/音乐mp3/&amp;#39;) d = list.files() library(stringr) d1 = str_extract(d,&amp;#39;(?&amp;lt;=! ).*?.mp3$&amp;#39;) d1[is.na(d1)] = d[is.na(d1)] d1 file.rename(d, d1) 批量统计 pdf 的页数 library(qpdf) setwd(&amp;#39;/Users/zsc/Desktop/pdf/&amp;#39;) d = list.files() d d1 = str_extract(d,&amp;#39;.*?.pdf$&amp;#39;) library(purrr) map_dbl(d1, pdf_length) map_dbl(d1, pdf_length) %&amp;gt;% sum() 移除latex生成的临时文件 p = getwd() cat(p,&amp;#39;\n&amp;#39;) t = &amp;#39;*.aux|*.bbl|*.bcf|*.blg|*.log|*.xml|*.out|*.spl|*.synctex.gz&amp;#39; del = list.files(path = p,pattern = t) file.remove(del) </description>
+      <description>批量重命名文件名 setwd(&amp;#39;/Users/zsc/Desktop/音乐mp3/&amp;#39;) library(stringr) oldname = list.files(pattern = &amp;#39;.*mp3&amp;#39;) newname = str_extract(d,&amp;#39;.*(?=158)&amp;#39;) df = data.frame(oldname = oldname, newname = newname) df file.rename(df$oldname, df$newname) 批量统计 pdf 的页数 library(qpdf) setwd(&amp;#39;/Users/zsc/Desktop/pdf/&amp;#39;) d = list.files() d d1 = str_extract(d,&amp;#39;.*?.pdf$&amp;#39;) library(purrr) map_dbl(d1, pdf_length) map_dbl(d1, pdf_length) %&amp;gt;% sum() 移除latex生成的临时文件 p = getwd() cat(p,&amp;#39;\n&amp;#39;) t = &amp;#39;*.aux|*.bbl|*.bcf|*.blg|*.log|*.xml|*.out|*.spl|*.synctex.gz&amp;#39; del = list.files(path = p,pattern = t) file.remove(del) </description>
     </item>
     
     <item>

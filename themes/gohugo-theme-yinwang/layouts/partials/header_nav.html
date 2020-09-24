@@ -22,12 +22,22 @@
                             {{ end }}
                         {{ end }}
                     {{ else }}
-                        <li class="{{ if eq .URL .Site.BaseURL }}active{{ end }}"><a class="nav-item nav-link" href="{{.Site.BaseURL}}">Home</a></li>
-                        <li>{{ with .Site.Params.github }}<a class="nav-item nav-link" href="https://github.com/{{ . }}"
-                                target="_blank">GitHub</a>{{ end }}</li>
-                        <li>{{ with .Site.Params.gitlab }}<a class="nav-item nav-link" href="https://gitlab.com/{{ . }}"
-                                target="_blank">GitLab</a>{{ end }}</li>
-                        <li class="{{ if eq .URL "/about/" }} active{{ end }}"><a class="nav-item nav-link" href="{{.Site.BaseURL}}about/">About</a></li>
+                        <li class="{{ if eq .URL .Site.BaseURL }}active{{ end }}">
+                            <a class="nav-item nav-link" href="{{.Site.BaseURL}}">Home</a>
+                        </li>
+                        <li>
+                            {{ with .Site.Params.github }}
+                            <a class="nav-item nav-link" href="https://github.com/{{ . }}" target="_blank">GitHub</a>
+                            {{ end }}
+                        </li>
+                        <li>
+                            {{ with .Site.Params.gitlab }}
+                            <a class="nav-item nav-link" href="https://gitlab.com/{{ . }}" target="_blank">GitLab</a>
+                            {{ end }}
+                        </li>
+                        <li class="{{ if eq .URL "/about/" }} active{{ end }}"> 
+                            <a class="nav-item nav-link" href="{{.Site.BaseURL}}about/">About</a>
+                        </li>
                     {{ end }}
                 </ul>
             </div>

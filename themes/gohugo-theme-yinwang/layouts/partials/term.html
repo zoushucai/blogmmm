@@ -3,11 +3,11 @@
     {{ $data := .Data }}
     <div class="list-term">
       <ul class="list-group" style="overflow:auto;">
-  		{{ range $key, $value := .Data.Terms.Alphabetical }}
-         	<li class="list-group-item title" style="display: block;float: left;width: 19%;">
-      		<a href="{{ $.Site.BaseURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}"> {{ $value.Name }} &#x2F; ({{ $value.Count }}) </a>
-      	    </li>
-      {{ end }}
+      		{{ range $key, $value := .Data.Terms.Alphabetical }}
+             	<li class="list-group-item title" style="display: block;float: left;width: 19%;">
+          		    <a href="{{ $.Site.BaseURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}"> {{ $value.Name }} &#x2F; ({{ $value.Count }}) </a>
+              </li>
+          {{ end }}
        </ul>
   </div>
 </div>
