@@ -173,7 +173,7 @@
 <p>2, 如果不安装插件,那还不如不装 sublime, 参考: <a href="https://packagecontrol.io/installation">https://packagecontrol.io/installation</a></p>
 <h2 id="2-插件的安装">2. 插件的安装</h2>
 <h3 id="21-安装package-control">2.1 安装Package Control</h3>
-<p>打开软件,按 ctrl*+*` 快捷键 输入以下代码，enter即可.</p>
+<p>打开软件,按<!-- raw HTML omitted --> ctrl<!-- raw HTML omitted -->+ <!-- raw HTML omitted -->` <!-- raw HTML omitted -->快捷键(即1左边的那个键)输入以下代码，enter即可.</p>
 <pre><code>import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
 </code></pre><h3 id="22-使用package-control组件安装插件">2.2 使用Package Control组件安装插件</h3>
 <p><strong>mac: Cmd+Shift+P</strong>（Win：<strong>Ctrl+Shift+P</strong>），输入 <strong>install</strong> 选中 <strong>Install Package</strong> 并回车，输入或选择你需要的插件回车就安装了（注意左下角的小文字变化，会提示安装成功），安装其它插件也类似.</p>

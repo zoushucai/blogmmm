@@ -40,7 +40,7 @@ Collections pane: Show/hide –&amp;gt; CMD+1 Item pane: Show/hide –&amp;gt; C
       <guid>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</guid>
       <description>sublime text3 使用方法以及相关插件 1. 软件的下载 1, 官网下载地址: http://www.sublimetext.com/
 2, 如果不安装插件,那还不如不装 sublime, 参考: https://packagecontrol.io/installation
-2. 插件的安装 2.1 安装Package Control 打开软件,按 ctrl*+*` 快捷键 输入以下代码，enter即可.
+2. 插件的安装 2.1 安装Package Control 打开软件,按ctrl+ ` 快捷键(即1左边的那个键)输入以下代码，enter即可.
 import urllib.request,os,hashlib; h = &#39;6f4c264a24d933ce70df5dedcf1dcaee&#39; + &#39;ebe013ee18cced0ef93d5f746d80ef60&#39;; pf = &#39;Package Control.sublime-package&#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &#39;http://packagecontrol.io/&#39; + pf.replace(&#39; &#39;, &#39;%20&#39;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&#39;Error validating download (got %s instead of %s), please try manual install&#39; % (dh, h)) if dh != h else open(os.</description>
     </item>
     
@@ -84,9 +84,9 @@ https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue
       <guid>/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
       <description>Mac 系统盘的制作与安装 参考https://www.iplaysoft.com/macos-usb-install-drive.html 这篇文章制作U盘系统盘
 我个人推荐使用DiskMaker X 启动盘制作.官网: https://diskmakerx.com/
-如何进入系统盘 关机重启, 长按Option 即可选择进入U盘, 先利用磁盘工具,格式化主磁盘,然后,退出,在安装.
+如何进入系统盘 关机重启, 长按Option即可选择进入U盘, 先利用磁盘工具,格式化主磁盘,然后,退出,在安装.
 注意: 也可以在线安装&amp;hellip;
-Command（⌘）+ R：安装Mac之前安装的最新macOS，而不升级到更高的版本。 Option + Command + R：升级到与Mac兼容的最新macOS。 Shift + Option + Command + R：安装Mac原本出厂搭载的macOS，或是最接近且依然可用的版本。
+Command（⌘）+ R ：安装Mac之前安装的最新macOS，而不升级到更高的版本。 Option + Command+ R：升级到与Mac兼容的最新macOS。 Shift + Option + Command + R：安装Mac原本出厂搭载的macOS，或是最接近且依然可用的版本。
 https://blog.csdn.net/qq285744011/article/details/106987147
 MacOS U盘安装提示副本损坏听语音 解决办法:
 断网以后 打开左上角实用工具--&amp;gt;终端
