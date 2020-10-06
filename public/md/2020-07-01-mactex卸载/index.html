@@ -173,17 +173,13 @@
 <p>2、卸载GUI，到<code>/Application/</code> 目录里删掉几个app即可。</p>
 <p>3、<code>/Library/TeX</code></p>
 <p>4、<code>~/Library/texlive/2019</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd /usr/local/
-sudo rm -rf texlive/
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo rm -rf /usr/local/texlive/
 
-cd /Library/
-sudo rm -rf TeX/
+sudo rm -rf /Library/TeX/
 
-cd ~/Library/texlive
-sudo rm -rf <span style="color:#ae81ff">2018</span>
+sudo rm -rf ~/Library/texlive
 
-cd ~/Library
-sudo rm -rf texlive
+
 </code></pre></div>
         </section>
     </div>

@@ -175,7 +175,7 @@
 <tbody>
 <tr>
 <td>Encoding(x)        <!-- raw HTML omitted -->Encoding(x) &lt;- value  <!-- raw HTML omitted -->enc2native(x)  <!-- raw HTML omitted -->enc2utf8(x)</td>
-<td>读取或设置字符向量的编码<!-- raw HTML omitted -->常结合iconv(x, from = &ldquo;&quot;, to = &ldquo;&quot;)函数使用<!-- raw HTML omitted -->注意：Encoding(x) &lt;- value 这是一种赋值函数</td>
+<td>读取或设置字符向量的编码<!-- raw HTML omitted -->常结合iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)函数使用<!-- raw HTML omitted -->注意：Encoding(x) &lt;- value 这是一种赋值函数</td>
 </tr>
 <tr>
 <td>nchar(x, type = &ldquo;chars&rdquo;, allowNA = FALSE, keepNA = NA)<!-- raw HTML omitted -->nzchar(x, keepNA = FALSE)</td>
@@ -258,7 +258,7 @@
 </tr>
 <tr>
 <td>regmatches(x, m, invert = FALSE)<!-- raw HTML omitted -->regmatches(x, m, invert = FALSE) &lt;- value</td>
-<td>抽取或替换正则表达式匹配子串<!-- raw HTML omitted --> invert = TRUE则抽取或替换不匹配子串<!-- raw HTML omitted --> str&lt;-c(&ldquo;Now is &ldquo;,&ldquo;the&rdquo;,&rdquo; time &ldquo;) <!-- raw HTML omitted -->m&lt;-regexpr(&rdquo; +&rdquo;,str)<!-- raw HTML omitted -->regmatches(str,m)&lt;- &ldquo;9999&quot;<!-- raw HTML omitted -->str</td>
+<td>抽取或替换正则表达式匹配子串<!-- raw HTML omitted --> invert = TRUE则抽取或替换不匹配子串<!-- raw HTML omitted --> str&lt;-c(&ldquo;Now is &ldquo;,&ldquo;the&rdquo;,&rdquo; time &ldquo;) <!-- raw HTML omitted -->m&lt;-regexpr(&rdquo; +&quot;,str)<!-- raw HTML omitted -->regmatches(str,m)&lt;- &ldquo;9999&rdquo;<!-- raw HTML omitted -->str</td>
 </tr>
 <tr>
 <td>glob2rx(pattern, trim.head = FALSE, trim.tail = TRUE)</td>
@@ -274,42 +274,42 @@
 <table>
 <thead>
 <tr>
-<th align="center">参数</th>
-<th align="center">功能</th>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">pattern</td>
-<td align="center">包含正则表达式的字符串</td>
+<td style="text-align:center">pattern</td>
+<td style="text-align:center">包含正则表达式的字符串</td>
 </tr>
 <tr>
-<td align="center">x</td>
-<td align="center">寻找匹配的字符向量，或者可以通过字符向量强制转换的对象。支持长向量</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">寻找匹配的字符向量，或者可以通过字符向量强制转换的对象。支持长向量</td>
 </tr>
 <tr>
-<td align="center">ignore.case</td>
-<td align="center">如果为FALSE，则模式匹配区分大小写；如果为TRUE，则在匹配期间忽略大小写</td>
+<td style="text-align:center">ignore.case</td>
+<td style="text-align:center">如果为FALSE，则模式匹配区分大小写；如果为TRUE，则在匹配期间忽略大小写</td>
 </tr>
 <tr>
-<td align="center">perl</td>
-<td align="center">如果为TRUE，使用perl匹配的正则表达式</td>
+<td style="text-align:center">perl</td>
+<td style="text-align:center">如果为TRUE，使用perl匹配的正则表达式</td>
 </tr>
 <tr>
-<td align="center">value</td>
-<td align="center">如果为FALSE，则返回包含由grep确定的匹配的索引的向量，如果为TRUE，则返回包含匹配元素本身的向量</td>
+<td style="text-align:center">value</td>
+<td style="text-align:center">如果为FALSE，则返回包含由grep确定的匹配的索引的向量，如果为TRUE，则返回包含匹配元素本身的向量</td>
 </tr>
 <tr>
-<td align="center">fixed</td>
-<td align="center">如果为TRUE，则pattern是要按原样匹配的字符串</td>
+<td style="text-align:center">fixed</td>
+<td style="text-align:center">如果为TRUE，则pattern是要按原样匹配的字符串</td>
 </tr>
 <tr>
-<td align="center">useBytes</td>
-<td align="center">如果为TRUE，则匹配是逐字节而不是逐字符完成的</td>
+<td style="text-align:center">useBytes</td>
+<td style="text-align:center">如果为TRUE，则匹配是逐字节而不是逐字符完成的</td>
 </tr>
 <tr>
-<td align="center">invert</td>
-<td align="center">如果为TRUE，则返回不匹配的元素的索引或值</td>
+<td style="text-align:center">invert</td>
+<td style="text-align:center">如果为TRUE，则返回不匹配的元素的索引或值</td>
 </tr>
 </tbody>
 </table>

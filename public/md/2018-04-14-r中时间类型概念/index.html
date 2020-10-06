@@ -187,14 +187,14 @@
 <tr>
 <td>POSIXct类</td>
 <td>日期时间</td>
-<td>实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.<!-- raw HTML omitted -->eg:  &ldquo;2018-04-13 19:47:18 CST&quot;<!-- raw HTML omitted -->个人建议使用这个，存储数据</td>
+<td>实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.<!-- raw HTML omitted -->eg:  &ldquo;2018-04-13 19:47:18 CST&rdquo;<!-- raw HTML omitted -->个人建议使用这个，存储数据</td>
 <td>as.POSIXct()</td>
 <td>基本函数</td>
 </tr>
 <tr>
 <td>POSIXlt类</td>
 <td>日期时间</td>
-<td>实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。<!-- raw HTML omitted -->eg:  &ldquo;2018-04-13 19:47:18 CST&quot;<!-- raw HTML omitted -->存储非结构化数据</td>
+<td>实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。<!-- raw HTML omitted -->eg:  &ldquo;2018-04-13 19:47:18 CST&rdquo;<!-- raw HTML omitted -->存储非结构化数据</td>
 <td>as.POSIXlt()</td>
 <td>基本函数</td>
 </tr>
@@ -240,7 +240,7 @@
 <h2 id="时间的基本用法">时间的基本用法</h2>
 <ol>
 <li>
-<p>字符串转换为日期： as.Date(x ,format=&rdquo;%m/%d/%y&rdquo;) ,建议format参数不能省，否则有时会出错</p>
+<p>字符串转换为日期： as.Date(x ,format=&quot;%m/%d/%y&quot;) ,建议format参数不能省，否则有时会出错</p>
 </li>
 <li>
 <p>日期转化为字符串: as.characher()  或者 format()</p>

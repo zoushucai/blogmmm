@@ -174,7 +174,7 @@
 <li>na.strings,对NA的解释；</li>
 <li>file文件路径，再确保没有执行shell命令时很有用，也可以在input参数输入;</li>
 <li>stringsASFactors是否转化字符串为因子，</li>
-<li>encoding，默认&quot;unknown&rdquo;，其它可能&quot;UTF-8&quot;或者&quot;Latin-1&rdquo;，不是用来重新编码的，而是允许处理的字符串在本机编码;</li>
+<li>encoding，默认&quot;unknown&quot;，其它可能&quot;UTF-8&quot;或者&quot;Latin-1&quot;，不是用来重新编码的，而是允许处理的字符串在本机编码;</li>
 <li>showProgress = T   显示进度条</li>
 <li>integer64 当数据列中有大于2 ^ 31的整数,可能会丢失精度</li>
 <li>quote  对带双引号的字符添加转义,在R中正常显示,但是输出时,可能会引起成倍的双引号,因此建议使用<code>fwrite</code>时,设置该参数<code>quote = FALSE</code></li>
@@ -243,7 +243,7 @@ mtcars_dt[cyl %in% c(&quot;8&quot;,&quot;6&quot;)]# 等价 mtcars_dt[cyl %in% c(
 <p><strong>每一个table.table中只有一组key键, 像普通的data.frame, 每一行有且只有一个行名且行名具有唯一性, 行名可以看做是data.frame的索引. 而data.table可以利用主键进行索引, 且可以对多列设置主键,且主键不强调唯一性. 也就是说，不同列的主键可以是一样的。既然行可以通过主键排序，那么排序的时候，具有同样主键的一些行，会被排在一起。</strong></p>
 </li>
 <li>
-<p><strong>在data.table里，操作符&rdquo;:=&quot;和所有的以set开头函数（比如setkey,setorder,setname等）一样，它们都会更新输入的原数据。</strong></p>
+<p><strong>在data.table里，操作符&rdquo;:=&ldquo;和所有的以set开头函数（比如setkey,setorder,setname等）一样，它们都会更新输入的原数据。</strong></p>
 </li>
 </ul>
 <pre><code class="language-{r}" data-lang="{r}">#使用主键(会对筛选的数据进行重排序--适中)
@@ -477,7 +477,7 @@ mtcars_dt[,<span style="color:#f92672">-</span>(mpg<span style="color:#f92672">:
 <h2 id="41-分组汇总只需在by指定分组变量在j指定计算函数即可">4.1 分组汇总只需在<code>by</code>指定分组变量，在<code>j</code>指定计算函数即可</h2>
 <pre><code class="language-{r}" data-lang="{r}">   #按cyl与vs分组，对统计分组下的mpg均值，disp的总和,分组数据个数num，共返回cyl，vs，以及分组下的三个新变量 
    mtcars_dt[,.(mean_mpg = mean(mpg),num=length(mpg),sum_disp = sum(disp)),by=.(cyl,vs)] 
-</code></pre><h2 id="2-datatable有一个特殊的变量n可以直接计算分组的观测值个数">.2 data.table有一个<strong>特殊的变量<code>.N</code></strong>可以直接计算分组的观测值个数。</h2>
+</code></pre><h2 id="2-datatable有一个特殊的变量n可以直接计算分组的观测值个数">.2 data.table有一个**特殊的变量<code>.N</code>**可以直接计算分组的观测值个数。</h2>
 <pre><code>- 当参数j里面只有一列，我们可以省略 .()，如下：mtcars_dt[,.N,by=.(cyl,vs)]	 
 - 当参数by里面只有一列，我们可以省略 .()，如下：mtcars_dt[,.N,by=cyl]
 </code></pre>

@@ -6,11 +6,7 @@
     <description>Recent content in Rcpp on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 14 Nov 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/rcpp/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 14 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/rcpp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Armadillo &#43; Rcpp  VS  MATLAB/octave</title>
       <link>/matlab/2019-11-14-matlab_rcpp_c/</link>

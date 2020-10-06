@@ -313,7 +313,7 @@
 <tr>
 <td>str_conv()</td>
 <td>字符编码转换,基本函数中的比较好用</td>
-<td>iconv(x, from = &ldquo;&quot;, to = &ldquo;&quot;)</td>
+<td>iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)</td>
 </tr>
 <tr>
 <td>str_to_upper()<!-- raw HTML omitted -->str_to_lower()</td>
@@ -582,7 +582,7 @@ R语言作为
 &gt; str_count(fruit, &quot;p&quot;)
 [1] 2 0 1 3
 
-</code></pre><p>对字符串中的&rsquo;.&lsquo;字符计数，由于.是正则表达式的匹配符，直接判断计数的结果是不对的。</p>
+</code></pre><p>对字符串中的'.&lsquo;字符计数，由于.是正则表达式的匹配符，直接判断计数的结果是不对的。</p>
 <pre><code>&gt; str_count(c(&quot;a.&quot;, &quot;.&quot;, &quot;.a.&quot;,NA), &quot;.&quot;)
 [1]  2  1  3 NA
 

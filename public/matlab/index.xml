@@ -6,11 +6,7 @@
     <description>Recent content in Matlabs on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 15 Nov 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/matlab/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 15 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="/matlab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MATLAB 与 R 在排序上的区别</title>
       <link>/matlab/2019-11-15-matlab-r-rank/</link>

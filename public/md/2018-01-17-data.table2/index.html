@@ -182,7 +182,7 @@ col_names <span style="color:#f92672">=</span> <span style="color:#a6e22e">colna
 <li><code>data.table</code>从来不使用行名。<code>data.table</code>类似有行名的形式为<code>1:，2: , ...</code></li>
 <li><strong>主键会对筛选的列进行重排序</strong></li>
 <li>我们把data.table数据中的行名叫做键（或主键），他类似于python的字典，使用键值对类型查找数据，键要求唯一，每一行有且只有一个键。但是R中的键可以用多个甚至可以重复，键就相当于索引，通过键进行数据的查找</li>
-<li><code>setkey()</code> 和 <code>setkeyv()</code>可以直接更新输入的data.table，就和上一讲中的操作符&rdquo;:=&quot;一样。它们没有返回值。</li>
+<li><code>setkey()</code> 和 <code>setkeyv()</code>可以直接更新输入的data.table，就和上一讲中的操作符&quot;:=&ldquo;一样。它们没有返回值。</li>
 <li>这个主键和其它语言不一样，例如python的键，唯一，在r中任意列都能使用setkey()来设置主键</li>
 </ol>
 <pre><code class="language-{r,message=F,warning=F}" data-lang="{r,message=F,warning=F}">library(data.table)

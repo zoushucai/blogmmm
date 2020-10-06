@@ -6,11 +6,7 @@
     <description>Recent content in latex on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 14 Aug 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/latex/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 14 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/latex/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>latex 参考文献格式: GB/7714</title>
       <link>/md/2020-08-14-gb7714/</link>
@@ -95,7 +91,7 @@ MacTeX是mac下的latex工具，卸载方法：
 2、卸载GUI，到/Application/ 目录里删掉几个app即可。
 3、/Library/TeX
 4、~/Library/texlive/2019
-cd /usr/local/ sudo rm -rf texlive/ cd /Library/ sudo rm -rf TeX/ cd ~/Library/texlive sudo rm -rf 2018 cd ~/Library sudo rm -rf texlive </description>
+sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/texlive </description>
     </item>
     
     <item>

@@ -172,34 +172,34 @@
 <table>
 <thead>
 <tr>
-<th align="left">编码方式</th>
+<th style="text-align:left">编码方式</th>
 <th>编码</th>
 <th>解码</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">二进制编码</td>
+<td style="text-align:left">二进制编码</td>
 <td>第$j$ 个变量用长度为 $k_j​$的二进制编码符号来表示，<!-- raw HTML omitted -->二进制串编码符号长度与问题所要求的求解进度有关，<!-- raw HTML omitted -->假设分量$x_j​$的精度是小数点后4位，则$k_j​$的计算公式如下:<!-- raw HTML omitted -->      $$ \log_2^{(b_j-a_j) \cdot 10^4+1} \le k_j &lt; \log_2^{(b_j-a_j) \cdot 10^4}+1​$$<!-- raw HTML omitted -->一般地，​$k_j​$都取同一个整数​$k=max{k_j,}​$<!-- raw HTML omitted --></td>
 <td>即把二进制串转变为十进制数 <!-- raw HTML omitted -->假设$x_j$的编码为$c_kc_{k-1}c_{k-2} \cdots c_2c_1$,长度为k,则对应解码公式为:<!-- raw HTML omitted -->     $$x_j = a_j+(\sum_{i=1}^{k}b_i\cdot 2^{i-1} )\cdot  \frac{b_j-a_j}{2^{k}-1}\$$</td>
 </tr>
 <tr>
-<td align="left">格雷码编码</td>
+<td style="text-align:left">格雷码编码</td>
 <td>类似二进制编码</td>
 <td>类似二进制解码</td>
 </tr>
 <tr>
-<td align="left">实数编码（也称浮点数编码）</td>
+<td style="text-align:left">实数编码（也称浮点数编码）</td>
 <td>个体的每个基因值用一定范围的一个实数表示，此时染色体长度等于变量个数。</td>
 <td>一般不需要解码</td>
 </tr>
 <tr>
-<td align="left">整数编码</td>
+<td style="text-align:left">整数编码</td>
 <td>用于特殊的问题（TSP问题）或者其他问题。</td>
 <td>一般不需要解码</td>
 </tr>
 <tr>
-<td align="left">其他编码方式</td>
+<td style="text-align:left">其他编码方式</td>
 <td></td>
 <td></td>
 </tr>

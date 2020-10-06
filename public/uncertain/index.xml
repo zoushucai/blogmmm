@@ -6,11 +6,7 @@
     <description>Recent content in Uncertains on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/uncertain/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="/uncertain/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>残缺区间群体决策模型（GDM Liu 2012)</title>
       <link>/uncertain/2019-05-05-incomplete-interval-gdm/</link>
