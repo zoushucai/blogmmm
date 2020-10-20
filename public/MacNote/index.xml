@@ -156,7 +156,7 @@ https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
       <description>mac 终端样式配置 首先，弄明白bash 和zsh&amp;hellip;.
 1 mac shell一览 unix核的系统如linux、macos的shell 默认都是bash
 就如第一张图查询所示，mac有6个shell，默认是/bin/bash
-1.1 查看安装了哪些shell ： cat /etc/shells 1.2 查看当前使用的shell echo $SHELL % 方法一 echo $0 % 方法二 1.3 bash和zsh切换 切换到bash
+1.1 查看安装了哪些shell ： cat /etc/shells 1.2 查看当前使用的shell echo $SHELL # 方法一 echo $0 # 方法二 1.3 bash和zsh切换 切换到bash
 chsh -s /bin/bash 切换到zsh
 chsh -s /bin/zsh 记得输入切换命令后，要重新打开终端terminal才生效哦！
 2、终端美化 &amp;mdash;iterm2 + zsh配置方法 2.1 安装iterm2 -官网 我不能确定zsh是否需要iterm2作为基础，因此我安装了iterm2
