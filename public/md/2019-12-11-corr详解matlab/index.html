@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>corr详解(MATLAB)</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css">
+        
+
+        
+        
+        <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/github.min.css" rel="stylesheet">
+        
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/r.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/yaml.min.js"></script>
+        
+        
+
+        <script>hljs.initHighlightingOnLoad();</script>
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">tags</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<div class = "div-content" >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1corrcoef">1、corrcoef</a>
+      <ul>
+        <li><a href="#r--corrcoefahttpsww2mathworkscnhelpmatlabrefcorrcoefhtmllangenf80-999628-a">R = corrcoef(<a href="https://ww2.mathworks.cn/help/matlab/ref/corrcoef.html?lang=en#f80-999628-A"><code>A</code></a>)</a></li>
+        <li><a href="#r--corrcoefab">R = corrcoef(A,B)</a></li>
+      </ul>
+    </li>
+    <li><a href="#2corr">2、corr</a>
+      <ul>
+        <li><a href="#rho--corrx">rho = corr(X)</a></li>
+        <li><a href="#rho--corrxy">rho = corr(X,Y)</a></li>
+        <li><a href="#rhopval--corr___namevalue">[rho,pval] = corr(___,Name,Value)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            
+            </div>
+    </div>
+</div>
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                corr详解(MATLAB)
+                <time>
+                    <br>
+                    <span>zsc </span>
+                    <span> 2019-12-11 </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/MATLAB"> #MATLAB </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="corr详解matlab">corr详解（MATLAB）</h1>
+<ul>
+<li><strong>corrcoef是对两个列向量，或者一个矩阵的每列进行的，用的是pearson相关</strong></li>
+<li><strong>corr可以对两个矩阵的每列进行，也可以对一个矩阵的每列进行，相关的类型可以是pearson或者Kendall或者Spearman</strong></li>
+<li><strong>总之，corr强大很多</strong></li>
+</ul>
+<h2 id="1corrcoef">1、corrcoef</h2>
+<h3 id="r--corrcoefahttpsww2mathworkscnhelpmatlabrefcorrcoefhtmllangenf80-999628-a">R = corrcoef(<a href="https://ww2.mathworks.cn/help/matlab/ref/corrcoef.html?lang=en#f80-999628-A"><code>A</code></a>)</h3>
+<p>输入：一个矩阵A，</p>
+<p>方法：计算矩阵A的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。</p>
+<p>返回： 一个相关系数矩阵R，</p>
+<pre><code>A = randn(n,m); % A是一个n*m的矩阵
+corrcoef(A) % 返回一个m*m的对称矩阵
+</code></pre><h3 id="r--corrcoefab">R = corrcoef(A,B)</h3>
+<p>输入： 两个向量，A，B均为列向量</p>
+<p>返回：一个2*2 对称的相关系数矩阵</p>
+<p>如果A, B 均为矩阵，则先把A，B转变为列向量，然后再计算皮尔逊相关系数，即等价于如下形式</p>
+<pre><code>A = randn(n,m); % A是一个n*m的矩阵
+B = randn(n,m); % B是一个n*m的矩阵,
+%% 注意A，B矩阵的个数一定要一样
+corrcoef(A,B）       % 返回一个2*2的对称矩阵
+corrcoef(A(:),B(:)) % 等价 corrcoef(A,B）
+</code></pre><h2 id="2corr">2、corr</h2>
+<h3 id="rho--corrx">rho = corr(X)</h3>
+<p>输入：一个矩阵X</p>
+<p>方法: 计算矩阵X的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。</p>
+<p>返回： 返回一个对称的相关系数矩阵rho</p>
+<h3 id="rho--corrxy">rho = corr(X,Y)</h3>
+<p>输入： X为$n<em>m1$的矩阵，Y为$n</em>m2$的矩阵</p>
+<p>方法：返回输入矩阵X和Y中每对列之间的成对相关系数矩阵。</p>
+<p>返回一个$m1*m2$的矩阵，其中第i行第j列元素代表X的第i列与Y第j列的相关系数</p>
+<h3 id="rhopval--corr___namevalue">[rho,pval] = corr(___,Name,Value)</h3>
+<pre><code>R = corr(X,'Type','Pearson')
+R = corr(X,Y,'Type','Pearson')
+R = corr(X,Y,'Type','Kendall')
+R = corr(X,Y,'Type','Spearman')
+
+
+</code></pre>
+        </section>
+    </div>
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/" class="leancloud_visitors" data-flag-title="corr详解(MATLAB)">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/"> 上一篇: 计算各种距离 （matlab）</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/"> 下一篇: 基本绘图中添加指定中文字体</a>
+        
+    </li>
+    
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    <footer>
+    <br>
+    <p style="float:right;margin:0 1rem;">
+        &copy; 2020 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+    <hr>
+</footer>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blog/edit/master/content/md\/2019-12-11-corr详解matlab.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+    
+</div> 
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+
+<br>
+<br>

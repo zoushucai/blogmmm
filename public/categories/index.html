@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+    
+    <title>Categories</title>
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+    
+    
+    <style type="text/css">
+    body {background-color: #fbf6ec;}
+    </style>
+    
+
+</head>
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+
+
+<div class="site-header-content">
+        <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">tags</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="list-term">
+      <ul class="list-group" style="overflow:auto;">
+      		
+             	<li class="list-group-item title" style="display: block;float: left;width: 19%;">
+          		    <a href="/categories/mac%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE"> mac系统设置 &#x2F; (10) </a>
+              </li>
+          
+             	<li class="list-group-item title" style="display: block;float: left;width: 19%;">
+          		    <a href="/categories/r"> r &#x2F; (1) </a>
+              </li>
+          
+             	<li class="list-group-item title" style="display: block;float: left;width: 19%;">
+          		    <a href="/categories/%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95"> 决策方法 &#x2F; (13) </a>
+              </li>
+          
+       </ul>
+  </div>
+</div>
+
+
+<footer>
+    <br>
+    <p style="float:right;margin:0 1rem;">
+        &copy; 2020 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+    <hr>
+</footer>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blog/edit/master/content/");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>

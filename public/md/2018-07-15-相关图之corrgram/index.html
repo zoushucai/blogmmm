@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>相关图之corrgram</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css">
+        
+
+        
+        
+        <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/github.min.css" rel="stylesheet">
+        
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/r.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/yaml.min.js"></script>
+        
+        
+
+        <script>hljs.initHighlightingOnLoad();</script>
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">tags</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<div class = "div-content" >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#相关矩阵图">相关矩阵图</a></li>
+    <li><a href="#相关矩阵图一corrgram">相关矩阵图一—–corrgram</a>
+      <ul>
+        <li><a href="#corrgramcorrgram函数"><code>corrgram::corrgram()</code>函数</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            
+            </div>
+    </div>
+</div>
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                相关图之corrgram
+                <time>
+                    <br>
+                    <span>zsc </span>
+                    <span> 2018-07-15 </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/R"> #R </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <p><strong>相关图</strong>：
+所谓相关图是基于变量间的相关系数大小，通过可视化方法反应不同变量组合间相关关系的差异图形。可以把相关图分为<strong>相关矩阵图、相关层次图</strong></p>
+<h2 id="相关矩阵图">相关矩阵图</h2>
+<p>R语言中，绘制相关矩阵图的包主要有两个：<code>corrgram::corrgram</code>和<code>corrplot::corrplot</code><br>
+此处都以<code>mtcars</code>数据集为例，说明这两个函数的使用</p>
+<h2 id="相关矩阵图一corrgram">相关矩阵图一—–corrgram</h2>
+<h3 id="corrgramcorrgram函数"><code>corrgram::corrgram()</code>函数</h3>
+<pre><code>corrgram(x, type = NULL, order = FALSE, labels, panel = panel.shade,
+  lower.panel = panel, upper.panel = panel, diag.panel = NULL,
+  text.panel = textPanel, label.pos = c(0.5, 0.5), label.srt = 0,
+  cex.labels = NULL, font.labels = 1, row1attop = TRUE, dir = &quot;&quot;,
+  gap = 0, abs = FALSE, col.regions = colorRampPalette(c(&quot;red&quot;, &quot;salmon&quot;,
+  &quot;white&quot;, &quot;royalblue&quot;, &quot;navy&quot;)), cor.method = &quot;pearson&quot;,
+  outer.labels = NULL, ...)
+
+
+参数解释：  
+x: 数据框或者相关矩阵,输入数据框时，会自动识别数值型列进行计算相关矩阵，然后再绘图
+order: 是否让变量按主成分分析相关矩阵排列.可以设置为TRUE或&quot;PCA&quot;,默认FALSE
+panel : 设置非对角线的面板形状,默认为阴影图
+lower.panel: 设置相关矩阵下三角矩阵面板形状
+upper.panel： 设置相关矩阵上三角矩阵面板形状
+  面板形状设置参数： 
+    panel.pie   用饼图的填充比例来表示相关性大小
+        panel.shade 用阴影的深度来表示相关性
+        panel.ellipse   绘制置信椭圆和平滑拟合曲线
+        panel.pts   绘制散点图
+  
+text.panel 和 diag.panel 选项控制着主对角线元素类型。 
+    textPanel    输出变量的名字（默认）
+    panel.minmax    输出变量的最大最小值
+        panel.txt      输出的变量名字          
+</code></pre>
+<p>画出相关矩阵图</p>
+<pre><code>library(corrgram)
+corrgram(cor(mtcars)) 
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-1.png" alt=""></p>
+<pre><code>corrgram(mtcars)
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-2.png" alt=""></p>
+<pre><code>corrgram(iris)
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-3.png" alt=""></p>
+<h4 id="设置排序处理">设置排序处理</h4>
+<pre><code>corrgram(mtcars,order = T) # 等价 corrgram(mtcars,order = &quot;PCA&quot;)
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-2-1.png" alt=""></p>
+<h4 id="设置上下三角面板形状">设置上下三角面板形状</h4>
+<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = panel.pie)
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-3-1.png" alt="">
+#### 只显示下三角部分图</p>
+<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = NULL)
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
+<h4 id="调整版面颜色">调整版面颜色</h4>
+<pre><code>corrgram(mtcars,order = T,lower.panel = panel.shade,upper.panel = panel.pie,
+         col.regions = colorRampPalette(c(&quot;darkgoldenrod4&quot;, &quot;burlywood1&quot;,&quot;white&quot;,&quot;darkkhaki&quot;, &quot;darkgreen&quot;)))
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-5-1.png" alt=""></p>
+<pre><code>corrgram(mtcars,order=TRUE,
+         lower.panel=panel.ellipse,
+         upper.panel=panel.pts,
+         text.panel=panel.txt,
+         diag.panel=panel.minmax,
+         main=&quot;Correlogram of Mtcars intercorrelations&quot; )
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
+
+        </section>
+    </div>
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/" class="leancloud_visitors" data-flag-title="相关图之corrgram">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/"> 上一篇: 泰坦尼克号预测(kaggle)</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/"> 下一篇: 猫眼电影票房抓取</a>
+        
+    </li>
+    
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    <footer>
+    <br>
+    <p style="float:right;margin:0 1rem;">
+        &copy; 2020 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+    <hr>
+</footer>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blog/edit/master/content/md\/2018-07-15-相关图之corrgram.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+    
+</div> 
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+
+<br>
+<br>

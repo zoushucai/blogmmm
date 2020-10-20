@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>决策方法 on zsc</title>
+    <link>/tags/%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+    <description>Recent content in 决策方法 on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>残缺区间群体决策模型（GDM Liu 2012)</title>
+      <link>/uncertain/2019-05-05-incomplete-interval-gdm/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-05-incomplete-interval-gdm/</guid>
+      <description>残缺区间群体决策模型（GDM）  0. 参考论文: 1. 主要思路（刘芳2012年）： 2.主要函数构建： 3.测试  3.1 测试1 3.2 测试2  4 .总结    残缺区间群体决策模型（GDM） 0. 参考论文: 徐泽水： A consistency improving method in the analytic hierarchy process 1999年
+刘芳：Acceptable consistency analysis of interval reciprocal comparison matrices 2009年
+刘芳： A goal programming model for incomplete interval multiplicative preference relations and its application in group decision-making 2012年
+ 1. 主要思路（刘芳2012年）： 先把残缺区间矩阵\(U_k\)通过某种方法(LOP2)或者利用粒子群算法)进行补全成\(U_k^{’}\)， 检查补全以后的矩阵\(U_{k}^{&amp;#39;}\)是否具有一致性(\(U_{k}^{&amp;#39;}\)具有一致性 的充要条件 是 \(U_{k}^{&amp;#39;}\) 分解成单个的正互反判断矩阵B 和D，矩阵B和D的CR &amp;lt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>求区间可能度矩阵的算法(Liu 2009)</title>
+      <link>/uncertain/2019-05-04-interval-of-possibility-degree/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-04-interval-of-possibility-degree/</guid>
+      <description>求区间可能度矩阵的算法  0. 参考论文: 1. 主要思路： 2.主要函数构建： 3. 测试  3.1 例1： B 和D都满足一致性指标 3.2 例2： B 和D不满足一致性指标  4. 总结:    求区间可能度矩阵的算法 0. 参考论文: 徐泽水： A consistency improving method in the analytic hierarchy process 1999年
+刘芳：Acceptable consistency analysis of interval reciprocal comparison matrices 2009年
+ 1. 主要思路： 把区间乘性互反矩阵U拆成两个正互反判断矩阵B和D,B，D都是正的互反判断矩阵。其中B的下三角元素大于D矩阵的下三角元素，B的上三角小于D的上三角元素 ，简称B的下三角大，上三角小 一致性检验，若拆分后的B，D矩阵一致性不满足条件(即\(CR&amp;lt;= 0.1\)) ，则用徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准(\(CR &amp;lt;=0.1\)). 然后分别计算矩阵\(B，D\)的权重向量\(w(B),w(D)\) ,注意这里的权重没有归一化处理. 通过公式\(w_i = [min(w_i(B),w_i(D)),max(w_i(B),w_i(D))]\),把两个权重向量组合成一个区间向量。 通过区间向量\(w\)计算出区间向量的可能度矩阵\(P\)。   2.主要函数构建： consistency(A): 求正互反判断矩阵的一致性指标，返回一个list</description>
+    </item>
+    
+    <item>
+      <title>正互反矩阵一致性调整方法(徐泽水1999)</title>
+      <link>/uncertain/2019-05-03-adjust-w-xuzeshui1999/</link>
+      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-03-adjust-w-xuzeshui1999/</guid>
+      <description>正互反矩阵一致性调整方法(徐泽水1999)  0. 参考论文： 1. 算法步骤： 2. 主要函数构建 3. 测试  3.1 矩阵1 — 论文的example1 3.2 测试矩阵2 — 论文的example2  4. 总结    正互反矩阵一致性调整方法(徐泽水1999) 0. 参考论文： 徐泽水：A consistency improving method in the analytic hierarchy process 1999年
+以下是对论文的实现。
+ 1. 算法步骤： 主要算法步骤：
+假设\(A = (a_{ij})_{n \times n }\) 是一个正互反判断矩阵，迭代步骤记为\(k\)， 调整参数\(0 &amp;lt; \lambda &amp;lt;1\)
+令\(A^{0} = A\)， \(CR^* = 0.1,k =0\)
+ 计算\(A^{k} = (a_{ij}^{k})_{n\times n}\) 的最大特征值\(\lambda_{max}(A^k)\)以及对应的特征向量\(w^{k} = (w_1^k,w_2^k,\cdots,w_n^k)\)</description>
+    </item>
+    
+    <item>
+      <title>1.5.2离差最大化的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-1-5%E5%9F%BA%E4%BA%8E%E7%A6%BB%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-1-5%E5%9F%BA%E4%BA%8E%E7%A6%BB%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》24页 –1.52 实例分析   徐泽水《不确定多属性决策方法与应用》24页 –1.52 实例分析 ##### 1.5.2离差最大化的多属性决策方法---徐泽水《不确定多属性决策方法与应用》24页 --1.52 实例分析 library(data.table) library(dplyr) A= c(12,11.5,780,175,22,2.43, 12,14.6,898,165,33.5,2.83, 10.3,13.5,741,181,22.7,3, 12,15.24,1038,204,47.3,4, 11.4,12.19,833.4,180,19,5.9, 9,12.8,667,170,19.8,3.8, 12.2,13.37,991,170,59,3.3, 12,14.3,1048,230,37.2,1.9, 9,6.25,287,105,5,3.6, 10.33,15,927,167,52.6,3.14) A= matrix(A,nrow = 10,ncol = 6,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 ， 也称决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 V6 #&amp;gt; 1: 12.00 11.50 780.0 175 22.0 2.43 #&amp;gt; 2: 12.00 14.60 898.0 165 33.5 2.83 #&amp;gt; 3: 10.30 13.50 741.</description>
+    </item>
+    
+    <item>
+      <title>1.6 基于信息熵的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-1-6%E5%9F%BA%E4%BA%8E%E4%BF%A1%E6%81%AF%E7%86%B5%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-1-6%E5%9F%BA%E4%BA%8E%E4%BF%A1%E6%81%AF%E7%86%B5%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》26页   徐泽水《不确定多属性决策方法与应用》26页 ## 1.6 基于信息熵的多属性决策方法---徐泽水《不确定多属性决策方法与应用》26页 --1.62 实例分析 library(data.table) library(dplyr) A = c(2,1.5,2,5.5,5,9, 2.5,2.7,1.8,6.5,3,5, 1.8,2,2.1,4.5,7,7, 2.2,1.8,2,5,5,5) A= matrix(A,nrow = 4,ncol = 6,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 V6 #&amp;gt; 1: 2.0 1.5 2.0 5.5 5 9 #&amp;gt; 2: 2.5 2.7 1.8 6.5 3 5 #&amp;gt; 3: 1.8 2.0 2.1 4.5 7 7 #&amp;gt; 4: 2.2 1.8 2.0 5.0 5 5 ####################################################### ##### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 ########################################################## ### norm_matrix()函数，根据书中收益型属性（按公式1.</description>
+    </item>
+    
+    <item>
+      <title>1.7方案有偏好信息的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-1-7%E6%96%B9%E6%A1%88%E6%9C%89%E5%81%8F%E5%A5%BD%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-1-7%E6%96%B9%E6%A1%88%E6%9C%89%E5%81%8F%E5%A5%BD%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》27–37页  1.对方案的偏好信息为互反判断矩阵的情形 2.对方案的偏好信息为模糊互补判断矩阵的情形 3.对方案的偏好信息为效用值的情形    徐泽水《不确定多属性决策方法与应用》27–37页 1.对方案的偏好信息为互反判断矩阵的情形 ## 1 对方案的偏好信息为互反判断矩阵的情形 library(data.table) library(dplyr) A = c(3.0,100,10,7, 2.5,80,8,5, 1.8,50,20,11, 2.2,70,12,9) A= matrix(A,nrow = 4,ncol = 4,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 #&amp;gt; 1: 3.0 100 10 7 #&amp;gt; 2: 2.5 80 8 5 #&amp;gt; 3: 1.8 50 20 11 #&amp;gt; 4: 2.2 70 12 9 ####################################################### ##### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 ########################################################## ### norm_matrix()函数，根据书中收益型属性（按公式1.</description>
+    </item>
+    
+    <item>
+      <title>2.1 模糊互补判断矩阵的排序方法</title>
+      <link>/uncertain/2019-02-26-2-1%E6%A8%A1%E7%B3%8A%E4%BA%92%E8%A1%A5%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5%E7%9A%84%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-2-1%E6%A8%A1%E7%B3%8A%E4%BA%92%E8%A1%A5%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5%E7%9A%84%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》59页   徐泽水《不确定多属性决策方法与应用》59页 ### 2.1 模糊互补判断矩阵的排序方法---徐泽水《不确定多属性决策方法与应用》59页 --2.1.6 实例分析 # 以及55页 例 2.1 B = c(0.5,0.7,0.6,0.8, 0.3,0.5,0.4,0.6, 0.4,0.6,0.5,0.7, 0.2,0.4,0.3,0.5) B = matrix(B, nrow = 4,ncol = 4,byrow = T) ######## MTM 排序法---模糊互补判断矩阵的中转法 # MTM 函数直接输入模糊互补判断矩阵B，直接即可求出对应案例（即行，决策矩阵行代表案例，列代表属性）的权重向量w. MTM = function(B){ w = 0 n = nrow(B) m = ncol(B) stopifnot(n==m) for(i in 1:n){ w[i] =( sum(B[i,]) + n/2 -1) /(n*(n-1)) } return(w) } MTM(B) #&amp;gt; [1] 0.3000000 0.2333333 0.2666667 0.</description>
+    </item>
+    
+    <item>
+      <title>3.1 基于理想点的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-3-1%E5%9F%BA%E4%BA%8E%E7%90%86%E6%83%B3%E7%82%B9%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-3-1%E5%9F%BA%E4%BA%8E%E7%90%86%E6%83%B3%E7%82%B9%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》78页   徐泽水《不确定多属性决策方法与应用》78页 ## 3.1 基于理想点的多属性决策方法---徐泽水《不确定多属性决策方法与应用》78页 --3.1.2 实例分析 library(data.table) library(dplyr) A = c(0.37,1800,2,19,90, 0.58,2800,5,28,105, 0.52,3500,5,32,130, 0.43,1900,3,27,98) A= matrix(A,nrow = 4,ncol = 5,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 #&amp;gt; 1: 0.37 1800 2 19 90 #&amp;gt; 2: 0.58 2800 5 28 105 #&amp;gt; 3: 0.52 3500 5 32 130 #&amp;gt; 4: 0.43 1900 3 27 98 ####################################################### ############################## ################## 正理想点偏差 ----- 且 决策者不能提供任何权重信息 ############### ####################################################### ############################## #### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 ### norm_matrix()函数，根据书中收益型属性（按公式1.</description>
+    </item>
+    
+    <item>
+      <title>3.2 基于方案满意度的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-3-2%E5%9F%BA%E4%BA%8E%E6%96%B9%E6%A1%88%E6%BB%A1%E6%84%8F%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-3-2%E5%9F%BA%E4%BA%8E%E6%96%B9%E6%A1%88%E6%BB%A1%E6%84%8F%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》81页  第一步: 把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 第二步 ： 求出综合属性正理想值z_max,以及综合属性负理想值z_min 第三步： 求出各方按的满意度，PW 矩阵的每一行为对应方案的满意度矩阵    徐泽水《不确定多属性决策方法与应用》81页 ## 3.2 基于方案满意度的多属性决策方法---徐泽水《不确定多属性决策方法与应用》81页 --3.2.2 实例分析 library(data.table) library(dplyr) A = c(47177, 16.61, 8.89, 31.05, 15.77, 43323, 9.08, 3.65, 29.80, 8.44, 59023, 13.84, 6.06, 26.55, 12.87, 46821, 10.59, 3.51, 22.46, 7.41, 41646, 13.24, 4.64, 24.33, 9.33, 26446, 10.16, 2.38, 26.80, 9.85, 38381, 11.97, 4.79, 26.45, 10.64, 57808, 10.29, 4.54, 23.00, 9.23, 28869, 7.68, 2.12, 31.</description>
+    </item>
+    
+    <item>
+      <title>3.3 基于方差最大化模型的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-3-3%E5%9F%BA%E4%BA%8E%E6%96%B9%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-3-3%E5%9F%BA%E4%BA%8E%E6%96%B9%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》84页   徐泽水《不确定多属性决策方法与应用》84页 ## 3.3 基于方差最大化模型的多属性决策方法---徐泽水《不确定多属性决策方法与应用》84页 --3.3.2 实例分析 library(data.table) library(dplyr) A = c(18400,3,100,80,300,60,40,1.2, 19600,4,120,100,400,80,40,1.3, 29360,6,540,120,150,100,50,1.5) A= matrix(A,nrow = 3,ncol = 8,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 V6 V7 V8 #&amp;gt; 1: 18400 3 100 80 300 60 40 1.2 #&amp;gt; 2: 19600 4 120 100 400 80 40 1.3 #&amp;gt; 3: 29360 6 540 120 150 100 50 1.</description>
+    </item>
+    
+    <item>
+      <title>4.1 基于可能度的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-4-1%E5%9F%BA%E4%BA%8E%E5%8F%AF%E8%83%BD%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-4-1%E5%9F%BA%E4%BA%8E%E5%8F%AF%E8%83%BD%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用  徐泽水《不确定多属性决策方法与应用》109页    第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用 徐泽水《不确定多属性决策方法与应用》109页 ##### 第四章--属性权重为实数且属性值为区间数的多属性决策方法及应用 ## 4.1 基于可能度的多属性决策方法---徐泽水《不确定多属性决策方法与应用》109页 ## 4.1.4 实例分析 ##### 第一步： 求出规范化矩阵 A = c(0.214,0.220,0.166,0.178,0.184,0.190, 0.206,0.225,0.220,0.229,0.182,0.191, 0.195,0.204,0.192,0.198,0.220,0.231, 0.181,0.190,0.195,0.205,0.185,0.195, 0.175,0.184,0.193,0.201,0.201,0.211) R = matrix(A,nrow = 5,byrow = T) # R为规范化后的决策矩阵 R # 矩阵R的奇数列代表属性的下界 ，偶数列代表属性的上界 #&amp;gt; [,1] [,2] [,3] [,4] [,5] [,6] #&amp;gt; [1,] 0.214 0.220 0.166 0.178 0.184 0.190 #&amp;gt; [2,] 0.206 0.225 0.220 0.229 0.182 0.191 #&amp;gt; [3,] 0.195 0.204 0.192 0.</description>
+    </item>
+    
+    <item>
+      <title>4.2基于投影的多属性决策方法(含4.3区间归一化)</title>
+      <link>/uncertain/2019-02-26-4-2%E5%9F%BA%E4%BA%8E%E6%8A%95%E5%BD%B1%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-4-2%E5%9F%BA%E4%BA%8E%E6%8A%95%E5%BD%B1%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>4.3 区间归一化   #徐泽水《不确定多属性决策方法与应用》112页 ## 第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用 ### 4.2 基于投影的多属性决策方法
+##### 第四章--属性权重为实数且属性值为区间数的多属性决策方法及应用 ## 4.2 基于投影的多属性决策方法---徐泽水《不确定多属性决策方法与应用》112页 ## 4.2.2 实例分析 ##### 第一步： 求出规范化矩阵 A = c(58.9,59,200,250,1.9,2.1,0.990,0.991,0.907,0.909, 58.5,58.7,340,350,3.4,3.5,0.990,0.992,0.910,0.912, 58.0,58.5,290,310,2.0,2.2,0.992,0.993,0.914,0.917) A = matrix(A,nrow = 3,byrow = T) # A为决策矩阵 A # 矩阵A的奇数列代表属性的下界 ，偶数列代表属性的上界 #&amp;gt; [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] #&amp;gt; [1,] 58.9 59.0 200 250 1.9 2.1 0.990 0.991 0.907 0.909 #&amp;gt; [2,] 58.5 58.7 340 350 3.</description>
+    </item>
+    
+    <item>
+      <title>不确定多属性决策方法徐泽水pdf</title>
+      <link>/uncertain/2019-02-25%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%A4%9A%E5%B1%9E%E6%80%A7%E6%96%B9%E6%B3%95%E5%BE%90%E6%B3%BD%E6%B0%B4pdf/</link>
+      <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-25%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%A4%9A%E5%B1%9E%E6%80%A7%E6%96%B9%E6%B3%95%E5%BE%90%E6%B3%BD%E6%B0%B4pdf/</guid>
+      <description>https://gitee.com/zscqsmy/blogimg/raw/master/img/xuzeshui不确定多属性决策方法及应用_徐泽水.pdf</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>foreach on zsc</title>
+    <link>/tags/foreach/</link>
+    <description>Recent content in foreach on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 08 Apr 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/foreach/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R 语言并行化计算之foreach包</title>
+      <link>/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</link>
+      <pubDate>Sun, 08 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</guid>
+      <description>foreach包执行任务的核心理念与传统的apply组函数基本一致，都是与split – apply – combine一致的流程，不过foreach比传统apply组函数的优越之处在于，它可以通过调用操作系统的多核运行性能来执行并行任务，这样特别是对于I/O密集型任务而言，可以大大节省代码执行效率。
+解读foreach()函数
+library(&amp;#34;doParallel&amp;#34;) #加载doParallel包用于之后注册进程 library(&amp;#34;foreach&amp;#34;) #导入foreach包 ######################################################################## ########## foreach()函数主要是对原本的for循环进行并行运算 ############### ######################################################################### #############并行化格式 detectCores() #这个网上说是核数，但实际上是线程数，和真实的物理核多一倍，4核8线程 cl&amp;lt;- makeCluster(detectCores()) # 不过R中能运行满线程 ，即detectCores()返回的核数。 registerDoParallel(cl) #进行进程注册 mydata1 &amp;lt;- foreach( ..., # 并行化参数（循环参数）,当参数为两个以上时，选长度较短的循环完为止. .combine, #合并方式，default是list，“c”返回vector,cbind和rbind返回矩阵,也可以自定义函数. # &amp;#34;+&amp;#34;和&amp;#34;*&amp;#34;是対返回后的list进行同列操作 .init, #.combine函数的第一个变量,当.combine参数被具体化是才用 .final=NULL, #返回最后结果 .inorder=TRUE,#返回和原始输入相同顺序的结果 .multicombine=FALSE,#设定.combine函数的传递参数，FALSE表示其参数是2，TRUE可以设定多个参数 .maxcombine=if (.multicombine) 100 else 2, #设定.combine的最大参数 .errorhandling=c(&amp;#39;stop&amp;#39;, &amp;#39;remove&amp;#39;, &amp;#39;pass&amp;#39;),#如果循环中出现错误，对错误的处理方法 .packages=NULL,# 指定在%dopar%运算过程中依赖的package（%do%会忽略这个选项）。 .export=NULL, # 在编译函数的时候需要预先加载一些内容进去，类似parallel的clusterExport .noexport=NULL, .verbose=FALSE) ##是否打印运行信息 ) %dopar% {***} #并行的代码，也可以是相应的函数,即我们for循环的函数体 stopCluster(cl) # 结束集群 注意：平时我们大多数使用时，很多参数都选取默认状态，其中常用参数为：... 、.combine、.packages.
+基本操作
+library(&amp;#34;doParallel&amp;#34;) #加载doParallel包用于之后注册进程 library(&amp;#34;foreach&amp;#34;) #导入foreach包 cl&amp;lt;- makeCluster(detectCores()-1) registerDoParallel(cl) #进行进程注册 getDoParWorkers() # #查看注册了多少个核 code=function(){ x1&amp;lt;-(a + b); x2&amp;lt;-a*b; c(x1,x2); } # 并行化参数,当参数为两个以上时，选长度较短的循环完为止.</description>
+    </item>
+    
+  </channel>
+</rss>

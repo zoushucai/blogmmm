@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AHP on zsc</title>
+    <link>/tags/ahp/</link>
+    <description>Recent content in AHP on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/ahp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>残缺区间群体决策模型（GDM Liu 2012)</title>
+      <link>/uncertain/2019-05-05-incomplete-interval-gdm/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-05-incomplete-interval-gdm/</guid>
+      <description>残缺区间群体决策模型（GDM）  0. 参考论文: 1. 主要思路（刘芳2012年）： 2.主要函数构建： 3.测试  3.1 测试1 3.2 测试2  4 .总结    残缺区间群体决策模型（GDM） 0. 参考论文: 徐泽水： A consistency improving method in the analytic hierarchy process 1999年
+刘芳：Acceptable consistency analysis of interval reciprocal comparison matrices 2009年
+刘芳： A goal programming model for incomplete interval multiplicative preference relations and its application in group decision-making 2012年
+ 1. 主要思路（刘芳2012年）： 先把残缺区间矩阵\(U_k\)通过某种方法(LOP2)或者利用粒子群算法)进行补全成\(U_k^{’}\)， 检查补全以后的矩阵\(U_{k}^{&amp;#39;}\)是否具有一致性(\(U_{k}^{&amp;#39;}\)具有一致性 的充要条件 是 \(U_{k}^{&amp;#39;}\) 分解成单个的正互反判断矩阵B 和D，矩阵B和D的CR &amp;lt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>求区间可能度矩阵的算法(Liu 2009)</title>
+      <link>/uncertain/2019-05-04-interval-of-possibility-degree/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-04-interval-of-possibility-degree/</guid>
+      <description>求区间可能度矩阵的算法  0. 参考论文: 1. 主要思路： 2.主要函数构建： 3. 测试  3.1 例1： B 和D都满足一致性指标 3.2 例2： B 和D不满足一致性指标  4. 总结:    求区间可能度矩阵的算法 0. 参考论文: 徐泽水： A consistency improving method in the analytic hierarchy process 1999年
+刘芳：Acceptable consistency analysis of interval reciprocal comparison matrices 2009年
+ 1. 主要思路： 把区间乘性互反矩阵U拆成两个正互反判断矩阵B和D,B，D都是正的互反判断矩阵。其中B的下三角元素大于D矩阵的下三角元素，B的上三角小于D的上三角元素 ，简称B的下三角大，上三角小 一致性检验，若拆分后的B，D矩阵一致性不满足条件(即\(CR&amp;lt;= 0.1\)) ，则用徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准(\(CR &amp;lt;=0.1\)). 然后分别计算矩阵\(B，D\)的权重向量\(w(B),w(D)\) ,注意这里的权重没有归一化处理. 通过公式\(w_i = [min(w_i(B),w_i(D)),max(w_i(B),w_i(D))]\),把两个权重向量组合成一个区间向量。 通过区间向量\(w\)计算出区间向量的可能度矩阵\(P\)。   2.主要函数构建： consistency(A): 求正互反判断矩阵的一致性指标，返回一个list</description>
+    </item>
+    
+    <item>
+      <title>正互反矩阵一致性调整方法(徐泽水1999)</title>
+      <link>/uncertain/2019-05-03-adjust-w-xuzeshui1999/</link>
+      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-03-adjust-w-xuzeshui1999/</guid>
+      <description>正互反矩阵一致性调整方法(徐泽水1999)  0. 参考论文： 1. 算法步骤： 2. 主要函数构建 3. 测试  3.1 矩阵1 — 论文的example1 3.2 测试矩阵2 — 论文的example2  4. 总结    正互反矩阵一致性调整方法(徐泽水1999) 0. 参考论文： 徐泽水：A consistency improving method in the analytic hierarchy process 1999年
+以下是对论文的实现。
+ 1. 算法步骤： 主要算法步骤：
+假设\(A = (a_{ij})_{n \times n }\) 是一个正互反判断矩阵，迭代步骤记为\(k\)， 调整参数\(0 &amp;lt; \lambda &amp;lt;1\)
+令\(A^{0} = A\)， \(CR^* = 0.1,k =0\)
+ 计算\(A^{k} = (a_{ij}^{k})_{n\times n}\) 的最大特征值\(\lambda_{max}(A^k)\)以及对应的特征向量\(w^{k} = (w_1^k,w_2^k,\cdots,w_n^k)\)</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>carte on zsc</title>
+    <link>/tags/carte/</link>
+    <description>Recent content in carte on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 28 Jan 2017 00:00:00 +0000</lastBuildDate><atom:link href="/tags/carte/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2、caret包其他函数介绍</title>
+      <link>/post/2017-01-28-caret1otherfun/</link>
+      <pubDate>Sat, 28 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-01-28-caret1otherfun/</guid>
+      <description>一、创建哑变量 如果你有一个因子型变量需要进行哑变量处理，你会怎么办？也许你会根据该变量的m个水平数构建m-1个哑变量，不错，这样的思路是没有问题的。但如果发现该变量确实很重要，而且水平数目非常多，那你一定会抓狂！如果你会caret包中的dummyVars()函数，那将如虎添翼，效率倍增~我们来看看该函数是如何实现哑变量构建的。
+函数语法及参数介绍：
+dummyVars(formula, data, sep = &#34;.&#34;,levelsOnly = FALSE, fullRank = FALSE, ...) predict(object, newdata, na.action = na.pass, ...)
+ formula: 公式右边请指定需要处理为哑变量的因子型变量
+ sep:设置变量与水平间的分割符，默认为实心点。如x.a，x就是变量名,a就是x的一个水平
+ levelsOnly:逻辑值，如果为True，则列名中剔除原变量名。如x.a变为a,把因子作为变量名
+ object:为dummyVars()函数构成的结果
+ newdata:需要处理的新数据
+ na.action:缺失值的对待，变量水平中如果有缺失值，则结果仍为缺失值
+  library(caret) dummy &amp;lt;- dummyVars(formula = ~ ., data = iris,levelsOnly=TRUE)#把因子作为变量名 pred &amp;lt;- predict(dummy, newdata = iris) head(pred) ## Sepal.Length Sepal.Width Petal.Length Petal.Width setosa versicolor virginica ## 1 5.1 3.5 1.4 0.2 1 0 0 ## 2 4.</description>
+    </item>
+    
+  </channel>
+</rss>

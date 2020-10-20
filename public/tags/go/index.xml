@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on zsc</title>
+    <link>/tags/go/</link>
+    <description>Recent content in go on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 05 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1、go语言安装与LiteIDE的配置</title>
+      <link>/md/2018-01-05-goinstall/</link>
+      <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-05-goinstall/</guid>
+      <description>先下载 liteide 和go 安装包， 由于我的是win10 ，直接下载win的，直接点击下一步就可以安装go语言了，他会自动安装到C：\go 我设置为F :\go
+在cmd 命令中输入 ：go env 显示
+set GOARCH=amd64 # cpu架构 set GOBIN= # 工作目录下的bin文件夹 set GOEXE=.exe # 生成可执行文件的后缀 set GOHOSTARCH=amd64 #交叉编译参数 set GOHOSTOS=windows #交叉编译参数 set GOOS=windows #当前系统名称 set GOPATH=C:\Users\zsc\go # 我的工作目录 set GORACE= # set GOROOT=F:\go	#go的安装目录 set GOTOOLDIR=F:\go\pkg\tool\windows_amd64 # set GCCGO=gccgo set CC=gcc set GOGCCFLAGS=-m64 -mthreads -fmessage-length=0 -fdebug-prefix-map=C:\Users\zsc\AppData\Local\Temp\go-build974907835=/tmp/go-build -gno-record-gcc-switches set CXX=g++ set CGO_ENABLED=1 set CGO_CFLAGS=-g -O2 set CGO_CPPFLAGS= set CGO_CXXFLAGS=-g -O2 set CGO_FFLAGS=-g -O2 set CGO_LDFLAGS=-g -O2 set PKG_CONFIG=pkg-config 好像这后面的可以不用管，去电脑的环境变量里面新增</description>
+    </item>
+    
+  </channel>
+</rss>
