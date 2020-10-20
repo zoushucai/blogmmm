@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>zotero 设置</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css">
+        
+
+        
+        
+        <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/github.min.css" rel="stylesheet">
+        
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/r.min.js"></script>
+         
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/yaml.min.js"></script>
+        
+        
+
+        <script>hljs.initHighlightingOnLoad();</script>
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">tags</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<div class = "div-content" >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            
+            </div>
+    </div>
+</div>
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                zotero 设置
+                <time>
+                    <br>
+                    <span>zsc </span>
+                    <span> 2020-10-08 </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/mac"> #mac </a></li>
+                        
+                        <span> </span>
+                        
+                        <span>分类:</span>
+                        <li><a class="link" href="/categories/mac%e7%b3%bb%e7%bb%9f%e8%ae%be%e7%bd%ae"> @mac系统设置 </a></li>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="zotero-设置">zotero 设置</h1>
+<h2 id="插件安装">插件安装</h2>
+<ul>
+<li>
+<p>实现中文作者的拆分和合并  <a href="https://github.com/l0o0/jasminum">https://github.com/l0o0/jasminum</a></p>
+</li>
+<li>
+<p>bibtex : <a href="https://github.com/retorquere/zotero-better-bibtex">https://github.com/retorquere/zotero-better-bibtex</a>   并设置Google键</p>
+<p>在Zotero Preferences的Better Bibtex的Tab中修改citation key format 为</p>
+<pre><code> [auth:lower][year][veryshorttitle:lower]
+</code></pre></li>
+<li>
+<p>sci文章下载:  <a href="https://github.com/ethanwillis/zotero-scihub">https://github.com/ethanwillis/zotero-scihub</a></p>
+<p>不过有问题. 但是原作者一直没有更改.于是网友改进了它(推荐)</p>
+<p><a href="https://github.com/Patrixe/zotero-scihub/releases/tag/0.0.7">https://github.com/Patrixe/zotero-scihub/releases/tag/0.0.7</a></p>
+</li>
+<li>
+<p>获取文章的doi: <a href="https://github.com/bwiernik/zotero-shortdoi">https://github.com/bwiernik/zotero-shortdoi</a></p>
+<p>并设置doi:</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020100616image-20201006161239519.png" alt="image-20201006161239519"></p>
+</li>
+<li>
+<p>快速预览(按空格)阅读文章   <a href="https://github.com/mronkko/ZoteroQuickLook">https://github.com/mronkko/ZoteroQuickLook</a></p>
+</li>
+<li>
+<p>文件管理(可以对文章进行重命名)https://github.com/jlegewie/zotfile</p>
+</li>
+<li>
+<p>定义快捷键: <a href="https://github.com/willsALMANJ/Zutilo">https://github.com/willsALMANJ/Zutilo</a></p>
+<p>其中有两个实用的功能. 先设置</p>
+<p>点击菜单栏<code>Tools--&gt;Zutilo Preferences</code>，可以进行Zutilo的设置。</p>
+<p>找到下面两项,并设置快捷键<code>cmd +1</code>, <code>cmd+2</code>, 分别代表收缩左/右面板</p>
+<pre><code>Collections pane: Show/hide –&gt; CMD+1
+Item pane: Show/hide –&gt; CMD+2
+</code></pre></li>
+</ul>
+<p>参考: <a href="https://www.jianshu.com/p/861df0f8c8b8">https://www.jianshu.com/p/861df0f8c8b8</a></p>
+<p>还有一个重要的配置. 设置 <a href="https://www.jianguoyun.com/">坚果云同步</a></p>
+<p>参考: <a href="https://help.jianguoyun.com/?p=4190">https://help.jianguoyun.com/?p=4190</a></p>
+<p><a href="https://www.jianshu.com/p/5a9ceee33fac">https://www.jianshu.com/p/5a9ceee33fac</a></p>
+
+        </section>
+    </div>
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+    <br>
+    
+    
+
+
+
+
+<span id="/macnote/20201008zoteroset/" class="leancloud_visitors" data-flag-title="zotero 设置">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/"> 上一篇: sublime text3 使用方法以及相关插件</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+    </li>
+    
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    <footer>
+    <br>
+    <p style="float:right;margin:0 1rem;">
+        &copy; 2020 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+    <hr>
+</footer>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blog/edit/master/content/MacNote\/20201008zoteroset.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+    
+</div> 
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+
+<br>
+<br>
