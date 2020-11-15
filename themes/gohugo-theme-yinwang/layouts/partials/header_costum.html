@@ -17,10 +17,11 @@
         
         {{ with .Site.Params.highlight}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/{{ . }}.min.css"  />
-        {{end}}
+        {{end}} 
+        <!--  设置代码的语言 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
-
+        <!-- 添加额外的代码 -->
         {{range .Site.Params.langs }}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/{{ . }}.min.js"></script>
         {{ end }}
-      <script>hljs.initHighlightingOnLoad();</script>
+        <script>hljs.initHighlightingOnLoad();</script>
