@@ -8,17 +8,13 @@
             <link rel="stylesheet" href="{{.Site.BaseURL}}css/main.css"/>
         {{end}}
 
-        <!-- https://highlightjs.org/ 网站自己配置的 -->
-        <!--  属于本地文件 -->
-        <!--  https://highlightjs.org/        
-        <script src="{{.Site.BaseURL}}js/highlight.pack.js"></script>
+<!--         <script src="{{.Site.BaseURL}}js/highlight.pack.js"></script>
         <link rel="stylesheet" type="text/css" href="{{.Site.BaseURL}}css/github-gist.css"/>
         <script>hljs.initHighlightingOnLoad();</script> -->
-        <!-- 本地highlightjs结束 -->
-        
 
-        <!-- 下面的是 通过 cdn 网络下载 -->
+
         <!-- 代码高亮风格 -->
+        
         {{ with .Site.Params.highlight}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/{{ . }}.min.css"  />
         {{end}} 
