@@ -166,21 +166,26 @@ pre code, pre, code {
   word-wrap: initial; /*允许长单词换行到下一行*/
 }
 /*这一段是我自己加的,这样我能是两个代码块并排,并且拥有滑动的效果*/
-
 pre {
   font-family: Inconsolata, Consolas, 'DEJA VU SANS MONO', 'DROID SANS MONO',
     Proggy, monospace;
   font-size: 75%;
   line-height: 1.45;
   font-weight: 500;
-  background-color: #f4f4f4;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  background-color: #f4f4f4!important;
+  border: 1px solid #e0e0e0!important;
+  border-radius: 4px!important;
   padding: 4px;
   position: relative;
   display: block;
   width: 100%;
   overflow: auto;
+  /*文本框--这里是代码框 添加 阴影*/
+  box-shadow:0 0 10px #555; 
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0 0 10px #555;
+
 }
 
 pre > code {
@@ -227,7 +232,8 @@ img {
   max-width: 100%;
   max-height: 100%;
   display: block;
-  box-shadow: 0 0 10px #555;
+  /*  box-shadow: 0 0 10px #555;*/  
+  box-shadow:0 0 10px #555; 
   border-radius: 6px;
   margin-left: auto;
   margin-right: auto;
