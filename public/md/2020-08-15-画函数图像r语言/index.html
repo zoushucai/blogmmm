@@ -214,7 +214,16 @@
 </ul>
 <p>在本文中我们将利用R语言来画函数图像&mdash;- 重点以<code>ggplot2</code>来展示</p>
 <h2 id="1-能表示成y--fx的函数图像">1. 能表示成<code>y = f(x)</code>的函数图像</h2>
-<p>比如: $y = sin(x), y = cos(x), y = \dfrac{1}{1+e^{(-x)}},y=x^2$等,这是我们中学最常见的函数</p>
+<p>比如:<br>
+$$
+\begin{align}
+y &amp;= sin(x),\<br>
+y &amp;= cos(x), \<br>
+y &amp;= \dfrac{1}{1+e^{(-x)}},\<br>
+y &amp;= x^2 .
+\end{align}
+$$</p>
+<p>这是我们中学最常见的函数.</p>
 <h3 id="方法一-curve画函数图像">方法一: <code>curve()</code>画函数图像</h3>
 <p>所用函数调用格式</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">curve</span>(expr, from <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, to <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, n <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>, add <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
@@ -230,7 +239,7 @@ sigmoid <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fun
 
 <span style="color:#75715e">#画sigmid图像</span>
 <span style="color:#a6e22e">curve</span>(sigmoid,<span style="color:#ae81ff">-10</span>,<span style="color:#ae81ff">10</span>)
-</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-1-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-1-1.png" alt=""></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">
 <span style="color:#75715e">#画sin(x)函数图像</span>
 <span style="color:#a6e22e">curve</span>(sin,<span style="color:#ae81ff">-10</span>,<span style="color:#ae81ff">10</span>)
@@ -267,7 +276,7 @@ g
 <p>例如: 圆, 椭圆, 抛物线, 双曲线 方程.</p>
 <h3 id="21-画x2y2--4的函数图像">2.1 画<code>x^2+y^2 = 4</code>的函数图像</h3>
 <p>这里我们只以<code>ggplot2</code>为例,</p>
-<p>思路一: 可以利用分段函数的思想画,先把原函数解出显示的表达式 $y = -\sqrt{4-x}$ 或者$y = \sqrt{4-x}$,  然后分段画, 这里不讲解</p>
+<p>思路一: 可以利用分段函数的思想画,先把原函数解出显示的表达式 $ y = -\sqrt{4-x}$ 或者$y = \sqrt{4-x} $,  然后分段画, 这里不讲解</p>
 <p>思路二: 像上面这些函数,都能表示成参数方程的形式, 利用参数方程来画该函数图像</p>
 <p>首先写出圆的参数方程一般形式:
 $$
@@ -323,7 +332,7 @@ temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span>
 <p>抛物线参数方程
 $$
 \begin{cases}
-x = 2pt^2,\<br>
+x = 2pt^2, \<br>
 y = 2pt
 \end{cases} (t为参数, t \in R)
 $$</p>
@@ -396,7 +405,7 @@ g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span
 temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
 
 <span style="color:#a6e22e">animate</span>(temp)
-</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-8-1.gif" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-8-1.gif" alt=""></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
 b <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>
 phi <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
@@ -414,8 +423,7 @@ g
 temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
 
 <span style="color:#a6e22e">animate</span>(temp)
-</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-9-1.gif" alt=""><!-- raw HTML omitted --></p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020101108yasuohou.gif" alt=""></p>
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020101108yasuohou.gif" alt=""></p>
 <h2 id="3-隐函数">3 .隐函数</h2>
 <p>这个暂时不知道, 且不常见,建议找MATLAB这种专业软件画.</p>
 
@@ -424,10 +432,11 @@ temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span>
     
     
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
 
 
 
