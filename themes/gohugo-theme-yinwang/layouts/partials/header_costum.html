@@ -1,7 +1,9 @@
         <!-- 多点背景色，不要老白老白的 -->
         <!-- 单博文 css 文件  -->
         {{ if .Params.css }}
-            {{range .Params.css }} <link rel="stylesheet" href="{{ . }}"/>{{ end }}
+            {{range .Params.css }} 
+            <link rel="stylesheet" href="{{ . }}"/>
+            {{ end }}
         {{ else }}
             <link rel="stylesheet" href="{{.Site.BaseURL}}css/main.css"/>
         {{end}}
@@ -12,10 +14,11 @@
 
 
         <!-- 代码高亮风格 -->
-        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/highlight.min.js"></script>
+ 
         {{ with .Site.Params.highlight}}
         <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/{{ . }}.min.css" rel="stylesheet">
         {{end}}
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/highlight.min.js"></script>
         {{range .Site.Params.langs }} 
         <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/{{ . }}.min.js"></script>
         {{ end }}
