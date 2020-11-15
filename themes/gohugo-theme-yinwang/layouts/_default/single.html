@@ -29,8 +29,6 @@
             {{ .Content }}
         </section>
     </div>
-    <!-- 引入数学公式 -->
-    {{ partial "katexmath.html" . }}
     <br>
     <!-- 引入累积阅读量 -->
     {{ partial "readCounter.html" . }}
@@ -78,8 +76,13 @@
     </script>
 
     {{ partial "footer.html" . }}
-    
 </div> <!-- closes the outer/inner div -->
+
+
+<!-- 引入数学公式 -->
+{{ partial "katexmath.html" . }}
+{{ partial "mathJax.html" . }}
+
 <br>
 <div class="inner">
               <!-- 引入评论系统 --- disqus -->
