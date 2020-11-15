@@ -9,7 +9,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   googleAnalytics = "UA-111691389-1" # 谷歌统计gtag
   katexmath = true
   highlight = "github"  #"atom-one-dark" # 默认样式 `github`
-  langs = ["r", "yaml"] # 加载语言
+  langs = ["r", "yaml","latex","matlab","mathematica","julia","julia-repl","powershell","bash","shell",'python'] 
+  # 加载语言 --- 对应的页面 header_costum.html
   
   #highlightjsVersion = "9.12.0"
   #highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"

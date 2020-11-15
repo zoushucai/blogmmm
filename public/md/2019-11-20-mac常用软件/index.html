@@ -29,22 +29,17 @@
                 
         
         
-            <link rel="stylesheet" href="/css/main.css">
+            <link rel="stylesheet" href="/css/main.css"/>
         
 
-        
-        
-        <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/github.min.css" rel="stylesheet">
-        
-        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
-         
-        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/r.min.js"></script>
-         
-        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/yaml.min.js"></script>
-        
+        <script src="/js/highlight.pack.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/github-gist.css"/>
+
+
         
 
-        <script>hljs.initHighlightingOnLoad();</script>
+
+
     
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -177,7 +172,7 @@
 </code></pre><p><a href="https://github.com/Homebrew/brew/blob/master/docs/FAQ.md">https://github.com/Homebrew/brew/blob/master/docs/FAQ.md</a></p>
 <p><a href="https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew">https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew</a></p>
 <h3 id="23-安装包-和卸载包">2.3 安装包 和卸载包</h3>
-<pre><code>brew install &lt;packageName&gt;     % 这个安装的是只有命令行的工具
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install &lt;packageName&gt;     % 这个安装的是只有命令行的工具
 
 brew cask install google-chrome   % 注意 brew cask install  安装的是有图像界面的 app
 
@@ -196,23 +191,26 @@ brew cask info &lt;packageName&gt;   % 查看版本信息
 brew config             %查看brew配置
 
 brew outdated   % 查看那些包（软件）可以更新
-brew upgrade             # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留
-brew upgrade $FORMULA    # 更新指定的包
+brew upgrade             <span style="color:#75715e"># 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留</span>
+brew upgrade $FORMULA    <span style="color:#75715e"># 更新指定的包</span>
 
-brew cleanup             # 清理所有包的旧版本，将旧有的软件安装包进行清理
-brew cleanup $FORMULA    # 清理指定包的旧版本
-brew cleanup -n          # 查看可清理的旧版本包，不执行实际操作
+brew cleanup             <span style="color:#75715e"># 清理所有包的旧版本，将旧有的软件安装包进行清理</span>
+brew cleanup $FORMULA    <span style="color:#75715e"># 清理指定包的旧版本</span>
+brew cleanup -n          <span style="color:#75715e"># 查看可清理的旧版本包，不执行实际操作</span>
 
+
+brew cask install qlcolorcode  <span style="color:#75715e"># 预览使得文本具有颜色,即给代码上色</span>
+brew cask install qlstephen  <span style="color:#75715e"># 语法高亮</span>
+
+<span style="color:#75715e">### 更新brew cask 安装过的软件...</span>
+brew cask outdated <span style="color:#75715e"># 查看过时的软件</span>
+brew cask upgrade  <span style="color:#75715e"># 更新所有过时的软件</span>
+brew cask upgrade *** <span style="color:#75715e"># 更新指定软件</span>
 brew cask reinstall qq         % 推荐，直接重新安装
-
-brew cask install qlcolorcode  # 预览使得文本具有颜色,即给代码上色
-brew cask install qlstephen  # 语法高亮
-
-
 
 
 超级右键   macApp 安装
-</code></pre><h3 id="24-homebrew-的清华更新源">2.4 homebrew 的清华更新源</h3>
+</code></pre></div><h3 id="24-homebrew-的清华更新源">2.4 homebrew 的清华更新源</h3>
 <p>清华镜像官网:</p>
 <p><a href="https://mirror.tuna.tsinghua.edu.cn/help/homebrew/">https://mirror.tuna.tsinghua.edu.cn/help/homebrew/</a></p>
 <p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/">https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/</a></p>

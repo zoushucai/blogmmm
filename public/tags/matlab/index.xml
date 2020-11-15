@@ -87,18 +87,18 @@ function varargout = combin_index(varargin) %输入可变长参数,以及输出�
     
     <item>
       <title>非线性规划2</title>
-      <link>/md/2019-06-24-nonlinear/</link>
+      <link>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</link>
       <pubDate>Tue, 25 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-06-24-nonlinear/</guid>
+      <guid>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</guid>
       <description>Rsolnp 非线性规划问题
-\[ \begin{array}{c}{\min f(x)} \\ {\text { s.t. }} \\{g(x)=0} \\{l_{h} \leq h(x) \leq u_{h}} \\ {l_{x} \leq x \leq u_{x}} \end{array} \]
+$$ \begin{align} \min \quad &amp;amp; f(x)\ \text { s.t. } &amp;amp; \begin{cases} \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}} \end{cases} \end{align}
+$$
 其中, $f(x),g(x),h(x)$ 都是光滑函数,
- solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL, ineqUB = NULL, LB = NULL, UB = NULL, control = list(), ...)
+solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL, ineqUB = NULL, LB = NULL, UB = NULL, control = list(), ...)
 pars : 初始值(向量),
 fun : 最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的f(x)
-eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)
-egB : (可选) 等式约束右边值，等价上述问题g(x) = 0 的0</description>
+eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</description>
     </item>
     
     <item>

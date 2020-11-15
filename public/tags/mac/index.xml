@@ -86,12 +86,9 @@ https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue
 我个人推荐使用DiskMaker X 启动盘制作.官网: https://diskmakerx.com/
 如何进入系统盘 关机重启, 长按Option即可选择进入U盘, 先利用磁盘工具,格式化主磁盘,然后,退出,在安装.
 注意: 也可以在线安装&amp;hellip;
-Command（⌘）+ R ：安装Mac之前安装的最新macOS，而不升级到更高的版本。 Option + Command+ R：升级到与Mac兼容的最新macOS。 Shift + Option + Command + R：安装Mac原本出厂搭载的macOS，或是最接近且依然可用的版本。
-https://blog.csdn.net/qq285744011/article/details/106987147
+ Command（⌘）+ R ：安装Mac之前安装的最新macOS，而不升级到更高的版本。 Option + Command+ R：升级到与Mac兼容的最新macOS。 Shift + Option + Command + R：安装Mac原本出厂搭载的macOS，或是最接近且依然可用的版本。  https://blog.csdn.net/qq285744011/article/details/106987147
 MacOS U盘安装提示副本损坏听语音 解决办法:
-断网以后 打开左上角实用工具--&amp;gt;终端
-输入
-date 032208102015.20 按回车键确认
+ 断网以后 打开左上角实用工具--&amp;gt;终端, 输入  date 032208102015.20 按回车键确认
 03是月，22是日，08是时，10是分，2015是年，20是秒 注意:先修改为现在的时间 , 还是不行再改往前修改为其他年份
 当提示时间修改完成后，推出终端，重新安装MacOS即可
 https://blog.csdn.net/li1339023842/article/details/102913864
@@ -167,7 +164,7 @@ $ git init # 该命令会在当前目录下创建了隐藏目录.</description>
 方法 2: 官方版本
 ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;quot; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
 https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
-2.3 安装包 和卸载包 brew install &amp;lt;packageName&amp;gt; % 这个安装的是只有命令行的工具 brew cask install google-chrome % 注意 brew cask install 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew cask uninstall &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 brew cask reinstall qq % 推荐，直接重新安装 brew cask install qlcolorcode # 预览使得文本具有颜色,即给代码上色 brew cask install qlstephen # 语法高亮 超级右键 macApp 安装 2.</description>
+2.3 安装包 和卸载包 brew install &amp;lt;packageName&amp;gt; % 这个安装的是只有命令行的工具 brew cask install google-chrome % 注意 brew cask install 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew cask uninstall &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 brew cask install qlcolorcode # 预览使得文本具有颜色,即给代码上色 brew cask install qlstephen # 语法高亮 ### 更新brew cask 安装过的软件.</description>
     </item>
     
     <item>

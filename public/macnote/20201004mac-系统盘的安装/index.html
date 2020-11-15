@@ -29,22 +29,17 @@
                 
         
         
-            <link rel="stylesheet" href="/css/main.css">
+            <link rel="stylesheet" href="/css/main.css"/>
         
 
-        
-        
-        <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/github.min.css" rel="stylesheet">
-        
-        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
-         
-        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/r.min.js"></script>
-         
-        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/languages/yaml.min.js"></script>
-        
+        <script src="/js/highlight.pack.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/github-gist.css"/>
+
+
         
 
-        <script>hljs.initHighlightingOnLoad();</script>
+
+
     
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -173,14 +168,17 @@
 <h2 id="如何进入系统盘">如何进入系统盘</h2>
 <p>关机重启, 长按<!-- raw HTML omitted -->Option<!-- raw HTML omitted --> 即可选择进入U盘, 先利用磁盘工具,格式化主磁盘,然后,退出,在安装.</p>
 <p>注意: 也可以在线安装&hellip;</p>
-<p><!-- raw HTML omitted -->Command（⌘）<!-- raw HTML omitted --> + <!-- raw HTML omitted -->R <!-- raw HTML omitted -->：安装Mac之前安装的最新macOS，而不升级到更高的版本。
-<!-- raw HTML omitted -->Option <!-- raw HTML omitted --> + <!-- raw HTML omitted --> Command<!-- raw HTML omitted --> + <!-- raw HTML omitted -->R<!-- raw HTML omitted -->：升级到与Mac兼容的最新macOS。
-<!-- raw HTML omitted -->Shift <!-- raw HTML omitted -->+ <!-- raw HTML omitted -->Option <!-- raw HTML omitted -->+ <!-- raw HTML omitted -->Command <!-- raw HTML omitted -->+ <!-- raw HTML omitted -->R<!-- raw HTML omitted -->：安装Mac原本出厂搭载的macOS，或是最接近且依然可用的版本。</p>
+<ul>
+<li><!-- raw HTML omitted -->Command（⌘）<!-- raw HTML omitted --> + <!-- raw HTML omitted -->R <!-- raw HTML omitted -->：安装Mac之前安装的最新macOS，而不升级到更高的版本。</li>
+<li><!-- raw HTML omitted -->Option <!-- raw HTML omitted --> + <!-- raw HTML omitted --> Command<!-- raw HTML omitted --> + <!-- raw HTML omitted -->R<!-- raw HTML omitted -->：升级到与Mac兼容的最新macOS。</li>
+<li><!-- raw HTML omitted -->Shift <!-- raw HTML omitted -->+ <!-- raw HTML omitted -->Option <!-- raw HTML omitted -->+ <!-- raw HTML omitted -->Command <!-- raw HTML omitted -->+ <!-- raw HTML omitted -->R<!-- raw HTML omitted -->：安装Mac原本出厂搭载的macOS，或是最接近且依然可用的版本。</li>
+</ul>
 <p><a href="https://blog.csdn.net/qq285744011/article/details/106987147">https://blog.csdn.net/qq285744011/article/details/106987147</a></p>
 <h2 id="macos-u盘安装提示副本损坏听语音">MacOS U盘安装提示副本损坏听语音</h2>
 <p>解决办法:</p>
-<p><code>断网</code>以后 打开<code>左上角实用工具--&gt;终端</code></p>
-<p>输入</p>
+<ul>
+<li><code>断网</code>以后 打开<code>左上角实用工具--&gt;终端</code>, 输入</li>
+</ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">date 032208102015.20
 </code></pre></div><p>按回车键确认</p>
 <p>03是月，22是日，08是时，10是分，2015是年，20是秒
