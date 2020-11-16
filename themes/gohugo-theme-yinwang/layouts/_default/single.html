@@ -1,7 +1,38 @@
 {{ partial "header" . }}
 
-{{ if and (gt .WordCount 400 ) (.Params.toc) }}
-<div class = "div-content" >
+{{ if and (gt .WordCount 4 ) (.Params.toc) }}
+<!--这个是 JavaScript 的
+<script>
+        window.onload=function(){  
+        var items = document.querySelector("#divtocTableOfContents ul a"); 
+        // alert(items.innerHTML.length);
+        var bb = items.getAttribute('href').length;
+        // alert(items.getAttribute('href'));
+        if(bb>=3){
+            var x = document.getElementById("div-content-my");
+            x.remove(x.selectedIndex);
+        }
+    }
+</script>
+-->
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;//获取 a 标签的个数
+    if(demo <= 1){
+        $("div#div-content-my").remove();
+    }
+        // var items = document.querySelector("#divtocTableOfContents ul a"); 
+        // // alert(items.innerHTML.length);
+        // var bb = items.getAttribute('href').length;
+        // // alert(items.getAttribute('href'));
+        // if(bb>=3){
+        //     var x = document.getElementById("div-content-my");
+        //     x.remove(x.selectedIndex);
+        // }
+    }); // jQuery
+</script>  
+
+<div class = "div-content" id='div-content-my' >
     <!-- style="z-index:999" 把该div 置于最上层 -->
 
     <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
@@ -15,6 +46,8 @@
     </div>
 </div>
 {{ end }}
+
+
 
 
 
