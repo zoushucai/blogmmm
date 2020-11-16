@@ -1,6 +1,38 @@
 {{ partial "header" . }}
 
 {{ if and (gt .WordCount 4 ) (.Params.toc) }}
+<!--  目录的主要思路  -->
+<!--  先隐藏目录,然后用 juery 进行显示  -->
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    <!-- style="z-index:999" 把该div 置于最上层 -->
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            <!-- 显示目录 -->
+            <div id="divtocTableOfContents">
+            {{ .TableOfContents }}
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;//获取 a 标签的个数
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        // var items = document.querySelector("#divtocTableOfContents ul a"); 
+        // // alert(items.innerHTML.length);
+        // var bb = items.getAttribute('href').length;
+        // // alert(items.getAttribute('href'));
+        // if(bb>=3){
+        //     var x = document.getElementById("div-content-my");
+        //     x.remove(x.selectedIndex);
+        // }
+    }); // jQuery
+</script>  
+
 <!--这个是 JavaScript 的
 <script>
         window.onload=function(){  
@@ -15,36 +47,7 @@
     }
 </script>
 -->
-<script>  
-    $(document).ready(function () {
-    var demo = $("#divtocTableOfContents").find("a").length;//获取 a 标签的个数
-    if(demo <= 1){
-        $("div#div-content-my").remove();
-    }
-        // var items = document.querySelector("#divtocTableOfContents ul a"); 
-        // // alert(items.innerHTML.length);
-        // var bb = items.getAttribute('href').length;
-        // // alert(items.getAttribute('href'));
-        // if(bb>=3){
-        //     var x = document.getElementById("div-content-my");
-        //     x.remove(x.selectedIndex);
-        // }
-    }); // jQuery
-</script>  
 
-<div class = "div-content" id='div-content-my' >
-    <!-- style="z-index:999" 把该div 置于最上层 -->
-
-    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
-            <p class="slide slidemy" align = "center">
-                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
-            </p>
-            <!-- 显示目录 -->
-            <div id="divtocTableOfContents">
-            {{ .TableOfContents }}
-            </div>
-    </div>
-</div>
 {{ end }}
 
 

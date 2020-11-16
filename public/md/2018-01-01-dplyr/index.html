@@ -142,24 +142,8 @@
 
 
 
-<script>  
-    $(document).ready(function () {
-    var demo = $("#divtocTableOfContents").find("a").length;
-    if(demo <= 1){
-        $("div#div-content-my").remove();
-    }
-        
-        
-        
-        
-        
-        
-        
-        
-    }); 
-</script>  
 
-<div class = "div-content" id='div-content-my' >
+<div class = "div-content" id='div-content-my' style='display: none;' >
     
 
     <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
@@ -188,6 +172,25 @@
             </div>
     </div>
 </div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
 
 
 
