@@ -1,4 +1,6 @@
 {{ partial "header" . }}
+
+{{ if and (gt .WordCount 400 ) (.Params.toc) }}
 <div class = "div-content" >
     <!-- style="z-index:999" 把该div 置于最上层 -->
 
@@ -8,12 +10,13 @@
             </p>
             <!-- 显示目录 -->
             <div id="divtocTableOfContents">
-            {{ if .Params.toc }}
             {{ .TableOfContents }}
-            {{ end }}
             </div>
     </div>
 </div>
+{{ end }}
+
+
 
 <div class="inner">
     <!-- 单个页面左边有 home 链接 -->
@@ -82,6 +85,8 @@
 <!-- 引入数学公式 -->
 {{ partial "katexmath.html" . }}
 {{ partial "mathJax.html" . }}
+{{ partial "mathjax2version.html" . }}
+
 
 <br>
 <div class="inner">
