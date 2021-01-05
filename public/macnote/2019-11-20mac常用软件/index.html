@@ -236,6 +236,38 @@ brew cask install suspicious-package quicklookase qlvideo
 
 
 超级右键   macApp 安装
+</code></pre><h5 id="软件更新">软件更新</h5>
+<pre><code>brew cask outdated       # 可以查看cask安装的软件是否存在着需要更新的版本；
+brew cask upgrade xxx     #进行软件更新；
+
+
+brew tap buo/cask-upgrade  # 安装 brew-cask-upgrade
+brew cu     # 更新所有过时应用：
+brew cu [CASK]  # 更新指定应用：
+</code></pre><h5 id="软件清理">软件清理</h5>
+<pre><code>brew cleanup --prune 0
+
+cleanup [options] [formula|cask]
+       Remove stale lock files and outdated downloads for all formulae and casks,  and  remove  old
+       versions  of installed formulae. If arguments are specified, only do this for the given for-
+       mulae and casks. Removes all downloads more than 120 days old. This  can  be  adjusted  with
+       HOMEBREW_CLEANUP_MAX_AGE_DAYS.
+
+       --prune
+              Remove all cache files older than specified days.
+
+       -n, --dry-run
+              Show what would be removed, but do not actually remove anything.
+
+       -s     Scrub the cache, including downloads for even the latest versions. Note downloads for
+              any installed formulae or casks will still not be deleted.  If  you  want  to  delete
+              those too: rm -rf &quot;$(brew --cache)&quot;
+
+       --prune-prefix
+              Only prune the symlinks and directories from the prefix and remove no other files.
+              
+              
+              
 </code></pre><h3 id="24-homebrew-的清华更新源">2.4 homebrew 的清华更新源</h3>
 <p>清华镜像官网:</p>
 <p><a href="https://mirror.tuna.tsinghua.edu.cn/help/homebrew/">https://mirror.tuna.tsinghua.edu.cn/help/homebrew/</a></p>
@@ -445,7 +477,7 @@ brew cask install jabref     % 建议安装开发版本,这个默认是稳定版
     <footer>
     <br>
     <p style="float:right;margin:0 1rem;">
-        &copy; 2020 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
       </p>
     <hr>
 </footer>
