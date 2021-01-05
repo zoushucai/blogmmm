@@ -11,10 +11,14 @@
         {{ range .Pages }}
         <li class="list-group-item title">
             {{if .Params.series }}
-            <a href="{{ .Permalink }}" data-series="{{ .Params.series }}" style="margin-left:1rem;"> <strong>{{ .Title }} </strong>
-                <time style="color:#888;font-size: 80%;">{{ .Date.Format "2006-01-02" }}</time> </a>
+            <a href="{{ .Permalink }}" data-series="{{ .Params.series }}" style="margin-left:1rem;"> 
+                <strong>{{ .Title }} </strong>
+                <i class="fa fa-calendar-alt" style="color:#888;font-size: 2%;"></i>
+                <time style="color:#888;font-size: 80%;">{{ .Date.Format "2006-01-02" }}</time> 
+            </a>
             {{ else }}
             <a href="{{ .Permalink }}"> {{ .Title }} </a>
+            <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
             <time style="color:#888;font-size: 80%;">{{ .Date.Format "2006-01-02" }}</time>
             <!-- <time style="color:black;float: right;margin-right: 1rem; ">{{ .Date.Format "2006-01-02" }}</time> 这个是可以是右端对齐的css-->
             {{ end }}
