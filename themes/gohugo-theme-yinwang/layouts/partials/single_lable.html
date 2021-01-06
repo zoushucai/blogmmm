@@ -3,8 +3,15 @@
                 {{ .Params.title }}
                 <time>
                     <br>
-                    <span>{{ .Params.author }} </span>
-                    <span> {{ .Date.Format "2006-01-02" }} </span>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        {{ .Params.author }} 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        {{ .Date.Format "2006-01-02" }} 
+                    </span>
                 </time>
                 <!-- 显示标签 -->
                 {{if eq .Params.labels false }}
