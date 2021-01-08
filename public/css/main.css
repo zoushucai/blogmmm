@@ -286,13 +286,13 @@ div.outer {
 }
 
 body.mobile div.outer {
-  margin: 2% 0% 2% 0%;
+  margin: 2% 5% 2% 5%;
 }
 
 div.inner {
   margin: 0.5em auto;
-  max-width: 92%;  /*调整 div 显示的最大宽度*/
-  padding: 2% 3% 4% 3%;/*文章内容与 div 之间的距离,上右下左*/
+  max-width: 90%;  /*调整 div 显示的最大宽度*/
+  padding: 2% 5% 2% 5%;/*文章内容与 div 之间的距离,上右下左;*/
   border: 1px solid LightGrey;
   background-color: white; /*整个div的背景色*/
   border-radius:15px;
@@ -303,8 +303,8 @@ div.inner {
 }
 
 body.mobile div.inner {
-  margin: 0;
-  padding: 2% 4% 6% 4%;
+  margin: 1.5em;
+  padding: 4% 8% 4% 8%;
 }
 
 div.ad-banner {

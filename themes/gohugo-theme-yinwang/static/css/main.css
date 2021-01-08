@@ -286,7 +286,7 @@ div.outer {
 }
 
 body.mobile div.outer {
-  margin: 2% 0% 2% 0%;
+  margin: 2% 5% 2% 5%;
 }
 
 div.inner {
@@ -303,8 +303,8 @@ div.inner {
 }
 
 body.mobile div.inner {
-  margin: 0;
-  padding: 2% 4% 6% 4%;
+  margin: 1.5em;
+  padding: 4% 8% 4% 8%;
 }
 
 div.ad-banner {
