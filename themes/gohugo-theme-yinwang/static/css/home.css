@@ -117,3 +117,7 @@ div.inner, .list-group-item, .list-group-item:last-child, .list-group-item:first
     0 5px 15px rgba(0, 0, 0, .07),
     0 2px 5px -5px rgba(0, 0, 0, .1) !important;
 }
+.mycolorfont {
+  color:#888;
+  font-size: 80%;
+}
