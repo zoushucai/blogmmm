@@ -20,12 +20,12 @@
                     <ul class="tags">
                         {{ if .Params.tags }}
                         <span>标签:</span>
-                        {{ range .Params.tags }}<li><a class="link" href="{{$.Site.BaseURL}}tags/{{ . }}"> #{{ . }} </a></li>{{ end }}
+                        {{ range .Params.tags }}<li><a class="link" href="{{$.Site.BaseURL}}tags/{{lower . }}"> #{{lower . }} </a></li>{{ end }}
                         {{ end }}
                         <span> </span>
                         {{ if .Params.categories }}
                         <span>分类:</span>
-                        {{ range .Params.categories }}<li><a class="link" href="{{$.Site.BaseURL}}categories/{{ . }}"> @{{ . }} </a></li>{{ end }}
+                        {{ range .Params.categories }}<li><a class="link" href="{{$.Site.BaseURL}}categories/{{lower . }}"> @{{lower . }} </a></li>{{ end }}
                         {{ end }}
                     </ul>
                     {{ end }}

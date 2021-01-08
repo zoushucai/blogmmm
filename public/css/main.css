@@ -214,12 +214,19 @@ p code {
 p {
   word-break:break-all; /* 超链接以及文本强制换行*/
 }
-a {
+/*a {
   text-decoration: none;
   cursor: crosshair;
   border-bottom: 1px dashed orange;
   color: #930ee4;
   word-break:break-all;
+}*/
+.title a {
+  display: block;
+}
+
+details a {
+  margin-top: 1.5rem;
 }
 
 a:hover {

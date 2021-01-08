@@ -63,16 +63,14 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
     visitor = true # 文章阅读统计
 
 [[menu.main]]
-name = "categories"
-url = "/categories/"
-
+    name = "Categories"
+    url = "/Categories/"
 [[menu.main]]
-name = "tags"
-url = "/tags/"
-
+    name = "Tags"
+    url = "/Tags/"
 [[menu.main]]
-  name = "Home"
-  url = "/"
+    name = "Home"
+    url = "/"
 [[menu.main]]
-  name = "About"
-  url = "/about/"
+    name = "About"
+    url = "/About/"
