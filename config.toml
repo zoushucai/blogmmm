@@ -27,7 +27,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
   pageNotFoundTitle = "404 - Page not found"
   githubName = "zoushucai"
   author = "zsc"
-  githubRepo = "https://github.com/zoushucai/blog"
+  githubRepo = "https://github.com/zoushucai/blogmm"
   editBtn = true # githubRepo,editBtn两个字段一起，才能搞好编辑按钮, 并且会有提示警告
   
   backgroundColor = "#fbf6ec" # 加点黄黄的背景色
