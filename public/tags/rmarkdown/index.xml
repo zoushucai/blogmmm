@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>rmarkdown on zsc</title>
-    <link>/tags/rmarkdown/</link>
+    <link>https://zscqsmy.gitee.io/blogmmm/tags/rmarkdown/</link>
     <description>Recent content in rmarkdown on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 10 Mar 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/rmarkdown/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Mar 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://zscqsmy.gitee.io/blogmmm/tags/rmarkdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Windows系统下R Markdown 设置中文pdf完美解决方案</title>
-      <link>/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</link>
       <pubDate>Sat, 10 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</guid>
       <description>方法一： 生成pdf中文 后文有与之对应的方法。
 需要安装完整版的CTeX_2.92套装（有没有感觉文件很大，文章最后教大家一个简单的安装版本），还要自己新建一个文本文件命名为header.tex,其内容为\usepackage{ctex} ,把这个文件和运行的rmarkdown文件保存在同级目录中，然后把rmarkdown的头文件yaml改写为如下情况：
 --- title: &#39;Untitled&#39; author: &#39;zsc&#39; date: &amp;quot;`r Sys.Date()`&amp;quot; output: pdf_document: includes: in_header: header.tex keep_tex: yes latex_engine: xelatex --- 这样就可以生成中文的pdf了

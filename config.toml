@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://zscqsmy.gitee.io/blogmmm"
 theme = "gohugo-theme-yinwang"
 languageCode = "zh-CN"
 title = "zsc"

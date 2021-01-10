@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>stringr on zsc</title>
-    <link>/tags/stringr/</link>
+    <link>https://zscqsmy.gitee.io/blogmmm/tags/stringr/</link>
     <description>Recent content in stringr on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 05 Apr 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/stringr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Apr 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://zscqsmy.gitee.io/blogmmm/tags/stringr/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>R语言字符处理函数包---stringr包</title>
-      <link>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</link>
       <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</guid>
       <description>1.stringr介绍 stringr包被定义为一致的、简单易用的字符串工具集。所有的函数和参数定义都具有一致性，比如，用相同的方法进行NA处理和0长度的向量处理。
 字符串处理虽然不是R语言中最主要的功能，却也是必不可少的，数据清洗、可视化等的操作都会用到。对于R语言本身的base包提供的字符串基础函数，随着时间的积累，已经变得很多地方不一致，不规范的命名，不标准的参数定义，很难看一眼就上手使用。字符串处理在其他语言中都是非常方便的事情，R语言在这方面确实落后了。stringr包就是为了解决这个问题，让字符串处理变得简单易用，提供友好的字符串操作接口。
 2.stringr的API介绍 stringr包常用的字符串的处理以str_开头来命名，方便更直观理解函数的定义。我们可以根据使用习惯对函数进行分类：

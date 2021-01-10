@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mds on zsc</title>
-    <link>/md/</link>
+    <link>https://zscqsmy.gitee.io/blogmmm/md/</link>
     <description>Recent content in Mds on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 16 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/md/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://zscqsmy.gitee.io/blogmmm/md/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>R动画</title>
-      <link>/md/2020-08-16-r%E5%8A%A8%E7%94%BB/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-08-16-r%E5%8A%A8%E7%94%BB/</link>
       <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-16-r%E5%8A%A8%E7%94%BB/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-08-16-r%E5%8A%A8%E7%94%BB/</guid>
       <description>R 动画 动画的本质是有n张图片进行拼接,到达欺骗人的眼睛.
 在R中有常见的有两个包.
  gifski 包, 搭配 rmd 文件使用, gganimation 包  gifski 包 安装 gifski 包：
@@ -24,10 +24,10 @@ gganimation 包 见官网</description>
     
     <item>
       <title>画函数图像--R语言</title>
-      <link>/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</link>
       <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</guid>
       <description>据我了解, 计算机软件中画的函数图像大概有两种方法:
  方法一: 该图像有一系列密集点组成, 已达到欺骗人们的眼睛.感觉认为是连续的. 方法二: 为了解决方法一种的问题,把每两个点之间用直线连接已达到连续的状态  在本文中我们将利用R语言来画函数图像---- 重点以ggplot2来展示
 1. 能表示成y = f(x)的函数图像 比如:
@@ -39,10 +39,10 @@ curve(expr, from = NULL, to = NULL, n = 101, add = FALSE, type = &amp;#34;l&amp;
     
     <item>
       <title>latex 参考文献格式: GB/7714</title>
-      <link>/md/2020-08-14-gb7714/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-08-14-gb7714/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-14-gb7714/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-08-14-gb7714/</guid>
       <description>注意所有一下运行环境均在MacTex 2018 下运行的, 如果是MacTex 2020 且更新到最新的话,以下方法会报错&amp;hellip;原因是之后的版本修改了一些参数.(有空在出Mactex 2020的)
 1. bst 文件 bst样式文件来源:
 https://github.com/CTeX-org/gbt7714-bibtex-style
@@ -54,10 +54,10 @@ https://github.com/CTeX-org/gbt7714-bibtex-style
     
     <item>
       <title>latex 参考文献生成(总结)</title>
-      <link>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</link>
       <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</guid>
       <description>生成latex参考文献大致有4种方法&amp;hellip;..
 使用环境: MacTeX 2018 + texstudio, texstudio编译器改为xelatex
 0. 什么是*.bib 文件 注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为.bib的文件,这里我建立一个bib文件, 如text.bib, 去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:
@@ -70,10 +70,10 @@ https://github.com/CTeX-org/gbt7714-bibtex-style
     
     <item>
       <title>latex 缩写期刊</title>
-      <link>/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</link>
       <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</guid>
       <description>以下软件对参考文献都不能完美的满足我的要求, 因此可以结合不同软件的优势,达到最后的效果
 1. zotero 设置—首选项—bitter bibtex —export — 最下面有一个期刊缩写,选购就能导出缩写的期刊名了
  特点:  使用该软件, 系统自带的期刊缩写对照表很少, 且不能添加对照表, 不会自动更新bib文件 可以按照key键的顺序(升序) 导出bib数据库, 只需导出时选中[biter bibtex]选项即可 也可以安装以前的方式导出bib数据库, 只需导出时选中[bibtex]选项即可    2. Mendeley  特点:  默认情况下, 联网会自动更新bib数据库, 这一点很烦(for me), 因此可以直接断网使用该软件 期刊缩写很好,内置了很多比较全的期刊缩写.但某些期刊仍不全面,且缩写的格式看不见    3. Jabref软件 特点:
@@ -88,19 +88,19 @@ https://github.com/CTeX-org/gbt7714-bibtex-style
     
     <item>
       <title>latex 笔记</title>
-      <link>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</guid>
       <description>1, 交叉引用 \eqref{eq:eq1} :交叉引用公式编号自动带括号: 2, 完整模板解析 \documentclass[review]{elsarticle} %\usepackage{ctex} \usepackage{lineno, hyperref} \hypersetup{colorlinks=true, citecolor=blue, anchorcolor=blue} \modulolinenumbers[5] %\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue]{hyperref}  \usepackage{amsmath} \usepackage{amssymb} \usepackage{amsthm} \usepackage[american]{babel} % 具有多语种处理功能的宏包,英文为默认文字,和microtype包一起使用,用于页面两端对齐 \usepackage{microtype} % 用于页面两端对齐  \usepackage{graphicx} % 插图包 --- \includegraphics[height=高度][angle=旋转角度]{图片文件名} \usepackage{multirow} % 处理表格 --列合并用”\multicolumn“，行合并用。\multirow{2}{*}{显示的文本} % 引用 --- \multirow 函数/标志符： {占用行数} {方框边界竖线|文字居左中右|方框边界竖线} {内容} % 引用 --- \multicolumn 函数/标志符： {占用列数} {方框边界竖线|文字居左中右|方框边界竖线} {内容}  \usepackage{indentfirst} %段首缩进需要的宏包 \setlength{\parindent}{2em}%设置段首缩进两个汉字 %\noindent强制不缩进 % \setlength{\parskip}{1em}%paragraph skip,调整的是段落间距离  %\usepackage{lscape} % 表格横置, 只需要引用 landscape 环境即可 %\usepackage{pdflscape} % 页面横置,只需引用landscape环境即可 %\usepackage[figuresright]{rotating} % 将表格旋转为纵向放置，使用rotating宏包 % 要使用 sidewaystable 环境 %\usepackage{natbib}\usepackage[authoryear]{natbib}  \usepackage{enumerate} % enumerate 宏包 ,可以给有序列表设置 label,以及有缩进 %\usepackage{enumitem} % 可以给出缩进调整间距, label %\usepackage{showkeys} % 引用时显示引用的 label %\usepackage{paralist} % 列表相互嵌套是的缩进 ,也可以给出相应 label ,但是 label 和缩进都要设置  %%%%%% 交叉引用 开始%%%%%%% %% 第一部分 自定义新环境, \theoremstyle{definition} %自定义环境内的风格,比如字体是否为斜体,等等,这里采用的是正体 \newtheorem{thm}{Theorem} \newtheorem{cor}{Corollary} \newtheorem{lem}{Lemma} \newtheorem{pot}{\bf Proof} \newtheorem{rmk}{Definition} \newtheorem{pro}{Property} \newtheorem{example}{Example} %\newtheorem{exmp}{Example}  %% 第二部分 ,如果想要在引用时,自动添加definition,Theorem等字样,使用下面这部分 \usepackage[capitalize, nameinlink]{cleveref} %交叉应用 在数字前自动添加某些字符; 引用时 用\cref{}的形式 \crefname{thm}{Theorem}{Theorems} %\crefname{cor}{Corollary}{Corollarys} \crefname{lem}{Lemma}{Lemmas} \crefname{pot}{Proof} {Proofs} \crefname{rmk}{Definition}{Definitions} \crefname{pro}{Property}{Propertys} \crefname{example}{Example}{Examples} \crefname{figure}{Figure}{Figures} % 图片以及表格有默认的,但是也可以重新定义 % \DeclareUnicodeCharacter{0301}{\&amp;#39;{e}} %pdflatex 需要用到 UTF-8 字符时，需要此命令  %%%%%% 交叉引用结束 %%%%%%%  \journal{European Journal of Operational Research} % 参考文献的引用样式,可以去网上找各大期刊的模板 \bibliographystyle{elsarticle-harv}\biboptions{authoryear} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%一下为正文部分 \begin{document} \section{Introduction} \section{Preliminaries} \section*{Acknowledgements} \setcitestyle{numbers} \bibliography{references} % 这里引用的 bibtex 参考文献 \end{document} 注释:</description>
     </item>
     
     <item>
       <title>bib与enw文件之间的相互转换</title>
-      <link>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</guid>
       <description>*.bib 与*.enw 文件之间的相互转换 方法一: JabRef 软件
 方法二: bibutils
 为了将BibTeX转换为带标签的Endnote，只需调用：
@@ -110,10 +110,10 @@ $ bib2xml input.bib | xml2ris &amp;gt; output.ris </description>
     
     <item>
       <title>mactex卸载</title>
-      <link>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</guid>
       <description>mactex卸载 参考： http://www.tug.org/mactex/uninstalling.html
 https://blog.csdn.net/nicekwell/article/details/97279215
 MacTeX是mac下的latex工具，卸载方法：
@@ -126,19 +126,19 @@ sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/
     
     <item>
       <title>R&amp;shiny自动截图</title>
-      <link>/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</link>
       <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</guid>
       <description>利用webshot 进行截图 library(shiny) library(ggplot2) histogram &amp;lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) { df &amp;lt;- data.frame( x = c(x1, x2), g = c(rep(&amp;quot;x1&amp;quot;, length(x1)), rep(&amp;quot;x2&amp;quot;, length(x2))) ) ggplot(df, aes(x, fill = g)) + geom_histogram(binwidth = binwidth) + coord_cartesian(xlim = xlim) } ui &amp;lt;- fluidPage( fluidRow( column(3, numericInput(&amp;quot;lambda1&amp;quot;, label = &amp;quot;lambda1&amp;quot;, value = 3), numericInput(&amp;quot;lambda2&amp;quot;, label = &amp;quot;lambda2&amp;quot;, value = 4), numericInput(&amp;quot;n&amp;quot;, label = &amp;quot;n&amp;quot;, value = 1e4, min = 0), # 增加一个按钮 actionButton(&amp;quot;simulate&amp;quot;, &amp;quot;Simulate!</description>
     </item>
     
     <item>
       <title>创建属于自己的rmarkdown模板文件</title>
-      <link>/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</link>
       <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</guid>
       <description>rmarkdown模板文件的创建 &amp;mdash;- 修改prettydoc模板
 下载链接: zscbeautiful
 下载下来后, 把css和html 分别放在对应的目录中替换即可
@@ -149,19 +149,19 @@ Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/li
     
     <item>
       <title>基本绘图中添加指定中文字体</title>
-      <link>/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</link>
       <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</guid>
       <description>基本绘图中添加指定中文字体 方法一: 使用par(family=&#39;STKaiti&#39;) , 方法二: 直接在画图函数后添加family 参数指定字体,在R.3.6.x 已经不可以了 barplot(df[sex == &#39;男&#39;,table(Year)],main = &amp;quot;男性条形统计图&amp;quot;,family = &#39;Songti SC&#39;) 方法三: 使用showtext包,需要xquartz软件,可以使用brew cask install xquartz library(showtext) #使用下面的函数查看所有字体,选择中文字体添加 font_files() showtext_auto(enable = TRUE) font_add(&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;,&#39;STXihei&#39;) #添加中文字体 quartz(family = &amp;quot;STXihei&amp;quot;) #可以把STXihei替换成任意想要的字体，如&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;等 方法四: extrafontdb 软件包 方法五: ggplot2绘图中添加指定中文字体 library(ggplot2) p = ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, col = Species)) + geom_point() p = p + labs(title = &amp;quot;iris数据集&amp;quot;) p = p + theme(plot.title = element_text(hjust = 0.</description>
     </item>
     
     <item>
       <title>corr详解(MATLAB)</title>
-      <link>/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</link>
       <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</guid>
       <description>corr详解（MATLAB）  corrcoef是对两个列向量，或者一个矩阵的每列进行的，用的是pearson相关 corr可以对两个矩阵的每列进行，也可以对一个矩阵的每列进行，相关的类型可以是pearson或者Kendall或者Spearman 总之，corr强大很多  1、corrcoef R = corrcoef(A) 输入：一个矩阵A，
 方法：计算矩阵A的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。
 返回： 一个相关系数矩阵R，
@@ -179,10 +179,10 @@ rho = corr(X,Y) 输入： X为$nm1$的矩阵，Y为$nm2$的矩阵
     
     <item>
       <title>计算各种距离 （matlab）</title>
-      <link>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</link>
       <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</guid>
       <description>pdist &amp;ndash;不推荐使用&amp;ndash;好像是计算元素之间的距离
 观测值对之间的成对距离
 matlab中自带的计算距离矩阵的函数有两个pdist和pdist2。前者计算一个向量自身的距离矩阵，后者计算两个向量之间的距离矩阵。基本调用形式如下：
@@ -193,10 +193,10 @@ D = pdist(X) D = pdist(X,Distance) D = pdist(X,Distance,DistParameter) pdist2 &a
     
     <item>
       <title>git 笔记</title>
-      <link>/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</guid>
       <description>1. git 的安装与配置 安装不多说,
 初次运行 git前的配置, 配置全局信息: 用户名与邮箱,(此处的用户名与邮箱需要到 github 注册)
 $ git config --global user.name &amp;#34;XXX&amp;#34; $ git config --global user.email &amp;#34;email@example.com&amp;#34; 如果已经多次使用 git ,可以用以下命令进行查看
@@ -208,10 +208,10 @@ $ git init # 该命令会在当前目录下创建了隐藏目录.</description>
     
     <item>
       <title>mac 常用软件</title>
-      <link>/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
       <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
       <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 2. homebrew 主页: https://brew.sh/ 2.1安装 /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 卸载(未试过) 方法一: 网上找的,
 可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
 方法 2: 官方版本
@@ -222,19 +222,19 @@ https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
     
     <item>
       <title>R中常用的批处理操作</title>
-      <link>/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</link>
       <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</guid>
       <description>批量重命名文件名 setwd(&amp;#39;/Users/zsc/Desktop/音乐mp3/&amp;#39;) library(stringr) oldname = list.files(pattern = &amp;#39;.*mp3&amp;#39;) newname = str_extract(d,&amp;#39;.*(?=158)&amp;#39;) df = data.frame(oldname = oldname, newname = newname) df file.rename(df$oldname, df$newname) 批量统计 pdf 的页数 library(qpdf) setwd(&amp;#39;/Users/zsc/Desktop/pdf/&amp;#39;) d = list.files() d d1 = str_extract(d,&amp;#39;.*?.pdf$&amp;#39;) library(purrr) map_dbl(d1, pdf_length) map_dbl(d1, pdf_length) %&amp;gt;% sum() 移除latex生成的临时文件 p = getwd() cat(p,&amp;#39;\n&amp;#39;) t = &amp;#39;*.aux|*.bbl|*.bcf|*.blg|*.log|*.xml|*.out|*.spl|*.synctex.gz&amp;#39; del = list.files(path = p,pattern = t) file.remove(del) </description>
     </item>
     
     <item>
       <title>install old hugo version</title>
-      <link>/md/2019-11-04-installhugo/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-11-04-installhugo/</link>
       <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-11-04-installhugo/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-11-04-installhugo/</guid>
       <description>安装旧版本的 hugo 最近发现自己更新了 hugo 软件导致了主题的某些功能失效了, 于是需要退回旧版本的 hugo(0.55.5),
 方法一: https://gohugo.io/getting-started/installing/ 文章中的Install Hugo from Tarball 这一部分(个人电脑是 mac)
 方法二: 直接从 Rstduio 进行更新
@@ -243,10 +243,10 @@ https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
     
     <item>
       <title>latex &#43; bib &#43; csl</title>
-      <link>/md/2019-11-04-latex-bib-csl/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-11-04-latex-bib-csl/</link>
       <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-11-04-latex-bib-csl/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-11-04-latex-bib-csl/</guid>
       <description>参考文献格式化调整系统 利用shiny制作
 利用 latex 写学术论文, 总爱遇到一个问题, 参考文献的样式问题, 由于 latex 的原因,不能使用 csl 参考样式文件, 因此本应用孕育而生.
 1, 只需要上传对应的 tex 源文件, 以及 bbl 文件和 csl 参考文献, 就能导出\bibitem 格式文件,
@@ -256,10 +256,10 @@ https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
     
     <item>
       <title>非线性规划2</title>
-      <link>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</link>
       <pubDate>Tue, 25 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</guid>
       <description>Rsolnp 非线性规划问题
 $$ \begin{align} \min \quad &amp;amp; f(x)\ \text { s.t. } &amp;amp; \begin{cases} \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}} \end{cases} \end{align}
 $$
@@ -272,10 +272,10 @@ eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</descript
     
     <item>
       <title>动态可视化如此简单</title>
-      <link>/md/2019-05-26-dongtaikeshihua/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-05-26-dongtaikeshihua/</link>
       <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-05-26-dongtaikeshihua/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-05-26-dongtaikeshihua/</guid>
       <description>动态可视化如此简单 不用任何代码，只需要知道你画什么图，需要什么数据格式，就可以画出漂亮的动态图了，并且有每种可视化都有相应数据案例，很方面。
 由于是国外的网站，可能有点慢。
 网站： https://app.flourish.studio/templates
@@ -287,10 +287,10 @@ eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</descript
     
     <item>
       <title>R结合C&#43;&#43;</title>
-      <link>/md/2019-05-24-randc/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-05-24-randc/</link>
       <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-05-24-randc/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-05-24-randc/</guid>
       <description>1. R结合C++ 首先要配置好R和C++的环境，在R官网中分别有不同操作系统的环境配置条件，按照下载R软件的步骤，在下载R软件页面有相应的配置说明。如果是mac系统也可以参考这篇文章：macOS
 基本的用法可以参考：
   http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html
@@ -305,29 +305,29 @@ eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</descript
     
     <item>
       <title>环境</title>
-      <link>/md/2019-05-02-environment/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-05-02-environment/</link>
       <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-05-02-environment/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-05-02-environment/</guid>
       <description>环境 详细的解释可以查看书《高级R语言编程指南》,这里总结一份与环境有关的函数总结：(参考R语言核心技术手册第二版)
    函数 描述      assign 在envir环境中将名称x赋给value对象    get 在envir环境中获得与名称x关联的对象    exists 判断在环境envir是是否定义了名称x    objects 以向量的形式返回envir环境中定义的所有(对象)名称    remove 从envir环境中将参数中罗列的对象删除(列表不适合作为参数的名称，尤其当参数是向量时)    search 以向量的形式列出全局环境的所有父环境，也称为搜索路径    searchpaths 以向量的形式返回全局环境的所有父环境的路径    attach 将列表、数据框或数据文件中的对象添加到当前的搜索路径中    detach 将列表、数据框或数据文件中的对象从当前的搜索路径中删除    emptyenv 空环境对象，它是所有环境的祖先，也是唯一一个没有父环境的的环境    parent.env 查看envir环境的父环境    baseenv 基础环境，它是R基础软件包的环境，它的父环境是空环境    globalenv(或.</description>
     </item>
     
     <item>
       <title>数据框删除列的方法汇总</title>
-      <link>/md/2019-05-01-remove-dataframe-columns/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-05-01-remove-dataframe-columns/</link>
       <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-05-01-remove-dataframe-columns/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-05-01-remove-dataframe-columns/</guid>
       <description>数据框删除列 iris[1:10,-5] # 1. 通过索引删除列 iris[1:10,-c(4,5)] # 删除多列 iris[1:10,-which(names(iris)%in%c(&amp;#34;Petal.Width&amp;#34;,&amp;#34;Species&amp;#34;))]# 2.根据列名进行删除 subset(iris, select = -c(Petal.Width, Species))# 3 根据列名进行删除 iris[1:10,1:4]# 筛选出需要的列 </description>
     </item>
     
     <item>
       <title>学术论文写作工具</title>
-      <link>/md/2019-04-26-%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-04-26-%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-04-26-%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-04-26-%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7/</guid>
       <description>1. 基础配置 1、必备： CTEX套装 或者 TexLive (推荐),安装Texlive时候，推荐搭配Texstudio
 2、有没有发现写公式很麻烦：mathpix 工具可以直接截图，把截图的公式转变为Latex 代码，太复杂的可能识别不了，但是已经很好了
 3、AxMath 可以像mathtpye那样输入公式，更重要的一点是可以直接转变为latex代码，
@@ -341,10 +341,10 @@ eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</descript
     
     <item>
       <title>遗传算法（待完善）</title>
-      <link>/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</link>
       <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</guid>
       <description>遗传算法 遗传算法是模仿自然界生物进化机制发展起来的随机全局搜索和优化方法，本质是一种高效、并行、全局搜索的方法。
 基本概念 编码方式 假设一个具体的问题的解为 $X = (x_1,x_2, \cdots, x_n )$ ，并且每个变量都有取值范围$x_j \in [a_j,b_j]，j=1,2,\cdots,n$.
    编码方式 编码 解码     二进制编码 第$j$ 个变量用长度为 $k_j$的二进制编码符号来表示，二进制串编码符号长度与问题所要求的求解进度有关，假设分量$x_j$ 的精度是小数点后4位，则$k_j$的计算公式如下:$$ \log_2^{(b_j-a_j) \cdot 10^4+1} \le k_j &amp;lt; \log_2^{(b_j-a_j) \cdot 10^4}+1$$一般地，$k_j$都取同一个整数​$k=max{k_j,}$ 即把二进制串转变为十进制数 假设$x_j$的编码为$c_kc_{k-1}c_{k-2} \cdots c_2c_1$,长度为k,则对应解码公式为:$$x_j = a_j+(\sum_{i=1}^{k}b_i\cdot 2^{i-1} )\cdot \frac{b_j-a_j}{2^{k}-1}\ $$   格雷码编码 类似二进制编码 类似二进制解码   实数编码（也称浮点数编码） 个体的每个基因值用一定范围的一个实数表示，此时染色体长度等于变量个数。 一般不需要解码   整数编码 用于特殊的问题（TSP问题）或者其他问题。 一般不需要解码   其他编码方式      符号编码： 二进制编码和格雷码编码 统称符号编码。即单个基因无实际意义。有时候整数编码也叫符号编码。</description>
@@ -352,10 +352,10 @@ eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</descript
     
     <item>
       <title>模拟退火算法（待完善）</title>
-      <link>/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</link>
       <pubDate>Tue, 19 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</guid>
       <description>模拟退火算法 物理固体退火过程(可不了解)： 什么是退火：指对物体（指的是固体）加温至熔化，再徐徐冷却，使之凝固成规则晶体的热力学过程，简而言之，是对物体加温后再冷却的一个物理过程。
 可见，物理退火过程由以下三部分组成：
 （1）加温过程： 一般一个物体不是一个有规则的晶体（下图左图），于是加热，当温度足够高时，固体的规则性被彻底破坏，固体熔解为液体（下图中图），从而消除系统原先可能存在的非均匀状态，使随后进行的冷却过程以某一平衡态为起点。溶解过程与系统的熵增过程相联系，系统能量也随温度的升高而增大。
@@ -378,10 +378,10 @@ e^{\left(-\frac{E(n+1)-E(n)}{T}\right)} &amp;amp;,E(n+1) \geq E(n) \
     
     <item>
       <title>运筹学与最优化--在R软件中的实现</title>
-      <link>/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/</link>
       <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/</guid>
       <description>转载过来的，
 参考链接1:
 参考链接2:
@@ -390,47 +390,47 @@ e^{\left(-\frac{E(n+1)-E(n)}{T}\right)} &amp;amp;,E(n+1) \geq E(n) \
     
     <item>
       <title>混合粒子群算法matlab</title>
-      <link>/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</guid>
       <description>链接</description>
     </item>
     
     <item>
       <title>运筹学最短路问题</title>
-      <link>/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/</link>
       <pubDate>Thu, 22 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/</guid>
       <description>最短路算法参考(自制ppt)pdf:</description>
     </item>
     
     <item>
       <title>用c语言设置定时关机</title>
-      <link>/md/2018-11-20-c%E8%AF%AD%E8%A8%80/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-20-c%E8%AF%AD%E8%A8%80/</link>
       <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-20-c%E8%AF%AD%E8%A8%80/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-20-c%E8%AF%AD%E8%A8%80/</guid>
       <description>C代码 创建定时任务 发现代码，win有自动防范木马的可能，于是要手动去在定时任务勾选某些指标，所以不可行。
 # include&amp;lt;stdio.h&amp;gt; # include &amp;lt;windows.h&amp;gt; int main() { //如果存在任务名为myTaskName2 则强制删除，若没有则报错，但不终止该程序的运行 system(&amp;quot;schtasks /delete /tn myTaskName2 /f&amp;quot;); // 创建一个任务名为myTaskName2的任务,/tr 后面是 要执行的命令， 双引号要转义，/st 后面接的是触发时间 system(&amp;quot;schtasks /create /tn myTaskName2 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 22:35:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName4 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName4 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 22:42:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName3 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName3 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 22:52:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName5 /f&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName6 /f&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName7 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName5 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:00:00&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName6 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:15:00&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName7 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:27:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName8 /f&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName9 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName8 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:43:00&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName9 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:58:00&amp;quot;); return 0; } 编译运行后 编译运行后，找到对应得exe文件 ,把其放在开始启动目录中即可（C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp）</description>
     </item>
     
     <item>
       <title>运筹学与最优化matlab</title>
-      <link>/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/</link>
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/</guid>
       <description>运筹学与matlab</description>
     </item>
     
     <item>
       <title>线性规划的一般模型(草稿)</title>
-      <link>/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/</link>
       <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/</guid>
       <description>线性规划的一般模型 :
 $$ \min \quad z = c_1x_1+c_2x_2+ \cdots + c_nx_n \
 s.t.\left{ \begin{aligned}
@@ -443,19 +443,19 @@ x_1,x_2,x_3,\cdots,x_n \geq 0 \end{aligned} \right. $$</description>
     
     <item>
       <title>重装系统后一些有用的激活工具</title>
-      <link>/md/2018-11-17-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-17-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-17-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-17-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/</guid>
       <description>包含win10 和office2019 激活工具 链接：https://pan.baidu.com/s/1eOQUPdlrvViL2XSucEdkmQ 提取码：08be 复制这段内容后打开百度网盘手机App，操作更方便哦</description>
     </item>
     
     <item>
       <title>R语言发邮件--mailR包</title>
-      <link>/md/2018-11-13-%E5%8F%91%E9%82%AE%E4%BB%B6mailr%E5%8C%85/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-13-%E5%8F%91%E9%82%AE%E4%BB%B6mailr%E5%8C%85/</link>
       <pubDate>Tue, 13 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-13-%E5%8F%91%E9%82%AE%E4%BB%B6mailr%E5%8C%85/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-13-%E5%8F%91%E9%82%AE%E4%BB%B6mailr%E5%8C%85/</guid>
       <description>亲测试邮箱为163邮箱 和QQ邮箱
 mailR 包参数 mailR 包中只有一个接口函数&amp;mdash;send.mail ,该包依恋java环境，请首先配置该环境，下面是该函数的一些基本参数：
 send.mail(from, to, subject = &amp;#34;&amp;#34;, body = &amp;#34;&amp;#34;, encoding = &amp;#34;iso-8859-1&amp;#34;, html = FALSE, inline = FALSE, smtp = list(), authenticate = FALSE, send = TRUE, attach.files = NULL, debug = FALSE, ...)    参数 说明     from 发件人邮箱   to 收件人邮箱   subject 邮件标题   body 邮件的内容(正文),内容可以是文本也可以是html网页格式   html 一个bool值，是否应该讲邮箱正文解析为HTML   inline 一个bool值，HTML文件中的图像是否应该被嵌入   smtp 重要的参数，设置服务器参数用的   authenticate 是否应该使用smtp中的参数   attach.</description>
@@ -463,10 +463,10 @@ send.mail(from, to, subject = &amp;#34;&amp;#34;, body = &amp;#34;&amp;#34;, enc
     
     <item>
       <title>GitHubDesktop权限问题解决办法</title>
-      <link>/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>很久没上传文章到github了，
  Error Authentication failed. You may not have permission to access the repository or the repository may have been archived. Open options and verify that you&#39;re signed in with an account that has permission to access this repository. 网上百度了一下，发现有两种解决办法：
 1.退出后重新登录
@@ -481,10 +481,10 @@ send.mail(from, to, subject = &amp;#34;&amp;#34;, body = &amp;#34;&amp;#34;, enc
     
     <item>
       <title>谈谈字符编码问题</title>
-      <link>/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
       <description>最近在实验室编写文件，遇到一件奇怪的事情，在自己的笔记本上能正常编码，却在学校的电脑上编码总是乱码，于是经历种种磨难，算是弄明白了一点点，下面简单介绍一下字符编码的知识（由于编码种类繁多，我只简单的提一下，其余自己百度，文末有相关链接）
 常见的字符集： ​	百度百科定义： 字符(Character)是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。字符集(Character set)是多个字符的集合，字符集种类较多，每个字符集包含的字符个数不同，常见字符集名称：ASCII字符集、GB2312字符集、BIG5字符集、 GB18030字符集、Unicode字符集等。计算机要准确的处理各种字符集文字，需要进行字符编码，以便计算机能够识别和存储各种文字。中文文字数目大，而且还分为简体中文和繁体中文两种不同书写规则的文字，而计算机最初是按英语单字节字符设计的，因此，对中文字符进行编码，是中文信息交流的技术基础。
 ​	下面介绍几个常见的字符集：ASCII字符集、GB2312、 GBK、utf-8、utf-16、utf-32
@@ -502,10 +502,10 @@ Unicode 、utf-8、utf-16、utf-32 ​	由于世界上存在多种编码，当�
     
     <item>
       <title>Scrapy框架&#43;selenium爬取京东相机</title>
-      <link>/md/2018-08-10-scrapy/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-08-10-scrapy/</link>
       <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-08-10-scrapy/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-08-10-scrapy/</guid>
       <description>1 创建一个srcapy项目： （项目名为：jingdong)，会生成一系列文件夹，命令如下(cmd下运行)：
 scrapy startproject jingdong 2 创建爬虫文件 在刚刚生成的jingdong文件夹下面找到spiders文件夹,在spider文件下创建一个爬虫文件（名字叫jd）&amp;ndash; 用来解析网页的，命令如下(cmd下运行)：
 scarpy genspider jd &amp;#34;list.jd.com&amp;#34; # 创建一个jd.py的爬虫文件，爬虫名为jd ，以及指定爬虫允许爬取的范围：只能在jd.com下. 3 编写items.py文件 创建爬虫目标（明确需要提取的数据），如下：
@@ -514,19 +514,19 @@ import scrapy class JingdongItem(scrapy.Item): # define the fields for your item
     
     <item>
       <title>猫眼电影票房抓取</title>
-      <link>/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/</link>
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/</guid>
       <description>猫眼电影票房抓取 基本设置 library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) remDr$open() # 打开浏览器  #&amp;gt; [1] &amp;#34;Connecting to remote server&amp;#34; #&amp;gt; $applicationCacheEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $rotatable #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $mobileEmulationEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $networkConnectionEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $chrome #&amp;gt; $chrome$chromedriverVersion #&amp;gt; [1] &amp;#34;2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7)&amp;#34; #&amp;gt;  #&amp;gt; $chrome$userDataDir #&amp;gt; [1] &amp;#34;C:\\Users\\zsc\\AppData\\Local\\Temp\\scoped_dir10136_5944&amp;#34; #&amp;gt;  #&amp;gt;  #&amp;gt; $takesHeapSnapshot #&amp;gt; [1] TRUE #&amp;gt;  #&amp;gt; $pageLoadStrategy #&amp;gt; [1] &amp;#34;normal&amp;#34; #&amp;gt;  #&amp;gt; $databaseEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $handlesAlerts #&amp;gt; [1] TRUE #&amp;gt;  #&amp;gt; $hasTouchScreen #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $version #&amp;gt; [1] &amp;#34;67.</description>
     </item>
     
     <item>
       <title>相关图之corrgram</title>
-      <link>/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/</link>
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/</guid>
       <description>相关图： 所谓相关图是基于变量间的相关系数大小，通过可视化方法反应不同变量组合间相关关系的差异图形。可以把相关图分为相关矩阵图、相关层次图
 相关矩阵图 R语言中，绘制相关矩阵图的包主要有两个：corrgram::corrgram和corrplot::corrplot
 此处都以mtcars数据集为例，说明这两个函数的使用
@@ -535,19 +535,19 @@ import scrapy class JingdongItem(scrapy.Item): # define the fields for your item
     
     <item>
       <title>泰坦尼克号预测(kaggle)</title>
-      <link>/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/</link>
       <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/</guid>
       <description>options(width = 300) knitr::opts_chunk$set(message = F,warning = F,comment = &amp;quot;#&amp;gt;&amp;quot;,collapse = TRUE) 读入数据 library(data.table) train=fread(&amp;quot;data/train.csv&amp;quot;,na.strings = c(&amp;quot;&amp;quot;,NA)) test=fread(&amp;quot;data/test.csv&amp;quot;,na.strings = c(&amp;quot;&amp;quot;,NA)) #把两个合并起来进行数据处理--两个data.table的合并 combine =rbindlist(list(train,test),fill=TRUE) #### 其实个人不建议这样操作，因为不能把测试集和训练集一起处理，应该分开处理  数据处理 # 统计每一列的缺失率 combine[,lapply(.SD, function(x)sum(is.na(x)))] #&amp;gt; PassengerId Survived Pclass Name Sex Age SibSp Parch Ticket Fare Cabin Embarked #&amp;gt; 1: 0 418 0 0 0 263 0 0 0 1 1014 2 # 可以看出 我们需要对缺失列进行处理，以及一些特征衍生工作 library(zoo) library(purrr) combine[,Age := na.spline(Age)] # age变量进行处理，进行样条插补 combine[,Fare := na.</description>
     </item>
     
     <item>
       <title>seq*函数族</title>
-      <link>/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/</link>
       <pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/</guid>
       <description>seq(from = 1, to = 1, by = 步长（默认为1),length.out = NULL, along.with = NULL, ...) seq.int(from, to, by, length.out, along.with, ...) seq_along(along.with) seq_len(length.out) from：生成向量的起点， to：生成向量的终点，默认步长为1（可修改） length.out：向量中元素数目 along.with：表示生成的向量为现有一向量元素的索引 主要介绍seq_along(along.with) 和seq_len(length.out)函数，应用于循环中
 比如:
 # 要循环某个向量长度的次数,比如向量a，其长度未知 for(i in seq_along(a)){...} 代替 for(i in 1:length(a)){...} ## 经常犯这样的错误，不美观 # 循环中，循环1:10可以用一下方法 for(i in seq_len(10)){...} 代替 for(i in 1:10){...} head(x,5)  : 取向量的前5个元素，向量 ，数据框 ，list都适用
@@ -556,19 +556,19 @@ tail(x,5): 取向量的后5个元素，等价 x[-(1:(length(x)-5))] 等价 x[(le
     
     <item>
       <title>正则表达式(通用)</title>
-      <link>/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/</link>
       <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/</guid>
       <description>正则表达式&amp;ndash;表格  注意： 由于每个软件的正则表达式的转义字符是不一样的，比如R中一般用\\.来代表匹配小数点. 表格中的\  ，但在软件中可能需要\\才能表达出来，eg:\d 匹配任意一个数字， 可能需要使用\\d  1. 基本的元字符    元字符 说明     . 匹配任意单个字符，字母、数字甚至是.字符本身   | 逻辑或操作符   [ ] 匹配该字符集合中的一个字符（各个字符之间是or关系）**注意: ** [.] 只匹配点本身,不是特殊字符,不用转义.   [^ ] 对字符集合求非就是排除该字符集合[^0-9]  ： 匹配任何不适数字的字符   - 定义一个区间,[A-Za-z09]: 匹配(大小)字母和数字-只有出现在[]之间才是元字符-出现在其他地方，则表示一个普通字符   \ 对下一个字符进行转义    2. 数量元字符    元字符 说明     * 匹配前一个字符(或字符集合或子表达式)的零次或多次重复   + 匹配前一个字符(或字符集合或子表达式)的一次或多次重复   ?</description>
     </item>
     
     <item>
       <title>R中时间类型概念</title>
-      <link>/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/</link>
       <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/</guid>
       <description>基本类型介绍 在R中，所有有关时间和日期的类(包),都可以处理日历时间(eg:2018年4月13日)，只有某些特定的类才能处理日期时间类型(eg:2018年4月13日 下午6:45)
    类 处理类型 说明 强制转换 R所在包     Date类 日历日期 实际存储的为数字，是从1970年1月1日算起到该时间以天计算的一个数值.eg: &amp;ldquo;2018-04-13&amp;rdquo; as.Date() 基本函数   POSIXct类 日期时间 实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;个人建议使用这个，存储数据 as.POSIXct() 基本函数   POSIXlt类 日期时间 实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;存储非结构化数据 as.POSIXlt() 基本函数   Date类 日历日期 同上 as_date() lubridate包   POSIXct类 日期时间 同上 as_datetime() lubridate包   difftime类 时间 实际存储的为数字，是从当天00:00:00算起到该时间以秒计算的一个数值.eg:&amp;ldquo;00:01:25&amp;rdquo; hms::as.hms(85) lubridate包    在实际工作中，只要满足要求，尽量适用比较简单的类型，先考虑Date ，在考虑POSIXct
 R中处理时间序列的包：   chron ： 常用于计量经济学和时间序列分析中</description>
@@ -576,10 +576,10 @@ R中处理时间序列的包：   chron ： 常用于计量经济学和时间序
     
     <item>
       <title>R 语言并行化计算之foreach包</title>
-      <link>/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</link>
       <pubDate>Sun, 08 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</guid>
       <description>foreach包执行任务的核心理念与传统的apply组函数基本一致，都是与split – apply – combine一致的流程，不过foreach比传统apply组函数的优越之处在于，它可以通过调用操作系统的多核运行性能来执行并行任务，这样特别是对于I/O密集型任务而言，可以大大节省代码执行效率。
 解读foreach()函数
 library(&amp;#34;doParallel&amp;#34;) #加载doParallel包用于之后注册进程 library(&amp;#34;foreach&amp;#34;) #导入foreach包 ######################################################################## ########## foreach()函数主要是对原本的for循环进行并行运算 ############### ######################################################################### #############并行化格式 detectCores() #这个网上说是核数，但实际上是线程数，和真实的物理核多一倍，4核8线程 cl&amp;lt;- makeCluster(detectCores()) # 不过R中能运行满线程 ，即detectCores()返回的核数。 registerDoParallel(cl) #进行进程注册 mydata1 &amp;lt;- foreach( ..., # 并行化参数（循环参数）,当参数为两个以上时，选长度较短的循环完为止. .combine, #合并方式，default是list，“c”返回vector,cbind和rbind返回矩阵,也可以自定义函数. # &amp;#34;+&amp;#34;和&amp;#34;*&amp;#34;是対返回后的list进行同列操作 .init, #.combine函数的第一个变量,当.combine参数被具体化是才用 .final=NULL, #返回最后结果 .inorder=TRUE,#返回和原始输入相同顺序的结果 .multicombine=FALSE,#设定.combine函数的传递参数，FALSE表示其参数是2，TRUE可以设定多个参数 .maxcombine=if (.multicombine) 100 else 2, #设定.combine的最大参数 .errorhandling=c(&amp;#39;stop&amp;#39;, &amp;#39;remove&amp;#39;, &amp;#39;pass&amp;#39;),#如果循环中出现错误，对错误的处理方法 .packages=NULL,# 指定在%dopar%运算过程中依赖的package（%do%会忽略这个选项）。 .export=NULL, # 在编译函数的时候需要预先加载一些内容进去，类似parallel的clusterExport .noexport=NULL, .verbose=FALSE) ##是否打印运行信息 ) %dopar% {***} #并行的代码，也可以是相应的函数,即我们for循环的函数体 stopCluster(cl) # 结束集群 注意：平时我们大多数使用时，很多参数都选取默认状态，其中常用参数为：... 、.combine、.packages.
@@ -589,19 +589,19 @@ library(&amp;#34;doParallel&amp;#34;) #加载doParallel包用于之后注册进�
     
     <item>
       <title>RSelenium应用--京东商品</title>
-      <link>/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/</link>
       <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/</guid>
       <description>library(RSelenium) library(stringr) setwd(&amp;#34;E:\\rwork\\Rselenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) # 默认情况下，Selenium Server侦听端口为4444 remDr$open() # 打开浏览器  # remDr$getStatus() ## 使用该status方法查询远程服务器的状态。 url=&amp;#34;https://www.baidu.com/&amp;#34; remDr$navigate(url) # navigate方法打开网页，url一定要完整 ## remDr$getCurrentUrl() # 获取当前页面的url ###########################进行搜索关键词 ##### 按属性--属性值搜索 ,可以是css,xpath ,id ,属性等 对应值 webElem &amp;lt;- remDr$findElement(using = &amp;#39;css&amp;#39;, &amp;#34;#kw&amp;#34;) # 找到这个元素--进行搜索关键词 webElem$sendKeysToElement(list(&amp;#34;京东&amp;#34;,key=&amp;#34;enter&amp;#34;)) #### 获取当前页面的所有标题，每个链接的标题都包含在&amp;lt;h3 class = &amp;#34;t&amp;#34;&amp;gt;标签中。我们将h3首先访问标题 #### 注意 findElements和 findElement方法是获取一个或者多个的区别 webElems &amp;lt;- remDr$findElements(using = &amp;#39;css&amp;#39;, &amp;#34;h3.t&amp;#34;) resHeaders &amp;lt;- unlist(lapply(webElems, function(x){x$getElementText()})) # resHeaders ######################## 鼠标点击事件 webElem&amp;lt;-remDr$findElement(using = &amp;#34;css&amp;#34;,&amp;#34;#w-f80518 &amp;gt; div &amp;gt; h2 &amp;gt; a.</description>
     </item>
     
     <item>
       <title>利用RSelenium包模拟浏览器爬取网页信息</title>
-      <link>/md/2018-04-06-rselenium/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-04-06-rselenium/</link>
       <pubDate>Fri, 06 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-04-06-rselenium/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-04-06-rselenium/</guid>
       <description>1.背景介绍： 现在很多网页都采用AJAX这种异步加载的网页结构，简单的页面爬取不了这些数据
 例如：
 2、这是需要R包&amp;mdash;RSelenium包
@@ -627,19 +627,19 @@ library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) #####
     
     <item>
       <title>R语言字符处理---基本函数</title>
-      <link>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</link>
       <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</guid>
       <description>R语言字符处理&amp;mdash;基本函数    函数 说明     Encoding(x) Encoding(x) &amp;lt;- value enc2native(x) enc2utf8(x) 读取或设置字符向量的编码常结合iconv(x, from = &amp;ldquo;&amp;rdquo;, to = &amp;ldquo;&amp;quot;)函数使用注意：Encoding(x) &amp;lt;- value 这是一种赋值函数   nchar(x, type = &amp;ldquo;chars&amp;rdquo;, allowNA = FALSE, keepNA = NA)nzchar(x, keepNA = FALSE) nchar()返回字符长度nzchar()判断是否空字符keepNA为真是NA保留，不计入计数对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。对于NULL，nchar和nzchar函数会忽略掉。   substr(x, start, stop)substring(text, first, last = 1000000L)substr(x, start, stop) &amp;lt;- valuesubstring(text, first, last = 1000000L) &amp;lt;- value 提取或替换字符向量的子字段，substring同substr功能一样   strtrim(x, width) 按显示宽度截断字符串   paste (&amp;hellip;, sep = &amp;quot; &amp;ldquo;, collapse = NULL)paste0(&amp;hellip;, collapse = NULL) 通过sep连接间隔连接对象,返回字符串向量设定collapse的话，会通过collapse连接间隔将上一步的字符串向量连接成一个字符串   strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE) 基于split子句分割字符向量xfixed为TRUE的话，完全匹配split；否则，基于正则表达式。可以使用split=NULL来分割每个字符。   chartr(old, new, x) 将x中的字符old变换为字符new注意替换的是单个对应的字符，而非字符串   tolower(x)toupper(x) 大小写转换   sprintf(fmt, &amp;hellip;) 系统C库函数sprintf封装器，格式化输出函数        正则表达式&amp;mdash;&amp;ndash;字符串匹配函数    函数 说明     grep(pattern, x, ignore.</description>
     </item>
     
     <item>
       <title>R语言字符处理函数包---stringr包</title>
-      <link>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</link>
       <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</guid>
       <description>1.stringr介绍 stringr包被定义为一致的、简单易用的字符串工具集。所有的函数和参数定义都具有一致性，比如，用相同的方法进行NA处理和0长度的向量处理。
 字符串处理虽然不是R语言中最主要的功能，却也是必不可少的，数据清洗、可视化等的操作都会用到。对于R语言本身的base包提供的字符串基础函数，随着时间的积累，已经变得很多地方不一致，不规范的命名，不标准的参数定义，很难看一眼就上手使用。字符串处理在其他语言中都是非常方便的事情，R语言在这方面确实落后了。stringr包就是为了解决这个问题，让字符串处理变得简单易用，提供友好的字符串操作接口。
 2.stringr的API介绍 stringr包常用的字符串的处理以str_开头来命名，方便更直观理解函数的定义。我们可以根据使用习惯对函数进行分类：
@@ -648,10 +648,10 @@ library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) #####
     
     <item>
       <title>Windows系统下R Markdown 设置中文pdf完美解决方案</title>
-      <link>/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</link>
       <pubDate>Sat, 10 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</guid>
       <description>方法一： 生成pdf中文 后文有与之对应的方法。
 需要安装完整版的CTeX_2.92套装（有没有感觉文件很大，文章最后教大家一个简单的安装版本），还要自己新建一个文本文件命名为header.tex,其内容为\usepackage{ctex} ,把这个文件和运行的rmarkdown文件保存在同级目录中，然后把rmarkdown的头文件yaml改写为如下情况：
 --- title: &#39;Untitled&#39; author: &#39;zsc&#39; date: &amp;quot;`r Sys.Date()`&amp;quot; output: pdf_document: includes: in_header: header.tex keep_tex: yes latex_engine: xelatex --- 这样就可以生成中文的pdf了
@@ -663,20 +663,20 @@ rmarkdown_pdf=function(file_name,new_filename=file_name){ cat(&amp;quot;\\usepac
     
     <item>
       <title>data.table -- 3常见操作</title>
-      <link>/md/2018-01-18-datatable3/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-18-datatable3/</link>
       <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-18-datatable3/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-18-datatable3/</guid>
       <description>knitr::opts_chunk$set(message = F,warning = F,comment = &amp;quot;#&amp;gt;&amp;quot;,collapse = TRUE) 数据准备
 library(data.table) library(magrittr) iris_1 = data.table(iris[1:5,]) iris_2 = data.table(iris[51:55,]) iris_1 iris_2 1. 两个data.table行合并 ##### --- 两个data.table行合并 --两个数据的列数应该相等 ##### #### --- 方法一 --纯粹的合并 rbind(iris_1,iris_2) ### -- 方法2 --- l = list(iris_1,iris_2) rbindlist(l, use.names=TRUE, fill=TRUE) %&amp;gt;% head() 2. 两个data.table列合并 ##### --- 两个data.table列合并 --两个数据的行数应该相等 ## --方法一 纯粹的合并 cbind(iris_1[,1:2],iris_2[,5]) ## --方法2 --- 类似 dplyr包中的链接 # merge(iris_1[,1:2], iris_2[,5], all=TRUE,sort=F) ## --方法3 --- 类似 dplyr包中的链接 # dt_a[dt_b,on=.(b = y)] 多个data.</description>
     </item>
     
     <item>
       <title>data.table -- 2基本概念</title>
-      <link>/md/2018-01-17-data.table2/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-17-data.table2/</link>
       <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-17-data.table2/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-17-data.table2/</guid>
       <description>data.table基本概念和其余函数&amp;mdash;还需要修改 set*  函数族 会改变原有的数据，没有返回值，在data.table里，操作符&amp;quot;:=&amp;quot;和所有的以set开头函数（比如setkey,setorder,setname等）一样，它们都会更新输入的原数据。
 library(data.table) iris_dt = data.table(iris) # setnames(DT,oldnames,newnames) # 改变DT的列名oldnames,newnames为向量即变量 #改变列的顺序 col_names = colnames(iris_dt) setcolorder(iris_dt,col_names[5:1]) # 更改某行某列的值,即更新元素的值 set(iris_dt,1,1,NA)# 更改1行1列的值为NA 1、键（主键）的概念  data.table从来不使用行名。data.table类似有行名的形式为1:，2: , ... 主键会对筛选的列进行重排序 我们把data.table数据中的行名叫做键（或主键），他类似于python的字典，使用键值对类型查找数据，键要求唯一，每一行有且只有一个键。但是R中的键可以用多个甚至可以重复，键就相当于索引，通过键进行数据的查找 setkey() 和 setkeyv()可以直接更新输入的data.table，就和上一讲中的操作符&amp;quot;:=&amp;ldquo;一样。它们没有返回值。 这个主键和其它语言不一样，例如python的键，唯一，在r中任意列都能使用setkey()来设置主键  library(data.table) mtcars_dt &amp;lt;- data.table(mtcars) # 可以看出mtcars数据集中的行名没有了，替而代之为1: ，2: # 若想保留行名，设置keep.rownames = T，当keep.rowname＝&amp;quot;new&amp;quot;时，列名改为new即可 mtcars_dt &amp;lt;- data.table(mtcars,keep.rownames = T)#默认创建一个叫做 rn的列，并且将行名赋值给这一列。 mtcars_dt 1.2、设置／获取／使用主键 怎么将数据中的某一列设置为主键呢？&amp;mdash;setkey()函数
  setkey(DT, key) 将DT中的key列设置为主键，但是类行名 1:，2:,&amp;hellip;,不会发生改变, 上面等价 setkeyv(DT, &amp;quot;key&amp;quot;) ，也将DT中的key列设置为主键 一旦将某一列设置成data.table的主键，就可以在参数i里指定 .()来subset那些主键了(就可以进行行筛选了)。我们还是用mtcars数据集，我们增加一个新列new  mtcars_dt &amp;lt;- data.table(mtcars) mtcars_dt[,new:=Sys.Date()+1:32] #增加一列new，内容为时间 setkey(mtcars_dt,new) mtcars_dt # 类似行名并没有发生改变， mtcars_dt[.</description>
@@ -684,10 +684,10 @@ library(data.table) iris_dt = data.table(iris) # setnames(DT,oldnames,newnames) 
     
     <item>
       <title>data.table -- 1基本函数</title>
-      <link>/md/2018-01-16-data.table1/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-16-data.table1/</link>
       <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-16-data.table1/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-16-data.table1/</guid>
       <description>data.table本质上是一个list，它们的列包含的元素个数都相同。
 1、数据的读写 1.1数据读入－－fread 选其常用的参数如下：
 fread(input,na.strings=&amp;#34;NA&amp;#34;, file, stringsAsFactors=FALSE,encoding=&amp;#34;unknown&amp;#34;, ...)  input 入的文件对象，fread函数可以自动判断分隔符类型，自动判断首行是否是列标题，同时默认读入时字符型变量不会变为因子型。也可也从网页读取数据 na.strings,对NA的解释； file文件路径，再确保没有执行shell命令时很有用，也可以在input参数输入; stringsASFactors是否转化字符串为因子， encoding，默认&amp;quot;unknown&amp;quot;，其它可能&amp;quot;UTF-8&amp;quot;或者&amp;quot;Latin-1&amp;quot;，不是用来重新编码的，而是允许处理的字符串在本机编码; showProgress = T 显示进度条 integer64 当数据列中有大于2 ^ 31的整数,可能会丢失精度 quote 对带双引号的字符添加转义,在R中正常显示,但是输出时,可能会引起成倍的双引号,因此建议使用fwrite时,设置该参数quote = FALSE  1.2数据写入－－fwrite fwrite(x, file = &amp;#34;&amp;#34;, append = FALSE, na = &amp;#34;&amp;#34;, row.names = FALSE, col.names = TRUE,logicalAsInt = FALSE, ...)  x,比如data.frame和data.table等R的对象； file，输出文件名,&amp;ldquo;&amp;ldquo;意味着直接输出到操作台； append，如果TRUE,在原文件的后面添加；默认删除原来文件的数据，重新存储。 na,na值的表示，默认&amp;rdquo;&amp;quot;； row.names，是否写出行名，因为data.table没有行名，所以默认FALSE； col.names ，是否写出列名，默认TRUE，如果没有定义，并且append=TRUE和文件存在，那么就会默认使用FALSE; logicalAsInt,逻辑值作为数字写出还是作为FALSE和TRUE写出；  2. 数据行列筛选 &amp;mdash; i 参数 对于数据的处理，data.table包提供了一个非常简洁的通用格式：DT[i,j,by]，
@@ -697,10 +697,10 @@ library(data.table) library(magrittr) mtcars_dt &amp;lt;- data.</description>
     
     <item>
       <title>R软件常见问题</title>
-      <link>/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
       <description>1、读取数据编码问题   读取csv文件出现中文乱码方案，增加编码格式参数
 read.csv(trainPath,header=TRUE,stringsAsFactors=TRUE,encoding = &amp;quot;UTF-8&amp;quot;)   保存csv文件中出现乱码，编码格式参数
 write.csv(outp, file = path, quote = F, fileEncoding = &amp;quot;UTF-8&amp;quot;) #存储utf-8也乱码，我的电脑有时会发疯，有时又不会   source 加载R脚本中文乱码
@@ -720,10 +720,10 @@ sessionInfo() Sys.getlocale() Sys.setlocale(category = &amp;quot;LC_ALL&amp;quot
     
     <item>
       <title>1、go语言安装与LiteIDE的配置</title>
-      <link>/md/2018-01-05-goinstall/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-05-goinstall/</link>
       <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-05-goinstall/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-05-goinstall/</guid>
       <description>先下载 liteide 和go 安装包， 由于我的是win10 ，直接下载win的，直接点击下一步就可以安装go语言了，他会自动安装到C：\go 我设置为F :\go
 在cmd 命令中输入 ：go env 显示
 set GOARCH=amd64 # cpu架构 set GOBIN= # 工作目录下的bin文件夹 set GOEXE=.exe # 生成可执行文件的后缀 set GOHOSTARCH=amd64 #交叉编译参数 set GOHOSTOS=windows #交叉编译参数 set GOOS=windows #当前系统名称 set GOPATH=C:\Users\zsc\go # 我的工作目录 set GORACE= # set GOROOT=F:\go	#go的安装目录 set GOTOOLDIR=F:\go\pkg\tool\windows_amd64 # set GCCGO=gccgo set CC=gcc set GOGCCFLAGS=-m64 -mthreads -fmessage-length=0 -fdebug-prefix-map=C:\Users\zsc\AppData\Local\Temp\go-build974907835=/tmp/go-build -gno-record-gcc-switches set CXX=g++ set CGO_ENABLED=1 set CGO_CFLAGS=-g -O2 set CGO_CPPFLAGS= set CGO_CXXFLAGS=-g -O2 set CGO_FFLAGS=-g -O2 set CGO_LDFLAGS=-g -O2 set PKG_CONFIG=pkg-config 好像这后面的可以不用管，去电脑的环境变量里面新增</description>
@@ -731,10 +731,10 @@ set GOARCH=amd64 # cpu架构 set GOBIN= # 工作目录下的bin文件夹 set GOE
     
     <item>
       <title>dplyr -- 1基本函数简介</title>
-      <link>/md/2018-01-01-dplyr/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-01-dplyr/</link>
       <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-01-dplyr/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-01-dplyr/</guid>
       <description>0、dplyr初始 由于R语言每一个步骤没有赋值的话，是不会改变原有的数据，都是建立一个新的数据。原有数据不改变。
   dplyr::tbl_df(iris)： 将数据转化为tbl类。只会显示适合屏幕大小的数据：
   dplyr::glimpse(iris)： tbl数据的信息密集概括。 类似str()函数
@@ -744,10 +744,10 @@ set GOARCH=amd64 # cpu架构 set GOBIN= # 工作目录下的bin文件夹 set GOE
     
     <item>
       <title>tibble包的列和行名相互转换以及添加行和列</title>
-      <link>/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/</link>
       <pubDate>Sun, 31 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/</guid>
       <description>1、列与行名相互转化 tibble包：
   has_rownames(df)：检查是否存在行名
   remove_rownames(df) ： 移除行名
@@ -759,10 +759,10 @@ set GOARCH=amd64 # cpu架构 set GOBIN= # 工作目录下的bin文件夹 set GOE
     
     <item>
       <title>hugo--blogdown生成的目录</title>
-      <link>/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</guid>
       <description>1、先介绍一下有hugo生成的目录 站点下面的目录和必须的文件由hugo自己生成。一般它是这样的： archetypes/ : 全局原型，也就是内容模板。 |____default.md : 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板 content/ ：内容，存放“XXX.md”/&amp;quot;XXX&amp;gt;Rmd&amp;quot;文件，文件名可以用中文 data/ ：存放数据文件 layouts/ ：和archetypes一起将被我们的主题覆盖掉 public/ ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。 static/ ：静态目录，完全复制到public。比如图片、js、php脚本 themes/ ：主题目录，一个站可有多个主题，就像换衣服 |____aaa ：主题aaa，可以有很多个 |____bbb ：主题bbb |____archetypes : 主题的内容模板 |____layouts ：布局，就是html模板 |____static ：静态的，放主题的js，css文件 |____LICENSE.md ：这个，呵呵，不说大家也知道 |____theme.toml ：主题的信息配置 config.toml ：站点配置文件，可以配置站点名字等等很多信息 主题部分并未全部介绍，这个将在主题部分详细讲解。
 2、静态文件 不需要hugo处理的文件叫做静态文件。存放在 站点的static 目录是个好主意。
  static目录下的文件将会原封不动的复制到public下面，比如您建立了个img的目录存图片，在md文件中将直接使用”img/aaa.jpg”来引用图片，
@@ -776,30 +776,30 @@ baseurl = &amp;quot;http://qaz.netlify.com&amp;quot; # 基础路径,当自己有
     
     <item>
       <title>hugo--分类标签添加</title>
-      <link>/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</guid>
       <description>分类标签添加 找到single.html的页面 添加，从 http://fontawesome.io 下载文件 解压暂时只需要css/font-awesome.min.css 和fontawesome-webfont.woff2 引入到head.html中，
 把下面的代码添加到single.html  {{ with .Params.tags }} {{ if ge (len .) 1 }} &amp;lt;div class=&amp;quot;article-headline&amp;quot;&amp;gt; &amp;lt;i class=&amp;quot;fa fa-tags&amp;quot;&amp;gt; &amp;lt;/i&amp;gt;&amp;lt;!-- end--&amp;gt; {{ range . }} &amp;lt;a href=&amp;quot;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&amp;quot;&amp;gt;{{ . }}&amp;lt;/a&amp;gt; {{ end }} &amp;lt;/div&amp;gt; {{ end }} {{ end}}  下面对content\下文件夹的引入以及添加相关信息  &amp;lt;!-- 这个是content\下的post文件夹 --&amp;gt; {{ if eq .Section &amp;quot;post&amp;quot; }} &amp;lt;div class=&amp;quot;article-date&amp;quot;&amp;gt;{{ with .Params.Author }} {{.}} &amp;amp;middot; {{ end }} 字数共{{ .</description>
     </item>
     
     <item>
       <title>添加谷歌网站分析</title>
-      <link>/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</guid>
       <description>添加谷歌网站分析
 直接在config.toml中的googleAnalytics = &amp;quot;&amp;quot; 把自己的Id写进去即可完成.</description>
     </item>
     
     <item>
       <title>博客搭建——blogdown之md</title>
-      <link>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
       <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
       <description>1、下载安装、配置好R与Rstudio 2、打开Rstudio&amp;mdash;-下载blogdown包 if(!require(devtools)) install.packages(&#39;devtools&#39;) devtools::install_github(&#39;rstudio/blogdown&#39;) 等待安装，缺什么安装什么，
 3、在rstudio中安装hugo软件,只需运行下面函数即可 blogdown::install_hugo() 注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中
 4、创建测试网站  可用命令blogdown::new_site(), 在rstudio中的左上角点击【file】&amp;ndash;【New Project】&amp;mdash;【Website using blogdown】  适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，
@@ -809,10 +809,10 @@ baseurl = &amp;quot;http://qaz.netlify.com&amp;quot; # 基础路径,当自己有
     
     <item>
       <title>hugo-blogdown搭建网页过程中的小问题</title>
-      <link>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
       <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
       <description>1、hugo路径设置 在建立网站的时候，用rmarkdown生成的图片引用到网页中，不能使用中文，不然图片路径找不到（即不能正常显示）且不能用空格，但是可以用-,表示路径。 所以目录还是用英文吧，不过标题可以用中文
 2、hugo生成网页首页产生0001样式 这是由于文章开头没有声明yaml格式，注意title author可以用双引号也可以不用，但请注意date的日期格式，尽量用date: 2017-12-28 这样的格式
 3 运行blogdown:::serve_site()函数本地监听没有反应 即运行blogdown:::serve_site()改函数时，本地不能预览，这是由于我们自己写的rmd或者md文件的编码不是UTF-8引起的，所以我们一般要设置Rstudio的全局属性中保存UTF-8编码，但是这样在保存文件时又会产生新的问题，特别是保存的是csv文件
@@ -830,10 +830,10 @@ library(dygraphs) library(widgetframe) ## 载入需要的程辑包：htmlwidgets
     
     <item>
       <title>数据集划分—-训练集和测试集方法</title>
-      <link>/md/2017-11-13-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-11-13-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86/</link>
       <pubDate>Mon, 13 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-11-13-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-11-13-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86/</guid>
       <description>1.随机采样sample()&amp;mdash;例：iris数据  sample(x, size, replace = FALSE, prob = NULL)  Index = sample(nrow(iris),size = nrow(iris)*0.8) trian_data = iris[Index,] #作为训练集 test_data = iris[-Index,] #作为测试集 类似的还有dplyr包中的sample_n函数
  sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL)
  2. carte包&amp;ndash;createDatePartition 来进行分区抽样  inTrain =createDataPartition(响应变量y ,p=0.8,list=FALSE)  inTrain : 产生对应数据集行的索引 y 要分类或预测的变量, p 对应y的数据个数的概率  library(caret) set.seed(2012) #随机种子 Index =createDataPartition(iris$Species,p=0.8,list=FALSE) # 不知道为何？ iris[,5]不能使用 trian_data = iris[Index,] #作为训练集 test_data = iris[-Index,] #作为测试集 # 同样用上面第一种方法 产生数据集即可 3.</description>
@@ -841,10 +841,10 @@ library(dygraphs) library(widgetframe) ## 载入需要的程辑包：htmlwidgets
     
     <item>
       <title>R语言文件目录相关操作</title>
-      <link>/md/2017-04-08-r%E4%B8%AD%E8%AF%AD%E8%A8%80%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-04-08-r%E4%B8%AD%E8%AF%AD%E8%A8%80%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</link>
       <pubDate>Sat, 08 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-04-08-r%E4%B8%AD%E8%AF%AD%E8%A8%80%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-04-08-r%E4%B8%AD%E8%AF%AD%E8%A8%80%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</guid>
       <description>1. 文件系统介绍 R语言对文件系统的操作，包括文件操作和目录操作，函数API都定义在base包中。
 2. 目录操作 2.1 查看目录
 查看当前目录下的子目录。
@@ -857,19 +857,19 @@ df&amp;lt;-dir(full.names = TRUE) #获取当前目录的所有目录(不含子�
     
     <item>
       <title>R语言与可视化</title>
-      <link>/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
       <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
       <description>R可视化  静态图形 动态图形  静态图形  基础统计图 grDevice Lattile Grid ggplot2 地图 ggmap ggplot2 maptools maps sp 网络 igraph linkcomm statmet 特殊图形 基因组的(ggbio……)  动态图形  非浏览器平台 rgl rggobi(ggobi) animation(animation) RGtk2 iplots  动态图形  浏览器平台 ggvis rCharts(http://ramnathv.github.io/rCharts/) recharts (https://recharts.cosx.org/) plotly(https://plotly-r.com/, https://plot.ly/r/) googlevis Remap(https://github.com/Lchiffon/REmap) htmlwidgets 框架  leaflet(地图) dygraphs (时间序列) diagrammeR(diagram) – 化学结构 network3D (网格) DT (表格) threeJS (3D数据展示)    </description>
     </item>
     
     <item>
       <title>Rweka包解读</title>
-      <link>/md/2015-11-16-rweka/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2015-11-16-rweka/</link>
       <pubDate>Mon, 16 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>/md/2015-11-16-rweka/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2015-11-16-rweka/</guid>
       <description>1. 数据输入和输出 WOW()：查看Weka函数的参数。 Weka_control()：设置Weka函数的参数。 read.arff()：读(ARFF)格式的数据。一般的数据需要用这两个函数（先写再读）进行转换成（arff）格式的数据 write.arff()：将数据写入Weka Attribute-Relation File Format (ARFF)格式的文件。 2. 数据预处理   Normalize()：无监督的标准化连续性数据,即min-max标准化。对于字符、逻辑、因子变量跳过，只对连续数据标准化
   Discretize()：用MDL(最小描述长度)方法，有监督的离散化连续性数值数据。感觉用处不大，把连续的数据全离散成“all”字符
   3. 分类和回归   IBk()：k最近邻分类，用法和LBR一样
@@ -879,10 +879,10 @@ df&amp;lt;-dir(full.names = TRUE) #获取当前目录的所有目录(不含子�
     
     <item>
       <title>GA包---遗传算法</title>
-      <link>/md/2015-11-09-ga/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/md/2015-11-09-ga/</link>
       <pubDate>Mon, 09 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>/md/2015-11-09-ga/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/md/2015-11-09-ga/</guid>
       <description>GA包&amp;mdash;遗传算法 1、用法：(默认求解最大值)  ga(type = c(&amp;#34;binary&amp;#34;, &amp;#34;real-valued&amp;#34;, &amp;#34;permutation&amp;#34;), fitness, ..., # fitness:适应度函数  min, max, #解得下界/解得上界(多元变量为一个向量) nBits, #一个种群用二进制编码的长度是多少(长度越大代表精度越高) population = gaControl(type)$population, # 初始种群 selection = gaControl(type)$selection, #选择 crossover = gaControl(type)$crossover, #交叉 mutation = gaControl(type)$mutation, #变异 popSize = 50, #种群大小 pcrossover = 0.8, #交叉概率（默认0.8） pmutation = 0.1, #变异概率（默认0.1） elitism = base::max(1, round(popSize*0.05)), #代沟(默认情况下,前5%个体将在每个迭代中保留) updatePop = FALSE, postFitness = NULL, maxiter = 100, # 最大迭代次数(默认100) run = maxiter, maxFitness = Inf, # 适应度函数的上界,GA搜索后中断 names = NULL, suggestions = NULL, optim = FALSE, optimArgs = list(method = &amp;#34;L-BFGS-B&amp;#34;, poptim = 0.</description>
     </item>
     

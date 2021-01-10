@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>factor on zsc</title>
-    <link>/tags/factor/</link>
+    <link>https://zscqsmy.gitee.io/blogmmm/tags/factor/</link>
     <description>Recent content in factor on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 14 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/factor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://zscqsmy.gitee.io/blogmmm/tags/factor/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>因子数据类型处理</title>
-      <link>/post/2018-01-14-factor/</link>
+      <link>https://zscqsmy.gitee.io/blogmmm/post/2018-01-14-factor/</link>
       <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018-01-14-factor/</guid>
+      <guid>https://zscqsmy.gitee.io/blogmmm/post/2018-01-14-factor/</guid>
       <description>因子类型 变量可归结为名义型、有序型或连续型变量，
 类别（名义型）变量和有序类别（有序型）变量在R中称为因子（factor） ，如性别、省份、职业。
  类别（名义型）变量是没有顺序之分的类别变量。
