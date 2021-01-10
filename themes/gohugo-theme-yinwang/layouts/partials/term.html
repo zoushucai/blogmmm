@@ -1,14 +1,16 @@
-<div class="site-header-content">
-    {{ partial "header_nav" . }}
+<div class="site-header-content" style="margin:0% 5% 0% 5%;" >
+    <br>
     {{ $data := .Data }}
     <div class="list-term">
-        <ul class="list-group" style="overflow:auto;">
+        <ul class="list-group">
       		{{ range $key, $value := .Data.Terms.Alphabetical }}
-             	<li class="list-group-item title" style="display: block;float: left;width: 19%;">
-          		    <a href="{{ $.Site.BaseURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}"> {{ $value.Name }} &#x2F; ({{ $value.Count }}) </a>
+             	<li class="list-group-item title" style="display: inline-block;float: left;width: 31%;text-align: center;margin-bottom: 0.05%;">
+          		    <a href="{{ $.Site.BaseURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}" style="overflow:scroll;white-space:nowrap;"> 
+                  {{ $value.Name }} &#x2F; ({{ $value.Count }}) </a>
               </li>
           {{ end }}
        </ul>
    </div>
 </div>
 
+<!-- style="overflow:auto;" -->
