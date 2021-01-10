@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hugo on zsc</title>
-    <link>https://zscqsmy.gitee.io/blogmmm/tags/hugo/</link>
+    <link>/tags/hugo/</link>
     <description>Recent content in hugo on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 04 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://zscqsmy.gitee.io/blogmmm/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>install old hugo version</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/md/2019-11-04-installhugo/</link>
+      <link>/md/2019-11-04-installhugo/</link>
       <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/md/2019-11-04-installhugo/</guid>
+      <guid>/md/2019-11-04-installhugo/</guid>
       <description>安装旧版本的 hugo 最近发现自己更新了 hugo 软件导致了主题的某些功能失效了, 于是需要退回旧版本的 hugo(0.55.5),
 方法一: https://gohugo.io/getting-started/installing/ 文章中的Install Hugo from Tarball 这一部分(个人电脑是 mac)
 方法二: 直接从 Rstduio 进行更新
@@ -21,10 +21,10 @@
     
     <item>
       <title>R软件常见问题</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <link>/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <guid>/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
       <description>1、读取数据编码问题   读取csv文件出现中文乱码方案，增加编码格式参数
 read.csv(trainPath,header=TRUE,stringsAsFactors=TRUE,encoding = &amp;quot;UTF-8&amp;quot;)   保存csv文件中出现乱码，编码格式参数
 write.csv(outp, file = path, quote = F, fileEncoding = &amp;quot;UTF-8&amp;quot;) #存储utf-8也乱码，我的电脑有时会发疯，有时又不会   source 加载R脚本中文乱码
@@ -44,10 +44,10 @@ sessionInfo() Sys.getlocale() Sys.setlocale(category = &amp;quot;LC_ALL&amp;quot
     
     <item>
       <title>hugo--blogdown生成的目录</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</link>
+      <link>/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</guid>
+      <guid>/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</guid>
       <description>1、先介绍一下有hugo生成的目录 站点下面的目录和必须的文件由hugo自己生成。一般它是这样的： archetypes/ : 全局原型，也就是内容模板。 |____default.md : 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板 content/ ：内容，存放“XXX.md”/&amp;quot;XXX&amp;gt;Rmd&amp;quot;文件，文件名可以用中文 data/ ：存放数据文件 layouts/ ：和archetypes一起将被我们的主题覆盖掉 public/ ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。 static/ ：静态目录，完全复制到public。比如图片、js、php脚本 themes/ ：主题目录，一个站可有多个主题，就像换衣服 |____aaa ：主题aaa，可以有很多个 |____bbb ：主题bbb |____archetypes : 主题的内容模板 |____layouts ：布局，就是html模板 |____static ：静态的，放主题的js，css文件 |____LICENSE.md ：这个，呵呵，不说大家也知道 |____theme.toml ：主题的信息配置 config.toml ：站点配置文件，可以配置站点名字等等很多信息 主题部分并未全部介绍，这个将在主题部分详细讲解。
 2、静态文件 不需要hugo处理的文件叫做静态文件。存放在 站点的static 目录是个好主意。
  static目录下的文件将会原封不动的复制到public下面，比如您建立了个img的目录存图片，在md文件中将直接使用”img/aaa.jpg”来引用图片，
@@ -61,30 +61,30 @@ baseurl = &amp;quot;http://qaz.netlify.com&amp;quot; # 基础路径,当自己有
     
     <item>
       <title>hugo--分类标签添加</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</link>
+      <link>/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</guid>
+      <guid>/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</guid>
       <description>分类标签添加 找到single.html的页面 添加，从 http://fontawesome.io 下载文件 解压暂时只需要css/font-awesome.min.css 和fontawesome-webfont.woff2 引入到head.html中，
 把下面的代码添加到single.html  {{ with .Params.tags }} {{ if ge (len .) 1 }} &amp;lt;div class=&amp;quot;article-headline&amp;quot;&amp;gt; &amp;lt;i class=&amp;quot;fa fa-tags&amp;quot;&amp;gt; &amp;lt;/i&amp;gt;&amp;lt;!-- end--&amp;gt; {{ range . }} &amp;lt;a href=&amp;quot;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&amp;quot;&amp;gt;{{ . }}&amp;lt;/a&amp;gt; {{ end }} &amp;lt;/div&amp;gt; {{ end }} {{ end}}  下面对content\下文件夹的引入以及添加相关信息  &amp;lt;!-- 这个是content\下的post文件夹 --&amp;gt; {{ if eq .Section &amp;quot;post&amp;quot; }} &amp;lt;div class=&amp;quot;article-date&amp;quot;&amp;gt;{{ with .Params.Author }} {{.}} &amp;amp;middot; {{ end }} 字数共{{ .</description>
     </item>
     
     <item>
       <title>添加谷歌网站分析</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</link>
+      <link>/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</guid>
+      <guid>/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</guid>
       <description>添加谷歌网站分析
 直接在config.toml中的googleAnalytics = &amp;quot;&amp;quot; 把自己的Id写进去即可完成.</description>
     </item>
     
     <item>
       <title>博客搭建——blogdown之md</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+      <link>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
       <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
+      <guid>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
       <description>1、下载安装、配置好R与Rstudio 2、打开Rstudio&amp;mdash;-下载blogdown包 if(!require(devtools)) install.packages(&#39;devtools&#39;) devtools::install_github(&#39;rstudio/blogdown&#39;) 等待安装，缺什么安装什么，
 3、在rstudio中安装hugo软件,只需运行下面函数即可 blogdown::install_hugo() 注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中
 4、创建测试网站  可用命令blogdown::new_site(), 在rstudio中的左上角点击【file】&amp;ndash;【New Project】&amp;mdash;【Website using blogdown】  适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，
@@ -94,10 +94,10 @@ baseurl = &amp;quot;http://qaz.netlify.com&amp;quot; # 基础路径,当自己有
     
     <item>
       <title>hugo-blogdown搭建网页过程中的小问题</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <link>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
       <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <guid>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
       <description>1、hugo路径设置 在建立网站的时候，用rmarkdown生成的图片引用到网页中，不能使用中文，不然图片路径找不到（即不能正常显示）且不能用空格，但是可以用-,表示路径。 所以目录还是用英文吧，不过标题可以用中文
 2、hugo生成网页首页产生0001样式 这是由于文章开头没有声明yaml格式，注意title author可以用双引号也可以不用，但请注意date的日期格式，尽量用date: 2017-12-28 这样的格式
 3 运行blogdown:::serve_site()函数本地监听没有反应 即运行blogdown:::serve_site()改函数时，本地不能预览，这是由于我们自己写的rmd或者md文件的编码不是UTF-8引起的，所以我们一般要设置Rstudio的全局属性中保存UTF-8编码，但是这样在保存文件时又会产生新的问题，特别是保存的是csv文件

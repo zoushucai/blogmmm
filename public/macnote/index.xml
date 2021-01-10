@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Macnotes on zsc</title>
-    <link>https://zscqsmy.gitee.io/blogmmm/macnote/</link>
+    <link>/macnote/</link>
     <description>Recent content in Macnotes on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://zscqsmy.gitee.io/blogmmm/macnote/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/macnote/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>zotero 设置</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/20201008zoteroset/</link>
+      <link>/macnote/20201008zoteroset/</link>
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/20201008zoteroset/</guid>
+      <guid>/macnote/20201008zoteroset/</guid>
       <description>zotero 设置 插件安装   实现中文作者的拆分和合并 https://github.com/l0o0/jasminum
   bibtex : https://github.com/retorquere/zotero-better-bibtex 并设置Google键
 在Zotero Preferences的Better Bibtex的Tab中修改citation key format 为
@@ -34,10 +34,10 @@ Collections pane: Show/hide –&amp;gt; CMD+1 Item pane: Show/hide –&amp;gt; C
     
     <item>
       <title>sublime text3 使用方法以及相关插件</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</link>
+      <link>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</guid>
+      <guid>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</guid>
       <description>sublime text3 使用方法以及相关插件 1. 软件的下载 1, 官网下载地址: http://www.sublimetext.com/
 2, 如果不安装插件,那还不如不装 sublime, 参考: https://packagecontrol.io/installation
 2. 插件的安装 2.1 安装Package Control 打开软件,按ctrl+ ` 快捷键(即1左边的那个键)输入以下代码，enter即可.
@@ -46,10 +46,10 @@ import urllib.request,os,hashlib; h = &#39;6f4c264a24d933ce70df5dedcf1dcaee&#39;
     
     <item>
       <title>mac 软件安装</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</link>
+      <link>/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</link>
       <pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</guid>
+      <guid>/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</guid>
       <description>mac 软件安装 利用homebrew安装,官网:https://brew.sh/
 在终端运行
 $ /bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&amp;#34; 如果能运行成功,则下一步进行安装.
@@ -63,10 +63,10 @@ https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue
     
     <item>
       <title>mac 系统的设置</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</link>
+      <link>/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</guid>
+      <guid>/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</guid>
       <description>mac 系统的设置 新系统, 首先我们要安装一些必要的软件,和做一些基本的设置.
 本文做一些基本的设置
 更改终端的颜色 sudo echo &amp;#34;export CLICOLOR=1&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export LSCOLORS=gxfxcxdxbxegedabagacad&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export PS1=&amp;#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &amp;#39;&amp;#34;&amp;gt;&amp;gt; ~/.bash_profile source ~/.bash_profile 参考:
@@ -78,10 +78,10 @@ https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue
     
     <item>
       <title>Mac 系统盘的制作与安装</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</link>
+      <link>/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
+      <guid>/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
       <description>Mac 系统盘的制作与安装 参考https://www.iplaysoft.com/macos-usb-install-drive.html 这篇文章制作U盘系统盘
 我个人推荐使用DiskMaker X 启动盘制作.官网: https://diskmakerx.com/
 如何进入系统盘 关机重启, 长按Option即可选择进入U盘, 先利用磁盘工具,格式化主磁盘,然后,退出,在安装.
@@ -99,10 +99,10 @@ https://jingyan.baidu.com/article/4d58d54155bd079dd5e9c043.html
     
     <item>
       <title>起因</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/20201003%E8%B5%B7%E5%9B%A0/</link>
+      <link>/macnote/20201003%E8%B5%B7%E5%9B%A0/</link>
       <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/20201003%E8%B5%B7%E5%9B%A0/</guid>
+      <guid>/macnote/20201003%E8%B5%B7%E5%9B%A0/</guid>
       <description>起因 不知道latex最近抽什么风&amp;hellip; 导入eps文件出问题,报错如下:
 gpl ghostscript 9.50: can&#39;t find initialization file gs_init.ps. gpl ghostscript 9.53.2: unrecoverable error, exit code 1 心想不管了. 后又发现, 自己的毕业论文不能运行了? 心想我干脆更新了mactex(手贱)吧, 更新以后,有发现毕业论文还是报错, 以及以前的一些latex文稿都不能运行了. 我怀疑mactex 坏了, 于是卸载了, 重新安装&amp;hellip;&amp;hellip;..,来回试了几遍,咦,咋回事,都不行??? 开始着急了. 心想该不是我把重要的文件删了吧? (巧在我这个时候, 利用了一个清理软件&amp;mdash;&amp;ndash;且输入了密码&amp;hellip;) 于是开始了重装系统的想法&amp;hellip;&amp;hellip;
 加上以前制作了U盘的mac系统.顺便尝试一下&amp;hellip;&amp;hellip;.
@@ -111,19 +111,19 @@ gpl ghostscript 9.50: can&#39;t find initialization file gs_init.ps. gpl ghostsc
     
     <item>
       <title>macOS tcping 检测IP端口</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</link>
+      <link>/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</link>
       <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</guid>
+      <guid>/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</guid>
       <description>macOS tcping 检测IP端口 安装tcping $ brew install tcping $ which tcping 2，检测IP端口是否被屏蔽 $ tcping 14.215.177.39 80 </description>
     </item>
     
     <item>
       <title>mac 挂载NTFS出现灰色文件</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</link>
+      <link>/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</link>
       <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</guid>
+      <guid>/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</guid>
       <description>Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法 Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法，即文件出现灰色的现象。 或者使用付费的Tuxera 软件都会出现灰色文件,
 解决办法(在终端的灰色文件目录下面的命令即可)
 xattr -d com.apple.FinderInfo * </description>
@@ -131,10 +131,10 @@ xattr -d com.apple.FinderInfo * </description>
     
     <item>
       <title>mac常用软件安装</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
+      <link>/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
       <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
+      <guid>/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
       <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 2. homebrew 主页: https://brew.sh/ 2.1安装 把DSN 设置为8.8.8.8和8.8.4.4 这样才不会报错
 /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 卸载(未试过) 方法一: 网上找的,
 可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
@@ -146,10 +146,10 @@ https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
     
     <item>
       <title>mac 终端样式配置</title>
-      <link>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</link>
+      <link>/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</link>
       <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://zscqsmy.gitee.io/blogmmm/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</guid>
+      <guid>/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</guid>
       <description>mac 终端样式配置 首先，弄明白bash 和zsh&amp;hellip;.
 1 mac shell一览 unix核的系统如linux、macos的shell 默认都是bash
 就如第一张图查询所示，mac有6个shell，默认是/bin/bash
