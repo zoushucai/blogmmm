@@ -158,16 +158,7 @@
             </p>
             
             <div id="divtocTableOfContents">
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#相关矩阵图">相关矩阵图</a></li>
-    <li><a href="#相关矩阵图一corrgram">相关矩阵图一—–corrgram</a>
-      <ul>
-        <li><a href="#corrgramcorrgram函数"><code>corrgram::corrgram()</code>函数</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+            
             </div>
     </div>
 </div>
@@ -236,10 +227,9 @@
     
         
         <section id="content">
-            <p><strong>相关图</strong>：
-所谓相关图是基于变量间的相关系数大小，通过可视化方法反应不同变量组合间相关关系的差异图形。可以把相关图分为<strong>相关矩阵图、相关层次图</strong></p>
+            <p><strong>相关图</strong>： 所谓相关图是基于变量间的相关系数大小，通过可视化方法反应不同变量组合间相关关系的差异图形。可以把相关图分为<strong>相关矩阵图、相关层次图</strong></p>
 <h2 id="相关矩阵图">相关矩阵图</h2>
-<p>R语言中，绘制相关矩阵图的包主要有两个：<code>corrgram::corrgram</code>和<code>corrplot::corrplot</code><br>
+<p>R语言中，绘制相关矩阵图的包主要有两个：<code>corrgram::corrgram</code>和<code>corrplot::corrplot</code><br />
 此处都以<code>mtcars</code>数据集为例，说明这两个函数的使用</p>
 <h2 id="相关矩阵图一corrgram">相关矩阵图一—–corrgram</h2>
 <h3 id="corrgramcorrgram函数"><code>corrgram::corrgram()</code>函数</h3>
@@ -267,44 +257,34 @@ upper.panel： 设置相关矩阵上三角矩阵面板形状
 text.panel 和 diag.panel 选项控制着主对角线元素类型。 
     textPanel    输出变量的名字（默认）
     panel.minmax    输出变量的最大最小值
-        panel.txt      输出的变量名字          
-</code></pre>
+        panel.txt      输出的变量名字          </code></pre>
 <p>画出相关矩阵图</p>
 <pre><code>library(corrgram)
-corrgram(cor(mtcars)) 
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-1.png" alt=""></p>
-<pre><code>corrgram(mtcars)
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-2.png" alt=""></p>
-<pre><code>corrgram(iris)
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-3.png" alt=""></p>
+corrgram(cor(mtcars)) </code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-1.png" /></p>
+<pre><code>corrgram(mtcars)</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-2.png" /></p>
+<pre><code>corrgram(iris)</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-3.png" /></p>
 <h4 id="设置排序处理">设置排序处理</h4>
-<pre><code>corrgram(mtcars,order = T) # 等价 corrgram(mtcars,order = &quot;PCA&quot;)
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-2-1.png" alt=""></p>
+<pre><code>corrgram(mtcars,order = T) # 等价 corrgram(mtcars,order = &quot;PCA&quot;)</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-2-1.png" /></p>
 <h4 id="设置上下三角面板形状">设置上下三角面板形状</h4>
-<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = panel.pie)
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-3-1.png" alt="">
-#### 只显示下三角部分图</p>
-<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = NULL)
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
+<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = panel.pie)</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-3-1.png" /> #### 只显示下三角部分图</p>
+<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = NULL)</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-4-1.png" /></p>
 <h4 id="调整版面颜色">调整版面颜色</h4>
 <pre><code>corrgram(mtcars,order = T,lower.panel = panel.shade,upper.panel = panel.pie,
-         col.regions = colorRampPalette(c(&quot;darkgoldenrod4&quot;, &quot;burlywood1&quot;,&quot;white&quot;,&quot;darkkhaki&quot;, &quot;darkgreen&quot;)))
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-5-1.png" alt=""></p>
+         col.regions = colorRampPalette(c(&quot;darkgoldenrod4&quot;, &quot;burlywood1&quot;,&quot;white&quot;,&quot;darkkhaki&quot;, &quot;darkgreen&quot;)))</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-5-1.png" /></p>
 <pre><code>corrgram(mtcars,order=TRUE,
          lower.panel=panel.ellipse,
          upper.panel=panel.pts,
          text.panel=panel.txt,
          diag.panel=panel.minmax,
-         main=&quot;Correlogram of Mtcars intercorrelations&quot; )
-</code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
+         main=&quot;Correlogram of Mtcars intercorrelations&quot; )</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-6-1.png" /></p>
 
         </section>
     </div>
@@ -431,21 +411,26 @@ corrgram(cor(mtcars))
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

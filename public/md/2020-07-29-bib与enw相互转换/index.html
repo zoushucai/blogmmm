@@ -192,14 +192,14 @@
     
         
         <section id="content">
-            <h2 id="bib--与enw-文件之间的相互转换"><code>*.bib</code>  与<code>*.enw</code> 文件之间的相互转换</h2>
+            <h2 id="bib-与.enw-文件之间的相互转换"><code>*.bib</code> 与<code>*.enw</code> 文件之间的相互转换</h2>
 <p>方法一: JabRef 软件</p>
 <p>方法二: <a href="http://sourceforge.net/p/bibutils/home/Bibutils/"><code>bibutils</code></a></p>
 <p>为了将BibTeX转换为带标签的Endnote，只需调用：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tex" data-lang="tex"><span style="color:#e6db74">$</span> bib<span style="color:#ae81ff">2</span>xml input.bib | xml<span style="color:#ae81ff">2</span>end &gt; output.enw
-</code></pre></div><p>转换为RIS类似于：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tex" data-lang="tex"><span style="color:#e6db74">$</span> bib<span style="color:#ae81ff">2</span>xml input.bib | xml<span style="color:#ae81ff">2</span>ris &gt; output.ris
-</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$ bib2xml input.bib | xml2end &gt; output.enw</span></span></code></pre></div>
+<p>转换为RIS类似于：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$ bib2xml input.bib | xml2ris &gt; output.ris</span></span></code></pre></div>
+
         </section>
     </div>
     <br>
@@ -325,21 +325,26 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

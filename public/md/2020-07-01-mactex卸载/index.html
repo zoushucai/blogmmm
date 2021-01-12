@@ -193,22 +193,21 @@
         
         <section id="content">
             <h1 id="mactex卸载">mactex卸载</h1>
-<p>参考：
-<a href="http://www.tug.org/mactex/uninstalling.html">http://www.tug.org/mactex/uninstalling.html</a></p>
+<p>参考： <a href="http://www.tug.org/mactex/uninstalling.html">http://www.tug.org/mactex/uninstalling.html</a></p>
 <p><a href="https://blog.csdn.net/nicekwell/article/details/97279215">https://blog.csdn.net/nicekwell/article/details/97279215</a></p>
 <p>MacTeX是mac下的latex工具，卸载方法：</p>
 <p>1、<code>/usr/local/texlive/2018/</code> 目录，这是占用空间最大的目录</p>
 <p>2、卸载GUI，到<code>/Application/</code> 目录里删掉几个app即可。</p>
 <p>3、<code>/Library/TeX</code></p>
 <p>4、<code>~/Library/texlive/2019</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo rm -rf /usr/local/texlive/
+<pre class="shell"><code>sudo rm -rf /usr/local/texlive/
 
 sudo rm -rf /Library/TeX/
 
 sudo rm -rf ~/Library/texlive
 
+</code></pre>
 
-</code></pre></div>
         </section>
     </div>
     <br>
@@ -334,21 +333,26 @@ sudo rm -rf ~/Library/texlive
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

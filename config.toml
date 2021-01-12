@@ -7,6 +7,25 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
 # 设置 markdown 类型  默认为: goldmark , 显示公式有一定问题,但是目录可以显示
 # 设置为 mmark, 能更好的显示公式,但是目录不行了
 
+#[markup]
+#    defaultMarkdownHandler = "pandoc"
+#    [markup.goldmark]
+#        [markup.goldmark.extensions]
+#            mathjax = true
+#    [markup.asciidocExt]
+#            preserveTOC = true
+
+
+[markup]
+    defaultMarkdownHandler = "pandoc"
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
+    [markup.pandoc]
+        preserveTOC = true
+        [markup.pandoc.renderer]
+            unsafe = true
+
 [params]
   # single = false # 单页面的 home 去除
   googleAnalytics = "UA-111691389-1" # 谷歌统计gtag

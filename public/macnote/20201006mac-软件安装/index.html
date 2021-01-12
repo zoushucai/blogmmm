@@ -198,65 +198,62 @@
             <h1 id="mac-软件安装">mac 软件安装</h1>
 <p>利用<code>homebrew</code>安装,官网:https://brew.sh/</p>
 <p>在终端运行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"> $ /bin/bash -c <span style="color:#e6db74">&#34;</span>$(curl -fsSL https<span style="color:#960050;background-color:#1e0010">:</span>//raw.githubusercontent.com/Homebrew/install/master/install.sh)<span style="color:#e6db74">&#34;</span> 
-
-</code></pre></div><p>如果能运行成功,则下一步进行安装.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> $ /bin/bash -c <span class="st">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;</span> </span></code></pre></div>
+<p>如果能运行成功,则下一步进行安装.</p>
 <p>更换国内源(终端直接运行)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
-git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
-git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
-
-export HOMEBREW_BOTTLE_DOMAIN<span style="color:#f92672">=</span>https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
-source ~/.bash_profile
-brew update
-<span style="color:#75715e">### 最后查看是否配置成功</span>
-brew config
-</code></pre></div><p>参考:</p>
-<p><a href="2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6">2019-11-20-mac常用软件</a></p>
-<p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/">https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/</a></p>
-<p><a href="https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue_xia_zai_man_wen_ti/">https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue_xia_zai_man_wen_ti/</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> -C <span class="st">&quot;</span><span class="va">$(</span><span class="ex">brew</span> --repo<span class="va">)</span><span class="st">&quot;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> -C <span class="st">&quot;</span><span class="va">$(</span><span class="ex">brew</span> --repo homebrew/core<span class="va">)</span><span class="st">&quot;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> -C <span class="st">&quot;</span><span class="va">$(</span><span class="ex">brew</span> --repo homebrew/cask<span class="va">)</span><span class="st">&quot;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">HOMEBREW_BOTTLE_DOMAIN=</span>https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bash_profile</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> update</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">### 最后查看是否配置成功</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> config</span></code></pre></div>
+<p>参考:</p>
+<p><a href="2019-11-20-mac常用软件">2019-11-20-mac常用软件</a></p>
+<p>https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/</p>
+<p>https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue_xia_zai_man_wen_ti/</p>
 <h2 id="常用软件安装">常用软件安装</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew cask install google-chrome         <span style="color:#75715e"># Google浏览器</span>
-brew cask install typora        
-brew cask install sublime-text	 
-brew cask install github        
-brew cask install mathpix-snipping-tool    
-brew cask install tencent-lemon      <span style="color:#75715e"># 腾讯柠檬清理软件</span>
-brew cask install contexts          
-brew cask install firefox            
-brew cask install the-unarchiver     <span style="color:#75715e"># 解压工具</span>
-brew cask install keka               <span style="color:#75715e"># 解压缩工具</span>
-brew cask install qq								
-brew cask install iina         
-brew cask install mounty            <span style="color:#75715e"># U盘挂在软件</span>
-<span style="color:#75715e">## mounty开源的. 但是不推荐,一旦和win混用,易出问题</span>
-<span style="color:#75715e">## 推荐付费软件: tuxera ntfs for mac</span>
-
-brew cask install baidunetdisk     <span style="color:#75715e"># 百度云</span>
-brew cask install mailmaster       <span style="color:#75715e"># 网易邮箱大师</span>
-brew cask install grammarly	     
-brew cask install cajviewer	
-brew cask install zotero          <span style="color:#75715e"># 文献管理工具</span>
-brew cask install sogouinput     <span style="color:#75715e"># 用bew安装,搜索输入法.好像没成功?</span>
-brew cask install loopback  <span style="color:#75715e">#(收费,可以免费试用)结合 mac 自带的录屏软件,可以录制有声音的视频,不管是系统声音还是软件声音都行.</span>
-
-
-brew cask install qlstephen    <span style="color:#75715e"># 下面三个是增加mac自带的文件预览功能</span>
-brew cask install qlcolorcode
-brew cask install qlmarkdown  <span style="color:#75715e"># markdown预览</span>
-</code></pre></div><p>参考: <a href="https://www.jianshu.com/p/3af7c55804f2">https://www.jianshu.com/p/3af7c55804f2</a>
-参考: <a href="2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6">2019-11-20mac常用软件</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install google-chrome         # Google浏览器</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install typora        </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install sublime-text   </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install github        </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install mathpix-snipping-tool    </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install tencent-lemon      # 腾讯柠檬清理软件</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install contexts          </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install firefox            </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install the-unarchiver     # 解压工具</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install keka               # 解压缩工具</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install qq                                </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install iina         </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install mounty            # U盘挂在软件</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">## mounty开源的. 但是不推荐,一旦和win混用,易出问题</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">## 推荐付费软件: tuxera ntfs for mac</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install baidunetdisk     # 百度云</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install mailmaster       # 网易邮箱大师</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install grammarly      </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install cajviewer </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install zotero          # 文献管理工具</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install sogouinput     # 用bew安装,搜索输入法.好像没成功?</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install loopback  #(收费,可以免费试用)<span class="ex">结合</span> mac 自带的录屏软件,可以录制有声音的视频,不管是系统声音还是软件声音都行.</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install qlstephen    # 下面三个是增加mac自带的文件预览功能</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install qlcolorcode</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install qlmarkdown  # markdown预览</span></code></pre></div>
+<p>参考: https://www.jianshu.com/p/3af7c55804f2 参考: <a href="2019-11-20mac常用软件">2019-11-20mac常用软件</a></p>
 <h2 id="软件升级">软件升级</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安装 brew-cask-upgrade</span>
-brew tap buo/cask-upgrade
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装 brew-cask-upgrade</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap buo/cask-upgrade</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#更新所有过时应用：</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cu</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#更新指定应用：</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cu [CASK]</span></code></pre></div>
 
-<span style="color:#75715e">#更新所有过时应用：</span>
-brew cu
-
-<span style="color:#75715e">#更新指定应用：</span>
-brew cu <span style="color:#f92672">[</span>CASK<span style="color:#f92672">]</span>
-
-</code></pre></div>
         </section>
     </div>
     <br>
@@ -382,21 +379,26 @@ brew cu <span style="color:#f92672">[</span>CASK<span style="color:#f92672">]</s
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

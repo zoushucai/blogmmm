@@ -158,7 +158,7 @@
             </p>
             
             <div id="divtocTableOfContents">
-            <nav id="TableOfContents"></nav>
+            
             </div>
     </div>
 </div>
@@ -228,7 +228,7 @@
         
         <section id="content">
             <h1 id="利用webshot-进行截图">利用webshot 进行截图</h1>
-<pre><code class="language-{r}" data-lang="{r}">library(shiny)
+<pre class="{r}"><code>library(shiny)
 library(ggplot2)
 histogram &lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) {
     df &lt;- data.frame(
@@ -276,8 +276,8 @@ appshot(mm, &quot;01_hello1.png&quot;,webshot_timeout= 100,delay=10)
 # 其中delay参数最好设置大一点, 特别是当使用动态网页时
 
 ## 还可以根据css来截图
-appshot(mm, &quot;01_hello2.png&quot;,webshot_timeout= 100,delay=10,selector='body')
-</code></pre><p>感兴趣可以参考<code>webshot包</code>网站: <a href="https://wch.github.io/webshot/reference/webshot.html">https://wch.github.io/webshot/reference/webshot.html</a></p>
+appshot(mm, &quot;01_hello2.png&quot;,webshot_timeout= 100,delay=10,selector=&#39;body&#39;)</code></pre>
+<p>感兴趣可以参考<code>webshot包</code>网站: https://wch.github.io/webshot/reference/webshot.html</p>
 
         </section>
     </div>
@@ -404,21 +404,26 @@ appshot(mm, &quot;01_hello2.png&quot;,webshot_timeout= 100,delay=10,selector='bo
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

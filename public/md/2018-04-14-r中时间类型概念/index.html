@@ -194,9 +194,16 @@
         <section id="content">
             <h2 id="基本类型介绍">基本类型介绍</h2>
 <p>在R中，所有有关时间和日期的类(包),都可以处理日历时间(eg:2018年4月13日)，只有某些特定的类才能处理日期时间类型(eg:2018年4月13日 下午6:45)</p>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 7%" />
+<col style="width: 57%" />
+<col style="width: 14%" />
+<col style="width: 10%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>类</th>
 <th>处理类型</th>
 <th>说明</th>
@@ -205,45 +212,45 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>Date类</td>
 <td>日历日期</td>
-<td>实际存储的为数字，是从1970年1月1日算起到该时间以天计算的一个数值.<!-- raw HTML omitted -->eg:  &ldquo;2018-04-13&rdquo;</td>
+<td>实际存储的为数字，是从1970年1月1日算起到该时间以天计算的一个数值.<br>eg: “2018-04-13”</td>
 <td>as.Date()</td>
 <td>基本函数</td>
 </tr>
-<tr>
+<tr class="even">
 <td>POSIXct类</td>
 <td>日期时间</td>
-<td>实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.<!-- raw HTML omitted -->eg:  &ldquo;2018-04-13 19:47:18 CST&rdquo;<!-- raw HTML omitted -->个人建议使用这个，存储数据</td>
+<td>实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.<br>eg: “2018-04-13 19:47:18 CST”<br>个人建议使用这个，存储数据</td>
 <td>as.POSIXct()</td>
 <td>基本函数</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>POSIXlt类</td>
 <td>日期时间</td>
-<td>实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。<!-- raw HTML omitted -->eg:  &ldquo;2018-04-13 19:47:18 CST&rdquo;<!-- raw HTML omitted -->存储非结构化数据</td>
+<td>实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。<br>eg: “2018-04-13 19:47:18 CST”<br>存储非结构化数据</td>
 <td>as.POSIXlt()</td>
 <td>基本函数</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Date类</td>
 <td>日历日期</td>
 <td>同上</td>
 <td>as_date()</td>
 <td>lubridate包</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>POSIXct类</td>
 <td>日期时间</td>
 <td>同上</td>
 <td>as_datetime()</td>
 <td>lubridate包</td>
 </tr>
-<tr>
+<tr class="even">
 <td>difftime类</td>
 <td>时间</td>
-<td>实际存储的为数字，是从当天00:00:00算起到该时间以秒计算的一个数值.<!-- raw HTML omitted -->eg:&ldquo;00:01:25&rdquo;</td>
+<td>实际存储的为数字，是从当天00:00:00算起到该时间以秒计算的一个数值.<br>eg:“00:01:25”</td>
 <td>hms::as.hms(85)</td>
 <td>lubridate包</td>
 </tr>
@@ -252,46 +259,26 @@
 <p><strong>在实际工作中，只要满足要求，尽量适用比较简单的类型，先考虑Date ，在考虑POSIXct</strong></p>
 <h2 id="r中处理时间序列的包">R中处理时间序列的包：</h2>
 <ul>
-<li>
-<p>chron   ：  常用于计量经济学和时间序列分析中</p>
-</li>
-<li>
-<p>lubridate： 推荐,特别适用于处理日期时间算法</p>
-</li>
-<li>
-<p>mondate:  特别适用于处理以月为单位的日期，（会计和精算工作中常用）</p>
-</li>
-<li>
-<p>timeDate： 很强大，对时间精度要求高的话，可以考虑</p>
-</li>
+<li><p>chron ： 常用于计量经济学和时间序列分析中</p></li>
+<li><p>lubridate： 推荐,特别适用于处理日期时间算法</p></li>
+<li><p>mondate: 特别适用于处理以月为单位的日期，（会计和精算工作中常用）</p></li>
+<li><p>timeDate： 很强大，对时间精度要求高的话，可以考虑</p></li>
 </ul>
 <h2 id="时间的基本用法">时间的基本用法</h2>
-<ol>
-<li>
-<p>字符串转换为日期： as.Date(x ,format=&quot;%m/%d/%y&quot;) ,建议format参数不能省，否则有时会出错</p>
-</li>
-<li>
-<p>日期转化为字符串: as.characher()  或者 format()</p>
-</li>
-<li>
-<p>把日期（Date类和POSIXct类）转换为整数 ： unclass(x)或者 as.integer(x)</p>
-</li>
-<li>
-<p>把整数转化为日期:  as.Date() 或者 as.POSXIce()</p>
-</li>
-<li>
-<p>把年、月、日 &hellip;等元素合并为日期 ：</p>
+<ol type="1">
+<li><p>字符串转换为日期： as.Date(x ,format=“%m/%d/%y”) ,建议format参数不能省，否则有时会出错</p></li>
+<li><p>日期转化为字符串: as.characher() 或者 format()</p></li>
+<li><p>把日期（Date类和POSIXct类）转换为整数 ： unclass(x)或者 as.integer(x)</p></li>
+<li><p>把整数转化为日期: as.Date() 或者 as.POSXIce()</p></li>
+<li><p>把年、月、日 …等元素合并为日期 ：</p>
 <ul>
-<li>ISOdatetime(year, month, day, hour, min, sec, tz = &ldquo;&quot;)</li>
-<li>ISOdate(year, month, day, hour = 12, min = 0, sec = 0, tz = &ldquo;GMT&rdquo;)</li>
-</ul>
-</li>
-<li>
-<p>给定日期 提取年、月、日、&hellip;等：</p>
-<ol>
+<li>ISOdatetime(year, month, day, hour, min, sec, tz = "")</li>
+<li>ISOdate(year, month, day, hour = 12, min = 0, sec = 0, tz = “GMT”)</li>
+</ul></li>
+<li><p>给定日期 提取年、月、日、…等：</p>
+<ol type="1">
 <li>先把其转化为POSIXlt类，根据POSIXlt类是一个列表，提取相应的元素</li>
-</ol>
-</li>
+</ol></li>
 </ol>
 <p>当然这些是R的基本函数与方法，有更强大的处理时间的<a href="https://www.rstudio.com/resources/cheatsheets/">lubridate包</a>,推荐使用。</p>
 
@@ -420,21 +407,26 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

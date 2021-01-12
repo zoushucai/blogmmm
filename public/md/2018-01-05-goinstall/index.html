@@ -192,17 +192,17 @@
     
         
         <section id="content">
-            <p>先下载 <a href="https://sourceforge.net/projects/liteide/?source=typ_redirect">liteide</a> 和<a href="https://www.golangtc.com/download">go</a> 安装包， 由于我的是win10 ，直接下载win的，直接点击下一步就可以安装go语言了，他会自动安装到C：\go 我设置为F :\go</p>
-<p>在cmd 命令中输入 ：go env  显示</p>
-<pre><code>set GOARCH=amd64                			  #    cpu架构   
-set GOBIN=                              	# 工作目录下的bin文件夹  
-set GOEXE=.exe                    			 # 生成可执行文件的后缀  
-set GOHOSTARCH=amd64           	  	  		#交叉编译参数  
-set GOHOSTOS=windows          			  	#交叉编译参数   
-set GOOS=windows          				  #当前系统名称  
-set GOPATH=C:\Users\zsc\go    			 # 我的工作目录  
-set GORACE=                           			  #  
-set GOROOT=F:\go		                   	 #go的安装目录  
+            <p>先下载 <a href="https://sourceforge.net/projects/liteide/?source=typ_redirect">liteide</a> 和<a href="https://www.golangtc.com/download">go</a> 安装包， 由于我的是win10 ，直接下载win的，直接点击下一步就可以安装go语言了，他会自动安装到C：我设置为F :</p>
+<p>在cmd 命令中输入 ：go env 显示</p>
+<pre><code>set GOARCH=amd64                              #    cpu架构   
+set GOBIN=                                  # 工作目录下的bin文件夹  
+set GOEXE=.exe                               # 生成可执行文件的后缀  
+set GOHOSTARCH=amd64                        #交叉编译参数  
+set GOHOSTOS=windows                        #交叉编译参数   
+set GOOS=windows                          #当前系统名称  
+set GOPATH=C:\Users\zsc\go               # 我的工作目录  
+set GORACE=                                       #  
+set GOROOT=F:\go                             #go的安装目录  
 set GOTOOLDIR=F:\go\pkg\tool\windows_amd64   #   
 set GCCGO=gccgo  
 set CC=gcc  
@@ -214,36 +214,44 @@ set CGO_CPPFLAGS=
 set CGO_CXXFLAGS=-g -O2  
 set CGO_FFLAGS=-g -O2  
 set CGO_LDFLAGS=-g -O2  
-set PKG_CONFIG=pkg-config  
-</code></pre><p>好像这后面的可以不用管，去电脑的环境变量里面新增</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-2.png" alt="go1-2"></p>
-<p>解压下载好的liteide，把解压后的目录放在go安装的目录中（我的安装go目录为F：\go\）进入F:\go\liteide\bin目录找到liteide.exe 文件，双击进入</p>
-<p>接着配置liteide工具，点击【工具】&ndash;【选择环境】&ndash;【win64】 ，，再次进入【工具】&ndash;【编辑当前环境】</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-3.png" alt="go1-3"></p>
+set PKG_CONFIG=pkg-config  </code></pre>
+<p>好像这后面的可以不用管，去电脑的环境变量里面新增</p>
+<figure>
+<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-2.png" alt="go1-2" /><figcaption aria-hidden="true">go1-2</figcaption>
+</figure>
+<p>解压下载好的liteide，把解压后的目录放在go安装的目录中（我的安装go目录为F：）进入F:.exe 文件，双击进入</p>
+<p>接着配置liteide工具，点击【工具】–【选择环境】–【win64】 ，，再次进入【工具】–【编辑当前环境】</p>
+<figure>
+<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-3.png" alt="go1-3" /><figcaption aria-hidden="true">go1-3</figcaption>
+</figure>
 <p>好像就成功了</p>
 <p>再次检查一下，进入cmd 输入 go env 与go version，go的版本1.9.2，成功</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-4.png" alt="go1-4"></p>
+<figure>
+<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-4.png" alt="go1-4" /><figcaption aria-hidden="true">go1-4</figcaption>
+</figure>
 <p>进入LiteIDE测试</p>
-<p>点击【文件】&ndash;新建&mdash;GO1 command Project   即可，输入go程序，</p>
+<p>点击【文件】–新建—GO1 command Project 即可，输入go程序，</p>
 <pre><code>// week1 project main.go
 package main
 
 import &quot;fmt&quot;
 
 func createMessage(name string) string {
-	if len(name) == 0 {
-		return &quot;Hello world&quot;
-	} else {
-		return &quot;Hello &quot; + name
-	}
+    if len(name) == 0 {
+        return &quot;Hello world&quot;
+    } else {
+        return &quot;Hello &quot; + name
+    }
 }
 func main() {
-	fmt.Println(createMessage(&quot;Tom&quot;))
-	fmt.Println(createMessage(&quot;&quot;))
+    fmt.Println(createMessage(&quot;Tom&quot;))
+    fmt.Println(createMessage(&quot;&quot;))
 }
-
-</code></pre><p>先编译（ctrl+B）&mdash;在运行(ctrl+alt+R)，就能看到结果：（和c的运行一样）</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-5.png" alt="go1-5"></p>
+</code></pre>
+<p>先编译（ctrl+B）—在运行(ctrl+alt+R)，就能看到结果：（和c的运行一样）</p>
+<figure>
+<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-5.png" alt="go1-5" /><figcaption aria-hidden="true">go1-5</figcaption>
+</figure>
 <p>对静态语言不熟悉，几乎小白，见谅！</p>
 
         </section>
@@ -371,21 +379,26 @@ func main() {
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

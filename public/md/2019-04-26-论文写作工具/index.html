@@ -158,13 +158,7 @@
             </p>
             
             <div id="divtocTableOfContents">
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1-基础配置">1. 基础配置</a></li>
-    <li><a href="#2-表格to-latex">2. 表格to latex</a></li>
-    <li><a href="#3-引用图片格式">3. 引用图片格式</a></li>
-  </ul>
-</nav>
+            
             </div>
     </div>
 </div>
@@ -233,52 +227,54 @@
     
         
         <section id="content">
-            <h2 id="1-基础配置">1. 基础配置</h2>
-<p>1、必备： <a href="http://www.ctex.org/HomePag">CTEX套装</a> 或者  <a href="http://tug.org/texlive/">TexLive (推荐)</a>,安装Texlive时候，推荐搭配<a href="http://texstudio.sourceforge.net/">Texstudio</a></p>
+            <h2 id="基础配置">1. 基础配置</h2>
+<p>1、必备： <a href="http://www.ctex.org/HomePag">CTEX套装</a> 或者 <a href="http://tug.org/texlive/">TexLive (推荐)</a>,安装Texlive时候，推荐搭配<a href="http://texstudio.sourceforge.net/">Texstudio</a></p>
 <p>2、有没有发现写公式很麻烦：<a href="https://mathpix.com/">mathpix</a> 工具可以直接截图，把截图的公式转变为Latex 代码，太复杂的可能识别不了，但是已经很好了</p>
 <p>3、<a href="http://www.amyxun.com/">AxMath</a> 可以像mathtpye那样输入公式，更重要的一点是可以直接转变为latex代码，</p>
 <p>4、LaTeX代码转为Word公式:</p>
-<p>​	可以参考这篇文章： <a href="http://www.latexstudio.net/archives/4650.html">http://www.latexstudio.net/archives/4650.html</a></p>
-<p>​	如果在word里面直接输入LaTex代码转word公式,eg:  输入<code>$x^2 + y^2$</code> ,然后选中其按 <code>alt + \ </code>即可转换，不过有点慢，耐心等待</p>
-<p>5、 <a href="https://www.typora.io/">Typora</a>  工具，写markdown的，可以写md文件，然后转出latex文件，不过转出的导言区一般是有问题的，我们直接要正文部分，向导言区的头文件之类，要根据文件适当自己添加，这是由于公式的问题，公式之间不能用空行。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
-<span style="color:#66d9ef">\usepackage</span>{ctex} <span style="color:#75715e">% 中文包,如果含有公式也适用
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[colorlinks,linkcolor=red]</span>{hyperref} <span style="color:#75715e">% 超链接
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
-。。。正文。。。。。x
-<span style="color:#66d9ef">\end</span>{document}
-</code></pre></div><p>6、推荐写公式时，不用空白行。</p>
-<h2 id="2-表格to-latex">2. 表格to latex</h2>
+<p>​ 可以参考这篇文章： <a href="http://www.latexstudio.net/archives/4650.html" class="uri">http://www.latexstudio.net/archives/4650.html</a></p>
+<p>​ 如果在word里面直接输入LaTex代码转word公式,eg: 输入<code>$x^2 + y^2$</code> ,然后选中其按 <code>alt + \</code>即可转换，不过有点慢，耐心等待</p>
+<p>5、 <a href="https://www.typora.io/">Typora</a> 工具，写markdown的，可以写md文件，然后转出latex文件，不过转出的导言区一般是有问题的，我们直接要正文部分，向导言区的头文件之类，要根据文件适当自己添加，这是由于公式的问题，公式之间不能用空行。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">ctex</span>} <span class="co">% 中文包,如果含有公式也适用</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>[colorlinks,linkcolor=red]{<span class="ex">hyperref</span>} <span class="co">% 超链接</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>。。。正文。。。。。x</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div>
+<p>6、推荐写公式时，不用空白行。</p>
+<h2 id="表格to-latex">2. 表格to latex</h2>
 <ul>
-<li>方法一：<a href="http://www.tablesgenerator.com/latex_tables">http://www.tablesgenerator.com/latex_tables</a> :这个网站不错，就是打开有点慢（推荐）。              以及这个网站https://tableconvert.com/</li>
+<li>方法一：<a href="http://www.tablesgenerator.com/latex_tables">http://www.tablesgenerator.com/latex_tables</a> :这个网站不错，就是打开有点慢（推荐）。 以及这个网站https://tableconvert.com/</li>
 <li>方法二： 可以安装Excel2latex 插件，自己百度</li>
 <li>方法三：在<code>rstudio</code>中使用<code>stargazer</code>包 (三线头表格,头是双线）</li>
 <li>方法四： 在<code>rstudio</code>中使用<code>xtable</code>包( 三线头表格，头是单线)</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">#####  方法三：#####</span>
-<span style="color:#a6e22e">library</span>(stargazer)
-<span style="color:#a6e22e">library</span>(xlsx) 
-<span style="color:#75715e"># 推荐使用这个包，因为不会发生小数点精度的问题，但是列名可能会发生改变</span>
-<span style="color:#75715e"># 原本的列名是 3，4，....,9 读入后变成了X3,X4,....,X9.</span>
-data <span style="color:#f92672">=</span> <span style="color:#a6e22e">read.xlsx</span>(file <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;工作簿1.xlsx&#34;</span>,sheetIndex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
-                 header <span style="color:#f92672">=</span> T,colClasses <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;character&#34;</span>)
-data
-<span style="color:#a6e22e">stargazer</span>(data,summary <span style="color:#f92672">=</span> F,rownames <span style="color:#f92672">=</span> F)
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####  方法三：#####</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xlsx) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 推荐使用这个包，因为不会发生小数点精度的问题，但是列名可能会发生改变</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 原本的列名是 3，4，....,9 读入后变成了X3,X4,....,X9.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.xlsx</span>(<span class="at">file =</span><span class="st">&quot;工作簿1.xlsx&quot;</span>,<span class="at">sheetIndex =</span> <span class="dv">1</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">header =</span> T,<span class="at">colClasses =</span> <span class="st">&quot;character&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>data</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(data,<span class="at">summary =</span> F,<span class="at">rownames =</span> F)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">##### 方法四： #####</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>xtable<span class="sc">::</span><span class="fu">xtable</span>(<span class="fu">head</span>(iris),<span class="at">digits=</span><span class="dv">3</span>,<span class="at">caption=</span><span class="st">&quot;Head of Iris Data&quot;</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 其中函数中的digits=3控制输出精度，caption就是表格的标题。</span></span></code></pre></div>
+<p>注意看下图： 把代码粘贴到latex编译器中，上图为<strong>方法三</strong>画的(<strong>一般学术论文，表的标题在上方，图的标题在下方</strong>) ，下图为<strong>方法四</strong>画的。</p>
+<figure>
+<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2019042601.png" alt="2019042601" /><figcaption aria-hidden="true">2019042601</figcaption>
+</figure>
+<h2 id="引用图片格式">3. 引用图片格式</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">figure</span>}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\centering</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">\includegraphics</span>[height=8cm,width=10cm]{<span class="ex">cci01.jpeg</span>} <span class="co">% []是设置图片大小，{}是名称</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\caption</span>{22.086 percentile} <span class="co">% 图片标题</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\label</span>{<span class="ex">fig1</span>} <span class="co">% 交叉引用的名称</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">figure</span>}</span></code></pre></div>
 
-
-<span style="color:#75715e">##### 方法四： #####</span>
-xtable<span style="color:#f92672">::</span><span style="color:#a6e22e">xtable</span>(<span style="color:#a6e22e">head</span>(iris),digits<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>,caption<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Head of Iris Data&#34;</span>)
-<span style="color:#75715e"># 其中函数中的digits=3控制输出精度，caption就是表格的标题。</span>
-</code></pre></div><p>注意看下图： 把代码粘贴到latex编译器中，上图为<strong>方法三</strong>画的(<strong>一般学术论文，表的标题在上方，图的标题在下方</strong>) ，下图为<strong>方法四</strong>画的。</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2019042601.png" alt="2019042601"></p>
-<h2 id="3-引用图片格式">3. 引用图片格式</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\begin</span>{figure}
-	<span style="color:#66d9ef">\centering</span>
-	<span style="color:#66d9ef">\includegraphics</span><span style="color:#a6e22e">[height=8cm,width=10cm]</span>{cci01.jpeg} <span style="color:#75715e">% []是设置图片大小，{}是名称
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">\caption</span>{22.086 percentile} <span style="color:#75715e">% 图片标题
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">\label</span>{fig1} <span style="color:#75715e">% 交叉引用的名称
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">\end</span>{figure}
-</code></pre></div>
         </section>
     </div>
     <br>
@@ -404,21 +400,26 @@ xtable<span style="color:#f92672">::</span><span style="color:#a6e22e">xtable</s
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

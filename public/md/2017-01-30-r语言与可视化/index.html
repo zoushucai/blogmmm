@@ -231,10 +231,10 @@
 <li>浏览器平台</li>
 <li>ggvis</li>
 <li>rCharts(<a href="http://ramnathv.github.io/rCharts/">http://ramnathv.github.io/rCharts/</a>)</li>
-<li>recharts (<a href="https://recharts.cosx.org/">https://recharts.cosx.org/</a>)</li>
-<li>plotly(<a href="https://plotly-r.com/,">https://plotly-r.com/,</a> <a href="https://plot.ly/r/">https://plot.ly/r/</a>)</li>
+<li>recharts (https://recharts.cosx.org/)</li>
+<li>plotly(https://plotly-r.com/, https://plot.ly/r/)</li>
 <li>googlevis</li>
-<li>Remap(<a href="https://github.com/Lchiffon/REmap">https://github.com/Lchiffon/REmap</a>)</li>
+<li>Remap(https://github.com/Lchiffon/REmap)</li>
 <li><a href="http://www.htmlwidgets.org/">htmlwidgets</a> 框架
 <ul>
 <li><a href="http://rstudio.github.io/leaflet/">leaflet</a>(地图)</li>
@@ -243,8 +243,7 @@
 <li>network3D (网格)</li>
 <li>DT (表格)</li>
 <li>threeJS (3D数据展示)</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 
         </section>
@@ -372,21 +371,26 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

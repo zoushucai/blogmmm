@@ -196,12 +196,11 @@
         
         <section id="content">
             <h1 id="mac下使用mounty挂载ntfs出现了文件不能拷贝的解决办法">Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法</h1>
-<p>Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法，即文件出现灰色的现象。
-或者使用付费的<code>Tuxera</code> 软件都会出现灰色文件,</p>
+<p>Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法，即文件出现灰色的现象。 或者使用付费的<code>Tuxera</code> 软件都会出现灰色文件,</p>
 <p>解决办法(在终端的灰色文件目录下面的命令即可)</p>
 <pre><code>xattr -d com.apple.FinderInfo *
-
 </code></pre>
+
         </section>
     </div>
     <br>
@@ -327,21 +326,26 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

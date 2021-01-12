@@ -199,38 +199,38 @@
 <p>新系统, 首先我们要安装一些必要的软件,和做一些基本的设置.</p>
 <p>本文做一些基本的设置</p>
 <h2 id="更改终端的颜色">更改终端的颜色</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo echo <span style="color:#e6db74">&#34;export CLICOLOR=1&#34;</span> &gt;&gt; ~/.bash_profile
-sudo echo <span style="color:#e6db74">&#34;export LSCOLORS=gxfxcxdxbxegedabagacad&#34;</span> &gt;&gt; ~/.bash_profile
-sudo echo <span style="color:#e6db74">&#34;export PS1=&#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &#39;&#34;</span>&gt;&gt; ~/.bash_profile
-
-source ~/.bash_profile 
-</code></pre></div><p>参考:</p>
-<p><a href="2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8FPS1">2019-11-19mac终端样式PS1</a></p>
-<h2 id="设置网络的dns">设置网络的DNS.</h2>
-<p>打开&ndash;<code>wifi</code> &mdash;&raquo; <code>高级</code>&mdash;&gt; 设置 DNS  ,</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> echo <span class="st">&quot;export CLICOLOR=1&quot;</span> <span class="op">&gt;&gt;</span> ~/.bash_profile</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> echo <span class="st">&quot;export LSCOLORS=gxfxcxdxbxegedabagacad&quot;</span> <span class="op">&gt;&gt;</span> ~/.bash_profile</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> echo <span class="st">&quot;export PS1=&#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]</span><span class="dt">\$</span><span class="st"> &#39;&quot;</span><span class="op">&gt;&gt;</span> ~/.bash_profile</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bash_profile </span></code></pre></div>
+<p>参考:</p>
+<p><a href="2019-11-19mac终端样式PS1">2019-11-19mac终端样式PS1</a></p>
+<h2 id="设置网络的dns.">设置网络的DNS.</h2>
+<p>打开–<code>wifi</code> —&gt;&gt; <code>高级</code>—&gt; 设置 DNS ,</p>
 <p>添加</p>
 <pre><code>114.114.114.114
-8.8.8.8
-</code></pre><h2 id="修改etchosts">修改<code>/etc/hosts</code></h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo vim /etc/hosts
-<span style="color:#75715e">#### 把下面的信息添加到 该文件中即可</span>
-199.232.69.194   github.global.ssl.fastly.net
-140.82.113.4      github.com
-199.232.69.194    github.global.ssl.fastly.net
-185.199.110.153   assets-cdn.github.com
-140.82.113.4      gist.github.com
-
-<span style="color:#75715e">#192.30.253.119    gist.github.com</span>
-<span style="color:#75715e">#199.232.28.133    assets-cdn.github.com</span>
-199.232.68.133    raw.githubusercontent.com
-199.232.68.133    gist.githubusercontent.com
-199.232.68.133    cloud.githubusercontent.com
-199.232.68.133    camo.githubusercontent.com
-199.232.68.133    avatars0.githubusercontent.com
-199.232.68.133    avatars1.githubusercontent.com
-199.232.68.133    avatars2.githubusercontent.com
-199.232.68.133    avatars3.githubusercontent.com
-</code></pre></div><p><a href="https://blog.csdn.net/Newbie_J/article/details/104467886/">链接1</a></p>
+8.8.8.8</code></pre>
+<h2 id="修改etchosts">修改<code>/etc/hosts</code></h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>$ <span class="fu">sudo</span> vim /etc/hosts</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### 把下面的信息添加到 该文件中即可</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.69.194</span>   github.global.ssl.fastly.net</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">140.82.113.4</span>      github.com</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.69.194</span>    github.global.ssl.fastly.net</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">185.199.110.153</span>   assets-cdn.github.com</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">140.82.113.4</span>      gist.github.com</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#192.30.253.119    gist.github.com</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#199.232.28.133    assets-cdn.github.com</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    raw.githubusercontent.com</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    gist.githubusercontent.com</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    cloud.githubusercontent.com</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    camo.githubusercontent.com</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    avatars0.githubusercontent.com</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    avatars1.githubusercontent.com</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    avatars2.githubusercontent.com</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ex">199.232.68.133</span>    avatars3.githubusercontent.com</span></code></pre></div>
+<p><a href="https://blog.csdn.net/Newbie_J/article/details/104467886/">链接1</a></p>
 <p><a href="https://blog.csdn.net/u010828718/article/details/106500543?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-106500543.nonecase&amp;utm_term=github%E4%B8%8A%E7%9A%84%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%20mac&amp;spm=1000.2123.3001.4430">链接2</a></p>
 <p>下一节,讲解软件的安装(主要用<code>homebrew</code>),如果上述不设置,可能软件安装不了</p>
 
@@ -359,21 +359,26 @@ source ~/.bash_profile
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

@@ -192,61 +192,61 @@
     
         
         <section id="content">
-            <h2 id="1-xcode命令工具一下-以都是在-终端下运行-为注释">1, xcode命令工具(一下 以都是在 终端下运行 ,<code>%</code>为注释)</h2>
-<pre><code>xcode-select --install
-</code></pre><h2 id="2-homebrew-主页--httpsbrewsh">2.<code> homebrew</code> 主页:  <a href="https://brew.sh/">https://brew.sh/</a></h2>
-<h3 id="21安装">2.1安装</h3>
-<pre><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
-</code></pre><h3 id="22-卸载未试过">2.2 卸载(未试过)</h3>
+            <h2 id="xcode命令工具一下-以都是在-终端下运行-为注释">1, xcode命令工具(一下 以都是在 终端下运行 ,<code>%</code>为注释)</h2>
+<pre><code>xcode-select --install</code></pre>
+<h2 id="homebrew-主页-httpsbrew.sh">2.<code>homebrew</code> 主页: https://brew.sh/</h2>
+<h3 id="安装">2.1安装</h3>
+<pre><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></pre>
+<h3 id="卸载未试过">2.2 卸载(未试过)</h3>
 <p>方法一: 网上找的,</p>
-<p>可参考: <a href="https://blog.csdn.net/qq_41234116/article/details/79366454">https://blog.csdn.net/qq_41234116/article/details/79366454</a></p>
+<p>可参考: https://blog.csdn.net/qq_41234116/article/details/79366454</p>
 <p>方法 2: 官方版本</p>
-<pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot;
-</code></pre><p><a href="https://github.com/Homebrew/brew/blob/master/docs/FAQ.md">https://github.com/Homebrew/brew/blob/master/docs/FAQ.md</a></p>
-<p><a href="https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew">https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew</a></p>
-<h3 id="23-安装包-和卸载包">2.3 安装包 和卸载包</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install &lt;packageName&gt;     % 这个安装的是只有命令行的工具
-
-brew cask install google-chrome   % 注意 brew cask install  安装的是有图像界面的 app
-
-brew uninstall &lt;packageName&gt;
-
-brew cask uninstall &lt;packageName&gt;
-
-brew list    % 已安装列表
-
-brew update   % 注意每次使用这个是 都很慢, 可进行源的更新
-
-brew cask search &lt;packageName&gt;  %查询&lt;packageName&gt;
-
-brew cask info &lt;packageName&gt;   % 查看版本信息
-
-brew config             %查看brew配置
-
-brew outdated   % 查看那些包（软件）可以更新
-brew upgrade             <span style="color:#75715e"># 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留</span>
-brew upgrade $FORMULA    <span style="color:#75715e"># 更新指定的包</span>
-
-brew cleanup             <span style="color:#75715e"># 清理所有包的旧版本，将旧有的软件安装包进行清理</span>
-brew cleanup $FORMULA    <span style="color:#75715e"># 清理指定包的旧版本</span>
-brew cleanup -n          <span style="color:#75715e"># 查看可清理的旧版本包，不执行实际操作</span>
-
-
-brew cask install qlcolorcode  <span style="color:#75715e"># 预览使得文本具有颜色,即给代码上色</span>
-brew cask install qlstephen  <span style="color:#75715e"># 语法高亮</span>
-
-<span style="color:#75715e">### 更新brew cask 安装过的软件...</span>
-brew cask outdated <span style="color:#75715e"># 查看过时的软件</span>
-brew cask upgrade  <span style="color:#75715e"># 更新所有过时的软件</span>
-brew cask upgrade *** <span style="color:#75715e"># 更新指定软件</span>
-brew cask reinstall qq         % 推荐，直接重新安装
-
-
-超级右键   macApp 安装
-</code></pre></div><h3 id="24-homebrew-的清华更新源">2.4 homebrew 的清华更新源</h3>
+<pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot;</code></pre>
+<p>https://github.com/Homebrew/brew/blob/master/docs/FAQ.md</p>
+<p>https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew</p>
+<h3 id="安装包-和卸载包">2.3 安装包 和卸载包</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="op">&lt;</span>packageName<span class="op">&gt;</span>     % 这个安装的是只有命令行的工具</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install google-chrome   % 注意 brew cask install  安装的是有图像界面的 app</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> uninstall <span class="op">&lt;</span>packageName<span class="op">&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask uninstall <span class="op">&lt;</span>packageName<span class="op">&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> list    % 已安装列表</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> update   % 注意每次使用这个是 都很慢, 可进行源的更新</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask search <span class="op">&lt;</span>packageName<span class="op">&gt;</span>  %查询<span class="op">&lt;</span>packageName<span class="op">&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask info <span class="op">&lt;</span>packageName<span class="op">&gt;</span>   % 查看版本信息</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> config             %查看brew配置</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> outdated   % 查看那些包（软件）可以更新</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> upgrade             # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> upgrade <span class="va">$FORMULA</span>    # 更新指定的包</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cleanup             # 清理所有包的旧版本，将旧有的软件安装包进行清理</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cleanup <span class="va">$FORMULA</span>    # 清理指定包的旧版本</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cleanup -n          # 查看可清理的旧版本包，不执行实际操作</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install qlcolorcode  # 预览使得文本具有颜色,即给代码上色</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask install qlstephen  # 语法高亮</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">### 更新brew cask 安装过的软件...</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask outdated # 查看过时的软件</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask upgrade  # 更新所有过时的软件</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask upgrade *** # 更新指定软件</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> cask reinstall qq         % 推荐，直接重新安装</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="ex">超级右键</span>   macApp 安装</span></code></pre></div>
+<h3 id="homebrew-的清华更新源">2.4 homebrew 的清华更新源</h3>
 <p>清华镜像官网:</p>
-<p><a href="https://mirror.tuna.tsinghua.edu.cn/help/homebrew/">https://mirror.tuna.tsinghua.edu.cn/help/homebrew/</a></p>
-<p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/">https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/</a></p>
+<p>https://mirror.tuna.tsinghua.edu.cn/help/homebrew/</p>
+<p>https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/</p>
 <p>下面给出清华镜像官网链接(注意在 终端下直接运行下面的<strong>四句命令</strong>即可), ,<strong>一般情况下,替换镜像的命令镜像网站会给出,所以以后要进行更新源的操作,直接去相应的镜像网站找更新命令</strong></p>
 <pre><code>git -C &quot;$(brew --repo)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
 
@@ -254,94 +254,57 @@ git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://mi
 
 git -C &quot;$(brew --repo homebrew/cask)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
 
-brew update
-</code></pre><p>复原</p>
+brew update</code></pre>
+<p>复原</p>
 <pre><code>git -C &quot;$(brew --repo)&quot; remote set-url origin https://github.com/Homebrew/brew.git
 
 git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://github.com/Homebrew/homebrew-core.git
 
 git -C &quot;$(brew --repo homebrew/cask)&quot; remote set-url origin https://github.com/Homebrew/homebrew-cask.git
 
-brew update
-</code></pre><p>还可以参考::https://www.cnblogs.com/DjangoBlogs/p/10762310.html</p>
-<h3 id="25homebrew-bottles-镜像使用帮助">2.5Homebrew-bottles 镜像使用帮助</h3>
+brew update</code></pre>
+<p>还可以参考::https://www.cnblogs.com/DjangoBlogs/p/10762310.html</p>
+<h3 id="homebrew-bottles-镜像使用帮助">2.5Homebrew-bottles 镜像使用帮助</h3>
 <p><strong>注:该镜像是 Homebrew 二进制预编译包的镜像。本镜像站同时提供 Homebrew 的 formula 索引的镜像（即 brew update 时所更新内容），请参考Homebrew 镜像使用帮助。</strong></p>
-<h4 id="251临时替换">2.5.1临时替换</h4>
-<pre><code>export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
-</code></pre><h4 id="252长期替换">2.5.2长期替换</h4>
-<pre><code>echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre><p>注意: 个人理解  Homebrew-bottles 安装的是 类似安装包的形式,即编译好的包.</p>
-<h3 id="26-homebrew-关闭自动更新">2.6 Homebrew 关闭自动更新</h3>
-<h4 id="251临时关闭">2.5.1临时关闭</h4>
-<pre><code>export HOMEBREW_NO_AUTO_UPDATE=true
-</code></pre><h4 id="252长期关闭">2.5.2长期关闭</h4>
-<pre><code>echo 'export HOMEBREW_NO_AUTO_UPDATE=true' &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre><h3 id="27-mac-linux命令解释">2.7 mac Linux命令解释</h3>
+<h4 id="临时替换">2.5.1临时替换</h4>
+<pre><code>export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</code></pre>
+<h4 id="长期替换">2.5.2长期替换</h4>
+<pre><code>echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile</code></pre>
+<p>注意: 个人理解 Homebrew-bottles 安装的是 类似安装包的形式,即编译好的包.</p>
+<h3 id="homebrew-关闭自动更新">2.6 Homebrew 关闭自动更新</h3>
+<h4 id="临时关闭">2.5.1临时关闭</h4>
+<pre><code>export HOMEBREW_NO_AUTO_UPDATE=true</code></pre>
+<h4 id="长期关闭">2.5.2长期关闭</h4>
+<pre><code>echo &#39;export HOMEBREW_NO_AUTO_UPDATE=true&#39; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile</code></pre>
+<h3 id="mac-linux命令解释">2.7 mac Linux命令解释</h3>
 <ul>
-<li>
-<p><code>export A = B</code> 把 B 写入 A中,不过重启后无效, 还可以设置环境变量,不过 mac 一般会自动配置,不怎么用这个,用的较多的是<code>~/.bash_profile</code>文件来管理环境变量.</p>
-</li>
-<li>
-<p><code>echo 'xxx' &gt;&gt;  file </code>  把<code>'xxx'</code>内容追加到 <code>file</code> 文件末尾, 用一个<code>&gt;</code>表示覆盖 <code>file</code>文件.</p>
-</li>
-<li>
-<p><code>source ~/.bash_profile</code> 刷新配置文件</p>
-</li>
-<li>
-<p><code>cat file</code> 查看 file 文件</p>
-</li>
-<li>
-<p><code>vim file</code>  利用 vim 打开 file文件,vim 可以编辑修改 file 文件</p>
-</li>
+<li><p><code>export A = B</code> 把 B 写入 A中,不过重启后无效, 还可以设置环境变量,不过 mac 一般会自动配置,不怎么用这个,用的较多的是<code>~/.bash_profile</code>文件来管理环境变量.</p></li>
+<li><p><code>echo 'xxx' &gt;&gt;  file</code> 把<code>'xxx'</code>内容追加到 <code>file</code> 文件末尾, 用一个<code>&gt;</code>表示覆盖 <code>file</code>文件.</p></li>
+<li><p><code>source ~/.bash_profile</code> 刷新配置文件</p></li>
+<li><p><code>cat file</code> 查看 file 文件</p></li>
+<li><p><code>vim file</code> 利用 vim 打开 file文件,vim 可以编辑修改 file 文件</p></li>
 </ul>
-<h2 id="3-常用软件">3. 常用软件</h2>
+<h2 id="常用软件">3. 常用软件</h2>
 <ul>
-<li>
-<p>谷歌浏览器 ,</p>
-</li>
-<li>
-<p><code>Typora</code> 写作软件,</p>
-</li>
-<li>
-<p>sublime-text3,</p>
-</li>
-<li>
-<p>github桌面版,</p>
-</li>
-<li>
-<p>mathpix-snipping-tool公式识别器,</p>
-</li>
-<li>
-<p>tencent-lemon :  腾讯柠檬垃圾清理软件</p>
-</li>
-<li>
-<p>contexts: 快速切换 mac 窗口</p>
-</li>
-<li>
-<p>firefox(火狐浏览器,虽然 Google 浏览器很强了,不过国内有些软件需要这个)</p>
-</li>
-<li>
-<p>the-unarchiver  (只能)解压软件</p>
-</li>
-<li>
-<p>keka 解压压缩都行,</p>
-</li>
-<li>
-<p>qq : mac上只有 qq,暂时没有 TIM</p>
-</li>
-<li>
-<p>iina % 视频播放器</p>
-</li>
-<li>
-<p>mounty %挂着 NTFS</p>
-</li>
-<li>
-<p>baidunetdisk %百度网盘</p>
+<li><p>谷歌浏览器 ,</p></li>
+<li><p><code>Typora</code> 写作软件,</p></li>
+<li><p>sublime-text3,</p></li>
+<li><p>github桌面版,</p></li>
+<li><p>mathpix-snipping-tool公式识别器,</p></li>
+<li><p>tencent-lemon : 腾讯柠檬垃圾清理软件</p></li>
+<li><p>contexts: 快速切换 mac 窗口</p></li>
+<li><p>firefox(火狐浏览器,虽然 Google 浏览器很强了,不过国内有些软件需要这个)</p></li>
+<li><p>the-unarchiver (只能)解压软件</p></li>
+<li><p>keka 解压压缩都行,</p></li>
+<li><p>qq : mac上只有 qq,暂时没有 TIM</p></li>
+<li><p>iina % 视频播放器</p></li>
+<li><p>mounty %挂着 NTFS</p></li>
+<li><p>baidunetdisk %百度网盘</p>
 <pre><code>brew cask install google-chrome
 brew cask install typora
-brew cask install sublime-text	 
+brew cask install sublime-text   
 brew cask install github
 brew cask install mathpix-snipping-tool
 brew cask install tencent-lemon
@@ -352,51 +315,31 @@ brew cask install keka
         brew cask install qq
                     brew cask install iina 
 brew cask install mounty 
-            brew cask install baidunetdisk 
-</code></pre><pre><code>
-</code></pre></li>
-<li>
-<p>loopback: 收费软件,需要找到破解版,不建议用这个安装,结合 mac 自带的录屏软件,可以录制有声音的视频,不管是系统声音还是软件声音都行.</p>
-<pre><code>brew cask install loopback
-</code></pre><pre><code>
-</code></pre></li>
-<li>
-<p>java 的安装,个人建议还是从官网下载安装对应的版本,我记得第一次试的时候,好像没有配置成功</p>
+            brew cask install baidunetdisk </code></pre></li>
+<li><p>loopback: 收费软件,需要找到破解版,不建议用这个安装,结合 mac 自带的录屏软件,可以录制有声音的视频,不管是系统声音还是软件声音都行.</p>
+<pre><code>brew cask install loopback</code></pre></li>
+<li><p>java 的安装,个人建议还是从官网下载安装对应的版本,我记得第一次试的时候,好像没有配置成功</p>
 <pre><code>% 先安装 r 以及 rstudio 在安装java, 看能否配置成功
         brew cask install r
             brew cask install rstudio
-               
+
 brew cask install java   %将会安装jdk的最新版本，jdk内嵌jre
 brew cask install java8  %安装jdk8的最新版本
-   
-</code></pre><p>``</p>
-</li>
-<li>
-<p>grammarly : 语法安装软件, 个人不推荐,因为有浏览器插件就够了</p>
-</li>
-<li>
-<p>cajviewer: caj 云阅读</p>
-</li>
-<li>
-<p>zotero: 论文参考文献管理, 可以快速进行期刊缩写与展开</p>
-</li>
-<li>
-<p>mendeley : 论文参考文献管理，可以快速进行期刊缩写与展开</p>
-</li>
-<li>
-<p>jabref : 论文管理软件, 只适合 bibtex 文件的管理, 这个可以缩写期刊, 以及查找文献的 doi, 并且不修改原有的bibtex 文件信息(除非手动修改), 注意一定要找到对应期刊的 bst 文件,才能显示出适合的参考文献格式, 可以集合 zotero 以及 mendeley 的软件查找相应的参考文献样式或者直接从网站https://www.zotero.org/styles查找下载相关参考文献的样式, 最终结合 bibtex 生成最终的 pdf(bibtex文件生成的临时文件 *.bbl 就是对应的的thebibliography环境以及bibitem条目 ),  备注: 个人推荐 jabref, 然后全部的参考文献都去 Google 学术上下载 bibtex 文件,不能一会从百度学术一会从谷歌学术下载,或者从相应的参考软件下载,这样会很乱,  注意:谷歌浏览器插件MyBibCitation Generator 也能产生相应的参考文献样式</p>
-</li>
-<li>
-<p>jabref  % 建议安装开发版本,这个默认是稳定版本</p>
-</li>
+</code></pre></li>
+<li><p>grammarly : 语法安装软件, 个人不推荐,因为有浏览器插件就够了</p></li>
+<li><p>cajviewer: caj 云阅读</p></li>
+<li><p>zotero: 论文参考文献管理, 可以快速进行期刊缩写与展开</p></li>
+<li><p>mendeley : 论文参考文献管理，可以快速进行期刊缩写与展开</p></li>
+<li><p>jabref : 论文管理软件, 只适合 bibtex 文件的管理, 这个可以缩写期刊, 以及查找文献的 doi, 并且不修改原有的bibtex 文件信息(除非手动修改), 注意一定要找到对应期刊的 bst 文件,才能显示出适合的参考文献格式, 可以集合 zotero 以及 mendeley 的软件查找相应的参考文献样式或者直接从网站https://www.zotero.org/styles查找下载相关参考文献的样式, 最终结合 bibtex 生成最终的 pdf(bibtex文件生成的临时文件 *.bbl 就是对应的的thebibliography环境以及bibitem条目 ), 备注: 个人推荐 jabref, 然后全部的参考文献都去 Google 学术上下载 bibtex 文件,不能一会从百度学术一会从谷歌学术下载,或者从相应的参考软件下载,这样会很乱, 注意:谷歌浏览器插件MyBibCitation Generator 也能产生相应的参考文献样式</p></li>
+<li><p>jabref % 建议安装开发版本,这个默认是稳定版本</p></li>
 </ul>
-<pre><code>brew cask install grammarly	
-brew cask install cajviewer	
+<pre><code>brew cask install grammarly 
+brew cask install cajviewer 
 brew cask install zotero
 brew cask install mendeley
 brew cask install jabref     % 建议安装开发版本,这个默认是稳定版本s
-
 </code></pre>
+
         </section>
     </div>
     <br>
@@ -522,21 +465,26 @@ brew cask install jabref     % 建议安装开发版本,这个默认是稳定版
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 

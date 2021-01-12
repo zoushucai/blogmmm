@@ -158,7 +158,7 @@
             </p>
             
             <div id="divtocTableOfContents">
-            <nav id="TableOfContents"></nav>
+            
             </div>
     </div>
 </div>
@@ -231,9 +231,9 @@
 <pre><code>
 Error
 
-Authentication failed. You may not have permission to access the repository or the repository may have been archived. Open options and verify that you're signed in with an account that has permission to access this repository.
-
-</code></pre><p>网上百度了一下，发现有两种解决办法：</p>
+Authentication failed. You may not have permission to access the repository or the repository may have been archived. Open options and verify that you&#39;re signed in with an account that has permission to access this repository.
+</code></pre>
+<p>网上百度了一下，发现有两种解决办法：</p>
 <p>1.退出后重新登录</p>
 <p>2.设置项目repository settings改为https的远程url地址</p>
 <p>经过测试，发现这两种方式都没有起到作用</p>
@@ -368,21 +368,26 @@ Authentication failed. You may not have permission to access the repository or t
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-        delimiters: [
-					    {left: "$$", right: "$$", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false},
-  						{left: "\\[", right: "\\]", display: true}
-					]
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
         });
-    });
-</script>
+    </script>
+
 
 
 
