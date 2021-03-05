@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -158,7 +160,25 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1背景介绍"><strong>1.背景介绍：</strong></a></li>
+    <li><a href="#2安装流程"><strong>2、安装流程：</strong></a>
+      <ul>
+        <li><a href="#使用前的基本配置">使用前的基本配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#3rselenium使用与实例">3、RSelenium使用与实例</a>
+      <ul>
+        <li><a href="#31使用前的基础步骤">3.1、使用前的基础步骤</a></li>
+        <li><a href="#32案例1">3.2、案例1</a></li>
+        <li><a href="#33案例2">3.3、案例2</a></li>
+        <li><a href="#34案例3">3.4、案例3</a></li>
+        <li><a href="#35案例4">3.5、案例4</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -227,356 +247,367 @@
     
         
         <section id="content">
-            <h2 id="背景介绍"><strong>1.背景介绍：</strong></h2>
+            <h2 id="1背景介绍"><strong>1.背景介绍：</strong></h2>
 <p><strong>现在很多网页都采用AJAX这种异步加载的网页结构，简单的页面爬取不了这些数据</strong></p>
 <p>例如：</p>
-<p>2、这是需要R包—RSelenium包</p>
+<p>2、这是需要R包&mdash;RSelenium包</p>
 <p>使用RSelenium包的准备</p>
 <p>0、JAVA 环境的准备 ，安装是否成功可以进行<a href="https://zsc.netlify.com/md/2018-01-07-r%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">xlsx包进行测试</a></p>
-<p>1、<a href="http://npm.taobao.org/mirrors/chromedriver">Chrome驱动</a> 下载,注意chrome驱动一定要和chrome浏览器对应 ,比如我的浏览器 65.0.3325.181 ，对应表放在文章最后,或者<a href="https://blog.csdn.net/huilan_same/article/details/51896672">点击这里</a>,,怎么查看浏览器版本，点击谷歌浏览器右上【…】—【帮助】–【关于Google Chrome】就可以看到浏览器版本了。</p>
-<p>2、<a href="https://docs.seleniumhq.org/download/">Selenium Standalone Server</a>下载 我用的是 selenium-server-standalone-3.11.0.jar</p>
+<p>1、<a href="http://npm.taobao.org/mirrors/chromedriver">Chrome驱动</a> 下载,注意chrome驱动一定要和chrome浏览器对应 ,比如我的浏览器 65.0.3325.181  ，对应表放在文章最后,或者<a href="https://blog.csdn.net/huilan_same/article/details/51896672">点击这里</a>,,怎么查看浏览器版本，点击谷歌浏览器右上【&hellip;】&mdash;【帮助】&ndash;【关于Google Chrome】就可以看到浏览器版本了。</p>
+<p>2、<a href="https://docs.seleniumhq.org/download/">Selenium Standalone Server</a>下载   我用的是 selenium-server-standalone-3.11.0.jar</p>
 <p>3、<a href="http://phantomjs.org/download.html">PhantomJS下载</a> ,无头浏览器。(这个个人需要的话就下载，我用Google浏览器就够了)</p>
-<h2 id="安装流程"><strong>2、安装流程：</strong></h2>
+<h2 id="2安装流程"><strong>2、安装流程：</strong></h2>
 <h3 id="使用前的基本配置">使用前的基本配置</h3>
-<ol type="1">
-<li><p>首先，安装JAVA JDK 1.8。</p></li>
-<li><p>然后，安装Chrome（最新版本）。</p></li>
-<li><p>之后，把解压后的ChromeDriver.exe（最新版本）放在Chrome的安装路径下。一定要和chrome.exe放在同一个目录下面。例如</p></li>
-<li><p>把chromedriver.exe所在目录的路径(建议放在和chrome.exe)放入环境变量中即可,</p></li>
-<li><p>基本配置基本完成</p></li>
+<ol>
+<li>
+<p>首先，安装JAVA JDK 1.8。</p>
+</li>
+<li>
+<p>然后，安装Chrome（最新版本）。</p>
+</li>
+<li>
+<p>之后，把解压后的ChromeDriver.exe（最新版本）放在Chrome的安装路径下。一定要和chrome.exe放在同一个目录下面。例如</p>
+</li>
+<li>
+<p>把chromedriver.exe所在目录的路径(建议放在和chrome.exe)放入环境变量中即可,</p>
+</li>
+<li>
+<p>基本配置基本完成</p>
+</li>
 </ol>
-<h2 id="rselenium使用与实例">3、RSelenium使用与实例</h2>
-<h3 id="使用前的基础步骤">3.1、使用前的基础步骤</h3>
-<p>1、首先 ，打开cmd ，切换到 selenium-server-standalone-3.0.1.jar文件所在的位置，我的都在C:，切换以后 ，运行</p>
+<h2 id="3rselenium使用与实例">3、RSelenium使用与实例</h2>
+<h3 id="31使用前的基础步骤">3.1、使用前的基础步骤</h3>
+<p>1、首先 ，打开cmd ，切换到 selenium-server-standalone-3.0.1.jar文件所在的位置，我的都在C:\RSelenium这个目录下 ，切换以后  ，运行</p>
 <p><code>java -jar selenium-server-standalone-3.11.0.jar</code></p>
 <p>显示 ：</p>
-<figure>
-<img src="peizhi1-0406621.png" alt="peizhi1" /><figcaption aria-hidden="true">peizhi1</figcaption>
-</figure>
-<p>或者直接在Rstudio中运行<code>system('java -jar "C:/RSelenium/selenium-server-standalone-3.11.0.jar"',wait = FALSE)</code>代码即可。</p>
+<p><img src="peizhi1-0406621.png" alt="peizhi1"></p>
+<p>或者直接在Rstudio中运行<code>system('java -jar &quot;C:/RSelenium/selenium-server-standalone-3.11.0.jar&quot;',wait = FALSE)</code>代码即可。</p>
 <p>2、运行后，最小化，不要关闭，在打开Rstudio,</p>
 <p>3、通过R调用Selenium Server并打开网页，对页面进行点击，选取相应条件。通过RSelenium与rvest共同爬取数据。通过 一步一步解读Rcode来解释这一过程。</p>
-<h3 id="案例1">3.2、案例1</h3>
+<h3 id="32案例1">3.2、案例1</h3>
 <p><strong>浏览器的基本操作</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSelenium)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:</span><span class="sc">\\</span><span class="st">RSelenium&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">######## 初始化浏览器####</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>remDr <span class="ot">&lt;-</span> <span class="fu">remoteDriver</span>(</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">browserName =</span> <span class="st">&quot;chrome&quot;</span>,  <span class="co"># 浏览器可以自己设置firefox、chrome、phantomjs（要配置）</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">remoteServerAddr =</span> <span class="st">&quot;localhost&quot;</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">port =</span> 4444L)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">open</span>() <span class="co"># 打开浏览器 </span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getStatus</span>()<span class="co"># 使用该status方法查询远程服务器的状态。</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 关闭浏览器  </span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># remDr$quit()  # 直接退出  </span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># remDr$close()  # close用于关闭当前会话，也可以用作关闭浏览器  </span></span></code></pre></div>
-<p><strong>访问DOM中的元素 </strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url<span class="ot">=</span><span class="st">&quot;https://www.baidu.com/&quot;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">navigate</span>(url)   <span class="co"># 打开网页</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remDr$closeWindow() # 关闭网页 </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># remDr$goBack() # 页面返回操作, 页面返回，前进操作，一定要有浏览记录才有这个操作</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># remDr$goForward() # 页面前进操作</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># remDr$refresh() # 页面刷新</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">######################################################################################</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">################################# 定位元素</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># # 可以看出百度首页上有一个查询框,对应源代码为&lt;input id=...class=... name= ...&lt;/input&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># # 对应&lt;input id=&quot;kw&quot; name=&quot;wd&quot; class=&quot;s_ipt&quot; value=&quot;&quot; maxlength=&quot;255&quot; autocomplete=&quot;off&quot;&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">########## 按属性--属性值搜索</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;name&#39;</span>, <span class="at">value =</span> <span class="st">&quot;wd&quot;</span>) <span class="co"># 添上对应属性与属性值</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="do">########## 按id--id值搜索</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;id&#39;</span>, <span class="at">value =</span> <span class="st">&quot;kw&quot;</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="do">########## 按class--class值搜索</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;class&#39;</span>, <span class="at">value =</span> <span class="st">&quot;s_ipt&quot;</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="do">########## 按css选择器进行搜索</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;css&#39;</span>, <span class="st">&quot;#kw&quot;</span>) <span class="co">#css选择器id用#  ，class用.</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;css&#39;</span>, <span class="st">&quot;.s_ipt&quot;</span>) </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="do">########## 按xpath进行搜索</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;xpath&#39;</span>, <span class="st">&quot;//*[@id=&#39;kw&#39;]&quot;</span>) </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;xpath&#39;</span>, <span class="st">&quot;//*[@class=&#39;s_ipt&#39;]&quot;</span>) </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="do">#####################################################################################</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="do">###################上面找了这么多元素，拿来干嘛呢-----可以发送事件给元素</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="do">#####################################################################################</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&#39;http://www.baidu.com&#39;</span>  </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">navigate</span>(url)  </span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="do">############################### 单击操作</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="do">#### 单击操作---方法一</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;xpath&#39;</span>, <span class="at">value =</span> <span class="st">&#39;//*[@id=&quot;su&quot;]&#39;</span>)  </span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">mouseMoveToLocation</span>(<span class="at">webElement =</span> webElem)  <span class="co"># 移动鼠标至该元素 </span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">click</span>() <span class="co"># 单击  </span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="do">#### 单击操作---方法二</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;xpath&#39;</span>, <span class="at">value =</span> <span class="st">&#39;//*[@id=&quot;su&quot;]&#39;</span>)  </span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>webElem<span class="sc">$</span><span class="fu">clickElement</span>() <span class="co"># 单击  </span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="do">################################## 进行搜索关键词</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>webElem <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&#39;css&#39;</span>, <span class="st">&quot;#kw&quot;</span>) <span class="co"># 找到这个元素--进行搜索关键词</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>webElem<span class="sc">$</span><span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="st">&quot;京东&quot;</span>,<span class="at">key=</span><span class="st">&quot;enter&quot;</span>))</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="do">#### 提取搜索后页面的所有标题，每个链接的标题都包含在&lt;h3 class = &quot;t&quot;&gt;标签中.</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>webElems <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElements</span>(<span class="at">using =</span> <span class="st">&#39;css&#39;</span>, <span class="st">&quot;h3.t&quot;</span>)<span class="do">##注意 findElement(s)方法的区别</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>resHeaders <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(webElems, <span class="cf">function</span>(x){x<span class="sc">$</span><span class="fu">getElementText</span>()})) <span class="co">#</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>resHeaders<span class="co"># 获取网页搜索后的标题</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>p<span class="ot">=</span><span class="fu">which</span>(resHeaders <span class="sc">==</span>resHeaders[<span class="dv">1</span>])<span class="co"># 可以看出有名字重复的标签</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>webElem<span class="ot">=</span>webElems[[<span class="fu">min</span>(p)]]<span class="co"># 找到对应的标题</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>webElem<span class="sc">$</span><span class="fu">clickElement</span>() <span class="do">######  并对标题进行鼠标点击</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="do">###############################################</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getCurrentUrl</span>() <span class="do">##获取当前url</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getTitle</span>() <span class="co">#当前页面的title</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>webpage<span class="ot">=</span>remDr<span class="sc">$</span><span class="fu">getPageSource</span>()[[<span class="dv">1</span>]][<span class="dv">1</span>] <span class="co">#获取当前页面 渲染以后的源代码</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co"># ########################</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">###</span><span class="co"> 保存为本地文件</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co"># con=file(&quot;test.html&quot;,encoding = &quot;utf-8&quot;)</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(webpage,con)</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co"># close(con)</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="co"># ##########################</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
-<p><strong>窗口页面切换</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(RSelenium)
+<span style="color:#a6e22e">library</span>(stringr)
+<span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#34;C:\\RSelenium&#34;</span>)
+
+
+<span style="color:#75715e">######## 初始化浏览器####</span>
+remDr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">remoteDriver</span>(
+  browserName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chrome&#34;</span>,  <span style="color:#75715e"># 浏览器可以自己设置firefox、chrome、phantomjs（要配置）</span>
+  remoteServerAddr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span>,
+  port <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444L</span>)
+
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">open</span>() <span style="color:#75715e"># 打开浏览器 </span>
+
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getStatus</span>()<span style="color:#75715e"># 使用该status方法查询远程服务器的状态。</span>
+<span style="color:#75715e"># 关闭浏览器  </span>
+<span style="color:#75715e"># remDr$quit()  # 直接退出  </span>
+<span style="color:#75715e"># remDr$close()  # close用于关闭当前会话，也可以用作关闭浏览器  </span>
+
+</code></pre></div><p>**访问DOM中的元素  **</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com/&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url)   <span style="color:#75715e"># 打开网页</span>
+<span style="color:#75715e"># remDr$closeWindow() # 关闭网页 </span>
+<span style="color:#75715e"># remDr$goBack() # 页面返回操作, 页面返回，前进操作，一定要有浏览记录才有这个操作</span>
+<span style="color:#75715e"># remDr$goForward() # 页面前进操作</span>
+<span style="color:#75715e"># remDr$refresh() # 页面刷新</span>
+
+<span style="color:#75715e">######################################################################################</span>
+<span style="color:#75715e">################################# 定位元素</span>
+<span style="color:#75715e"># # 可以看出百度首页上有一个查询框,对应源代码为&lt;input id=...class=... name= ...&lt;/input&gt;</span>
+<span style="color:#75715e"># # 对应&lt;input id=&#34;kw&#34; name=&#34;wd&#34; class=&#34;s_ipt&#34; value=&#34;&#34; maxlength=&#34;255&#34; autocomplete=&#34;off&#34;&gt;</span>
+
+<span style="color:#75715e">########## 按属性--属性值搜索</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;name&#39;</span>, value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;wd&#34;</span>) <span style="color:#75715e"># 添上对应属性与属性值</span>
+<span style="color:#75715e">########## 按id--id值搜索</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;id&#39;</span>, value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;kw&#34;</span>)
+<span style="color:#75715e">########## 按class--class值搜索</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;class&#39;</span>, value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s_ipt&#34;</span>)
+<span style="color:#75715e">########## 按css选择器进行搜索</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;#kw&#34;</span>) <span style="color:#75715e">#css选择器id用#  ，class用.</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;.s_ipt&#34;</span>) 
+<span style="color:#75715e">########## 按xpath进行搜索</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xpath&#39;</span>, <span style="color:#e6db74">&#34;//*[@id=&#39;kw&#39;]&#34;</span>) 
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xpath&#39;</span>, <span style="color:#e6db74">&#34;//*[@class=&#39;s_ipt&#39;]&#34;</span>) 
+
+
+<span style="color:#75715e">#####################################################################################</span>
+<span style="color:#75715e">###################上面找了这么多元素，拿来干嘛呢-----可以发送事件给元素</span>
+<span style="color:#75715e">#####################################################################################</span>
+url <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;http://www.baidu.com&#39;</span>  
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url)  
+<span style="color:#75715e">############################### 单击操作</span>
+<span style="color:#75715e">#### 单击操作---方法一</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xpath&#39;</span>, value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;//*[@id=&#34;su&#34;]&#39;</span>)  
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">mouseMoveToLocation</span>(webElement <span style="color:#f92672">=</span> webElem)  <span style="color:#75715e"># 移动鼠标至该元素 </span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">click</span>() <span style="color:#75715e"># 单击  </span>
+<span style="color:#75715e">#### 单击操作---方法二</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xpath&#39;</span>, value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;//*[@id=&#34;su&#34;]&#39;</span>)  
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">clickElement</span>() <span style="color:#75715e"># 单击  </span>
+
+
+<span style="color:#75715e">################################## 进行搜索关键词</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;#kw&#34;</span>) <span style="color:#75715e"># 找到这个元素--进行搜索关键词</span>
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">sendKeysToElement</span>(<span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;京东&#34;</span>,key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enter&#34;</span>))
+<span style="color:#75715e">#### 提取搜索后页面的所有标题，每个链接的标题都包含在&lt;h3 class = &#34;t&#34;&gt;标签中.</span>
+webElems <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElements</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;h3.t&#34;</span>)<span style="color:#75715e">##注意 findElement(s)方法的区别</span>
+resHeaders <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unlist</span>(<span style="color:#a6e22e">lapply</span>(webElems, <span style="color:#a6e22e">function</span>(x){x<span style="color:#f92672">$</span><span style="color:#a6e22e">getElementText</span>()})) <span style="color:#75715e">#</span>
+resHeaders<span style="color:#75715e"># 获取网页搜索后的标题</span>
+p<span style="color:#f92672">=</span><span style="color:#a6e22e">which</span>(resHeaders <span style="color:#f92672">==</span>resHeaders[1])<span style="color:#75715e"># 可以看出有名字重复的标签</span>
+webElem<span style="color:#f92672">=</span>webElems[<span style="color:#a6e22e">[min</span>(p)]]<span style="color:#75715e"># 找到对应的标题</span>
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">clickElement</span>() <span style="color:#75715e">######  并对标题进行鼠标点击</span>
+
+
+<span style="color:#75715e">###############################################</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>() <span style="color:#75715e">##获取当前url</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getTitle</span>() <span style="color:#75715e">#当前页面的title</span>
+webpage<span style="color:#f92672">=</span>remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getPageSource</span>()[[1]][1] <span style="color:#75715e">#获取当前页面 渲染以后的源代码</span>
+
+<span style="color:#75715e"># ########################</span>
+<span style="color:#75715e"># ### 保存为本地文件</span>
+<span style="color:#75715e"># con=file(&#34;test.html&#34;,encoding = &#34;utf-8&#34;)</span>
+<span style="color:#75715e"># writeLines(webpage,con)</span>
+<span style="color:#75715e"># close(con)</span>
+<span style="color:#75715e"># ##########################</span>
+
+
+</code></pre></div><p><strong>窗口页面切换</strong></p>
 <p>许多时候我们点链接的时候，会打开新的标签页 selenium 则会保持在原来的页面上，这是我们便需要切换页面</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getCurrentUrl</span>()<span class="co"># 获取当前窗口页面的url</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getCurrentWindowHandle</span>()<span class="co"># 查看当前属于哪个窗口页面</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getTitle</span>()<span class="co"># 当前窗口页面的标题</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getWindowHandles</span>() <span class="co"># 获取当前浏览器所有的窗口页面</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 现在进行页面跳转</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getWindowHandles</span>()[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> remDr<span class="sc">$</span><span class="fu">switchToWindow</span>()</span></code></pre></div>
-<p>上面展示了从第一个标签页切换到第二个标签页的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>()<span style="color:#75715e"># 获取当前窗口页面的url</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentWindowHandle</span>()<span style="color:#75715e"># 查看当前属于哪个窗口页面</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getTitle</span>()<span style="color:#75715e"># 当前窗口页面的标题</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getWindowHandles</span>() <span style="color:#75715e"># 获取当前浏览器所有的窗口页面</span>
+<span style="color:#75715e">## 现在进行页面跳转</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getWindowHandles</span>()[[2]] <span style="color:#f92672">%&gt;%</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">switchToWindow</span>()
+</code></pre></div><p>上面展示了从第一个标签页切换到第二个标签页的</p>
 <p><strong>frame 切换</strong></p>
 <p>现在流行组件式开发。反正就是 HTML 嵌套 HTML，明明选对元素，但是结果就是不对。这是便需要切换到对应的 frame 中。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果 Frame 有 id</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">switchToFrame</span>(<span class="st">&quot;id&quot;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 没有 id ，需要自己定位，css xpath... 都行</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">switchToFrame</span>(remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&quot;css&quot;</span>,<span class="at">value =</span> <span class="st">&quot;&quot;</span>))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 多层的话，就层层切</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回到原来的位置</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">switchToFrame</span>(<span class="cn">NULL</span>)</span></code></pre></div>
-<p><strong>注入JavaScript </strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##########输入URL 并打开这个网页##############</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>url<span class="ot">=</span><span class="st">&quot;http://www.cpppc.org:8082/efmisweb/ppp/projectLibrary/toPPPList.do&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">navigate</span>(url)  <span class="co"># 打开网页</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>webpage<span class="ot">=</span>remDr<span class="sc">$</span><span class="fu">getPageSource</span>()[[<span class="dv">1</span>]][<span class="dv">1</span>] <span class="co">#获取当前页面 渲染以后的源代码</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">################# 页面拉到最下面 --JavaScript脚本</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>scripts <span class="ot">&lt;-</span> <span class="st">&quot;window.scrollTo(0,document.body.scrollHeight)&quot;</span>  </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">executeScript</span>(<span class="at">script =</span> scripts,<span class="at">args =</span> <span class="fu">list</span>(<span class="st">&quot;dummy&quot;</span>))</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">#######################################</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">###</span><span class="co">  模拟点击下一页按钮--css选择器 或者 xpath---JavaScript</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">###</span><span class="co"> 方法一---css</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># nextBtn &lt;- remDr$findElement(using = &#39;css selector&#39;,</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#                              value = &quot;.pag &gt; a:nth-child(7)&quot;)</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># nextBtn$clickElement()# 点击元素</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">###</span><span class="co"> 方法二 ---xpath</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># nextBtn &lt;- remDr$findElement(using = &#39;xpath&#39;,</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#                              value = &quot;/html/body/div[3]/div/div[3]/div[2]/div/a[3]&quot;)</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># nextBtn$clickElement()# 点击元素</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">###</span><span class="co"> 方法三 --JavaScript</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>nextpage<span class="ot">=</span><span class="st">&quot;getNextPage();&quot;</span>  <span class="do">####  可用str_c()字符串拼接而成</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">executeScript</span>(nextpage,<span class="at">args =</span> <span class="fu">list</span>(<span class="st">&quot;dummy&quot;</span>))</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>webpage<span class="ot">=</span>remDr<span class="sc">$</span><span class="fu">getPageSource</span>()[[<span class="dv">1</span>]][<span class="dv">1</span>] <span class="co">#获取当前页面 渲染以后的源代码</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="do">###########################</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="do">##### 结合rvest包解析元素####</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="do">##########################</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>web_page<span class="ot">=</span><span class="fu">read_html</span>(remDr<span class="sc">$</span><span class="fu">getPageSource</span>()[[<span class="dv">1</span>]][<span class="dv">1</span>])</span></code></pre></div>
-<h3 id="案例2">3.3、案例2</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e"># 如果 Frame 有 id</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">switchToFrame</span>(<span style="color:#e6db74">&#34;id&#34;</span>)
+<span style="color:#75715e"># 没有 id ，需要自己定位，css xpath... 都行</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">switchToFrame</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;css&#34;</span>,value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>))
+<span style="color:#75715e"># 多层的话，就层层切</span>
+<span style="color:#75715e"># 返回到原来的位置</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">switchToFrame</span>(<span style="color:#66d9ef">NULL</span>)
+</code></pre></div><p>**注入JavaScript  **</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">##########输入URL 并打开这个网页##############</span>
+url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.cpppc.org:8082/efmisweb/ppp/projectLibrary/toPPPList.do&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url)  <span style="color:#75715e"># 打开网页</span>
+webpage<span style="color:#f92672">=</span>remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getPageSource</span>()[[1]][1] <span style="color:#75715e">#获取当前页面 渲染以后的源代码</span>
+
+<span style="color:#75715e">################# 页面拉到最下面 --JavaScript脚本</span>
+scripts <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;window.scrollTo(0,document.body.scrollHeight)&#34;</span>  
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">executeScript</span>(script <span style="color:#f92672">=</span> scripts,args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;dummy&#34;</span>))
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+
+
+<span style="color:#75715e">#######################################</span>
+<span style="color:#75715e"># ###  模拟点击下一页按钮--css选择器 或者 xpath---JavaScript</span>
+<span style="color:#75715e">####################################</span>
+<span style="color:#75715e"># ### 方法一---css</span>
+<span style="color:#75715e"># nextBtn &lt;- remDr$findElement(using = &#39;css selector&#39;,</span>
+<span style="color:#75715e">#                              value = &#34;.pag &gt; a:nth-child(7)&#34;)</span>
+<span style="color:#75715e"># nextBtn$clickElement()# 点击元素</span>
+
+<span style="color:#75715e"># ### 方法二 ---xpath</span>
+<span style="color:#75715e"># nextBtn &lt;- remDr$findElement(using = &#39;xpath&#39;,</span>
+<span style="color:#75715e">#                              value = &#34;/html/body/div[3]/div/div[3]/div[2]/div/a[3]&#34;)</span>
+<span style="color:#75715e"># nextBtn$clickElement()# 点击元素</span>
+
+<span style="color:#75715e"># ### 方法三 --JavaScript</span>
+nextpage<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getNextPage();&#34;</span>  <span style="color:#75715e">####  可用str_c()字符串拼接而成</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">executeScript</span>(nextpage,args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;dummy&#34;</span>))
+<span style="color:#75715e">####################################</span>
+webpage<span style="color:#f92672">=</span>remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getPageSource</span>()[[1]][1] <span style="color:#75715e">#获取当前页面 渲染以后的源代码</span>
+
+<span style="color:#75715e">###########################</span>
+<span style="color:#75715e">##### 结合rvest包解析元素####</span>
+<span style="color:#75715e">##########################</span>
+<span style="color:#a6e22e">library</span>(rvest)
+web_page<span style="color:#f92672">=</span><span style="color:#a6e22e">read_html</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getPageSource</span>()[[1]][1])
+
+</code></pre></div><h3 id="33案例2">3.3、案例2</h3>
 <p>备注 ：有些网页 点击下一页会报错 ，这时候需要最大化窗口：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####  航班信息网站</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>url<span class="ot">=</span><span class="st">&quot;http://www.umetrip.com/mskyweb/fs/fa.do?dep=CTU&amp;arr=PEK&amp;date=2018-04-04&amp;channel=&quot;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">navigate</span>(url)  <span class="co"># 打开网页</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">################# 页面拉到最下面 --JavaScript脚本</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>scripts <span class="ot">&lt;-</span> <span class="st">&quot;window.scrollTo(0,document.body.scrollHeight)&quot;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">executeScript</span>(<span class="at">script =</span> scripts,<span class="at">args =</span> <span class="fu">list</span>(<span class="st">&quot;dummy&quot;</span>))</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">#################################################</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">##### 找到下一页按钮点击它,有时点击下一页会报错，这时候需要最大化窗口后单击下一页：</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">######  最大化窗口页面-</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">maxWindowSize</span>()<span class="do">## 最大化窗口页面-</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>nextBtn <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using=</span><span class="st">&quot;id&quot;</span>,<span class="at">value =</span> <span class="st">&quot;p_next&quot;</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>nextBtn<span class="sc">$</span><span class="fu">clickElement</span>()</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">#################</span></span></code></pre></div>
-<h3 id="案例3">3.4、案例3</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">#####  航班信息网站</span>
+url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.umetrip.com/mskyweb/fs/fa.do?dep=CTU&amp;arr=PEK&amp;date=2018-04-04&amp;channel=&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url)  <span style="color:#75715e"># 打开网页</span>
+
+<span style="color:#75715e">################# 页面拉到最下面 --JavaScript脚本</span>
+scripts <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;window.scrollTo(0,document.body.scrollHeight)&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">executeScript</span>(script <span style="color:#f92672">=</span> scripts,args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;dummy&#34;</span>))
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e">#################################################</span>
+<span style="color:#75715e">##### 找到下一页按钮点击它,有时点击下一页会报错，这时候需要最大化窗口后单击下一页：</span>
+<span style="color:#75715e">######  最大化窗口页面-</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">maxWindowSize</span>()<span style="color:#75715e">## 最大化窗口页面-</span>
+nextBtn <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;id&#34;</span>,value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p_next&#34;</span>)
+nextBtn<span style="color:#f92672">$</span><span style="color:#a6e22e">clickElement</span>()
+
+<span style="color:#75715e">#################</span>
+</code></pre></div><h3 id="34案例3">3.4、案例3</h3>
 <p>截屏 按钮 ：</p>
 <p>截图使用screenshot(display = FALSE, useViewer = TRUE, file = NULL)函数,</p>
 <ul>
 <li>display：是否在控制台显示</li>
 <li>file：截图后存放的路径，截的图像是PNG格式。</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">screenshot</span>(<span class="at">display =</span> F,<span class="at">file=</span><span class="st">&quot;aa.png&quot;</span>)</span></code></pre></div>
-<h3 id="案例4">3.5、案例4</h3>
-<p>微博登录 —自己输入-这个可以人为干预，Selenium可以记录后台的所有操作</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>url<span class="ot">=</span><span class="st">&quot;https://weibo.com/&quot;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">navigate</span>(url)  <span class="co"># 打开网页</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 这里，返回浏览器，输入用户名和密码以及验证码</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">getCurrentUrl</span>() <span class="co">#返回当前页面的url</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 搜索关键词</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">&quot;class&quot;</span>,<span class="at">value =</span> <span class="st">&quot;W_input&quot;</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>input<span class="sc">$</span><span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="st">&quot;中国R语言会议&quot;</span>,<span class="at">key=</span><span class="st">&quot;enter&quot;</span>))</span></code></pre></div>
-<p>上述代码参考雪晴数据网的课程<a href="http://www.xueqing.tv/lesson/329">用RSelenium打造灵活强大的网络爬虫</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">screenshot</span>(display <span style="color:#f92672">=</span> F,file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;aa.png&#34;</span>)
+</code></pre></div><h3 id="35案例4">3.5、案例4</h3>
+<p>微博登录 &mdash;自己输入-这个可以人为干预，Selenium可以记录后台的所有操作</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://weibo.com/&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url)  <span style="color:#75715e"># 打开网页</span>
+
+<span style="color:#75715e">## 这里，返回浏览器，输入用户名和密码以及验证码</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>() <span style="color:#75715e">#返回当前页面的url</span>
+
+<span style="color:#75715e">## 搜索关键词</span>
+input <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;class&#34;</span>,value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;W_input&#34;</span>)
+input<span style="color:#f92672">$</span><span style="color:#a6e22e">sendKeysToElement</span>(<span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;中国R语言会议&#34;</span>,key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enter&#34;</span>))
+</code></pre></div><p>上述代码参考雪晴数据网的课程<a href="http://www.xueqing.tv/lesson/329">用RSelenium打造灵活强大的网络爬虫</a></p>
 <p>参考：http://ropensci.github.io/RSelenium/articles/RSelenium-basics.html</p>
 <h4 id="chromedriver与chrome的对应关系表">chromedriver与chrome的对应关系表:</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>chromedriver版本</th>
 <th>支持的Chrome版本</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>v2.37</td>
 <td>v64-66</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.36</td>
 <td>v63-65</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.35</td>
 <td>v62-64</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.34</td>
 <td>v61-63</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.33</td>
 <td>v60-62</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.32</td>
 <td>v59-61</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.31</td>
 <td>v58-60</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.30</td>
 <td>v58-60</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.29</td>
 <td>v56-58</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.28</td>
 <td>v55-57</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.27</td>
 <td>v54-56</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.26</td>
 <td>v53-55</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.25</td>
 <td>v53-55</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.24</td>
 <td>v52-54</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.23</td>
 <td>v51-53</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.22</td>
 <td>v49-52</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.21</td>
 <td>v46-50</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.20</td>
 <td>v43-48</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.19</td>
 <td>v43-47</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.18</td>
 <td>v43-46</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.17</td>
 <td>v42-43</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.13</td>
 <td>v42-45</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.15</td>
 <td>v40-43</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.14</td>
 <td>v39-42</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.13</td>
 <td>v38-41</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.12</td>
 <td>v36-40</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.11</td>
 <td>v36-40</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.10</td>
 <td>v33-36</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.9</td>
 <td>v31-34</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.8</td>
 <td>v30-33</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.7</td>
 <td>v30-33</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.6</td>
 <td>v29-32</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>v2.5</td>
 <td>v29-32</td>
 </tr>
-<tr class="even">
+<tr>
 <td>v2.4</td>
 <td>v29-32</td>
 </tr>

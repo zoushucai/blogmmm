@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -195,15 +197,15 @@
             <h1 id="安装旧版本的-hugo">安装旧版本的 hugo</h1>
 <p>最近发现自己更新了 hugo 软件导致了主题的某些功能失效了, 于是需要退回旧版本的 hugo(0.55.5),</p>
 <h2 id="方法一">方法一:</h2>
-<p>https://gohugo.io/getting-started/installing/ 文章中的<a href="https://gohugo.io/getting-started/installing/#install-hugo-from-tarball">Install Hugo from Tarball</a> 这一部分(个人电脑是 mac)</p>
+<p><a href="https://gohugo.io/getting-started/installing/">https://gohugo.io/getting-started/installing/</a>  文章中的<a href="https://gohugo.io/getting-started/installing/#install-hugo-from-tarball">Install Hugo from Tarball</a> 这一部分(个人电脑是 mac)</p>
 <h2 id="方法二">方法二:</h2>
 <p>直接从 Rstduio 进行更新</p>
 <ul>
 <li>前提是: 必须保证 R 以及 R 包是最新的</li>
 <li>使用如下命令</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>blogdown<span class="sc">::</span><span class="fu">install_hugo</span>(<span class="at">version =</span> <span class="st">&quot;0.55.5&quot;</span>, <span class="at">use_brew =</span> F, <span class="at">force =</span> T, <span class="at">extended =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">blogdown<span style="color:#f92672">::</span><span style="color:#a6e22e">install_hugo</span>(version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.55.5&#34;</span>, use_brew <span style="color:#f92672">=</span> F, force <span style="color:#f92672">=</span> T, extended <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</code></pre></div>
         </section>
     </div>
     <br>

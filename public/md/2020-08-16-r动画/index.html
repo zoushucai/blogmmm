@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -158,7 +160,12 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#gifski-包"><strong>gifski</strong> 包</a></li>
+    <li><a href="#gganimation--包"><code>gganimation</code>  包</a></li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -232,21 +239,21 @@
 <p>在R中有常见的有两个包.</p>
 <ul>
 <li><code>gifski</code> 包, 搭配 rmd 文件使用,</li>
-<li><code>gganimation</code> 包</li>
+<li><code>gganimation</code>  包</li>
 </ul>
 <h2 id="gifski-包"><strong>gifski</strong> 包</h2>
 <p>安装 <strong>gifski</strong> 包：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>xfun<span class="sc">::</span><span class="fu">pkg_load2</span>(<span class="st">&#39;gifski&#39;</span>)</span></code></pre></div>
-<p>再用代码段选项 <code>animation.hook='gifski'</code>，如:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at">{r, animation.hook=&#39;gifski&#39;}</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">for (i in 1:2) {</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  pie(c(i %% 2, 6), col = c(&#39;red&#39;, &#39;yellow&#39;),</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    labels = NA)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">}</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span></code></pre></div>
-<p>则会直接生成gif动画</p>
-<p>https://slides.yihui.org/2020-bearclub-rmarkdown.html#7</p>
-<h2 id="gganimation-包"><code>gganimation</code> 包</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">xfun<span style="color:#f92672">::</span><span style="color:#a6e22e">pkg_load2</span>(<span style="color:#e6db74">&#39;gifski&#39;</span>)
+</code></pre></div><p>再用代码段选项 <code>animation.hook='gifski'</code>，如:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">```{r, animation.hook=&#39;gifski&#39;}
+for (i in 1:2) {
+  pie(c(i %% 2, 6), col = c(&#39;red&#39;, &#39;yellow&#39;),
+    labels = NA)
+}
+```
+</code></pre></div><p>则会直接生成gif动画</p>
+<p><a href="https://slides.yihui.org/2020-bearclub-rmarkdown.html#7">https://slides.yihui.org/2020-bearclub-rmarkdown.html#7</a></p>
+<h2 id="gganimation--包"><code>gganimation</code>  包</h2>
 <p>见官网</p>
 
         </section>

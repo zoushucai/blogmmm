@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -195,183 +197,174 @@
             <h1 id="环境">环境</h1>
 <p>详细的解释可以查看书《高级R语言编程指南》,这里总结一份与环境有关的函数总结：(参考R语言核心技术手册第二版)</p>
 <table>
-<colgroup>
-<col style="width: 28%" />
-<col style="width: 67%" />
-<col style="width: 4%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>函数</th>
 <th>描述</th>
 <th></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>assign</td>
 <td>在envir环境中将名称x赋给value对象</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>get</td>
 <td>在envir环境中获得与名称x关联的对象</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>exists</td>
 <td>判断在环境envir是是否定义了名称x</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>objects</td>
 <td>以向量的形式返回envir环境中定义的所有(对象)名称</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>remove</td>
 <td>从envir环境中将参数中罗列的对象删除(列表不适合作为参数的名称，尤其当参数是向量时)</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>search</td>
 <td>以向量的形式列出全局环境的所有父环境，也称为搜索路径</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>searchpaths</td>
 <td>以向量的形式返回全局环境的所有父环境的路径</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>attach</td>
 <td>将列表、数据框或数据文件中的对象添加到当前的搜索路径中</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>detach</td>
 <td>将列表、数据框或数据文件中的对象从当前的搜索路径中删除</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>emptyenv</td>
 <td>空环境对象，它是所有环境的祖先，也是唯一一个没有父环境的的环境</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>parent.env</td>
 <td>查看envir环境的父环境</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>baseenv</td>
 <td>基础环境，它是R基础软件包的环境，它的父环境是空环境</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>globalenv(或<code>.GlobalEnv</code>)</td>
 <td>用户的工作环境，也叫全局环境，通常情况下我们就是在这个环境中工作的，全局环境的父环境是由library() 或require()添加的最后一个添加包</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>environment</td>
 <td>它是当前环境，(默认情况下，当前环境等于全局环境)</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>new.env</td>
 <td>手动创建一个新的环境对象</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>parent.frame</td>
 <td>返回函数被调用的环境 ,即可以访问调用环境的父环境，常常作为参数使用，需要搭配其他函数eg:eval</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="函数调用-以堆栈的形式调用">函数调用 — 以堆栈的形式调用</h2>
+<h2 id="函数调用--以堆栈的形式调用">函数调用 — 以堆栈的形式调用</h2>
 <p>调用栈的操作</p>
 <table>
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 83%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>sys.call</td>
 <td>返回一个包含当前函数调用(包括参数)的语言对象</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sys.frame</td>
 <td>返回调用环境</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>sys.nframe</td>
 <td>返回当前帧的编号(即在调用堆栈中的位置)，如果在R控制台中调用该函数，返回值为0,</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sys.function</td>
 <td>返回当前计算的函数</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>sys.parent</td>
 <td>返回父环境的编号</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sys.calls</td>
 <td>返回栈中所有帧的调用</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>sys.frames</td>
 <td>返回栈中所有的环境</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sys.parents</td>
 <td>返回栈中每个帧的父帧</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>sys.on.exit</td>
 <td>返回当前on.exit所使用的表达式</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sys.status</td>
 <td>返回一个列表</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>parent.frame</td>
-<td>返回sys.frame(sys.parent(n)) ,即返回函数被调用的父环境，即允许访问调用父环境.常常作为参数使用，需要搭配其他函数eg:eval</td>
+<td>返回sys.frame(sys.parent(n))  ,即返回函数被调用的父环境，即允许访问调用父环境.常常作为参数使用，需要搭配其他函数eg:eval</td>
 </tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td></td>
 <td></td>
 </tr>

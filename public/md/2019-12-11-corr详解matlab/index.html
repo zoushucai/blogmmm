@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -158,7 +160,23 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1corrcoef">1、corrcoef</a>
+      <ul>
+        <li><a href="#r--corrcoefahttpsww2mathworkscnhelpmatlabrefcorrcoefhtmllangenf80-999628-a">R = corrcoef(<a href="https://ww2.mathworks.cn/help/matlab/ref/corrcoef.html?lang=en#f80-999628-A"><code>A</code></a>)</a></li>
+        <li><a href="#r--corrcoefab">R = corrcoef(A,B)</a></li>
+      </ul>
+    </li>
+    <li><a href="#2corr">2、corr</a>
+      <ul>
+        <li><a href="#rho--corrx">rho = corr(X)</a></li>
+        <li><a href="#rho--corrxy">rho = corr(X,Y)</a></li>
+        <li><a href="#rhopval--corr___namevalue">[rho,pval] = corr(___,Name,Value)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -233,14 +251,14 @@
 <li><strong>corr可以对两个矩阵的每列进行，也可以对一个矩阵的每列进行，相关的类型可以是pearson或者Kendall或者Spearman</strong></li>
 <li><strong>总之，corr强大很多</strong></li>
 </ul>
-<h2 id="corrcoef">1、corrcoef</h2>
-<h3 id="r-corrcoefa">R = corrcoef(<a href="https://ww2.mathworks.cn/help/matlab/ref/corrcoef.html?lang=en#f80-999628-A"><code>A</code></a>)</h3>
+<h2 id="1corrcoef">1、corrcoef</h2>
+<h3 id="r--corrcoefahttpsww2mathworkscnhelpmatlabrefcorrcoefhtmllangenf80-999628-a">R = corrcoef(<a href="https://ww2.mathworks.cn/help/matlab/ref/corrcoef.html?lang=en#f80-999628-A"><code>A</code></a>)</h3>
 <p>输入：一个矩阵A，</p>
 <p>方法：计算矩阵A的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。</p>
 <p>返回： 一个相关系数矩阵R，</p>
 <pre><code>A = randn(n,m); % A是一个n*m的矩阵
-corrcoef(A) % 返回一个m*m的对称矩阵</code></pre>
-<h3 id="r-corrcoefab">R = corrcoef(A,B)</h3>
+corrcoef(A) % 返回一个m*m的对称矩阵
+</code></pre><h3 id="r--corrcoefab">R = corrcoef(A,B)</h3>
 <p>输入： 两个向量，A，B均为列向量</p>
 <p>返回：一个2*2 对称的相关系数矩阵</p>
 <p>如果A, B 均为矩阵，则先把A，B转变为列向量，然后再计算皮尔逊相关系数，即等价于如下形式</p>
@@ -248,24 +266,24 @@ corrcoef(A) % 返回一个m*m的对称矩阵</code></pre>
 B = randn(n,m); % B是一个n*m的矩阵,
 %% 注意A，B矩阵的个数一定要一样
 corrcoef(A,B）       % 返回一个2*2的对称矩阵
-corrcoef(A(:),B(:)) % 等价 corrcoef(A,B）</code></pre>
-<h2 id="corr">2、corr</h2>
-<h3 id="rho-corrx">rho = corr(X)</h3>
+corrcoef(A(:),B(:)) % 等价 corrcoef(A,B）
+</code></pre><h2 id="2corr">2、corr</h2>
+<h3 id="rho--corrx">rho = corr(X)</h3>
 <p>输入：一个矩阵X</p>
 <p>方法: 计算矩阵X的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。</p>
 <p>返回： 返回一个对称的相关系数矩阵rho</p>
-<h3 id="rho-corrxy">rho = corr(X,Y)</h3>
-<p>输入： X为<span class="math inline">\(n*m1\)</span>的矩阵，Y为<span class="math inline">\(n*m2\)</span>的矩阵</p>
+<h3 id="rho--corrxy">rho = corr(X,Y)</h3>
+<p>输入： X为$n<em>m1$的矩阵，Y为$n</em>m2$的矩阵</p>
 <p>方法：返回输入矩阵X和Y中每对列之间的成对相关系数矩阵。</p>
-<p>返回一个<span class="math inline">\(m1*m2\)</span>的矩阵，其中第i行第j列元素代表X的第i列与Y第j列的相关系数</p>
-<h3 id="rhopval-corr___namevalue">[rho,pval] = corr(___,Name,Value)</h3>
-<pre><code>R = corr(X,&#39;Type&#39;,&#39;Pearson&#39;)
-R = corr(X,Y,&#39;Type&#39;,&#39;Pearson&#39;)
-R = corr(X,Y,&#39;Type&#39;,&#39;Kendall&#39;)
-R = corr(X,Y,&#39;Type&#39;,&#39;Spearman&#39;)
+<p>返回一个$m1*m2$的矩阵，其中第i行第j列元素代表X的第i列与Y第j列的相关系数</p>
+<h3 id="rhopval--corr___namevalue">[rho,pval] = corr(___,Name,Value)</h3>
+<pre><code>R = corr(X,'Type','Pearson')
+R = corr(X,Y,'Type','Pearson')
+R = corr(X,Y,'Type','Kendall')
+R = corr(X,Y,'Type','Spearman')
+
 
 </code></pre>
-
         </section>
     </div>
     <br>

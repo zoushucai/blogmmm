@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -193,34 +195,36 @@
         
         <section id="content">
             <h2 id="批量重命名文件名">批量重命名文件名</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;/Users/zsc/Desktop/音乐mp3/&#39;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>oldname <span class="ot">=</span> <span class="fu">list.files</span>(<span class="at">pattern =</span> <span class="st">&#39;.*mp3&#39;</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>newname <span class="ot">=</span> <span class="fu">str_extract</span>(d,<span class="st">&#39;.*(?=158)&#39;</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">oldname =</span> oldname, <span class="at">newname =</span> newname)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">file.rename</span>(df<span class="sc">$</span>oldname, df<span class="sc">$</span>newname)   </span></code></pre></div>
-<h2 id="批量统计-pdf-的页数">批量统计 pdf 的页数</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qpdf)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;/Users/zsc/Desktop/pdf/&#39;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">list.files</span>()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>d</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">=</span> <span class="fu">str_extract</span>(d,<span class="st">&#39;.*?.pdf$&#39;</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(d1, pdf_length)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(d1, pdf_length) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code></pre></div>
-<h2 id="移除latex生成的临时文件">移除latex生成的临时文件</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">getwd</span>()</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(p,<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="st">&#39;*.aux|*.bbl|*.bcf|*.blg|*.log|*.xml|*.out|*.spl|*.synctex.gz&#39;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>del <span class="ot">=</span> <span class="fu">list.files</span>(<span class="at">path =</span> p,<span class="at">pattern =</span> t)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(del)</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#39;/Users/zsc/Desktop/音乐mp3/&#39;</span>)
 
+<span style="color:#a6e22e">library</span>(stringr)
+oldname <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files</span>(pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;.*mp3&#39;</span>)
+newname <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_extract</span>(d,<span style="color:#e6db74">&#39;.*(?=158)&#39;</span>)
+df <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(oldname <span style="color:#f92672">=</span> oldname, newname <span style="color:#f92672">=</span> newname)
+df
+<span style="color:#a6e22e">file.rename</span>(df<span style="color:#f92672">$</span>oldname, df<span style="color:#f92672">$</span>newname)   
+</code></pre></div><h2 id="批量统计-pdf-的页数">批量统计 pdf 的页数</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(qpdf)
+<span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#39;/Users/zsc/Desktop/pdf/&#39;</span>)
+d <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files</span>()
+d
+
+d1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_extract</span>(d,<span style="color:#e6db74">&#39;.*?.pdf$&#39;</span>)
+
+
+<span style="color:#a6e22e">library</span>(purrr)
+<span style="color:#a6e22e">map_dbl</span>(d1, pdf_length)
+
+<span style="color:#a6e22e">map_dbl</span>(d1, pdf_length) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">sum</span>()
+
+</code></pre></div><h2 id="移除latex生成的临时文件">移除latex生成的临时文件</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">p <span style="color:#f92672">=</span> <span style="color:#a6e22e">getwd</span>()
+<span style="color:#a6e22e">cat</span>(p,<span style="color:#e6db74">&#39;\n&#39;</span>)
+t <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;*.aux|*.bbl|*.bcf|*.blg|*.log|*.xml|*.out|*.spl|*.synctex.gz&#39;</span> 
+del <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files</span>(path <span style="color:#f92672">=</span> p,pattern <span style="color:#f92672">=</span> t)
+<span style="color:#a6e22e">file.remove</span>(del)
+
+</code></pre></div>
         </section>
     </div>
     <br>

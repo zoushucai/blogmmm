@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -193,33 +195,36 @@
         
         <section id="content">
             <h3 id="分类标签添加">分类标签添加</h3>
-<p>找到single.html的页面 添加，从 http://fontawesome.io 下载文件 解压暂时只需要<code>css/font-awesome.min.css</code> 和<code>fontawesome-webfont.woff2</code> 引入到head.html中，</p>
-<h5 id="把下面的代码添加到single.html">把下面的代码添加到single.html</h5>
+<p>找到single.html的页面 添加，从 <a href="http://fontawesome.io">http://fontawesome.io</a> 下载文件 解压暂时只需要<code>css/font-awesome.min.css</code> 和<code>fontawesome-webfont.woff2</code> 引入到head.html中，</p>
+<h5 id="把下面的代码添加到singlehtml">把下面的代码添加到single.html</h5>
 <pre><code> {{ with .Params.tags }} {{ if ge (len .) 1 }}
     &lt;div class=&quot;article-headline&quot;&gt;
       &lt;i class=&quot;fa fa-tags&quot;&gt; &lt;/i&gt;&lt;!-- end--&gt;
              {{ range . }}
             &lt;a href=&quot;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&quot;&gt;{{ . }}&lt;/a&gt; {{ end }}
         &lt;/div&gt;
-        {{ end }} {{ end}}</code></pre>
-<h5 id="下面对content">下面对content</h5>
+        {{ end }} {{ end}}
+</code></pre>
+<h5 id="下面对content下文件夹的引入以及添加相关信息">下面对content\下文件夹的引入以及添加相关信息</h5>
 <pre><code>    &lt;!-- 这个是content\下的post文件夹 --&gt;
    {{ if eq .Section &quot;post&quot; }}
     &lt;div class=&quot;article-date&quot;&gt;{{ with .Params.Author }} {{.}} &amp;middot; {{ end }} 字数共{{ .WordCount }} &amp;minus;&amp;minus;{{ .Date.Format &quot;2006/01/02&quot; }} &lt;/div&gt;
     {{ end }}
     &lt;!-- 结束 --&gt;
-    
-    
+	
+	
     &lt;!-- 这个是content\下的test文件夹--&gt;
     {{ if eq .Section &quot;test&quot; }}
     &lt;div class=&quot;article-date&quot;&gt;{{ with .Params.Author }} {{.}} &amp;middot; {{ end }} 字数共{{ .WordCount }} &amp;minus;&amp;minus;{{ .Date.Format &quot;2006/01/02&quot; }} &lt;/div&gt;
     {{ end }}
-    &lt;!-- 结束 --&gt;</code></pre>
-<h3 id="也可以在导航栏添加一个分类汇总页面">2、也可以在导航栏添加一个分类汇总页面</h3>
+    &lt;!-- 结束 --&gt;
+</code></pre>
+<h3 id="2也可以在导航栏添加一个分类汇总页面">2、也可以在导航栏添加一个分类汇总页面</h3>
 <pre><code>[[menu.main]]
 name = &quot;Tag&quot;
-url = &quot;/tags/&quot;</code></pre>
-<p>把terms.html文件拷贝到 _default下</p>
+url = &quot;/tags/&quot;
+</code></pre>
+<p>把terms.html文件拷贝到\layouts\ _default下</p>
 <pre><code>&lt;meta charset=&quot;utf-8&quot;&gt; {{ partial &quot;header.html&quot; . }}
 &lt;main class=&quot;content&quot; role=&quot;main&quot;&gt;
      &lt;article class=&quot;article&quot;&gt;
@@ -249,9 +254,9 @@ url = &quot;/tags/&quot;</code></pre>
 &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ &quot;css/font-awesome.min.css&quot; | relURL }}&quot; media=&quot;all&quot;&gt;
 {{ partial &quot;footer.html&quot; . }}
 
-</code></pre>
-<p>然后设置自己想要的css样式即可</p>
-<h3 id="section"></h3>
+
+</code></pre><p>然后设置自己想要的css样式即可</p>
+<h3 id="heading"></h3>
 
         </section>
     </div>

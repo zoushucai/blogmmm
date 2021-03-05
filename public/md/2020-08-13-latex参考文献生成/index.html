@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -158,7 +160,15 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-什么是bib-文件">0. 什么是<code>*.bib</code> 文件</a></li>
+    <li><a href="#1-使用-thebibliography-环境---手动书写">1. 使用 <code>thebibliography</code> 环境&ndash; 手动书写</a></li>
+    <li><a href="#2-使用-bst-文件----自动生成">2. 使用 <code>*.bst</code> 文件 &ndash; 自动生成</a></li>
+    <li><a href="#3-使用csl-样式文件----自动生成">3. 使用<code>*.csl</code> 样式文件 &ndash; 自动生成</a></li>
+    <li><a href="#4-使用biblatex----未来的版本">4. 使用biblatex &ndash; 未来的版本</a></li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -227,52 +237,46 @@
     
         
         <section id="content">
-            <p>生成latex参考文献大致有4种方法…..</p>
+            <p>生成latex参考文献大致有4种方法&hellip;..</p>
 <p>使用环境: <code>MacTeX 2018 + texstudio</code>, texstudio编译器改为xelatex</p>
-<h2 id="什么是.bib-文件">0. 什么是<code>*.bib</code> 文件</h2>
-<p>注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为<code>.bib</code>的文件,这里我建立一个bib文件, 如<code>text.bib</code>, 去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:</p>
-<figure>
-<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111644929.png" alt="image-20200809111644929" /><figcaption aria-hidden="true">image-20200809111644929</figcaption>
-</figure>
-<figure>
-<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111700803.png" alt="image-20200809111700803" /><figcaption aria-hidden="true">image-20200809111700803</figcaption>
-</figure>
-<figure>
-<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111722093.png" alt="image-20200809111722093" /><figcaption aria-hidden="true">image-20200809111722093</figcaption>
-</figure>
+<h2 id="0-什么是bib-文件">0. 什么是<code>*.bib</code> 文件</h2>
+<p>注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为<code>.bib</code>的文件,这里我建立一个bib文件, 如<code>text.bib</code>,  去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111644929.png" alt="image-20200809111644929"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111700803.png" alt="image-20200809111700803"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111722093.png" alt="image-20200809111722093"></p>
 <p>把上图的内容复制到我们所创建的<code>test.bib</code>文件中即可.</p>
 <p><strong>注意: 生成参考文献的好坏,80% 都看你的bib数据文件</strong></p>
-<h2 id="使用-thebibliography-环境-手动书写">1. 使用 <code>thebibliography</code> 环境– 手动书写</h2>
+<h2 id="1-使用-thebibliography-环境---手动书写">1. 使用 <code>thebibliography</code> 环境&ndash; 手动书写</h2>
 <p>使用格式:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">thebibliography</span>}{99}</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">\bibitem</span>{citekey1} ***自己书写参考文献***</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">\bibitem</span>{citekey2} ***自己书写参考文献***</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        .....</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">thebibliography</span>}</span></code></pre></div>
-<p>完整的案例如下:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">ctex</span>}<span class="co">%加载ctex宏包，中文支持</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    测试文档，参考文献<span class="fu">\cite</span>{hosseini2016modeling,wang2019snow}</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\begin</span>{<span class="ex">thebibliography</span>}{99}</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">\bibitem</span>{hosseini2016modeling}  Hosseini~S, Barker~K. Modeling infrastructure resilience using {{Bayesian}} networks: {{A}} case study of inland waterway ports [J]. Computers <span class="fu">\&amp;</span> Industrial Engineering, 2016, 93: 252-266.</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">\bibitem</span>{wang2019snow}</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        Wang~J, Liu~H. Snow removal resource location and allocation optimization for urban</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        road network recovery: a resilience perspective [J]. Journal of Ambient Intelligence and Humanized Computing, 2019,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        10<span class="fu">\penalty</span>0 (1): 395-408.</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\end</span>{<span class="ex">thebibliography</span>}</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div>
-<p><strong>个人不推荐</strong></p>
-<h2 id="使用-.bst-文件-自动生成">2. 使用 <code>*.bst</code> 文件 – 自动生成</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tex" data-lang="tex"><span style="color:#66d9ef">\begin</span>{thebibliography}{99}
+		<span style="color:#66d9ef">\bibitem</span>{citekey1} ***自己书写参考文献***
+		<span style="color:#66d9ef">\bibitem</span>{citekey2} ***自己书写参考文献***
+		.....
+<span style="color:#66d9ef">\end</span>{thebibliography}
+</code></pre></div><p>完整的案例如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\begin</span>{document}
+	
+	测试文档，参考文献<span style="color:#66d9ef">\cite</span>{hosseini2016modeling,wang2019snow}
+	<span style="color:#66d9ef">\begin</span>{thebibliography}{99}
+		<span style="color:#66d9ef">\bibitem</span>{hosseini2016modeling}	Hosseini~S, Barker~K. Modeling infrastructure resilience using {{Bayesian}} networks: {{A}}	case study of inland waterway ports [J]. Computers <span style="color:#66d9ef">\&amp;</span> Industrial Engineering, 2016, 93: 252-266.
+		<span style="color:#66d9ef">\bibitem</span>{wang2019snow}
+		Wang~J, Liu~H. Snow removal resource location and allocation optimization for urban
+		road network recovery: a resilience perspective [J]. Journal of Ambient Intelligence and Humanized Computing, 2019,
+		10<span style="color:#66d9ef">\penalty</span>0 (1): 395-408.
+	<span style="color:#66d9ef">\end</span>{thebibliography}
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p><strong>个人不推荐</strong></p>
+<h2 id="2-使用-bst-文件----自动生成">2. 使用 <code>*.bst</code> 文件 &ndash; 自动生成</h2>
 <p>texlive 2018 系统自带的bst文件数量大致有375个</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>$ <span class="fu">cd</span>  /usr/local/texlive/2018/texmf-dist/bibtex/bst </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>$ find . -name *.<span class="fu">bst</span> | WC -l</span></code></pre></div>
-<p>系统默认的参考文献风格在目录<code>base</code>中</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>$ <span class="fu">cat</span> /usr/local/texlive/2018/texmf-dist/bibtex/bst/base</span></code></pre></div>
-<p>一共8种,为最基本的参考文献风格样式, 解释如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ cd  /usr/local/texlive/2018/texmf-dist/bibtex/bst 
+$ find . -name *.bst | WC -l
+</code></pre></div><p>系统默认的参考文献风格在目录<code>base</code>中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ cat /usr/local/texlive/2018/texmf-dist/bibtex/bst/base
+</code></pre></div><p>一共8种,为最基本的参考文献风格样式, 解释如下</p>
 <pre><code>plain，按字母的顺序排列，比较次序为作者、年度和标题.
 unsrt，样式同plain，只是按照引用的先后排序.
 alpha，用作者名首字母+年份后两位作标号，以字母顺序排序.
@@ -280,71 +284,69 @@ abbrv，类似plain，将月份全拼改为缩写，更显紧凑.
 ieeetr，国际电气电子工程师协会期刊样式.
 acm，美国计算机学会期刊样式.
 siam，美国工业和应用数学学会期刊样式.
-apalike，美国心理学学会期刊样式.</code></pre>
-<p>如果系统自带—- 一般情况下直接使用就好, 案例如下</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">ctex</span>}<span class="co">%加载ctex宏包，中文支持</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>测试文档，参考文献<span class="fu">\cite</span>{xu2018methods,xu2014weak}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">\bibliographystyle</span>{<span class="ex">unsrt</span>} <span class="co">% unsrt 可以替换为任意风格的样式文件</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">\bibliography</span>{<span class="ex">test</span>}<span class="co">% 这里填写bib文件名,无后缀</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div>
-<p>生成的pdf截图如下:</p>
-<figure>
-<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809112144024.png" alt="image-20200809112144024" /><figcaption aria-hidden="true">image-20200809112144024</figcaption>
-</figure>
-<p>比如我要使用<code>/usr/local/texlive/2018/texmf-dist/bibtex/bst/elsarticle/elsarticle-num-names.bst</code> 这个参考文献样式, 只需直接替换使用即可,如下,</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">ctex</span>}<span class="co">%加载ctex宏包，中文支持</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    测试文档，参考文献<span class="fu">\cite</span>{xu2018methods,xu2014weak}</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">\bibliographystyle</span>{<span class="ex">elsarticle-num-names</span>}</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">\bibliography</span>{<span class="ex">test</span>}</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div>
-<p><strong>还有一种方法, 把对应的bst文件拷贝到当前目录使用(当然,你也可以指定bst文件的具体路径), 然后在使用即可.</strong></p>
-<p>当然有些期刊自己会提供对应的<code>*.bst</code>样式文件, 那么安照期刊的要求来即可.</p>
-<p>顺便提一句, 通过 <code>*.bst</code>生成的参考文献当前目录会生成一个后缀名为<code>.bbl</code>的文件,你可以打开它, 里面是一个完整的 <code>thebibliography</code> 环境, 即可以通过<code>bst</code>文件自动生成<code>thebibliography</code>环境里面的条目信息.</p>
+apalike，美国心理学学会期刊样式.
+</code></pre><p>如果系统自带&mdash;- 一般情况下直接使用就好,  案例如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
+
+测试文档，参考文献<span style="color:#66d9ef">\cite</span>{xu2018methods,xu2014weak}
+
+<span style="color:#66d9ef">\bibliographystyle</span>{unsrt} <span style="color:#75715e">% unsrt 可以替换为任意风格的样式文件
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\bibliography</span>{test}<span style="color:#75715e">% 这里填写bib文件名,无后缀
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p>生成的pdf截图如下:</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809112144024.png" alt="image-20200809112144024"></p>
+<p>比如我要使用<code>/usr/local/texlive/2018/texmf-dist/bibtex/bst/elsarticle/elsarticle-num-names.bst  </code> 这个参考文献样式, 只需直接替换使用即可,如下,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
+	测试文档，参考文献<span style="color:#66d9ef">\cite</span>{xu2018methods,xu2014weak}
+	<span style="color:#66d9ef">\bibliographystyle</span>{elsarticle-num-names}
+	<span style="color:#66d9ef">\bibliography</span>{test}
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p><strong>还有一种方法, 把对应的bst文件拷贝到当前目录使用(当然,你也可以指定bst文件的具体路径), 然后在使用即可.</strong></p>
+<p>当然有些期刊自己会提供对应的<code> *.bst</code>样式文件, 那么安照期刊的要求来即可.</p>
+<p>顺便提一句,  通过 <code>*.bst</code>生成的参考文献当前目录会生成一个后缀名为<code>.bbl</code>的文件,你可以打开它, 里面是一个完整的 <code>thebibliography</code> 环境, 即可以通过<code>bst</code>文件自动生成<code>thebibliography</code>环境里面的条目信息.</p>
 <p>补充:</p>
 <p>我要投稿,怎么知道是用哪个<code>*.bst</code>文件, 一般情况下期刊官网会提供, 若没有提供,按以下步骤查找</p>
-<ol type="1">
+<ol>
 <li>首先记住你要准备投的期刊, 然后在 <a href="https://csl.mendeley.com/searchByName/">这个网站</a>搜索, 一般情况下, 你准备的期刊参考文献有一个别名, 说白了可能是其他期刊的文献格式, 于是你找到那个别名.</li>
-<li>然后在目录<code>/usr/local/texlive/2018/texmf-dist/bibtex/bst</code>下去搜索你要的bst 参考文献</li>
+<li>然后在目录<code>/usr/local/texlive/2018/texmf-dist/bibtex/bst </code>下去搜索你要的bst 参考文献</li>
 </ol>
 <p>备注:</p>
 <p><a href="https://www.elsevier.com/authors/author-schemas/latex-instructions">爱思唯尔(Elsevier)期刊模板:</a></p>
 <p><a href="https://www.ctan.org/pkg/elsarticle">latex 官网自带的 elsevier 模板:</a></p>
-<h2 id="使用.csl-样式文件-自动生成">3. 使用<code>*.csl</code> 样式文件 – 自动生成</h2>
-<p>由于<code>Zotero</code>软件提供了大量的<code>csl</code>样式文件,大致接近<a href="https://www.zotero.org/styles">1万个参考文献样式</a>, 而 latex 软件本身是不能直接支持<code>csl</code>文件的</p>
+<h2 id="3-使用csl-样式文件----自动生成">3. 使用<code>*.csl</code> 样式文件 &ndash; 自动生成</h2>
+<p>由于<code>Zotero</code>软件提供了大量的<code>csl</code>样式文件,大致接近<a href="https://www.zotero.org/styles">1万个参考文献样式</a>,  而 latex 软件本身是不能直接支持<code>csl</code>文件的</p>
 <ul>
 <li>方法一: 可以使用 像<code>Zotero, Mendeley</code> 软件支持, 但是不能像<code>bst</code>文件那样使用,只能手动粘贴.参考文献数量多了,自然不方便</li>
-<li>方法二: 借助 <a href="https://www.pandoc.org/">pandoc</a> , 该软件提供了大量命令参数, 感兴趣的可以去探索, 而xieyihui 通过使用<code>*.Rmd</code>文件进行了封装(前提要安装并了解<code>R + Rstudio</code>), 个人在巨人的肩上, 进行了简单封装,提供了一个R包<a href="https://github.com/zoushucai/journalabbr">journalabbr</a>提供了一个本地app 和一个<a href="https://zoushucai.shinyapps.io/shiny_cankaowenxian/">在线app</a>, 该app提供期刊缩写, 美化bib数据库文件以及提供类似<code>bst</code>文件那样批量生成一个完整的 <code>thebibliography</code> 环境. app截图如下:</li>
+<li>方法二: 借助 <a href="https://www.pandoc.org/">pandoc</a> , 该软件提供了大量命令参数, 感兴趣的可以去探索,  而xieyihui 通过使用<code>*.Rmd</code>文件进行了封装(前提要安装并了解<code>R + Rstudio</code>),  个人在巨人的肩上, 进行了简单封装,提供了一个R包<a href="https://github.com/zoushucai/journalabbr">journalabbr</a>提供了一个本地app 和一个<a href="https://zoushucai.shinyapps.io/shiny_cankaowenxian/">在线app</a>, 该app提供期刊缩写, 美化bib数据库文件以及提供类似<code>bst</code>文件那样批量生成一个完整的 <code>thebibliography</code> 环境. app截图如下:</li>
 </ul>
-<figure>
-<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809120534362.png" alt="image-20200809120534362" /><figcaption aria-hidden="true">image-20200809120534362</figcaption>
-</figure>
-<h2 id="使用biblatex-未来的版本">4. 使用biblatex – 未来的版本</h2>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809120534362.png" alt="image-20200809120534362"></p>
+<h2 id="4-使用biblatex----未来的版本">4. 使用biblatex &ndash; 未来的版本</h2>
 <p>这里仅以国标gb7714为例子</p>
 <p>首先把texstudio编译器改为xelatex, 并把bibtex 后端改为 biber. , 提供一个案例如下</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">ctex</span>}<span class="co">%加载ctex宏包，中文支持</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>[backend = biber, style=gb7714-2015,gbnamefmt =  lowercase,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>gbbiblabel=bracket]{<span class="ex">biblatex</span>}</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\addbibresource</span>[location=local]{test.bib}</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">\renewcommand</span>{<span class="ex">\bibfont</span>}{<span class="fu">\zihao</span>{5}<span class="fu">\songti</span>}<span class="co">%设置参考文献的字体和字号</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">\setlength</span>{<span class="fu">\bibitemsep</span>}{2pt}<span class="co">%设置各条参考文献之间的间距为2pt</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    测试文档，参考文献<span class="fu">\cite</span>{xu2018methods,xu2014weak}</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">\printbibliography</span>[heading=bibliography,title=参考文献]</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
-<p>更多,可参考 <a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
-<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex参考文献和引用样式caspervector.pdf">biblatex参考文献和引用样式caspervector.pdf</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\usepackage</span>[backend = biber, style=gb7714-2015,gbnamefmt =  lowercase,
+gbbiblabel=bracket]{biblatex}
+<span style="color:#66d9ef">\addbibresource</span><span style="color:#a6e22e">[location=local]</span>{test.bib}
+<span style="color:#66d9ef">\renewcommand</span>{<span style="color:#66d9ef">\bibfont</span>}{<span style="color:#66d9ef">\zihao</span>{5}<span style="color:#66d9ef">\songti</span>}<span style="color:#75715e">%设置参考文献的字体和字号
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\setlength</span>{<span style="color:#66d9ef">\bibitemsep</span>}{2pt}<span style="color:#75715e">%设置各条参考文献之间的间距为2pt
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\begin</span>{document}
+	测试文档，参考文献<span style="color:#66d9ef">\cite</span>{xu2018methods,xu2014weak}
+
+<span style="color:#66d9ef">\printbibliography</span><span style="color:#a6e22e">[heading=bibliography,title=参考文献]</span>
+<span style="color:#66d9ef">\end</span>{document}
+
+
+</code></pre></div><p>更多,可参考
+<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%92%8C%E5%BC%95%E7%94%A8%E6%A0%B7%E5%BC%8Fcaspervector.pdf">biblatex参考文献和引用样式caspervector.pdf</a></p>
 <p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-zh-cn.pdf">biblatex-zh-cn</a></p>
 <p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-solution-to-latex-bibliography.pdf">biblatex-solution-to-latex-bibliography</a></p>
 <p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-gb7714-2015.pdf">biblatex-gb7714-2015</a></p>

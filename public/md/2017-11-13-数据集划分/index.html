@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -192,54 +194,61 @@
     
         
         <section id="content">
-            <h3 id="随机采样sample例iris数据">1.随机采样sample()—例：iris数据</h3>
+            <h3 id="1随机采样sample---例iris数据">1.随机采样sample()&mdash;例：iris数据</h3>
 <blockquote>
-<p><font color='blue'> sample(x, size, replace = FALSE, prob = NULL) </font></p>
+<p><!-- raw HTML omitted --> sample(x, size, replace = FALSE, prob = NULL) <!-- raw HTML omitted --></p>
 </blockquote>
-<pre class="{r}"><code>
+<pre><code class="language-{r}" data-lang="{r}">
 Index = sample(nrow(iris),size = nrow(iris)*0.8)
 trian_data = iris[Index,]  #作为训练集
 test_data = iris[-Index,]   #作为测试集
-</code></pre>
-<p>类似的还有dplyr包中的<code>sample_n</code>函数 &gt; sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL)</p>
-<h3 id="carte包createdatepartition-来进行分区抽样">2. carte包–createDatePartition 来进行分区抽样</h3>
+
+</code></pre><p>类似的还有dplyr包中的<code>sample_n</code>函数</p>
 <blockquote>
-<p><font color="blue">inTrain =createDataPartition(响应变量y ,p=0.8,list=FALSE)</font></p>
+<p>sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL)</p>
+</blockquote>
+<h3 id="2-carte包--createdatepartition-来进行分区抽样">2. carte包&ndash;createDatePartition 来进行分区抽样</h3>
+<blockquote>
+<p><!-- raw HTML omitted -->inTrain =createDataPartition(响应变量y ,p=0.8,list=FALSE)<!-- raw HTML omitted --></p>
 </blockquote>
 <ul>
-<li><strong>inTrain</strong> : 产生对应数据集行的索引<br />
-</li>
-<li><strong>y</strong> 要分类或预测的变量,<br />
-</li>
+<li><strong>inTrain</strong> :  产生对应数据集行的索引</li>
+<li><strong>y</strong> 要分类或预测的变量,</li>
 <li><strong>p</strong> 对应y的数据个数的概率</li>
 </ul>
-<pre class="{r,message=false}"><code>library(caret)
+<pre><code class="language-{r,message=FALSE}" data-lang="{r,message=FALSE}">library(caret)
 set.seed(2012) #随机种子
 Index =createDataPartition(iris$Species,p=0.8,list=FALSE) # 不知道为何？ iris[,5]不能使用
 trian_data = iris[Index,]  #作为训练集
 test_data = iris[-Index,]   #作为测试集
-# 同样用上面第一种方法 产生数据集即可</code></pre>
-<h3 id="dplyrsample_frac函数">3. dplyr::sample_frac()函数</h3>
+# 同样用上面第一种方法 产生数据集即可
+</code></pre><h3 id="3-dplyrsample_frac函数">3. dplyr::sample_frac()函数</h3>
 <blockquote>
 <p>sample_frac(tbl, size = 1, replace = FALSE, weight = NULL, .env = NULL)</p>
 </blockquote>
 <p>sample_frac(iris, 0.5, replace = TRUE)：随机选取部分数据(占总体的0.5)记录。</p>
-<p><code>{r message=FALSE, warning=FALSE} library(dplyr) train_data = sample_frac(iris, 0.8)#这里直接选取了iris数据集中的0.8的部分，假设作为训练集 test_data = setdiff(iris,train_data)#用差集 把test数据挑选出来</code></p>
-<h3 id="catoolssample.split函数">4 . caTools::sample.split()函数</h3>
-<p>```{r message=FALSE, warning=FALSE} library(caTools) Index = sample.split(iris[,5],SplitRatio = 0.8)</p>
-<p>train_data = subset(iris,Index==TRUE) test_data = subset(iris,Index==FALSE)</p>
-<pre><code>
-### 5. scorecard::split_df()函数
+<pre><code class="language-{r" data-lang="{r">library(dplyr)
+train_data = sample_frac(iris, 0.8)#这里直接选取了iris数据集中的0.8的部分，假设作为训练集
+test_data = setdiff(iris,train_data)#用差集 把test数据挑选出来
+</code></pre><h3 id="4--catoolssamplesplit函数">4 . caTools::sample.split()函数</h3>
+<pre><code class="language-{r" data-lang="{r">library(caTools)
+Index = sample.split(iris[,5],SplitRatio = 0.8)
 
-```{r message=FALSE, warning=FALSE}
-library(scorecard)
+train_data = subset(iris,Index==TRUE)
+test_data = subset(iris,Index==FALSE)
+</code></pre><h3 id="5-scorecardsplit_df函数">5. scorecard::split_df()函数</h3>
+<pre><code class="language-{r" data-lang="{r">library(scorecard)
 data_list = split_df(iris,ratio = 0.8)
 train_data = data_list$train
-test_data = data_list$test</code></pre>
-<h3 id="交叉验证数据">6. 交叉验证数据</h3>
-<p>```{r message=FALSE, warning=FALSE} library(caret) folds = createFolds(iris$Species,k=10) str(folds)</p>
-<p>train= iris[-folds$Fold01,] test =iris[folds$Fold01,] ```</p>
+test_data = data_list$test
+</code></pre><h3 id="6-交叉验证数据">6. 交叉验证数据</h3>
+<pre><code class="language-{r" data-lang="{r">library(caret)
+folds = createFolds(iris$Species,k=10)
+str(folds)
 
+train= iris[-folds$Fold01,]
+test =iris[folds$Fold01,]
+</code></pre>
         </section>
     </div>
     <br>

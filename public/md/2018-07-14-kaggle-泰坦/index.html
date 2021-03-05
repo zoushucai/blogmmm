@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -158,7 +160,27 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#读入数据">读入数据</a></li>
+    <li><a href="#数据处理">数据处理</a></li>
+    <li><a href="#特征衍生工作">特征衍生工作</a></li>
+    <li><a href="#对于age变量可以把age分类处理">对于Age变量，可以把age分类处理</a></li>
+    <li><a href="#建模">建模</a>
+      <ul>
+        <li><a href="#决策树建模">决策树建模</a></li>
+        <li><a href="#随机森林建模">随机森林建模</a></li>
+      </ul>
+    </li>
+    <li><a href="#carte包">carte包</a>
+      <ul>
+        <li><a href="#随机森林建模-1">随机森林建模</a></li>
+        <li><a href="#svm建模">svm建模</a></li>
+      </ul>
+    </li>
+    <li><a href="#kaggle的得分">kaggle的得分，</a></li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -227,14 +249,16 @@
     
         
         <section id="content">
-            <p><code>{r setup, include=FALSE} options(width = 300) knitr::opts_chunk$set(message = F,warning = F,comment = "#&gt;",collapse = TRUE)</code></p>
-<h2 id="读入数据">读入数据</h2>
+            <pre><code class="language-{r" data-lang="{r">options(width = 300)
+knitr::opts_chunk$set(message = F,warning = F,comment = &quot;#&gt;&quot;,collapse = TRUE)
+</code></pre><h2 id="读入数据">读入数据</h2>
 <pre><code>library(data.table)
 train=fread(&quot;data/train.csv&quot;,na.strings = c(&quot;&quot;,NA))
 test=fread(&quot;data/test.csv&quot;,na.strings = c(&quot;&quot;,NA))
 #把两个合并起来进行数据处理--两个data.table的合并
 combine =rbindlist(list(train,test),fill=TRUE)
-#### 其实个人不建议这样操作，因为不能把测试集和训练集一起处理，应该分开处理</code></pre>
+#### 其实个人不建议这样操作，因为不能把测试集和训练集一起处理，应该分开处理
+</code></pre>
 <h2 id="数据处理">数据处理</h2>
 <pre><code># 统计每一列的缺失率
 combine[,lapply(.SD, function(x)sum(is.na(x)))]
@@ -246,9 +270,11 @@ combine[,lapply(.SD, function(x)sum(is.na(x)))]
 library(zoo)
 library(purrr)
 combine[,Age := na.spline(Age)] # age变量进行处理，进行样条插补
-combine[,Fare := na.spline(Fare)] # Fare变量进行处理，进行样条插补</code></pre>
+combine[,Fare := na.spline(Fare)] # Fare变量进行处理，进行样条插补
+</code></pre>
 <p>由于Cabin 变量丢失数据太多，于是可以删除这个变量</p>
-<pre><code>combine[,Cabin:=NULL]</code></pre>
+<pre><code>combine[,Cabin:=NULL]
+</code></pre>
 <p>以及Embarked这个是个字符串，于是用众数去替代，或者用一些相同的类型的人的指标去替代</p>
 <pre><code>combine[is.na(Embarked),]## 用同等船舱的且上岸第相等的类型去替代
 #&gt;    PassengerId Survived Pclass                                      Name    Sex Age SibSp Parch Ticket Fare Embarked
@@ -267,7 +293,8 @@ combine[is.na(Embarked),Embarked:=c(&quot;S&quot;,&quot;S&quot;)]
 # 再次统计每一列的缺失率
 combine[,lapply(.SD, function(x)sum(is.na(x)))]
 #&gt;    PassengerId Survived Pclass Name Sex Age SibSp Parch Ticket Fare Embarked
-#&gt; 1:           0      418      0    0   0   0     0     0      0    0        0</code></pre>
+#&gt; 1:           0      418      0    0   0   0     0     0      0    0        0
+</code></pre>
 <h2 id="特征衍生工作">特征衍生工作</h2>
 <p>从名字中提取称谓，并把相同意思的称谓进行融合</p>
 <pre><code># 提取名字的称谓
@@ -275,7 +302,7 @@ library(stringr)
 combine[,Name :=gsub(&quot;(.*, )|(\\..*)&quot;,&quot;&quot;,Name)]
 
 str(combine)
-#&gt; Classes &#39;data.table&#39; and &#39;data.frame&#39;:   1309 obs. of  11 variables:
+#&gt; Classes 'data.table' and 'data.frame':   1309 obs. of  11 variables:
 #&gt;  $ PassengerId: int  1 2 3 4 5 6 7 8 9 10 ...
 #&gt;  $ Survived   : int  0 1 1 1 0 0 0 0 1 1 ...
 #&gt;  $ Pclass     : int  3 1 3 1 3 3 1 3 3 2 ...
@@ -312,7 +339,8 @@ combine[,table(Name)]
 #&gt;   Capt    Col     Dr   Lady Master   Miss   Mlle     Mr    Mrs     Ms    Rev    Sir 
 #&gt;      1      4      8      4     61    260      3    757    197      2      8      4
 ## 将称谓改为因子类型
-combine[,Name:= as.factor(Name)]</code></pre>
+combine[,Name:= as.factor(Name)]
+</code></pre>
 <p>构造 FamilySize 变量 ，</p>
 <pre><code>#家庭的人数（包括自己） 这里居然不能用=  不然会出错，奇怪，后面试过几次有可以了
 
@@ -327,7 +355,8 @@ table(combine$FamilySize)
 #&gt; 
 #&gt;  Large Middle  Small 
 #&gt;     35    249   1025
-combine[,FamilySize := as.factor(FamilySize)]</code></pre>
+combine[,FamilySize := as.factor(FamilySize)]
+</code></pre>
 <h2 id="对于age变量可以把age分类处理">对于Age变量，可以把age分类处理</h2>
 <pre><code>## 把1-3岁的小孩单独分类，因为这种情况跟随母亲活下来的情况很大
 combine$Age[combine$Age&lt;=1]=1
@@ -340,7 +369,8 @@ table(combine$Age_class)
 #&gt; 
 #&gt;    adult juvenile      old    small 
 #&gt;     1108      102       43       56
-combine[,Age_class:=as.factor(Age_class)]</code></pre>
+combine[,Age_class:=as.factor(Age_class)]
+</code></pre>
 <p>把一些字符变量转变为因子变量</p>
 <pre><code># combine[,PassengerId :=as.factor(PassengerId)]
 # combine[,Survived := as.factor(Survived)]
@@ -349,7 +379,7 @@ combine[,Age_class:=as.factor(Age_class)]</code></pre>
 a = c(&quot;PassengerId&quot;,&quot;Survived&quot;,&quot;Pclass&quot;,&quot;Sex&quot;,&quot;Embarked&quot;)
 combine[,(a):=lapply(.SD,function(x)as.factor(x)), .SDcols = a]
 str(combine)
-#&gt; Classes &#39;data.table&#39; and &#39;data.frame&#39;:   1309 obs. of  13 variables:
+#&gt; Classes 'data.table' and 'data.frame':   1309 obs. of  13 variables:
 #&gt;  $ PassengerId: Factor w/ 1309 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
 #&gt;  $ Survived   : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 2 2 2 1 1 1 1 2 2 ...
 #&gt;  $ Pclass     : Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 3 1 3 1 3 3 1 3 3 2 ...
@@ -364,10 +394,12 @@ str(combine)
 #&gt;  $ FamilySize : Factor w/ 3 levels &quot;Large&quot;,&quot;Middle&quot;,..: 3 3 3 3 3 3 3 2 2 3 ...
 #&gt;  $ Age_class  : Factor w/ 4 levels &quot;adult&quot;,&quot;juvenile&quot;,..: 1 1 1 1 1 1 1 4 1 2 ...
 #&gt;  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; 
-#&gt;  - attr(*, &quot;index&quot;)= int</code></pre>
+#&gt;  - attr(*, &quot;index&quot;)= int
+</code></pre>
 <p>数据划分</p>
 <pre><code>train &lt;- combine[1:891,] %&gt;% as.data.frame()
-test &lt;- combine[892:1309,] %&gt;% as.data.frame()</code></pre>
+test &lt;- combine[892:1309,] %&gt;% as.data.frame()
+</code></pre>
 <h2 id="建模">建模</h2>
 <h3 id="决策树建模">决策树建模</h3>
 <pre><code>## 决策树建模
@@ -388,10 +420,9 @@ table(train$Survived,predict(taitan_tree,train,type = &quot;class&quot;))
 
 
 library(rpart.plot)
-rpart.plot(taitan_tree)</code></pre>
-<figure>
-<img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/kaggletaitan01.png" alt="kaggletaitan01" /><figcaption aria-hidden="true">kaggletaitan01</figcaption>
-</figure>
+rpart.plot(taitan_tree)
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/kaggletaitan01.png" alt="kaggletaitan01"></p>
 <h3 id="随机森林建模">随机森林建模</h3>
 <pre><code>### 随机森林建模
 library(randomForest)
@@ -410,7 +441,8 @@ table(train$Survived,predict(model_rf,train,type = &quot;class&quot;))
 #&gt;    
 #&gt;       0   1
 #&gt;   0 531  18
-#&gt;   1  67 275</code></pre>
+#&gt;   1  67 275
+</code></pre>
 <h2 id="carte包">carte包</h2>
 <h3 id="随机森林建模-1">随机森林建模</h3>
 <pre><code>library(caret)
@@ -432,14 +464,15 @@ rf_cv_Fit1 &lt;- train(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch +
                  metric =&quot;Kappa&quot;,
                  method = &quot;rf&quot;, 
                  trControl = fitControl,tuneGrid = grif_rf,
-                 verbose = FALSE)</code></pre>
-<p>随机森林—模型参数与评估</p>
+                 verbose = FALSE)
+</code></pre>
+<p>随机森林&mdash;模型参数与评估</p>
 <pre><code>rf_cv_Fit1
 #&gt; Random Forest 
 #&gt; 
 #&gt; 891 samples
 #&gt;   9 predictor
-#&gt;   2 classes: &#39;0&#39;, &#39;1&#39; 
+#&gt;   2 classes: '0', '1' 
 #&gt; 
 #&gt; No pre-processing
 #&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
@@ -467,7 +500,8 @@ table(train$Survived,predict(rf_cv_Fit1,train,type = &quot;raw&quot;))
 #&gt;    
 #&gt;       0   1
 #&gt;   0 532  17
-#&gt;   1  54 288</code></pre>
+#&gt;   1  54 288
+</code></pre>
 <h3 id="svm建模">svm建模</h3>
 <pre><code>library(foreach)
 library(doParallel)
@@ -496,7 +530,7 @@ svm_cv_Fit1
 #&gt; 
 #&gt; 891 samples
 #&gt;   9 predictor
-#&gt;   2 classes: &#39;0&#39;, &#39;1&#39; 
+#&gt;   2 classes: '0', '1' 
 #&gt; 
 #&gt; No pre-processing
 #&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
@@ -806,8 +840,9 @@ svm_cv_Fit1
 #&gt;   91     91  1.0000000  0.7307116  0.4269096
 #&gt; 
 #&gt; Kappa was used to select the optimal model using the largest value.
-#&gt; The final values used for the model were sigma = 1, C = 61 and Weight = 1.</code></pre>
-<p>svm 参数搜索—范围进一步变小</p>
+#&gt; The final values used for the model were sigma = 1, C = 61 and Weight = 1.
+</code></pre>
+<p>svm 参数搜索&mdash;范围进一步变小</p>
 <pre><code># 上面结果最好的参数为： sigma = 1, C = 61 and Weight = 1.
 
 no_cores &lt;- detectCores() -1
@@ -831,7 +866,7 @@ svm_cv_Fit2
 #&gt; 
 #&gt; 891 samples
 #&gt;   9 predictor
-#&gt;   2 classes: &#39;0&#39;, &#39;1&#39; 
+#&gt;   2 classes: '0', '1' 
 #&gt; 
 #&gt; No pre-processing
 #&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
@@ -1050,7 +1085,7 @@ svm_cv_Fit2
 #&gt;   10     69  0.7430462  0.4500024
 #&gt;   10     70  0.7430462  0.4500024
 #&gt; 
-#&gt; Tuning parameter &#39;Weight&#39; was held constant at a value of 1
+#&gt; Tuning parameter 'Weight' was held constant at a value of 1
 #&gt; Kappa was used to select the optimal model using the largest value.
 #&gt; The final values used for the model were sigma = 1, C = 58 and Weight = 1.
 
@@ -1076,7 +1111,7 @@ svm_cv_Fit3
 #&gt; 
 #&gt; 891 samples
 #&gt;   9 predictor
-#&gt;   2 classes: &#39;0&#39;, &#39;1&#39; 
+#&gt;   2 classes: '0', '1' 
 #&gt; 
 #&gt; No pre-processing
 #&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
@@ -1096,8 +1131,8 @@ svm_cv_Fit3
 #&gt;   0.9    0.7878527  0.5518741
 #&gt;   1.0    0.7889638  0.5549527
 #&gt; 
-#&gt; Tuning parameter &#39;C&#39; was held constant at a value of 58
-#&gt; Tuning parameter &#39;Weight&#39; was held constant at a value of 1
+#&gt; Tuning parameter 'C' was held constant at a value of 58
+#&gt; Tuning parameter 'Weight' was held constant at a value of 1
 #&gt; Kappa was used to select the optimal model using the largest value.
 #&gt; The final values used for the model were sigma = 0.1, C = 58 and Weight = 1.
 
@@ -1123,7 +1158,7 @@ svm_cv_Fit4
 #&gt; 
 #&gt; 891 samples
 #&gt;   9 predictor
-#&gt;   2 classes: &#39;0&#39;, &#39;1&#39; 
+#&gt;   2 classes: '0', '1' 
 #&gt; 
 #&gt; No pre-processing
 #&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
@@ -1153,10 +1188,11 @@ svm_cv_Fit4
 #&gt;   0.19   0.7957179  0.5563902
 #&gt;   0.20   0.7979650  0.5612242
 #&gt; 
-#&gt; Tuning parameter &#39;C&#39; was held constant at a value of 58
-#&gt; Tuning parameter &#39;Weight&#39; was held constant at a value of 1
+#&gt; Tuning parameter 'C' was held constant at a value of 58
+#&gt; Tuning parameter 'Weight' was held constant at a value of 1
 #&gt; Kappa was used to select the optimal model using the largest value.
-#&gt; The final values used for the model were sigma = 0.01, C = 58 and Weight = 1.</code></pre>
+#&gt; The final values used for the model were sigma = 0.01, C = 58 and Weight = 1.
+</code></pre>
 <p>svm 模型预测</p>
 <pre><code># 最好的参数 为： sigma = 0.01, C = 58 and Weight = 1.
 
@@ -1171,7 +1207,8 @@ table(train$Survived,predict(svm_cv_Fit4,train,type = &quot;raw&quot;))
 #&gt;    
 #&gt;       0   1
 #&gt;   0 519  30
-#&gt;   1  98 244</code></pre>
+#&gt;   1  98 244
+</code></pre>
 <h2 id="kaggle的得分">kaggle的得分，</h2>
 <p>一下是把数据提交kaggle以后的得分,可以发现大概都在0.78分左右</p>
 <p>如果需要提升分数，需要重新构建新的特征工程再去预测建模</p>

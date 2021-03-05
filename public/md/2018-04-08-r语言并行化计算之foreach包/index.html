@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -194,142 +196,140 @@
         <section id="content">
             <p>foreach包执行任务的核心理念与传统的apply组函数基本一致，都是与split – apply – combine一致的流程，不过foreach比传统apply组函数的优越之处在于，它可以通过调用操作系统的多核运行性能来执行并行任务，这样特别是对于I/O密集型任务而言，可以大大节省代码执行效率。</p>
 <p><strong>解读foreach()函数</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;doParallel&quot;</span>)      <span class="co">#加载doParallel包用于之后注册进程</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;foreach&quot;</span>)         <span class="co">#导入foreach包</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">########################################################################</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">##########  foreach()函数主要是对原本的for循环进行并行运算 ###############</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">#########################################################################</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">#############并行化格式</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">detectCores</span>() <span class="co">#这个网上说是核数，但实际上是线程数，和真实的物理核多一倍，4核8线程</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>cl<span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="fu">detectCores</span>())      <span class="co"># 不过R中能运行满线程 ，即detectCores()返回的核数。</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl)       <span class="co">#进行进程注册</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>mydata1 <span class="ot">&lt;-</span> <span class="fu">foreach</span>(</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>          ...,        <span class="co"># 并行化参数（循环参数）,当参数为两个以上时，选长度较短的循环完为止.</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>          .combine,  <span class="co">#合并方式，default是list，“c”返回vector,cbind和rbind返回矩阵,也可以自定义函数.</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                      <span class="co"># &quot;+&quot;和&quot;*&quot;是対返回后的list进行同列操作</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>          .init,      <span class="co">#.combine函数的第一个变量,当.combine参数被具体化是才用</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">.final=</span><span class="cn">NULL</span>, <span class="co">#返回最后结果</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">.inorder=</span><span class="cn">TRUE</span>,<span class="co">#返回和原始输入相同顺序的结果</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">.multicombine=</span><span class="cn">FALSE</span>,<span class="co">#设定.combine函数的传递参数，FALSE表示其参数是2，TRUE可以设定多个参数</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">.maxcombine=</span><span class="cf">if</span> (.multicombine) <span class="dv">100</span> <span class="cf">else</span> <span class="dv">2</span>,  <span class="co">#设定.combine的最大参数</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">.errorhandling=</span><span class="fu">c</span>(<span class="st">&#39;stop&#39;</span>, <span class="st">&#39;remove&#39;</span>, <span class="st">&#39;pass&#39;</span>),<span class="co">#如果循环中出现错误，对错误的处理方法</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">.packages=</span><span class="cn">NULL</span>,<span class="co"># 指定在%dopar%运算过程中依赖的package（%do%会忽略这个选项）。</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">.export=</span><span class="cn">NULL</span>, <span class="co"># 在编译函数的时候需要预先加载一些内容进去，类似parallel的clusterExport</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">.noexport=</span><span class="cn">NULL</span>,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">.verbose=</span><span class="cn">FALSE</span>) <span class="do">##是否打印运行信息</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="er">)</span> <span class="sc">%dopar%</span> {<span class="sc">**</span><span class="er">*</span>} <span class="co">#并行的代码，也可以是相应的函数,即我们for循环的函数体</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(cl)   <span class="co"># 结束集群</span></span></code></pre></div>
-<p>注意：平时我们大多数使用时，很多参数都选取默认状态，其中常用参数为：<code>...</code> 、<code>.combine</code>、<code>.packages</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;doParallel&#34;</span>)      <span style="color:#75715e">#加载doParallel包用于之后注册进程</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;foreach&#34;</span>)         <span style="color:#75715e">#导入foreach包</span>
+<span style="color:#75715e">########################################################################</span>
+<span style="color:#75715e">##########  foreach()函数主要是对原本的for循环进行并行运算 ###############</span>
+<span style="color:#75715e">#########################################################################</span>
+<span style="color:#75715e">#############并行化格式</span>
+<span style="color:#a6e22e">detectCores</span>() <span style="color:#75715e">#这个网上说是核数，但实际上是线程数，和真实的物理核多一倍，4核8线程</span>
+cl<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(<span style="color:#a6e22e">detectCores</span>())      <span style="color:#75715e"># 不过R中能运行满线程 ，即detectCores()返回的核数。</span>
+<span style="color:#a6e22e">registerDoParallel</span>(cl)       <span style="color:#75715e">#进行进程注册</span>
+mydata1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(
+          <span style="color:#66d9ef">...</span>,        <span style="color:#75715e"># 并行化参数（循环参数）,当参数为两个以上时，选长度较短的循环完为止.</span>
+          .combine,  <span style="color:#75715e">#合并方式，default是list，“c”返回vector,cbind和rbind返回矩阵,也可以自定义函数.</span>
+                      <span style="color:#75715e"># &#34;+&#34;和&#34;*&#34;是対返回后的list进行同列操作</span>
+          .init,      <span style="color:#75715e">#.combine函数的第一个变量,当.combine参数被具体化是才用</span>
+          .final<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>, <span style="color:#75715e">#返回最后结果</span>
+          .inorder<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>,<span style="color:#75715e">#返回和原始输入相同顺序的结果</span>
+          .multicombine<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>,<span style="color:#75715e">#设定.combine函数的传递参数，FALSE表示其参数是2，TRUE可以设定多个参数</span>
+          .maxcombine<span style="color:#f92672">=</span><span style="color:#a6e22e">if </span>(.multicombine) <span style="color:#ae81ff">100</span> else <span style="color:#ae81ff">2</span>,  <span style="color:#75715e">#设定.combine的最大参数</span>
+          .errorhandling<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;stop&#39;</span>, <span style="color:#e6db74">&#39;remove&#39;</span>, <span style="color:#e6db74">&#39;pass&#39;</span>),<span style="color:#75715e">#如果循环中出现错误，对错误的处理方法</span>
+          .packages<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>,<span style="color:#75715e"># 指定在%dopar%运算过程中依赖的package（%do%会忽略这个选项）。</span>
+          .export<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>, <span style="color:#75715e"># 在编译函数的时候需要预先加载一些内容进去，类似parallel的clusterExport</span>
+          .noexport<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>,
+          .verbose<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>) <span style="color:#75715e">##是否打印运行信息</span>
+  ) <span style="color:#f92672">%dopar%</span> {<span style="color:#f92672">***</span>} <span style="color:#75715e">#并行的代码，也可以是相应的函数,即我们for循环的函数体</span>
+
+<span style="color:#a6e22e">stopCluster</span>(cl)   <span style="color:#75715e"># 结束集群</span>
+
+</code></pre></div><p>注意：平时我们大多数使用时，很多参数都选取默认状态，其中常用参数为：<code>...</code> 、<code>.combine</code>、<code>.packages</code>.</p>
 <p><strong>基本操作</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;doParallel&quot;</span>)      <span class="co">#加载doParallel包用于之后注册进程</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;foreach&quot;</span>)         <span class="co">#导入foreach包</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cl<span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="fu">detectCores</span>()<span class="sc">-</span><span class="dv">1</span>)      </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl)       <span class="co">#进行进程注册</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">getDoParWorkers</span>()  <span class="co">#  #查看注册了多少个核</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>code<span class="ot">=</span><span class="cf">function</span>(){</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    x1<span class="ot">&lt;-</span>(a <span class="sc">+</span> b);</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x2<span class="ot">&lt;-</span>a<span class="sc">*</span>b;</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(x1,x2);  </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 并行化参数,当参数为两个以上时，选长度较短的循环完为止.</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">b=</span><span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">3</span>),<span class="at">.combine=</span>list) <span class="sc">%dopar%</span> <span class="fu">code</span>())</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">b=</span><span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">3</span>), <span class="at">.combine=</span><span class="st">&quot;c&quot;</span>) <span class="sc">%dopar%</span> <span class="fu">code</span>())<span class="co">#每次的结果按向量排列合并为向量</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">b=</span><span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">3</span>), <span class="at">.combine=</span><span class="st">&quot;cbind&quot;</span>) <span class="sc">%dopar%</span> <span class="fu">code</span>())<span class="co">#每次的结果按列排列合并为矩阵</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">b=</span><span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">3</span>), <span class="at">.combine=</span><span class="st">&quot;rbind&quot;</span>) <span class="sc">%dopar%</span> <span class="fu">code</span>())<span class="co">#每次的结果按行排列合并为矩阵</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#  # &quot;+&quot;和&quot;*&quot;是対返回后的list(或者rbind)结果，对其结果进行同列&quot;+&quot;或&quot;*&quot;操作</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">b=</span><span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">3</span>), <span class="at">.combine=</span><span class="st">&quot;+&quot;</span>)<span class="sc">%dopar%</span> <span class="fu">code</span>())  </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">b=</span><span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">3</span>), <span class="at">.combine=</span><span class="st">&quot;*&quot;</span>) <span class="sc">%dopar%</span> <span class="fu">code</span>())</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#.combine使用自定义函数,也是对返回的list进行同列操作</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>cfun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) <span class="fu">paste</span>(a,b,<span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b=</span><span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">3</span>), <span class="at">.combine=</span><span class="st">&quot;cfun&quot;</span>) <span class="sc">%dopar%</span> <span class="fu">code</span>())</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(cl)   <span class="co"># 结束集群</span></span></code></pre></div>
-<p><strong>常用操作</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;doParallel&#34;</span>)      <span style="color:#75715e">#加载doParallel包用于之后注册进程</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;foreach&#34;</span>)         <span style="color:#75715e">#导入foreach包</span>
+cl<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(<span style="color:#a6e22e">detectCores</span>()<span style="color:#ae81ff">-1</span>)      
+<span style="color:#a6e22e">registerDoParallel</span>(cl)       <span style="color:#75715e">#进行进程注册</span>
+<span style="color:#a6e22e">getDoParWorkers</span>()  <span style="color:#75715e">#  #查看注册了多少个核</span>
+
+code<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(){
+    x1<span style="color:#f92672">&lt;-</span>(a <span style="color:#f92672">+</span> b);
+    x2<span style="color:#f92672">&lt;-</span>a<span style="color:#f92672">*</span>b;
+    <span style="color:#a6e22e">c</span>(x1,x2);  
+}
+
+<span style="color:#75715e"># 并行化参数,当参数为两个以上时，选长度较短的循环完为止.</span>
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>),.combine<span style="color:#f92672">=</span>list) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;c&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())<span style="color:#75715e">#每次的结果按向量排列合并为向量</span>
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cbind&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())<span style="color:#75715e">#每次的结果按列排列合并为矩阵</span>
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rbind&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())<span style="color:#75715e">#每次的结果按行排列合并为矩阵</span>
+
+<span style="color:#75715e">#  # &#34;+&#34;和&#34;*&#34;是対返回后的list(或者rbind)结果，对其结果进行同列&#34;+&#34;或&#34;*&#34;操作</span>
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;+&#34;</span>)<span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())  
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;*&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())
+
+
+<span style="color:#75715e">#.combine使用自定义函数,也是对返回的list进行同列操作</span>
+
+cfun <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(a, b) <span style="color:#a6e22e">paste</span>(a,b,sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;,&#34;</span>)
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cfun&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())
+
+<span style="color:#a6e22e">stopCluster</span>(cl)   <span style="color:#75715e"># 结束集群</span>
+</code></pre></div><p><strong>常用操作</strong></p>
 <p>巧好最近在研究爬虫，以R爬虫为列，</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">##################################################################</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">################  对某单一页面进行操作提取</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>people_information<span class="ot">=</span><span class="cf">function</span>(url){</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  web<span class="ot">=</span><span class="fu">read_html</span>(url,<span class="at">encoding =</span> <span class="st">&quot;GBK&quot;</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  people_info<span class="ot">=</span>web <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">&quot;table.teach_info_table&gt;tr&gt;td&quot;</span>)<span class="sc">%&gt;%</span> <span class="fu">html_text</span>()</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  people_info<span class="ot">=</span>people_info[<span class="sc">-</span><span class="dv">5</span>] <span class="co">#这里是储存照片的地方</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  people_attr<span class="ot">=</span><span class="fu">c</span>()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  people_value<span class="ot">=</span><span class="fu">c</span>()</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(people_info)){</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">%%</span><span class="dv">2</span><span class="sc">==</span><span class="dv">1</span>){</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      people_attr<span class="ot">=</span><span class="fu">append</span>(people_attr,people_info[i])</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    }<span class="cf">else</span> {</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      people_value<span class="ot">=</span><span class="fu">append</span>(people_value,people_info[i])</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  people_info<span class="ot">=</span><span class="fu">data.frame</span>(people_attr,people_value) <span class="sc">%&gt;%</span> <span class="fu">apply</span>(.,<span class="dv">2</span>,<span class="cf">function</span>(x){<span class="fu">gsub</span>(<span class="st">&quot;(</span><span class="sc">\\</span><span class="st">t)&quot;</span>,<span class="st">&quot;&quot;</span>,x)}) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  people_info<span class="ot">=</span><span class="fu">apply</span>(people_info, <span class="dv">2</span>, str_trim)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">5</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(people_info)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="do">#########################################################################</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="do">########### 读取我们要爬取的所有链接（这里的链接，我提前已经爬取好了，存储在本地）</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">fread</span>(<span class="st">&quot;people.csv&quot;</span>,<span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>link_finally<span class="ot">=</span>df[,link_finally]</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>len<span class="ot">=</span><span class="fu">length</span>(link_finally)<span class="co"># 3000+多个网页</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>p_info<span class="ot">=</span><span class="fu">data.frame</span>()</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="do">################################################################</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="do">##################### 并行化爬取</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;doParallel&quot;</span>)      <span class="co">#加载doParallel包用于之后注册进程</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;foreach&quot;</span>)         <span class="co">#导入foreach包</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="do">##### 我要循环爬取的信息</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>myfun<span class="ot">=</span><span class="cf">function</span>(i){</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">people_information</span>(i) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="do">##### 每次循环完成获得的数据，进行如下两两合并</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>bind_fun<span class="ot">=</span><span class="cf">function</span>(a,b){</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(a,b,<span class="at">by =</span> <span class="st">&quot;people_attr&quot;</span>)  <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="do">######### 并行开始</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>cl<span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="fu">detectCores</span>()<span class="sc">-</span><span class="dv">1</span>)      </span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl)       <span class="co">#进行进程注册</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>p_info <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i=</span>link_finally[<span class="dv">1</span><span class="sc">:</span>len], <span class="co">#循环的长度,不在是&quot;in&quot;</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>                  <span class="at">.combine=</span><span class="st">&quot;bind_fun&quot;</span>,</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>                  <span class="at">.packages =</span> <span class="fu">c</span>(<span class="st">&quot;rvest&quot;</span>, <span class="st">&quot;data.table&quot;</span>,<span class="st">&quot;tibble&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;stringr&quot;</span>) </span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>                  ) <span class="sc">%dopar%</span> <span class="fu">myfun</span>(i)</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(cl)   </span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="do">####### 结束并行</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="do">##########################################################################</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="do">##### 对抓取的结果p_info数据进行处理</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(p_info)<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(p_info)[<span class="dv">2</span>]</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>p_info<span class="ot">=</span><span class="fu">t</span>(p_info)</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(p_info,<span class="st">&quot;people_info3333.csv&quot;</span>,<span class="at">row.names =</span> F)</span></code></pre></div>
-<p><strong>补充函数</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
+<span style="color:#a6e22e">library</span>(rvest)
+<span style="color:#a6e22e">library</span>(data.table)
+<span style="color:#a6e22e">library</span>(tibble)
+<span style="color:#a6e22e">library</span>(dplyr)
+<span style="color:#a6e22e">library</span>(stringr)
+<span style="color:#75715e">##################################################################</span>
+<span style="color:#75715e">################  对某单一页面进行操作提取</span>
+people_information<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(url){
+  web<span style="color:#f92672">=</span><span style="color:#a6e22e">read_html</span>(url,encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;GBK&#34;</span>)
+  people_info<span style="color:#f92672">=</span>web <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;table.teach_info_table&gt;tr&gt;td&#34;</span>)<span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>()
+  people_info<span style="color:#f92672">=</span>people_info[<span style="color:#ae81ff">-5</span>] <span style="color:#75715e">#这里是储存照片的地方</span>
+  
+  people_attr<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>()
+  people_value<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>()
+  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(people_info)){
+    <span style="color:#a6e22e">if</span>(i<span style="color:#f92672">%%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+      people_attr<span style="color:#f92672">=</span><span style="color:#a6e22e">append</span>(people_attr,people_info[i])
+    }else {
+      people_value<span style="color:#f92672">=</span><span style="color:#a6e22e">append</span>(people_value,people_info[i])
+    }
+  }
+  
+  people_info<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>(people_attr,people_value) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">apply</span>(.,2,<span style="color:#a6e22e">function</span>(x){<span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;(\\t)&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,x)}) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.data.frame</span>()
+  people_info<span style="color:#f92672">=</span><span style="color:#a6e22e">apply</span>(people_info, <span style="color:#ae81ff">2</span>, str_trim)
+  <span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">5</span>)
+  <span style="color:#a6e22e">return</span>(people_info)
+}
+<span style="color:#75715e">#########################################################################</span>
+<span style="color:#75715e">########### 读取我们要爬取的所有链接（这里的链接，我提前已经爬取好了，存储在本地）</span>
+df<span style="color:#f92672">=</span><span style="color:#a6e22e">fread</span>(<span style="color:#e6db74">&#34;people.csv&#34;</span>,encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span>)
+link_finally<span style="color:#f92672">=</span>df[,link_finally]
+len<span style="color:#f92672">=</span><span style="color:#a6e22e">length</span>(link_finally)<span style="color:#75715e"># 3000+多个网页</span>
+p_info<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>()
+
+
+<span style="color:#75715e">################################################################</span>
+<span style="color:#75715e">##################### 并行化爬取</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;doParallel&#34;</span>)      <span style="color:#75715e">#加载doParallel包用于之后注册进程</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;foreach&#34;</span>)         <span style="color:#75715e">#导入foreach包</span>
+<span style="color:#75715e">##### 我要循环爬取的信息</span>
+myfun<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(i){
+  <span style="color:#a6e22e">people_information</span>(i) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.data.frame</span>()
+}
+<span style="color:#75715e">##### 每次循环完成获得的数据，进行如下两两合并</span>
+bind_fun<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(a,b){
+  <span style="color:#a6e22e">full_join</span>(a,b,by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;people_attr&#34;</span>)  <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.data.frame</span>()
+}
+<span style="color:#75715e">######### 并行开始</span>
+cl<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(<span style="color:#a6e22e">detectCores</span>()<span style="color:#ae81ff">-1</span>)      
+<span style="color:#a6e22e">registerDoParallel</span>(cl)       <span style="color:#75715e">#进行进程注册</span>
+p_info <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(i<span style="color:#f92672">=</span>link_finally[1<span style="color:#f92672">:</span>len], <span style="color:#75715e">#循环的长度,不在是&#34;in&#34;</span>
+                  .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bind_fun&#34;</span>,
+                  .packages <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;rvest&#34;</span>, <span style="color:#e6db74">&#34;data.table&#34;</span>,<span style="color:#e6db74">&#34;tibble&#34;</span>,<span style="color:#e6db74">&#34;dplyr&#34;</span>,<span style="color:#e6db74">&#34;stringr&#34;</span>) 
+                  ) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">myfun</span>(i)
+<span style="color:#a6e22e">stopCluster</span>(cl)   
+<span style="color:#75715e">####### 结束并行</span>
+
+<span style="color:#75715e">##########################################################################</span>
+<span style="color:#75715e">##### 对抓取的结果p_info数据进行处理</span>
+<span style="color:#a6e22e">colnames</span>(p_info)<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">dim</span>(p_info)[2]
+p_info<span style="color:#f92672">=</span><span style="color:#a6e22e">t</span>(p_info)
+<span style="color:#a6e22e">write.csv</span>(p_info,<span style="color:#e6db74">&#34;people_info3333.csv&#34;</span>,row.names <span style="color:#f92672">=</span> F)
+</code></pre></div><p><strong>补充函数</strong></p>
 <ul>
-<li>detectCores() #查看自己电脑的线程数，</li>
-<li>getDoParWorkers( ) #查看注册了多少个核，配合doMC package中的registerDoMC( )使用<br />
-</li>
-<li>getDoParRegistered( ) # 查看doPar是否注册；如果没有注册返回FALSE<br />
-</li>
-<li>getDoParName( ) #查看已经注册的doPar的名字<br />
-</li>
-<li>getDoParVersion( ) #查看已经注册的doPar的version</li>
+<li>detectCores()             #查看自己电脑的线程数，</li>
+<li>getDoParWorkers( )    #查看注册了多少个核，配合doMC package中的registerDoMC( )使用</li>
+<li>getDoParRegistered( ) # 查看doPar是否注册；如果没有注册返回FALSE</li>
+<li>getDoParName( )       #查看已经注册的doPar的名字</li>
+<li>getDoParVersion( )    #查看已经注册的doPar的version</li>
 </ul>
 
         </section>

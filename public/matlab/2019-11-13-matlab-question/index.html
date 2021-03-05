@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -192,213 +194,215 @@
     
         
         <section id="content">
-            <h2 id="inputname获取函数参数名字返回一个字符串">1、<code>inputname</code>获取函数参数名字,返回一个字符串</h2>
-<h2 id="输入可变长参数以及输出可变长参数">2、 输入可变长参数,以及输出可变长参数</h2>
-<h2 id="nargin-捕获输入参数的个数-nargout-捕获输出参数的个数.">3、 <code>nargin</code> 捕获输入参数的个数, <code>nargout</code> 捕获输出参数的个数.</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">varargout</span> <span class="op">=</span> <span class="va">foo</span>(<span class="va">varargin</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">%输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储, </span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">%而inputname 存变量名的方式,用的是字符数组矩阵的形式</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">nargin</span> <span class="op">==</span> <span class="fl">2</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="va">varargout</span>{<span class="fl">1</span>} <span class="op">=</span> <span class="va">a1</span><span class="op">;</span> <span class="va">varargout</span>{<span class="fl">2</span>} <span class="op">=</span> <span class="va">a2</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span> <span class="va">nargin</span> <span class="op">==</span> <span class="fl">3</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="va">varargout</span>{<span class="fl">1</span>} <span class="op">=</span> <span class="va">a1</span><span class="op">;</span> <span class="va">varargout</span>{<span class="fl">2</span>} <span class="op">=</span> <span class="va">a2</span><span class="op">;</span> <span class="va">varargout</span>{<span class="fl">3</span>} <span class="op">=</span> <span class="va">a3</span><span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">varargout</span> <span class="op">=</span> <span class="va">combin_index</span>(<span class="va">varargin</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="va">variable_name</span> <span class="op">=</span> <span class="va">cell</span>(<span class="fl">1</span><span class="op">,</span><span class="va">nargin</span>)<span class="op">;</span> <span class="co">% 创建一个 1* nargin 大小的 cell,</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">nargin</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="va">T</span> <span class="op">=</span> <span class="va">f</span>(<span class="va">varargin</span>{<span class="va">i</span>})<span class="op">;</span>  <span class="co">% 获取的新参数 传递给另一个函数</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="va">variable_name</span>{<span class="va">i</span>} <span class="op">=</span> <span class="va">inputname</span>(<span class="va">i</span>)<span class="op">;</span> <span class="co">% 由于变量名是字符,所以用细胞来存储</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">% variable_name 这个 cell 存储了变量名</span></span></code></pre></div>
-<h2 id="table-类型的变量如何进行转置对于表格您可以使用table2cell和cell2table的组合">4、 table 类型的变量如何进行转置,对于表格，您可以使用’table2cell’和’cell2table’的组合：</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">Xc</span> <span class="op">=</span> <span class="va">table2cell</span>(<span class="va">X</span>) <span class="co">% 这里 X 为要转置的表,Xt 为转置后的表</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">Xt</span> <span class="op">=</span> <span class="va">cell2table</span>(<span class="va">Xc</span><span class="op">&#39;,</span><span class="ss">&#39;RowNames&#39;</span><span class="op">,</span><span class="va">X</span>.<span class="va">Properties</span>.<span class="va">VariableNames</span><span class="op">,</span><span class="ss">&#39;VariableNames&#39;</span><span class="op">,</span><span class="va">X</span>.<span class="va">Properties</span>.<span class="va">RowNames</span>)</span></code></pre></div>
-<p>如果用的是 matlab2018 可以使用<code>rows2vars</code>函数,参考https://www.mathworks.com/help/matlab/ref/rows2vars.html</p>
-<h2 id="matlab字符串以及-cell-之间-的操作可以看薛山的-matlab-基础教程">5、 matlab字符串以及 cell 之间 的操作可以看薛山的 MATLAB 基础教程</h2>
-<h2 id="区分repmat-以及repelem">6、 区分<code>repmat</code> 以及<code>repelem</code> ,</h2>
+            <h2 id="1inputname获取函数参数名字返回一个字符串">1、<code>inputname</code>获取函数参数名字,返回一个字符串</h2>
+<h2 id="2-输入可变长参数以及输出可变长参数">2、 输入可变长参数,以及输出可变长参数</h2>
+<h2 id="3-nargin-捕获输入参数的个数-nargout-捕获输出参数的个数">3、 <code>nargin</code> 捕获输入参数的个数, <code>nargout</code> 捕获输出参数的个数.</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-MATLAB" data-lang="MATLAB"><span style="color:#66d9ef">function</span> varargout = <span style="color:#a6e22e">foo</span>(varargin)
+<span style="color:#75715e">%输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储, </span>
+<span style="color:#75715e">%而inputname 存变量名的方式,用的是字符数组矩阵的形式</span>
+<span style="color:#66d9ef">if</span> nargin <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>
+  varargout{<span style="color:#ae81ff">1</span>} = a1; varargout{<span style="color:#ae81ff">2</span>} = a2;
+<span style="color:#66d9ef">else</span> nargin <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
+  varargout{<span style="color:#ae81ff">1</span>} = a1; varargout{<span style="color:#ae81ff">2</span>} = a2; varargout{<span style="color:#ae81ff">3</span>} = a3;
+<span style="color:#66d9ef">end</span>
+
+
+<span style="color:#66d9ef">function</span> varargout = <span style="color:#a6e22e">combin_index</span>(varargin)
+variable_name = cell(<span style="color:#ae81ff">1</span>,nargin); <span style="color:#75715e">% 创建一个 1* nargin 大小的 cell,</span>
+<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:nargin
+    T = f(varargin{i});  <span style="color:#75715e">% 获取的新参数 传递给另一个函数</span>
+    variable_name{i} = inputname(i); <span style="color:#75715e">% 由于变量名是字符,所以用细胞来存储</span>
+<span style="color:#66d9ef">end</span>
+<span style="color:#75715e">% variable_name 这个 cell 存储了变量名</span>
+</code></pre></div><h2 id="4-table-类型的变量如何进行转置对于表格您可以使用table2cell和cell2table的组合">4、 table 类型的变量如何进行转置,对于表格，您可以使用&rsquo;table2cell&rsquo;和&rsquo;cell2table&rsquo;的组合：</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-MATLAB" data-lang="MATLAB">Xc = table2cell(X) <span style="color:#75715e">% 这里 X 为要转置的表,Xt 为转置后的表</span>
+Xt = cell2table(Xc<span style="color:#f92672">&#39;</span>,<span style="color:#e6db74">&#39;RowNames&#39;</span>,X.Properties.VariableNames,<span style="color:#e6db74">&#39;VariableNames&#39;</span>,X.Properties.RowNames)
+</code></pre></div><p>如果用的是 matlab2018 可以使用<code>rows2vars</code>函数,参考https://www.mathworks.com/help/matlab/ref/rows2vars.html</p>
+<h2 id="5-matlab字符串以及-cell-之间-的操作可以看薛山的-matlab-基础教程">5、 matlab字符串以及 cell 之间 的操作可以看薛山的 MATLAB 基础教程</h2>
+<h2 id="6-区分repmat--以及repelem-">6、 区分<code>repmat</code>  以及<code>repelem</code> ,</h2>
 <ul>
-<li><code>repmat</code> 把复制的对象看做一个整体</li>
+<li><code>repmat</code>  把复制的对象看做一个整体</li>
 <li><code>repelem</code> 复制对象中的元素,最终结果不改变原对象的数据类型</li>
 </ul>
-<h2 id="matlab-中-矩阵-点除-一个向量的问题.">7、MATLAB 中 矩阵 点除 一个向量的问题(<code>./</code>),</h2>
+<h2 id="7matlab-中-矩阵-点除--一个向量的问题">7、MATLAB 中 矩阵 点除  一个向量的问题(<code>./</code>),</h2>
 <p>点除保证矩阵维度和向量长度相同,且 <code>w</code>为行向量,<code>A</code>为方阵,A 可以不是方阵,</p>
 <p>MATLAB:</p>
 <ul>
-<li><strong><code>A ./ w</code> w 为行向量时, 结果是把矩阵 A 的每一列对应的行向量元素相除</strong></li>
-<li><strong><code>A ./ w'</code> w’ 为列向量时, 结果是把矩阵 A 的每一行对应的列向量元素相除</strong></li>
+<li><strong><code> A ./ w</code>     w 为行向量时, 结果是把矩阵 A 的每一列对应的行向量元素相除</strong></li>
+<li><strong><code>A ./ w' </code>    w' 为列向量时, 结果是把矩阵 A 的每一行对应的列向量元素相除</strong></li>
 </ul>
-<p>R : 由于 R 中默认把向量都变为行向量, 所以想对列操作需要进行转变</p>
+<p>R :  由于 R 中默认把向量都变为行向量, 所以想对列操作需要进行转变</p>
 <ul>
-<li><code>A / w</code> w 为行向量时, 结果是把矩阵 A 的每一列对应的行向量元素相除</li>
-<li><code>t(t(A)/w)</code> 其中w为行向量时, 结果是把矩阵 A 的每一行对应的行向量元素相除</li>
+<li><code> A / w</code>     w 为行向量时, 结果是把矩阵 A 的每一列对应的行向量元素相除</li>
+<li><code>t(t(A)/w) </code>  其中w为行向量时, 结果是把矩阵 A 的每一行对应的行向量元素相除</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> <span class="co">%% 实例</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> <span class="va">A1</span> <span class="op">=</span> <span class="va">magic</span>(<span class="fl">3</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">A1</span> <span class="op">=</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="fl">8</span>     <span class="fl">1</span>     <span class="fl">6</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="fl">3</span>     <span class="fl">5</span>     <span class="fl">7</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="fl">4</span>     <span class="fl">9</span>     <span class="fl">2</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">d</span> <span class="op">=</span> [<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>]</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">d</span> <span class="op">=</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>     <span class="fl">1</span>     <span class="fl">2</span>     <span class="fl">3</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">A1</span> <span class="op">./</span> <span class="va">d</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fl">8.0000</span>    <span class="fl">0.5000</span>    <span class="fl">2.0000</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fl">3.0000</span>    <span class="fl">2.5000</span>    <span class="fl">2.3333</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fl">4.0000</span>    <span class="fl">4.5000</span>    <span class="fl">0.6667</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">A1</span> <span class="op">./</span> <span class="va">d</span><span class="op">&#39;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fl">8.0000</span>    <span class="fl">1.0000</span>    <span class="fl">6.0000</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fl">1.5000</span>    <span class="fl">2.5000</span>    <span class="fl">3.5000</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fl">1.3333</span>    <span class="fl">3.0000</span>    <span class="fl">0.6667</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">%% 于是可以进行 按列单位化 :  A5 ./ sqrt(sum(A5.^2,1))</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">%%  按行单位化: A5 ./ sqrt(sum(A5.^2,2))</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 中, 矩阵除以向量  直接是矩阵行除向量对应的元素. </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="ot">=</span> matlab<span class="sc">::</span><span class="fu">magic</span>(<span class="dv">3</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">8</span>    <span class="dv">1</span>    <span class="dv">6</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">4</span>    <span class="dv">9</span>    <span class="dv">2</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="sc">/</span> d</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>         [,<span class="dv">1</span>] [,<span class="dv">2</span>]      [,<span class="dv">3</span>]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="fl">8.000000</span>  <span class="fl">1.0</span> <span class="fl">6.0000000</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">1.500000</span>  <span class="fl">2.5</span> <span class="fl">3.5000000</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="fl">1.333333</span>  <span class="fl">3.0</span> <span class="fl">0.6666667</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">t</span>(<span class="fu">t</span>(A)<span class="sc">/</span>d)  <span class="co"># 类似 MATLAB 矩阵列除以向量对应的元素</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]      [,<span class="dv">3</span>]</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">8</span>  <span class="fl">0.5</span> <span class="fl">2.0000000</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">3</span>  <span class="fl">2.5</span> <span class="fl">2.3333333</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">4</span>  <span class="fl">4.5</span> <span class="fl">0.6666667</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 还可以利用 sweep 函数,-- </span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#矩阵的某个方向(列或行) 对一个向量中的元素进行一一对应运算</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sweep</span>(A, <span class="dv">1</span>, d, <span class="at">FUN =</span> <span class="st">&#39;/&#39;</span>)   <span class="co"># 1 代表对矩阵行方向进行运算,等价于: A / d</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>         [,<span class="dv">1</span>] [,<span class="dv">2</span>]      [,<span class="dv">3</span>]</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="fl">8.000000</span>  <span class="fl">1.0</span> <span class="fl">6.0000000</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">1.500000</span>  <span class="fl">2.5</span> <span class="fl">3.5000000</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="fl">1.333333</span>  <span class="fl">3.0</span> <span class="fl">0.6666667</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sweep</span>(A, <span class="dv">2</span>, d, <span class="at">FUN =</span> <span class="st">&#39;/&#39;</span>)  <span class="co"># 2 代表对矩阵列方向进行运算,等价于: t(t(A)/d)</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]      [,<span class="dv">3</span>]</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">8</span>  <span class="fl">0.5</span> <span class="fl">2.0000000</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">3</span>  <span class="fl">2.5</span> <span class="fl">2.3333333</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">4</span>  <span class="fl">4.5</span> <span class="fl">0.6666667</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
-<blockquote>
-<p><code>sweep(x, MARGIN, STATS, FUN="-", ...)</code>对矩阵进行运算。MARGIN为1，表示行的方向上进行运算，为2表示列的方向上运算。STATS是运算的参数。FUN为运算函数，默认是减法。下面利用sweep对矩阵x进行极差标准化变换。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-MATLAB" data-lang="MATLAB"> <span style="color:#75715e">%% 实例</span>
+ <span style="color:#f92672">&gt;&gt;</span> A1 = magic(<span style="color:#ae81ff">3</span>)
+A1 =
+     <span style="color:#ae81ff">8</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">6</span>
+     <span style="color:#ae81ff">3</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">7</span>
+     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">9</span>     <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">&gt;&gt;</span> d = [<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]
+d =
+     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">3</span>
+<span style="color:#f92672">&gt;&gt;</span> A1 <span style="color:#f92672">./</span> d
+ans =
+    <span style="color:#ae81ff">8.0000</span>    <span style="color:#ae81ff">0.5000</span>    <span style="color:#ae81ff">2.0000</span>
+    <span style="color:#ae81ff">3.0000</span>    <span style="color:#ae81ff">2.5000</span>    <span style="color:#ae81ff">2.3333</span>
+    <span style="color:#ae81ff">4.0000</span>    <span style="color:#ae81ff">4.5000</span>    <span style="color:#ae81ff">0.6667</span>
+<span style="color:#f92672">&gt;&gt;</span> A1 <span style="color:#f92672">./</span> d<span style="color:#f92672">&#39;</span>
+ans =
+    <span style="color:#ae81ff">8.0000</span>    <span style="color:#ae81ff">1.0000</span>    <span style="color:#ae81ff">6.0000</span>
+    <span style="color:#ae81ff">1.5000</span>    <span style="color:#ae81ff">2.5000</span>    <span style="color:#ae81ff">3.5000</span>
+    <span style="color:#ae81ff">1.3333</span>    <span style="color:#ae81ff">3.0000</span>    <span style="color:#ae81ff">0.6667</span>
+<span style="color:#75715e">%% 于是可以进行 按列单位化 :  A5 ./ sqrt(sum(A5.^2,1))</span>
+<span style="color:#75715e">%%  按行单位化: A5 ./ sqrt(sum(A5.^2,2))</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e"># R 中, 矩阵除以向量  直接是矩阵行除向量对应的元素. </span>
+<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">=</span> matlab<span style="color:#f92672">::</span><span style="color:#a6e22e">magic</span>(<span style="color:#ae81ff">3</span>)
+<span style="color:#f92672">&gt;</span> A
+     [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>] [,<span style="color:#ae81ff">3</span>]
+[1,]    <span style="color:#ae81ff">8</span>    <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">6</span>
+[2,]    <span style="color:#ae81ff">3</span>    <span style="color:#ae81ff">5</span>    <span style="color:#ae81ff">7</span>
+[3,]    <span style="color:#ae81ff">4</span>    <span style="color:#ae81ff">9</span>    <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>)
+<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">/</span> d
+         [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>]      [,<span style="color:#ae81ff">3</span>]
+[1,] <span style="color:#ae81ff">8.000000</span>  <span style="color:#ae81ff">1.0</span> <span style="color:#ae81ff">6.0000000</span>
+[2,] <span style="color:#ae81ff">1.500000</span>  <span style="color:#ae81ff">2.5</span> <span style="color:#ae81ff">3.5000000</span>
+[3,] <span style="color:#ae81ff">1.333333</span>  <span style="color:#ae81ff">3.0</span> <span style="color:#ae81ff">0.6666667</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">t</span>(<span style="color:#a6e22e">t</span>(A)<span style="color:#f92672">/</span>d)  <span style="color:#75715e"># 类似 MATLAB 矩阵列除以向量对应的元素</span>
+     [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>]      [,<span style="color:#ae81ff">3</span>]
+[1,]    <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">0.5</span> <span style="color:#ae81ff">2.0000000</span>
+[2,]    <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2.5</span> <span style="color:#ae81ff">2.3333333</span>
+[3,]    <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4.5</span> <span style="color:#ae81ff">0.6666667</span>
+
+<span style="color:#75715e">## 还可以利用 sweep 函数,-- </span>
+<span style="color:#75715e">#矩阵的某个方向(列或行) 对一个向量中的元素进行一一对应运算</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sweep</span>(A, <span style="color:#ae81ff">1</span>, d, FUN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/&#39;</span>)   <span style="color:#75715e"># 1 代表对矩阵行方向进行运算,等价于: A / d</span>
+         [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>]      [,<span style="color:#ae81ff">3</span>]
+[1,] <span style="color:#ae81ff">8.000000</span>  <span style="color:#ae81ff">1.0</span> <span style="color:#ae81ff">6.0000000</span>
+[2,] <span style="color:#ae81ff">1.500000</span>  <span style="color:#ae81ff">2.5</span> <span style="color:#ae81ff">3.5000000</span>
+[3,] <span style="color:#ae81ff">1.333333</span>  <span style="color:#ae81ff">3.0</span> <span style="color:#ae81ff">0.6666667</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sweep</span>(A, <span style="color:#ae81ff">2</span>, d, FUN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/&#39;</span>)  <span style="color:#75715e"># 2 代表对矩阵列方向进行运算,等价于: t(t(A)/d)</span>
+     [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>]      [,<span style="color:#ae81ff">3</span>]
+[1,]    <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">0.5</span> <span style="color:#ae81ff">2.0000000</span>
+[2,]    <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2.5</span> <span style="color:#ae81ff">2.3333333</span>
+[3,]    <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4.5</span> <span style="color:#ae81ff">0.6666667</span>
+
+
+</code></pre></div><blockquote>
+<p><code>sweep(x, MARGIN, STATS, FUN=&quot;-&quot;, ...) </code>对矩阵进行运算。MARGIN为1，表示行的方向上进行运算，为2表示列的方向上运算。STATS是运算的参数。FUN为运算函数，默认是减法。下面利用sweep对矩阵x进行极差标准化变换。</p>
 </blockquote>
 <p>注意:</p>
 <ul>
 <li><strong>R 中 1 代表对行方向上进行运算, 2 代表对列的方向上进行运算,</strong></li>
 <li><strong>MATLAB 中 1 代表对列方向上进行计算, 2 代表对行方向上进行计算</strong></li>
 </ul>
-<h2 id="矩阵对向量运算的理解"><strong>8 、矩阵对向量运算的理解</strong></h2>
-<p>由于 R 中不存在列向量与行向量, 其实 R 中的向量在内存中都是以列的方式存储,所以 R 中的向量全是列向量, 这就可以和 MATLAB 的运算对应起来, 于是 MATLAB 和 R 的矩阵对向量运算可以解释为一下情况, 假设 <code>A</code> 代表矩阵,<code>d</code> 代表向量,<code>&amp;</code>代表运算规则</p>
+<h2 id="8--矩阵对向量运算的理解"><strong>8  、矩阵对向量运算的理解</strong></h2>
+<p>由于 R 中不存在列向量与行向量, 其实 R 中的向量在内存中都是以列的方式存储,所以 R 中的向量全是列向量, 这就可以和 MATLAB 的运算对应起来, 于是 MATLAB 和 R 的矩阵对向量运算可以解释为一下情况, 假设 <code>A</code> 代表矩阵,<code> d</code> 代表向量,<code>&amp;</code>代表运算规则</p>
 <blockquote>
 <p>A &amp; d</p>
 </blockquote>
-<p>1, 列向量<code>d</code>自动扩充复制成一个大小和矩阵<code>A</code> 一模一样的矩阵,然后再按照矩阵<code>点除(这里这的是矩阵对应位置元素做运算)</code>的方法进行运算<strong>(即列向量按照行进行扩充)</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="co">#列向量按照行进行扩充复制</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span>]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>] <span class="co"># 行向量按照列进行扩充</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]</span></code></pre></div>
-<p>2 由于 MATLAB 支持行向量,所以 行向量是按照列的方式进行复制扩充的. 然后在进行矩阵运算<strong>(行向量按照列进行扩充)</strong></p>
-<h2 id="两个向量之间的点除.">9 、两个向量之间的点除<code>./</code> ,</h2>
+<p>1, 列向量<code>d</code>自动扩充复制成一个大小和矩阵<code>A</code> 一模一样的矩阵,然后再按照矩阵<code>点除(这里这的是矩阵对应位置元素做运算)</code>的方法进行运算**(即列向量按照行进行扩充)**</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">d <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>) <span style="color:#75715e">#列向量按照行进行扩充复制</span>
+[1 <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
+ <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span> 
+ <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">3</span>]
+
+d <span style="color:#f92672">=</span> [1,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>] <span style="color:#75715e"># 行向量按照列进行扩充</span>
+[1 <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>
+ <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>
+ <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>]
+</code></pre></div><p>2 由于 MATLAB 支持行向量,所以 行向量是按照列的方式进行复制扩充的.  然后在进行矩阵运算**(行向量按照列进行扩充)**</p>
+<h2 id="9-两个向量之间的点除-">9 、两个向量之间的点除<code>./</code> ,</h2>
 <ul>
-<li>行向量点除列向量 , 行作为分子,列作为分母,交叉构建成一个矩阵</li>
+<li>行向量点除列向量 ,  行作为分子,列作为分母,交叉构建成一个矩阵</li>
 <li>列向量点除行向量,列作为分子, 行作为分母,交叉构建成一个矩阵</li>
-<li>若<span class="math inline">\(w = (w_1,w_2,\dots,w_n)\)</span>是一个向量,
+<li>若$w = (w_1,w_2,\dots,w_n)$是一个向量,
 <ul>
-<li>数学中的<span class="math inline">\(\dfrac{w_i}{w_j}\)</span> , 对应的是 <code>w ./ w'</code>矩阵中的第<code>j,i</code> 元素</li>
-<li>数学中的<span class="math inline">\(\dfrac{w_j}{w_i}\)</span> , 对应的是 <code>w ./ w'</code>矩阵中的第<code>i,j</code> 元素, 分母的索引在前面</li>
-<li>matlab中<code>log(A).^2</code> 等价<code>(log(A)).^2</code></li>
-</ul></li>
+<li>数学中的$\dfrac{w_i}{w_j}$ , 对应的是 <code>w ./ w'</code>矩阵中的第<code>j,i</code> 元素</li>
+<li>数学中的$\dfrac{w_j}{w_i}$ , 对应的是 <code>w ./ w'</code>矩阵中的第<code>i,j</code> 元素, 分母的索引在前面</li>
+<li>matlab中<code>log(A).^2  </code> 等价<code>(log(A)).^2 </code></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">format</span> <span class="va">rat</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">w1</span> <span class="op">=</span> [<span class="fl">1</span><span class="op">,</span><span class="fl">3</span><span class="op">,</span><span class="fl">5</span>]<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">w2</span> <span class="op">=</span> [<span class="fl">7</span><span class="op">,</span><span class="fl">9</span><span class="op">,</span><span class="fl">11</span>]<span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">w1</span> <span class="op">./</span> <span class="va">w2</span><span class="op">&#39;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1</span><span class="op">/</span><span class="fl">7</span>            <span class="fl">3</span><span class="op">/</span><span class="fl">7</span>            <span class="fl">5</span><span class="op">/</span><span class="fl">7</span>     </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1</span><span class="op">/</span><span class="fl">9</span>            <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>            <span class="fl">5</span><span class="op">/</span><span class="fl">9</span>     </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1</span><span class="op">/</span><span class="fl">11</span>           <span class="fl">3</span><span class="op">/</span><span class="fl">11</span>           <span class="fl">5</span><span class="op">/</span><span class="fl">11</span>    </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">w1</span><span class="op">&#39;</span> <span class="op">./</span> <span class="va">w2</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1</span><span class="op">/</span><span class="fl">7</span>            <span class="fl">1</span><span class="op">/</span><span class="fl">9</span>            <span class="fl">1</span><span class="op">/</span><span class="fl">11</span>    </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>       <span class="fl">3</span><span class="op">/</span><span class="fl">7</span>            <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>            <span class="fl">3</span><span class="op">/</span><span class="fl">11</span>    </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>       <span class="fl">5</span><span class="op">/</span><span class="fl">7</span>            <span class="fl">5</span><span class="op">/</span><span class="fl">9</span>            <span class="fl">5</span><span class="op">/</span><span class="fl">11</span>  </span></code></pre></div>
-<h2 id="sum-prodmean-涉及维度的函数这和-r-中不一样默认都是对列进行操作"><strong>10、 <code>sum, prod,mean ,…</code> 涉及维度的函数,这和 R 中不一样,默认都是对列进行操作</strong></h2>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#f92672">&gt;&gt;</span> format rat
+w1 = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>];
+<span style="color:#f92672">&gt;&gt;</span> w2 = [<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">11</span>];
+<span style="color:#f92672">&gt;&gt;</span> w1 <span style="color:#f92672">./</span> w2<span style="color:#f92672">&#39;</span>
+ans =
+       <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>            <span style="color:#ae81ff">3</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>            <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>     
+       <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>            <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>            <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>     
+       <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>           <span style="color:#ae81ff">3</span><span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>           <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>    
+<span style="color:#f92672">&gt;&gt;</span> w1<span style="color:#f92672">&#39;</span> <span style="color:#f92672">./</span> w2
+ans =
+       <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>            <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>            <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>    
+       <span style="color:#ae81ff">3</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>            <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>            <span style="color:#ae81ff">3</span><span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>    
+       <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>            <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>            <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>  
+</code></pre></div><h2 id="10-sum-prodmean--涉及维度的函数这和-r-中不一样默认都是对列进行操作"><strong>10、 <code>sum, prod,mean ,…</code> 涉及维度的函数,这和 R 中不一样,默认都是对列进行操作</strong></h2>
 <ul>
 <li><strong>R 中 一般是 1 代表对行进行操作,<code>apply(A,1,sum)</code></strong></li>
-<li><strong>MATLAB 一般 1 代表是对列进行操作. <code>sum(A,1)</code></strong></li>
+<li><strong>MATLAB 一般 1 代表是对列进行操作.  <code>sum(A,1)</code></strong></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">% matlab</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">A2</span> <span class="op">=</span> [<span class="fl">1</span><span class="op">,</span><span class="fl">1</span><span class="op">/</span><span class="fl">5</span><span class="op">,</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">,</span><span class="fl">1</span><span class="op">/</span><span class="fl">9</span><span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>      <span class="fl">5</span><span class="op">,</span><span class="fl">1</span><span class="op">,</span><span class="fl">4</span><span class="op">,</span><span class="fl">1</span><span class="op">/</span><span class="fl">8</span><span class="op">;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="fl">3</span><span class="op">,</span><span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">,</span><span class="fl">1</span><span class="op">,</span><span class="fl">1</span><span class="op">/</span><span class="fl">9</span><span class="op">;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="fl">9</span><span class="op">,</span><span class="fl">8</span><span class="op">,</span><span class="fl">9</span><span class="op">,</span><span class="fl">1</span>]<span class="op">;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">sum</span>(<span class="va">A2</span><span class="op">,</span><span class="fl">1</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>   <span class="fl">18.0000</span>    <span class="fl">9.4500</span>   <span class="fl">14.3333</span>    <span class="fl">1.3472</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">sum</span>(<span class="va">A2</span><span class="op">,</span><span class="fl">2</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fl">1.6444</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>   <span class="fl">10.1250</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="fl">4.3611</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>   <span class="fl">27.0000</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">sum</span>(<span class="va">A2</span>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>   <span class="fl">18.0000</span>    <span class="fl">9.4500</span>   <span class="fl">14.3333</span>    <span class="fl">1.3472</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  R语言</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">9</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>       <span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>       <span class="dv">3</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">9</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>       <span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">1</span>),<span class="at">ncol =</span><span class="dv">4</span>,<span class="at">nrow =</span><span class="dv">4</span>,<span class="at">byrow =</span> T)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">apply</span>(A,<span class="dv">1</span>, sum)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="fl">1.644444</span> <span class="fl">10.125000</span>  <span class="fl">4.361111</span> <span class="fl">27.000000</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">apply</span>(A,<span class="dv">2</span>, sum)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">18.000000</span>  <span class="fl">9.450000</span> <span class="fl">14.333333</span>  <span class="fl">1.347222</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span></code></pre></div>
-<h2 id="matlab归一化问题">11、 matlab归一化问题</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">% matlab</span>
+<span style="color:#f92672">&gt;&gt;</span> A2 = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>;
+      <span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>;
+      <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>;
+      <span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">1</span>];
+<span style="color:#f92672">&gt;&gt;</span> sum(A2,<span style="color:#ae81ff">1</span>)
+ans =
+   <span style="color:#ae81ff">18.0000</span>    <span style="color:#ae81ff">9.4500</span>   <span style="color:#ae81ff">14.3333</span>    <span style="color:#ae81ff">1.3472</span>
+<span style="color:#f92672">&gt;&gt;</span> sum(A2,<span style="color:#ae81ff">2</span>)
+ans =
+    <span style="color:#ae81ff">1.6444</span>
+   <span style="color:#ae81ff">10.1250</span>
+    <span style="color:#ae81ff">4.3611</span>
+   <span style="color:#ae81ff">27.0000</span>
+<span style="color:#f92672">&gt;&gt;</span> sum(A2)
+ans =
+   <span style="color:#ae81ff">18.0000</span>    <span style="color:#ae81ff">9.4500</span>   <span style="color:#ae81ff">14.3333</span>    <span style="color:#ae81ff">1.3472</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">#  R语言</span>
+<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">=</span> <span style="color:#a6e22e">matrix</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>,
+<span style="color:#f92672">+</span>       <span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>,
+<span style="color:#f92672">+</span>       <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>,
+<span style="color:#f92672">+</span>       <span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">1</span>),ncol <span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,nrow <span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,byrow <span style="color:#f92672">=</span> T)
+<span style="color:#f92672">&gt;</span> 
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">apply</span>(A,<span style="color:#ae81ff">1</span>, sum)
+[1]  <span style="color:#ae81ff">1.644444</span> <span style="color:#ae81ff">10.125000</span>  <span style="color:#ae81ff">4.361111</span> <span style="color:#ae81ff">27.000000</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">apply</span>(A,<span style="color:#ae81ff">2</span>, sum)
+[1] <span style="color:#ae81ff">18.000000</span>  <span style="color:#ae81ff">9.450000</span> <span style="color:#ae81ff">14.333333</span>  <span style="color:#ae81ff">1.347222</span>
+<span style="color:#f92672">&gt;</span> 
+</code></pre></div><h2 id="11-matlab归一化问题">11、 matlab归一化问题</h2>
 <p>均值-方差归一化</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">%自带函数 -- MATLAB 默认的方差是 n-1 的</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">zscore</span>(<span class="va">A1</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">mapstd</span>(<span class="va">A1</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">% 矩阵方法 -- 其中 std(A1,0,1) : 0 方差是 n-1,</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>(<span class="va">A1</span> <span class="op">-</span> <span class="va">mean</span>(<span class="va">A1</span><span class="op">,</span><span class="fl">1</span>) ) <span class="op">./</span> <span class="va">std</span>(<span class="va">A1</span><span class="op">,</span><span class="fl">0</span><span class="op">,</span><span class="fl">1</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">% 循环方法</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a> <span class="va">n</span> <span class="op">=</span> <span class="va">size</span>(<span class="va">A1</span><span class="op">,</span><span class="fl">1</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a> <span class="va">B</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="va">size</span>(<span class="va">A1</span>))</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a> <span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>     <span class="va">B</span>(<span class="op">:,</span><span class="va">i</span>) <span class="op">=</span>( <span class="va">A1</span>(<span class="op">:,</span><span class="va">i</span>) <span class="op">-</span> <span class="va">mean</span>(<span class="va">A1</span>(<span class="op">:,</span><span class="va">i</span>)) ) <span class="op">./</span> <span class="va">std</span>(<span class="va">A1</span>(<span class="op">:,</span><span class="va">i</span>)<span class="op">,</span><span class="fl">0</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a> <span class="kw">end</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a> <span class="va">B</span></span></code></pre></div>
-<p>Max-min 均值化</p>
-<pre><code>mapminmax</code></pre>
-<h2 id="统计重复出现的此次即频率">12、 —统计重复出现的此次,即频率</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">tabulate</span></span></code></pre></div>
-<h2 id="matlab-保存图片问题">13、 Matlab 保存图片问题</h2>
-<p>保存图片 saveas 图片丢失颜色 —加参数 <code>epsc</code> 即可</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">saveas</span>(<span class="va">gca</span><span class="op">,</span><span class="ss">&#39;Density.eps&#39;</span><span class="op">,</span><span class="ss">&#39;epsc&#39;</span>)</span></code></pre></div>
-<p>saveas 指定目录保存</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">saveas</span>(<span class="va">gcf</span><span class="op">,</span>[<span class="ss">&#39;D://give/your/path/here/&#39;</span><span class="op">,</span><span class="ss">&#39;&#39;</span><span class="va">filename</span><span class="op">&#39;,</span><span class="va">bmp</span>)<span class="op">;</span></span></code></pre></div>
-<h2 id="matlab-对缺失值-nan-的处理">14、matlab 对缺失值 nan 的处理</h2>
-<p><code>R = rmmissing(A)</code> 从数组或表中删除缺失的条目</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">rmmissing</span>(<span class="va">B</span><span class="op">,</span><span class="fl">1</span>) <span class="co">% nan 所在的行被删除,返回剩余完整的行 (默认)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="va">rmmissing</span>(<span class="va">B</span><span class="op">,</span><span class="fl">2</span>) <span class="co">% nan 所在的列被删除,返回剩余完整的列</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="va">B</span>(<span class="va">all</span>(<span class="op">~</span><span class="va">isnan</span>(<span class="va">B</span>)<span class="op">,</span> <span class="fl">2</span>)<span class="op">,:</span>)   <span class="co">%同理删除矩阵中缺失的条目</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">% 其中 all(A,2) 的意思是如果A的某行没有非零值，那么该行返回值为1，</span></span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%自带函数 -- MATLAB 默认的方差是 n-1 的</span>
+zscore(A1)
+mapstd(A1)
+<span style="color:#75715e">% 矩阵方法 -- 其中 std(A1,0,1) : 0 方差是 n-1,</span>
+(A1 <span style="color:#f92672">-</span> mean(A1,<span style="color:#ae81ff">1</span>) ) <span style="color:#f92672">./</span> std(A1,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
 
+<span style="color:#75715e">% 循环方法</span>
+ n = size(A1,<span style="color:#ae81ff">1</span>)
+ B = zeros(size(A1))
+ <span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
+     B(:,i) =( A1(:,i) <span style="color:#f92672">-</span> mean(A1(:,i)) ) <span style="color:#f92672">./</span> std(A1(:,i),<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>);
+ <span style="color:#66d9ef">end</span>
+ B
+</code></pre></div><p>Max-min 均值化</p>
+<pre><code>mapminmax
+</code></pre><h2 id="12-统计重复出现的此次即频率">12、 —统计重复出现的此次,即频率</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">tabulate
+</code></pre></div><h2 id="13---matlab-保存图片问题">13、   Matlab 保存图片问题</h2>
+<p>保存图片 saveas 图片丢失颜色 —加参数 <code>epsc</code> 即可</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">saveas(gca,<span style="color:#e6db74">&#39;Density.eps&#39;</span>,<span style="color:#e6db74">&#39;epsc&#39;</span>)
+</code></pre></div><p>saveas 指定目录保存</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">saveas(gcf,[<span style="color:#e6db74">&#39;D://give/your/path/here/&#39;</span>,<span style="color:#e6db74">&#39;&#39;</span>filename<span style="color:#f92672">&#39;</span>,bmp);
+</code></pre></div><h2 id="14matlab-对缺失值-nan-的处理">14、matlab 对缺失值 nan 的处理</h2>
+<p><code>R = rmmissing(A)</code> 从数组或表中删除缺失的条目</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">rmmissing(B,<span style="color:#ae81ff">1</span>) <span style="color:#75715e">% nan 所在的行被删除,返回剩余完整的行 (默认)</span>
+rmmissing(B,<span style="color:#ae81ff">2</span>) <span style="color:#75715e">% nan 所在的列被删除,返回剩余完整的列</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">B(all(<span style="color:#f92672">~</span>isnan(B), <span style="color:#ae81ff">2</span>),:)   <span style="color:#75715e">%同理删除矩阵中缺失的条目</span>
+<span style="color:#75715e">% 其中 all(A,2) 的意思是如果A的某行没有非零值，那么该行返回值为1，</span>
+</code></pre></div>
         </section>
     </div>
     <br>

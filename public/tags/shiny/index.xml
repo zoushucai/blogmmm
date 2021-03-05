@@ -22,13 +22,12 @@
       <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</guid>
-      <description>rmarkdown模板文件的创建 —- 修改prettydoc模板
+      <description>rmarkdown模板文件的创建 &amp;mdash;- 修改prettydoc模板
 下载链接: zscbeautiful
 下载下来后, 把css和html 分别放在对应的目录中替换即可
 Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/library/prettydoc/ , 只需把下载下来的文件进行替换即可
-创建模板的步骤:  新建文件 —&amp;gt; R mardown —&amp;gt; From Template
-如图:
- uBfWNi  参考: https://cosx.org/2019/10/prettydoc-internals-ljj/</description>
+创建模板的步骤: 新建文件&amp;mdash;&amp;gt; R mardown&amp;mdash;&amp;gt; From Template如图:
+参考: https://cosx.org/2019/10/prettydoc-internals-ljj/</description>
     </item>
     
   </channel>

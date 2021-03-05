@@ -136,6 +136,8 @@
                             
                             <li class=""><a href="/tags/">Tags</a></li>
                             
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
                         
                     
                 </ul>
@@ -158,7 +160,13 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-c-加上-featureapply-并行">2.1 C++ 加上 feature.apply 并行</a></li>
+    <li><a href="#22-利用c-openmp并行">2.2 利用c++ openMP并行</a></li>
+    <li><a href="#23运行对比">2.3运行对比</a></li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -227,23 +235,35 @@
     
         
         <section id="content">
-            <h1 id="r结合c">1. R结合C++</h1>
+            <h1 id="1-r结合c">1. R结合C++</h1>
 <p>首先要配置好<code>R</code>和<code>C++</code>的环境，在R官网中分别有不同操作系统的环境配置条件，按照下载R软件的步骤，在下载R软件页面有相应的配置说明。如果是mac系统也可以参考这篇文章：<a href="http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/">macOS</a></p>
 <p>基本的用法可以参考：</p>
-<ol type="1">
-<li><p><a href="http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html">http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html</a></p></li>
-<li><p>个人建议要写<code>c++</code>代码给<code>R</code>软件使用，建议不要混合编程，我只是简单的实验过，这样会降低代码运行的效率，甚至，可能比R本身的运算还慢。</p></li>
-<li><p>基本的<code>c++</code> 大概能写一些简单的循环运算，但要涉及比较复杂的矩阵运算此时需要额外的库，不过不怕麻烦你自己也可以用<code>c++</code>写，这里推荐使用<a href="http://arma.sourceforge.net/">Armadillo</a> 库，语法和<code>MATLAB</code>很相似，上手很快。</p></li>
-<li><p>由于查资料发现，<a href="http://arma.sourceforge.net/">Armadillo</a> 被<a href="http://dirk.eddelbuettel.com/code/rcpp.armadillo.html">RcppArmadillo</a>包给封装了，但基本没有对其做任何更改，所以你只需要简单的引入相应的<code>Rcpp</code>环境，就能简单的写<code>c++</code>了，再次说明，<code>c++</code>中最好不要混写R代码。</p></li>
-<li><p>CSDN上有关<code>Armadillo</code>库的介绍，个人觉得还不错，https://blog.csdn.net/jnulzl/article/details/46808515</p></li>
-<li><p><code>c++</code>并行运算对比 以及<code>RcppArmadillo</code>包的使用，如下，先做总结，推荐使用<code>feature.apply</code>包来并行<code>c++</code>代码，虽然有时候没有<code>C++ openMP</code>快，但是基本上符合人们需求，而且<code>feature.apply</code>包使用起来很简单，相对于其他<code>R</code>并行计算的包，不出错，记得使用<code>doParallel</code>包来并行<code>C++</code>总是出错，所以推荐<code>feature.apply</code>并行。</p></li>
+<ol>
+<li>
+<p><a href="http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html">http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html</a></p>
+</li>
+<li>
+<p>个人建议要写<code>c++ </code>代码给<code>R</code>软件使用，建议不要混合编程，我只是简单的实验过，这样会降低代码运行的效率，甚至，可能比R本身的运算还慢。</p>
+</li>
+<li>
+<p>基本的<code>c++</code> 大概能写一些简单的循环运算，但要涉及比较复杂的矩阵运算此时需要额外的库，不过不怕麻烦你自己也可以用<code>c++</code>写，这里推荐使用<a href="http://arma.sourceforge.net/">Armadillo</a> 库，语法和<code>MATLAB</code>很相似，上手很快。</p>
+</li>
+<li>
+<p>由于查资料发现，<a href="http://arma.sourceforge.net/">Armadillo</a> 被<a href="http://dirk.eddelbuettel.com/code/rcpp.armadillo.html">RcppArmadillo</a>包给封装了，但基本没有对其做任何更改，所以你只需要简单的引入相应的<code>Rcpp</code>环境，就能简单的写<code>c++</code>了，再次说明，<code>c++</code>中最好不要混写R代码。</p>
+</li>
+<li>
+<p>CSDN上有关<code>Armadillo</code>库的介绍，个人觉得还不错，https://blog.csdn.net/jnulzl/article/details/46808515</p>
+</li>
+<li>
+<p><code>c++ </code>并行运算对比 以及<code>RcppArmadillo</code>包的使用，如下，先做总结，推荐使用<code>feature.apply</code>包来并行<code>c++</code>代码，虽然有时候没有<code>C++ openMP</code>快，但是基本上符合人们需求，而且<code>feature.apply</code>包使用起来很简单，相对于其他<code>R</code>并行计算的包，不出错，记得使用<code>doParallel</code>包来并行<code>C++</code>总是出错，所以推荐<code>feature.apply</code>并行。</p>
+</li>
 </ol>
-<h1 id="r运行速度对比">2. R运行速度对比</h1>
-<h2 id="c-加上-feature.apply-并行">2.1 C++ 加上 feature.apply 并行</h2>
+<h1 id="2-r运行速度对比">2. R运行速度对比</h1>
+<h2 id="21-c-加上-featureapply-并行">2.1 C++ 加上 feature.apply 并行</h2>
 <p>把下面的代码存为<code>sample_c.cpp</code>，然后运行<code>Rcpp::sourceCpp('sample_c.cpp')</code>即可</p>
 <ul>
 <li><code>sample_mat</code> ： 随机构造n阶正互反判断矩阵</li>
-<li><code>eig_max</code>： 求矩阵的最大特征值</li>
+<li><code>eig_max</code>：  求矩阵的最大特征值</li>
 <li><code>veig_max(int n,int k =10000)</code>: 求k个n阶的最大特征值，返回一个向量。</li>
 </ul>
 <pre><code>// [[Rcpp::depends(RcppArmadillo)]]
@@ -299,9 +319,9 @@ NumericVector veig_max(int n,int k =10000){
     res(m) = eig_max(A);
   }
   return res;
-}</code></pre>
-<h2 id="利用c-openmp并行">2.2 利用c++ openMP并行</h2>
-<p>同理，把下面代码保存为<code>veig_max_mp.cpp</code>, 运行 <code>Rcpp::sourceCpp('veig_max_mp.cpp')</code>,只输出一个<code>veig_max_mp</code>函数，</p>
+}
+</code></pre><h2 id="22-利用c-openmp并行">2.2 利用c++ openMP并行</h2>
+<p>同理，把下面代码保存为<code>veig_max_mp.cpp</code>, 运行	<code> Rcpp::sourceCpp('veig_max_mp.cpp')</code>,只输出一个<code>veig_max_mp</code>函数，</p>
 <p>由于c++中利用了并行，所R中不能再进行并行了，这样会报错。</p>
 <pre><code>// [[Rcpp::plugins(openmp)]]
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -353,8 +373,8 @@ NumericVector veig_max_mp(int n,int k =10000){
 }
 
 
-</code></pre>
-<h2 id="运行对比">2.3运行对比</h2>
+
+</code></pre><h2 id="23运行对比">2.3运行对比</h2>
 <p>利用上面的函数，在R中运行进行对比(在24核32G的服务器上)</p>
 <pre><code>system.time({
   d = lapply(3:20,veig_max_mp, k=1000000)
@@ -369,8 +389,8 @@ system.time({
 
 system.time({
     b = lapply(3:20,veig_max,k=1000000)
-})</code></pre>
-<p>时间如下：</p>
+})
+</code></pre><p>时间如下：</p>
 <pre><code>&gt; system.time({
 +   d = lapply(3:20,veig_max_mp, k=1000000)
 + })
@@ -420,8 +440,8 @@ loaded via a namespace (and not attached):
  [1] compiler_3.5.2            parallel_3.5.2            tools_3.5.2              
  [4] RcppArmadillo_0.9.300.2.0 listenv_0.7.0             yaml_2.2.0               
  [7] Rcpp_1.0.1                codetools_0.2-16          digest_0.6.18            
-[10] globals_0.12.4  </code></pre>
-
+[10] globals_0.12.4  
+</code></pre>
         </section>
     </div>
     <br>

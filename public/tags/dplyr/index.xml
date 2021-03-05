@@ -40,14 +40,10 @@ flights &amp;lt;- tbl_df(flights) head(flights) #有336,776 x 19 ## # A tibble: 
       
       <guid>/md/2018-01-01-dplyr/</guid>
       <description>0、dplyr初始 由于R语言每一个步骤没有赋值的话，是不会改变原有的数据，都是建立一个新的数据。原有数据不改变。
- dplyr::tbl_df(iris)： 将数据转化为tbl类。只会显示适合屏幕大小的数据：
- dplyr::glimpse(iris)： tbl数据的信息密集概括。 类似str()函数
- dplyr::%&amp;gt;%： 将左边的对象作为第一个参数（或参数 .）传递到右边的函数中。利用%&amp;gt;%进行“Piping”管道操作增强了代码的可读性，
-  x %&amp;gt;% f(y) 相当于 f(x, y) y %&amp;gt;% f(x, ., z) 相当于 f(x, y, z )   1、filter 行过滤  filter(iris, Sepal.Length &amp;gt; 7)：抽取符合逻辑条件的数据记录。
- distinct(iris)：删除重复记录。 distinct(iris, Species) 保留iris某一列的唯一值 sample_frac(iris, 0.5, replace = TRUE)：随机选取部分数据(占总体的0.5)记录。
- sample_n(iris, 10, replace = TRUE)：随机选取n条数据记录。
- slice(iris, 10:15)：通过位置选取数据记录。
- top_n(storms, 2, date)：选取并排列前n条数据记录 （若为分组数据则按组排序）  2、select 列过滤 rename(.data, ...) rename_all(.tbl, .</description>
+  dplyr::tbl_df(iris)： 将数据转化为tbl类。只会显示适合屏幕大小的数据：
+  dplyr::glimpse(iris)： tbl数据的信息密集概括。 类似str()函数
+  dplyr::%&amp;gt;%： 将左边的对象作为第一个参数（或参数 .）传递到右边的函数中。利用%&amp;gt;%进行“Piping”管道操作增强了代码的可读性，
+  x %&amp;gt;% f(y) 相当于 f(x, y) y %&amp;gt;% f(x, ., z) 相当于 f(x, y, z )    1、filter 行过滤  **filter(iris, Sepal.Length &amp;gt; 7) ：**抽取符合逻辑条件的数据记录。 **distinct(iris) ：**删除重复记录。 distinct(iris, Species) 保留iris某一列的唯一值 **sample_frac(iris, 0.5, replace = TRUE) ：**随机选取部分数据(占总体的0.5)记录。 **sample_n(iris, 10, replace = TRUE) ：**随机选取n条数据记录。 **slice(iris, 10:15) ：**通过位置选取数据记录。 **top_n(storms, 2, date) ：**选取并排列前n条数据记录 （若为分组数据则按组排序）  2、select 列过滤 rename(.</description>
     </item>
     
     <item>
@@ -57,12 +53,12 @@ flights &amp;lt;- tbl_df(flights) head(flights) #有336,776 x 19 ## # A tibble: 
       
       <guid>/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/</guid>
       <description>1、列与行名相互转化 tibble包：
- has_rownames(df)：检查是否存在行名
- remove_rownames(df) ： 移除行名
- rownames_to_column(df, var = “rowname”) ： 行名变为某列
- rowid_to_column(df, var = “rowid”)： 行名变为某列,只能变为数字,个人不推荐  column_to_rownames(df, var = “rowname”) ： 某列变为行名，并删除某列,要求这个列值唯一
-  library(tibble) head(mtcars) has_rownames(mtcars) #检查是否存在行名 new_mtcars=rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;) #行名变为某列,行名此时被移除 head(new_mtcars) has_rownames(rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) has_rownames(rowid_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) df=remove_rownames(mtcars)#： 移除行名 head(df) column_to_rownames(new_mtcars, var = &amp;quot;new_col&amp;quot;)# 某列变为行名，并删除某列,要求这个列值唯一 2、添加行与列 添加行： + add_row(.data, …, .before = NULL, .after = NULL)
-添加列： + add_column(.data, …, .</description>
+  has_rownames(df)：检查是否存在行名
+  remove_rownames(df) ： 移除行名
+  rownames_to_column(df, var = &amp;ldquo;rowname&amp;rdquo;) ： 行名变为某列
+ rowid_to_column(df, var = &amp;ldquo;rowid&amp;rdquo;)： 行名变为某列,只能变为数字,个人不推荐    column_to_rownames(df, var = &amp;ldquo;rowname&amp;rdquo;) ： 某列变为行名，并删除某列,要求这个列值唯一
+  library(tibble) head(mtcars) has_rownames(mtcars) #检查是否存在行名 new_mtcars=rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;) #行名变为某列,行名此时被移除 head(new_mtcars) has_rownames(rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) has_rownames(rowid_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) df=remove_rownames(mtcars)#： 移除行名 head(df) column_to_rownames(new_mtcars, var = &amp;quot;new_col&amp;quot;)# 某列变为行名，并删除某列,要求这个列值唯一 2、添加行与列 添加行：
+ add_row(.data, &amp;hellip;, .before = NULL, .after = NULL)  添加列：</description>
     </item>
     
   </channel>
