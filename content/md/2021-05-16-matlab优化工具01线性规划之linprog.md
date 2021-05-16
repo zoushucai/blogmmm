@@ -27,36 +27,36 @@ markup: mmark
 
 ## 基本选项参数
 
-- optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项
+-   optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项
 
-    ``` MATLAB
-    %% 函数用法与解释
-    options = optimset('paraml',vaJuel,'param2',value2,...)  % 如果选择用系统的默认值，则只需将参数的值设为 \[\].
-    optimset: 列出一个完整的优化参数列表及相应的可选值。
-    options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。
-    options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。
-    options=optimset(oldopts, 'paraml' ,valuel ,...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options
-    options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。
-    
-    
-    %% eg: 列出所有的优化参数列表
-    >> optimset
-    %% 结果省略
-    ```
+``` matlab
+%% 函数用法与解释
+options = optimset('paraml',vaJuel,'param2',value2,...)  % 如果选择用系统的默认值，则只需将参数的值设为 \[\].
+optimset: 列出一个完整的优化参数列表及相应的可选值。
+options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。
+options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。
+options=optimset(oldopts, 'paraml' ,valuel ,...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options
+options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。
+
+
+%% eg: 列出所有的优化参数列表
+>> optimset
+%% 结果省略
+```
 
 -   optimget 函数: 想查看某个优化参数的值
 
-    ``` MATLAB
-    %%
-    val= optimget(options, 'param' ) : 获取优化参数结构体 options 中参数 param 的值。
+``` matlab
+%%
+val= optimget(options, 'param' ) : 获取优化参数结构体 options 中参数 param 的值。
 val = optimget(options, 'param'， default): 如果参数 param 在 options 中没有定义，则返回其默认值
-    %% eg: 查看某个优化参数的值
-    clc,clear all;
-    options = optimset('fmincon') % 省略结果
-    options =optimset(options, 'Display' , 'iter') %修改 Display 属性值为iter
-    val = optimget(options,'Display') % 重新获取fmincon 函数的 Display属性值
-    ```
-    
+%% eg: 查看某个优化参数的值
+clc,clear all;
+options = optimset('fmincon') % 省略结果
+options =optimset(options, 'Display' , 'iter') %修改 Display 属性值为iter
+val = optimget(options,'Display') % 重新获取fmincon 函数的 Display属性值
+```
+
 ![image-20210516102520466](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161025image-20210516102520466.png)
 
 ## 线性规划的标准型
@@ -77,7 +77,7 @@ $$
 
 ### matlab 实现线性规划 --- --- linprog
 
-``` MATLAB
+``` matlab
 % 语法
 x = linprog(f,A,b,Aeq,beq,lb,ub,options)
 x = linprog(problem)

@@ -83,9 +83,7 @@ options = optimoptions('fmincon','Display','iter','PlotFcn','optimplotfval');
 
 ![image-20210515121800630](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151218image-20210515121800630.png)
 
-![image-20210515121820017](../../../Library/Application%20Support/typora-user-images/image-20210515121820017.png)
-
-
+![image-20210515121820017](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161223image-20210515121820017.png)
 
 #### 例1: 具体例子
 
