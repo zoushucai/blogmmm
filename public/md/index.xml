@@ -14,8 +14,9 @@
       
       <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/</guid>
       <description>matlab优化工具01线性规划之linprog 常用这些函数， 写个笔记
-matlab 优化工具箱函数 基本函数 全局优化函数  遗传算法 ga() , 推荐, 可以处理带有约束问题的优化, 还可以求解混合整数规划 模式搜索算法 patternsearch() 模拟退火求解 simulannealbnd() 粒子群算法 particleswarm  基本选项参数   optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项
-options = optimset(&amp;#39;paraml&amp;#39;,vaJuel,&amp;#39;param2&amp;#39;,value2,...) 如果选择用系统的默认值，则只需 将参数的值设为 []. optimset: 列出一个完整的优化参数列表及相应的可选值。 options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。 options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。 options=optimset(oldopts, &amp;#39;paraml&amp;#39; ,valuel ,...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。 %% eg: 列出所有的优化参数列表 &amp;gt;&amp;gt; optimset %% 结果省略   optimget 函数: 想查看某个优化参数的值</description>
+matlab 优化工具箱函数 基本函数 
+全局优化函数  遗传算法 ga() , 推荐, 可以处理带有约束问题的优化, 还可以求解混合整数规划 模式搜索算法 patternsearch() 模拟退火求解 simulannealbnd() 粒子群算法 particleswarm  基本选项参数  optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项
+%% 函数用法与解释 options = optimset(&amp;#39;paraml&amp;#39;,vaJuel,&amp;#39;param2&amp;#39;,value2,...) % 如果选择用系统的默认值，则只需将参数的值设为 \[\]. optimset: 列出一个完整的优化参数列表及相应的可选值。 options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。 options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。 options=optimset(oldopts, &amp;#39;paraml&amp;#39; ,valuel ,...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。 %% eg: 列出所有的优化参数列表 &amp;gt;&amp;gt; optimset %% 结果省略 optimget 函数: 想查看某个优化参数的值</description>
     </item>
     
     <item>
@@ -25,19 +26,8 @@ options = optimset(&amp;#39;paraml&amp;#39;,vaJuel,&amp;#39;param2&amp;#39;,valu
       
       <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/</guid>
       <description>matlab优化工具02非线性规划之fmincon 由于经常用到一些matlab中基本的优化函数, 于是写一个笔记, 由于新版本的文档和以前版本的文档有点不一样, 搞得查起来有点费劲, 不过推荐新版本的文档
-非线性规划的标准型及参数解释 $$ \begin{aligned} &amp;amp; \min \quad f(x) \
-&amp;amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \
-\textbf{Aeq} \cdot x=beq \
-c(x) \leq 0 \
-\operatorname{ceq}(x)=0 \
-l b \leq x \leq u b \end{cases}\ \
-&amp;amp; f(x)是目标函数, x, b, beq是向量, \
-&amp;amp; \textbf{A}, \textbf{Aeq}是矩阵,\
-&amp;amp; c(x) 和 ceq(x) 是向量函數 \
-&amp;amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
-&amp;amp;c(x) 非线性不等式, ceq(x)非线性等式 \
-\end{aligned} $$
-% 2.基本语法 [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options) [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___) %% 等号左边参数解释 x 的返回值是决策向量x的取值，fval 的返回值是目标函数f(x)的取值 exitflag 参数，描述函数计算的退出条件 output, 输出模型的优化信息参数 lambda, 返回解x处包含拉格朗日乘子的lambda参数 grad, 返回解x处fun函数的梯度值 hessian, 返回解x处fun函数的hessian矩阵 %% 等号右边参数解释 fun是用M文件定义的函数f(x),代表了(非)线性目标函数, 对于复杂问题, 建议写出目标函数以及非线性约束的梯度 x0是x的初始值 A,b,Aeq,beq定义了线性约束 ,如果没有线性约束，则A=[],b=[],Aeq=[],beq=[] lb和ub是变量x的下界和上界，如果下界和上界没有约束，则lb=[],ub=[],也可以写成lb的各分量都为 -inf, ub的各分量都为inf nonlcon是用M文件定义的非线性向量函数约束,如果没有则写[] options定义了优化参数，不填写表示使用Matlab默认的参数设置 eg: options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;Algorithm&amp;#39;,&amp;#39;sqp&amp;#39;); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;SpecifyObjectiveGradient&amp;#39;,true); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;PlotFcn&amp;#39;,&amp;#39;optimplotfval&amp;#39;);    options 常见取值 说明     Algorithm 优化算法:&#39;interior-point&#39; (default)&#39;trust-region-reflective&#39; &#39;sqp&#39;&#39;sqp-legacy&#39; (optimoptions only)&#39;active-set&#39;   Display 如果设置为 off 即不显示输出;设置为 iter 即显示每一次的迭代信息;设置为 final 只显示最终结果   FinDiffType 变量有限差分梯度的类型。取 &amp;lsquo;forward&amp;rsquo;日才即为向前差分，其为默认值;取 &amp;lsquo;central&amp;rsquo; 时为中心差分，其精度更精确   FunValCheck 检查目标函数与约束是否都有效。当设置为 on 时，遇到复数、 NaN、Inf 等，即显示 出错信息;当设置为 off时，不显示出错信息，其为默认值   GradConstr 用户定义的非线性约束函数。当设置为 on 时，返回 4 个输出;设置为 off 时.</description>
+非线性规划的标准型及参数解释 \[ \begin{aligned} &amp; \min \quad f(x) \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ c(x) \leq 0 \\ \operatorname{ceq}(x)=0 \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; f(x)是目标函数, x, b, beq是向量, \\ &amp; \textbf{A}, \textbf{Aeq}是矩阵,\\ &amp; c(x) 和 ceq(x) 是向量函數 \\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ &amp;c(x) 非线性不等式, ceq(x)非线性等式 \\ \end{aligned} \]
+% 2.基本语法 [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options) [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___) %% 等号左边参数解释 x 的返回值是决策向量x的取值，fval 的返回值是目标函数f(x)的取值 exitflag 参数，描述函数计算的退出条件 output, 输出模型的优化信息参数 lambda, 返回解x处包含拉格朗日乘子的lambda参数 grad, 返回解x处fun函数的梯度值 hessian, 返回解x处fun函数的hessian矩阵 %% 等号右边参数解释 fun是用M文件定义的函数f(x),代表了(非)线性目标函数, 对于复杂问题, 建议写出目标函数以及非线性约束的梯度 x0是x的初始值 A,b,Aeq,beq定义了线性约束 ,如果没有线性约束，则A=[],b=[],Aeq=[],beq=[] lb和ub是变量x的下界和上界，如果下界和上界没有约束，则lb=[],ub=[],也可以写成lb的各分量都为 -inf, ub的各分量都为inf nonlcon是用M文件定义的非线性向量函数约束,如果没有则写[] options定义了优化参数，不填写表示使用Matlab默认的参数设置 eg: options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;Algorithm&amp;#39;,&amp;#39;sqp&amp;#39;); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;SpecifyObjectiveGradient&amp;#39;,true); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;PlotFcn&amp;#39;,&amp;#39;optimplotfval&amp;#39;);    options 常见取值 说明     Algorithm 优化算法:</description>
     </item>
     
     <item>
@@ -47,20 +37,9 @@ l b \leq x \leq u b \end{cases}\ \
       
       <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/</guid>
       <description>matlab优化工具03全局优化之ga 首先,要明白遗传算法的基本思路,然后再利用这个函数求解问题,是非常方便的.
-新版本中很多优化函数的属性设置都采用: optimoptions(&#39;优化函数&#39;, &#39;属性1&#39;,&#39;属性值1&#39;,....) 
+新版本中很多优化函数的属性设置都采用: optimoptions(&#39;优化函数&#39;, &#39;属性1&#39;,&#39;属性值1&#39;,....)
 故gaoptimset不推荐了,但是基本都差不多,可能个别参数名变了
-一般模型及函数解释 $$ \begin{aligned} &amp;amp; \min \quad f(x) \
-&amp;amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \
-\textbf{Aeq} \cdot x=beq \
-c(x) \leq 0 \
-\operatorname{ceq}(x)=0 \
-l b \leq x \leq u b \end{cases}\ \
-&amp;amp; f(x)是目标函数, x, b, beq是向量, \
-&amp;amp; \textbf{A}, \textbf{Aeq}是矩阵,\
-&amp;amp; c(x) 和 ceq(x) 是向量函數 \
-&amp;amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
-&amp;amp;c(x) 非线性不等式, ceq(x)非线性等式 \
-\end{aligned} $$
+一般模型及函数解释 \[ \begin{aligned} &amp; \min \quad f(x) \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ c(x) \leq 0 \\ \operatorname{ceq}(x)=0 \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; f(x)是目标函数, x, b, beq是向量, \\ &amp; \textbf{A}, \textbf{Aeq}是矩阵,\\ &amp; c(x) 和 ceq(x) 是向量函數 \\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ &amp;c(x) 非线性不等式, ceq(x)非线性等式 \\ \end{aligned} \]
 (求解最小值)语法: x = ga(fun,nvars,A,b,[],[],lb,ub,nonlcon,IntCon,options) [x,fval,exitflag,output,population,scores] = ga(___) % 解释: fun 为适应度句柄函数, 一般其输入为1*nvars的向量 nvars, 即目标函数自变量的个数 A,b,Aeq,beq,LB,UB,nonlcon参数与fmincon中类似,不在解释 IntCon, 整数约束, 指定变量的下标则说明该变量为整数变量 options, 算法的属性设置 x,最优解 fval, 最优解对应的目标函数值 exitflag, 算法停止的原因 output, 输出算法结构 population, 最终得到种群适应度的列向量 scores, 最终得到的种群 options = optimoptions(&amp;#39;ga&amp;#39;,&amp;#39;PlotFcn&amp;#39;,@gaplotbestf); optimoptions **Optimization 解读, 详细解读,参考官网,这里只给出一些概念 **</description>
     </item>
     
