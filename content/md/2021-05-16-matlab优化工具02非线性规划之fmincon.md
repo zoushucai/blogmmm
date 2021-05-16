@@ -188,6 +188,185 @@ end
 
 
 
+### 例:
+
+$$
+\begin{aligned}
+\min & \quad  x_{5} \\
+& \begin{cases}
+x_{3}+9.625 x_{1} x_{4}+16 x_{2} x_{4}+16 x_{4}^{2}+12-4 x_{1}-x_{2}-78 x_{4}=0 \\
+16 x_{1} x_{4}+44-19 x_{1}-8 x_{2}-x_{3}-24 x_{4}=0 \\
+-0.25 x_{5}-x_{1} \leq -2.25 \\
+x_{1}-0.25 x_{5} \leq 2.25 \\
+-0.5 x_{5}-x_{2} \leq-1.5 \\
+x_{2}-0.5 x_{5} \leq 1.5 \\
+-1.5 x_{5}-x_{3} \leq -1.5 \\
+x_{3}-1.5 x_{5} \leq 1.5
+\end{cases}
+\end{aligned}
+$$
+
+上述问题的局部最优解: `[ 1.9638    0.9276   -0.2172    0.0695    1.1448]` ,目标函数值为 `1.1448`
+
+全局最优解: `[2.4544    1.9088    2.7263    1.3510    0.8175]`, 目标函数值为 `0.8175`. 前4个变量不讨论
+
+```matlab
+clc,clear all;
+
+A = [-1,  0,  0, 0, -0.25;
+      1,  0,  0, 0, -0.25;
+      0, -1,  0, 0, -0.5;
+      0,  1,  0, 0, -0.5;
+      0,  0, -1, 0, -1.5;
+      0,  0,  1, 0, -1.5];
+b = [-2.25; 2.25; -1.5; 1.5; -1.5; 1.5];
+P.objective = @(x)x(5);
+P.Aineq = A;
+P.Bineq = b;
+%P.lb = [];
+P.nonlcon = @mynocon;
+P.solver = 'fmincon';
+P.options = optimset;
+P.x0 = rand(5,1);
+[x,f0,flag] = fmincon(P) %给出初值并求解
+
+%% 非线性约束
+function [c, ceq] = mynocon(x)
+c = [];
+ceq = [x(3) + 9.625*x(1)*x(4) + 16*x(2)*x(4) + 16*x(4)^2 + 12 - 4*x(1) - x(2) - 78*x(4);
+    16*x(1)*x(4) + 44 - 19*x(1) - 8*x(2) - x(3) - 24*x(4)];
+end
+
+
+
+%% ---------------------------------------- 结果 ----------------------------------------
+Local minimum found that satisfies the constraints.
+
+Optimization completed because the objective function is non-decreasing in 
+feasible directions, to within the value of the optimality tolerance,
+and constraints are satisfied to within the value of the constraint tolerance.
+
+<stopping criteria details>
+x =
+    1.9638
+    0.9276
+   -0.2172
+    0.0695
+    1.1448
+f0 =
+    1.1448
+flag =
+     1
+```
+
+##### fmincon 函数的全局优化
+
+```
+%% fmincon 函数的全局优化
+% 由于 fmincon 函数求解，依靠初始值， 
+% 该全局优化函数，主要采用循环结构， 产生多个随机数赋值给fmincon函数作为初始值，
+% 依次调用fmincon函数求解原始问题， 并比较每次得出的目标函数值，并记录最小的目标函数值
+% 这样，就可能得出原始问题的全局最优解。
+
+function [x,f0,flag] = fmincon_global(f,a,b,n,N,varargin)
+%% 参数解释：
+% f 可以是结构体变量，也可以是目标函数的函数句柄
+% a 与b为决策变量所在的区间， 即 自变量x的上下限，可以是向量
+% n 为决策变量的个数， 即自变量的个数
+% N 产生多少个初值， 一般5~10个就好了
+% varargin 一些其他参数，应该包含描述约束的参数，与fmincon()函数完全一致
+% 即，fmincon 函数调用中除了 f与x0之外所有的后续变元
+%% 返回值： 
+% x 很有可能是问题的全局最优解
+% f0 为最优目标函数
+%% 函数调用格式：
+% x = fmincon(problem,a,b,n,N)
+% x = fmincon(f,a,b,n,N,A,b,Aeq,beq)
+% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub)
+% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub,nonlcon)
+% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub,nonlcon,options)
+% x = fmincon(problem)
+% [x,fval] = fmincon(___)
+% [x,fval,exitflag,output] = fmincon(___)
+% [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___)
+%%
+x0 = rand(n,1);
+k0 = 0;
+% 处理结构体
+if strcmp(class(f),'struct')
+    k0=1;
+end
+if k0==1
+    f.x0 = x0;
+    [x,f0,flag] = fmincon(f); %结构体描述的问题直接求解
+else
+    [x,f0,flag] = fmincon(f,x0,varargin{:}); %非结构体描述的问题直接求解
+end
+
+if flag == 0
+    f0 = 1e10;
+end
+for i = 1:N
+    x0 = a(:) + (b(:) - a(:)).* rand(n,1);% 用循环结构尝试不同的随机搜索初值
+    if k0 ==1
+        f.x0 = x0;
+        [x1,f1,flag] = fmincon(f); %结构体描述的问题直接求解
+    else
+        [x1,f1,flag] = fmincon(f,x0,varargin{:}); %非结构体描述的问题直接求解
+    end
+    if flag > 0 & f1 < f0
+        % 如果找到更改的解，则保存
+        x = x1;
+        f0 = f1;
+    end
+end
+
+
+```
+
+
+
+求解上述问题
+
+```matlab
+clc,clear all;
+A = [-1,  0,  0, 0, -0.25;
+      1,  0,  0, 0, -0.25;
+      0, -1,  0, 0, -0.5;
+      0,  1,  0, 0, -0.5;
+      0,  0, -1, 0, -1.5;
+      0,  0,  1, 0, -1.5];
+b = [-2.25; 2.25; -1.5; 1.5; -1.5; 1.5];
+P.objective = @(x)x(5);
+P.Aineq = A;
+P.Bineq = b;
+%P.lb = [];
+P.nonlcon = @mynocon;
+P.solver = 'fmincon';
+P.options = optimset;
+P.x0 = rand(5,1);
+tic % 计算耗时
+[x,f0,flag] = fmincon_global(P,-10,10,5,10) %给出初值并求解
+toc
+
+
+%% ---------------------------------------- 结果 ----------------------------------------
+x =
+    2.4544
+    1.9088
+    2.7263
+    1.3510
+    0.8175
+f0 =
+    0.8175
+flag =
+     1
+历时 1.545311 秒。
+
+```
+
+
+
 ### 模型: 常用非线性规划模型(我)
 
 $$
