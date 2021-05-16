@@ -95,9 +95,9 @@
         <a class="next" href="{{.Permalink}}"> 下一篇: {{.Title}}</a>
         {{ end }}
     </li>
-    <!-- 代码复制 -->
+     <!-- 代码复制 -->
     {{ if eq .Params.copycode false }}
-    {{ else if or (.Site.Params.copyCode) (.Params.copycode)}}
+    {{ else if or (.Site.Params.copycode) (.Params.copycode)}}
     <script src="{{.Site.BaseURL}}js/copyCode.js"></script>
     <script src="{{.Site.BaseURL}}js/tooltips.js"></script>
     {{ end }}

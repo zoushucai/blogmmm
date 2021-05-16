@@ -13,6 +13,7 @@
 
     
     <title>matlab优化工具01线性规划之linprog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     
     
     
@@ -74,8 +75,9 @@
         
         <script>hljs.initHighlightingOnLoad();</script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     
+          
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+  
 </head>
 
 
@@ -251,31 +253,31 @@
 <h2 id="基本选项参数">基本选项参数</h2>
 
 <ul>
-<li><p>optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-MATLAB" data-lang="MATLAB"><span style="color:#75715e">%% 函数用法与解释</span>
+<li>optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%% 函数用法与解释</span>
 options = optimset(<span style="color:#e6db74">&#39;paraml&#39;</span>,vaJuel,<span style="color:#e6db74">&#39;param2&#39;</span>,value2,<span style="color:#75715e">...)  % 如果选择用系统的默认值，则只需将参数的值设为 \[\].</span>
 optimset: 列出一个完整的优化参数列表及相应的可选值。
 options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。
 options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。
 options=optimset(oldopts, <span style="color:#e6db74">&#39;paraml&#39;</span> ,valuel ,<span style="color:#75715e">...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options</span>
 options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。
-    
-    
+
+
 <span style="color:#75715e">%% eg: 列出所有的优化参数列表</span>
 <span style="color:#f92672">&gt;&gt;</span> optimset
-<span style="color:#75715e">%% 结果省略</span></code></pre></div></li>
-
-<li><p>optimget 函数: 想查看某个优化参数的值</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-MATLAB" data-lang="MATLAB"><span style="color:#75715e">%%</span>
+<span style="color:#75715e">%% 结果省略</span></code></pre></div>
+<ul>
+<li>optimget 函数: 想查看某个优化参数的值</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%%</span>
 val= optimget(options, <span style="color:#e6db74">&#39;param&#39;</span> ) : 获取优化参数结构体 options 中参数 param 的值。
 val = optimget(options, <span style="color:#e6db74">&#39;param&#39;</span>， default): 如果参数 param 在 options 中没有定义，则返回其默认值
 <span style="color:#75715e">%% eg: 查看某个优化参数的值</span>
 clc,clear all;
 options = optimset(<span style="color:#e6db74">&#39;fmincon&#39;</span>) <span style="color:#75715e">% 省略结果</span>
 options =optimset(options, <span style="color:#e6db74">&#39;Display&#39;</span> , <span style="color:#e6db74">&#39;iter&#39;</span>) <span style="color:#75715e">%修改 Display 属性值为iter</span>
-val = optimget(options,<span style="color:#e6db74">&#39;Display&#39;</span>) <span style="color:#75715e">% 重新获取fmincon 函数的 Display属性值</span></code></pre></div></li>
-</ul>
-
+val = optimget(options,<span style="color:#e6db74">&#39;Display&#39;</span>) <span style="color:#75715e">% 重新获取fmincon 函数的 Display属性值</span></code></pre></div>
 <p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161025image-20210516102520466.png" alt="image-20210516102520466"></figure></p>
 
 <h2 id="线性规划的标准型">线性规划的标准型</h2>
@@ -294,8 +296,8 @@ lb \leq x \leq ub
 \end{aligned}
 \]</span></p>
 
-<h3 id="matlab-实现线性规划---linprog">matlab 实现线性规划 --- --- linprog</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-MATLAB" data-lang="MATLAB"><span style="color:#75715e">% 语法</span>
+<h3 id="matlab-实现线性规划--linprog">matlab 实现线性规划 --- linprog</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">% 语法</span>
 x = linprog(f,A,b,Aeq,beq,lb,ub,options)
 x = linprog(problem)
 [x,fval,exitflag,output,lambda] = linprog(___)
@@ -354,7 +356,7 @@ x0 =
          <span style="color:#ae81ff">0</span>
    <span style="color:#ae81ff">15.0000</span>
     <span style="color:#ae81ff">3.0000</span></code></pre></div>
-<h3 id="双下标的线性规划问题---运输问题">双下标的线性规划问题 --- --- 运输问题</h3>
+<h3 id="双下标的线性规划问题---运输问题">双下标的线性规划问题  --- 运输问题</h3>
 
 <ul>
 <li><p>如果目标函数以及约束条件中的变量是以矩阵描述,则按照一一对应规则变成向量的形式即可求解</p></li>
@@ -397,7 +399,7 @@ x0 =
      <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">70</span>    <span style="color:#ae81ff">30</span>
 f0 =
       <span style="color:#ae81ff">152535</span></code></pre></div>
-<h4 id="特殊的运输问题---指派问题">特殊的运输问题 ------ --- 指派问题</h4>
+<h4 id="特殊的运输问题---指派问题">特殊的运输问题  --- 指派问题</h4>
 
 <p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161110image-20210516111020291.png" alt="image-20210516111020291"></figure></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">C= [<span style="color:#ae81ff">15</span>,<span style="color:#ae81ff">18</span>,<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">24</span>;
@@ -466,7 +468,10 @@ f0 =
     <li style="float:right;list-style:none">
         
     </li>
+     
     
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
     
    
     <script>

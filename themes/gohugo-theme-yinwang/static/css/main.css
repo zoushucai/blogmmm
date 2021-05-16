@@ -395,6 +395,26 @@ pre .btn:focus {
   opacity: 1;
 }
 
+/*访问过*/
+.btn:link {
+  opacity: 1;
+  background:#ccc !important;
+
+}
+.btn:visited {
+  opacity: 1;
+  background:blue !important;
+}
+/*鼠标滑过*/
+.btn:hover{
+  opacity: 1;
+  background:red !important; 
+}
+.btn:active{
+  opacity: 1;
+  background:yellow !important;
+}
+
 pre .clippy {
   margin: 0;
   margin-top: -3px;
