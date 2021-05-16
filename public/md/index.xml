@@ -6,7 +6,64 @@
     <description>Recent content in Mds on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 16 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/md/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/md/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>matlab优化工具01线性规划之linprog</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/</guid>
+      <description>matlab优化工具01线性规划之linprog 常用这些函数， 写个笔记
+matlab 优化工具箱函数 基本函数 全局优化函数  遗传算法 ga() , 推荐, 可以处理带有约束问题的优化, 还可以求解混合整数规划 模式搜索算法 patternsearch() 模拟退火求解 simulannealbnd() 粒子群算法 particleswarm  基本选项参数   optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项
+options = optimset(&amp;#39;paraml&amp;#39;,vaJuel,&amp;#39;param2&amp;#39;,value2,...) 如果选择用系统的默认值，则只需 将参数的值设为 []. optimset: 列出一个完整的优化参数列表及相应的可选值。 options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。 options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。 options=optimset(oldopts, &amp;#39;paraml&amp;#39; ,valuel ,...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。 %% eg: 列出所有的优化参数列表 &amp;gt;&amp;gt; optimset %% 结果省略   optimget 函数: 想查看某个优化参数的值</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具02非线性规划之fmincon</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/</guid>
+      <description>matlab优化工具02非线性规划之fmincon 由于经常用到一些matlab中基本的优化函数, 于是写一个笔记, 由于新版本的文档和以前版本的文档有点不一样, 搞得查起来有点费劲, 不过推荐新版本的文档
+非线性规划的标准型及参数解释 $$ \begin{aligned} &amp;amp; \min \quad f(x) \
+&amp;amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \
+\textbf{Aeq} \cdot x=beq \
+c(x) \leq 0 \
+\operatorname{ceq}(x)=0 \
+l b \leq x \leq u b \end{cases}\ \
+&amp;amp; f(x)是目标函数, x, b, beq是向量, \
+&amp;amp; \textbf{A}, \textbf{Aeq}是矩阵,\
+&amp;amp; c(x) 和 ceq(x) 是向量函數 \
+&amp;amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
+&amp;amp;c(x) 非线性不等式, ceq(x)非线性等式 \
+\end{aligned} $$
+% 2.基本语法 [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options) [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___) %% 等号左边参数解释 x 的返回值是决策向量x的取值，fval 的返回值是目标函数f(x)的取值 exitflag 参数，描述函数计算的退出条件 output, 输出模型的优化信息参数 lambda, 返回解x处包含拉格朗日乘子的lambda参数 grad, 返回解x处fun函数的梯度值 hessian, 返回解x处fun函数的hessian矩阵 %% 等号右边参数解释 fun是用M文件定义的函数f(x),代表了(非)线性目标函数, 对于复杂问题, 建议写出目标函数以及非线性约束的梯度 x0是x的初始值 A,b,Aeq,beq定义了线性约束 ,如果没有线性约束，则A=[],b=[],Aeq=[],beq=[] lb和ub是变量x的下界和上界，如果下界和上界没有约束，则lb=[],ub=[],也可以写成lb的各分量都为 -inf, ub的各分量都为inf nonlcon是用M文件定义的非线性向量函数约束,如果没有则写[] options定义了优化参数，不填写表示使用Matlab默认的参数设置 eg: options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;Algorithm&amp;#39;,&amp;#39;sqp&amp;#39;); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;SpecifyObjectiveGradient&amp;#39;,true); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;PlotFcn&amp;#39;,&amp;#39;optimplotfval&amp;#39;);    options 常见取值 说明     Algorithm 优化算法:&#39;interior-point&#39; (default)&#39;trust-region-reflective&#39; &#39;sqp&#39;&#39;sqp-legacy&#39; (optimoptions only)&#39;active-set&#39;   Display 如果设置为 off 即不显示输出;设置为 iter 即显示每一次的迭代信息;设置为 final 只显示最终结果   FinDiffType 变量有限差分梯度的类型。取 &amp;lsquo;forward&amp;rsquo;日才即为向前差分，其为默认值;取 &amp;lsquo;central&amp;rsquo; 时为中心差分，其精度更精确   FunValCheck 检查目标函数与约束是否都有效。当设置为 on 时，遇到复数、 NaN、Inf 等，即显示 出错信息;当设置为 off时，不显示出错信息，其为默认值   GradConstr 用户定义的非线性约束函数。当设置为 on 时，返回 4 个输出;设置为 off 时.</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具03全局优化之ga</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/</guid>
+      <description>matlab优化工具03全局优化之ga 首先,要明白遗传算法的基本思路,然后再利用这个函数求解问题,是非常方便的.
+新版本中很多优化函数的属性设置都采用: optimoptions(&#39;优化函数&#39;, &#39;属性1&#39;,&#39;属性值1&#39;,....) 
+故gaoptimset不推荐了,但是基本都差不多,可能个别参数名变了
+一般模型及函数解释 $$ \begin{aligned} &amp;amp; \min \quad f(x) \
+&amp;amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \
+\textbf{Aeq} \cdot x=beq \
+c(x) \leq 0 \
+\operatorname{ceq}(x)=0 \
+l b \leq x \leq u b \end{cases}\ \
+&amp;amp; f(x)是目标函数, x, b, beq是向量, \
+&amp;amp; \textbf{A}, \textbf{Aeq}是矩阵,\
+&amp;amp; c(x) 和 ceq(x) 是向量函數 \
+&amp;amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
+&amp;amp;c(x) 非线性不等式, ceq(x)非线性等式 \
+\end{aligned} $$
+(求解最小值)语法: x = ga(fun,nvars,A,b,[],[],lb,ub,nonlcon,IntCon,options) [x,fval,exitflag,output,population,scores] = ga(___) % 解释: fun 为适应度句柄函数, 一般其输入为1*nvars的向量 nvars, 即目标函数自变量的个数 A,b,Aeq,beq,LB,UB,nonlcon参数与fmincon中类似,不在解释 IntCon, 整数约束, 指定变量的下标则说明该变量为整数变量 options, 算法的属性设置 x,最优解 fval, 最优解对应的目标函数值 exitflag, 算法停止的原因 output, 输出算法结构 population, 最终得到种群适应度的列向量 scores, 最终得到的种群 options = optimoptions(&amp;#39;ga&amp;#39;,&amp;#39;PlotFcn&amp;#39;,@gaplotbestf); optimoptions **Optimization 解读, 详细解读,参考官网,这里只给出一些概念 **</description>
+    </item>
+    
     <item>
       <title>R动画</title>
       <link>/md/2020-08-16-r%E5%8A%A8%E7%94%BB/</link>
@@ -121,7 +178,7 @@ MacTeX是mac下的latex工具，卸载方法：
 2、卸载GUI，到/Application/ 目录里删掉几个app即可。
 3、/Library/TeX
 4、~/Library/texlive/2019
-sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/texlive </description>
+sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/texlive cd /usr/local/ sudo rm -rf texlive/ cd /Library/ sudo rm -rf TeX/ cd ~/Library/texlive sudo rm -rf 2020 cd ~/Library sudo rm -rf texlive </description>
     </item>
     
     <item>
@@ -673,10 +730,10 @@ library(data.table) library(magrittr) iris_1 = data.table(iris[1:5,]) iris_2 = d
     
     <item>
       <title>data.table -- 2基本概念</title>
-      <link>/md/2018-01-17-data.table2/</link>
+      <link>/md/2018-01-17-datatable2/</link>
       <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-17-data.table2/</guid>
+      <guid>/md/2018-01-17-datatable2/</guid>
       <description>data.table基本概念和其余函数&amp;mdash;还需要修改 set*  函数族 会改变原有的数据，没有返回值，在data.table里，操作符&amp;quot;:=&amp;quot;和所有的以set开头函数（比如setkey,setorder,setname等）一样，它们都会更新输入的原数据。
 library(data.table) iris_dt = data.table(iris) # setnames(DT,oldnames,newnames) # 改变DT的列名oldnames,newnames为向量即变量 #改变列的顺序 col_names = colnames(iris_dt) setcolorder(iris_dt,col_names[5:1]) # 更改某行某列的值,即更新元素的值 set(iris_dt,1,1,NA)# 更改1行1列的值为NA 1、键（主键）的概念  data.table从来不使用行名。data.table类似有行名的形式为1:，2: , ... 主键会对筛选的列进行重排序 我们把data.table数据中的行名叫做键（或主键），他类似于python的字典，使用键值对类型查找数据，键要求唯一，每一行有且只有一个键。但是R中的键可以用多个甚至可以重复，键就相当于索引，通过键进行数据的查找 setkey() 和 setkeyv()可以直接更新输入的data.table，就和上一讲中的操作符&amp;quot;:=&amp;ldquo;一样。它们没有返回值。 这个主键和其它语言不一样，例如python的键，唯一，在r中任意列都能使用setkey()来设置主键  library(data.table) mtcars_dt &amp;lt;- data.table(mtcars) # 可以看出mtcars数据集中的行名没有了，替而代之为1: ，2: # 若想保留行名，设置keep.rownames = T，当keep.rowname＝&amp;quot;new&amp;quot;时，列名改为new即可 mtcars_dt &amp;lt;- data.table(mtcars,keep.rownames = T)#默认创建一个叫做 rn的列，并且将行名赋值给这一列。 mtcars_dt 1.2、设置／获取／使用主键 怎么将数据中的某一列设置为主键呢？&amp;mdash;setkey()函数
  setkey(DT, key) 将DT中的key列设置为主键，但是类行名 1:，2:,&amp;hellip;,不会发生改变, 上面等价 setkeyv(DT, &amp;quot;key&amp;quot;) ，也将DT中的key列设置为主键 一旦将某一列设置成data.table的主键，就可以在参数i里指定 .()来subset那些主键了(就可以进行行筛选了)。我们还是用mtcars数据集，我们增加一个新列new  mtcars_dt &amp;lt;- data.table(mtcars) mtcars_dt[,new:=Sys.Date()+1:32] #增加一列new，内容为时间 setkey(mtcars_dt,new) mtcars_dt # 类似行名并没有发生改变， mtcars_dt[.</description>
@@ -684,10 +741,10 @@ library(data.table) iris_dt = data.table(iris) # setnames(DT,oldnames,newnames) 
     
     <item>
       <title>data.table -- 1基本函数</title>
-      <link>/md/2018-01-16-data.table1/</link>
+      <link>/md/2018-01-16-datatable1/</link>
       <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/md/2018-01-16-data.table1/</guid>
+      <guid>/md/2018-01-16-datatable1/</guid>
       <description>data.table本质上是一个list，它们的列包含的元素个数都相同。
 1、数据的读写 1.1数据读入－－fread 选其常用的参数如下：
 fread(input,na.strings=&amp;#34;NA&amp;#34;, file, stringsAsFactors=FALSE,encoding=&amp;#34;unknown&amp;#34;, ...)  input 入的文件对象，fread函数可以自动判断分隔符类型，自动判断首行是否是列标题，同时默认读入时字符型变量不会变为因子型。也可也从网页读取数据 na.strings,对NA的解释； file文件路径，再确保没有执行shell命令时很有用，也可以在input参数输入; stringsASFactors是否转化字符串为因子， encoding，默认&amp;quot;unknown&amp;quot;，其它可能&amp;quot;UTF-8&amp;quot;或者&amp;quot;Latin-1&amp;quot;，不是用来重新编码的，而是允许处理的字符串在本机编码; showProgress = T 显示进度条 integer64 当数据列中有大于2 ^ 31的整数,可能会丢失精度 quote 对带双引号的字符添加转义,在R中正常显示,但是输出时,可能会引起成倍的双引号,因此建议使用fwrite时,设置该参数quote = FALSE  1.2数据写入－－fwrite fwrite(x, file = &amp;#34;&amp;#34;, append = FALSE, na = &amp;#34;&amp;#34;, row.names = FALSE, col.names = TRUE,logicalAsInt = FALSE, ...)  x,比如data.frame和data.table等R的对象； file，输出文件名,&amp;ldquo;&amp;ldquo;意味着直接输出到操作台； append，如果TRUE,在原文件的后面添加；默认删除原来文件的数据，重新存储。 na,na值的表示，默认&amp;rdquo;&amp;quot;； row.names，是否写出行名，因为data.table没有行名，所以默认FALSE； col.names ，是否写出列名，默认TRUE，如果没有定义，并且append=TRUE和文件存在，那么就会默认使用FALSE; logicalAsInt,逻辑值作为数字写出还是作为FALSE和TRUE写出；  2. 数据行列筛选 &amp;mdash; i 参数 对于数据的处理，data.table包提供了一个非常简洁的通用格式：DT[i,j,by]，

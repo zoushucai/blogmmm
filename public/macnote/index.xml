@@ -58,7 +58,7 @@ git -C &amp;#34;$(brew --repo)&amp;#34; remote set-url origin https://mirrors.tu
 2019-11-20-mac常用软件
 https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
 https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue_xia_zai_man_wen_ti/
-常用软件安装 brew cask install google-chrome # Google浏览器 brew cask install typora brew cask install sublime-text	brew cask install github brew cask install mathpix-snipping-tool brew cask install tencent-lemon # 腾讯柠檬清理软件 brew cask install contexts brew cask install firefox brew cask install the-unarchiver # 解压工具 brew cask install keka # 解压缩工具 brew cask install qq	brew cask install iina brew cask install mounty # U盘挂在软件 ## mounty开源的.</description>
+常用软件安装 brew cask install google-chrome # Google浏览器 brew cask install typora brew cask install sublime-text	brew cask install github brew cask install mathpix-snipping-tool brew cask install tencent-lemon # 腾讯柠檬清理软件 brew cask install contexts brew cask install firefox brew cask install the-unarchiver # 解压工具 brew cask install keka # 解压缩工具 # 可以购买myzip专业版,这个软件具有上述两个软件的常用功能,解压缩 brew cask install qq	brew cask install iina brew cask install mounty # U盘挂在软件 ## mounty开源的.</description>
     </item>
     
     <item>

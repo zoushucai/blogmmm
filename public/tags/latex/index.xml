@@ -91,7 +91,7 @@ MacTeX是mac下的latex工具，卸载方法：
 2、卸载GUI，到/Application/ 目录里删掉几个app即可。
 3、/Library/TeX
 4、~/Library/texlive/2019
-sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/texlive </description>
+sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/texlive cd /usr/local/ sudo rm -rf texlive/ cd /Library/ sudo rm -rf TeX/ cd ~/Library/texlive sudo rm -rf 2020 cd ~/Library sudo rm -rf texlive </description>
     </item>
     
     <item>

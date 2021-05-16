@@ -393,7 +393,22 @@ group[, .SD[which.max(pt)], by=Subject]# 方法二: 较慢
 
 
 </code></pre><p><a href="https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group">https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group</a></p>
+<h2 id="8-按照a列分组后找出b列的第2大的值">8. 按照A列分组后,找出B列的第2大的值</h2>
+<pre><code>
+group[group[,.I[order(-pt)[2]],by=.(Subject)]$V1,]
 
+
+group[,.SD[order(-pt)[2]], by = Subject]
+
+</code></pre><pre><code>  ## 方法一:
+  dtf_t = dt[dt[, .I[order(-count_dot,abbr_len)[1]], by=journal_lower]$V1,]
+
+  ## 方法二:
+  dtf = dt[dt[, .I[{
+    temp = which(count_dot == max(count_dot))
+    ifelse(length(temp) == 1, temp, which.min(abbr_len))
+  }], by = journal_lower]$V1,]
+</code></pre>
         </section>
     </div>
     <br>
@@ -426,7 +441,7 @@ group[, .SD[which.max(pt)], by=Subject]# 方法二: 较慢
     <hr>
     <li style="float:left;list-style:none">
         
-        <a class="previous" href="/md/2018-01-17-data.table2/"> 上一篇: data.table -- 2基本概念</a>
+        <a class="previous" href="/md/2018-01-17-datatable2/"> 上一篇: data.table -- 2基本概念</a>
         
     </li>
     <li style="float:right;list-style:none">
