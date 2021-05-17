@@ -25,6 +25,9 @@ function fallbackMessage(action) {
 }
 
 /*增加新的功能*/
+function myafter(){
+  
+}
 function flashCopyMessage(el, msg) {
   el.textContent = msg;
   setTimeout(function() {
