@@ -29,11 +29,14 @@ jobs:
         run: |
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.REPOSIT_GITEE_PRIVATE_KEY }}"
+          ssh-add - <<< "${{ secrets.REPOSIT_GITHUB_PRIVATE_KEY }}"
+         
           mkdir -p ~/.ssh
           ssh-keyscan gitee.com >> ~/.ssh/known_hosts
-          echo "创建成功gitee的known_hosts"
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          echo "创建成功gitee 和gitehub 的known_hosts"
 
-      # 推送 gitee 主仓库
+      # 1.推送 gitee 主仓库
       - name: push main to gitee repository 
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -49,7 +52,7 @@ jobs:
 
           git push --force gitee-origin main:master
 
-      # 推送 gitee 子仓库
+      # 2.推送 gitee 子仓库
       - name: push subtree to gitee repositoy 
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -66,27 +69,7 @@ jobs:
             echo "gitee 子树2"
           }
 
-      # 记得删除ssh配置
-      - name: remove SSH and known_hosts
-        run: |
-          rm -rf ~/.ssh
-          rm -rf /tmp/ssh_agent.sock
-
-      ##### 2. 配置 github 的ssh
-      - name: Configure SSH2
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add - <<< "${{ secrets.REPOSIT_GITHUB_PRIVATE_KEY }}"
-          {
-            mkdir -p ~/.ssh
-          } || {
-            ssh-keyscan github.com >> ~/.ssh/known_hosts
-          }
-          echo "创建成功github的known_hosts"
-
-      # 推送 github 子仓库
+      # 3.推送 github 子仓库
       - name: push subtree to github repositoy 
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -103,7 +86,7 @@ jobs:
             echo "github 子树2"
           }
 
-      - name: 删除ssh2
+      - name: 4.删除ssh
         run: |
           rm -rf ~/.ssh
           rm -rf /tmp/ssh_agent.sock
