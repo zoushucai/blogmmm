@@ -26,7 +26,7 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{ secrets.REPOSIT_GITEE_PRIVATE_KEY }}" > ~/.ssh/reposit_gitee
           chmod 600 ~/.ssh/reposit_gitee
-          echo "${{ secrets.REPOSIT_PRIVATE_KEY }}" > ~/.ssh/reposit_github
+          echo "${{ secrets.REPOSIT_GITHUB_PRIVATE_KEY }}" > ~/.ssh/reposit_github
           chmod 600 ~/.ssh/reposit_github
           cat >>~/.ssh/config <<END
           Host gitee.com
