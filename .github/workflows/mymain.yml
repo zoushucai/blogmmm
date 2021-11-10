@@ -4,7 +4,7 @@ name: Sync Subtree
 
 on:
   push:
-    branches: [ master ]  # 触发的条件
+    branches: [ main ]  # 触发的条件
 env:
   github_rep: "git@github.com:zoushucai/bpublic.git"
   gitee_rep: "git@gitee.com:zscqsmy/blogmmm.git"
