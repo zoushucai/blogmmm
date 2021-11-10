@@ -1,0 +1,3264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>回归树与模型树</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                回归树与模型树
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2017-02-18 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="理解回归树与模型树" class="section level2">
+<h2>1、理解回归树与模型树</h2>
+<p>决策树可用于聚类（类别变量），也可用于数值预测,但是本节只考虑决策树用于数值预测.</p>
+<p><strong>决策树用于数值预测</strong>可以分为<strong>回归树</strong>和<strong>模型树</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>回归树</strong>: 回归树中并没用使用线性回归的方法，而是基于到达叶节点的案例的平均值做出预测</p></li>
+<li><p><strong>模型树</strong>: 模型树和回归树以大致相同的方式生长，但是在每个叶节点，根据到达该节点的案例建立多元线性回归模型。根据叶节点的数目，一棵模型树可能会建立几十甚至上百个这样的模型，可能会使模型树比同等的回归树更难解释，但好处也行能提高精确度。</p></li>
+</ol>
+</div>
+<div id="回归树与模型树的优缺点" class="section level2">
+<h2>2、回归树与模型树的优缺点</h2>
+<table>
+<thead>
+<tr class="header">
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>将决策树的优点对数值型数据建立模型的能力相结合</td>
+<td>不像线性回归那么常用</td>
+</tr>
+<tr class="even">
+<td>能自动选择特征，允许该方法与大量特征一起使用</td>
+<td>需要大量的训练数据</td>
+</tr>
+<tr class="odd">
+<td>不需要使用者事先指定模型</td>
+<td>难以确定单个特征对于结果的总体净影响</td>
+</tr>
+<tr class="even">
+<td>拟合某些类型的数据可能会比线性回归好</td>
+<td>可能比回归模型难以解释</td>
+</tr>
+<tr class="odd">
+<td>不要求用统计的知识来解释模型</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>用于数值预测的决策树的建立方式与用于分类的决策树建立的方式大致相同。从根节点开始，按照特征使用分而治之的决策对数据进行划分，在进行一次分割后，将会导致结果最大化的均匀增长。</p>
+<ol style="list-style-type: decimal">
+<li><strong>在分类决策树中，一致性(均匀性)是有熵值度量</strong> ，而对于数值型数据是未定义的，</li>
+<li><strong>对于数值型决策，一致性(均匀性)可通过统计量(方差、标准差、平均绝对偏差)来度量</strong>,根据使用的决策树生长算法，度量方法可能用所不同，但基本原理相同.</li>
+</ol>
+<p>常见的一个分割标准成为<strong>标准偏差减少(Standard Deciation Reduction,SDR)</strong>,其公式定义如下<span class="math display">\[SDR=sd(T)\]</span></p>
+</div>
+<div id="例子-估计葡萄酒的质量" class="section level2">
+<h2>3、例子——-估计葡萄酒的质量</h2>
+<p>白葡萄酒包含4898个葡萄酒案例的11种化学特征的信息，对于每种葡萄酒，实验室分析测量的特征包括酸性、含糖量、氯化物含量、硫的含量、酒精度、PH值和密度值</p>
+<div id="读入数据" class="section level4">
+<h4>3.1读入数据</h4>
+<p>其所有特征都是数值型</p>
+<pre class="r"><code>wine &lt;- read.csv(&quot;whitewines.csv&quot;)</code></pre>
+<p>研究一下结果变量的分布,由于是离散的，可用直方图来研究葡萄酒质量的分布：</p>
+<pre class="r"><code>hist(wine$quality)</code></pre>
+<p><img src="/post/2017-02-18-tree-model_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>符合正态分布。大约以数值为6为中心(也可用summary()函数发现一些数据的异常值等等)，最后划分训练数据与测试数据(数据是随机排序),75%的训练数据，25%的测试数据</p>
+<pre class="r"><code>wine_train &lt;- wine[1:3750, ]
+wine_test &lt;- wine[3751:4898, ]</code></pre>
+</div>
+<div id="基于数据训练模型-回归树" class="section level4">
+<h4>3.2基于数据训练模型—-回归树</h4>
+<pre class="r"><code>library(rpart)
+m.rpart &lt;- rpart(quality ~ ., data = wine_train)
+m.rpart# 获取该树的基本信息,#summary(m.rpart)</code></pre>
+<pre><code>## n= 3750 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+##  1) root 3750 2945.53200 5.870933  
+##    2) alcohol&lt; 10.85 2372 1418.86100 5.604975  
+##      4) volatile.acidity&gt;=0.2275 1611  821.30730 5.432030  
+##        8) volatile.acidity&gt;=0.3025 688  278.97670 5.255814 *
+##        9) volatile.acidity&lt; 0.3025 923  505.04230 5.563380 *
+##      5) volatile.acidity&lt; 0.2275 761  447.36400 5.971091 *
+##    3) alcohol&gt;=10.85 1378 1070.08200 6.328737  
+##      6) free.sulfur.dioxide&lt; 10.5 84   95.55952 5.369048 *
+##      7) free.sulfur.dioxide&gt;=10.5 1294  892.13600 6.391036  
+##       14) alcohol&lt; 11.76667 629  430.11130 6.173291  
+##         28) volatile.acidity&gt;=0.465 11   10.72727 4.545455 *
+##         29) volatile.acidity&lt; 0.465 618  389.71680 6.202265 *
+##       15) alcohol&gt;=11.76667 665  403.99400 6.596992 *</code></pre>
+<p>对于决策树中的每个节点，到达决策点的案例数量都列出来了，例如：所有的3750个案例从根节点开始，其中</p>
+<ul>
+<li><p>(1)有2372个案例的alcohol&lt; 10.85 2372，</p></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>1378个案例的 alcohol&gt;=10.85 。</li>
+</ol></li>
+</ul>
+<p>因为alcohol（酒精）是决策树中第一个使用的变量，所以它是葡萄酒质量中唯一最重要的指标。</p>
+<p>用* 表示的节点是终端或者叶节点，这意味着他们会产生预测(这里作为yavl列出来)。例如节点5有一个5.971091的yval。当该决策树用来预测时，对任意一个葡萄酒案例，如果alcohol&lt; 10.85 2372 且volatile.acidity&lt; 0.2275，那么它的质量值将预测为5.97</p>
+</div>
+<div id="可视化决策时" class="section level4">
+<h4>3.3可视化决策时</h4>
+<pre class="r"><code>library(rpart.plot)
+
+rpart.plot(m.rpart, digits = 3)#基本决策树图</code></pre>
+<p><img src="/post/2017-02-18-tree-model_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>rpart.plot(m.rpart, digits = 4, fallen.leaves = TRUE, type = 3, extra = 101)#对图表的一些调整</code></pre>
+<p><img src="/post/2017-02-18-tree-model_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+</div>
+<div id="评估模型的性能" class="section level4">
+<h4>3.4评估模型的性能</h4>
+<pre class="r"><code>p.rpart &lt;- predict(m.rpart, wine_test)
+#我们预测的主要统计量表明了一个潜在的问题，预测值与真实值相比落在一个更窄的范围内
+summary(p.rpart)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   4.545   5.563   5.971   5.893   6.202   6.597</code></pre>
+<pre class="r"><code>summary(wine_test$quality)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   3.000   5.000   6.000   5.901   6.000   9.000</code></pre>
+<p>这一发现表面，该模型不能正确识别极端的情形，尤其是最好的和最差葡萄酒，反过来，另一方面，在第一四分位数和第三四分位数之间，我们可能做的不错。</p>
+</div>
+<div id="用平均绝对误差度量性能" class="section level4">
+<h4>3.5用平均绝对误差度量性能</h4>
+<p><strong>平均绝对误差:</strong>考虑它的预测值离真实值有多远，方程如下：<span class="math display">\[MAE=1/n\]</span></p>
+<p>由于误差是预测值与真实值之间的差值，所以可以简单创建一个MSE()函数，如下：</p>
+<pre class="r"><code>MAE &lt;- function(actual, predicted) {
+  mean(abs(actual - predicted))  
+}
+
+# 预测值和实际值之间的平均绝对误差
+MAE(p.rpart, wine_test$quality)#MAS越小越好</code></pre>
+<pre><code>## [1] 0.5872652</code></pre>
+<p>就平均而言，这意味着模型的预测值与真实值的质量分数之间的差值大约为0.59，基于质量的尺度是从0~10，这似乎表面我们的模型做的还可以<br />
+另一反面，大多数的葡萄酒既不是很好也不是很差，通常情况下，质量分数大约为5~6.因此根据这个指标，一个什么都没有做而是仅仅预测了均值的分类器可能同样会做的相当好（意思是直接为均值===相当于这个模型了）<br />
+训练数据中的平均质量等级如下：（用平均值试试）</p>
+<pre class="r"><code># result = 5.87平均值
+mean(wine_train$quality) </code></pre>
+<pre><code>## [1] 5.870933</code></pre>
+<pre class="r"><code>#如果我们对一个葡萄酒案例预测的值为5.87，那么我们将只有大约0.67的平均绝对误差
+#mean_abserror(5.87, wine_test$quality)
+mean(abs(rep(5.87,length(wine_test$quality))-wine_test$quality))#平均值的MAE为0.67</code></pre>
+<pre><code>## [1] 0.6722474</code></pre>
+<p>回归树(MSE=0.59)比估算的均值(MSE=0.67)平均更接近于真实的质量分数，但相差不大,所以模型需要改进</p>
+</div>
+</div>
+<div id="提高模型的性能-模型树改进模型" class="section level2">
+<h2>3.6提高模型的性能—-模型树（改进模型）</h2>
+<p>模型树算法为M5算法—改进以后为M5’算法
+M5‘算法在R中通过Rweka包和M5P()函数可以得到</p>
+<pre class="r"><code>library(RWeka)#调用的时候需要联网
+##############
+####  make_Weka_package_loader(&quot;lazyBayesianRules&quot;) #加载weka相关的包
+####  list_Weka_interfaces()  #列出weka中可以调用的函数，不够的话可以下载
+####  WPM(&quot;list-packages&quot;, &quot;installed&quot;)
+####  WPM(&quot;list-packages&quot;, &quot;available&quot;)
+######################################
+# 应该是Rweka中默认没有这个函数，需要自己安装以后调用
+#好像在这里调用的时候，要安装weka
+## 调用方法cbind(d,iris[,5])
+#LBR=make_Weka_classifier(&quot;weka/classifiers/lazy/LBR&quot;)
+#a=LBR(Species~., data=iris)
+#RF &lt;-make_Weka_classifier(&quot;weka/classifiers/trees/RandomForest&quot;)
+# a=RF(Species~., data=iris)
+
+###############################
+####
+M5P &lt;- make_Weka_classifier(&quot;weka/classifiers/trees/M5P&quot;)#必须调用
+m.m5p &lt;- M5P(quality~., data = wine_train)
+
+# 画树图
+m.m5p</code></pre>
+<pre><code>## M5 pruned model tree:
+## (using smoothed linear models)
+## 
+## alcohol &lt;= 10.85 : 
+## |   volatile.acidity &lt;= 0.237 : 
+## |   |   fixed.acidity &lt;= 6.85 : 
+## |   |   |   sulphates &lt;= 0.485 : 
+## |   |   |   |   fixed.acidity &lt;= 6.55 : 
+## |   |   |   |   |   chlorides &lt;= 0.038 : LM1 (34/79.918%)
+## |   |   |   |   |   chlorides &gt;  0.038 : 
+## |   |   |   |   |   |   free.sulfur.dioxide &lt;= 42 : LM2 (65/50.3%)
+## |   |   |   |   |   |   free.sulfur.dioxide &gt;  42 : LM3 (53/59.54%)
+## |   |   |   |   fixed.acidity &gt;  6.55 : 
+## |   |   |   |   |   total.sulfur.dioxide &lt;= 132 : LM4 (38/51.023%)
+## |   |   |   |   |   total.sulfur.dioxide &gt;  132 : 
+## |   |   |   |   |   |   total.sulfur.dioxide &lt;= 148.5 : LM5 (16/50.024%)
+## |   |   |   |   |   |   total.sulfur.dioxide &gt;  148.5 : LM6 (27/48.375%)
+## |   |   |   sulphates &gt;  0.485 : 
+## |   |   |   |   alcohol &lt;= 10.117 : 
+## |   |   |   |   |   total.sulfur.dioxide &lt;= 124 : 
+## |   |   |   |   |   |   pH &lt;= 3.26 : LM7 (19/0%)
+## |   |   |   |   |   |   pH &gt;  3.26 : 
+## |   |   |   |   |   |   |   pH &lt;= 3.295 : LM8 (3/0%)
+## |   |   |   |   |   |   |   pH &gt;  3.295 : LM9 (11/0%)
+## |   |   |   |   |   total.sulfur.dioxide &gt;  124 : 
+## |   |   |   |   |   |   fixed.acidity &lt;= 6.65 : 
+## |   |   |   |   |   |   |   density &lt;= 0.995 : LM10 (22/41.911%)
+## |   |   |   |   |   |   |   density &gt;  0.995 : 
+## |   |   |   |   |   |   |   |   residual.sugar &lt;= 13.3 : 
+## |   |   |   |   |   |   |   |   |   density &lt;= 0.997 : LM11 (6/28.351%)
+## |   |   |   |   |   |   |   |   |   density &gt;  0.997 : LM12 (5/0%)
+## |   |   |   |   |   |   |   |   residual.sugar &gt;  13.3 : LM13 (6/0%)
+## |   |   |   |   |   |   fixed.acidity &gt;  6.65 : 
+## |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 32 : LM14 (5/0%)
+## |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  32 : 
+## |   |   |   |   |   |   |   |   residual.sugar &lt;= 11.4 : 
+## |   |   |   |   |   |   |   |   |   chlorides &lt;= 0.041 : LM15 (3/0%)
+## |   |   |   |   |   |   |   |   |   chlorides &gt;  0.041 : 
+## |   |   |   |   |   |   |   |   |   |   sulphates &lt;= 0.55 : LM16 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   sulphates &gt;  0.55 : LM17 (2/0%)
+## |   |   |   |   |   |   |   |   residual.sugar &gt;  11.4 : LM18 (3/0%)
+## |   |   |   |   alcohol &gt;  10.117 : 
+## |   |   |   |   |   chlorides &lt;= 0.042 : LM19 (34/58.912%)
+## |   |   |   |   |   chlorides &gt;  0.042 : LM20 (51/51.98%)
+## |   |   fixed.acidity &gt;  6.85 : 
+## |   |   |   free.sulfur.dioxide &lt;= 24.5 : 
+## |   |   |   |   chlorides &lt;= 0.037 : LM21 (30/106.707%)
+## |   |   |   |   chlorides &gt;  0.037 : LM22 (83/75.354%)
+## |   |   |   free.sulfur.dioxide &gt;  24.5 : 
+## |   |   |   |   alcohol &lt;= 9.15 : 
+## |   |   |   |   |   citric.acid &lt;= 0.305 : 
+## |   |   |   |   |   |   residual.sugar &lt;= 14.45 : 
+## |   |   |   |   |   |   |   residual.sugar &lt;= 13.8 : 
+## |   |   |   |   |   |   |   |   chlorides &lt;= 0.052 : LM23 (6/77.537%)
+## |   |   |   |   |   |   |   |   chlorides &gt;  0.052 : LM24 (13/0%)
+## |   |   |   |   |   |   |   residual.sugar &gt;  13.8 : LM25 (11/0%)
+## |   |   |   |   |   |   residual.sugar &gt;  14.45 : LM26 (12/0%)
+## |   |   |   |   |   citric.acid &gt;  0.305 : 
+## |   |   |   |   |   |   total.sulfur.dioxide &lt;= 169.5 : 
+## |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 161.5 : 
+## |   |   |   |   |   |   |   |   pH &lt;= 3.355 : 
+## |   |   |   |   |   |   |   |   |   volatile.acidity &lt;= 0.215 : 
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 44 : LM27 (3/53.19%)
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  44 : LM28 (8/48.858%)
+## |   |   |   |   |   |   |   |   |   volatile.acidity &gt;  0.215 : LM29 (3/0%)
+## |   |   |   |   |   |   |   |   pH &gt;  3.355 : LM30 (4/0%)
+## |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  161.5 : LM31 (6/0%)
+## |   |   |   |   |   |   total.sulfur.dioxide &gt;  169.5 : 
+## |   |   |   |   |   |   |   sulphates &lt;= 0.56 : 
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 48.5 : LM32 (7/0%)
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  48.5 : 
+## |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 7.3 : LM33 (5/0%)
+## |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  7.3 : LM34 (4/0%)
+## |   |   |   |   |   |   |   sulphates &gt;  0.56 : LM35 (11/0%)
+## |   |   |   |   alcohol &gt;  9.15 : 
+## |   |   |   |   |   density &lt;= 0.996 : 
+## |   |   |   |   |   |   sulphates &lt;= 0.395 : LM36 (38/85.791%)
+## |   |   |   |   |   |   sulphates &gt;  0.395 : 
+## |   |   |   |   |   |   |   volatile.acidity &lt;= 0.195 : LM37 (66/59.494%)
+## |   |   |   |   |   |   |   volatile.acidity &gt;  0.195 : LM38 (54/79.956%)
+## |   |   |   |   |   density &gt;  0.996 : 
+## |   |   |   |   |   |   residual.sugar &lt;= 14.7 : LM39 (84/45.874%)
+## |   |   |   |   |   |   residual.sugar &gt;  14.7 : LM40 (24/62.764%)
+## |   volatile.acidity &gt;  0.237 : 
+## |   |   alcohol &lt;= 10.15 : 
+## |   |   |   volatile.acidity &lt;= 0.302 : 
+## |   |   |   |   citric.acid &lt;= 0.265 : 
+## |   |   |   |   |   free.sulfur.dioxide &lt;= 25.5 : LM41 (39/41.77%)
+## |   |   |   |   |   free.sulfur.dioxide &gt;  25.5 : 
+## |   |   |   |   |   |   total.sulfur.dioxide &lt;= 143.5 : 
+## |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 114 : LM42 (8/0%)
+## |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  114 : 
+## |   |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 132 : 
+## |   |   |   |   |   |   |   |   |   pH &lt;= 3.105 : 
+## |   |   |   |   |   |   |   |   |   |   citric.acid &lt;= 0.205 : LM43 (2/0%)
+## |   |   |   |   |   |   |   |   |   |   citric.acid &gt;  0.205 : 
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 6.8 : LM44 (2/0%)
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  6.8 : LM45 (2/0%)
+## |   |   |   |   |   |   |   |   |   pH &gt;  3.105 : LM46 (7/0%)
+## |   |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  132 : 
+## |   |   |   |   |   |   |   |   |   chlorides &lt;= 0.04 : LM47 (4/0%)
+## |   |   |   |   |   |   |   |   |   chlorides &gt;  0.04 : LM48 (9/35.46%)
+## |   |   |   |   |   |   total.sulfur.dioxide &gt;  143.5 : LM49 (97/66.41%)
+## |   |   |   |   citric.acid &gt;  0.265 : 
+## |   |   |   |   |   citric.acid &lt;= 0.395 : 
+## |   |   |   |   |   |   residual.sugar &lt;= 12.825 : 
+## |   |   |   |   |   |   |   sulphates &lt;= 0.475 : LM50 (49/50.397%)
+## |   |   |   |   |   |   |   sulphates &gt;  0.475 : 
+## |   |   |   |   |   |   |   |   chlorides &lt;= 0.05 : LM51 (59/65.173%)
+## |   |   |   |   |   |   |   |   chlorides &gt;  0.05 : LM52 (25/62.229%)
+## |   |   |   |   |   |   residual.sugar &gt;  12.825 : 
+## |   |   |   |   |   |   |   pH &lt;= 3.185 : 
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 29 : LM53 (11/0%)
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  29 : 
+## |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 179.5 : 
+## |   |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 6.75 : LM54 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  6.75 : LM55 (16/0%)
+## |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  179.5 : 
+## |   |   |   |   |   |   |   |   |   |   density &lt;= 0.998 : 
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 7 : LM56 (2/0%)
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  7 : LM57 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   density &gt;  0.998 : LM58 (17/47.23%)
+## |   |   |   |   |   |   |   pH &gt;  3.185 : 
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 56.5 : 
+## |   |   |   |   |   |   |   |   |   residual.sugar &lt;= 17.675 : 
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 30.5 : LM59 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  30.5 : 
+## |   |   |   |   |   |   |   |   |   |   |   citric.acid &lt;= 0.31 : LM60 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   |   citric.acid &gt;  0.31 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   chlorides &lt;= 0.054 : LM61 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   |   |   chlorides &gt;  0.054 : LM62 (2/0%)
+## |   |   |   |   |   |   |   |   |   residual.sugar &gt;  17.675 : LM63 (5/0%)
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  56.5 : LM64 (6/0%)
+## |   |   |   |   |   citric.acid &gt;  0.395 : 
+## |   |   |   |   |   |   pH &lt;= 3.205 : 
+## |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 172.5 : 
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 29.5 : 
+## |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 9.4 : LM65 (11/0%)
+## |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  9.4 : LM66 (3/53.19%)
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  29.5 : 
+## |   |   |   |   |   |   |   |   |   density &lt;= 0.998 : 
+## |   |   |   |   |   |   |   |   |   |   sulphates &lt;= 0.415 : LM67 (7/0%)
+## |   |   |   |   |   |   |   |   |   |   sulphates &gt;  0.415 : 
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 7.1 : LM68 (21/42.821%)
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  7.1 : LM69 (6/42.05%)
+## |   |   |   |   |   |   |   |   |   density &gt;  0.998 : LM70 (20/49.357%)
+## |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  172.5 : 
+## |   |   |   |   |   |   |   |   citric.acid &lt;= 0.505 : 
+## |   |   |   |   |   |   |   |   |   citric.acid &lt;= 0.435 : 
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 63 : 
+## |   |   |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 197 : LM71 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  197 : LM72 (10/32.187%)
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  63 : LM73 (5/0%)
+## |   |   |   |   |   |   |   |   |   citric.acid &gt;  0.435 : 
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 59.5 : LM74 (25/0%)
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  59.5 : 
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 6.25 : LM75 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  6.25 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   citric.acid &lt;= 0.445 : LM76 (4/0%)
+## |   |   |   |   |   |   |   |   |   |   |   |   citric.acid &gt;  0.445 : LM77 (5/26.531%)
+## |   |   |   |   |   |   |   |   citric.acid &gt;  0.505 : 
+## |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 58.5 : 
+## |   |   |   |   |   |   |   |   |   |   volatile.acidity &lt;= 0.285 : 
+## |   |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 42.5 : LM78 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  42.5 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   citric.acid &lt;= 0.515 : LM79 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   |   |   citric.acid &gt;  0.515 : LM80 (4/30.264%)
+## |   |   |   |   |   |   |   |   |   |   volatile.acidity &gt;  0.285 : LM81 (3/0%)
+## |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  58.5 : LM82 (7/0%)
+## |   |   |   |   |   |   pH &gt;  3.205 : LM83 (42/58.71%)
+## |   |   |   volatile.acidity &gt;  0.302 : 
+## |   |   |   |   volatile.acidity &lt;= 0.422 : 
+## |   |   |   |   |   pH &lt;= 3.235 : 
+## |   |   |   |   |   |   total.sulfur.dioxide &lt;= 153.5 : 
+## |   |   |   |   |   |   |   pH &lt;= 3.055 : LM84 (26/21.699%)
+## |   |   |   |   |   |   |   pH &gt;  3.055 : 
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 34.5 : 
+## |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 20.5 : 
+## |   |   |   |   |   |   |   |   |   |   sulphates &lt;= 0.445 : 
+## |   |   |   |   |   |   |   |   |   |   |   density &lt;= 0.993 : LM85 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   |   density &gt;  0.993 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 14 : LM86 (6/0%)
+## |   |   |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  14 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   |   density &lt;= 0.996 : LM87 (8/48.858%)
+## |   |   |   |   |   |   |   |   |   |   |   |   |   density &gt;  0.996 : LM88 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   sulphates &gt;  0.445 : 
+## |   |   |   |   |   |   |   |   |   |   |   pH &lt;= 3.175 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 7.55 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   |   chlorides &lt;= 0.052 : LM89 (4/0%)
+## |   |   |   |   |   |   |   |   |   |   |   |   |   chlorides &gt;  0.052 : LM90 (7/29.301%)
+## |   |   |   |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  7.55 : LM91 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   |   pH &gt;  3.175 : LM92 (5/31.989%)
+## |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  20.5 : 
+## |   |   |   |   |   |   |   |   |   |   residual.sugar &lt;= 7.25 : 
+## |   |   |   |   |   |   |   |   |   |   |   volatile.acidity &lt;= 0.315 : LM93 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   |   volatile.acidity &gt;  0.315 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 29.5 : 
+## |   |   |   |   |   |   |   |   |   |   |   |   |   sulphates &lt;= 0.47 : LM94 (8/32.572%)
+## |   |   |   |   |   |   |   |   |   |   |   |   |   sulphates &gt;  0.47 : LM95 (6/0%)
+## |   |   |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  29.5 : LM96 (5/0%)
+## |   |   |   |   |   |   |   |   |   |   residual.sugar &gt;  7.25 : LM97 (15/0%)
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  34.5 : LM98 (23/23.01%)
+## |   |   |   |   |   |   total.sulfur.dioxide &gt;  153.5 : 
+## |   |   |   |   |   |   |   citric.acid &lt;= 0.405 : 
+## |   |   |   |   |   |   |   |   volatile.acidity &lt;= 0.345 : LM99 (75/52.518%)
+## |   |   |   |   |   |   |   |   volatile.acidity &gt;  0.345 : 
+## |   |   |   |   |   |   |   |   |   pH &lt;= 3.105 : 
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 46.5 : LM100 (7/0%)
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  46.5 : LM101 (7/19.418%)
+## |   |   |   |   |   |   |   |   |   pH &gt;  3.105 : LM102 (32/56.306%)
+## |   |   |   |   |   |   |   citric.acid &gt;  0.405 : 
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 61.5 : 
+## |   |   |   |   |   |   |   |   |   citric.acid &lt;= 0.485 : 
+## |   |   |   |   |   |   |   |   |   |   volatile.acidity &lt;= 0.365 : LM103 (16/0%)
+## |   |   |   |   |   |   |   |   |   |   volatile.acidity &gt;  0.365 : 
+## |   |   |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 179.5 : LM104 (4/0%)
+## |   |   |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  179.5 : LM105 (2/0%)
+## |   |   |   |   |   |   |   |   |   citric.acid &gt;  0.485 : 
+## |   |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 7.55 : 
+## |   |   |   |   |   |   |   |   |   |   |   residual.sugar &lt;= 10.85 : LM106 (12/43.907%)
+## |   |   |   |   |   |   |   |   |   |   |   residual.sugar &gt;  10.85 : LM107 (8/0%)
+## |   |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  7.55 : LM108 (19/38.717%)
+## |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  61.5 : 
+## |   |   |   |   |   |   |   |   |   alcohol &lt;= 8.75 : LM109 (4/0%)
+## |   |   |   |   |   |   |   |   |   alcohol &gt;  8.75 : LM110 (12/0%)
+## |   |   |   |   |   pH &gt;  3.235 : LM111 (97/68.305%)
+## |   |   |   |   volatile.acidity &gt;  0.422 : LM112 (128/68.354%)
+## |   |   alcohol &gt;  10.15 : 
+## |   |   |   free.sulfur.dioxide &lt;= 26.5 : 
+## |   |   |   |   free.sulfur.dioxide &lt;= 17.5 : 
+## |   |   |   |   |   sulphates &lt;= 0.475 : 
+## |   |   |   |   |   |   chlorides &lt;= 0.032 : LM113 (12/0%)
+## |   |   |   |   |   |   chlorides &gt;  0.032 : LM114 (33/62.949%)
+## |   |   |   |   |   sulphates &gt;  0.475 : 
+## |   |   |   |   |   |   total.sulfur.dioxide &lt;= 90.5 : LM115 (13/83.25%)
+## |   |   |   |   |   |   total.sulfur.dioxide &gt;  90.5 : LM116 (13/89.087%)
+## |   |   |   |   free.sulfur.dioxide &gt;  17.5 : LM117 (80/68.84%)
+## |   |   |   free.sulfur.dioxide &gt;  26.5 : 
+## |   |   |   |   total.sulfur.dioxide &lt;= 161.5 : 
+## |   |   |   |   |   pH &lt;= 3.325 : LM118 (105/73.188%)
+## |   |   |   |   |   pH &gt;  3.325 : 
+## |   |   |   |   |   |   density &lt;= 0.994 : 
+## |   |   |   |   |   |   |   volatile.acidity &lt;= 0.278 : LM119 (8/0%)
+## |   |   |   |   |   |   |   volatile.acidity &gt;  0.278 : 
+## |   |   |   |   |   |   |   |   residual.sugar &lt;= 2.05 : LM120 (11/36.291%)
+## |   |   |   |   |   |   |   |   residual.sugar &gt;  2.05 : LM121 (5/0%)
+## |   |   |   |   |   |   density &gt;  0.994 : 
+## |   |   |   |   |   |   |   chlorides &lt;= 0.038 : 
+## |   |   |   |   |   |   |   |   alcohol &lt;= 10.45 : LM122 (2/56.416%)
+## |   |   |   |   |   |   |   |   alcohol &gt;  10.45 : LM123 (4/0%)
+## |   |   |   |   |   |   |   chlorides &gt;  0.038 : LM124 (7/0%)
+## |   |   |   |   total.sulfur.dioxide &gt;  161.5 : LM125 (77/77.736%)
+## alcohol &gt;  10.85 : 
+## |   alcohol &lt;= 11.767 : 
+## |   |   free.sulfur.dioxide &lt;= 21.5 : 
+## |   |   |   free.sulfur.dioxide &lt;= 11.5 : 
+## |   |   |   |   density &lt;= 0.992 : LM126 (19/84.403%)
+## |   |   |   |   density &gt;  0.992 : 
+## |   |   |   |   |   fixed.acidity &lt;= 6.85 : LM127 (6/108.029%)
+## |   |   |   |   |   fixed.acidity &gt;  6.85 : LM128 (21/69.935%)
+## |   |   |   free.sulfur.dioxide &gt;  11.5 : 
+## |   |   |   |   volatile.acidity &lt;= 0.195 : LM129 (36/61.98%)
+## |   |   |   |   volatile.acidity &gt;  0.195 : 
+## |   |   |   |   |   chlorides &lt;= 0.036 : LM130 (34/115.199%)
+## |   |   |   |   |   chlorides &gt;  0.036 : LM131 (59/78.207%)
+## |   |   free.sulfur.dioxide &gt;  21.5 : 
+## |   |   |   fixed.acidity &lt;= 7.35 : 
+## |   |   |   |   citric.acid &lt;= 0.265 : LM132 (82/61.849%)
+## |   |   |   |   citric.acid &gt;  0.265 : 
+## |   |   |   |   |   sulphates &lt;= 0.585 : 
+## |   |   |   |   |   |   total.sulfur.dioxide &lt;= 136.5 : 
+## |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 101.5 : LM133 (54/63.926%)
+## |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  101.5 : LM134 (99/92.852%)
+## |   |   |   |   |   |   total.sulfur.dioxide &gt;  136.5 : LM135 (67/68.985%)
+## |   |   |   |   |   sulphates &gt;  0.585 : LM136 (75/60.543%)
+## |   |   |   fixed.acidity &gt;  7.35 : 
+## |   |   |   |   fixed.acidity &lt;= 8.15 : LM137 (92/78.47%)
+## |   |   |   |   fixed.acidity &gt;  8.15 : LM138 (26/102.779%)
+## |   alcohol &gt;  11.767 : 
+## |   |   free.sulfur.dioxide &lt;= 21.5 : LM139 (181/88.599%)
+## |   |   free.sulfur.dioxide &gt;  21.5 : 
+## |   |   |   residual.sugar &lt;= 1.85 : 
+## |   |   |   |   pH &lt;= 3.295 : LM140 (120/66.869%)
+## |   |   |   |   pH &gt;  3.295 : LM141 (46/68.585%)
+## |   |   |   residual.sugar &gt;  1.85 : 
+## |   |   |   |   sulphates &lt;= 0.495 : 
+## |   |   |   |   |   chlorides &lt;= 0.035 : 
+## |   |   |   |   |   |   total.sulfur.dioxide &lt;= 112.5 : LM142 (48/80.266%)
+## |   |   |   |   |   |   total.sulfur.dioxide &gt;  112.5 : 
+## |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 41.5 : 
+## |   |   |   |   |   |   |   |   fixed.acidity &lt;= 6.95 : LM143 (29/58.058%)
+## |   |   |   |   |   |   |   |   fixed.acidity &gt;  6.95 : 
+## |   |   |   |   |   |   |   |   |   alcohol &lt;= 12.6 : 
+## |   |   |   |   |   |   |   |   |   |   alcohol &lt;= 11.85 : LM144 (4/0%)
+## |   |   |   |   |   |   |   |   |   |   alcohol &gt;  11.85 : LM145 (11/48.112%)
+## |   |   |   |   |   |   |   |   |   alcohol &gt;  12.6 : LM146 (9/0%)
+## |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  41.5 : 
+## |   |   |   |   |   |   |   |   pH &lt;= 3.05 : LM147 (7/39.483%)
+## |   |   |   |   |   |   |   |   pH &gt;  3.05 : LM148 (21/59.02%)
+## |   |   |   |   |   chlorides &gt;  0.035 : 
+## |   |   |   |   |   |   volatile.acidity &lt;= 0.245 : LM149 (34/83.494%)
+## |   |   |   |   |   |   volatile.acidity &gt;  0.245 : 
+## |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 147.5 : LM150 (59/68.359%)
+## |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  147.5 : LM151 (21/59.587%)
+## |   |   |   |   sulphates &gt;  0.495 : 
+## |   |   |   |   |   total.sulfur.dioxide &lt;= 104.5 : LM152 (46/49.848%)
+## |   |   |   |   |   total.sulfur.dioxide &gt;  104.5 : 
+## |   |   |   |   |   |   fixed.acidity &lt;= 7.15 : 
+## |   |   |   |   |   |   |   fixed.acidity &lt;= 6.15 : 
+## |   |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 123 : LM153 (10/32.843%)
+## |   |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  123 : 
+## |   |   |   |   |   |   |   |   |   fixed.acidity &lt;= 5.6 : 
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &lt;= 26 : LM154 (2/0%)
+## |   |   |   |   |   |   |   |   |   |   free.sulfur.dioxide &gt;  26 : LM155 (3/0%)
+## |   |   |   |   |   |   |   |   |   fixed.acidity &gt;  5.6 : LM156 (5/0%)
+## |   |   |   |   |   |   |   fixed.acidity &gt;  6.15 : 
+## |   |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 133.5 : 
+## |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &lt;= 110.5 : LM157 (7/39.483%)
+## |   |   |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  110.5 : 
+## |   |   |   |   |   |   |   |   |   |   chlorides &lt;= 0.033 : LM158 (11/0%)
+## |   |   |   |   |   |   |   |   |   |   chlorides &gt;  0.033 : 
+## |   |   |   |   |   |   |   |   |   |   |   sulphates &lt;= 0.565 : LM159 (3/0%)
+## |   |   |   |   |   |   |   |   |   |   |   sulphates &gt;  0.565 : LM160 (4/0%)
+## |   |   |   |   |   |   |   |   total.sulfur.dioxide &gt;  133.5 : 
+## |   |   |   |   |   |   |   |   |   alcohol &lt;= 12.25 : LM161 (4/0%)
+## |   |   |   |   |   |   |   |   |   alcohol &gt;  12.25 : LM162 (5/42.761%)
+## |   |   |   |   |   |   fixed.acidity &gt;  7.15 : LM163 (18/56.779%)
+## 
+## LM num: 1
+## quality = 
+##  0.0441 * volatile.acidity 
+##  + 1.1525 * citric.acid 
+##  + 0.2871 * residual.sugar 
+##  + 0.0217 * chlorides 
+##  + 0.1126 * free.sulfur.dioxide 
+##  + 0.0048 * total.sulfur.dioxide 
+##  - 0 * density 
+##  - 47.7049 * pH 
+##  + 0.3169 * sulphates 
+##  + 0.3086 * alcohol 
+##  + 48.7806
+## 
+## LM num: 2
+## quality = 
+##  0.0441 * volatile.acidity 
+##  - 0.2359 * citric.acid 
+##  + 0.1502 * residual.sugar 
+##  + 0.015 * chlorides 
+##  + 0.1126 * free.sulfur.dioxide 
+##  + 0 * total.sulfur.dioxide 
+##  - 26.2386 * density 
+##  - 34.3822 * pH 
+##  + 0.174 * sulphates 
+##  + 0.1016 * alcohol 
+##  + 64.8657
+## 
+## LM num: 3
+## quality = 
+##  0.0441 * volatile.acidity 
+##  + 1.1924 * citric.acid 
+##  + 0.1237 * residual.sugar 
+##  + 0.015 * chlorides 
+##  + 0.1126 * free.sulfur.dioxide 
+##  + 0 * total.sulfur.dioxide 
+##  - 30.8689 * density 
+##  - 34.3581 * pH 
+##  + 0.174 * sulphates 
+##  + 0.0967 * alcohol 
+##  + 69.0853
+## 
+## LM num: 4
+## quality = 
+##  -0.7764 * volatile.acidity 
+##  - 0.3428 * citric.acid 
+##  + 0.0672 * residual.sugar 
+##  + 1.4754 * chlorides 
+##  + 0.1109 * free.sulfur.dioxide 
+##  + 0 * total.sulfur.dioxide 
+##  - 0 * density 
+##  - 33.2781 * pH 
+##  + 2.3466 * sulphates 
+##  + 0.1861 * alcohol 
+##  + 36.9842
+## 
+## LM num: 5
+## quality = 
+##  -0.7043 * volatile.acidity 
+##  - 0.3428 * citric.acid 
+##  + 0.0672 * residual.sugar 
+##  + 1.3494 * chlorides 
+##  + 0.1202 * free.sulfur.dioxide 
+##  + 0.0031 * total.sulfur.dioxide 
+##  - 0 * density 
+##  - 33.2781 * pH 
+##  + 0.9067 * sulphates 
+##  + 0.1812 * alcohol 
+##  + 36.3733
+## 
+## LM num: 6
+## quality = 
+##  -0.7043 * volatile.acidity 
+##  - 0.3428 * citric.acid 
+##  + 0.0672 * residual.sugar 
+##  + 1.3494 * chlorides 
+##  + 0.111 * free.sulfur.dioxide 
+##  + 0.0023 * total.sulfur.dioxide 
+##  - 0 * density 
+##  - 33.2781 * pH 
+##  + 0.9067 * sulphates 
+##  + 0.1812 * alcohol 
+##  + 37.0739
+## 
+## LM num: 7
+## quality = 
+##  0.0715 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  - 0.012 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1126 * free.sulfur.dioxide 
+##  - 0.0009 * total.sulfur.dioxide 
+##  - 0.0005 * density 
+##  - 35.9382 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 41.2295
+## 
+## LM num: 8
+## quality = 
+##  0.0715 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  - 0.012 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1126 * free.sulfur.dioxide 
+##  - 0.0009 * total.sulfur.dioxide 
+##  - 0.0005 * density 
+##  - 35.2429 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 38.7956
+## 
+## LM num: 9
+## quality = 
+##  0.0715 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  - 0.012 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1126 * free.sulfur.dioxide 
+##  - 0.0009 * total.sulfur.dioxide 
+##  - 0.0005 * density 
+##  - 35.4569 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 39.5718
+## 
+## LM num: 10
+## quality = 
+##  0.1337 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0032 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1078 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  + 12.3946 * density 
+##  - 35.8336 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 28.1942
+## 
+## LM num: 11
+## quality = 
+##  0.2426 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.025 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1075 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  - 26.8954 * density 
+##  - 36.0338 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 66.8444
+## 
+## LM num: 12
+## quality = 
+##  0.2426 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0192 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1075 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  - 28.4276 * density 
+##  - 36.0338 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 68.4143
+## 
+## LM num: 13
+## quality = 
+##  0.2685 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0032 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1075 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  + 11.355 * density 
+##  - 36.0338 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 28.8194
+## 
+## LM num: 14
+## quality = 
+##  0.1965 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0324 * residual.sugar 
+##  + 0.0158 * chlorides 
+##  + 0.1044 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  - 49.1196 * density 
+##  - 35.8909 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 89.241
+## 
+## LM num: 15
+## quality = 
+##  0.1965 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0283 * residual.sugar 
+##  - 7.3015 * chlorides 
+##  + 0.1052 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  - 49.1196 * density 
+##  - 35.8909 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 89.4915
+## 
+## LM num: 16
+## quality = 
+##  0.1965 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0283 * residual.sugar 
+##  - 7.0229 * chlorides 
+##  + 0.1052 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  - 49.1196 * density 
+##  - 35.8909 * pH 
+##  + 0.2111 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 89.3683
+## 
+## LM num: 17
+## quality = 
+##  0.1965 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0283 * residual.sugar 
+##  - 7.0229 * chlorides 
+##  + 0.1052 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  - 49.1196 * density 
+##  - 35.8909 * pH 
+##  + 0.2214 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 89.3642
+## 
+## LM num: 18
+## quality = 
+##  0.1965 * fixed.acidity 
+##  + 0.0724 * volatile.acidity 
+##  - 0.8627 * citric.acid 
+##  + 0.0283 * residual.sugar 
+##  - 5.774 * chlorides 
+##  + 0.1052 * free.sulfur.dioxide 
+##  - 0.0006 * total.sulfur.dioxide 
+##  - 49.1196 * density 
+##  - 35.8909 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 89.4132
+## 
+## LM num: 19
+## quality = 
+##  -3.314 * volatile.acidity 
+##  - 0.8771 * citric.acid 
+##  - 0.012 * residual.sugar 
+##  + 0.016 * chlorides 
+##  + 0.115 * free.sulfur.dioxide 
+##  - 0.0013 * total.sulfur.dioxide 
+##  - 0.0005 * density 
+##  - 36.2617 * pH 
+##  + 1.7704 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 41.5421
+## 
+## LM num: 20
+## quality = 
+##  0.0737 * volatile.acidity 
+##  - 0.8771 * citric.acid 
+##  - 0.012 * residual.sugar 
+##  + 0.016 * chlorides 
+##  + 0.1143 * free.sulfur.dioxide 
+##  - 0.001 * total.sulfur.dioxide 
+##  - 0.0005 * density 
+##  - 36.2617 * pH 
+##  + 0.035 * sulphates 
+##  + 0.1552 * alcohol 
+##  + 41.7077
+## 
+## LM num: 21
+## quality = 
+##  -0.336 * fixed.acidity 
+##  - 0.0911 * volatile.acidity 
+##  - 0.8082 * citric.acid 
+##  - 0.1062 * residual.sugar 
+##  + 0.0331 * chlorides 
+##  + 0.0973 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  + 0.0003 * density 
+##  - 88.2321 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.2628 * alcohol 
+##  + 91.4131
+## 
+## LM num: 22
+## quality = 
+##  -0.1356 * fixed.acidity 
+##  - 0.0466 * volatile.acidity 
+##  - 0.8082 * citric.acid 
+##  - 0.1062 * residual.sugar 
+##  + 0.0221 * chlorides 
+##  + 0.0973 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  + 0.0003 * density 
+##  - 55.2776 * pH 
+##  - 0.847 * sulphates 
+##  - 0.1116 * alcohol 
+##  + 62.5581
+## 
+## LM num: 23
+## quality = 
+##  0.0713 * fixed.acidity 
+##  + 0.0012 * volatile.acidity 
+##  - 1.5127 * citric.acid 
+##  - 0.1767 * residual.sugar 
+##  + 105.2911 * chlorides 
+##  + 0.0943 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.5856 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 32.2345
+## 
+## LM num: 24
+## quality = 
+##  0.0713 * fixed.acidity 
+##  + 0.0012 * volatile.acidity 
+##  - 1.5127 * citric.acid 
+##  - 0.1767 * residual.sugar 
+##  + 99.3471 * chlorides 
+##  + 0.0943 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.5856 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 32.6786
+## 
+## LM num: 25
+## quality = 
+##  0.0932 * fixed.acidity 
+##  + 0.0012 * volatile.acidity 
+##  - 1.5127 * citric.acid 
+##  - 0.1807 * residual.sugar 
+##  + 95.7703 * chlorides 
+##  + 0.0943 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.5856 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 32.9544
+## 
+## LM num: 26
+## quality = 
+##  0.0012 * volatile.acidity 
+##  - 1.5127 * citric.acid 
+##  - 0.157 * residual.sugar 
+##  + 54.236 * chlorides 
+##  + 0.0943 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.5856 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 35.4429
+## 
+## LM num: 27
+## quality = 
+##  -1.6198 * volatile.acidity 
+##  - 1.9058 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0824 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 30.985 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 36.9235
+## 
+## LM num: 28
+## quality = 
+##  -1.6198 * volatile.acidity 
+##  - 1.9058 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0829 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 30.985 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 36.8808
+## 
+## LM num: 29
+## quality = 
+##  -2.3403 * volatile.acidity 
+##  - 1.9058 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0825 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 30.985 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 37.0118
+## 
+## LM num: 30
+## quality = 
+##  0.0012 * volatile.acidity 
+##  - 1.9058 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0906 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 30.7969 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 35.686
+## 
+## LM num: 31
+## quality = 
+##  0.0012 * volatile.acidity 
+##  - 1.9058 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0906 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.3423 * pH 
+##  + 0.0323 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 37.5168
+## 
+## LM num: 32
+## quality = 
+##  -0.0583 * fixed.acidity 
+##  + 0.0012 * volatile.acidity 
+##  - 2.4348 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0873 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.3597 * pH 
+##  + 0.2469 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 38.0548
+## 
+## LM num: 33
+## quality = 
+##  -0.3052 * fixed.acidity 
+##  + 0.0012 * volatile.acidity 
+##  - 0.5311 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0874 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.3597 * pH 
+##  + 0.2469 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 39.1208
+## 
+## LM num: 34
+## quality = 
+##  -0.3182 * fixed.acidity 
+##  + 0.0012 * volatile.acidity 
+##  - 2.4124 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0874 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.3597 * pH 
+##  + 0.2469 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 39.9144
+## 
+## LM num: 35
+## quality = 
+##  -0.0695 * fixed.acidity 
+##  + 0.0012 * volatile.acidity 
+##  - 2.2225 * citric.acid 
+##  - 0.1764 * residual.sugar 
+##  + 5.7111 * chlorides 
+##  + 0.0882 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 31.3597 * pH 
+##  + 0.2882 * sulphates 
+##  + 0.1199 * alcohol 
+##  + 37.9875
+## 
+## LM num: 36
+## quality = 
+##  -0.4936 * fixed.acidity 
+##  + 0.0797 * volatile.acidity 
+##  - 2.4188 * citric.acid 
+##  - 0.1001 * residual.sugar 
+##  + 0.0519 * chlorides 
+##  + 1.2445 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 259.9948 * density 
+##  - 113.2135 * pH 
+##  + 0.5635 * sulphates 
+##  + 1.1495 * alcohol 
+##  - 145.8266
+## 
+## LM num: 37
+## quality = 
+##  0.0828 * volatile.acidity 
+##  - 1.969 * citric.acid 
+##  - 0.1235 * residual.sugar 
+##  + 0.0408 * chlorides 
+##  + 0.5557 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 100.2465 * pH 
+##  + 0.996 * sulphates 
+##  + 0.5283 * alcohol 
+##  + 101.4098
+## 
+## LM num: 38
+## quality = 
+##  0.0903 * volatile.acidity 
+##  - 2.0365 * citric.acid 
+##  - 0.1001 * residual.sugar 
+##  + 0.0425 * chlorides 
+##  + 0.5477 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 104.9622 * pH 
+##  - 0.577 * sulphates 
+##  + 0.3658 * alcohol 
+##  + 106.897
+## 
+## LM num: 39
+## quality = 
+##  0.0178 * volatile.acidity 
+##  - 1.19 * citric.acid 
+##  - 0.0789 * residual.sugar 
+##  + 0.0199 * chlorides 
+##  + 0.0973 * free.sulfur.dioxide 
+##  + 0.0002 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 46.7151 * pH 
+##  + 0.1443 * sulphates 
+##  + 0.1669 * alcohol 
+##  + 51.8086
+## 
+## LM num: 40
+## quality = 
+##  -10.4475 * volatile.acidity 
+##  - 1.19 * citric.acid 
+##  - 0.1001 * residual.sugar 
+##  + 0.0199 * chlorides 
+##  + 0.0973 * free.sulfur.dioxide 
+##  + 0.0045 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 44.5739 * pH 
+##  + 0.1443 * sulphates 
+##  + 0.1669 * alcohol 
+##  + 46.4726
+## 
+## LM num: 41
+## quality = 
+##  -0.0389 * volatile.acidity 
+##  - 0.2704 * citric.acid 
+##  + 0.6445 * residual.sugar 
+##  - 7.8452 * chlorides 
+##  - 3.8883 * free.sulfur.dioxide 
+##  + 0 * total.sulfur.dioxide 
+##  + 13.1536 * pH 
+##  - 0.2235 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 8.119
+## 
+## LM num: 42
+## quality = 
+##  -0.0139 * volatile.acidity 
+##  + 1.0352 * citric.acid 
+##  + 1.021 * residual.sugar 
+##  - 4.6438 * chlorides 
+##  - 6.0203 * free.sulfur.dioxide 
+##  - 0.0062 * total.sulfur.dioxide 
+##  - 0.0008 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 3.2445
+## 
+## LM num: 43
+## quality = 
+##  -0.0139 * volatile.acidity 
+##  + 2.1609 * citric.acid 
+##  + 1.021 * residual.sugar 
+##  - 4.468 * chlorides 
+##  - 6.0203 * free.sulfur.dioxide 
+##  - 0.0106 * total.sulfur.dioxide 
+##  - 0.0008 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 3.5435
+## 
+## LM num: 44
+## quality = 
+##  0.0064 * fixed.acidity 
+##  - 0.0139 * volatile.acidity 
+##  + 2.0942 * citric.acid 
+##  + 1.021 * residual.sugar 
+##  - 4.468 * chlorides 
+##  - 6.0203 * free.sulfur.dioxide 
+##  - 0.0106 * total.sulfur.dioxide 
+##  - 0.0008 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 3.5252
+## 
+## LM num: 45
+## quality = 
+##  0.0064 * fixed.acidity 
+##  - 0.0139 * volatile.acidity 
+##  + 2.0942 * citric.acid 
+##  + 1.021 * residual.sugar 
+##  - 4.468 * chlorides 
+##  - 6.0203 * free.sulfur.dioxide 
+##  - 0.0106 * total.sulfur.dioxide 
+##  - 0.0008 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 3.5263
+## 
+## LM num: 46
+## quality = 
+##  -0.0139 * volatile.acidity 
+##  + 1.4782 * citric.acid 
+##  + 1.021 * residual.sugar 
+##  - 4.468 * chlorides 
+##  - 6.0203 * free.sulfur.dioxide 
+##  - 0.0106 * total.sulfur.dioxide 
+##  - 0.0008 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 3.6971
+## 
+## LM num: 47
+## quality = 
+##  -1.201 * volatile.acidity 
+##  + 0.462 * citric.acid 
+##  + 1.021 * residual.sugar 
+##  - 6.6391 * chlorides 
+##  - 6.0203 * free.sulfur.dioxide 
+##  - 0.0106 * total.sulfur.dioxide 
+##  - 0.0008 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 4.277
+## 
+## LM num: 48
+## quality = 
+##  -0.9537 * volatile.acidity 
+##  + 0.462 * citric.acid 
+##  + 1.021 * residual.sugar 
+##  - 6.1868 * chlorides 
+##  - 6.0203 * free.sulfur.dioxide 
+##  - 0.0106 * total.sulfur.dioxide 
+##  - 0.0008 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 4.1505
+## 
+## LM num: 49
+## quality = 
+##  -0.0139 * volatile.acidity 
+##  - 0.2704 * citric.acid 
+##  + 0.5817 * residual.sugar 
+##  + 0.0043 * chlorides 
+##  - 3.4552 * free.sulfur.dioxide 
+##  - 0.0012 * total.sulfur.dioxide 
+##  - 0.0004 * density 
+##  + 2.2255 * pH 
+##  - 0.088 * sulphates 
+##  + 0.3786 * alcohol 
+##  - 0.2469
+## 
+## LM num: 50
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 1.2959 * citric.acid 
+##  - 0.0474 * residual.sugar 
+##  + 0.0047 * chlorides 
+##  + 0.0086 * free.sulfur.dioxide 
+##  - 0.0005 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 2.6496 * pH 
+##  + 0.1176 * sulphates 
+##  + 0.2759 * alcohol 
+##  + 7.6238
+## 
+## LM num: 51
+## quality = 
+##  -4.9088 * volatile.acidity 
+##  - 1.0115 * citric.acid 
+##  - 0.0376 * residual.sugar 
+##  + 0.0047 * chlorides 
+##  + 0.0013 * total.sulfur.dioxide 
+##  - 18.5793 * density 
+##  - 2.0509 * pH 
+##  + 0.0785 * sulphates 
+##  + 0.1838 * alcohol 
+##  + 25.7793
+## 
+## LM num: 52
+## quality = 
+##  -0.1456 * fixed.acidity 
+##  - 1.5785 * volatile.acidity 
+##  - 1.0115 * citric.acid 
+##  - 0.0292 * residual.sugar 
+##  + 0.0047 * chlorides 
+##  + 0.0013 * total.sulfur.dioxide 
+##  - 34.3713 * density 
+##  - 2.3328 * pH 
+##  + 0.0785 * sulphates 
+##  + 0.1838 * alcohol 
+##  + 42.2907
+## 
+## LM num: 53
+## quality = 
+##  0.0008 * volatile.acidity 
+##  + 0.4721 * citric.acid 
+##  - 0.1482 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  + 0.0032 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  + 210.4054 * density 
+##  - 2.8646 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 200.1769
+## 
+## LM num: 54
+## quality = 
+##  0.0825 * fixed.acidity 
+##  + 0.0008 * volatile.acidity 
+##  - 0.159 * citric.acid 
+##  - 0.1719 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  + 0.0003 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  + 242.2666 * density 
+##  - 2.8646 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 231.9683
+## 
+## LM num: 55
+## quality = 
+##  0.0532 * fixed.acidity 
+##  + 0.0008 * volatile.acidity 
+##  - 0.159 * citric.acid 
+##  - 0.1719 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  + 0.0003 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  + 242.2666 * density 
+##  - 2.8646 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 231.6859
+## 
+## LM num: 56
+## quality = 
+##  -0.1877 * fixed.acidity 
+##  + 0.0008 * volatile.acidity 
+##  - 0.159 * citric.acid 
+##  - 0.2486 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  + 0.0003 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  + 427.5436 * density 
+##  - 2.8646 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 413.7531
+## 
+## LM num: 57
+## quality = 
+##  -0.1845 * fixed.acidity 
+##  + 0.0008 * volatile.acidity 
+##  - 0.159 * citric.acid 
+##  - 0.2486 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  + 0.0003 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  + 427.5436 * density 
+##  - 2.8646 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 413.7844
+## 
+## LM num: 58
+## quality = 
+##  -0.0812 * fixed.acidity 
+##  + 0.0008 * volatile.acidity 
+##  - 0.159 * citric.acid 
+##  - 0.2458 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  + 0.0003 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  + 356.5653 * density 
+##  - 2.8646 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 343.5685
+## 
+## LM num: 59
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 0.6717 * citric.acid 
+##  - 0.1076 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  - 0.0068 * free.sulfur.dioxide 
+##  + 0.0016 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 3.0114 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 10.2583
+## 
+## LM num: 60
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 0.1551 * citric.acid 
+##  - 0.1076 * residual.sugar 
+##  - 1.5548 * chlorides 
+##  - 0.0068 * free.sulfur.dioxide 
+##  + 0.0016 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 3.0114 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 10.144
+## 
+## LM num: 61
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 0.249 * citric.acid 
+##  - 0.1076 * residual.sugar 
+##  - 1.7884 * chlorides 
+##  - 0.0068 * free.sulfur.dioxide 
+##  + 0.0016 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 3.0114 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 10.1955
+## 
+## LM num: 62
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 0.249 * citric.acid 
+##  - 0.1076 * residual.sugar 
+##  - 1.8797 * chlorides 
+##  - 0.0068 * free.sulfur.dioxide 
+##  + 0.0016 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 3.0114 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 10.1975
+## 
+## LM num: 63
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 0.6717 * citric.acid 
+##  - 0.1167 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  - 0.0068 * free.sulfur.dioxide 
+##  + 0.0016 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 3.0114 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 10.3391
+## 
+## LM num: 64
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 0.6717 * citric.acid 
+##  - 0.1 * residual.sugar 
+##  + 0.0055 * chlorides 
+##  - 0.0091 * free.sulfur.dioxide 
+##  + 0.0016 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 3.0114 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 10.1278
+## 
+## LM num: 65
+## quality = 
+##  0.0725 * fixed.acidity 
+##  + 0.718 * volatile.acidity 
+##  - 0.1682 * citric.acid 
+##  - 0.0186 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0064 * free.sulfur.dioxide 
+##  + 0.0005 * total.sulfur.dioxide 
+##  - 113.4729 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 119.1723
+## 
+## LM num: 66
+## quality = 
+##  0.0811 * fixed.acidity 
+##  + 0.718 * volatile.acidity 
+##  - 0.1682 * citric.acid 
+##  - 0.0186 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0064 * free.sulfur.dioxide 
+##  + 0.0005 * total.sulfur.dioxide 
+##  - 113.4729 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 119.1496
+## 
+## LM num: 67
+## quality = 
+##  -0.0242 * fixed.acidity 
+##  + 0.718 * volatile.acidity 
+##  - 0.1682 * citric.acid 
+##  - 0.0348 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0034 * free.sulfur.dioxide 
+##  + 0.0005 * total.sulfur.dioxide 
+##  - 71.247 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 78.3345
+## 
+## LM num: 68
+## quality = 
+##  0.1091 * fixed.acidity 
+##  + 0.718 * volatile.acidity 
+##  - 0.1682 * citric.acid 
+##  - 0.0348 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0034 * free.sulfur.dioxide 
+##  + 0.0005 * total.sulfur.dioxide 
+##  - 71.247 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 77.4467
+## 
+## LM num: 69
+## quality = 
+##  -0.0457 * fixed.acidity 
+##  + 0.718 * volatile.acidity 
+##  - 0.1682 * citric.acid 
+##  - 0.0348 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0034 * free.sulfur.dioxide 
+##  + 0.0005 * total.sulfur.dioxide 
+##  - 71.247 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 78.4145
+## 
+## LM num: 70
+## quality = 
+##  0.0223 * fixed.acidity 
+##  + 0.718 * volatile.acidity 
+##  - 0.1682 * citric.acid 
+##  - 0.0348 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0108 * free.sulfur.dioxide 
+##  + 0.0005 * total.sulfur.dioxide 
+##  - 76.2837 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 82.4543
+## 
+## LM num: 71
+## quality = 
+##  -3.9696 * volatile.acidity 
+##  - 0.4571 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  - 0.0026 * free.sulfur.dioxide 
+##  + 0.0035 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 24.7381
+## 
+## LM num: 72
+## quality = 
+##  -4.7084 * volatile.acidity 
+##  - 0.4571 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  - 0.0026 * free.sulfur.dioxide 
+##  + 0.0031 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 25.035
+## 
+## LM num: 73
+## quality = 
+##  -3.3578 * volatile.acidity 
+##  - 0.4571 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  - 0.0044 * free.sulfur.dioxide 
+##  + 0.0024 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 24.8515
+## 
+## LM num: 74
+## quality = 
+##  0.6341 * volatile.acidity 
+##  - 0.4571 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0024 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.6957
+## 
+## LM num: 75
+## quality = 
+##  0.6341 * volatile.acidity 
+##  - 0.4571 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0029 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.7125
+## 
+## LM num: 76
+## quality = 
+##  -0.0519 * fixed.acidity 
+##  + 0.6341 * volatile.acidity 
+##  + 0.8082 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0029 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.4937
+## 
+## LM num: 77
+## quality = 
+##  -0.0626 * fixed.acidity 
+##  + 0.6341 * volatile.acidity 
+##  + 0.745 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0029 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.6075
+## 
+## LM num: 78
+## quality = 
+##  2.9992 * volatile.acidity 
+##  - 1.6457 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0041 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.5858
+## 
+## LM num: 79
+## quality = 
+##  2.9992 * volatile.acidity 
+##  - 1.812 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0035 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.7167
+## 
+## LM num: 80
+## quality = 
+##  2.9992 * volatile.acidity 
+##  - 1.8033 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 1.2227 * chlorides 
+##  + 0.0035 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.6596
+## 
+## LM num: 81
+## quality = 
+##  3.9189 * volatile.acidity 
+##  - 1.6457 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0011 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 23.5332
+## 
+## LM num: 82
+## quality = 
+##  0.6341 * volatile.acidity 
+##  - 1.8821 * citric.acid 
+##  - 0.0473 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0011 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  - 16.6994 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 24.5179
+## 
+## LM num: 83
+## quality = 
+##  0.0008 * volatile.acidity 
+##  - 0.1682 * citric.acid 
+##  - 0.0533 * residual.sugar 
+##  + 0.0034 * chlorides 
+##  + 0.0091 * free.sulfur.dioxide 
+##  + 0.0032 * total.sulfur.dioxide 
+##  - 0.0011 * density 
+##  - 2.4685 * pH 
+##  + 0.0071 * sulphates 
+##  + 0.3724 * alcohol 
+##  + 3.2877
+## 
+## LM num: 84
+## quality = 
+##  -0.0027 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0088 * residual.sugar 
+##  + 0.0074 * chlorides 
+##  - 0.0524 * free.sulfur.dioxide 
+##  - 0.0005 * total.sulfur.dioxide 
+##  - 25.6121 * density 
+##  - 13.2044 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 43.1306
+## 
+## LM num: 85
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0509 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 61.8877 * density 
+##  - 13.2044 * pH 
+##  - 0.9473 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 79.3762
+## 
+## LM num: 86
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0509 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 41.1384 * density 
+##  - 13.2044 * pH 
+##  - 0.9473 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 58.6546
+## 
+## LM num: 87
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0509 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 34.7269 * density 
+##  - 13.2044 * pH 
+##  - 0.9473 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 52.272
+## 
+## LM num: 88
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0509 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 31.8376 * density 
+##  - 13.2044 * pH 
+##  - 0.9473 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 49.4122
+## 
+## LM num: 89
+## quality = 
+##  -0.0841 * fixed.acidity 
+##  + 0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0447 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 61.8877 * density 
+##  - 13.2044 * pH 
+##  - 0.9925 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 79.6904
+## 
+## LM num: 90
+## quality = 
+##  -0.1009 * fixed.acidity 
+##  + 0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0436 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 61.8877 * density 
+##  - 13.2044 * pH 
+##  - 0.9925 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 79.7846
+## 
+## LM num: 91
+## quality = 
+##  -0.0467 * fixed.acidity 
+##  + 0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0463 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 61.8877 * density 
+##  - 13.2044 * pH 
+##  - 0.9925 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 79.445
+## 
+## LM num: 92
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0175 * residual.sugar 
+##  + 0.6945 * chlorides 
+##  - 0.0509 * free.sulfur.dioxide 
+##  + 0.0033 * total.sulfur.dioxide 
+##  - 61.8877 * density 
+##  - 13.2044 * pH 
+##  - 0.9925 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 78.9916
+## 
+## LM num: 93
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0178 * residual.sugar 
+##  + 0.7199 * chlorides 
+##  - 0.0508 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 63.2058 * density 
+##  - 13.2044 * pH 
+##  - 0.4484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 80.4296
+## 
+## LM num: 94
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0178 * residual.sugar 
+##  + 0.7199 * chlorides 
+##  - 0.0469 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 63.2058 * density 
+##  - 13.2044 * pH 
+##  - 0.0489 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 80.1702
+## 
+## LM num: 95
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0178 * residual.sugar 
+##  + 0.7199 * chlorides 
+##  - 0.0469 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 63.2058 * density 
+##  - 13.2044 * pH 
+##  - 0.4484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 80.3346
+## 
+## LM num: 96
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0178 * residual.sugar 
+##  + 0.7199 * chlorides 
+##  - 0.0451 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 63.2058 * density 
+##  - 13.2044 * pH 
+##  - 0.4484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 80.3277
+## 
+## LM num: 97
+## quality = 
+##  0.2956 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0178 * residual.sugar 
+##  + 0.7199 * chlorides 
+##  - 0.0508 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 63.2058 * density 
+##  - 13.2044 * pH 
+##  - 0.4484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 80.3823
+## 
+## LM num: 98
+## quality = 
+##  0.7431 * volatile.acidity 
+##  + 0.0362 * citric.acid 
+##  + 0.0149 * residual.sugar 
+##  + 0.0074 * chlorides 
+##  - 0.0535 * free.sulfur.dioxide 
+##  + 0.0008 * total.sulfur.dioxide 
+##  - 52.4002 * density 
+##  - 13.2044 * pH 
+##  - 0.2867 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 69.5146
+## 
+## LM num: 99
+## quality = 
+##  0.1165 * fixed.acidity 
+##  - 5.0949 * volatile.acidity 
+##  + 0.4873 * citric.acid 
+##  - 0.0384 * residual.sugar 
+##  + 0.0078 * chlorides 
+##  - 0.054 * free.sulfur.dioxide 
+##  - 0.001 * total.sulfur.dioxide 
+##  + 0.0007 * density 
+##  - 9.4979 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 11.8021
+## 
+## LM num: 100
+## quality = 
+##  -2.652 * volatile.acidity 
+##  + 0.6499 * citric.acid 
+##  - 0.0245 * residual.sugar 
+##  + 0.0078 * chlorides 
+##  - 0.0578 * free.sulfur.dioxide 
+##  - 0.001 * total.sulfur.dioxide 
+##  - 29.8113 * density 
+##  - 11.8021 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 49.0789
+## 
+## LM num: 101
+## quality = 
+##  -7.037 * volatile.acidity 
+##  + 0.6499 * citric.acid 
+##  - 0.0245 * residual.sugar 
+##  + 0.0078 * chlorides 
+##  - 0.0578 * free.sulfur.dioxide 
+##  - 0.001 * total.sulfur.dioxide 
+##  - 29.8113 * density 
+##  - 11.8021 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 50.7401
+## 
+## LM num: 102
+## quality = 
+##  -0.0027 * volatile.acidity 
+##  + 0.6499 * citric.acid 
+##  - 0.0298 * residual.sugar 
+##  + 0.0078 * chlorides 
+##  - 0.054 * free.sulfur.dioxide 
+##  - 0.001 * total.sulfur.dioxide 
+##  - 18.3939 * density 
+##  - 11.4626 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 35.3744
+## 
+## LM num: 103
+## quality = 
+##  -0.0728 * fixed.acidity 
+##  + 1.6671 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.0649 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0555 * free.sulfur.dioxide 
+##  - 0.0008 * total.sulfur.dioxide 
+##  + 36.7934 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 21.4493
+## 
+## LM num: 104
+## quality = 
+##  -0.0728 * fixed.acidity 
+##  + 1.948 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.0649 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0555 * free.sulfur.dioxide 
+##  + 0.0024 * total.sulfur.dioxide 
+##  + 36.7934 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 22.095
+## 
+## LM num: 105
+## quality = 
+##  -0.0728 * fixed.acidity 
+##  + 1.948 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.0649 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0555 * free.sulfur.dioxide 
+##  + 0.0028 * total.sulfur.dioxide 
+##  + 36.7934 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 22.1494
+## 
+## LM num: 106
+## quality = 
+##  -0.1177 * fixed.acidity 
+##  + 1.8089 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.0662 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0555 * free.sulfur.dioxide 
+##  - 0.0008 * total.sulfur.dioxide 
+##  + 51.0623 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 35.2849
+## 
+## LM num: 107
+## quality = 
+##  -0.1177 * fixed.acidity 
+##  + 1.8089 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.065 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0555 * free.sulfur.dioxide 
+##  - 0.0008 * total.sulfur.dioxide 
+##  + 62.7679 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 46.8916
+## 
+## LM num: 108
+## quality = 
+##  0.0342 * fixed.acidity 
+##  + 1.8404 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.0733 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0555 * free.sulfur.dioxide 
+##  - 0.0008 * total.sulfur.dioxide 
+##  + 63.8725 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.0154 * alcohol 
+##  - 49.296
+## 
+## LM num: 109
+## quality = 
+##  -0.0441 * fixed.acidity 
+##  - 0.0027 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.0495 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0575 * free.sulfur.dioxide 
+##  - 0.0001 * total.sulfur.dioxide 
+##  + 0.0008 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.8929 * alcohol 
+##  + 7.6713
+## 
+## LM num: 110
+## quality = 
+##  -0.0441 * fixed.acidity 
+##  - 0.0027 * volatile.acidity 
+##  + 0.2209 * citric.acid 
+##  - 0.0495 * residual.sugar 
+##  + 0.0084 * chlorides 
+##  - 0.0575 * free.sulfur.dioxide 
+##  - 0.0001 * total.sulfur.dioxide 
+##  + 0.0008 * density 
+##  - 10.9157 * pH 
+##  + 0.0484 * sulphates 
+##  + 0.1136 * alcohol 
+##  + 14.4754
+## 
+## LM num: 111
+## quality = 
+##  -0.0027 * volatile.acidity 
+##  - 0.1148 * citric.acid 
+##  + 0.0361 * residual.sugar 
+##  - 4.9638 * chlorides 
+##  - 0.054 * free.sulfur.dioxide 
+##  - 0.0004 * total.sulfur.dioxide 
+##  - 46.3999 * density 
+##  - 10.1444 * pH 
+##  + 0.1076 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 61.0133
+## 
+## LM num: 112
+## quality = 
+##  -0.0099 * volatile.acidity 
+##  - 0.1706 * citric.acid 
+##  + 0.0877 * residual.sugar 
+##  - 1.6965 * chlorides 
+##  - 0.1659 * free.sulfur.dioxide 
+##  + 0 * total.sulfur.dioxide 
+##  - 148.1856 * density 
+##  - 4.1889 * pH 
+##  + 0.0195 * sulphates 
+##  + 0.0154 * alcohol 
+##  + 155.9224
+## 
+## LM num: 113
+## quality = 
+##  0.05 * fixed.acidity 
+##  + 0.1299 * volatile.acidity 
+##  - 0.7251 * citric.acid 
+##  + 0.03 * residual.sugar 
+##  + 5.4466 * chlorides 
+##  + 0.0108 * total.sulfur.dioxide 
+##  - 91.0349 * density 
+##  - 232.9219 * pH 
+##  + 1.0199 * sulphates 
+##  + 0.7204 * alcohol 
+##  + 321.6741
+## 
+## LM num: 114
+## quality = 
+##  0.0281 * fixed.acidity 
+##  + 0.1299 * volatile.acidity 
+##  - 0.7251 * citric.acid 
+##  + 0.0487 * residual.sugar 
+##  + 3.0956 * chlorides 
+##  + 0.0114 * total.sulfur.dioxide 
+##  - 191.7181 * density 
+##  - 232.9219 * pH 
+##  + 1.0199 * sulphates 
+##  + 1.053 * alcohol 
+##  + 418.345
+## 
+## LM num: 115
+## quality = 
+##  -0.0796 * fixed.acidity 
+##  + 0.1638 * volatile.acidity 
+##  - 0.0488 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  - 6.131 * chlorides 
+##  + 0.0333 * free.sulfur.dioxide 
+##  + 0.0193 * total.sulfur.dioxide 
+##  - 114.6504 * density 
+##  - 289.5485 * pH 
+##  + 1.2817 * sulphates 
+##  + 0.871 * alcohol 
+##  + 400.5832
+## 
+## LM num: 116
+## quality = 
+##  -0.0796 * fixed.acidity 
+##  + 0.1638 * volatile.acidity 
+##  - 0.0488 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  - 6.131 * chlorides 
+##  + 0.0333 * free.sulfur.dioxide 
+##  + 0.0193 * total.sulfur.dioxide 
+##  - 224.258 * density 
+##  - 289.5485 * pH 
+##  + 1.2817 * sulphates 
+##  + 0.871 * alcohol 
+##  + 509.7646
+## 
+## LM num: 117
+## quality = 
+##  -2.1953 * volatile.acidity 
+##  - 0.4573 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  + 0.0368 * chlorides 
+##  + 0.0029 * total.sulfur.dioxide 
+##  - 104.1588 * pH 
+##  + 0.4335 * sulphates 
+##  + 0.373 * alcohol 
+##  + 107.6587
+## 
+## LM num: 118
+## quality = 
+##  0.1298 * fixed.acidity 
+##  + 0.0833 * volatile.acidity 
+##  - 0.3103 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  + 0.0281 * chlorides 
+##  + 0.0134 * free.sulfur.dioxide 
+##  - 0.0033 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 74.8635 * pH 
+##  + 1.7116 * sulphates 
+##  + 0.3762 * alcohol 
+##  + 75.9054
+## 
+## LM num: 119
+## quality = 
+##  0.1511 * fixed.acidity 
+##  - 0.4705 * volatile.acidity 
+##  - 0.3103 * citric.acid 
+##  + 0.0298 * residual.sugar 
+##  + 0.0372 * chlorides 
+##  + 0.0045 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 102.7968 * pH 
+##  + 1.1043 * sulphates 
+##  + 0.9362 * alcohol 
+##  + 98.9235
+## 
+## LM num: 120
+## quality = 
+##  0.249 * fixed.acidity 
+##  - 0.9498 * volatile.acidity 
+##  - 0.3103 * citric.acid 
+##  + 0.052 * residual.sugar 
+##  + 0.0372 * chlorides 
+##  + 0.0045 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 102.7968 * pH 
+##  + 1.1043 * sulphates 
+##  + 0.9362 * alcohol 
+##  + 98.3844
+## 
+## LM num: 121
+## quality = 
+##  0.2148 * fixed.acidity 
+##  - 0.6857 * volatile.acidity 
+##  - 0.3103 * citric.acid 
+##  + 0.0604 * residual.sugar 
+##  + 0.0372 * chlorides 
+##  + 0.0045 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 102.7968 * pH 
+##  + 1.1043 * sulphates 
+##  + 0.9362 * alcohol 
+##  + 98.5157
+## 
+## LM num: 122
+## quality = 
+##  0.09 * fixed.acidity 
+##  + 0.1267 * volatile.acidity 
+##  - 0.3103 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  + 0.0372 * chlorides 
+##  + 0.0045 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 102.7968 * pH 
+##  + 1.1043 * sulphates 
+##  + 1.5716 * alcohol 
+##  + 92.3047
+## 
+## LM num: 123
+## quality = 
+##  0.09 * fixed.acidity 
+##  + 0.1267 * volatile.acidity 
+##  - 0.3103 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  + 0.0372 * chlorides 
+##  + 0.0045 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 102.7968 * pH 
+##  + 1.1043 * sulphates 
+##  + 1.5519 * alcohol 
+##  + 92.5294
+## 
+## LM num: 124
+## quality = 
+##  0.09 * fixed.acidity 
+##  + 0.1267 * volatile.acidity 
+##  - 0.3103 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  + 0.0372 * chlorides 
+##  + 0.0045 * total.sulfur.dioxide 
+##  - 0.0006 * density 
+##  - 102.7968 * pH 
+##  + 1.1043 * sulphates 
+##  + 1.3703 * alcohol 
+##  + 94.3935
+## 
+## LM num: 125
+## quality = 
+##  -1.2275 * volatile.acidity 
+##  - 0.3952 * citric.acid 
+##  + 0.0075 * residual.sugar 
+##  + 0.0268 * chlorides 
+##  - 0.0047 * total.sulfur.dioxide 
+##  - 0.0011 * density 
+##  - 69.0546 * pH 
+##  + 0.5221 * sulphates 
+##  + 0.3033 * alcohol 
+##  + 73.2245
+## 
+## LM num: 126
+## quality = 
+##  -1.0831 * volatile.acidity 
+##  - 1.0883 * citric.acid 
+##  + 0.0312 * chlorides 
+##  - 0.7007 * free.sulfur.dioxide 
+##  + 0.0139 * total.sulfur.dioxide 
+##  + 22.4683 * density 
+##  - 26.394 * pH 
+##  + 0.1002 * sulphates 
+##  + 0.0883 * alcohol 
+##  + 9.0802
+## 
+## LM num: 127
+## quality = 
+##  -0.1263 * fixed.acidity 
+##  - 0.8836 * volatile.acidity 
+##  - 1.0883 * citric.acid 
+##  + 0.0312 * chlorides 
+##  - 0.7007 * free.sulfur.dioxide 
+##  + 0.0139 * total.sulfur.dioxide 
+##  + 18.1886 * density 
+##  - 25.8945 * pH 
+##  + 0.1002 * sulphates 
+##  + 0.0883 * alcohol 
+##  + 13.1705
+## 
+## LM num: 128
+## quality = 
+##  -0.0737 * fixed.acidity 
+##  - 0.8836 * volatile.acidity 
+##  - 1.0883 * citric.acid 
+##  + 0.0312 * chlorides 
+##  - 0.7007 * free.sulfur.dioxide 
+##  + 0.0139 * total.sulfur.dioxide 
+##  + 18.1886 * density 
+##  - 25.6235 * pH 
+##  + 0.1002 * sulphates 
+##  + 0.0883 * alcohol 
+##  + 11.7475
+## 
+## LM num: 129
+## quality = 
+##  -0.2446 * fixed.acidity 
+##  - 0.8398 * volatile.acidity 
+##  - 1.9663 * citric.acid 
+##  + 0.0114 * residual.sugar 
+##  - 2.4939 * chlorides 
+##  - 0.7007 * free.sulfur.dioxide 
+##  + 0.0063 * total.sulfur.dioxide 
+##  - 18.7292 * pH 
+##  + 0.1002 * sulphates 
+##  + 0.2058 * alcohol 
+##  + 25.7445
+## 
+## LM num: 130
+## quality = 
+##  -0.0832 * fixed.acidity 
+##  - 0.4038 * volatile.acidity 
+##  - 0.5953 * citric.acid 
+##  + 0.0054 * residual.sugar 
+##  - 3.9739 * chlorides 
+##  - 0.7007 * free.sulfur.dioxide 
+##  + 0.0063 * total.sulfur.dioxide 
+##  - 19.0312 * pH 
+##  + 0.1002 * sulphates 
+##  + 0.1438 * alcohol 
+##  + 25.5306
+## 
+## LM num: 131
+## quality = 
+##  -0.0628 * fixed.acidity 
+##  - 0.4038 * volatile.acidity 
+##  - 0.5953 * citric.acid 
+##  + 0.027 * residual.sugar 
+##  - 3.0258 * chlorides 
+##  - 0.7007 * free.sulfur.dioxide 
+##  + 0.0063 * total.sulfur.dioxide 
+##  - 18.9292 * pH 
+##  + 0.1002 * sulphates 
+##  + 0.5389 * alcohol 
+##  + 20.1476
+## 
+## LM num: 132
+## quality = 
+##  -2.3075 * volatile.acidity 
+##  - 0.4015 * citric.acid 
+##  + 0.0226 * residual.sugar 
+##  - 20.8152 * chlorides 
+##  - 2.1571 * free.sulfur.dioxide 
+##  - 0.0015 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 51.6079 * pH 
+##  + 0.315 * sulphates 
+##  + 0.2853 * alcohol 
+##  + 57.9795
+## 
+## LM num: 133
+## quality = 
+##  0.0671 * fixed.acidity 
+##  - 0.1783 * volatile.acidity 
+##  - 0.2425 * citric.acid 
+##  + 0.0441 * residual.sugar 
+##  + 0.0348 * chlorides 
+##  - 1.1041 * free.sulfur.dioxide 
+##  + 0.0022 * total.sulfur.dioxide 
+##  - 33.4512 * density 
+##  - 68.5227 * pH 
+##  + 0.4 * sulphates 
+##  + 0.2244 * alcohol 
+##  + 105.1386
+## 
+## LM num: 134
+## quality = 
+##  0.4632 * fixed.acidity 
+##  - 0.0753 * volatile.acidity 
+##  - 0.2425 * citric.acid 
+##  + 0.1537 * residual.sugar 
+##  + 0.0348 * chlorides 
+##  - 1.1041 * free.sulfur.dioxide 
+##  + 0.0016 * total.sulfur.dioxide 
+##  - 186.2735 * density 
+##  - 67.2484 * pH 
+##  + 0.4 * sulphates 
+##  + 0.2244 * alcohol 
+##  + 249.7897
+## 
+## LM num: 135
+## quality = 
+##  0.1219 * volatile.acidity 
+##  - 0.2425 * citric.acid 
+##  + 0.0226 * residual.sugar 
+##  + 0.0471 * chlorides 
+##  - 1.1041 * free.sulfur.dioxide 
+##  + 0.0007 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 97.8203 * pH 
+##  + 0.5434 * sulphates 
+##  + 0.2244 * alcohol 
+##  + 101.7552
+## 
+## LM num: 136
+## quality = 
+##  0.0865 * volatile.acidity 
+##  - 0.2425 * citric.acid 
+##  + 0.0226 * residual.sugar 
+##  + 0.0359 * chlorides 
+##  - 1.091 * free.sulfur.dioxide 
+##  + 0.0012 * total.sulfur.dioxide 
+##  - 0.0001 * density 
+##  - 67.0328 * pH 
+##  + 0.4277 * sulphates 
+##  + 0.3429 * alcohol 
+##  + 68.987
+## 
+## LM num: 137
+## quality = 
+##  0.4784 * fixed.acidity 
+##  + 0.0026 * volatile.acidity 
+##  - 0.2768 * citric.acid 
+##  + 0.1841 * residual.sugar 
+##  + 0.0141 * chlorides 
+##  - 1.1672 * free.sulfur.dioxide 
+##  - 0.0001 * total.sulfur.dioxide 
+##  - 211.4155 * density 
+##  - 17.6025 * pH 
+##  + 0.1569 * sulphates 
+##  + 0.1728 * alcohol 
+##  + 225.4304
+## 
+## LM num: 138
+## quality = 
+##  -4.6535 * volatile.acidity 
+##  - 0.2768 * citric.acid 
+##  + 0.0946 * residual.sugar 
+##  + 0.0141 * chlorides 
+##  - 1.1792 * free.sulfur.dioxide 
+##  - 0.0008 * total.sulfur.dioxide 
+##  - 54.2104 * density 
+##  - 18.5195 * pH 
+##  + 0.1569 * sulphates 
+##  + 0.1728 * alcohol 
+##  + 77.864
+## 
+## LM num: 139
+## quality = 
+##  0.1762 * fixed.acidity 
+##  - 1.4589 * volatile.acidity 
+##  - 1.1784 * citric.acid 
+##  + 0.0965 * residual.sugar 
+##  + 0.0142 * chlorides 
+##  - 0.4975 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  - 275.9795 * density 
+##  - 29.9264 * pH 
+##  + 0.1477 * sulphates 
+##  + 0.0755 * alcohol 
+##  + 305.176
+## 
+## LM num: 140
+## quality = 
+##  0.2468 * fixed.acidity 
+##  + 0.0815 * volatile.acidity 
+##  + 0.0329 * citric.acid 
+##  + 0.0203 * chlorides 
+##  - 0.8849 * free.sulfur.dioxide 
+##  + 0.0013 * total.sulfur.dioxide 
+##  - 279.5824 * density 
+##  - 93.1644 * pH 
+##  + 1.853 * sulphates 
+##  + 0.2971 * alcohol 
+##  + 369.0295
+## 
+## LM num: 141
+## quality = 
+##  0.2402 * fixed.acidity 
+##  + 1.6298 * volatile.acidity 
+##  + 0.1263 * citric.acid 
+##  - 1.0018 * residual.sugar 
+##  - 21.504 * chlorides 
+##  - 0.8636 * free.sulfur.dioxide 
+##  + 0.0023 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 157.0559 * pH 
+##  + 0.8123 * sulphates 
+##  + 0.5055 * alcohol 
+##  + 158.4107
+## 
+## LM num: 142
+## quality = 
+##  -0.2213 * volatile.acidity 
+##  + 0.2618 * citric.acid 
+##  - 4.9049 * chlorides 
+##  - 3.0539 * free.sulfur.dioxide 
+##  + 0.001 * total.sulfur.dioxide 
+##  + 0.0003 * density 
+##  - 41.8043 * pH 
+##  + 0.2424 * sulphates 
+##  + 0.1152 * alcohol 
+##  + 47.2543
+## 
+## LM num: 143
+## quality = 
+##  -0.1086 * fixed.acidity 
+##  - 1.0489 * volatile.acidity 
+##  + 0.3954 * citric.acid 
+##  - 10.3856 * chlorides 
+##  - 3.0363 * free.sulfur.dioxide 
+##  - 0.0043 * total.sulfur.dioxide 
+##  + 42.4243 * density 
+##  - 41.6169 * pH 
+##  + 0.2424 * sulphates 
+##  + 0.1152 * alcohol 
+##  + 6.0839
+## 
+## LM num: 144
+## quality = 
+##  -1.4305 * volatile.acidity 
+##  + 0.3954 * citric.acid 
+##  - 10.3856 * chlorides 
+##  - 3.0452 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  + 45.328 * density 
+##  - 41.6169 * pH 
+##  + 0.2424 * sulphates 
+##  + 0.2254 * alcohol 
+##  + 1.2037
+## 
+## LM num: 145
+## quality = 
+##  -1.4305 * volatile.acidity 
+##  + 0.3954 * citric.acid 
+##  - 10.3856 * chlorides 
+##  - 3.0441 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  + 45.328 * density 
+##  - 41.6169 * pH 
+##  + 0.2424 * sulphates 
+##  + 0.1808 * alcohol 
+##  + 1.7476
+## 
+## LM num: 146
+## quality = 
+##  -1.5077 * volatile.acidity 
+##  + 0.3954 * citric.acid 
+##  - 10.3856 * chlorides 
+##  - 3.0423 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  + 45.328 * density 
+##  - 41.6169 * pH 
+##  + 0.2424 * sulphates 
+##  + 0.0458 * alcohol 
+##  + 3.2362
+## 
+## LM num: 147
+## quality = 
+##  0.1185 * volatile.acidity 
+##  + 2.2026 * citric.acid 
+##  - 14.5567 * chlorides 
+##  - 3.0208 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  + 31.2728 * density 
+##  - 40.8177 * pH 
+##  + 0.2424 * sulphates 
+##  + 0.1152 * alcohol 
+##  + 11.4521
+## 
+## LM num: 148
+## quality = 
+##  0.0911 * fixed.acidity 
+##  - 0.1912 * volatile.acidity 
+##  + 2.4132 * citric.acid 
+##  - 14.5567 * chlorides 
+##  - 3.0123 * free.sulfur.dioxide 
+##  + 0.0006 * total.sulfur.dioxide 
+##  + 31.2728 * density 
+##  - 41.0701 * pH 
+##  + 0.2424 * sulphates 
+##  + 0.4563 * alcohol 
+##  + 7.2276
+## 
+## LM num: 149
+## quality = 
+##  -0.0288 * volatile.acidity 
+##  - 0.0442 * citric.acid 
+##  + 0.0225 * chlorides 
+##  - 6.8736 * free.sulfur.dioxide 
+##  - 0.0004 * total.sulfur.dioxide 
+##  + 0.0004 * density 
+##  - 43.2263 * pH 
+##  + 0.2506 * sulphates 
+##  + 0.1152 * alcohol 
+##  + 48.8146
+## 
+## LM num: 150
+## quality = 
+##  -0.234 * fixed.acidity 
+##  - 0.0053 * volatile.acidity 
+##  + 2.0345 * citric.acid 
+##  - 3.1189 * chlorides 
+##  - 5.1097 * free.sulfur.dioxide 
+##  - 0.0016 * total.sulfur.dioxide 
+##  + 0.0004 * density 
+##  - 43.2263 * pH 
+##  + 0.2506 * sulphates 
+##  + 0.1152 * alcohol 
+##  + 50.088
+## 
+## LM num: 151
+## quality = 
+##  -0.0667 * fixed.acidity 
+##  - 0.0053 * volatile.acidity 
+##  + 0.4628 * citric.acid 
+##  - 6.4349 * chlorides 
+##  - 5.1097 * free.sulfur.dioxide 
+##  - 0.0029 * total.sulfur.dioxide 
+##  + 0.0004 * density 
+##  - 43.2263 * pH 
+##  - 1.5401 * sulphates 
+##  + 0.1152 * alcohol 
+##  + 50.2272
+## 
+## LM num: 152
+## quality = 
+##  0.0198 * volatile.acidity 
+##  - 0.2189 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0005 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 41.1272
+## 
+## LM num: 153
+## quality = 
+##  0.1092 * fixed.acidity 
+##  + 0.8248 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0752 * free.sulfur.dioxide 
+##  + 0.0033 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 39.321
+## 
+## LM num: 154
+## quality = 
+##  0.1092 * fixed.acidity 
+##  + 0.4394 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0706 * free.sulfur.dioxide 
+##  + 0.0033 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 39.413
+## 
+## LM num: 155
+## quality = 
+##  0.1092 * fixed.acidity 
+##  + 0.4394 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0709 * free.sulfur.dioxide 
+##  + 0.0033 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 39.4285
+## 
+## LM num: 156
+## quality = 
+##  0.1092 * fixed.acidity 
+##  + 0.4394 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0752 * free.sulfur.dioxide 
+##  + 0.0033 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 39.5431
+## 
+## LM num: 157
+## quality = 
+##  0.078 * fixed.acidity 
+##  + 0.3195 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0067 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 41.4251
+## 
+## LM num: 158
+## quality = 
+##  0.078 * fixed.acidity 
+##  + 0.3195 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 3.6873 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0056 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 41.1069
+## 
+## LM num: 159
+## quality = 
+##  0.078 * fixed.acidity 
+##  + 0.3195 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 4.3546 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0056 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.3831 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 40.9955
+## 
+## LM num: 160
+## quality = 
+##  0.078 * fixed.acidity 
+##  + 0.3195 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 4.3546 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0056 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.3734 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 41.0087
+## 
+## LM num: 161
+## quality = 
+##  0.078 * fixed.acidity 
+##  + 1.5739 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0047 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.4603 * alcohol 
+##  + 36.837
+## 
+## LM num: 162
+## quality = 
+##  0.078 * fixed.acidity 
+##  + 1.999 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0047 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.4446 * alcohol 
+##  + 36.9572
+## 
+## LM num: 163
+## quality = 
+##  1.2221 * volatile.acidity 
+##  - 0.1667 * citric.acid 
+##  + 0.0175 * chlorides 
+##  - 2.0814 * free.sulfur.dioxide 
+##  - 0.0022 * total.sulfur.dioxide 
+##  + 0.0001 * density 
+##  - 35.1322 * pH 
+##  + 0.2 * sulphates 
+##  + 0.1468 * alcohol 
+##  + 40.6639
+## 
+## Number of Rules : 163</code></pre>
+<p>这里的分割与前面的回归树很相似，然而<strong>关键的区别在于节点不是以一个数值预测终止，而是以一个线性模型终止</strong>（这里表示为LM1和LM2）<br />
+线性模型本身显示在输出后面，例如LM1模型如下，这些值完全可以和多元模型一样解释，每一个数字都是相关特征对于预测的葡萄酒质量的净影响（效应）。对于固定酸度系数0.266意味着每增加一个单位的酸度，葡萄酒的质量预计会增加0.266</p>
+<p>注意的是，估计的影响只适用于到达该节点的葡萄酒案例。在这个模型树中一共建立了36个线性回归模型，每一个模型对于固定的酸度和其他10个特征的影响都有不同的估计</p>
+<p>对于预测数据来说：</p>
+<pre class="r"><code># 生成模型的预测
+p.m5p &lt;- predict(m.m5p, wine_test)
+
+# 模型树的预测返回比回归树的广
+summary(p.m5p)</code></pre>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -797.813 -176.061  -78.867 -116.499  -25.595    7.427</code></pre>
+<pre class="r"><code>#模型的MSE也有改善
+MAE(wine_test$quality, p.m5p)</code></pre>
+<pre><code>## [1] 122.4056</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Mojave 10.14.5
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] RWeka_0.4-43     rpart.plot_3.0.8 rpart_4.1-15    
+## 
+## loaded via a namespace (and not attached):
+##  [1] bookdown_0.20     digest_0.6.25     grid_4.0.2        magrittr_1.5     
+##  [5] evaluate_0.14     blogdown_0.20     RWekajars_3.9.3-2 rlang_0.4.7      
+##  [9] stringi_1.4.6     rmarkdown_2.3     tools_4.0.2       stringr_1.4.0    
+## [13] xfun_0.17         yaml_2.2.1        compiler_4.0.2    rJava_0.9-13     
+## [17] htmltools_0.5.0   knitr_1.29</code></pre>
+</div>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/post/2017-02-18-tree-model/" class="leancloud_visitors" data-flag-title="回归树与模型树">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/post/2017-02-01-ggfortify1jianjie/"> 上一篇: ggfortify包简介</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/post/2017-03-23-knn%E7%AE%97%E6%B3%95/"> 下一篇: knn算法简介</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/post\/2017-02-18-tree-model.html");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>R语言字符处理函数包---stringr包</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                R语言字符处理函数包---stringr包
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-04-05 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/stringr"> #stringr </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h2 id="1stringr介绍">1.stringr介绍</h2>
+<p>stringr包被定义为一致的、简单易用的字符串工具集。所有的函数和参数定义都具有一致性，比如，用相同的方法进行NA处理和0长度的向量处理。</p>
+<p>字符串处理虽然不是R语言中最主要的功能，却也是必不可少的，数据清洗、可视化等的操作都会用到。对于R语言本身的base包提供的字符串基础函数，随着时间的积累，已经变得很多地方不一致，不规范的命名，不标准的参数定义，很难看一眼就上手使用。字符串处理在其他语言中都是非常方便的事情，R语言在这方面确实落后了。stringr包就是为了解决这个问题，让字符串处理变得简单易用，提供友好的字符串操作接口。</p>
+<h2 id="2stringr的api介绍">2.stringr的API介绍</h2>
+<p>stringr包常用的字符串的处理以str_开头来命名，方便更直观理解函数的定义。我们可以根据使用习惯对函数进行分类：</p>
+<h3 id="字符串拼接函数"><strong>字符串拼接函数</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>R Base中对应函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str_c()<!-- raw HTML omitted -->str_join() 同str_c()</td>
+<td>字符串拼接</td>
+<td>paste(),paste0()</td>
+</tr>
+<tr>
+<td>str_trim())</td>
+<td>去掉字符串的空格和TAB(\t)</td>
+<td></td>
+</tr>
+<tr>
+<td>str_pad()</td>
+<td>用pad参数填充字符串的长度，长度自己设定</td>
+<td></td>
+</tr>
+<tr>
+<td>str_dup()</td>
+<td>复制字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>str_wrap()</td>
+<td>控制字符串输出格式</td>
+<td>strtrim()</td>
+</tr>
+<tr>
+<td>str_sub()<!-- raw HTML omitted -->str_sub() &lt;- value</td>
+<td>截取字符串<!-- raw HTML omitted -->抽取或替换正则表达式匹配子串</td>
+<td>regmatches()<!-- raw HTML omitted -->regmatches() &lt;- value</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串计算函数"><strong>字符串计算函数</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>R Base中对应函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str_count()</td>
+<td>字符串计数，返回指定匹配出现的次数</td>
+<td></td>
+</tr>
+<tr>
+<td>str_length()</td>
+<td>返回字符的长度</td>
+<td>nchar()</td>
+</tr>
+<tr>
+<td>str_sort()</td>
+<td>对字符值进行排序</td>
+<td></td>
+</tr>
+<tr>
+<td>str_order()</td>
+<td>字符串索引排序，</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串匹配函数"><strong>字符串匹配函数</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>R Base中对应函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str_split()<!-- raw HTML omitted -->str_split_fixed() 同上</td>
+<td>按照模式分割字符串</td>
+<td>strsplit()</td>
+</tr>
+<tr>
+<td>str_match()<!-- raw HTML omitted -->str_match_all()</td>
+<td>从字符串中提取首个匹配组<!-- raw HTML omitted --></td>
+<td></td>
+</tr>
+<tr>
+<td>str_replace<!-- raw HTML omitted -->str_replace_all</td>
+<td>替换首个匹配模式<!-- raw HTML omitted --></td>
+<td>sub()<!-- raw HTML omitted -->gsub()</td>
+</tr>
+<tr>
+<td>str_replace_na()</td>
+<td>把NA替换为NA字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>str_locate()<!-- raw HTML omitted -->str_locate_all()</td>
+<td>返回首个匹配模式的字符的位置<!-- raw HTML omitted --></td>
+<td>regexpr()<!-- raw HTML omitted -->gregexpr()</td>
+</tr>
+<tr>
+<td>str_extract()<!-- raw HTML omitted -->str_extract_all()</td>
+<td>提取首个匹配模式的字符<!-- raw HTML omitted --></td>
+<td></td>
+</tr>
+<tr>
+<td>str_subset()</td>
+<td>返回匹配的字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>str_detect()</td>
+<td>检测字符是否存在某些指定模式</td>
+<td>grepl()</td>
+</tr>
+<tr>
+<td>word()</td>
+<td>从文本中提取单词</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串变换函数"><strong>字符串变换函数</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>R Base中对应函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str_conv()</td>
+<td>字符编码转换,基本函数中的比较好用</td>
+<td>iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)</td>
+</tr>
+<tr>
+<td>str_to_upper()<!-- raw HTML omitted -->str_to_lower()</td>
+<td>字符串转成大写/小写</td>
+<td>tolower(x)<!-- raw HTML omitted -->toupper(x)</td>
+</tr>
+<tr>
+<td>str_to_title()<!-- raw HTML omitted -->同大小写转换</td>
+<td>字符串转成首字母大写</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="参数控制函数"><strong>参数控制函数</strong>，</h3>
+<p>仅用于构造功能的参数，不能独立使用。</p>
+<ul>
+<li>boundary:	定义使用边界</li>
+<li>coll:	       定义字符串标准排序规则。</li>
+<li>fixed:	定义用于匹配的字符，包括正则表达式中的转义符</li>
+<li>regex:	定义正则表达式</li>
+</ul>
+<h2 id="3stringr的详细使用">3.stringr的详细使用</h2>
+<p><strong>3.1 字符串拼接函数</strong></p>
+<p><strong>3.1.1 str_c，字符串拼接操作，与str_join完全相同，与paste()行为不完全一致。</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_c(..., sep = &quot;&quot;, collapse = NULL)
+str_join(..., sep = &quot;&quot;, collapse = NULL)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>…: 多参数的输入</li>
+<li>sep: 把多个字符串拼接为一个大的字符串，用于字符串的分割符。</li>
+<li>collapse: 把多个向量参数拼接为一个大的字符串，用于字符串的分割符。</li>
+</ul>
+<p>把多个字符串拼接为一个大的字符串。</p>
+<pre tabindex="0"><code>&gt; str_c('a','b')
+[1] &quot;ab&quot;
+&gt; str_c('a','b',sep='-')
+[1] &quot;a-b&quot;
+&gt; str_c(c('a','a1'),c('b','b1'),sep='-')
+[1] &quot;a-b&quot;   &quot;a1-b1&quot;
+
+</code></pre><p>把多个向量参数拼接为一个大的字符串。</p>
+<pre tabindex="0"><code>&gt; str_c(head(letters), collapse = &quot;&quot;)
+[1] &quot;abcdef&quot;
+&gt; str_c(head(letters), collapse = &quot;, &quot;)
+[1] &quot;a, b, c, d, e, f&quot;
+
+# collapse参数，对多个字符串无效
+&gt; str_c('a','b',collapse = &quot;-&quot;)   
+[1] &quot;ab&quot;
+&gt; str_c(c('a','a1'),c('b','b1'),collapse='-')
+[1] &quot;ab-a1b1&quot;
+
+</code></pre><p>拼接有NA值的字符串向量时，NA还是NA</p>
+<pre tabindex="0"><code>&gt; str_c(c(&quot;a&quot;, NA, &quot;b&quot;), &quot;-d&quot;)
+[1] &quot;a-d&quot; NA    &quot;b-d&quot;
+
+</code></pre><p>对比str_c()函数和paste()函数之间的不同点。</p>
+<pre tabindex="0"><code># 多字符串拼接，默认的sep参数行为不一致
+&gt; str_c('a','b')
+[1] &quot;ab&quot;
+&gt; paste('a','b')
+[1] &quot;a b&quot;
+
+# 向量拼接字符串，collapse参数的行为一致
+&gt; str_c(head(letters), collapse = &quot;&quot;)
+[1] &quot;abcdef&quot;
+&gt; paste(head(letters), collapse = &quot;&quot;)
+[1] &quot;abcdef&quot;
+ 
+#拼接有NA值的字符串向量，对NA的处理行为不一致
+&gt; str_c(c(&quot;a&quot;, NA, &quot;b&quot;), &quot;-d&quot;)
+[1] &quot;a-d&quot; NA    &quot;b-d&quot;
+&gt; paste(c(&quot;a&quot;, NA, &quot;b&quot;), &quot;-d&quot;)
+[1] &quot;a -d&quot;  &quot;NA -d&quot; &quot;b -d&quot; 
+
+</code></pre><p><strong>3.1.2 str_trim:去掉字符串的空格和TAB(\t)</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_trim(string, side = c(&quot;both&quot;, &quot;left&quot;, &quot;right&quot;))
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>side: 过滤方式，both两边都过滤，left左边过滤，right右边过滤</li>
+</ul>
+<p>去掉字符串的空格和TAB(\t)</p>
+<pre tabindex="0"><code>#只过滤左边的空格
+&gt; str_trim(&quot;  left space\t\n&quot;,side='left') 
+[1] &quot;left space\t\n&quot;
+
+#只过滤右边的空格
+&gt; str_trim(&quot;  left space\t\n&quot;,side='right')
+[1] &quot;  left space&quot;
+
+#过滤两边的空格
+&gt; str_trim(&quot;  left space\t\n&quot;,side='both')
+[1] &quot;left space&quot;
+
+#过滤两边的空格
+&gt; str_trim(&quot;\nno space\n\t&quot;)
+[1] &quot;no space&quot;
+
+</code></pre><p><strong>3.1.3 str_pad:补充字符串的长度</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_pad(string, width, side = c(&quot;left&quot;, &quot;right&quot;, &quot;both&quot;), pad = &quot; &quot;)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>width: 字符串填充后的长度</li>
+<li>side: 填充方向，both两边都填充，left左边填充，right右边填充</li>
+<li>pad: 用于填充的字符</li>
+</ul>
+<p>补充字符串的长度。</p>
+<pre tabindex="0"><code># 从左边补充空格，直到字符串长度为20
+&gt; str_pad(&quot;conan&quot;, 20, &quot;left&quot;)
+[1] &quot;               conan&quot;
+
+# 从右边补充空格，直到字符串长度为20
+&gt; str_pad(&quot;conan&quot;, 20, &quot;right&quot;)
+[1] &quot;conan               &quot;
+
+# 从左右两边各补充空格，直到字符串长度为20
+&gt; str_pad(&quot;conan&quot;, 20, &quot;both&quot;)
+[1] &quot;       conan        &quot;
+
+# 从左右两边各补充x字符，直到字符串长度为20
+&gt; str_pad(&quot;conan&quot;, 20, &quot;both&quot;,'x')
+[1] &quot;xxxxxxxconanxxxxxxxx&quot;
+
+</code></pre><p><strong>3.1.4 str_dup: 复制字符串</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_dup(string, times)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>times: 复制数量</li>
+</ul>
+<p>复制一个字符串向量。</p>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
+
+# 复制2次
+&gt; str_dup(val, 2)
+[1] &quot;abca4abca4&quot; &quot;123123&quot;     &quot;cba2cba2&quot;  
+
+# 按位置复制
+&gt; str_dup(val, 1:3)
+[1] &quot;abca4&quot;        &quot;123123&quot;       &quot;cba2cba2cba2&quot;
+
+</code></pre><p><strong>3.1.5 str_wrap，控制字符串输出格式</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_wrap(string, width = 80, indent = 0, exdent = 0)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>width: 设置一行所占的宽度。</li>
+<li>indent: 段落首行的缩进值</li>
+<li>exdent: 段落非首行的缩进值</li>
+</ul>
+<pre tabindex="0"><code> txt&lt;-'R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。'
+
+# 设置宽度为40个字符
+&gt; cat(str_wrap(txt, width = 40), &quot;\n&quot;)
+R语言作为统计学一门语言，一直在小众领域
+闪耀着光芒。直到大数据的爆发，R语言变成
+了一门炙手可热的数据分析的利器。随着越来
+越多的工程背景的人的加入，R语言的社区在
+迅速扩大成长。现在已不仅仅是统计领域，教
+育，银行，电商，互联网….都在使用R语言。 
+
+# 设置宽度为60字符，首行缩进2字符
+&gt; cat(str_wrap(txt, width = 60, indent = 2), &quot;\n&quot;)
+  R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数
+据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来
+越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已
+不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。 
+
+# 设置宽度为10字符，非首行缩进4字符
+&gt; cat(str_wrap(txt, width = 10, exdent = 4), &quot;\n&quot;)
+R语言作为
+    统计学一
+    门语言，
+    一直在小
+    众领域闪
+    耀着光芒。
+    直到大数据
+    的爆发，R
+    语言变成了
+    一门炙手可
+    热的数据分
+    析的利器。
+    随着越来
+    越多的工程
+    背景的人的
+    加入，R语
+    言的社区在
+    迅速扩大成
+    长。现在已
+    不仅仅是统
+    计领域，教
+    育，银行，
+    电商，互联
+    网….都在使
+    用R语言。 
+
+</code></pre><p><strong>3.1.6 str_sub,截取字符串</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_sub(string, start = 1L, end = -1L)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>start : 开始位置</li>
+<li>end : 结束位置</li>
+</ul>
+<p>截取字符串。</p>
+<pre tabindex="0"><code>&gt; txt &lt;- &quot;I am Conan.&quot;
+
+# 截取1-4的索引位置的字符串
+&gt; str_sub(txt, 1, 4)
+[1] &quot;I am&quot;
+
+# 截取1-6的索引位置的字符串
+&gt; str_sub(txt, end=6)
+[1] &quot;I am C&quot;
+
+# 截取6到结束的索引位置的字符串
+&gt; str_sub(txt, 6)
+[1] &quot;Conan.&quot;
+
+# 分2段截取字符串
+&gt; str_sub(txt, c(1, 4), c(6, 8))
+[1] &quot;I am C&quot; &quot;m Con&quot; 
+
+# 通过负坐标截取字符串
+&gt; str_sub(txt, -3)
+[1] &quot;an.&quot;
+&gt; str_sub(txt, end = -3)
+[1] &quot;I am Cona&quot;
+
+</code></pre><p>对截取的字符串进行赋值。</p>
+<pre tabindex="0"><code>&gt; x &lt;- &quot;AAABBBCCC&quot;
+
+# 在字符串的1的位置赋值为1
+&gt; str_sub(x, 1, 1) &lt;- 1; x
+[1] &quot;1AABBBCCC&quot;
+
+# 在字符串从2到-2的位置赋值为2345
+&gt; str_sub(x, 2, -2) &lt;- &quot;2345&quot;; x
+[1] &quot;12345C&quot;
+
+</code></pre><p><strong>3.2 字符串计算函数</strong></p>
+<p><strong>3.2.1 str_count, 字符串计数</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_count(string, pattern = &quot;&quot;)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配的字符。</li>
+</ul>
+<p>对字符串中匹配的字符计数</p>
+<pre tabindex="0"><code>&gt; str_count('aaa444sssddd', &quot;a&quot;)
+[1] 3
+
+</code></pre><p>对字符串向量中匹配的字符计数</p>
+<pre tabindex="0"><code>&gt; fruit &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;pear&quot;, &quot;pineapple&quot;)
+&gt; str_count(fruit, &quot;a&quot;)
+[1] 1 3 1 1
+&gt; str_count(fruit, &quot;p&quot;)
+[1] 2 0 1 3
+
+</code></pre><p>对字符串中的'.&lsquo;字符计数，由于.是正则表达式的匹配符，直接判断计数的结果是不对的。</p>
+<pre tabindex="0"><code>&gt; str_count(c(&quot;a.&quot;, &quot;.&quot;, &quot;.a.&quot;,NA), &quot;.&quot;)
+[1]  2  1  3 NA
+
+# 用fixed匹配字符
+&gt; str_count(c(&quot;a.&quot;, &quot;.&quot;, &quot;.a.&quot;,NA), fixed(&quot;.&quot;))
+[1]  1  1  2 NA
+
+# 用\\匹配字符
+&gt; str_count(c(&quot;a.&quot;, &quot;.&quot;, &quot;.a.&quot;,NA), &quot;\\.&quot;)
+[1]  1  1  2 NA
+
+</code></pre><p><strong>3.2.2 str_length,字符串长度</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_length(string)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+</ul>
+<p>计算字符串的长度:</p>
+<pre tabindex="0"><code>&gt; str_length(c(&quot;I&quot;, &quot;am&quot;, &quot;张丹&quot;, NA))
+[1]  1  2  2 NA
+
+</code></pre><p><strong>3.2.3 str_sort, 字符串值排序，同str_order索引排序</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_sort(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
+str_order(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
+
+</code></pre><p>参数列表：</p>
+<ul>
+<li>x: 字符串，字符串向量。</li>
+<li>decreasing: 排序方向。</li>
+<li>na_last:NA值的存放位置，一共3个值，TRUE放到最后，FALSE放到最前，NA过滤处理</li>
+<li>locale:按哪种语言习惯排序</li>
+</ul>
+<p>对字符串值进行排序。</p>
+<pre tabindex="0"><code># 按ASCII字母排序
+&gt; str_sort(c('a',1,2,'11'), locale = &quot;en&quot;)  
+[1] &quot;1&quot;  &quot;11&quot; &quot;2&quot;  &quot;a&quot; 
+
+# 倒序排序
+&gt; str_sort(letters,decreasing=TRUE)         
+ [1] &quot;z&quot; &quot;y&quot; &quot;x&quot; &quot;w&quot; &quot;v&quot; &quot;u&quot; &quot;t&quot; &quot;s&quot; &quot;r&quot; &quot;q&quot; &quot;p&quot; &quot;o&quot; &quot;n&quot; &quot;m&quot; &quot;l&quot; &quot;k&quot; &quot;j&quot; &quot;i&quot; &quot;h&quot;
+[20] &quot;g&quot; &quot;f&quot; &quot;e&quot; &quot;d&quot; &quot;c&quot; &quot;b&quot; &quot;a&quot;
+
+# 按拼音排序
+&gt; str_sort(c('你','好','粉','丝','日','志'),locale = &quot;zh&quot;)  
+[1] &quot;粉&quot; &quot;好&quot; &quot;你&quot; &quot;日&quot; &quot;丝&quot; &quot;志&quot;
+
+</code></pre><p>对NA值的排序处理</p>
+<pre tabindex="0"><code> #把NA放最后面
+&gt; str_sort(c(NA,'1',NA),na_last=TRUE) 
+[1] &quot;1&quot; NA  NA
+ 
+#把NA放最前面
+&gt; str_sort(c(NA,'1',NA),na_last=FALSE) 
+[1] NA  NA  &quot;1&quot;
+
+#去掉NA值 
+&gt; str_sort(c(NA,'1',NA),na_last=NA)    
+[1] &quot;1&quot;
+
+</code></pre><p><strong>3.3 字符串匹配函数</strong></p>
+<p><strong>3.3.1 str_split,字符串分割，同str_split_fixed</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_split(string, pattern, n = Inf)
+str_split_fixed(string, pattern, n)
+
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配的字符。</li>
+<li>n: 分割个数</li>
+</ul>
+<p>对字符串进行分割。</p>
+<pre tabindex="0"><code>&gt; val &lt;- &quot;abc,123,234,iuuu&quot;
+
+# 以,进行分割
+&gt; s1&lt;-str_split(val, &quot;,&quot;);s1
+[[1]]
+[1] &quot;abc&quot;  &quot;123&quot;  &quot;234&quot;  &quot;iuuu&quot;
+
+# 以,进行分割，保留2块
+&gt; s2&lt;-str_split(val, &quot;,&quot;,2);s2
+[[1]]
+[1] &quot;abc&quot;          &quot;123,234,iuuu&quot;
+
+# 查看str_split()函数操作的结果类型list
+&gt; class(s1)
+[1] &quot;list&quot;
+
+# 用str_split_fixed()函数分割，结果类型是matrix
+&gt; s3&lt;-str_split_fixed(val, &quot;,&quot;,2);s3
+     [,1]  [,2]          
+[1,] &quot;abc&quot; &quot;123,234,iuuu&quot;
+
+&gt; class(s3)
+[1] &quot;matrix&quot;
+
+</code></pre><p><strong>3.3.2 str_subset:返回的匹配字符串</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_subset(string, pattern)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配的字符。</li>
+</ul>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abc&quot;, 123, &quot;cba&quot;)
+
+# 全文匹配
+&gt; str_subset(val, &quot;a&quot;)
+[1] &quot;abc&quot; &quot;cba&quot;
+
+# 开头匹配
+&gt; str_subset(val, &quot;^a&quot;)
+[1] &quot;abc&quot;
+
+# 结尾匹配
+&gt; str_subset(val, &quot;a$&quot;)
+[1] &quot;cba&quot;
+
+</code></pre><p><strong>3.3.3 word, 从文本中提取单词</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>word(string, start = 1L, end = start, sep = fixed(&quot; &quot;))
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>start: 开始位置。</li>
+<li>end: 结束位置。</li>
+<li>sep: 匹配字符。</li>
+</ul>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;I am Conan.&quot;, &quot;http://fens.me, ok&quot;)
+
+# 默认以空格分割，取第一个位置的字符串
+&gt; word(val, 1)
+[1] &quot;I&quot;               &quot;http://fens.me,&quot;
+&gt; word(val, -1)
+[1] &quot;Conan.&quot; &quot;ok&quot;    
+&gt; word(val, 2, -1)
+[1] &quot;am Conan.&quot; &quot;ok&quot;       
+
+# 以,分割，取第一个位置的字符串 
+&gt; val&lt;-'111,222,333,444'
+&gt; word(val, 1, sep = fixed(','))
+[1] &quot;111&quot;
+&gt; word(val, 3, sep = fixed(','))
+[1] &quot;333&quot;
+
+</code></pre><p><strong>3.3.4 str_detect匹配字符串的字符</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_detect(string, pattern)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配字符。</li>
+</ul>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
+
+# 检查字符串向量，是否包括a
+&gt; str_detect(val, &quot;a&quot;)
+[1]  TRUE FALSE  TRUE
+
+# 检查字符串向量，是否以a为开头
+&gt; str_detect(val, &quot;^a&quot;)
+[1]  TRUE FALSE FALSE
+
+# 检查字符串向量，是否以a为结尾
+&gt; str_detect(val, &quot;a$&quot;)
+[1] FALSE FALSE FALSE
+
+</code></pre><p><strong>3.3.6 str_match,从字符串中提取匹配组</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_match(string, pattern)
+str_match_all(string, pattern)
+
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配字符。</li>
+</ul>
+<p>从字符串中提取匹配组</p>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abc&quot;, 123, &quot;cba&quot;)
+
+# 匹配字符a，并返回对应的字符
+&gt; str_match(val, &quot;a&quot;)
+     [,1]
+[1,] &quot;a&quot; 
+[2,] NA  
+[3,] &quot;a&quot; 
+
+# 匹配字符0-9，限1个，并返回对应的字符
+&gt; str_match(val, &quot;[0-9]&quot;)
+     [,1]
+[1,] NA  
+[2,] &quot;1&quot; 
+[3,] NA  
+
+# 匹配字符0-9，不限数量，并返回对应的字符
+&gt; str_match(val, &quot;[0-9]*&quot;)
+     [,1] 
+[1,] &quot;&quot;   
+[2,] &quot;123&quot;
+[3,] &quot;&quot;  
+
+</code></pre><p>从字符串中提取匹配组，以字符串matrix格式返回</p>
+<pre tabindex="0"><code>&gt; str_match_all(val, &quot;a&quot;)
+[[1]]
+     [,1]
+[1,] &quot;a&quot; 
+
+[[2]]
+     [,1]
+
+[[3]]
+     [,1]
+[1,] &quot;a&quot; 
+
+&gt; str_match_all(val, &quot;[0-9]&quot;)
+[[1]]
+     [,1]
+
+[[2]]
+     [,1]
+[1,] &quot;1&quot; 
+[2,] &quot;2&quot; 
+[3,] &quot;3&quot; 
+
+[[3]]
+     [,1]
+
+</code></pre><p><strong>3.3.7 str_replace，字符串替换</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_replace(string, pattern, replacement)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配字符。</li>
+<li>replacement: 用于替换的字符。</li>
+</ul>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abc&quot;, 123, &quot;cba&quot;)
+
+# 把目标字符串第一个出现的a或b，替换为-
+&gt; str_replace(val, &quot;[ab]&quot;, &quot;-&quot;)
+[1] &quot;-bc&quot; &quot;123&quot; &quot;c-a&quot;
+
+# 把目标字符串所有出现的a或b，替换为-
+&gt; str_replace_all(val, &quot;[ab]&quot;, &quot;-&quot;)
+[1] &quot;--c&quot; &quot;123&quot; &quot;c--&quot;
+
+# 把目标字符串所有出现的a，替换为被转义的字符
+&gt; str_replace_all(val, &quot;[a]&quot;, &quot;\1\1&quot;)
+[1] &quot;\001\001bc&quot; &quot;123&quot;        &quot;cb\001\001&quot;
+
+</code></pre><p><strong>3.3.8 str_replace_na把NA替换为NA字符串</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_replace_na(string, replacement = &quot;NA&quot;)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>replacement : 用于替换的字符。</li>
+</ul>
+<p>把NA替换为字符串</p>
+<pre tabindex="0"><code>&gt; str_replace_na(c(NA,'NA',&quot;abc&quot;),'x')
+[1] &quot;x&quot;   &quot;NA&quot;  &quot;abc&quot;
+
+</code></pre><p><strong>3.3.9 str_locate，找到的模式在字符串中的位置。</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_locate(string, pattern)
+str_locate_all(string, pattern)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配字符。</li>
+</ul>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca&quot;, 123, &quot;cba&quot;)
+
+# 匹配a在字符串中的位置
+&gt; str_locate(val, &quot;a&quot;)
+     start end
+[1,]     1   1
+[2,]    NA  NA
+[3,]     3   3
+
+# 用向量匹配
+&gt; str_locate(val, c(&quot;a&quot;, 12, &quot;b&quot;))
+     start end
+[1,]     1   1
+[2,]     1   2
+[3,]     2   2
+
+# 以字符串matrix格式返回
+&gt; str_locate_all(val, &quot;a&quot;)
+[[1]]
+     start end
+[1,]     1   1
+[2,]     4   4
+
+[[2]]
+     start end
+
+[[3]]
+     start end
+[1,]     3   3
+
+# 匹配a或b字符，以字符串matrix格式返回
+&gt; str_locate_all(val, &quot;[ab]&quot;)
+[[1]]
+     start end
+[1,]     1   1
+[2,]     2   2
+[3,]     4   4
+
+[[2]]
+     start end
+
+[[3]]
+     start end
+[1,]     2   2
+[2,]     3   3
+
+</code></pre><p><strong>3.3.10 str_extract从字符串中提取匹配模式</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_extract(string, pattern)
+str_extract_all(string, pattern, simplify = FALSE)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>pattern: 匹配字符。</li>
+<li>simplify: 返回值，TRUE返回matrix，FALSE返回字符串向量</li>
+</ul>
+<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
+
+# 返回匹配的数字
+&gt; str_extract(val, &quot;\\d&quot;)
+[1] &quot;4&quot; &quot;1&quot; &quot;2&quot;
+
+# 返回匹配的字符
+&gt; str_extract(val, &quot;[a-z]+&quot;)
+[1] &quot;abca&quot; NA     &quot;cba&quot; 
+
+
+&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
+&gt; str_extract_all(val, &quot;\\d&quot;)
+[[1]]
+[1] &quot;4&quot;
+
+[[2]]
+[1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
+
+[[3]]
+[1] &quot;2&quot;
+
+&gt; str_extract_all(val, &quot;[a-z]+&quot;)
+[[1]]
+[1] &quot;abca&quot;
+
+[[2]]
+character(0)
+
+[[3]]
+[1] &quot;cba&quot;
+
+</code></pre><p><strong>3.4 字符串变换函数</strong></p>
+<p><strong>3.4.1 str_conv:字符编码转换</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_conv(string, encoding)
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串，字符串向量。</li>
+<li>encoding: 编码名。</li>
+</ul>
+<p>对中文进行转码处理。</p>
+<pre tabindex="0"><code># 把中文字符字节化
+&gt; x &lt;- charToRaw('你好');x
+[1] c4 e3 ba c3
+
+# 默认win系统字符集为GBK，GB2312为GBK字集，转码正常
+&gt; str_conv(x, &quot;GBK&quot;)
+[1] &quot;你好&quot;
+&gt; str_conv(x, &quot;GB2312&quot;)
+[1] &quot;你好&quot;
+
+# 转UTF-8失败
+&gt; str_conv(x, &quot;UTF-8&quot;)
+[1] &quot;���&quot;
+Warning messages:
+1: In stri_conv(string, encoding, &quot;UTF-8&quot;) :
+  input data \xffffffc4 in current source encoding could not be converted to Unicode
+2: In stri_conv(string, encoding, &quot;UTF-8&quot;) :
+  input data \xffffffe3\xffffffba in current source encoding could not be converted to Unicode
+3: In stri_conv(string, encoding, &quot;UTF-8&quot;) :
+  input data \xffffffc3 in current source encoding could not be converted to Unicode
+
+</code></pre><p>把unicode转UTF-8</p>
+<pre tabindex="0"><code>&gt; x1 &lt;- &quot;\u5317\u4eac&quot;
+&gt; str_conv(x1, &quot;UTF-8&quot;)
+[1] &quot;北京&quot;
+
+</code></pre><p><strong>3.4.2 str_to_upper,字符串大写转换。</strong></p>
+<p>函数定义：</p>
+<pre tabindex="0"><code>str_to_upper(string, locale = &quot;&quot;)
+str_to_lower(string, locale = &quot;&quot;)
+str_to_title(string, locale = &quot;&quot;)
+
+</code></pre><p>参数列表：</p>
+<ul>
+<li>string: 字符串。</li>
+<li>locale:按哪种语言习惯排序</li>
+</ul>
+<p>字符串大写转换:</p>
+<pre tabindex="0"><code>&gt; val &lt;- &quot;I am conan. Welcome to my blog! http://fens.me&quot;
+
+# 全大写
+&gt; str_to_upper(val)
+[1] &quot;I AM CONAN. WELCOME TO MY BLOG! HTTP://FENS.ME&quot;
+
+# 全小写
+&gt; str_to_lower(val)
+[1] &quot;i am conan. welcome to my blog! http://fens.me&quot;
+
+# 首字母大写
+&gt; str_to_title(val)
+[1] &quot;I Am Conan. Welcome To My Blog! Http://Fens.Me&quot;
+
+</code></pre><p>字符串在平常的数据处理中经常用过，需要对字符串进行分割、连接、转换等操作，本篇中通过介绍stringr，灵活的字符串处理库，可以有效地提高代码的编写效率。有了好的工具，在用R语言处理字符串就顺手了。</p>
+<p>本文转载张丹的粉丝日志，链接：<a href="http://blog.fens.me/r-stringr/">http://blog.fens.me/r-stringr/</a>，</p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/" class="leancloud_visitors" data-flag-title="R语言字符处理函数包---stringr包">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/"> 上一篇: Windows系统下R Markdown 设置中文pdf完美解决方案</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/"> 下一篇: R语言字符处理---基本函数</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-04-05-R语言字符处之stringr包.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

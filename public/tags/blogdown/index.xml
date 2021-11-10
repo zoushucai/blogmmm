@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blogdown on zsc</title>
+    <link>/tags/blogdown/</link>
+    <description>Recent content in blogdown on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 29 Dec 2017 00:00:00 +0000</lastBuildDate><atom:link href="/tags/blogdown/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>博客搭建——blogdown之md</title>
+      <link>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
+      <description>1、下载安装、配置好R与Rstudio 2、打开Rstudio&amp;mdash;-下载blogdown包 if(!require(devtools)) install.packages(&#39;devtools&#39;) devtools::install_github(&#39;rstudio/blogdown&#39;) 等待安装，缺什么安装什么，
+3、在rstudio中安装hugo软件,只需运行下面函数即可 blogdown::install_hugo() 注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中
+4、创建测试网站  可用命令blogdown::new_site(), 在rstudio中的左上角点击【file】&amp;ndash;【New Project】&amp;mdash;【Website using blogdown】  适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，
+5、创建完成 在刚刚所在目录【E:\test_blog】下面有很多文件，其他的可以不用管，可以找到一个config.tom配置文件，更改与你相关的信息，添加relativeurls =true保存(意思是引用想对路径)，也可以不用暂时不用管这个，毕竟我们只是了解创建博客步骤，但是还是请你留意两个文件content\ 和public\ ，content\ 用来写文章的文件，暂时还没有public\文件夹,这个是把content\ 文件夹下面的文章转变为html博客文章
+6、运行blogdown:::serve_site() 博客创建完成.  也可以点击【adds】&amp;ndash;【serve_site】，rstudio右边会有本地浏览  7、发布到网上  创建github和netlify网站的账号，下载git客服端，以及github客服端，可能有相关配置，配置好即可 打开github客服端，点击【file】&amp;ndash;【Create a new repository】添加仓库地址即我们刚刚的创建博客的地址，选择E\test_blog ，选择子目录和父目录都不可以，只能选择他，填写相关Name 和 Description完成即可，可以勾选 &amp;hellip;..a README,创建完成 初次可以看到History里面有我们刚刚的文件 ，点击Publish repository，弹出对话框，有一个Name，这个是要上传给github仓库的名字，它自动创建为test_blog,也有描述内容，注意他勾选了一个Keep this code private ，这个要点取消，最后一步点击【Publish repository】,等待完成 上github官网，查看你的仓库，已经有一个test_blog仓库 进入netlify官网 ,点击【New site from Git】&amp;mdash;【github】（取消勾选下面的LImit Github&amp;hellip;&amp;hellip;..）&amp;ndash;选择刚刚的test_blog仓库&amp;mdash;在显示Publish directory 的地方如数public&amp;mdash;最后点击部署，等待完成 找到部署完成以后会有个绿色的网站，我的是：https://thirsty-hawking-274891.netlify.com,点击进入，就是我们部署的博客了， 网站名太难记，可以改名，改为自己喜欢的民资，只能改netlify的前面的地方,我改为：qaz.netlify.com  8、发布新帖  方法一：将原有的.md或 .Rmd拷贝粘贴，改一下标题和内容即可； 方法二：在RSudio代码窗口点击 Addins- New Post， 按提示填写即可。  写完以后，保存，运行建站函数blogdown::build_site() 。这样文件发生变化，github客服端自动检测，只需要你填写【Change】下面的summary和Description，点击提交给master，再次同步到github（点击Fetch origin） 完成，netlify自动同步github的内容 进入你的博客网站可以看到有了新变化    9、添加disqus评论功能(科学上网)   注册登录disqus ,点击头像 &amp;ndash;settings &amp;mdash;Add Disqus To site&amp;ndash;[GET STARTED]&amp;mdash;&amp;ndash;I want to install Disqus on my site &amp;mdash;&amp;mdash;输入刚刚的网站 ：qaz.</description>
+    </item>
+    
+  </channel>
+</rss>

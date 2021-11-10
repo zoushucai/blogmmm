@@ -1,0 +1,9 @@
+{{ if .Site.Params.enableDisqus }}
+	<!-- hugo内置的disqus模板 -->
+	{{ if .Site.Params.DisqusShortname }}
+	    <div class="comments">
+	        {{ template "_internal/disqus.html" . }}
+	    </div>
+	{{ end }}
+
+{{ end }}

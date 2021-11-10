@@ -1,0 +1,180 @@
+---
+title: 2.1 模糊互补判断矩阵的排序方法
+author: zsc
+date: "2019-02-26"
+categories: ["决策方法"]
+series: "不确定多属性决策方法---徐泽水"
+tags:
+  - R
+  - 决策方法
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+## 徐泽水《不确定多属性决策方法与应用》59页
+
+```{r}
+###  2.1 模糊互补判断矩阵的排序方法---徐泽水《不确定多属性决策方法与应用》59页 --2.1.6 实例分析
+# 以及55页 例 2.1
+B = c(0.5,0.7,0.6,0.8,
+      0.3,0.5,0.4,0.6,
+      0.4,0.6,0.5,0.7,
+      0.2,0.4,0.3,0.5) 
+B = matrix(B, nrow = 4,ncol = 4,byrow = T)
+######## MTM 排序法---模糊互补判断矩阵的中转法
+# MTM 函数直接输入模糊互补判断矩阵B，直接即可求出对应案例（即行，决策矩阵行代表案例，列代表属性）的权重向量w.
+MTM = function(B){
+  w = 0
+  n = nrow(B)
+  m = ncol(B)
+  stopifnot(n==m)
+  for(i in 1:n){
+    w[i] =( sum(B[i,]) + n/2 -1) /(n*(n-1))
+  }
+  return(w)
+}
+MTM(B)
+
+########## LVM 排序---- 模糊互补判断矩阵排序的最小方差法
+# LVM函数直接输入模糊互补判断矩阵B，直接即可求出对应案例（即行，决策矩阵行代表案例，列代表属性）的权重向量w.
+LVM = function(x){
+  w =0
+  n = nrow(B)
+  m = ncol(B)
+  stopifnot(n==m)
+  for(i in 1:n){
+    w[i] =( sum(B[i,]) + 1 - n/2 )/n 
+  }
+  return(w)
+}
+LVM(B)
+### LDM 排序 -------模糊互补判断矩阵排序的最小偏差法
+# LDM 函数 --本质是求解一个线性规划问题。
+LDM = function(B){
+  n = nrow(B)
+  m =  ncol(B)
+  stopifnot(n == m)
+  w = matrix(runif(n, min = 0.1, max = 0.9),nrow = 1,byrow = T)# 随机初始化正向量w
+  e = 0.0001 # 迭代精度，要求权向量的每一个分量都小于此精度，则迭代结束。
+  k = 0 # 迭代次数
+  repeat{
+    eta = rep(0,n) # 初始化中间变量
+    for(i in 1:n){
+      for(j in 1:n){
+        eta[i] = eta[i] + (B[i, j]/B[j, i]) * (w[j]/w[i]) - (B[j, i]/B[i, j]) * (w[i]/w[j])
+      }
+    }
+    v = 0; w1 = rep(0,n);v_fenzi = 0; v_fenmu = 0 # 初始化中间变量
+    if( all( abs(eta) < e) ) {
+      break
+    }else{
+      l = which.max(abs(eta))
+      for(j in 1:n){
+        if(j != l) {
+          v_fenzi = v_fenzi + B[l,j]/B[j,l] * w[j]/w[l]
+          v_fenmu = v_fenmu + B[j,l]/B[l,j] * w[l]/w[j]
+        }
+      }
+      v =  sqrt(v_fenzi/v_fenmu)
+      for(i in 1:n){
+        if(i != l){
+          w1[i] = w[i]
+        }else{
+          w1[i] = v * w[l]
+        }
+      }
+      k = k+1
+      w = w1/sum(w1)
+    }
+  }
+  return(w)  
+}
+LDM(B)
+
+##### CEM -- 模糊互补判断矩阵排序的特征向量法
+# CEM函数
+CEM = function(B){
+  # 第一步 ---通过转换公式，得出转换矩阵H
+  n = nrow(B)
+  H = matrix(0, ncol = n, nrow = n)
+  for( i in 1:n){
+    for(j in 1:n){
+      H[i,j] = B[i,j]/B[j,i]
+    }
+  }
+  # 第二步 -- 求转换矩阵H的最大特征值对应的特征向量,此特征向量即模糊互补判断矩阵的排序向量
+  #### 直接调用系统函数求矩阵的特征值以及特征向量
+  # w = Re(eigen(H)$vectors[,1] / sum(eigen(H)$vectors[,1]))
+  # return(w)
+  ####  数值方法求矩阵H的最大特征值对应的特征向量,
+  max_eigen_w =  function(M) {
+    n = nrow(M)
+    m =  ncol(M)
+    stopifnot(n == m)
+    w = matrix(runif(n, min = 0.1, max = 0.9),nrow = 1,byrow = T)# 随机初始化正向量w
+    q = max(w)
+    w = w / q # 并初始化权向量
+    # 进行迭代
+    repeat{
+      w = M %*% t(w)
+      w = t(w)
+      q1 = max(w)
+      w = w/q1
+      e = q1 - q # 迭代的精度
+      if(abs(e) < 0.000001) {
+        break
+      }
+      q = q1
+    }
+    return(w)
+  }
+  w = max_eigen_w(H)
+  # 第三步 ---- 并对特征向量进行归一化处理
+  w = w / sum(w)
+  return(w)
+}
+
+CEM(B)
+
+
+##### 检验模糊互补判断矩阵一致性
+# 直接输入模糊互补判断矩阵可得CR指标，CR<0.1 ,一般检验通过
+CEM_CR_test =  function(B, w = CEM(B)){
+  # 第一步 -- 先要先求出权重向量w -- 即模糊互补矩阵对应的最大特征值的特征向量 ,直接进行默认参数设置。
+  # 注意调用此函数之前，要调用CEM函数
+  
+  n = nrow(B)
+  CI = 0
+  for(i in 1:n) {
+    for (j in 1:n) {
+      if (i < j) {
+        CI = CI + (B[i, j] / B[j, i]) * (w[j] / w[i]) + (B[j, i] / B[i, j]) * (w[i] / w[j]) -2
+      }
+    }
+  }
+  CI = CI /(n*(n-1))  
+  RI = c(0,0,0.52,0.89,1.12,1.26,1.36,1.41,1.46,1.49,1.52,1.56,1.58,1.59)
+  return( CI/RI[n]) 
+}
+
+CEM_CR_test(B)
+
+
+######  55 页 -----例2.1 
+B = c(0.5,0.6,0.4,0.3,
+      0.4,0.5,0.6,0.6,
+      0.6,0.4,0.5,0.7,
+      0.7,0.4,0.3,0.5) 
+B = matrix(B, nrow = 4,ncol = 4,byrow = T)
+CEM(B)
+CEM_CR_test(B)
+
+
+```
+

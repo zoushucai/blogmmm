@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>Mds</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<div class="outer">
+    
+    
+    
+    <ul class="list-group">
+        
+
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B704%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92%E4%B9%8Bquadprog/"> matlab优化工具04二次规划之quadprog </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2021-05-16</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/"> matlab优化工具03全局优化之ga </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2021-05-16</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/"> matlab优化工具02非线性规划之fmincon </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2021-05-16</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/"> matlab优化工具01线性规划之linprog </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2021-05-16</time>
+            
+            
+        </li>
+        
+        
+    <ul class="list-group">
+        
+
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-08-16-r%E5%8A%A8%E7%94%BB/"> R动画 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-08-16</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/"> 画函数图像--R语言 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-08-15</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-08-14-gb7714/"> latex 参考文献格式: GB/7714 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-08-14</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/"> latex 参考文献生成(总结) </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-08-13</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/"> latex 缩写期刊 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-08-11</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/"> latex 笔记 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-08-10</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/"> bib与enw文件之间的相互转换 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-07-29</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/"> mactex卸载 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-07-01</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/"> 创建属于自己的rmarkdown模板文件 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-05-18</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/"> R&amp;shiny自动截图 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-05-18</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/"> 基本绘图中添加指定中文字体 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2020-03-10</time>
+            
+            
+        </li>
+        
+        
+    <ul class="list-group">
+        
+
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/"> 计算各种距离 （matlab） </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-12-11</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/"> corr详解(MATLAB) </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-12-11</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"> mac 常用软件 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-11-20</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-11-20-git%E7%AC%94%E8%AE%B0/"> git 笔记 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-11-20</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/"> R中常用的批处理操作 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-11-19</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-11-04-latex-bib-csl/"> latex &#43; bib &#43; csl </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-11-04</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-11-04-installhugo/"> install old hugo version </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-11-04</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/"> 非线性规划2 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-06-25</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-05-26-dongtaikeshihua/"> 动态可视化如此简单 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-05-26</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-05-24-randc/"> R结合C&#43;&#43; </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-05-24</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-05-02-environment/"> 环境 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-05-02</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-05-01-remove-dataframe-columns/"> 数据框删除列的方法汇总 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-05-01</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-04-26-%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7/"> 学术论文写作工具 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-04-26</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/"> 遗传算法（待完善） </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-02-20</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/"> 模拟退火算法（待完善） </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-02-19</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/"> 运筹学与最优化--在R软件中的实现 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-02-18</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/"> 混合粒子群算法matlab </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2019-01-13</time>
+            
+            
+        </li>
+        
+        
+    <ul class="list-group">
+        
+
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/"> 运筹学最短路问题 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-22</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-20-c%E8%AF%AD%E8%A8%80/"> 用c语言设置定时关机 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-20</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/"> 运筹学与最优化matlab </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-18</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-17-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/"> 重装系统后一些有用的激活工具 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-17</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/"> 线性规划的一般模型(草稿) </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-17</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-13-%E5%8F%91%E9%82%AE%E4%BB%B6mailr%E5%8C%85/"> R语言发邮件--mailR包 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-13</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/"> 谈谈字符编码问题 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-06</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"> GitHubDesktop权限问题解决办法 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-11-06</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-08-10-scrapy/"> Scrapy框架&#43;selenium爬取京东相机 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-08-10</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/"> 相关图之corrgram </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-07-15</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/"> 猫眼电影票房抓取 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-07-15</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/"> 泰坦尼克号预测(kaggle) </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-07-14</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/"> seq*函数族 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-07-08</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/"> 正则表达式(通用) </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-05-19</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/"> R中时间类型概念 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-04-14</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/"> R 语言并行化计算之foreach包 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-04-08</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/"> RSelenium应用--京东商品 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-04-07</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-04-06-rselenium/"> 利用RSelenium包模拟浏览器爬取网页信息 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-04-06</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/"> R语言字符处理函数包---stringr包 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-04-05</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/"> R语言字符处理---基本函数 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-04-05</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/"> Windows系统下R Markdown 设置中文pdf完美解决方案 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-03-10</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-01-18-datatable3/"> data.table -- 3常见操作 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-01-18</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-01-17-datatable2/"> data.table -- 2基本概念 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-01-17</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-01-16-datatable1/"> data.table -- 1基本函数 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-01-16</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"> R软件常见问题 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-01-07</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-01-05-goinstall/"> 1、go语言安装与LiteIDE的配置 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-01-05</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-01-01-dplyr/"> dplyr -- 1基本函数简介 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2018-01-01</time>
+            
+            
+        </li>
+        
+        
+    <ul class="list-group">
+        
+
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/"> tibble包的列和行名相互转换以及添加行和列 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-12-31</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/"> 添加谷歌网站分析 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-12-30</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/"> hugo--分类标签添加 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-12-30</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/"> hugo--blogdown生成的目录 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-12-30</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" data-series="不确定多属性决策方法---徐泽水" style="margin-left:1rem;"> 
+                <strong>博客搭建——blogdown之md </strong> &nbsp
+                <i class="fa fa-calendar-alt mycolorfont"></i> 
+                <time class="mycolorfont">2017-12-29</time> 
+            </a>
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"> hugo-blogdown搭建网页过程中的小问题 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-12-28</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-11-13-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86/"> 数据集划分—-训练集和测试集方法 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-11-13</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-04-08-r%E4%B8%AD%E8%AF%AD%E8%A8%80%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/"> R语言文件目录相关操作 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-04-08</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/"> R语言与可视化 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2017-01-15</time>
+            
+            
+        </li>
+        
+        
+    <ul class="list-group">
+        
+
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2015-11-16-rweka/"> Rweka包解读 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2015-11-16</time>
+            
+            
+        </li>
+        
+        <li class="list-group-item title">
+            
+            <a href="/md/2015-11-09-ga/"> GA包---遗传算法 </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">2015-11-09</time>
+            
+            
+        </li>
+        
+        
+    </ul>
+</div>
+
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+<div class="outerfoot">
+
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div>
+
+

@@ -1,0 +1,106 @@
+---
+title: 1.5.2离差最大化的多属性决策方法
+author: zsc
+date: "2019-02-26"
+categories: ["决策方法"]
+tags:
+  - R
+  - 决策方法
+series: "不确定多属性决策方法---徐泽水"
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+## 徐泽水《不确定多属性决策方法与应用》24页 --1.52 实例分析
+
+```{r}
+#####  1.5.2离差最大化的多属性决策方法---徐泽水《不确定多属性决策方法与应用》24页 --1.52 实例分析
+library(data.table)
+library(dplyr)
+A= c(12,11.5,780,175,22,2.43,
+     12,14.6,898,165,33.5,2.83,
+     10.3,13.5,741,181,22.7,3,
+     12,15.24,1038,204,47.3,4,
+     11.4,12.19,833.4,180,19,5.9,
+     9,12.8,667,170,19.8,3.8,
+     12.2,13.37,991,170,59,3.3,
+     12,14.3,1048,230,37.2,1.9,
+     9,6.25,287,105,5,3.6,
+     10.33,15,927,167,52.6,3.14)
+A= matrix(A,nrow = 10,ncol = 6,byrow = T) %>% data.table()
+A # 原始决策矩阵 ， 也称决策矩阵
+```
+
+```{r}
+#######################################################
+##### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵
+##########################################################
+### norm_matrix()函数，根据书中收益型属性（按公式1.2）与成本型属性(按公式1.4)分别进行归一化
+# 参数A表示决策矩阵,shouyi参数代表收益型属性，输入收益型属性在决策矩阵中第几列，若有多列，用数值型向量即可，
+# chengben参数代表成本型属性，与收益型属性类型。
+# 该参数可任选其一输入，也可同时指定。
+norm_matrix = function(A,shouyi=NULL,chengben=NULL){
+  if(is.matrix(A))A = data.table(A)
+  stopifnot(!is.null(shouyi) | !is.null(chengben))
+  m = ncol(A)
+  if(is.null(chengben)) chengben =setdiff(1:m,shouyi) 
+  if(is.null(shouyi)) shouyi = setdiff(1:m,chengben)
+  stopifnot(length(intersect(shouyi,chengben))==0,setequal(union(shouyi,chengben),1:m))
+  #对决策矩阵进行重命名
+  names(A)=paste0('V',1:m)
+  shouyi = paste0("V",shouyi)
+  chengben = paste0("V",chengben)
+  R = A
+  R[,':='(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+  R[,':='(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcols = chengben]# 成本型属性归一化 （书中1.3式）
+  R = as.data.frame(R)
+  return(R)
+}
+
+R = norm_matrix(A,chengben = 4)
+round(R,3)
+```
+
+```{r}
+#########################################################
+##### 第二步 根据1.13式计算最优权重向量
+#################################################
+# max_licha此函数输入规范化矩阵，通过离差最大化计算方法，输出最优权重向量
+max_licha= function(R){
+  if(is.data.table(R))R = setDF(R)
+  V=matrix(0,nrow = nrow(R),ncol = ncol(R))
+  for(i in 1:nrow(R)){
+    for(j in 1:ncol(R)){
+      V[i,j] = sum(abs(R[i,j] - R[,j] )) 
+    }
+  }
+  w = colSums(V)/sum(colSums(V))# 最优权重向量
+  return(w)
+}
+
+w = max_licha(R)
+round(w,3)
+```
+
+```{r}
+#########################################################
+##### 第三步 根据权重向量按照1.12式计算每一个方案的综合属性值Z
+#################################################
+z = t(as.matrix(R) %*% as.matrix(w,ncol=1)) %>% as.data.frame() # 计算综合属性值
+round(z,4)
+#########################################################
+##### 第四步 根据综合属性值Z对方案进行排序
+#################################################
+#rank(z) #输出排序
+sort(rank(z),decreasing = T)
+
+```
+

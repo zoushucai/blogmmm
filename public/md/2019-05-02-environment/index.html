@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>环境</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                环境
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2019-05-02 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="环境">环境</h1>
+<p>详细的解释可以查看书《高级R语言编程指南》,这里总结一份与环境有关的函数总结：(参考R语言核心技术手册第二版)</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>assign</td>
+<td>在envir环境中将名称x赋给value对象</td>
+<td></td>
+</tr>
+<tr>
+<td>get</td>
+<td>在envir环境中获得与名称x关联的对象</td>
+<td></td>
+</tr>
+<tr>
+<td>exists</td>
+<td>判断在环境envir是是否定义了名称x</td>
+<td></td>
+</tr>
+<tr>
+<td>objects</td>
+<td>以向量的形式返回envir环境中定义的所有(对象)名称</td>
+<td></td>
+</tr>
+<tr>
+<td>remove</td>
+<td>从envir环境中将参数中罗列的对象删除(列表不适合作为参数的名称，尤其当参数是向量时)</td>
+<td></td>
+</tr>
+<tr>
+<td>search</td>
+<td>以向量的形式列出全局环境的所有父环境，也称为搜索路径</td>
+<td></td>
+</tr>
+<tr>
+<td>searchpaths</td>
+<td>以向量的形式返回全局环境的所有父环境的路径</td>
+<td></td>
+</tr>
+<tr>
+<td>attach</td>
+<td>将列表、数据框或数据文件中的对象添加到当前的搜索路径中</td>
+<td></td>
+</tr>
+<tr>
+<td>detach</td>
+<td>将列表、数据框或数据文件中的对象从当前的搜索路径中删除</td>
+<td></td>
+</tr>
+<tr>
+<td>emptyenv</td>
+<td>空环境对象，它是所有环境的祖先，也是唯一一个没有父环境的的环境</td>
+<td></td>
+</tr>
+<tr>
+<td>parent.env</td>
+<td>查看envir环境的父环境</td>
+<td></td>
+</tr>
+<tr>
+<td>baseenv</td>
+<td>基础环境，它是R基础软件包的环境，它的父环境是空环境</td>
+<td></td>
+</tr>
+<tr>
+<td>globalenv(或<code>.GlobalEnv</code>)</td>
+<td>用户的工作环境，也叫全局环境，通常情况下我们就是在这个环境中工作的，全局环境的父环境是由library() 或require()添加的最后一个添加包</td>
+<td></td>
+</tr>
+<tr>
+<td>environment</td>
+<td>它是当前环境，(默认情况下，当前环境等于全局环境)</td>
+<td></td>
+</tr>
+<tr>
+<td>new.env</td>
+<td>手动创建一个新的环境对象</td>
+<td></td>
+</tr>
+<tr>
+<td>parent.frame</td>
+<td>返回函数被调用的环境 ,即可以访问调用环境的父环境，常常作为参数使用，需要搭配其他函数eg:eval</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="函数调用--以堆栈的形式调用">函数调用 — 以堆栈的形式调用</h2>
+<p>调用栈的操作</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sys.call</td>
+<td>返回一个包含当前函数调用(包括参数)的语言对象</td>
+</tr>
+<tr>
+<td>sys.frame</td>
+<td>返回调用环境</td>
+</tr>
+<tr>
+<td>sys.nframe</td>
+<td>返回当前帧的编号(即在调用堆栈中的位置)，如果在R控制台中调用该函数，返回值为0,</td>
+</tr>
+<tr>
+<td>sys.function</td>
+<td>返回当前计算的函数</td>
+</tr>
+<tr>
+<td>sys.parent</td>
+<td>返回父环境的编号</td>
+</tr>
+<tr>
+<td>sys.calls</td>
+<td>返回栈中所有帧的调用</td>
+</tr>
+<tr>
+<td>sys.frames</td>
+<td>返回栈中所有的环境</td>
+</tr>
+<tr>
+<td>sys.parents</td>
+<td>返回栈中每个帧的父帧</td>
+</tr>
+<tr>
+<td>sys.on.exit</td>
+<td>返回当前on.exit所使用的表达式</td>
+</tr>
+<tr>
+<td>sys.status</td>
+<td>返回一个列表</td>
+</tr>
+<tr>
+<td>parent.frame</td>
+<td>返回sys.frame(sys.parent(n))  ,即返回函数被调用的父环境，即允许访问调用父环境.常常作为参数使用，需要搭配其他函数eg:eval</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考">参考</h2>
+<p>《R语言核心编程技巧第二版》</p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2019-05-02-environment/" class="leancloud_visitors" data-flag-title="环境">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2019-05-01-remove-dataframe-columns/"> 上一篇: 数据框删除列的方法汇总</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2019-05-24-randc/"> 下一篇: R结合C&#43;&#43;</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2019-05-02-environment.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

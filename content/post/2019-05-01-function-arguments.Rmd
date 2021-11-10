@@ -1,0 +1,182 @@
+---
+title: "R函数参数的有关问题"
+date: "2019-05-01"
+tags:
+  - R
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+# R函数参数的有关问题
+
+##  1. args 可以用来查看某个函数包含了哪些参数
+
+```{r}
+args(sin)
+args(lm)
+args(paste)
+```
+
+## 2. 匹配参数--- match.arg()
+
+我们经常看见函数中有多个可选的字符串，用来做不同的模型，比如：这里的例子没有意义，但是做法值得注意。
+
+方法一：
+
+```{r}
+## 方法一：
+center <- function(x, type = c("mean", "median", "trimmed")) {
+  type <- match.arg(type)
+  switch(type,
+         mean = mean(x),
+         median = median(x),
+         trimmed = mean(x, trim = .1))
+}
+center(c(1:4,100),"mean") # 返回向量的均值
+center(c(1:4,100),"median") # 返回向量的中位数
+center(c(1:4,100)) # 默认为第一个候选值，
+```
+
+方法二：
+
+```{r}
+## 方法二：
+center <- function(x, type) {
+  type <- match.arg(type,choices = c("mean", "median", "trimmed"))
+  switch(type,
+         mean = mean(x),
+         median = median(x),
+         trimmed = mean(x, trim = .1))
+}
+center(c(1:4,100),"mean") # 返回向量的均值
+center(c(1:4,100),"median") # 返回向量的中位数
+try( center(c(1:4,100)) )# 这里由于没有默认值会报错
+
+
+```
+
+**match.arg()**函数的功能是，根据输入来进行匹配, 比如，上面的式子，我们输入的type是"mean"，然后经过**match.arg()**以后通过**switch**可以直接调用该**mean**函数。
+
+还可以这样操作，（方法三）
+
+```{r}
+# 检查一个参数在函数内部是否已被初始化。
+# 对参数进行默认值处理，当然为了更方面也可以直接在函数参数处直接赋予默认值
+h = function(x,y){
+  args = as.list(match.call())
+  if(is.null(args$y)){
+    y = 10
+  }
+  x+y
+}
+h(2)
+h(2,19)
+```
+
+ 类似的还有 **match.call()** 和**match.fun()**
+
+```{r}
+# match.call()创建一个只使用命名参数的调用， 常用于某些指定参数的更新
+# sys.call() 准确地捕获用户的输入。
+
+f <- function(abc = 1, def = 2, ghi = 3){
+  list(s = sys.call(),m = match.call())
+}
+f(d =2,2)
+
+```
+
+**match.fun()** 类似下面介绍的**get()函数**, 都可以把字符串变成我们想要调用的对象。
+
+## 3. 以字符串作为函数名 — get函数
+
+巧妙的利用get函数，把字符串变成我们想要调用的函数，因为get函数输入一个字符串，返回一个函数对象
+
+```{r}
+# eg： 前面的函数---可以进行对比
+center <- function(x, type = c("mean", "median", "trimmed")) {
+  type <- match.arg(type)
+  f = get(type)
+  f(x)
+}
+center(c(1:4,100),"mean")
+center(c(1:4,100),"median")
+center(c(1:4,100))
+
+
+
+# eg： 用match.fun  来替代get()
+center2 <- function(x, type = c("mean", "median", "trimmed")) {
+  type <- match.arg(type)
+  f = match.fun(type)
+  f(x)
+}
+center2(c(1:4,100),"mean")
+center2(c(1:4,100),"median")
+center2(c(1:4,100))
+
+
+```
+
+两者的区别是get还可以返回某个对象，比如数据框、向量等，而match.fun 只能返回函数类型
+
+```{r}
+v = 1:10
+# match.fun('v') # 这里会报错
+get('v')
+
+
+outer <- 1:5
+try(match.fun(outer, descend = FALSE)) #-> Error:  not a function
+match.fun(outer) # finds it anyway，由于outer是R内部的函数，只不过现在被覆盖了，但是还是能找到
+match.fun("outer")
+
+```
+
+
+
+## 4. 以字符串作为函数名 — call()函数
+
+call函数，可以直接通过字符串的形式调用某个函数(只要环境空间中存在)，
+
+```{r}
+get("rnorm")(5,mean = 300)
+
+eval( call('rnorm',5,mean=300) ) # 执行函数调用，本质上call是创建一个函数调用，最后通过eval进行执行
+
+call_1 = quote(rnorm(5,mean = 3))
+call_2 = call("rnorm",5,mean = 3)
+call_3 = as.call( list(quote(rnorm),5,mean = 3) )
+# 这里call_1,call_2,call_3 完全等价，是一个表达式。需要进一步执行表达式需要利用eval来执行。
+```
+
+
+
+## 5. 把函数参数(不带字符串参数)转变为字符串
+
+deparse(substitute(函数参数)) 
+
+```{r}
+nicePlot = function(X,Y,...){
+  xlabel = deparse(substitute(X)) # 捕获X的输入
+  ylabel = deparse(substitute(Y)) # 捕获Y的输入
+  
+  plot(X,Y,type ='o',xlab = xlabel,ylab = ylabel,main = paste(xlabel,ylabel,sep = '--'), ...)
+}
+
+Date = 1:7
+Sales = c(100,120,150,130,160,210,120)
+nicePlot(Date,Sales,col='red')
+
+```
+
+```{r}
+sessionInfo()
+```

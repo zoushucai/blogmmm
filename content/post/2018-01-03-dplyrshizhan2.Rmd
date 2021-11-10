@@ -1,0 +1,169 @@
+---
+title: dplyr -- 2实战
+author: zsc
+date: '2018-01-03'
+tags:
+  - R
+  - dplyr
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
+把前两天的两篇文章合并，解决方法：名字还是不能太长，在content目录下新建test目录，把它放在content目录下的test目录，不放在post目录，我的test目录只有两篇文章
+
+### 1.1、选择行`filter()`
+
+安装`nycflights13`包，该软件包中的飞机航班数据将用于本文中`dplyr`包各个函数的演示
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(nycflights13)
+```
+
+函数`tbl_df()`将过长过大的数据集转换为显示更友好的 tbl_df 类型:
+
+```{r}
+flights <- tbl_df(flights)
+head(flights) #有336,776 x 19
+filter(flights,origin == "JFK",month == 6L) #－ 获取六月份所有从”JFK”机场起飞的航班
+slice(flights,1:2) #选取前面的1:2行
+sample_n(flights, 4, replace = TRUE)# 随机选取4条数据记录。
+flights %>% top_n(4,dep_time)
+```
+
+### 1.2、选择列 `select()`
+
+若要对选择的列进行处理用mutate函数，这里只能对列名进行处理.
+
+```{r}
+ans <- flights %>% select(dep_time,arr_time)
+head(ans)
+
+ans <- flights %>% select(day:arr_delay)
+head(ans)
+```
+
+
+```{r}
+#选择整数列,若要对选择的列进行处理用mutate函数，这里只能对列名进行处理，比如
+ans <- flights %>% head() %>% select_if(is.integer,toupper)
+ans
+```
+
+
+```{r}
+#选择是字符串的列
+ans <- flights %>% head() %>% select_if(is.character)
+ans
+
+
+```
+
+选择数值列并且以某个字符开始的列
+
+```{r}
+select_if(iris,is.numeric) %>% select(starts_with("s")) %>% head()
+```
+
+选择非数值列
+```{r}
+# 选择非数值列
+## 利用purrr包中的negate函数
+library(purrr)
+iris %>% select_if(negate(is.numeric)) %>% head()
+iris %>% select_if(~!is.numeric(.x)) %>% head()
+iris %>% select_if(funs(!is.numeric(.))) %>% head()
+iris %>% select_if(~ is.factor(.x)|is.numeric(.x))
+
+```
+
+行同时选择——子集
+
+```{r}
+filter(flights,origin == "JFK",month == 6L) %>%select(day:arr_delay)
+```
+
+### 1.3、排序`arrange()`
+```{r}
+ans <- arrange(flights,origin,desc(dest))  #对列名加 desc() 进行倒序: 与基本函数order()类似
+head(ans)
+```
+
+### 1.4、添加新变量`mutate`
+
+在引用函数是 `.funs()` 的格式为` funs(mean(.))`    e.g.`transmute_if(df,is.integer,funs(as.character(.))) `
+
+```{r}
+# 添加新变量(可以多列) 
+flights %>% mutate(yanwu=arr_delay + dep_delay) %>% head()
+
+flights %>% transmute(yanwu=arr_delay + dep_delay) %>% head()
+
+
+```
+
+有多少航班完全没有延误
+
+```{r}
+#有多少航班完全没有延误
+flights %>% mutate(yanwu=arr_delay + dep_delay) %>% filter(yanwu<0) %>% head()
+
+
+flights %>%head() %>%  transmute_if(is.integer,funs(as.character(.)))  #把整数类型的列转换为字符串  
+flights 
+# 可以在同一语句中对刚新增加的列进行操作:
+transmute(flights, 
+       gain = arr_delay + dep_delay, 
+       gain_per_hour = gain / (arr_time / 60))
+```
+
+### 1.5 汇总(行): `summarise()`
+
+对数据框调用其它函数进行汇总操作, 返回一维的结果:先用一个简单的数据集iris
+
+
+```{r}
+iris %>% group_by(Species) %>% summarise(mean(Sepal.Length,na.rm = T))
+iris %>% group_by(Species) %>% summarise_each(funs(mean))
+iris %>% group_by(Species) %>% summarise_each(funs(min(.),max(.)))
+```
+
+```{r}
+iris %>% group_by(Sepal.Width) %>% summarise(f_count=n()) %>% arrange(desc(f_count)) 
+#上述等价iris %>% group_by(Sepal.Width) %>% tally(sort=TRUE)
+#tally可以一步完成上述工作，group_by()以后第一次使用tally进行n()操作,再一次就是sum(n) sort=TRUE对结果排序,当等于TRUE是降序
+#再次使用tally()就是sum()
+iris %>% group_by(Sepal.Width) %>% tally(sort=TRUE)
+iris %>% group_by(Sepal.Width) %>% tally(sort=TRUE)%>%tally()
+
+```
+
+### 1.6、分组动作
+
+以上5个函数已经很方便了, 但是当它们跟分组操作这个概念结合起来时, 那才叫真正的强大! 当对数据集通过 `group_by() `添加了分组信息后,`filter()`,`select（）`,`mutate()`, `arrange()` 和 `summarise()` 函数会自动对这些 tbl 类数据执行分组操作 (R语言泛型函数的优势).
+
+例如: 对飞机航班数据按飞机编号 (tailnum) 进行分组, 计算该飞机航班的次数 (count = n()), 平均飞行距离 (dist = mean(distance, na.rm = TRUE)) 和 延时 (delay = mean(arr_delay, na.rm = TRUE))
+
+```{r}
+ans=flights %>%
+		group_by(tailnum) %>%
+			summarise(count=n(),dist=mean(distance,na.rm = T),delay=mean(arr_delay,na.rm = T))
+ans %>% head()
+
+ans %>% filter(count>20,dist<2000)
+#用 ggplot2 包作个图观察一下, 发现飞机延时不延时跟飞行距离没太大相关性:
+library(ggplot2)
+ggplot(ans, aes(dist, delay)) + geom_point(aes(size = count), alpha = 1/2) + geom_smooth() + scale_size_area()
+
+```
+
+
+```{r}
+sessionInfo()
+```
+

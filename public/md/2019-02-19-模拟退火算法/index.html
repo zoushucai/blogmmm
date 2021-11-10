@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>模拟退火算法（待完善）</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                模拟退火算法（待完善）
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                         
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2019-02-19 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/%e6%99%ba%e8%83%bd%e7%ae%97%e6%b3%95"> #智能算法 </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="模拟退火算法">模拟退火算法</h1>
+<h2 id="物理固体退火过程可不了解">物理固体退火过程(可不了解)：</h2>
+<p>什么是退火：指对物体（指的是固体）加温至熔化，再徐徐冷却，使之凝固成规则晶体的热力学过程，简而言之，是对物体加温后再冷却的一个物理过程。</p>
+<p>可见，物理退火过程由以下三部分组成：</p>
+<p>（1）加温过程： 一般一个物体不是一个有规则的晶体（下图左图），于是加热，当温度足够高时，固体的规则性被彻底破坏，固体熔解为液体（下图中图），从而消除系统原先可能存在的非均匀状态，使随后进行的冷却过程以某一平衡态为起点。溶解过程与系统的熵增过程相联系，系统能量也随温度的升高而增大。</p>
+<p>（2）等温过程。当某一温度固定后，要使系统达到热平衡态，才能进行降温，这就是“徐徐”的意思。如果降温降低很快，会出现猝火效应（对应后面讲解的局部最小值），即猝火效应是指固体只能冷凝为非均匀的亚稳态，系统能量也不会达到最小值。</p>
+<p>​	由物理学知识可知，对于与周围环境交换热量而温度保持不变的封闭系统，系统状态的自发变化总是朝着自由能减少的方向进行，当自由能到达最小值时，系统达到热平衡态。此现象保证系统在每一温度下能到达平衡态的过程。这个跟熵很类似。（熵总是往这增大的方向进行）</p>
+<p>等温下热平衡过程可用Metropolis准则（即以概率接受新状态）进行模拟。</p>
+<p>Metropolis准则：</p>
+<p>假设当前状态为 $x(n)$ , 系统受到一定扰动，状态变为 $x(n+1)$,相应的系统能量由 $E(n)$ 变为 $E(n+1)$ ,定义状态 $x(n)$ 变为 $x(n+1)$ 的接受概率为 $p$ :</p>
+<p>$$p=  \begin{cases}
+1   &amp;, E(n+1) &lt; E(n) \
+\
+\
+e^{\left(-\frac{E(n+1)-E(n)}{T}\right)}  &amp;,E(n+1) \geq E(n) \
+\end{cases}$$</p>
+<p>当状态转移之后，如果能量减小了（即 $E(n+1) &lt; E(n)$ ），那么这种转移就被接受了（以概率1发生）</p>
+<p>当状态转移之后，如果能量增大了(即 $E(n+1) \geq E(n)$ ），那么这种转移按照概率 $p= e^{\left(-\frac{E(n+1)-E(n)}{T}\right)}$  去接受，具体操作： 首先在区间[0,1]产生一个均匀分布的随机数$\xi$，如果 $\xi &lt; p（此时p= e^{\left(-\frac{E(n+1)-E(n)}{T}\right)} ） $,则这种转移被接受，否则被拒绝。</p>
+<p>（3）冷却过程，液体粒子的热运动逐渐减弱，随着温度的徐徐降低（即系统能量逐渐下降），粒子运动逐渐有序，当温度减到足够小时，液体凝固成按一定形状排列，高密度，低能量的有规则晶体（下图右图）。</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/moni01.png" alt="moni01"></p>
+<p>对照表</p>
+<table>
+<thead>
+<tr>
+<th>模拟退火</th>
+<th>物理退火</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>解</td>
+<td>粒子状态</td>
+</tr>
+<tr>
+<td>最优解</td>
+<td>能量最低态</td>
+</tr>
+<tr>
+<td>设定初始温度</td>
+<td>熔解过程</td>
+</tr>
+<tr>
+<td>Metropolis采样过程</td>
+<td>等温过程</td>
+</tr>
+<tr>
+<td>控制参数的下降</td>
+<td>冷却</td>
+</tr>
+<tr>
+<td>目标函数</td>
+<td>能量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="模拟退火算法基本步骤与基本思想">模拟退火算法基本步骤与基本思想</h2>
+<p>基本思想： 其基本思想是模拟金属退火过程。</p>
+<p>基本步骤（求 $min \ f(x)$）：</p>
+<p>(1)明确目的，第一步是确定问题域，包括变量 $x$的个数和维度，以及目标函数 $f( \cdot )$的计算方式</p>
+<p>(2)初始化，随机产生一个初始解 $x_0$，令 $x_{best } = x_0 $，并计算目标函数值$f(x_0)$，同时设置<strong>初始温度$T(0)$</strong>,终止温度$T_{final}$ 和温度的下降公式及相应的参数。</p>
+<p>(3)  Do while  $ T(0) &gt; T_{final} $     # 外循环</p>
+<ul>
+<li>
+<p>①  for  j  = 1~ k           #内循环   ， k为内循环的最大迭代次数</p>
+</li>
+<li>
+<p>② 运行Metropolis算法，以<strong>一定规则</strong>在当前状态  $x_{best}$ 附近产生新的状态 $x_{new}$，计算 $f(x_{best})$ 与 $f(x_{new})$ ，并计算目标函数值得增量 $\Delta f = f(x_{best}) - f(x_{new})$ 。</p>
+</li>
+<li>
+<p>③</p>
+<ul>
+<li>如果$\Delta f &lt;0$  ,则 $x_{best} := x_{new}$ 。</li>
+<li>如果 $\Delta f &gt; 0$  ,则计算$p = e^{ - \frac{\Delta f}{T}}$,并从0~1之间产生一个随机数$\xi$，
+<ul>
+<li>如果 $\xi &lt; p$,则$x_{best} := x_{new}$，否则,$x_{best} := x_{best}$。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>④  End for</p>
+</li>
+</ul>
+<p>(4) **按温度的下降公式更新温度$T(0)$。 **</p>
+<p>(5) End Do</p>
+<p>(6) 输出当前最优点,计算结束。</p>
+<h2 id="模拟退火算法基本步骤中的关键要素">模拟退火算法基本步骤中的关键要素</h2>
+<h3 id="以一定规则在当前状态-x_best附近产生新的状态-x_new很重要"><strong>以一定规则在当前状态</strong> $x_{best}$附近产生新的状态 $x_{new}$(很重要)</h3>
+<p>一般是按照某一概率密度分别函数（均匀分布、正太分布、指数分布）进行随机采样得到新的状态，如果是函数优化可以采取牛顿迭代的方法产生新的状态。</p>
+<h3 id="温度的下降公式-也称冷却进度表">温度的下降公式 （也称冷却进度表）</h3>
+<p>指数式下降（简单式）:   $T(0) := \lambda T(0)​$  , 其中$\lambda&lt;1​$ ,一般取 0.8~0.99之间.</p>
+<p>经典式（常用式）：  $T(0):= \dfrac{T_0}{lg(1+t)}$</p>
+<p>快速降温： $T(0) := \dfrac{T_0}{1+t}$</p>
+<h3 id="初始温度t_0的设置">初始温度$T_0$的设置</h3>
+<p>初始温度足够高，温度下降的足够慢，能使系统达到高质量的解，但耗费时间也非常大。</p>
+<p>应该适当权衡初始温度和温度的下降。所有模拟退火算法的解与温度有很大的关系。</p>
+<h3 id="内循环终止准则常用">内循环终止准则（常用）</h3>
+<p>（1）目标函数的值是否趋于稳定</p>
+<p>（2） 是否达到最大迭代次数</p>
+<h3 id="外循环终止准则常用">外循环终止准则（常用）</h3>
+<p>（1）是否到达最低温度（常用）。</p>
+<p>（2）设置外循环的最大迭代次数。</p>
+<p>（3）外循环搜索到的最有值对应的目标函数值连续若干步保持不变。</p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/" class="leancloud_visitors" data-flag-title="模拟退火算法（待完善）">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/"> 上一篇: 运筹学与最优化--在R软件中的实现</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/"> 下一篇: 遗传算法（待完善）</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2019-02-19-模拟退火算法.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

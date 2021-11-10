@@ -1,0 +1,157 @@
+---
+title: R计算微积分
+author: zsc
+date: '2018-02-10'
+tags:
+  - R
+  - 符号计算
+  - 微积分
+slug: test-toc
+simpletoc: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
+# (一)R 计算微积分
+
+### 1.1差分
+
+```{r message=FALSE, warning=FALSE}
+x=1:12
+diff(x)  #向量差分  后面一个数减去前面一个数
+z=matrix(x,3,4)
+z
+diff(z) #矩阵差分 前行减去后行
+```
+
+### 1.2 符号计算--微分
+
+##### 1.2.1求一元函数导数--- 		$\sin{x}$  的一阶导数为： $\cos{x}$
+
+ 在R里，声明表达式对象使用 expression() 函数, 计算一阶导数用D()函数,格式：D(表达式,对谁求导)
+
+```{r message=FALSE, warning=FALSE}
+fun=expression(sin(x))# 声明表达式
+D(fun,"x")#---方法1
+deriv(fun,"x")#---方法2  其中.grad[, "x"]为求x的导数表达式
+deriv3(fun,"x")#---方法3 其中.grad[, "x"]为求x的导数表达式
+```
+
+##### 1.2.2 计算n阶导数
+
+1. 计算n阶导数---方法一:	结合一阶导数写递归函数
+
+   函数： $\sin{x}+\cos{2x}+x^2+xy+y^2+2x^3+y^3$  的3阶导数为：$12 + 8\sin{2x} -\cos{x}$
+
+```{r message=FALSE, warning=FALSE}
+   fun=expression(sin(x)+cos(2*x)+x^2+x*y+y^2+2*x^3+y^3)
+   DD <- function(expr, name, order = 1) {
+     if (order < 1)
+       stop("'order' must be >= 1")
+     if (order == 1){
+       D(expr, name)
+     }else{
+       DD(D(expr, name), name, order - 1)
+     }
+   }
+   DD(fun,"x",3)
+```
+
+2. 计算n阶导数---方法二:	Deriv 包中Simplify()化简表达式
+
+```{r message=FALSE, warning=FALSE}
+   library(Deriv)
+   DD(fun,"x",3)
+   Simplify(DD(fun, "x", 3))
+```
+
+##### 1.2.3 通过函数计算导数
+
+有时候我们有的就是函数，这怎么计算导数呢？---还是用上面的函数
+
+```{r message=FALSE, warning=FALSE}
+f=function(x,y)sin(x)+cos(2*x)+x^2+x*y+y^2+2*x^3+y^3 #这里是函数，而不是表达式
+body(f)
+Simplify(D(body(f), "x"))# 注意：函数体有花括号{}会出错
+```
+
+##### 1.2.4 求二元函数偏导数及梯度 
+
+```{r message=FALSE, warning=FALSE}
+D(expression(x^2+x*y+y^2),"x")# x偏导数
+D(expression(x^2+x*y+y^2),"y")# y偏导数
+```
+
+##### 1.2.5 符号计算扩展包 Ryacas
+
+想要做更多的符号计算内容，如解方程，泰勒展开等，可以借助第三方 R 扩展包 Ryacas 
+
+解方程: $\frac{x}{1+x}=a$   求解$x=\frac{a}{1-a}$  
+
+```{r message=FALSE, warning=FALSE}
+library(Ryacas)
+ysym("Solve(x/(1+x) == a, x)") 
+```
+
+多项式展开：如$(1+x)^3$ 展开
+
+```{r message=FALSE, warning=FALSE}
+ysym(expression(Expand((1 + x)^3)))# 把(1+x)^3展开
+```
+
+求解常微分方程：$y''=4y$ 
+
+```{r message=FALSE, warning=FALSE}
+ysym("OdeSolve(y''== 4 * y)")
+```
+
+泰勒展开：$\cos{x}=1-\frac{1}{2!}x^2+\frac{1}{4!}x^4+o(x^4)$
+
+```{r message=FALSE, warning=FALSE}
+ysym("Taylor(x, a, 3) cos(x)") # cos(x)函数在a点的3阶泰勒展开
+```
+
+##### 1.3 表达式转为函数值
+
+很多时候我们使用 R 目的是计算，符号计算后希望可以直接代入计算，那么只需要在 deriv 中指定 function.arg 参数为 TRUE。
+$$
+\sin{x}+\cos{2x}+x^2+xy+y^2对x求偏导为：\cos{x}-2sin{2x}+2x+y
+$$
+
+```{r message=FALSE, warning=FALSE}
+fun=expression(sin(x)+cos(2*x)+x^2+x*y+y^2)
+dx=D(fun,"x") #用D()函数得到符号运算结果，然后代入数值即可得到最后结果
+dx
+x=0;y=pi# 对x、y赋值
+eval(dx)#求出数值解
+
+
+Dfun=deriv(fun,c("x","y"),function.arg = TRUE)# 同时对x、y求偏导--D()函数不可以同时求偏导
+Dfun(x=0,y=pi/2) # 代值计算，其中attr(,"gradient")的值为导数值 ，另一个为原函数在该处的函数值
+#我们可以作如下简单验证：
+fun=function(x,y){sin(x)+cos(2*x)+x^2+x*y+y^2}
+fun(x=0,y=pi/2)
+```
+
+### 1.3、求积分---暂时只找到数值计算的--没找到符号计算的
+
+积分函数： `integrate(fun,a,b)`  fun被积函数，不需要表达式，因为这是数值计算, a,b为上下限
+
+```{r message=FALSE, warning=FALSE}
+f <- function (x) sin(x)
+integrate(f,0,pi/2)
+```
+
+有些时候只想要值输入	` integrate(f,0,1)$value`
+
+```{r message=FALSE, warning=FALSE}
+integrate(f,0,pi/2)$value
+```
+
+```{r}
+sessionInfo()
+```
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>智能算法 on zsc</title>
+    <link>/tags/%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 智能算法 on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 21 Feb 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>智能算法测试函数可视化</title>
+      <link>/post/2019-02-21-testfunctionvisualization/</link>
+      <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-02-21-testfunctionvisualization/</guid>
+      <description>1 智能算法测试函数可视化(二维)  1.1 1 Sphere 函数 1.2 3 Rosenbrock 函数 1.3 4、Rastrigin 1.4 5 Griewank 函数 1.5 6 Ackley 函数 1.6 7 Noise函数    1 智能算法测试函数可视化(二维) 1.1 1 Sphere 函数 \[f(x) = \sum^n_{i=1}x_i^2\] 全局最优点为\(x =(0,0,\cdots ,0 ),f(x) =0\)
+############################# #### 二维函数 --- 可视化 ############################## ## 1 、 Sphere 函数 f1_Sphere2 = function(x,y){ return(x^2 + y^2) } y = x &amp;lt;- seq(-10, 10, 0.</description>
+    </item>
+    
+    <item>
+      <title>遗传算法（待完善）</title>
+      <link>/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</guid>
+      <description>遗传算法 遗传算法是模仿自然界生物进化机制发展起来的随机全局搜索和优化方法，本质是一种高效、并行、全局搜索的方法。
+基本概念 编码方式 假设一个具体的问题的解为 $X = (x_1,x_2, \cdots, x_n )$ ，并且每个变量都有取值范围$x_j \in [a_j,b_j]，j=1,2,\cdots,n$.
+   编码方式 编码 解码     二进制编码 第$j$ 个变量用长度为 $k_j$的二进制编码符号来表示，二进制串编码符号长度与问题所要求的求解进度有关，假设分量$x_j$ 的精度是小数点后4位，则$k_j$的计算公式如下:$$ \log_2^{(b_j-a_j) \cdot 10^4+1} \le k_j &amp;lt; \log_2^{(b_j-a_j) \cdot 10^4}+1$$一般地，$k_j$都取同一个整数​$k=max{k_j,}$ 即把二进制串转变为十进制数 假设$x_j$的编码为$c_kc_{k-1}c_{k-2} \cdots c_2c_1$,长度为k,则对应解码公式为:$$x_j = a_j+(\sum_{i=1}^{k}b_i\cdot 2^{i-1} )\cdot \frac{b_j-a_j}{2^{k}-1}\ $$   格雷码编码 类似二进制编码 类似二进制解码   实数编码（也称浮点数编码） 个体的每个基因值用一定范围的一个实数表示，此时染色体长度等于变量个数。 一般不需要解码   整数编码 用于特殊的问题（TSP问题）或者其他问题。 一般不需要解码   其他编码方式      符号编码： 二进制编码和格雷码编码 统称符号编码。即单个基因无实际意义。有时候整数编码也叫符号编码。</description>
+    </item>
+    
+    <item>
+      <title>模拟退火算法（待完善）</title>
+      <link>/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Tue, 19 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</guid>
+      <description>模拟退火算法 物理固体退火过程(可不了解)： 什么是退火：指对物体（指的是固体）加温至熔化，再徐徐冷却，使之凝固成规则晶体的热力学过程，简而言之，是对物体加温后再冷却的一个物理过程。
+可见，物理退火过程由以下三部分组成：
+（1）加温过程： 一般一个物体不是一个有规则的晶体（下图左图），于是加热，当温度足够高时，固体的规则性被彻底破坏，固体熔解为液体（下图中图），从而消除系统原先可能存在的非均匀状态，使随后进行的冷却过程以某一平衡态为起点。溶解过程与系统的熵增过程相联系，系统能量也随温度的升高而增大。
+（2）等温过程。当某一温度固定后，要使系统达到热平衡态，才能进行降温，这就是“徐徐”的意思。如果降温降低很快，会出现猝火效应（对应后面讲解的局部最小值），即猝火效应是指固体只能冷凝为非均匀的亚稳态，系统能量也不会达到最小值。
+​	由物理学知识可知，对于与周围环境交换热量而温度保持不变的封闭系统，系统状态的自发变化总是朝着自由能减少的方向进行，当自由能到达最小值时，系统达到热平衡态。此现象保证系统在每一温度下能到达平衡态的过程。这个跟熵很类似。（熵总是往这增大的方向进行）
+等温下热平衡过程可用Metropolis准则（即以概率接受新状态）进行模拟。
+Metropolis准则：
+假设当前状态为 $x(n)$ , 系统受到一定扰动，状态变为 $x(n+1)$,相应的系统能量由 $E(n)$ 变为 $E(n+1)$ ,定义状态 $x(n)$ 变为 $x(n+1)$ 的接受概率为 $p$ :
+$$p= \begin{cases} 1 &amp;amp;, E(n+1) &amp;lt; E(n) \ \ \ e^{\left(-\frac{E(n+1)-E(n)}{T}\right)} &amp;amp;,E(n+1) \geq E(n) \ \end{cases}$$
+当状态转移之后，如果能量减小了（即 $E(n+1) &amp;lt; E(n)$ ），那么这种转移就被接受了（以概率1发生）
+当状态转移之后，如果能量增大了(即 $E(n+1) \geq E(n)$ ），那么这种转移按照概率 $p= e^{\left(-\frac{E(n+1)-E(n)}{T}\right)}$ 去接受，具体操作： 首先在区间[0,1]产生一个均匀分布的随机数$\xi$，如果 $\xi &amp;lt; p（此时p= e^{\left(-\frac{E(n+1)-E(n)}{T}\right)} ） $,则这种转移被接受，否则被拒绝。
+（3）冷却过程，液体粒子的热运动逐渐减弱，随着温度的徐徐降低（即系统能量逐渐下降），粒子运动逐渐有序，当温度减到足够小时，液体凝固成按一定形状排列，高密度，低能量的有规则晶体（下图右图）。
+对照表
+   模拟退火 物理退火     解 粒子状态   最优解 能量最低态   设定初始温度 熔解过程   Metropolis采样过程 等温过程   控制参数的下降 冷却   目标函数 能量    模拟退火算法基本步骤与基本思想 基本思想： 其基本思想是模拟金属退火过程。</description>
+    </item>
+    
+  </channel>
+</rss>

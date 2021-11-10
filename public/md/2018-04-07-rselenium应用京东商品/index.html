@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>RSelenium应用--京东商品</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                RSelenium应用--京东商品
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-04-07 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/selenium"> #selenium </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(RSelenium)
+<span style="color:#a6e22e">library</span>(stringr)
+<span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#34;E:\\rwork\\Rselenium&#34;</span>)
+
+<span style="color:#75715e">######## 初始化浏览器####</span>
+remDr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">remoteDriver</span>(
+  browserName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chrome&#34;</span>,  <span style="color:#75715e"># 浏览器可以自己设置firefox、chrome、phantomjs（要配置）</span>
+  remoteServerAddr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span>,
+  port <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444L</span>) <span style="color:#75715e"># 默认情况下，Selenium Server侦听端口为4444</span>
+
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">open</span>() <span style="color:#75715e"># 打开浏览器 </span>
+
+<span style="color:#75715e"># remDr$getStatus() ## 使用该status方法查询远程服务器的状态。</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com/&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url)  <span style="color:#75715e"># navigate方法打开网页，url一定要完整</span>
+<span style="color:#75715e">## remDr$getCurrentUrl() # 获取当前页面的url</span>
+
+<span style="color:#75715e">###########################进行搜索关键词</span>
+<span style="color:#75715e">#####  按属性--属性值搜索 ,可以是css,xpath ,id ,属性等 对应值</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;#kw&#34;</span>) <span style="color:#75715e"># 找到这个元素--进行搜索关键词</span>
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">sendKeysToElement</span>(<span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;京东&#34;</span>,key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enter&#34;</span>))
+<span style="color:#75715e">#### 获取当前页面的所有标题，每个链接的标题都包含在&lt;h3 class = &#34;t&#34;&gt;标签中。我们将h3首先访问标题</span>
+<span style="color:#75715e">#### 注意 findElements和 findElement方法是获取一个或者多个的区别</span>
+webElems <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElements</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;h3.t&#34;</span>)
+resHeaders <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unlist</span>(<span style="color:#a6e22e">lapply</span>(webElems, <span style="color:#a6e22e">function</span>(x){x<span style="color:#f92672">$</span><span style="color:#a6e22e">getElementText</span>()})) <span style="color:#75715e">#</span>
+resHeaders
+
+<span style="color:#75715e">######################## 鼠标点击事件</span>
+webElem<span style="color:#f92672">&lt;-</span>remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;css&#34;</span>,<span style="color:#e6db74">&#34;#w-f80518 &gt; div &gt; h2 &gt; a.rujtl6l-header-title&#34;</span>)<span style="color:#75715e"># 找到相应元素，直接点击</span>
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">clickElement</span>()
+<span style="color:#75715e">##### 方法二： </span>
+<span style="color:#75715e">### webElem=webElems[[min(which(resHeaders ==resHeaders[1]))]]# 根据返回的标题标签去重以后，找到相应位置点击</span>
+<span style="color:#75715e">### webElem$clickElement() </span>
+
+
+<span style="color:#75715e">######################### 在京东首页进行关键词搜索</span>
+<span style="color:#75715e">###########窗口页面跳转</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>()<span style="color:#75715e"># 可以看出当前页面还是百度的页面，并没有跳转到京东页面</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentWindowHandle</span>()<span style="color:#75715e"># 查看当前属于哪个窗口页面</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getTitle</span>()<span style="color:#75715e"># 当前窗口页面的标题</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getWindowHandles</span>() <span style="color:#75715e"># 获取当前浏览器所有的窗口页面</span>
+<span style="color:#75715e">## 现在进行页面跳转</span>
+currWin <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentWindowHandle</span>() <span style="color:#75715e"># 当前窗口</span>
+allWins <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unlist</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getWindowHandles</span>()) <span style="color:#75715e"># 所有窗口，这里只有两个</span>
+otherWindow <span style="color:#f92672">&lt;-</span> allWins[<span style="color:#f92672">!</span>allWins <span style="color:#f92672">%in%</span> currWin[[1]]] <span style="color:#75715e"># 排除当前窗口，获取其他窗口</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">switchToWindow</span>(otherWindow)<span style="color:#75715e"># 窗口跳转函数，若其他窗口有多个，需要指定一个</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>()
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getTitle</span>()<span style="color:#75715e"># 跳转成功</span>
+<span style="color:#75715e">###########跳转成功后，进行京东关键词搜索</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;id&#39;</span>, <span style="color:#e6db74">&#34;key&#34;</span>)
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">sendKeysToElement</span>(<span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;笔记本电脑&#34;</span>,key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enter&#34;</span>))
+
+<span style="color:#75715e">################### 选电脑有很多条件--现对条件进行限制</span>
+<span style="color:#75715e"># #### 电脑贵重，选择京东自营</span>
+<span style="color:#75715e">## 方法一：---选择元素</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;#J_feature &gt; ul &gt; li:nth-child(1) &gt; a&#34;</span>)<span style="color:#75715e">#找到这个京东自营元素--点击即可</span>
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">clickElement</span>()<span style="color:#75715e"># 点击这元素</span>
+<span style="color:#75715e">## 方法二： 效果同上，---JavaScript脚本</span>
+<span style="color:#75715e"># 可以看见 &#34;京东自营&#34;这个html元素标签里面有onclick=&#34;searchlog(1,0,0,43)&#34;属性,&lt;a data-field=&#34;wtype&#34; data-val=&#34;1&#34; class=&#34;selected&#34; href=&#34;javascript:;&#34; onclick=&#34;searchlog(1,0,0,43)&#34;&gt;&lt;i&gt;&lt;/i&gt;京东物流&lt;/a&gt;，对JavaScript不熟悉，操作不成功。</span>
+<span style="color:#75715e"># remDr$executeScript(script = &#34;searchlog(1,0,0,43)&#34;,args = list(&#34;dummy&#34;))</span>
+
+<span style="color:#75715e"># #### 选择其他条件---同上</span>
+
+
+<span style="color:#75715e">######################## 页面拉到最下面 --JavaScript脚本, 因为在爬取数据的时候，当页面拉到最下面的时候，才有新数据产生</span>
+scripts <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;window.scrollTo(0,document.body.scrollHeight)&#34;</span> <span style="color:#75715e"># 页面拉到最下面,</span>
+<span style="color:#75715e"># document.body.scrollHeight是表示body标签最大可以滚动到的坐标,window.scrollTo(x,y),里面为坐标</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">executeScript</span>(script <span style="color:#f92672">=</span> scripts,args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;dummy&#34;</span>))
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e"># ####################### # 页面拉到最上面---JavaScript</span>
+<span style="color:#75715e"># scripts &lt;- &#34;window.scrollTo(0,0)&#34; # 页面拉到最上面</span>
+<span style="color:#75715e"># remDr$executeScript(script = scripts,args = list(&#34;dummy&#34;))</span>
+<span style="color:#75715e"># Sys.sleep(3)</span>
+<span style="color:#75715e">######################## 页面拉到指定元素位置---javascript----这里可以循环两次</span>
+<span style="color:#75715e">## 参考:http://www.w3school.com.cn/jsref/dom_obj_document.asp</span>
+<span style="color:#75715e"># scripts &lt;- &#39;window.scrollTo(0,document.getElementById(&#34;J_goodsList&#34;).scrollHeight)&#39;</span>
+<span style="color:#75715e"># remDr$executeScript(script = scripts,args = list(&#34;dummy&#34;))</span>
+<span style="color:#75715e"># Sys.sleep(3)</span>
+
+
+<span style="color:#75715e">#####################  模拟点击下一页---css</span>
+<span style="color:#75715e"># nextBtn &lt;- remDr$findElement(using=&#34;css&#34;,value = &#34;#J_bottomPage &gt; span.p-num &gt; a:nth-child(7)&#34;)</span>
+<span style="color:#75715e"># nextBtn$clickElement()</span>
+<span style="color:#75715e">#################### 模拟点击下一页  --JavaScript</span>
+nextpage<span style="color:#f92672">=</span><span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#34;SEARCH.page(&#34;</span>,i, <span style="color:#e6db74">&#34;,true)&#34;</span>) <span style="color:#75715e">##  可用str_c()字符串拼接而成</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">executeScript</span>(nextpage,args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;dummy&#34;</span>))
+
+
+
+<span style="color:#75715e">############################ 此时可以获取当前页面的源代码，并提取相应的标题</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">maxWindowSize</span>()<span style="color:#75715e"># 窗口最大化--有时要</span>
+<span style="color:#75715e"># webpage=remDr$getPageSource()[[1]][1] #获取当前页面的源代码</span>
+<span style="color:#75715e">### 保存为本地文件</span>
+<span style="color:#75715e"># con=file(&#34;test1.html&#34;,encoding = &#34;utf-8&#34;)</span>
+<span style="color:#75715e"># writeLines(webpage1,con)</span>
+<span style="color:#75715e"># close(con)</span>
+
+<span style="color:#75715e">###</span>
+
+
+<span style="color:#75715e">######################### 结合rvest包操作提取 商品信息</span>
+<span style="color:#a6e22e">library</span>(rvest)
+<span style="color:#a6e22e">library</span>(stringr)
+xinxi_page<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(){
+<span style="color:#75715e"># 提取当前页面的源代码</span>
+webpage<span style="color:#f92672">=</span><span style="color:#a6e22e">read_html</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getPageSource</span>()[[1]][1])
+<span style="color:#75715e"># 提取商品价格</span>
+price <span style="color:#f92672">&lt;-</span>  webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;#J_goodsList .p-price&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">str_trim</span>()
+<span style="color:#75715e"># 提取商品的简介信息 ，若class属性有多个值时，只用一个即可</span>
+xinxi <span style="color:#f92672">&lt;-</span> webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;#J_goodsList .p-name&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">str_trim</span>() 
+<span style="color:#75715e"># 提取商品的商店信息</span>
+shop <span style="color:#f92672">&lt;-</span>  webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;#J_goodsList .p-shop&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">str_trim</span>()
+<span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">identical</span>(<span style="color:#a6e22e">length</span>(price),<span style="color:#a6e22e">length</span>(xinxi),<span style="color:#a6e22e">length</span>(shop))){
+  df<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>(xinxi,price,shop)
+}else {
+  <span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;这一页提取有问题：&#34;</span>)
+  <span style="color:#a6e22e">print</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>()[[1]])
+}
+}
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">close</span>()<span style="color:#75715e"># 关闭浏览</span>
+<span style="color:#75715e">## 只需循环页面 提取信息，保存数据即可</span>
+</code></pre></div><p>完整代码</p>
+<pre tabindex="0"><code class="language-{r" data-lang="{r">rm(list = ls())
+gc()
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(RSelenium)
+<span style="color:#a6e22e">library</span>(stringr)
+<span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#34;E:\\rwork\\Rselenium&#34;</span>)
+
+<span style="color:#75715e">######## 初始化浏览器####</span>
+remDr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">remoteDriver</span>(
+  browserName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chrome&#34;</span>,  <span style="color:#75715e"># 浏览器可以自己设置firefox、chrome、phantomjs（要配置）</span>
+  remoteServerAddr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span>,
+  port <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444L</span>) <span style="color:#75715e"># 默认情况下，Selenium Server侦听端口为4444</span>
+
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">open</span>() <span style="color:#75715e"># 打开浏览器 </span>
+
+url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.jd.com/?cu=true&amp;utm_source=haosou-pinzhuan&amp;utm_medium=cpc&amp;utm_campaign=t_288551095_haosoupinzhuan&amp;utm_term=0a875d61c5fe47d8bc48679132932d23_0_8f7391a4de7c48dc92723934bc4fd73d&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url) <span style="color:#75715e">#直接打开京东</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">maxWindowSize</span>()
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+</code></pre></div><p>关键词搜索以及选择筛选条件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">###########跳转成功后，进行京东关键词搜索</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;id&#39;</span>, <span style="color:#e6db74">&#34;key&#34;</span>)
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">sendKeysToElement</span>(<span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;笔记本电脑&#34;</span>,key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enter&#34;</span>))
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+<span style="color:#75715e">################### 选电脑有很多条件--现对条件进行限制</span>
+<span style="color:#75715e"># #### 电脑贵重，选择京东自营</span>
+<span style="color:#75715e">## 方法一：---选择元素</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;#J_feature &gt; ul &gt; li:nth-child(1) &gt; a&#34;</span>)<span style="color:#75715e">#找到这个京东自营元素--点击即可</span>
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">clickElement</span>()<span style="color:#75715e"># 点击这元素</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+
+</code></pre></div><p>提取信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(rvest)
+<span style="color:#a6e22e">library</span>(stringr)
+<span style="color:#a6e22e">library</span>(data.table)
+<span style="color:#a6e22e">library</span>(readr)
+
+xinxi_page<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(){
+<span style="color:#75715e"># 提取当前页面的源代码</span>
+webpage<span style="color:#f92672">=</span><span style="color:#a6e22e">read_html</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getPageSource</span>()[[1]][1])
+<span style="color:#75715e"># 提取商品价格</span>
+price <span style="color:#f92672">&lt;-</span>  webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;#J_goodsList .p-price&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">str_trim</span>()
+<span style="color:#75715e"># 提取商品的简介信息 ，若class属性有多个值时，只用一个即可</span>
+xinxi <span style="color:#f92672">&lt;-</span> webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;#J_goodsList .p-name&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">str_trim</span>() 
+<span style="color:#75715e"># 提取商品的商店信息</span>
+shop <span style="color:#f92672">&lt;-</span>  webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;#J_goodsList .p-shop&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">str_trim</span>()
+
+link <span style="color:#f92672">&lt;-</span>  webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;#J_goodsList .p-name a&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_attr</span>(<span style="color:#e6db74">&#34;href&#34;</span>)
+link_finally<span style="color:#f92672">=</span><span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#34;https:&#34;</span>,link)
+
+<span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">identical</span>(<span style="color:#a6e22e">length</span>(price),<span style="color:#a6e22e">length</span>(xinxi),<span style="color:#a6e22e">length</span>(shop),<span style="color:#a6e22e">length</span>(link))){
+  df<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>(xinxi,price,shop,link,link_finally)
+  <span style="color:#a6e22e">return</span>(df)
+}else {
+  <span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;这一页提取有问题：&#34;</span>)
+  <span style="color:#a6e22e">print</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>()[[1]])
+  <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">NULL</span>)
+}
+}
+
+
+
+page_operation<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(n,file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tiannao.csv&#34;</span>){<span style="color:#75715e"># n代表页数</span>
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n) {
+<span style="color:#75715e">########页面拉到最下面 --JavaScript脚本</span>
+scripts <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;window.scrollTo(0,document.body.scrollHeight)&#34;</span> <span style="color:#75715e"># 页面拉到最下面,</span>
+<span style="color:#75715e"># document.body.scrollHeight是表示body标签最大可以滚动到的坐标,window.scrollTo(x,y),里面为坐标</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">executeScript</span>(script <span style="color:#f92672">=</span> scripts,args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;dummy&#34;</span>))
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e">############  提取商品信息</span>
+dff<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>()
+dff<span style="color:#f92672">=</span><span style="color:#a6e22e">xinxi_page</span>()
+<span style="color:#a6e22e">write_excel_csv</span>(dff,file,append <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)<span style="color:#75715e"># 使用过fwrite(),和系统自带的write.csv()以及readr包的write_csv()都乱码</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+<span style="color:#75715e">#################### 模拟点击下一页  --JavaScript</span>
+ii<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i<span style="color:#ae81ff">+1</span>
+nextpage<span style="color:#f92672">=</span><span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#34;SEARCH.page(&#34;</span>,ii, <span style="color:#e6db74">&#34;,true)&#34;</span>) <span style="color:#75715e">##  </span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">executeScript</span>(nextpage,args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;dummy&#34;</span>))
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">3</span>)
+
+}
+}
+
+
+</code></pre></div><p>提取多少页</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">page_operation</span>(<span style="color:#ae81ff">20</span>,<span style="color:#e6db74">&#34;diannao2.csv&#34;</span>)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">close</span>()<span style="color:#75715e"># 关闭浏览</span>
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/20180407diannao.png" alt="20180407diannao"></p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/" class="leancloud_visitors" data-flag-title="RSelenium应用--京东商品">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-04-06-rselenium/"> 上一篇: 利用RSelenium包模拟浏览器爬取网页信息</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/"> 下一篇: R 语言并行化计算之foreach包</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-04-07-RSelenium应用京东商品.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

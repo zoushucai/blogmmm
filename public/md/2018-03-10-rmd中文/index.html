@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>Windows系统下R Markdown 设置中文pdf完美解决方案</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                Windows系统下R Markdown 设置中文pdf完美解决方案
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-03-10 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/rmarkdown"> #rmarkdown </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="方法一-生成pdf中文">方法一： 生成pdf中文</h1>
+<p>后文有与之对应的方法。</p>
+<p>需要安装完整版的CTeX_2.92套装（有没有感觉文件很大，文章最后教大家一个简单的安装版本），还要自己新建一个文本文件命名为<code>header.tex</code>,其内容为<code>\usepackage{ctex}</code> ,把这个文件和运行的rmarkdown文件保存在同级目录中，然后把rmarkdown的头文件yaml改写为如下情况：</p>
+<pre tabindex="0"><code>---
+title: 'Untitled'
+author: 'zsc'
+date: &quot;`r Sys.Date()`&quot;
+output:
+  pdf_document:
+  includes:
+    in_header: header.tex
+  keep_tex: yes
+  latex_engine: xelatex
+---
+</code></pre><p>这样就可以生成中文的pdf了</p>
+<p>于是我仿照上面的步骤，写了一个函数<code>rmarkdown_pdf</code> 保存为<code>rmarkdown_pdf.R</code></p>
+<pre tabindex="0"><code>rmarkdown_pdf=function(file_name,new_filename=file_name){
+cat(&quot;\\usepackage{ctex}\n&quot;, file = &quot;header.tex&quot;)
+txt=&quot;---
+title: 'Untitled'
+author: 'zsc'
+date: \&quot;`r Sys.Date()`\&quot;
+output:\n  pdf_document:\n    includes:\n      in_header: header.tex\n    keep_tex: yes\n    latex_engine: xelatex
+---
+&quot;
+x=readLines(file_name,n=-1,encoding = &quot;UTF-8&quot;)
+la=max(which(x==&quot;---&quot;)[1:2])
+cat(c(txt,x[(la+1):length(x)]),sep = &quot;\n&quot;,file = new_filename,append = F)
+rm(list = ls())
+}
+
+</code></pre><p>在把这个函数加载到自定义环境中，</p>
+<ul>
+<li>
+<p>第一步：安装目录找到Rprofile.site这个文件，我的是在“D:\R\etc”这个目录；</p>
+</li>
+<li>
+<p>第二步：用文本文件打开Rprofile.site，配置文件里按照R语言自定义函数的格式自定义一个函数保存即可。</p>
+</li>
+</ul>
+<pre tabindex="0"><code>.First&lt;-function(){
+# 也可以加载包library(data.table)
+# 加载函数
+source(&quot;函数rmarkdown_pdf.R存放的路径&quot;)路径为1111/22/33 
+}
+</code></pre><p>这种设置，会产生很多的中间文件（系统并未自己删除），亲测成功：</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf1.png" alt="pdf1"></p>
+<h1 id="方法二-生成pdf中文--用rticles包的模板">方法二： 生成pdf中文&ndash;用rticles包的模板</h1>
+<p>很久就知道谢意辉早就把rmarkdown可以转换为中文pdf的方案，一直没有尝试，今天尝试一下，结果失败了，我的电脑是win10 ，R的版本为3.4.3 ，安装了CTeX_2.92套装，我用的是rticles包中的模板文件，想测试一下中文pdf能否生成，结果报错如下（英文生成pdf没有问题）</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf3.png" alt="pdf3"></p>
+<p>重点！重点！重点！来了</p>
+<h2 id="ctex的版安装问题">CteX的版安装问题</h2>
+<p>原来是CteX的版本的问题 &mdash;-解决方案如下</p>
+<ul>
+<li>
+<p>(1)	卸载CteX(注意卸载干净)；</p>
+</li>
+<li>
+<p>(2)	然后到<a href="https://miktex.org/download">MiKTek官网</a>下载最新版64位MiKTek软件并安装(当前最新版本:basic-miktex-2.9.6615-x64.exe);几乎就是next就好了（建议把安装目录改了）</p>
+</li>
+<li>
+<p>(3)	安装以后,直接在Rstudio中点击knitr生成中文的pdf，系统会自动调用MiKTek里面的文件，并弹出对话框将要安装下列的包，安装包的时候注意选择更新源（一般选择离自己较近的下载源（我选清华）） ，会自动安装很多的包，</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf4.png" alt="pdf4"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf5.png" alt="pdf5"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf6.png" alt="pdf6"></p>
+<p>​	点击install就好了（每安装一个文件都要弹出对话框并让你点击安装，这样很麻烦，可以把always前面的√取消掉），直到rmarkdown可以生成中文为止。</p>
+<ul>
+<li>（4）这种安装的方法也实用与方法一也适合,如果卸载CteX的时候没卸载干净，后面卸载basic-miktex-2.9.6615的时候，总是报错，总之是不能卸载的，所以我每次卸载的时候都是直接删除安装的目录（为何要卸载，测试软件啊！！！！！），大功告成！！！</li>
+</ul>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf2.png" alt="pdf2"></p>
+<p>​</p>
+<p>所用以上操作&ndash;我是翻墙操作的，毕竟下载软件的时候比较快</p>
+<h2 id="补充"><strong>补充：</strong></h2>
+<p>这个补充是我后面遇到的情况，忘记了，总是编译不通过，就连方法二都没通过，于是逐一排查电脑，后面电脑环境成功安装以后，进而进一步补充说明（2018年11月17日）</p>
+<ol>
+<li>
+<p>如果没有用上述模板（rticles模板），想要Rmd 文件生成对应的中文，直接knitr是行不通的，会报以下错误，当然想要正常显示用模板方便很多啊！</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong01.png" alt="buchong01"></p>
+<pre tabindex="0"><code>output file: test.knit.md
+
+! Package inputenc Error: Unicode character 浣?(U+4F60)
+(inputenc)                not set up for use with LaTeX.
+
+错误: Failed to compile test.tex. See test.log for more info.
+此外: Warning message:
+In grepl(&quot;==&gt; Fatal error occurred&quot;, x[i], fixed = TRUE) :
+  输入的字符串1不适用于此语言环境
+停止执行
+</code></pre></li>
+<li>
+<p>方法一：如果Rmd中有中文，你想要正常显示，可以忽视中文，让中文显示空白，这时，只需设置YAML选项，</p>
+<pre tabindex="0"><code>output:
+   pdf_document:
+       latex_engine: xelatex
+</code></pre><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong02.png" alt=""></p>
+<ol start="3">
+<li>方法二：如果想让中文显示，需要如下设置，这都是基于rticles模板的或者基于Latex的（由谢易辉的提供的案列进行总结的）</li>
+</ol>
+<p>方法一：</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong03.png" alt=""></p>
+<p>直接在YAML格式中添加参数即可：</p>
+<pre tabindex="0"><code>
+</code></pre><ol start="4">
+<li>方法三： 首先在你的Rmd文件开始部分加入：</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong04.png" alt=""></p>
+<pre tabindex="0"><code>---
+output:
+    pdf_document:
+        includes:
+            in_header: header.tex
+---
+</code></pre><p>然后，建立一个新文件 header.tex，</p>
+<p>内容如下：</p>
+<pre tabindex="0"><code>\usepackage{ctex} 
+%\setCJKmainfont{Adobe 宋体 Std}      % 中文缺省字体，
+%\setCJKsansfont{Adobe 黑体 Std}      % 中文无衬线字体，   调用命令： \sffamily
+%\setCJKmonofont{Adobe 仿宋 Std}     % 中文打字机（等宽）字体， 调用命令： \ttfamily
+</code></pre><p>去掉注释，更改你自己定义的字体。</p>
+<p>然后利用rmarkdown包正常编译Rmd文件就可以了。</p>
+<p><strong>本机环境</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sessionInfo</span>()
+R version <span style="color:#ae81ff">3.5.1</span> (<span style="color:#ae81ff">2018-07-02</span>)
+Platform<span style="color:#f92672">:</span> x86_64<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#a6e22e">x64 </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
+Running under<span style="color:#f92672">:</span> Windows <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span> <span style="color:#a6e22e">x64 </span>(build <span style="color:#ae81ff">9200</span>)
+
+Matrix products<span style="color:#f92672">:</span> default
+
+locale<span style="color:#f92672">:</span>
+[1] LC_COLLATE<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936  LC_CTYPE<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936   
+[3] LC_MONETARY<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936 LC_NUMERIC<span style="color:#f92672">=</span>C                              
+[5] LC_TIME<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936    
+
+attached base packages<span style="color:#f92672">:</span>
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a <span style="color:#a6e22e">namespace </span>(and not attached)<span style="color:#f92672">:</span>
+ [1] compiler_3.5.1  backports_1.1.2 rprojroot_1.3<span style="color:#ae81ff">-2</span> htmltools_0.3.6 tools_3.5.1     yaml_2.2.0     
+ [7] Rcpp_1.0.0      rmarkdown_1.10  knitr_1.20      digest_0.6.18   evaluate_0.12  
+</code></pre></div>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/" class="leancloud_visitors" data-flag-title="Windows系统下R Markdown 设置中文pdf完美解决方案">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-01-18-datatable3/"> 上一篇: data.table -- 3常见操作</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/"> 下一篇: R语言字符处理函数包---stringr包</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-03-10-rmd中文.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

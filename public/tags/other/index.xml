@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>other on zsc</title>
+    <link>/tags/other/</link>
+    <description>Recent content in other on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 06 Nov 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/other/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitHubDesktop权限问题解决办法</title>
+      <link>/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>很久没上传文章到github了，
+ Error Authentication failed. You may not have permission to access the repository or the repository may have been archived. Open options and verify that you&#39;re signed in with an account that has permission to access this repository. 网上百度了一下，发现有两种解决办法：
+1.退出后重新登录
+2.设置项目repository settings改为https的远程url地址
+经过测试，发现这两种方式都没有起到作用
+于是我猜可能和win收购github有关，
+解决办法：
+设置了项目的repository settings
+将remote repository设置成：https://注册名:密码@github.com/xmilt/xmilt.github.io.git
+才能正常pull和push等操作。</description>
+    </item>
+    
+  </channel>
+</rss>

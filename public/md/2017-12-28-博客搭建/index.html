@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>博客搭建——blogdown之md</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                博客搭建——blogdown之md
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2017-12-29 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/blogdown"> #blogdown </a></li><li><a class="link" href="/tags/hugo"> #hugo </a></li>
+                        
+                        <span> </span>
+                        
+                        <span>分类:</span>
+                        <li><a class="link" href="/categories/r"> @r </a></li>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h4 id="1下载安装配置好r与rstudio">1、下载安装、配置好R与Rstudio</h4>
+<h4 id="2打开rstudio----下载blogdown包">2、打开Rstudio&mdash;-下载blogdown包</h4>
+<pre tabindex="0"><code>if(!require(devtools)) install.packages('devtools')
+devtools::install_github('rstudio/blogdown')
+</code></pre><p>等待安装，缺什么安装什么，</p>
+<h4 id="3在rstudio中安装hugo软件只需运行下面函数即可">3、在rstudio中安装hugo软件,只需运行下面函数即可</h4>
+<pre tabindex="0"><code>blogdown::install_hugo()
+</code></pre><p>注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中</p>
+<h4 id="4创建测试网站">4、创建测试网站</h4>
+<ul>
+<li>可用命令blogdown::new_site(),</li>
+<li>在rstudio中的左上角点击【file】&ndash;【New Project】&mdash;【Website using blogdown】</li>
+</ul>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/NewProject-20200527143419483.png" alt="NewProject"></p>
+<p>适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，</p>
+<h4 id="5创建完成">5、创建完成</h4>
+<p>在刚刚所在目录【E:\test_blog】下面有很多文件，其他的可以不用管，可以找到一个config.tom配置文件，更改与你相关的信息，添加<code>relativeurls =true</code>保存(意思是引用想对路径)，也可以不用暂时不用管这个，毕竟我们只是了解创建博客步骤，但是还是请你留意两个文件<code>content\</code> 和<code>public\</code> ，<code>content\</code> 用来写文章的文件，暂时还没有<code>public\</code>文件夹,这个是把<code>content\</code> 文件夹下面的文章转变为html博客文章</p>
+<h4 id="6运行blogdownserve_site-博客创建完成">6、运行<code>blogdown:::serve_site()</code> 博客创建完成.</h4>
+<ul>
+<li>也可以点击【adds】&ndash;【serve_site】，rstudio右边会有本地浏览</li>
+</ul>
+<h4 id="7发布到网上">7、<strong>发布到网上</strong></h4>
+<ul>
+<li>创建github和netlify网站的账号，下载git客服端，以及github客服端，可能有相关配置，配置好即可</li>
+<li>打开github客服端，点击【file】&ndash;【Create a new repository】添加仓库地址即我们刚刚的创建博客的地址，选择<code>E\test_blog</code> ，选择子目录和父目录都不可以，只能选择他，填写相关Name 和 Description完成即可，可以勾选 &hellip;..a README,创建完成</li>
+<li>初次可以看到History里面有我们刚刚的文件 ，点击Publish repository，弹出对话框，有一个Name，这个是要上传给github仓库的名字，它自动创建为test_blog,也有描述内容，注意他勾选了一个<code>Keep this code private</code> ，这个要点取消，最后一步点击【Publish repository】,等待完成</li>
+<li>上github官网，查看你的仓库，已经有一个test_blog仓库</li>
+<li>进入<a href="https://app.netlify.com/">netlify官网</a> ,点击【New site from Git】&mdash;【github】（取消勾选下面的LImit Github&hellip;&hellip;..）&ndash;选择刚刚的test_blog仓库&mdash;在显示Publish directory 的地方如数public&mdash;最后点击部署，等待完成</li>
+<li>找到部署完成以后会有个绿色的网站，我的是：https://thirsty-hawking-274891.netlify.com,点击进入，就是我们部署的博客了，</li>
+<li>网站名太难记，可以改名，改为自己喜欢的民资，只能改netlify的前面的地方,我改为：qaz.netlify.com</li>
+</ul>
+<h4 id="8发布新帖">8、发布新帖</h4>
+<ol>
+<li>方法一：将原有的<code>.md</code>或 <code>.Rmd</code>拷贝粘贴，改一下标题和内容即可；</li>
+<li>方法二：在RSudio代码窗口点击 Addins- New Post， 按提示填写即可。
+<ul>
+<li>写完以后，保存，运行建站函数<code>blogdown::build_site()</code> 。这样文件发生变化，github客服端自动检测，只需要你填写【Change】下面的summary和Description，点击提交给master，再次同步到github（点击Fetch origin） 完成，netlify自动同步github的内容 进入你的博客网站可以看到有了新变化</li>
+</ul>
+</li>
+</ol>
+<h4 id="9添加disqus评论功能科学上网">9、添加disqus评论功能(科学上网)</h4>
+<ol>
+<li>
+<p>注册登录<a href="https://disqus.com/">disqus</a> ,点击头像 &ndash;settings &mdash;Add Disqus To site&ndash;[GET STARTED]&mdash;&ndash;I want to install Disqus on my site &mdash;&mdash;输入刚刚的网站 ：qaz.netlify.com</p>
+</li>
+<li>
+<p>找到安装disqus，有很多图标，但是没有hugo，因此选择 下面I don&rsquo;t see my platform listed, install manually with <strong>Universal Code</strong> 即可&ndash;不用管 直接configure&mdash;-配置网站地址，点击下一步到最后</p>
+</li>
+<li>
+<p>注意：一定要找对 shortname ，在网显示为：     Your website shortname is <code>********</code></p>
+</li>
+<li>
+<p>在rstudio，刚刚的博客配置config.toml中有一个disqusShortname填上你的名字</p>
+<p>以及添加：<code>baseurl = &quot;http://qaz.netlify.com&quot;</code></p>
+<p>运行建站函数：<code>blogdown::build_site(local=FALSE)</code>再次同步</p>
+</li>
+</ol>
+<h4 id="10-大功告成-一个带有评论的博客如需要自己的模板折腾吧">10 、大功告成 一个带有评论的博客，如需要自己的模板，折腾吧</h4>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="leancloud_visitors" data-flag-title="博客搭建——blogdown之md">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"> 上一篇: hugo-blogdown搭建网页过程中的小问题</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/"> 下一篇: 添加谷歌网站分析</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2017-12-28-博客搭建.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

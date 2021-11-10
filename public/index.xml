@@ -1,0 +1,1582 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>zsc</title>
+    <link>/</link>
+    <description>Recent content on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 16 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>matlab优化工具01线性规划之linprog</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/</guid>
+      <description>matlab优化工具01线性规划之linprog 常用这些函数， 写个笔记
+matlab 优化工具箱函数 基本函数 
+全局优化函数  遗传算法 ga() , 推荐, 可以处理带有约束问题的优化, 还可以求解混合整数规划 模式搜索算法 patternsearch() 模拟退火求解 simulannealbnd() 粒子群算法 particleswarm  基本选项参数  optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项  %% 函数用法与解释 options = optimset(&amp;#39;paraml&amp;#39;,vaJuel,&amp;#39;param2&amp;#39;,value2,...) % 如果选择用系统的默认值，则只需将参数的值设为 \[\]. optimset: 列出一个完整的优化参数列表及相应的可选值。 options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。 options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。 options=optimset(oldopts, &amp;#39;paraml&amp;#39; ,valuel ,...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。 %% eg: 列出所有的优化参数列表 &amp;gt;&amp;gt; optimset %% 结果省略  optimget 函数: 想查看某个优化参数的值  %% val= optimget(options, &amp;#39;param&amp;#39; ) : 获取优化参数结构体 options 中参数 param 的值。 val = optimget(options, &amp;#39;param&amp;#39;， default): 如果参数 param 在 options 中没有定义，则返回其默认值 %% eg: 查看某个优化参数的值 clc,clear all; options = optimset(&amp;#39;fmincon&amp;#39;) % 省略结果 options =optimset(options, &amp;#39;Display&amp;#39; , &amp;#39;iter&amp;#39;) %修改 Display 属性值为iter val = optimget(options,&amp;#39;Display&amp;#39;) % 重新获取fmincon 函数的 Display属性值</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具02非线性规划之fmincon</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/</guid>
+      <description>matlab优化工具02非线性规划之fmincon 由于经常用到一些matlab中基本的优化函数, 于是写一个笔记, 由于新版本的文档和以前版本的文档有点不一样, 搞得查起来有点费劲, 不过推荐新版本的文档
+非线性规划的标准型及参数解释 \[ \begin{aligned} &amp; \min \quad f(x) \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ c(x) \leq 0 \\ \operatorname{ceq}(x)=0 \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; f(x)是目标函数, x, b, beq是向量, \\ &amp; \textbf{A}, \textbf{Aeq}是矩阵,\\ &amp; c(x) 和 ceq(x) 是向量函數 \\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ &amp;c(x) 非线性不等式, ceq(x)非线性等式 \\ \end{aligned} \]
+% 2.基本语法 [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options) [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___) %% 等号左边参数解释 x 的返回值是决策向量x的取值，fval 的返回值是目标函数f(x)的取值 exitflag 参数，描述函数计算的退出条件 output, 输出模型的优化信息参数 lambda, 返回解x处包含拉格朗日乘子的lambda参数 grad, 返回解x处fun函数的梯度值 hessian, 返回解x处fun函数的hessian矩阵 %% 等号右边参数解释 fun是用M文件定义的函数f(x),代表了(非)线性目标函数, 对于复杂问题, 建议写出目标函数以及非线性约束的梯度 x0是x的初始值 A,b,Aeq,beq定义了线性约束 ,如果没有线性约束，则A=[],b=[],Aeq=[],beq=[] lb和ub是变量x的下界和上界，如果下界和上界没有约束，则lb=[],ub=[],也可以写成lb的各分量都为 -inf, ub的各分量都为inf nonlcon是用M文件定义的非线性向量函数约束,如果没有则写[] options定义了优化参数，不填写表示使用Matlab默认的参数设置 eg: options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;Algorithm&amp;#39;,&amp;#39;sqp&amp;#39;); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;SpecifyObjectiveGradient&amp;#39;,true); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;PlotFcn&amp;#39;,&amp;#39;optimplotfval&amp;#39;);    options 常见取值 说明     Algorithm 优化算法:</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具03全局优化之ga</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/</guid>
+      <description>matlab优化工具03全局优化之ga 首先,要明白遗传算法的基本思路,然后再利用这个函数求解问题,是非常方便的.
+新版本中很多优化函数的属性设置都采用: optimoptions(&#39;优化函数&#39;, &#39;属性1&#39;,&#39;属性值1&#39;,....)
+故gaoptimset不推荐了,但是基本都差不多,可能个别参数名变了
+一般模型及函数解释 \[ \begin{aligned} &amp; \min \quad f(x) \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ c(x) \leq 0 \\ \operatorname{ceq}(x)=0 \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; f(x)是目标函数, x, b, beq是向量, \\ &amp; \textbf{A}, \textbf{Aeq}是矩阵,\\ &amp; c(x) 和 ceq(x) 是向量函數 \\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ &amp;c(x) 非线性不等式, ceq(x)非线性等式 \\ \end{aligned} \]
+(求解最小值)语法: x = ga(fun,nvars,A,b,[],[],lb,ub,nonlcon,IntCon,options) [x,fval,exitflag,output,population,scores] = ga(___) % 解释: fun 为适应度句柄函数, 一般其输入为1*nvars的向量 nvars, 即目标函数自变量的个数 A,b,Aeq,beq,LB,UB,nonlcon参数与fmincon中类似,不在解释 IntCon, 整数约束, 指定变量的下标则说明该变量为整数变量 options, 算法的属性设置 x,最优解 fval, 最优解对应的目标函数值 exitflag, 算法停止的原因 output, 输出算法结构 population, 最终得到种群适应度的列向量 scores, 最终得到的种群 options = optimoptions(&amp;#39;ga&amp;#39;,&amp;#39;PlotFcn&amp;#39;,@gaplotbestf); optimoptions **Optimization 解读, 详细解读,参考官网,这里只给出一些概念 **</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具04二次规划之quadprog</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B704%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92%E4%B9%8Bquadprog/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B704%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92%E4%B9%8Bquadprog/</guid>
+      <description>matlab优化工具04二次规划之quadprog 二次规划问题是目标函数为 $ \textbf{x}$ 的二次形式, 约束条件为线性等式或不等式约束
+二次规划的一般模型 \[ \begin{aligned} &amp; \min \quad f^T x + \frac{1}{2}x^T \textbf{H} x \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; x, b, beq是向量, f^T 为一次项的系数, \\ &amp; \textbf{A}是矩阵,\textbf{H}是矩阵 \\ &amp; \textbf{H}是矩阵,即二次项系数,用以描述x_i^2 以及 x_i x_j项\\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ \end{aligned} \]
+当然,二次规划的目标函数中的二次项还可以用元素的形式表达,即 \( \begin{aligned} \frac{1}{2}\left(h_{11} x_{1}^{2}+h_{12} x_{1} x_{2}+\cdots+h_{1 n} x_{1} x_{n}+h_{21} x_{1} x_{2}+h_{22} x_{2}^{2}+\cdots+h_{n n} x_{n}^{2}\right) \end{aligned} \)</description>
+    </item>
+    
+    <item>
+      <title>该博客现有的问题</title>
+      <link>/issue/</link>
+      <pubDate>Tue, 05 Jan 2021 21:48:51 -0700</pubDate>
+      
+      <guid>/issue/</guid>
+      <description>博客为blogdown搭建的,基于hugo.
+ hugo搭建博客一个主要的问题 — — 数学公式显示异常— — 暂未找到很好的解决办法  </description>
+    </item>
+    
+    <item>
+      <title>zotero 设置</title>
+      <link>/macnote/20201008zoteroset/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/20201008zoteroset/</guid>
+      <description>zotero 设置 发现wolai这个软件不错，比这个方便多了
+参考：https://www.wolai.com/ojv74ziTho3c13ui8uxuRf
+备用连接： https://www.wolai.com/zsccy/6Qyx3yCvvqYyHwM9feHzXF?theme=light
+      [auth:lower][year][veryshorttitle:lower]           Collections pane: Show/hide –&amp;gt; CMD+1 Item pane: Show/hide –&amp;gt; CMD+2   </description>
+    </item>
+    
+    <item>
+      <title>sublime text3 使用方法以及相关插件</title>
+      <link>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</guid>
+      <description>sublime text3 使用方法以及相关插件 1. 软件的下载 1, 官网下载地址: http://www.sublimetext.com/
+2, 如果不安装插件,那还不如不装 sublime, 参考: https://packagecontrol.io/installation
+2. 插件的安装 2.1 安装Package Control  现在sublime 4 已出，自带这个功能啦 （2021年11月更新）  2.2 使用Package Control组件安装插件 mac: Cmd+Shift+P（Win：Ctrl+Shift+P），输入 install 选中 Install Package 并回车，输入或选择你需要的插件回车就安装了（注意左下角的小文字变化，会提示安装成功），安装其它插件也类似.
+3. 插件推荐 3.1 软件风格 风格包网站: https://packagecontrol.io](https://packagecontrol.io/)
+风格包: Spacegray：
+https://packagecontrol.io/packages/Theme%20-%20Spacegray  Preferences &amp;gt; color scheme &amp;gt;theme-spacegray Preferences-&amp;gt; setting 中设置以下  &amp;#34;theme&amp;#34;: &amp;#34;Spacegray.sublime-theme&amp;#34;, &amp;#34;color_scheme&amp;#34;: &amp;#34;Packages/Theme - Spacegray/base16-ocean.dark.tmTheme&amp;#34; 3.2 主题推荐 3.2.1 Material 主题  安装主题  快捷键 ⌘(Command) + ⇧(Shift) + P回车后输入Package Control:Install再回车，输入Material搜索主题进行安装。</description>
+    </item>
+    
+    <item>
+      <title>mac 软件安装</title>
+      <link>/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</guid>
+      <description>mac 软件安装 利用homebrew安装,官网:https://brew.sh/
+在终端运行
+$ /bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&amp;#34; 如果能运行成功,则下一步进行安装.
+更换国内源(终端直接运行) &amp;ndash; 建议去官网
+git -C &amp;#34;$(brew --repo)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git git -C &amp;#34;$(brew --repo homebrew/core)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git git -C &amp;#34;$(brew --repo homebrew/cask)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles source ~/.bash_profile brew update # 更新 更新 Homebrew 自己, brew upgrade # 更新所有的包 ### 最后查看是否配置成功 brew config 参考:
+2019-11-20-mac常用软件
+https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
+https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue_xia_zai_man_wen_ti/
+常用软件安装 brew cask install google-chrome # Google浏览器 brew cask install typora brew cask install sublime-text	brew cask install github brew cask install mathpix-snipping-tool brew cask install tencent-lemon # 腾讯柠檬清理软件 brew cask install contexts brew cask install firefox brew cask install the-unarchiver # 解压工具 brew cask install keka # 解压缩工具 # 可以购买myzip专业版,这个软件具有上述两个软件的常用功能,解压缩 brew cask install qq	brew cask install iina brew cask install mounty # U盘挂在软件 ## mounty开源的.</description>
+    </item>
+    
+    <item>
+      <title>mac 系统的设置</title>
+      <link>/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</guid>
+      <description>mac 系统的设置 新系统, 首先我们要安装一些必要的软件,和做一些基本的设置.
+本文做一些基本的设置
+更改终端的颜色 和主机名 sudo echo &amp;#34;export CLICOLOR=1&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export LSCOLORS=gxfxcxdxbxegedabagacad&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export PS1=&amp;#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &amp;#39;&amp;#34;&amp;gt;&amp;gt; ~/.bash_profile source ~/.bash_profile 参考: 2019-11-19mac终端样式PS1
+命令行更改主机名
+scutil --set HostName lucky # 重启终端 hostname #查看主机名  备注： 还有在mac中使用vim, 可以有更好的方法 使用sublime  vim a.txt # 可以用  subl a.txt open a.txt 以下看情况设置  如果不能用则设置  设置网络的DNS. 打开&amp;ndash;wifi &amp;mdash;&amp;raquo; 高级&amp;mdash;&amp;gt; 设置 DNS ,
+添加
+114.114.114.114 8.8.8.8 修改/etc/hosts   不推荐 修改这个文件啦</description>
+    </item>
+    
+    <item>
+      <title>Mac 系统盘的制作与安装</title>
+      <link>/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
+      <description>Mac 系统盘的制作与安装 参考https://www.iplaysoft.com/macos-usb-install-drive.html 这篇文章制作U盘系统盘
+我个人推荐使用DiskMaker X 启动盘制作.官网: https://diskmakerx.com/
+如何进入系统盘 关机重启, 长按Option即可选择进入U盘, 先利用磁盘工具,格式化主磁盘,然后,退出,在安装.
+注意: 也可以在线安装&amp;hellip;
+ Command（⌘）+ R ：安装Mac之前安装的最新macOS，而不升级到更高的版本。 Option + Command+ R：升级到与Mac兼容的最新macOS。 Shift + Option + Command + R：安装Mac原本出厂搭载的macOS，或是最接近且依然可用的版本。  https://blog.csdn.net/qq285744011/article/details/106987147
+MacOS U盘安装提示副本损坏听语音 解决办法:
+ 断网以后 打开左上角实用工具--&amp;gt;终端, 输入  date 032208102015.20 按回车键确认
+03是月，22是日，08是时，10是分，2015是年，20是秒 注意:先修改为现在的时间 , 还是不行再改往前修改为其他年份
+当提示时间修改完成后，推出终端，重新安装MacOS即可
+https://blog.csdn.net/li1339023842/article/details/102913864
+https://xitongtiankong.com/archives/58221
+https://jingyan.baidu.com/article/4d58d54155bd079dd5e9c043.html
+然后一直等着就好了. 感觉比win的U盘安装慢,(mac基本上安装了1个小时左右)</description>
+    </item>
+    
+    <item>
+      <title>起因</title>
+      <link>/macnote/20201003%E8%B5%B7%E5%9B%A0/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/20201003%E8%B5%B7%E5%9B%A0/</guid>
+      <description>起因 不知道latex最近抽什么风&amp;hellip; 导入eps文件出问题,报错如下:
+gpl ghostscript 9.50: can&#39;t find initialization file gs_init.ps. gpl ghostscript 9.53.2: unrecoverable error, exit code 1 心想不管了. 后又发现, 自己的毕业论文不能运行了? 心想我干脆更新了mactex(手贱)吧, 更新以后,有发现毕业论文还是报错, 以及以前的一些latex文稿都不能运行了. 我怀疑mactex 坏了, 于是卸载了, 重新安装&amp;hellip;&amp;hellip;..,来回试了几遍,咦,咋回事,都不行??? 开始着急了. 心想该不是我把重要的文件删了吧? (巧在我这个时候, 利用了一个清理软件&amp;mdash;&amp;ndash;且输入了密码&amp;hellip;) 于是开始了重装系统的想法&amp;hellip;&amp;hellip;
+加上以前制作了U盘的mac系统.顺便尝试一下&amp;hellip;&amp;hellip;.
+由于我设置的是时间作为顺序,因此更改一下时间,看起来有序</description>
+    </item>
+    
+    <item>
+      <title>R动画</title>
+      <link>/md/2020-08-16-r%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-16-r%E5%8A%A8%E7%94%BB/</guid>
+      <description>R 动画 动画的本质是有n张图片进行拼接,到达欺骗人的眼睛.
+在R中有常见的有两个包.
+ gifski 包, 搭配 rmd 文件使用, gganimation 包  gifski 包 安装 gifski 包：
+xfun::pkg_load2(&amp;#39;gifski&amp;#39;) 再用代码段选项 animation.hook=&#39;gifski&#39;，如:
+```{r, animation.hook=&amp;#39;gifski&amp;#39;} for (i in 1:2) { pie(c(i %% 2, 6), col = c(&amp;#39;red&amp;#39;, &amp;#39;yellow&amp;#39;), labels = NA) } ``` 则会直接生成gif动画
+https://slides.yihui.org/2020-bearclub-rmarkdown.html#7
+gganimation 包 见官网</description>
+    </item>
+    
+    <item>
+      <title>画函数图像--R语言</title>
+      <link>/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</guid>
+      <description>据我了解, 计算机软件中画的函数图像大概有两种方法:
+ 方法一: 该图像有一系列密集点组成, 已达到欺骗人们的眼睛.感觉认为是连续的. 方法二: 为了解决方法一种的问题,把每两个点之间用直线连接已达到连续的状态  在本文中我们将利用R语言来画函数图像—- 重点以ggplot2来展示
+1. \(y = f(x)\) 的函数图像 比如:
+\[ \begin{aligned}y &amp;amp;= sin(x),\\ y &amp;amp;= cos(x), \\ y &amp;amp;= \dfrac{1}{1+e^{(-x)}},\\ y &amp;amp;= x^2 . \end{aligned} \]
+这是我们中学最常见的函数.
+方法一: curve()画函数图像 所用函数调用格式
+curve(expr, from = NULL, to = NULL, n = 101, add = FALSE,  type = &amp;quot;l&amp;quot;, xname = &amp;quot;x&amp;quot;, xlab = xname, ylab = NULL,  log = NULL, xlim = NULL, .</description>
+    </item>
+    
+    <item>
+      <title>latex 参考文献格式: GB/7714</title>
+      <link>/md/2020-08-14-gb7714/</link>
+      <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-14-gb7714/</guid>
+      <description>注意所有一下运行环境均在MacTex 2018 下运行的, 如果是MacTex 2020 且更新到最新的话,以下方法会报错&amp;hellip;原因是之后的版本修改了一些参数.(有空在出Mactex 2020的)
+1. bst 文件 bst样式文件来源:
+https://github.com/CTeX-org/gbt7714-bibtex-style
+1.1. 使用方法 方法一: 直接使用gbt7714 宏包,一般texlive自带该宏包,不过版本应该比较旧是1.XX 可以更新到2.*
+\documentclass{article} \usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \bibliographystyle{gbt7714-numerical} \usepackage[super]{gbt7714} \begin{document} 正文 \cite{herrera2004some} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{xu2014weak,xu2018methods} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究} \bibliography{test} \end{document} 方法二: 也可以下载单个的bst文件, 放在.tex所在的目录下,这样使用
+\documentclass{article} \usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \usepackage[super,sort&amp;amp;compress,square]{natbib} \bibliographystyle{gbt7714-numerical} \begin{document} 正文 \cite{herrera2004some} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{xu2014weak,xu2018methods} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究} \bibliography{test} \end{document} 1.2. 修改默认样式 在 bst 文件开始处的 load.config 函数中，有一组配置参数用来控制样 式，下表列出了每一项的默认值和功能。若变量被设为#1则表示该项被启用， 设为#0则不启用。默认的值是严格遵循国标的配置。
+2. biblatex 格式 由于版本原因,需要biblatex-gb7714-2015 下载对应的文件,放入当前目录</description>
+    </item>
+    
+    <item>
+      <title>latex 参考文献生成(总结)</title>
+      <link>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</link>
+      <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</guid>
+      <description>生成latex参考文献大致有4种方法&amp;hellip;..
+使用环境: MacTeX 2018 + texstudio, texstudio编译器改为xelatex
+0. 什么是*.bib 文件 注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为.bib的文件,这里我建立一个bib文件, 如text.bib, 去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:
+把上图的内容复制到我们所创建的test.bib文件中即可.
+注意: 生成参考文献的好坏,80% 都看你的bib数据文件
+1. 使用 thebibliography 环境&amp;ndash; 手动书写 使用格式:
+\begin{thebibliography}{99} \bibitem{citekey1} ***自己书写参考文献*** \bibitem{citekey2} ***自己书写参考文献*** ..... \end{thebibliography} 完整的案例如下:
+\documentclass{article} \usepackage{ctex}%加载ctex宏包，中文支持  \begin{document} 测试文档，参考文献\cite{hosseini2016modeling,wang2019snow} \begin{thebibliography}{99} \bibitem{hosseini2016modeling}	Hosseini~S, Barker~K. Modeling infrastructure resilience using {{Bayesian}} networks: {{A}}	case study of inland waterway ports [J]. Computers \&amp;amp; Industrial Engineering, 2016, 93: 252-266. \bibitem{wang2019snow} Wang~J, Liu~H. Snow removal resource location and allocation optimization for urban road network recovery: a resilience perspective [J].</description>
+    </item>
+    
+    <item>
+      <title>latex 缩写期刊</title>
+      <link>/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</link>
+      <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</guid>
+      <description>以下软件对参考文献都不能完美的满足我的要求, 因此可以结合不同软件的优势,达到最后的效果
+1. zotero 设置—首选项—bitter bibtex —export — 最下面有一个期刊缩写,选购就能导出缩写的期刊名了
+ 特点:  使用该软件, 系统自带的期刊缩写对照表很少, 且不能添加对照表, 不会自动更新bib文件 可以按照key键的顺序(升序) 导出bib数据库, 只需导出时选中[biter bibtex]选项即可 也可以安装以前的方式导出bib数据库, 只需导出时选中[bibtex]选项即可    2. Mendeley  特点:  默认情况下, 联网会自动更新bib数据库, 这一点很烦(for me), 因此可以直接断网使用该软件 期刊缩写很好,内置了很多比较全的期刊缩写.但某些期刊仍不全面,且缩写的格式看不见    3. Jabref软件 特点:
+  内置的期刊缩写相对较少, 但是可以手动添加期刊缩写列表(官网有), 就是电脑卡
+  由于bib文件中使用的是\&amp;amp; , 而jabref软件中默认使用&amp;amp;, 这样对照表中可能不会存在相应的缩写
+  不能导出按照key键顺序导出相应的bib文件
+  使用期刊缩写时,首先使用展开期刊全名,才去缩写,不然有可能找不到,
+  不会自动更新bib文件
+下面是使用期刊缩写步骤, 先管理期刊缩写名(选择使用哪种类型的对照表),在进行期刊缩写
+  4. 自用软件包journalabbr  利用Jabref软件提供了大量的期刊缩写列表https://github.com/JabRef/abbrv.jabref.org,但是在Jabref软件中使用经常死机. 借助 pandoc , 该软件提供了大量命令参数, 感兴趣的可以去探索, 而xieyihui 通过使用*.</description>
+    </item>
+    
+    <item>
+      <title>latex 笔记</title>
+      <link>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</guid>
+      <description>1, 交叉引用 \eqref{eq:eq1} :交叉引用公式编号自动带括号: 2, 完整模板解析 \documentclass[review]{elsarticle} %\usepackage{ctex} \usepackage{lineno, hyperref} \hypersetup{colorlinks=true, citecolor=blue, anchorcolor=blue} \modulolinenumbers[5] %\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue]{hyperref}  \usepackage{amsmath} \usepackage{amssymb} \usepackage{amsthm} \usepackage[american]{babel} % 具有多语种处理功能的宏包,英文为默认文字,和microtype包一起使用,用于页面两端对齐 \usepackage{microtype} % 用于页面两端对齐  \usepackage{graphicx} % 插图包 --- \includegraphics[height=高度][angle=旋转角度]{图片文件名} \usepackage{multirow} % 处理表格 --列合并用”\multicolumn“，行合并用。\multirow{2}{*}{显示的文本} % 引用 --- \multirow 函数/标志符： {占用行数} {方框边界竖线|文字居左中右|方框边界竖线} {内容} % 引用 --- \multicolumn 函数/标志符： {占用列数} {方框边界竖线|文字居左中右|方框边界竖线} {内容}  \usepackage{indentfirst} %段首缩进需要的宏包 \setlength{\parindent}{2em}%设置段首缩进两个汉字 %\noindent强制不缩进 % \setlength{\parskip}{1em}%paragraph skip,调整的是段落间距离  %\usepackage{lscape} % 表格横置, 只需要引用 landscape 环境即可 %\usepackage{pdflscape} % 页面横置,只需引用landscape环境即可 %\usepackage[figuresright]{rotating} % 将表格旋转为纵向放置，使用rotating宏包 % 要使用 sidewaystable 环境 %\usepackage{natbib}\usepackage[authoryear]{natbib}  \usepackage{enumerate} % enumerate 宏包 ,可以给有序列表设置 label,以及有缩进 %\usepackage{enumitem} % 可以给出缩进调整间距, label %\usepackage{showkeys} % 引用时显示引用的 label %\usepackage{paralist} % 列表相互嵌套是的缩进 ,也可以给出相应 label ,但是 label 和缩进都要设置  %%%%%% 交叉引用 开始%%%%%%% %% 第一部分 自定义新环境, \theoremstyle{definition} %自定义环境内的风格,比如字体是否为斜体,等等,这里采用的是正体 \newtheorem{thm}{Theorem} \newtheorem{cor}{Corollary} \newtheorem{lem}{Lemma} \newtheorem{pot}{\bf Proof} \newtheorem{rmk}{Definition} \newtheorem{pro}{Property} \newtheorem{example}{Example} %\newtheorem{exmp}{Example}  %% 第二部分 ,如果想要在引用时,自动添加definition,Theorem等字样,使用下面这部分 \usepackage[capitalize, nameinlink]{cleveref} %交叉应用 在数字前自动添加某些字符; 引用时 用\cref{}的形式 \crefname{thm}{Theorem}{Theorems} %\crefname{cor}{Corollary}{Corollarys} \crefname{lem}{Lemma}{Lemmas} \crefname{pot}{Proof} {Proofs} \crefname{rmk}{Definition}{Definitions} \crefname{pro}{Property}{Propertys} \crefname{example}{Example}{Examples} \crefname{figure}{Figure}{Figures} % 图片以及表格有默认的,但是也可以重新定义 % \DeclareUnicodeCharacter{0301}{\&amp;#39;{e}} %pdflatex 需要用到 UTF-8 字符时，需要此命令  %%%%%% 交叉引用结束 %%%%%%%  \journal{European Journal of Operational Research} % 参考文献的引用样式,可以去网上找各大期刊的模板 \bibliographystyle{elsarticle-harv}\biboptions{authoryear} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%一下为正文部分 \begin{document} \section{Introduction} \section{Preliminaries} \section*{Acknowledgements} \setcitestyle{numbers} \bibliography{references} % 这里引用的 bibtex 参考文献 \end{document} 注释:</description>
+    </item>
+    
+    <item>
+      <title>bib与enw文件之间的相互转换</title>
+      <link>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</guid>
+      <description>*.bib 与*.enw 文件之间的相互转换 方法一: JabRef 软件
+方法二: bibutils
+为了将BibTeX转换为带标签的Endnote，只需调用：
+$ bib2xml input.bib | xml2end &amp;gt; output.enw 转换为RIS类似于：
+$ bib2xml input.bib | xml2ris &amp;gt; output.ris </description>
+    </item>
+    
+    <item>
+      <title>mactex卸载</title>
+      <link>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</guid>
+      <description>mactex卸载 参考： http://www.tug.org/mactex/uninstalling.html
+https://blog.csdn.net/nicekwell/article/details/97279215
+MacTeX是mac下的latex工具，卸载方法：
+1、/usr/local/texlive/2018/ 目录，这是占用空间最大的目录
+2、卸载GUI，到/Application/ 目录里删掉几个app即可。
+3、/Library/TeX
+4、~/Library/texlive/2019
+sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/texlive cd /usr/local/ sudo rm -rf texlive/ cd /Library/ sudo rm -rf TeX/ cd ~/Library/texlive sudo rm -rf 2020 cd ~/Library sudo rm -rf texlive </description>
+    </item>
+    
+    <item>
+      <title>R&amp;shiny自动截图</title>
+      <link>/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</guid>
+      <description>利用webshot 进行截图 library(shiny) library(ggplot2) histogram &amp;lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) { df &amp;lt;- data.frame( x = c(x1, x2), g = c(rep(&amp;quot;x1&amp;quot;, length(x1)), rep(&amp;quot;x2&amp;quot;, length(x2))) ) ggplot(df, aes(x, fill = g)) + geom_histogram(binwidth = binwidth) + coord_cartesian(xlim = xlim) } ui &amp;lt;- fluidPage( fluidRow( column(3, numericInput(&amp;quot;lambda1&amp;quot;, label = &amp;quot;lambda1&amp;quot;, value = 3), numericInput(&amp;quot;lambda2&amp;quot;, label = &amp;quot;lambda2&amp;quot;, value = 4), numericInput(&amp;quot;n&amp;quot;, label = &amp;quot;n&amp;quot;, value = 1e4, min = 0), # 增加一个按钮 actionButton(&amp;quot;simulate&amp;quot;, &amp;quot;Simulate!</description>
+    </item>
+    
+    <item>
+      <title>创建属于自己的rmarkdown模板文件</title>
+      <link>/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</guid>
+      <description>rmarkdown模板文件的创建 &amp;mdash;- 修改prettydoc模板
+下载链接: zscbeautiful
+下载下来后, 把css和html 分别放在对应的目录中替换即可
+Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/library/prettydoc/ , 只需把下载下来的文件进行替换即可
+创建模板的步骤: 新建文件&amp;mdash;&amp;gt; R mardown&amp;mdash;&amp;gt; From Template如图:
+参考: https://cosx.org/2019/10/prettydoc-internals-ljj/</description>
+    </item>
+    
+    <item>
+      <title>基本绘图中添加指定中文字体</title>
+      <link>/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-03-10-r%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</guid>
+      <description>基本绘图中添加指定中文字体 方法一: 使用par(family=&#39;STKaiti&#39;) , 方法二: 直接在画图函数后添加family 参数指定字体,在R.3.6.x 已经不可以了 barplot(df[sex == &#39;男&#39;,table(Year)],main = &amp;quot;男性条形统计图&amp;quot;,family = &#39;Songti SC&#39;) 方法三: 使用showtext包,需要xquartz软件,可以使用brew cask install xquartz library(showtext) #使用下面的函数查看所有字体,选择中文字体添加 font_files() showtext_auto(enable = TRUE) font_add(&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;,&#39;STXihei&#39;) #添加中文字体 quartz(family = &amp;quot;STXihei&amp;quot;) #可以把STXihei替换成任意想要的字体，如&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;等 方法四: extrafontdb 软件包 方法五: ggplot2绘图中添加指定中文字体 library(ggplot2) p = ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, col = Species)) + geom_point() p = p + labs(title = &amp;quot;iris数据集&amp;quot;) p = p + theme(plot.title = element_text(hjust = 0.</description>
+    </item>
+    
+    <item>
+      <title>corr详解(MATLAB)</title>
+      <link>/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</guid>
+      <description>corr详解（MATLAB）  corrcoef是对两个列向量，或者一个矩阵的每列进行的，用的是pearson相关 corr可以对两个矩阵的每列进行，也可以对一个矩阵的每列进行，相关的类型可以是pearson或者Kendall或者Spearman 总之，corr强大很多  1、corrcoef R = corrcoef(A) 输入：一个矩阵A，
+方法：计算矩阵A的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。
+返回： 一个相关系数矩阵R，
+A = randn(n,m); % A是一个n*m的矩阵 corrcoef(A) % 返回一个m*m的对称矩阵 R = corrcoef(A,B) 输入： 两个向量，A，B均为列向量
+返回：一个2*2 对称的相关系数矩阵
+如果A, B 均为矩阵，则先把A，B转变为列向量，然后再计算皮尔逊相关系数，即等价于如下形式
+A = randn(n,m); % A是一个n*m的矩阵 B = randn(n,m); % B是一个n*m的矩阵, %% 注意A，B矩阵的个数一定要一样 corrcoef(A,B） % 返回一个2*2的对称矩阵 corrcoef(A(:),B(:)) % 等价 corrcoef(A,B） 2、corr rho = corr(X) 输入：一个矩阵X
+方法: 计算矩阵X的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。
+返回： 返回一个对称的相关系数矩阵rho
+rho = corr(X,Y) 输入： X为$nm1$的矩阵，Y为$nm2$的矩阵
+方法：返回输入矩阵X和Y中每对列之间的成对相关系数矩阵。
+返回一个$m1*m2$的矩阵，其中第i行第j列元素代表X的第i列与Y第j列的相关系数
+[rho,pval] = corr(___,Name,Value) R = corr(X,&#39;Type&#39;,&#39;Pearson&#39;) R = corr(X,Y,&#39;Type&#39;,&#39;Pearson&#39;) R = corr(X,Y,&#39;Type&#39;,&#39;Kendall&#39;) R = corr(X,Y,&#39;Type&#39;,&#39;Spearman&#39;) </description>
+    </item>
+    
+    <item>
+      <title>计算各种距离 （matlab）</title>
+      <link>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</guid>
+      <description>pdist &amp;ndash;不推荐使用&amp;ndash;好像是计算元素之间的距离
+观测值对之间的成对距离
+matlab中自带的计算距离矩阵的函数有两个pdist和pdist2。前者计算一个向量自身的距离矩阵，后者计算两个向量之间的距离矩阵。基本调用形式如下：
+输入： 一个矩阵
+计算方法: 案例计算各自的距离
+D = pdist(X) D = pdist(X,Distance) D = pdist(X,Distance,DistParameter) pdist2 &amp;mdash; 计算向量之间的距离</description>
+    </item>
+    
+    <item>
+      <title>macOS tcping 检测IP端口</title>
+      <link>/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</link>
+      <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</guid>
+      <description>macOS tcping 检测IP端口 安装tcping $ brew install tcping $ which tcping 2，检测IP端口是否被屏蔽 $ tcping 14.215.177.39 80 </description>
+    </item>
+    
+    <item>
+      <title>mac 挂载NTFS出现灰色文件</title>
+      <link>/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</link>
+      <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</guid>
+      <description>Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法 Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法，即文件出现灰色的现象。 或者使用付费的Tuxera 软件都会出现灰色文件,
+解决办法(在终端的灰色文件目录下面的命令即可)
+xattr -d com.apple.FinderInfo * </description>
+    </item>
+    
+    <item>
+      <title>git 笔记</title>
+      <link>/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-20-git%E7%AC%94%E8%AE%B0/</guid>
+      <description>1. git 的安装与配置 安装不多说,
+初次运行 git前的配置, 配置全局信息: 用户名与邮箱,(此处的用户名与邮箱需要到 github 注册)
+$ git config --global user.name &amp;#34;XXX&amp;#34; $ git config --global user.email &amp;#34;email@example.com&amp;#34; 如果已经多次使用 git ,可以用以下命令进行查看
+$ git config -l % 查看所有配置信息 $ git config --global -l % 查看全局配置信息 $ cat ~/.gitconfig % 用户的配置文件 注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
+一些终端基础命令
+$ ls -al # 查看所有文件夹 $ pwd # 查看当前所在的目录 $ clear # 清屏(终端) 2 . 创建本地仓库 2.1 创建版本库 (即初始化一个空仓库, 这个目录下的所有路径都称作工作区) 版本库又名仓库(repository)，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。
+$ git init # 该命令会在当前目录下创建了隐藏目录.</description>
+    </item>
+    
+    <item>
+      <title>mac 常用软件</title>
+      <link>/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-20-mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
+      <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 2. homebrew 主页: https://brew.sh/ 2.1安装 /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 卸载(未试过) 方法一: 网上找的,
+可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
+方法 2: 官方版本
+ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;quot; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
+https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
+2.3 安装包 和卸载包 brew install &amp;lt;packageName&amp;gt; % 这个安装的是只有命令行的工具 brew cask install google-chrome % 注意 brew cask install 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew cask uninstall &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 brew cask install qlcolorcode # 预览使得文本具有颜色,即给代码上色 brew cask install qlstephen # 语法高亮 ### 更新brew cask 安装过的软件.</description>
+    </item>
+    
+    <item>
+      <title>mac常用软件安装</title>
+      <link>/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
+      <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 2. homebrew 主页: https://brew.sh/ 2.1安装 把DSN 设置为8.8.8.8和8.8.4.4 这样才不会报错
+/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 卸载(未试过) 方法一: 网上找的,
+可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
+方法 2: 官方版本
+ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;quot; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
+https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
+2.3 安装包 和卸载包 brew install &amp;lt;packageName&amp;gt; % 这个安装的是只有命令行的工具 brew cask install google-chrome % 注意 brew cask install 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew cask uninstall &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 brew cask reinstall qq % 推荐，直接重新安装 ########文本文件预览 brew cask install qlcolorcode # 预览使得文本具有颜色,即给代码上色 brew cask install qlstephen # 语法高亮 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package quicklookase qlvideo brew cask install suspicious-package quicklookase qlvideo 超级右键 macApp 安装 软件更新 brew cask outdated # 可以查看cask安装的软件是否存在着需要更新的版本； brew cask upgrade xxx #进行软件更新； brew tap buo/cask-upgrade # 安装 brew-cask-upgrade brew cu # 更新所有过时应用： brew cu [CASK] # 更新指定应用： 软件清理 brew cleanup --prune 0 cleanup [options] [formula|cask] Remove stale lock files and outdated downloads for all formulae and casks, and remove old versions of installed formulae.</description>
+    </item>
+    
+    <item>
+      <title>mac 终端样式配置</title>
+      <link>/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</link>
+      <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</guid>
+      <description>mac 终端样式配置 首先，弄明白bash 和zsh&amp;hellip;.
+1 mac shell一览 unix核的系统如linux、macos的shell 默认都是bash
+就如第一张图查询所示，mac有6个shell，默认是/bin/bash
+1.1 查看安装了哪些shell ： cat /etc/shells 1.2 查看当前使用的shell echo $SHELL # 方法一 echo $0 # 方法二 1.3 bash和zsh切换 切换到bash
+chsh -s /bin/bash 切换到zsh
+chsh -s /bin/zsh 记得输入切换命令后，要重新打开终端terminal才生效哦！
+2、终端美化 &amp;mdash;iterm2 + zsh配置方法 2.1 安装iterm2 -官网 我不能确定zsh是否需要iterm2作为基础，因此我安装了iterm2
+ 官网下载安装： https://www.iterm2.com/ brew 安装，$ brew cask install iterm2  2.2 zsh 配置方法 要自定义各种配置 我们就要修改默认shell 改用zsh，据说zsh比bash更强大（都是浮云 读者自行查找为啥强大吧），oh my zsh是开源的 a delightful &amp;amp; open source framework for Z-Shell，也就是说我们用它 配置zsh更容易</description>
+    </item>
+    
+    <item>
+      <title>R中常用的批处理操作</title>
+      <link>/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-19-r%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C/</guid>
+      <description>批量重命名文件名 setwd(&amp;#39;/Users/zsc/Desktop/音乐mp3/&amp;#39;) library(stringr) oldname = list.files(pattern = &amp;#39;.*mp3&amp;#39;) newname = str_extract(d,&amp;#39;.*(?=158)&amp;#39;) df = data.frame(oldname = oldname, newname = newname) df file.rename(df$oldname, df$newname) 批量统计 pdf 的页数 library(qpdf) setwd(&amp;#39;/Users/zsc/Desktop/pdf/&amp;#39;) d = list.files() d d1 = str_extract(d,&amp;#39;.*?.pdf$&amp;#39;) library(purrr) map_dbl(d1, pdf_length) map_dbl(d1, pdf_length) %&amp;gt;% sum() 移除latex生成的临时文件 p = getwd() cat(p,&amp;#39;\n&amp;#39;) t = &amp;#39;*.aux|*.bbl|*.bcf|*.blg|*.log|*.xml|*.out|*.spl|*.synctex.gz&amp;#39; del = list.files(path = p,pattern = t) file.remove(del) </description>
+    </item>
+    
+    <item>
+      <title>MATLAB 与 R 在排序上的区别</title>
+      <link>/matlab/2019-11-15-matlab-r-rank/</link>
+      <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-15-matlab-r-rank/</guid>
+      <description>MATLAB 与 R 在排序上的区别 R 中的 rank , 返回一个向量的秩 R语言排序有几个基本函数： sort()；rank()；order() sort（）是对向量进行从小到大的排序 rank（）返回的是对向量中每个数值对应的秩 order（）返回的值表示位置，依次对应的是向量的最小值、次小值、第三小值......最大值 &amp;gt; data=c(5,6,8,2,4,9) &amp;gt; sort(data) [1] 2 4 5 6 8 9 &amp;gt; rank(data) % 秩,即排序后的位置,比如 data 中的第一个元素 5,在升序排序中是占第 3 个位置,所以返回 3. [1] 3 4 5 1 2 6 &amp;gt; order(data) [1] 4 5 1 2 3 6 MATLAB [y , index] = sort(x); y 把 x 排列升序后的结果 % 类似 R 中的 sort index 为 x 的秩 % 类似 R 中的 order tiedrank(data) % 类似 R 中的 rank, 返回平均秩, ans = 3 4 5 1 2 6 &amp;gt;&amp;gt; data=[5,6,8,2,4,9]; [y, index] =sort(data) y = 2 4 5 6 8 9 index = 4 5 1 2 3 6 有 y == data(index) &amp;gt;&amp;gt; tiedrank(data) ans = 3 4 5 1 2 6 tiedrank([10 20 30 40 20]) % 返回平均秩 ans = 1 2.</description>
+    </item>
+    
+    <item>
+      <title>Armadillo &#43; Rcpp  VS  MATLAB/octave</title>
+      <link>/matlab/2019-11-14-matlab_rcpp_c/</link>
+      <pubDate>Thu, 14 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-14-matlab_rcpp_c/</guid>
+      <description>*Armadillo + Rcpp VS MATLAB/octave  http://arma.sourceforge.net/docs.html  1. Armadillo VS matlab    Matlab/Octave Armadillo Notes     A,B,C代表矩阵a,b,c 代表向量 vec x(10);vec y = zeros(10);rowvec x(10); rowvec y = zeros(10); rowvec a = {1,2,3,4};vec b = {1,2,3,4};mat A = randu(10,10); C++中要声明向量类型(这里都是 double 类型)vec 默认 colvec(等价),是列向量   A(1,1) A(0,0) C++ 索引从 0 开始   A(k,k) A(k-1,k-1)         size(A,1) A.</description>
+    </item>
+    
+    <item>
+      <title>matlab 问题集合基础</title>
+      <link>/matlab/2019-11-13-matlab-question/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-13-matlab-question/</guid>
+      <description>1、inputname获取函数参数名字,返回一个字符串 2、 输入可变长参数,以及输出可变长参数 3、 nargin 捕获输入参数的个数, nargout 捕获输出参数的个数. function varargout = foo(varargin) %输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储,  %而inputname 存变量名的方式,用的是字符数组矩阵的形式 if nargin == 2 varargout{1} = a1; varargout{2} = a2; else nargin == 3 varargout{1} = a1; varargout{2} = a2; varargout{3} = a3; end function varargout = combin_index(varargin) variable_name = cell(1,nargin); % 创建一个 1* nargin 大小的 cell, for i = 1:nargin T = f(varargin{i}); % 获取的新参数 传递给另一个函数 variable_name{i} = inputname(i); % 由于变量名是字符,所以用细胞来存储 end % variable_name 这个 cell 存储了变量名 4、 table 类型的变量如何进行转置,对于表格，您可以使用&amp;rsquo;table2cell&amp;rsquo;和&amp;rsquo;cell2table&amp;rsquo;的组合： Xc = table2cell(X) % 这里 X 为要转置的表,Xt 为转置后的表 Xt = cell2table(Xc&amp;#39;,&amp;#39;RowNames&amp;#39;,X.</description>
+    </item>
+    
+    <item>
+      <title>MATLAB函数中参数的问题</title>
+      <link>/matlab/2019-11-13-matlab-fun-arg/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-13-matlab-fun-arg/</guid>
+      <description>1. nargin, nargout— 捕获输入输出参数个数 　函数功能: 返回函数参数数量(一般在函数内部使用)
+　在函数内部使用时,nargin 和 nargout分别表明有输入和输出参数数量。若在函数外部使用, nargin 和nargout对给定的函数，表明输入和输出参数数量。如果一个函数有可变数量的参数，参数数量为负值。
+ nargin：返回函数输入参数的数量。 nargin(fun)：返回函数 fun输入参数数量。如果函数参数数量可变，nargin 返回一个负值。fun 可以是函数名或映射函数的函数句柄。 nargout：返回函数输出参数的数量。 nargout(fun)：返回函数fun的输出参数数量。fun可以使函数名或映射函数的函数句柄。  2. inputname — 获取函数参数名称,返回一个字符串 　函数功能: 返回函数指定输入参数的名称字符串(只能在函数内部使用).
+​	inputname(argnum) : 注意: 这里的 argnum是一个数字,表示第几个参数,返回的是第argnum个参数的名称字符串。如果输入参数没有名称（例如它是一个表达式，而不是一个变量），这时会返回空字符串(&#39;&#39;)。 这个常常和varargin参数一起使用.
+3. varargin / varargout — —可变长输入/输出参数 函数功能: 在一个函数中，用于表示输入参数不确定的情况(只能在函数内部使用)
+本质上 是一个 cell 数组(大小 1* size(varargin,2)), 它包含了用户输入的参数.
+用 varargin{i} 调用第 i 个参数, 用varargin{:}调用所有的参量;
+function varargout = combin_index(varargin) %输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储,  %而inputname 存变量名的方式,用的是cell字符数组矩阵的形式 % 由于 nargin 参数已经计算了输入参数的总个数. size(varargin,2) 等价(某些情况下) variable_name = cell(1,nargin); % 创建一个 1* nargin 大小的 cell, for i = 1:nargin T = foo(varargin{i}); % 获取的新参数 传递给另一个函数 variable_name{i} = inputname(i); % 由于变量名是字符,所以用细胞来存储 end % variable_name 这个 cell 存储了变量名 这个varargout一般用的较少…….</description>
+    </item>
+    
+    <item>
+      <title>install old hugo version</title>
+      <link>/md/2019-11-04-installhugo/</link>
+      <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-04-installhugo/</guid>
+      <description>安装旧版本的 hugo 最近发现自己更新了 hugo 软件导致了主题的某些功能失效了, 于是需要退回旧版本的 hugo(0.55.5),
+方法一: https://gohugo.io/getting-started/installing/ 文章中的Install Hugo from Tarball 这一部分(个人电脑是 mac)
+方法二: 直接从 Rstduio 进行更新
+ 前提是: 必须保证 R 以及 R 包是最新的 使用如下命令  blogdown::install_hugo(version = &amp;#34;0.55.5&amp;#34;, use_brew = F, force = T, extended = TRUE) </description>
+    </item>
+    
+    <item>
+      <title>latex &#43; bib &#43; csl</title>
+      <link>/md/2019-11-04-latex-bib-csl/</link>
+      <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-04-latex-bib-csl/</guid>
+      <description>参考文献格式化调整系统 利用shiny制作
+利用 latex 写学术论文, 总爱遇到一个问题, 参考文献的样式问题, 由于 latex 的原因,不能使用 csl 参考样式文件, 因此本应用孕育而生.
+1, 只需要上传对应的 tex 源文件, 以及 bbl 文件和 csl 参考文献, 就能导出\bibitem 格式文件,
+2, 为什么要写这个,不用bst 模板文件 + bbl?
+ 我们导师只需要一个 tex 源文件,其余不相关的文件统统要柔和到一个文件里面,就这么简单.  3, 由于本人能力有限,如有问题,希望批评指正.</description>
+    </item>
+    
+    <item>
+      <title>非线性规划2</title>
+      <link>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</link>
+      <pubDate>Tue, 25 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</guid>
+      <description>Rsolnp 非线性规划问题
+$$ \begin{align} \min \quad &amp;amp; f(x)\ \text { s.t. } &amp;amp; \begin{cases} \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}} \end{cases} \end{align}
+$$
+其中, $f(x),g(x),h(x)$ 都是光滑函数,
+solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL, ineqUB = NULL, LB = NULL, UB = NULL, control = list(), ...)
+pars : 初始值(向量),
+fun : 最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的f(x)
+eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</description>
+    </item>
+    
+    <item>
+      <title>MATLAB集合</title>
+      <link>/matlab/plotmathfun/</link>
+      <pubDate>Mon, 24 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/plotmathfun/</guid>
+      <description>画数学坐标系_函数图像</description>
+    </item>
+    
+    <item>
+      <title>动态可视化如此简单</title>
+      <link>/md/2019-05-26-dongtaikeshihua/</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-05-26-dongtaikeshihua/</guid>
+      <description>动态可视化如此简单 不用任何代码，只需要知道你画什么图，需要什么数据格式，就可以画出漂亮的动态图了，并且有每种可视化都有相应数据案例，很方面。
+由于是国外的网站，可能有点慢。
+网站： https://app.flourish.studio/templates
+可以参考这篇微信文章： https://mp.weixin.qq.com/s/aQfpyVtmjDp8kmzce3k11w
+这个非常方便的可以嵌入到网页上去，
+直接复制粘贴到markdown即可
+如果要进行数据分析可视化 也可以使用IBM Watson Analystics，这个画热力地图非常方面</description>
+    </item>
+    
+    <item>
+      <title>R结合C&#43;&#43;</title>
+      <link>/md/2019-05-24-randc/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-05-24-randc/</guid>
+      <description>1. R结合C++ 首先要配置好R和C++的环境，在R官网中分别有不同操作系统的环境配置条件，按照下载R软件的步骤，在下载R软件页面有相应的配置说明。如果是mac系统也可以参考这篇文章：macOS
+基本的用法可以参考：
+  http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html
+  个人建议要写c++ 代码给R软件使用，建议不要混合编程，我只是简单的实验过，这样会降低代码运行的效率，甚至，可能比R本身的运算还慢。
+  基本的c++ 大概能写一些简单的循环运算，但要涉及比较复杂的矩阵运算此时需要额外的库，不过不怕麻烦你自己也可以用c++写，这里推荐使用Armadillo 库，语法和MATLAB很相似，上手很快。
+  由于查资料发现，Armadillo 被RcppArmadillo包给封装了，但基本没有对其做任何更改，所以你只需要简单的引入相应的Rcpp环境，就能简单的写c++了，再次说明，c++中最好不要混写R代码。
+  CSDN上有关Armadillo库的介绍，个人觉得还不错，https://blog.csdn.net/jnulzl/article/details/46808515
+  c++ 并行运算对比 以及RcppArmadillo包的使用，如下，先做总结，推荐使用feature.apply包来并行c++代码，虽然有时候没有C++ openMP快，但是基本上符合人们需求，而且feature.apply包使用起来很简单，相对于其他R并行计算的包，不出错，记得使用doParallel包来并行C++总是出错，所以推荐feature.apply并行。
+  2. R运行速度对比 2.1 C++ 加上 feature.apply 并行 把下面的代码存为sample_c.cpp，然后运行Rcpp::sourceCpp(&#39;sample_c.cpp&#39;)即可
+ sample_mat ： 随机构造n阶正互反判断矩阵 eig_max： 求矩阵的最大特征值 veig_max(int n,int k =10000): 求k个n阶的最大特征值，返回一个向量。  // [[Rcpp::depends(RcppArmadillo)]] #include &amp;lt;RcppArmadillo.h&amp;gt; #include &amp;lt;Rcpp.h&amp;gt; using namespace Rcpp; using namespace arma; // [[Rcpp::export]] mat sample_mat(int n) { // 第一步： 随机构造n阶正互反判断矩阵 vec P = {1,2,3,4,5,6,7,8,9,1/2.</description>
+    </item>
+    
+    <item>
+      <title>测试rmarkdown输出页面</title>
+      <link>/post/2019-05-11-outputwidth/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-05-11-outputwidth/</guid>
+      <description>t(iris[1:30,]) #&amp;gt; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 #&amp;gt; Sepal.Length &amp;quot;5.1&amp;quot; &amp;quot;4.9&amp;quot; &amp;quot;4.7&amp;quot; &amp;quot;4.6&amp;quot; &amp;quot;5.0&amp;quot; &amp;quot;5.4&amp;quot; &amp;quot;4.6&amp;quot; &amp;quot;5.0&amp;quot; &amp;quot;4.4&amp;quot; &amp;quot;4.9&amp;quot; &amp;quot;5.4&amp;quot; &amp;quot;4.8&amp;quot; &amp;quot;4.8&amp;quot; &amp;quot;4.3&amp;quot; &amp;quot;5.8&amp;quot; &amp;quot;5.7&amp;quot; &amp;quot;5.4&amp;quot; &amp;quot;5.1&amp;quot; &amp;quot;5.7&amp;quot; &amp;quot;5.1&amp;quot; &amp;quot;5.4&amp;quot; &amp;quot;5.1&amp;quot; &amp;quot;4.6&amp;quot; &amp;quot;5.1&amp;quot; &amp;quot;4.8&amp;quot; &amp;quot;5.0&amp;quot; &amp;quot;5.0&amp;quot; &amp;quot;5.2&amp;quot; &amp;quot;5.2&amp;quot; &amp;quot;4.7&amp;quot; #&amp;gt; Sepal.Width &amp;quot;3.5&amp;quot; &amp;quot;3.0&amp;quot; &amp;quot;3.</description>
+    </item>
+    
+    <item>
+      <title>残缺区间群体决策模型（GDM Liu 2012)</title>
+      <link>/uncertain/2019-05-05-incomplete-interval-gdm/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-05-incomplete-interval-gdm/</guid>
+      <description>残缺区间群体决策模型（GDM）  0. 参考论文: 1. 主要思路（刘芳2012年）： 2.主要函数构建： 3.测试  3.1 测试1 3.2 测试2  4 .总结    残缺区间群体决策模型（GDM） 0. 参考论文: 徐泽水： A consistency improving method in the analytic hierarchy process 1999年
+刘芳：Acceptable consistency analysis of interval reciprocal comparison matrices 2009年
+刘芳： A goal programming model for incomplete interval multiplicative preference relations and its application in group decision-making 2012年
+ 1. 主要思路（刘芳2012年）： 先把残缺区间矩阵\(U_k\)通过某种方法(LOP2)或者利用粒子群算法)进行补全成\(U_k^{’}\)， 检查补全以后的矩阵\(U_{k}^{&amp;#39;}\)是否具有一致性(\(U_{k}^{&amp;#39;}\)具有一致性 的充要条件 是 \(U_{k}^{&amp;#39;}\) 分解成单个的正互反判断矩阵B 和D，矩阵B和D的CR &amp;lt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>求区间可能度矩阵的算法(Liu 2009)</title>
+      <link>/uncertain/2019-05-04-interval-of-possibility-degree/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-04-interval-of-possibility-degree/</guid>
+      <description>求区间可能度矩阵的算法  0. 参考论文: 1. 主要思路： 2.主要函数构建： 3. 测试  3.1 例1： B 和D都满足一致性指标 3.2 例2： B 和D不满足一致性指标  4. 总结:    求区间可能度矩阵的算法 0. 参考论文: 徐泽水： A consistency improving method in the analytic hierarchy process 1999年
+刘芳：Acceptable consistency analysis of interval reciprocal comparison matrices 2009年
+ 1. 主要思路： 把区间乘性互反矩阵U拆成两个正互反判断矩阵B和D,B，D都是正的互反判断矩阵。其中B的下三角元素大于D矩阵的下三角元素，B的上三角小于D的上三角元素 ，简称B的下三角大，上三角小 一致性检验，若拆分后的B，D矩阵一致性不满足条件(即\(CR&amp;lt;= 0.1\)) ，则用徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准(\(CR &amp;lt;=0.1\)). 然后分别计算矩阵\(B，D\)的权重向量\(w(B),w(D)\) ,注意这里的权重没有归一化处理. 通过公式\(w_i = [min(w_i(B),w_i(D)),max(w_i(B),w_i(D))]\),把两个权重向量组合成一个区间向量。 通过区间向量\(w\)计算出区间向量的可能度矩阵\(P\)。   2.主要函数构建： consistency(A): 求正互反判断矩阵的一致性指标，返回一个list</description>
+    </item>
+    
+    <item>
+      <title>正互反矩阵一致性调整方法(徐泽水1999)</title>
+      <link>/uncertain/2019-05-03-adjust-w-xuzeshui1999/</link>
+      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-05-03-adjust-w-xuzeshui1999/</guid>
+      <description>正互反矩阵一致性调整方法(徐泽水1999)  0. 参考论文： 1. 算法步骤： 2. 主要函数构建 3. 测试  3.1 矩阵1 — 论文的example1 3.2 测试矩阵2 — 论文的example2  4. 总结    正互反矩阵一致性调整方法(徐泽水1999) 0. 参考论文： 徐泽水：A consistency improving method in the analytic hierarchy process 1999年
+以下是对论文的实现。
+ 1. 算法步骤： 主要算法步骤：
+假设\(A = (a_{ij})_{n \times n }\) 是一个正互反判断矩阵，迭代步骤记为\(k\)， 调整参数\(0 &amp;lt; \lambda &amp;lt;1\)
+令\(A^{0} = A\)， \(CR^* = 0.1,k =0\)
+ 计算\(A^{k} = (a_{ij}^{k})_{n\times n}\) 的最大特征值\(\lambda_{max}(A^k)\)以及对应的特征向量\(w^{k} = (w_1^k,w_2^k,\cdots,w_n^k)\)</description>
+    </item>
+    
+    <item>
+      <title>环境</title>
+      <link>/md/2019-05-02-environment/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-05-02-environment/</guid>
+      <description>环境 详细的解释可以查看书《高级R语言编程指南》,这里总结一份与环境有关的函数总结：(参考R语言核心技术手册第二版)
+   函数 描述      assign 在envir环境中将名称x赋给value对象    get 在envir环境中获得与名称x关联的对象    exists 判断在环境envir是是否定义了名称x    objects 以向量的形式返回envir环境中定义的所有(对象)名称    remove 从envir环境中将参数中罗列的对象删除(列表不适合作为参数的名称，尤其当参数是向量时)    search 以向量的形式列出全局环境的所有父环境，也称为搜索路径    searchpaths 以向量的形式返回全局环境的所有父环境的路径    attach 将列表、数据框或数据文件中的对象添加到当前的搜索路径中    detach 将列表、数据框或数据文件中的对象从当前的搜索路径中删除    emptyenv 空环境对象，它是所有环境的祖先，也是唯一一个没有父环境的的环境    parent.env 查看envir环境的父环境    baseenv 基础环境，它是R基础软件包的环境，它的父环境是空环境    globalenv(或.</description>
+    </item>
+    
+    <item>
+      <title>非标准计算</title>
+      <link>/post/2019-05-02-nonstandard-calculation/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-05-02-nonstandard-calculation/</guid>
+      <description>非标准计算  1. 捕获表达式  1.1 quote() : 1.2 substitute 1. 3. 创建函数调用 1.4 .substitute_q() 对substituted()的补充 1.5. subs()函数  2. 对捕获表达式后的处理方式  2.1. 执行表达式 — — eval() 2.2 eval 函数的用法 2 .3 .表达式与字符串相互转变  参考    非标准计算 1. 捕获表达式 将表达式捕获转为语言对象，捕获表达式意味着防止表达式被执行，而将其本身存储为变量的形式。具有这个功能的函数有如下几个函数，注意其不同。
+1.1 quote() : ​ quote()捕获到函数调用是会返回调用，而捕获到变量名时会返回一个符号，只要代码语法正确，它就会返回表示被捕获表达式本身的语言对象。即便函数不存在或者变量未定义，也可以捕获表达式本身。
+rm(list = ls() ) x = quote(a+b) # 定义一个表达式调用,但是这些变量没有定义 x #&amp;gt; a + b class(x) #&amp;gt; [1] &amp;quot;call&amp;quot; typeof(x) # 变成语言对象类型， #&amp;gt; [1] &amp;quot;language&amp;quot; x = quote(rnorm) x #&amp;gt; rnorm class(x) #&amp;gt; [1] &amp;quot;name&amp;quot; typeof(x) # 变成符号对象类型， #&amp;gt; [1] &amp;quot;symbol&amp;quot; quote(xfun(a = 1:n)) # xfun都么有定义 #&amp;gt; xfun(a = 1:n) 理解：变量和符号对象的区别，以及函数和调用对象的区别。</description>
+    </item>
+    
+    <item>
+      <title>R函数参数的有关问题</title>
+      <link>/post/2019-05-01-function-arguments/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-05-01-function-arguments/</guid>
+      <description>R函数参数的有关问题  1. args 可以用来查看某个函数包含了哪些参数 2. 匹配参数— match.arg() 3. 以字符串作为函数名 — get函数 4. 以字符串作为函数名 — call()函数 5. 把函数参数(不带字符串参数)转变为字符串    R函数参数的有关问题 1. args 可以用来查看某个函数包含了哪些参数 args(sin) #&amp;gt; function (x) #&amp;gt; NULL args(lm) #&amp;gt; function (formula, data, subset, weights, na.action, method = &amp;quot;qr&amp;quot;, #&amp;gt; model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, #&amp;gt; contrasts = NULL, offset, ...) #&amp;gt; NULL args(paste) #&amp;gt; function (.</description>
+    </item>
+    
+    <item>
+      <title>数据框删除列的方法汇总</title>
+      <link>/md/2019-05-01-remove-dataframe-columns/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-05-01-remove-dataframe-columns/</guid>
+      <description>数据框删除列 iris[1:10,-5] # 1. 通过索引删除列 iris[1:10,-c(4,5)] # 删除多列 iris[1:10,-which(names(iris)%in%c(&amp;#34;Petal.Width&amp;#34;,&amp;#34;Species&amp;#34;))]# 2.根据列名进行删除 subset(iris, select = -c(Petal.Width, Species))# 3 根据列名进行删除 iris[1:10,1:4]# 筛选出需要的列 </description>
+    </item>
+    
+    <item>
+      <title>list 操作重要的函数</title>
+      <link>/post/2019-04-30-listoperate/</link>
+      <pubDate>Tue, 30 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-04-30-listoperate/</guid>
+      <description>list 操作重要的函数  1.捕获省略号中的内容 2.map函数 3.reduce 函数和accumulate 函数 4. do.call函数 5. 把正常数据(数据框)转变为list 6. 更多list操作    list 操作重要的函数 ​ 我们知道R中比较复杂的数据结构为list，它可以构造出很多我们想要的数据格式，今天我们结合函数…的操作，讲解一下对一个长度不定的list如何便捷的操作。
+以前提过可参考：(这里直接copy)
+1.捕获省略号中的内容 ​ 先看一个例子：构造一个函数然后对所有的参数进行相加求和。
+addemup &amp;lt;- function(x, ...){ args &amp;lt;- list(...)# 推荐把省略号的内容分配给list,然后在对该list进行操作 for (a in args){ x &amp;lt;- x + a } x } addemup(1,1) #&amp;gt; [1] 2 addemup(1,2,3,4,5) #&amp;gt; [1] 15 ​ 我们还可以通过..1,..2到..9等直接引用列表…中的内容。..1表示第一项，..2表示第二项，以此类推。
+对list操作可以结合purrr包中的map, reduce, accumulate和基础函数do.call等 操作更方便。一个实际的例子，
+DGM_U = function(...){ ####### 第一部分是对参数的检查 ##################### # 输入的参数为U_{k}，U_{k}代表一个完整的区间乘积互反判断矩阵。 n = nrow(.</description>
+    </item>
+    
+    <item>
+      <title>省略号参数— 可变长参数</title>
+      <link>/post/2019-04-30-ellipsisparameter/</link>
+      <pubDate>Tue, 30 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-04-30-ellipsisparameter/</guid>
+      <description>省略号参数— 可变长参数  1.捕获省略号中的内容 2. 用省略号传递给图形参数 3. 将省略号与其他参数结合 4. 也可对省略号取名称 5. 将省略号参数解压缩为本地函数变量（甚至是全局变量）    省略号参数— 可变长参数 ​ 在R中我们查看别人的函数或者内部函数，经常用到…这种参数，...也称把可变长参数，今天就来聊一聊中方法的使用。
+1.捕获省略号中的内容 先看一个例子：构造一个函数然后对所有的参数进行相加求和。
+addemup &amp;lt;- function(x, ...){ args &amp;lt;- list(...)# 推荐把省略号的内容分配给list,然后在对该list进行操作 for (a in args){ x &amp;lt;- x + a } x } addemup(1,1) #&amp;gt; [1] 2 addemup(1,2,3,4,5) #&amp;gt; [1] 15 我们还可以通过..1,..2到..9等直接引用列表…中的内容。..1表示第一项，..2表示第二项，以此类推。
+对list操作可以结合purrr包中的map, reduce, accumulate和基础函数do.call等 操作更方便。一个实际的例子，
+DGM_U = function(...){ ####### 第一部分是对参数的检查 ##################### # 输入的参数为U_{k}，U_{k}代表一个完整的区间乘积互反判断矩阵。 n = nrow(..1) m = ncol(.</description>
+    </item>
+    
+    <item>
+      <title>R画带箭头的坐标轴</title>
+      <link>/post/2019-04-26-rplotarrows/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-04-26-rplotarrows/</guid>
+      <description>0.1 R 语言画带箭头的坐标轴  0.1.1 方法一 0.1.2 方法二： 0.1.3 方法三  0.2 基本函数画多折线图   0.1 R 语言画带箭头的坐标轴 本质的方法：就是去掉原有的坐标轴，然后通过R的低等函数一步一步的画出坐标轴以及需要的曲线，以下是google到的几种方法：
+0.1.1 方法一 ################## 画带箭头的坐标轴 ## estimate curve x &amp;lt;- seq(-1,1.5,0.1); y &amp;lt;- c(1.3,1.32,1.33,1.32,1.25,1.1,0.7,0.5,0.4,0.38,0.4,0.41,0.42,0.43,0.44,0.4,0.3,0.1,0,-0.05,-0.1,-0.15,-0.2,-0.24,-0.28,-0.3); f &amp;lt;- splinefun(x,y); ## calculate precise points along estimated curve x &amp;lt;- seq(-1,1.5,0.01); y &amp;lt;- f(x); ## precompute limits xlim &amp;lt;- c(min(x),max(x)); ylim &amp;lt;- c(min(y)-0.4,max(y)+0.2); ## set global plot params par(xaxs=&amp;#39;i&amp;#39;,yaxs=&amp;#39;i&amp;#39;,mar=c(1,1,3,3)+0.1); ## &amp;quot;internal&amp;quot; axis spacing, meaning no extended range, and slightly adjust margins ## draw plot plot(NA,xlim=xlim,ylim=ylim,axes=F,ann=F); ## set plot bounds, no default ornaments arrows(c(0,xlim[1]),c(ylim[1],0),c(0,xlim[2]),c(ylim[2],0),0.</description>
+    </item>
+    
+    <item>
+      <title>学术论文写作工具</title>
+      <link>/md/2019-04-26-%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-04-26-%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7/</guid>
+      <description>1. 基础配置 1、必备： CTEX套装 或者 TexLive (推荐),安装Texlive时候，推荐搭配Texstudio
+2、有没有发现写公式很麻烦：mathpix 工具可以直接截图，把截图的公式转变为Latex 代码，太复杂的可能识别不了，但是已经很好了
+3、AxMath 可以像mathtpye那样输入公式，更重要的一点是可以直接转变为latex代码，
+4、LaTeX代码转为Word公式:
+​	可以参考这篇文章： http://www.latexstudio.net/archives/4650.html
+​	如果在word里面直接输入LaTex代码转word公式,eg: 输入$x^2 + y^2$ ,然后选中其按 alt + \ 即可转换，不过有点慢，耐心等待
+5、 Typora 工具，写markdown的，可以写md文件，然后转出latex文件，不过转出的导言区一般是有问题的，我们直接要正文部分，向导言区的头文件之类，要根据文件适当自己添加，这是由于公式的问题，公式之间不能用空行。
+\documentclass{article} \usepackage{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \begin{document} 。。。正文。。。。。x \end{document} 6、推荐写公式时，不用空白行。
+2. 表格to latex  方法一：http://www.tablesgenerator.com/latex_tables :这个网站不错，就是打开有点慢（推荐）。 以及这个网站https://tableconvert.com/ 方法二： 可以安装Excel2latex 插件，自己百度 方法三：在rstudio中使用stargazer包 (三线头表格,头是双线） 方法四： 在rstudio中使用xtable包( 三线头表格，头是单线)  ##### 方法三：##### library(stargazer) library(xlsx) # 推荐使用这个包，因为不会发生小数点精度的问题，但是列名可能会发生改变 # 原本的列名是 3，4，....,9 读入后变成了X3,X4,....,X9. data = read.xlsx(file =&amp;#34;工作簿1.xlsx&amp;#34;,sheetIndex = 1, header = T,colClasses = &amp;#34;character&amp;#34;) data stargazer(data,summary = F,rownames = F) ##### 方法四： ##### xtable::xtable(head(iris),digits=3,caption=&amp;#34;Head of Iris Data&amp;#34;) # 其中函数中的digits=3控制输出精度，caption就是表格的标题。 注意看下图： 把代码粘贴到latex编译器中，上图为方法三画的(一般学术论文，表的标题在上方，图的标题在下方) ，下图为方法四画的。</description>
+    </item>
+    
+    <item>
+      <title>R语言绘制双坐标图</title>
+      <link>/post/2019-04-01plottwoaxis/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-04-01plottwoaxis/</guid>
+      <description>0.1 使用plotrix包 0.2 twoord.plot() 参数解释   0.1 使用plotrix包 #png(&amp;quot;2y_1.png&amp;quot;) rm(list = ls()) library(plotrix) library(dplyr) ## ## 载入程辑包：&amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union new_iris = arrange(iris,Sepal.Length)# 按照花瓣的长度进行排序 --- 为了后面好看 head(new_iris,10) ## Sepal.Length Sepal.Width Petal.Length Petal.Width Species ## 1 4.3 3.0 1.1 0.1 setosa ## 2 4.4 2.</description>
+    </item>
+    
+    <item>
+      <title>1.5.2离差最大化的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-1-5%E5%9F%BA%E4%BA%8E%E7%A6%BB%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-1-5%E5%9F%BA%E4%BA%8E%E7%A6%BB%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》24页 –1.52 实例分析   徐泽水《不确定多属性决策方法与应用》24页 –1.52 实例分析 ##### 1.5.2离差最大化的多属性决策方法---徐泽水《不确定多属性决策方法与应用》24页 --1.52 实例分析 library(data.table) library(dplyr) A= c(12,11.5,780,175,22,2.43, 12,14.6,898,165,33.5,2.83, 10.3,13.5,741,181,22.7,3, 12,15.24,1038,204,47.3,4, 11.4,12.19,833.4,180,19,5.9, 9,12.8,667,170,19.8,3.8, 12.2,13.37,991,170,59,3.3, 12,14.3,1048,230,37.2,1.9, 9,6.25,287,105,5,3.6, 10.33,15,927,167,52.6,3.14) A= matrix(A,nrow = 10,ncol = 6,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 ， 也称决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 V6 #&amp;gt; 1: 12.00 11.50 780.0 175 22.0 2.43 #&amp;gt; 2: 12.00 14.60 898.0 165 33.5 2.83 #&amp;gt; 3: 10.30 13.50 741.</description>
+    </item>
+    
+    <item>
+      <title>1.6 基于信息熵的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-1-6%E5%9F%BA%E4%BA%8E%E4%BF%A1%E6%81%AF%E7%86%B5%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-1-6%E5%9F%BA%E4%BA%8E%E4%BF%A1%E6%81%AF%E7%86%B5%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》26页   徐泽水《不确定多属性决策方法与应用》26页 ## 1.6 基于信息熵的多属性决策方法---徐泽水《不确定多属性决策方法与应用》26页 --1.62 实例分析 library(data.table) library(dplyr) A = c(2,1.5,2,5.5,5,9, 2.5,2.7,1.8,6.5,3,5, 1.8,2,2.1,4.5,7,7, 2.2,1.8,2,5,5,5) A= matrix(A,nrow = 4,ncol = 6,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 V6 #&amp;gt; 1: 2.0 1.5 2.0 5.5 5 9 #&amp;gt; 2: 2.5 2.7 1.8 6.5 3 5 #&amp;gt; 3: 1.8 2.0 2.1 4.5 7 7 #&amp;gt; 4: 2.2 1.8 2.0 5.0 5 5 ####################################################### ##### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 ########################################################## ### norm_matrix()函数，根据书中收益型属性（按公式1.</description>
+    </item>
+    
+    <item>
+      <title>1.7方案有偏好信息的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-1-7%E6%96%B9%E6%A1%88%E6%9C%89%E5%81%8F%E5%A5%BD%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-1-7%E6%96%B9%E6%A1%88%E6%9C%89%E5%81%8F%E5%A5%BD%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》27–37页  1.对方案的偏好信息为互反判断矩阵的情形 2.对方案的偏好信息为模糊互补判断矩阵的情形 3.对方案的偏好信息为效用值的情形    徐泽水《不确定多属性决策方法与应用》27–37页 1.对方案的偏好信息为互反判断矩阵的情形 ## 1 对方案的偏好信息为互反判断矩阵的情形 library(data.table) library(dplyr) A = c(3.0,100,10,7, 2.5,80,8,5, 1.8,50,20,11, 2.2,70,12,9) A= matrix(A,nrow = 4,ncol = 4,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 #&amp;gt; 1: 3.0 100 10 7 #&amp;gt; 2: 2.5 80 8 5 #&amp;gt; 3: 1.8 50 20 11 #&amp;gt; 4: 2.2 70 12 9 ####################################################### ##### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 ########################################################## ### norm_matrix()函数，根据书中收益型属性（按公式1.</description>
+    </item>
+    
+    <item>
+      <title>2.1 模糊互补判断矩阵的排序方法</title>
+      <link>/uncertain/2019-02-26-2-1%E6%A8%A1%E7%B3%8A%E4%BA%92%E8%A1%A5%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5%E7%9A%84%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-2-1%E6%A8%A1%E7%B3%8A%E4%BA%92%E8%A1%A5%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5%E7%9A%84%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》59页   徐泽水《不确定多属性决策方法与应用》59页 ### 2.1 模糊互补判断矩阵的排序方法---徐泽水《不确定多属性决策方法与应用》59页 --2.1.6 实例分析 # 以及55页 例 2.1 B = c(0.5,0.7,0.6,0.8, 0.3,0.5,0.4,0.6, 0.4,0.6,0.5,0.7, 0.2,0.4,0.3,0.5) B = matrix(B, nrow = 4,ncol = 4,byrow = T) ######## MTM 排序法---模糊互补判断矩阵的中转法 # MTM 函数直接输入模糊互补判断矩阵B，直接即可求出对应案例（即行，决策矩阵行代表案例，列代表属性）的权重向量w. MTM = function(B){ w = 0 n = nrow(B) m = ncol(B) stopifnot(n==m) for(i in 1:n){ w[i] =( sum(B[i,]) + n/2 -1) /(n*(n-1)) } return(w) } MTM(B) #&amp;gt; [1] 0.3000000 0.2333333 0.2666667 0.</description>
+    </item>
+    
+    <item>
+      <title>3.1 基于理想点的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-3-1%E5%9F%BA%E4%BA%8E%E7%90%86%E6%83%B3%E7%82%B9%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-3-1%E5%9F%BA%E4%BA%8E%E7%90%86%E6%83%B3%E7%82%B9%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》78页   徐泽水《不确定多属性决策方法与应用》78页 ## 3.1 基于理想点的多属性决策方法---徐泽水《不确定多属性决策方法与应用》78页 --3.1.2 实例分析 library(data.table) library(dplyr) A = c(0.37,1800,2,19,90, 0.58,2800,5,28,105, 0.52,3500,5,32,130, 0.43,1900,3,27,98) A= matrix(A,nrow = 4,ncol = 5,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 #&amp;gt; 1: 0.37 1800 2 19 90 #&amp;gt; 2: 0.58 2800 5 28 105 #&amp;gt; 3: 0.52 3500 5 32 130 #&amp;gt; 4: 0.43 1900 3 27 98 ####################################################### ############################## ################## 正理想点偏差 ----- 且 决策者不能提供任何权重信息 ############### ####################################################### ############################## #### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 ### norm_matrix()函数，根据书中收益型属性（按公式1.</description>
+    </item>
+    
+    <item>
+      <title>3.2 基于方案满意度的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-3-2%E5%9F%BA%E4%BA%8E%E6%96%B9%E6%A1%88%E6%BB%A1%E6%84%8F%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-3-2%E5%9F%BA%E4%BA%8E%E6%96%B9%E6%A1%88%E6%BB%A1%E6%84%8F%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》81页  第一步: 把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵 第二步 ： 求出综合属性正理想值z_max,以及综合属性负理想值z_min 第三步： 求出各方按的满意度，PW 矩阵的每一行为对应方案的满意度矩阵    徐泽水《不确定多属性决策方法与应用》81页 ## 3.2 基于方案满意度的多属性决策方法---徐泽水《不确定多属性决策方法与应用》81页 --3.2.2 实例分析 library(data.table) library(dplyr) A = c(47177, 16.61, 8.89, 31.05, 15.77, 43323, 9.08, 3.65, 29.80, 8.44, 59023, 13.84, 6.06, 26.55, 12.87, 46821, 10.59, 3.51, 22.46, 7.41, 41646, 13.24, 4.64, 24.33, 9.33, 26446, 10.16, 2.38, 26.80, 9.85, 38381, 11.97, 4.79, 26.45, 10.64, 57808, 10.29, 4.54, 23.00, 9.23, 28869, 7.68, 2.12, 31.</description>
+    </item>
+    
+    <item>
+      <title>3.3 基于方差最大化模型的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-3-3%E5%9F%BA%E4%BA%8E%E6%96%B9%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-3-3%E5%9F%BA%E4%BA%8E%E6%96%B9%E5%B7%AE%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>徐泽水《不确定多属性决策方法与应用》84页   徐泽水《不确定多属性决策方法与应用》84页 ## 3.3 基于方差最大化模型的多属性决策方法---徐泽水《不确定多属性决策方法与应用》84页 --3.3.2 实例分析 library(data.table) library(dplyr) A = c(18400,3,100,80,300,60,40,1.2, 19600,4,120,100,400,80,40,1.3, 29360,6,540,120,150,100,50,1.5) A= matrix(A,nrow = 3,ncol = 8,byrow = T) %&amp;gt;% data.table() A # 原始决策矩阵 #&amp;gt; V1 V2 V3 V4 V5 V6 V7 V8 #&amp;gt; 1: 18400 3 100 80 300 60 40 1.2 #&amp;gt; 2: 19600 4 120 100 400 80 40 1.3 #&amp;gt; 3: 29360 6 540 120 150 100 50 1.</description>
+    </item>
+    
+    <item>
+      <title>4.1 基于可能度的多属性决策方法</title>
+      <link>/uncertain/2019-02-26-4-1%E5%9F%BA%E4%BA%8E%E5%8F%AF%E8%83%BD%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-4-1%E5%9F%BA%E4%BA%8E%E5%8F%AF%E8%83%BD%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用  徐泽水《不确定多属性决策方法与应用》109页    第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用 徐泽水《不确定多属性决策方法与应用》109页 ##### 第四章--属性权重为实数且属性值为区间数的多属性决策方法及应用 ## 4.1 基于可能度的多属性决策方法---徐泽水《不确定多属性决策方法与应用》109页 ## 4.1.4 实例分析 ##### 第一步： 求出规范化矩阵 A = c(0.214,0.220,0.166,0.178,0.184,0.190, 0.206,0.225,0.220,0.229,0.182,0.191, 0.195,0.204,0.192,0.198,0.220,0.231, 0.181,0.190,0.195,0.205,0.185,0.195, 0.175,0.184,0.193,0.201,0.201,0.211) R = matrix(A,nrow = 5,byrow = T) # R为规范化后的决策矩阵 R # 矩阵R的奇数列代表属性的下界 ，偶数列代表属性的上界 #&amp;gt; [,1] [,2] [,3] [,4] [,5] [,6] #&amp;gt; [1,] 0.214 0.220 0.166 0.178 0.184 0.190 #&amp;gt; [2,] 0.206 0.225 0.220 0.229 0.182 0.191 #&amp;gt; [3,] 0.195 0.204 0.192 0.</description>
+    </item>
+    
+    <item>
+      <title>4.2基于投影的多属性决策方法(含4.3区间归一化)</title>
+      <link>/uncertain/2019-02-26-4-2%E5%9F%BA%E4%BA%8E%E6%8A%95%E5%BD%B1%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-26-4-2%E5%9F%BA%E4%BA%8E%E6%8A%95%E5%BD%B1%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/</guid>
+      <description>4.3 区间归一化   #徐泽水《不确定多属性决策方法与应用》112页 ## 第四章–属性权重为实数且属性值为区间数的多属性决策方法及应用 ### 4.2 基于投影的多属性决策方法
+##### 第四章--属性权重为实数且属性值为区间数的多属性决策方法及应用 ## 4.2 基于投影的多属性决策方法---徐泽水《不确定多属性决策方法与应用》112页 ## 4.2.2 实例分析 ##### 第一步： 求出规范化矩阵 A = c(58.9,59,200,250,1.9,2.1,0.990,0.991,0.907,0.909, 58.5,58.7,340,350,3.4,3.5,0.990,0.992,0.910,0.912, 58.0,58.5,290,310,2.0,2.2,0.992,0.993,0.914,0.917) A = matrix(A,nrow = 3,byrow = T) # A为决策矩阵 A # 矩阵A的奇数列代表属性的下界 ，偶数列代表属性的上界 #&amp;gt; [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] #&amp;gt; [1,] 58.9 59.0 200 250 1.9 2.1 0.990 0.991 0.907 0.909 #&amp;gt; [2,] 58.5 58.7 340 350 3.</description>
+    </item>
+    
+    <item>
+      <title>不确定多属性决策方法徐泽水pdf</title>
+      <link>/uncertain/2019-02-25%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%A4%9A%E5%B1%9E%E6%80%A7%E6%96%B9%E6%B3%95%E5%BE%90%E6%B3%BD%E6%B0%B4pdf/</link>
+      <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/uncertain/2019-02-25%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%A4%9A%E5%B1%9E%E6%80%A7%E6%96%B9%E6%B3%95%E5%BE%90%E6%B3%BD%E6%B0%B4pdf/</guid>
+      <description>https://gitee.com/zscqsmy/blogimg/raw/master/img/xuzeshui不确定多属性决策方法及应用_徐泽水.pdf</description>
+    </item>
+    
+    <item>
+      <title>智能算法测试函数可视化</title>
+      <link>/post/2019-02-21-testfunctionvisualization/</link>
+      <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-02-21-testfunctionvisualization/</guid>
+      <description>1 智能算法测试函数可视化(二维)  1.1 1 Sphere 函数 1.2 3 Rosenbrock 函数 1.3 4、Rastrigin 1.4 5 Griewank 函数 1.5 6 Ackley 函数 1.6 7 Noise函数    1 智能算法测试函数可视化(二维) 1.1 1 Sphere 函数 \[f(x) = \sum^n_{i=1}x_i^2\] 全局最优点为\(x =(0,0,\cdots ,0 ),f(x) =0\)
+############################# #### 二维函数 --- 可视化 ############################## ## 1 、 Sphere 函数 f1_Sphere2 = function(x,y){ return(x^2 + y^2) } y = x &amp;lt;- seq(-10, 10, 0.</description>
+    </item>
+    
+    <item>
+      <title>遗传算法（待完善）</title>
+      <link>/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</guid>
+      <description>遗传算法 遗传算法是模仿自然界生物进化机制发展起来的随机全局搜索和优化方法，本质是一种高效、并行、全局搜索的方法。
+基本概念 编码方式 假设一个具体的问题的解为 $X = (x_1,x_2, \cdots, x_n )$ ，并且每个变量都有取值范围$x_j \in [a_j,b_j]，j=1,2,\cdots,n$.
+   编码方式 编码 解码     二进制编码 第$j$ 个变量用长度为 $k_j$的二进制编码符号来表示，二进制串编码符号长度与问题所要求的求解进度有关，假设分量$x_j$ 的精度是小数点后4位，则$k_j$的计算公式如下:$$ \log_2^{(b_j-a_j) \cdot 10^4+1} \le k_j &amp;lt; \log_2^{(b_j-a_j) \cdot 10^4}+1$$一般地，$k_j$都取同一个整数​$k=max{k_j,}$ 即把二进制串转变为十进制数 假设$x_j$的编码为$c_kc_{k-1}c_{k-2} \cdots c_2c_1$,长度为k,则对应解码公式为:$$x_j = a_j+(\sum_{i=1}^{k}b_i\cdot 2^{i-1} )\cdot \frac{b_j-a_j}{2^{k}-1}\ $$   格雷码编码 类似二进制编码 类似二进制解码   实数编码（也称浮点数编码） 个体的每个基因值用一定范围的一个实数表示，此时染色体长度等于变量个数。 一般不需要解码   整数编码 用于特殊的问题（TSP问题）或者其他问题。 一般不需要解码   其他编码方式      符号编码： 二进制编码和格雷码编码 统称符号编码。即单个基因无实际意义。有时候整数编码也叫符号编码。</description>
+    </item>
+    
+    <item>
+      <title>模拟退火算法（待完善）</title>
+      <link>/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Tue, 19 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-02-19-%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</guid>
+      <description>模拟退火算法 物理固体退火过程(可不了解)： 什么是退火：指对物体（指的是固体）加温至熔化，再徐徐冷却，使之凝固成规则晶体的热力学过程，简而言之，是对物体加温后再冷却的一个物理过程。
+可见，物理退火过程由以下三部分组成：
+（1）加温过程： 一般一个物体不是一个有规则的晶体（下图左图），于是加热，当温度足够高时，固体的规则性被彻底破坏，固体熔解为液体（下图中图），从而消除系统原先可能存在的非均匀状态，使随后进行的冷却过程以某一平衡态为起点。溶解过程与系统的熵增过程相联系，系统能量也随温度的升高而增大。
+（2）等温过程。当某一温度固定后，要使系统达到热平衡态，才能进行降温，这就是“徐徐”的意思。如果降温降低很快，会出现猝火效应（对应后面讲解的局部最小值），即猝火效应是指固体只能冷凝为非均匀的亚稳态，系统能量也不会达到最小值。
+​	由物理学知识可知，对于与周围环境交换热量而温度保持不变的封闭系统，系统状态的自发变化总是朝着自由能减少的方向进行，当自由能到达最小值时，系统达到热平衡态。此现象保证系统在每一温度下能到达平衡态的过程。这个跟熵很类似。（熵总是往这增大的方向进行）
+等温下热平衡过程可用Metropolis准则（即以概率接受新状态）进行模拟。
+Metropolis准则：
+假设当前状态为 $x(n)$ , 系统受到一定扰动，状态变为 $x(n+1)$,相应的系统能量由 $E(n)$ 变为 $E(n+1)$ ,定义状态 $x(n)$ 变为 $x(n+1)$ 的接受概率为 $p$ :
+$$p= \begin{cases} 1 &amp;amp;, E(n+1) &amp;lt; E(n) \ \ \ e^{\left(-\frac{E(n+1)-E(n)}{T}\right)} &amp;amp;,E(n+1) \geq E(n) \ \end{cases}$$
+当状态转移之后，如果能量减小了（即 $E(n+1) &amp;lt; E(n)$ ），那么这种转移就被接受了（以概率1发生）
+当状态转移之后，如果能量增大了(即 $E(n+1) \geq E(n)$ ），那么这种转移按照概率 $p= e^{\left(-\frac{E(n+1)-E(n)}{T}\right)}$ 去接受，具体操作： 首先在区间[0,1]产生一个均匀分布的随机数$\xi$，如果 $\xi &amp;lt; p（此时p= e^{\left(-\frac{E(n+1)-E(n)}{T}\right)} ） $,则这种转移被接受，否则被拒绝。
+（3）冷却过程，液体粒子的热运动逐渐减弱，随着温度的徐徐降低（即系统能量逐渐下降），粒子运动逐渐有序，当温度减到足够小时，液体凝固成按一定形状排列，高密度，低能量的有规则晶体（下图右图）。
+对照表
+   模拟退火 物理退火     解 粒子状态   最优解 能量最低态   设定初始温度 熔解过程   Metropolis采样过程 等温过程   控制参数的下降 冷却   目标函数 能量    模拟退火算法基本步骤与基本思想 基本思想： 其基本思想是模拟金属退火过程。</description>
+    </item>
+    
+    <item>
+      <title>运筹学与最优化--在R软件中的实现</title>
+      <link>/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/</link>
+      <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-02-18-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96r/</guid>
+      <description>转载过来的，
+参考链接1:
+参考链接2:
+备注链接:</description>
+    </item>
+    
+    <item>
+      <title>混合粒子群算法matlab</title>
+      <link>/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</guid>
+      <description>链接</description>
+    </item>
+    
+    <item>
+      <title>运筹学最短路问题</title>
+      <link>/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Thu, 22 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/</guid>
+      <description>最短路算法参考(自制ppt)pdf:</description>
+    </item>
+    
+    <item>
+      <title>R语言输出latex或html</title>
+      <link>/post/2018-11-21-r%E5%AF%B9%E8%B1%A1%E8%BE%93%E5%87%BAlatex%E6%88%96html%E6%A0%BC%E5%BC%8F/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-11-21-r%E5%AF%B9%E8%B1%A1%E8%BE%93%E5%87%BAlatex%E6%88%96html%E6%A0%BC%E5%BC%8F/</guid>
+      <description>简介knitr常用参数 xtable包  输出为纯HTML格式或者LaTeX格式 若想在rmarkdown中输出时能正常显示上面的格式怎么办了？  kableExtra包  基于HTML的table 设置主题 表格样式  参考：   有一些时候，我们想把R对象输出为LaTeX格式或者HTML格式，怎么办呢？
+简介knitr常用参数  xtable包 输出为纯HTML格式或者LaTeX格式 tt &amp;lt;- head(iris) # 普通的输出 library(xtable) print(xtable(tt),type=&amp;quot;html&amp;quot;) # 输出为纯HTML格式 ## &amp;lt;!-- html table generated in R 4.0.2 by xtable 1.8-4 package --&amp;gt; ## &amp;lt;!-- Mon Sep 14 21:28:39 2020 --&amp;gt; ## &amp;lt;table border=1&amp;gt; ## &amp;lt;tr&amp;gt; &amp;lt;th&amp;gt; &amp;lt;/th&amp;gt; &amp;lt;th&amp;gt; Sepal.Length &amp;lt;/th&amp;gt; &amp;lt;th&amp;gt; Sepal.Width &amp;lt;/th&amp;gt; &amp;lt;th&amp;gt; Petal.Length &amp;lt;/th&amp;gt; &amp;lt;th&amp;gt; Petal.</description>
+    </item>
+    
+    <item>
+      <title>用c语言设置定时关机</title>
+      <link>/md/2018-11-20-c%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-20-c%E8%AF%AD%E8%A8%80/</guid>
+      <description>C代码 创建定时任务 发现代码，win有自动防范木马的可能，于是要手动去在定时任务勾选某些指标，所以不可行。
+# include&amp;lt;stdio.h&amp;gt; # include &amp;lt;windows.h&amp;gt; int main() { //如果存在任务名为myTaskName2 则强制删除，若没有则报错，但不终止该程序的运行 system(&amp;quot;schtasks /delete /tn myTaskName2 /f&amp;quot;); // 创建一个任务名为myTaskName2的任务,/tr 后面是 要执行的命令， 双引号要转义，/st 后面接的是触发时间 system(&amp;quot;schtasks /create /tn myTaskName2 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 22:35:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName4 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName4 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 22:42:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName3 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName3 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 22:52:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName5 /f&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName6 /f&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName7 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName5 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:00:00&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName6 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:15:00&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName7 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:27:00&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName8 /f&amp;quot;); system(&amp;quot;schtasks /delete /tn myTaskName9 /f&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName8 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:43:00&amp;quot;); system(&amp;quot;schtasks /create /tn myTaskName9 /f /tr \&amp;quot;shutdown -s -f -t 10\&amp;quot; /sc once /st 23:58:00&amp;quot;); return 0; } 编译运行后 编译运行后，找到对应得exe文件 ,把其放在开始启动目录中即可（C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp）</description>
+    </item>
+    
+    <item>
+      <title>运筹学与最优化matlab</title>
+      <link>/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/</guid>
+      <description>运筹学与matlab</description>
+    </item>
+    
+    <item>
+      <title>线性规划的一般模型(草稿)</title>
+      <link>/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/</link>
+      <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/</guid>
+      <description>线性规划的一般模型 :
+$$ \min \quad z = c_1x_1+c_2x_2+ \cdots + c_nx_n \ s.t.\left{ \begin{aligned}
+a_{11}x_1+a_{12}x_2+ \cdots + a_{1n}x_n \leq b_1 \ a_{21}x_1+a_{22}x_2+ \cdots + a_{2n}x_n \leq b_2 \
+\quad \cdots \qquad \cdots \qquad \cdots \ a_{m1}x_1+a_{m2}x_2+ \cdots + a_{mn}x_n \leq b_m \ x_1,x_2,x_3,\cdots,x_n \geq 0 \end{aligned} \right. $$</description>
+    </item>
+    
+    <item>
+      <title>重装系统后一些有用的激活工具</title>
+      <link>/md/2018-11-17-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-17-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/</guid>
+      <description>包含win10 和office2019 激活工具 链接：https://pan.baidu.com/s/1eOQUPdlrvViL2XSucEdkmQ 提取码：08be 复制这段内容后打开百度网盘手机App，操作更方便哦</description>
+    </item>
+    
+    <item>
+      <title>R金融分析以及VaR</title>
+      <link>/post/2018-11-14-r%E9%87%91%E8%9E%8D%E5%88%86%E6%9E%90%E4%B8%8Evar/</link>
+      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-11-14-r%E9%87%91%E8%9E%8D%E5%88%86%E6%9E%90%E4%B8%8Evar/</guid>
+      <description>1 第一题  1.1 加载工具包 1.2 输入要研究的股票数据代码  1.2.1 下载数据并保存到本地 1.2.2 读取本地股票数据 1.2.3 删除该文件  1.3 计算日、月、年、收益率（按收盘价） 并保存数据 1.4 计算 日收益率的均值 和波动率 1.5 计算移动平均值(5,10,20,60期移动平均值) 并保存数据 1.6 画出收盘价与5 期 30 期移动平均线 1.7 寻找金叉死叉，即买卖点  1.7.1 保存买卖点 1.7.2 在图上画出买卖点，并表示标签，买入(B),卖出(S),  1.8 画出所用的均线5,10,30,60 图 以及 收盘价 以及 2均线形成（5,30）的金叉死叉  2 第二题 –VaR  2.1 输入要研究的股票数据代码  2.1.1 下载数据并保存到本地 2.1.2 读入数据 2.1.3 删除该文件  2.</description>
+    </item>
+    
+    <item>
+      <title>R语言发邮件--mailR包</title>
+      <link>/md/2018-11-13-%E5%8F%91%E9%82%AE%E4%BB%B6mailr%E5%8C%85/</link>
+      <pubDate>Tue, 13 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-13-%E5%8F%91%E9%82%AE%E4%BB%B6mailr%E5%8C%85/</guid>
+      <description>亲测试邮箱为163邮箱 和QQ邮箱
+mailR 包参数 mailR 包中只有一个接口函数&amp;mdash;send.mail ,该包依恋java环境，请首先配置该环境，下面是该函数的一些基本参数：
+send.mail(from, to, subject = &amp;#34;&amp;#34;, body = &amp;#34;&amp;#34;, encoding = &amp;#34;iso-8859-1&amp;#34;, html = FALSE, inline = FALSE, smtp = list(), authenticate = FALSE, send = TRUE, attach.files = NULL, debug = FALSE, ...)    参数 说明     from 发件人邮箱   to 收件人邮箱   subject 邮件标题   body 邮件的内容(正文),内容可以是文本也可以是html网页格式   html 一个bool值，是否应该讲邮箱正文解析为HTML   inline 一个bool值，HTML文件中的图像是否应该被嵌入   smtp 重要的参数，设置服务器参数用的   authenticate 是否应该使用smtp中的参数   attach.</description>
+    </item>
+    
+    <item>
+      <title>GitHubDesktop权限问题解决办法</title>
+      <link>/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>很久没上传文章到github了，
+ Error Authentication failed. You may not have permission to access the repository or the repository may have been archived. Open options and verify that you&#39;re signed in with an account that has permission to access this repository. 网上百度了一下，发现有两种解决办法：
+1.退出后重新登录
+2.设置项目repository settings改为https的远程url地址
+经过测试，发现这两种方式都没有起到作用
+于是我猜可能和win收购github有关，
+解决办法：
+设置了项目的repository settings
+将remote repository设置成：https://注册名:密码@github.com/xmilt/xmilt.github.io.git
+才能正常pull和push等操作。</description>
+    </item>
+    
+    <item>
+      <title>谈谈字符编码问题</title>
+      <link>/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <description>最近在实验室编写文件，遇到一件奇怪的事情，在自己的笔记本上能正常编码，却在学校的电脑上编码总是乱码，于是经历种种磨难，算是弄明白了一点点，下面简单介绍一下字符编码的知识（由于编码种类繁多，我只简单的提一下，其余自己百度，文末有相关链接）
+常见的字符集： ​	百度百科定义： 字符(Character)是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。字符集(Character set)是多个字符的集合，字符集种类较多，每个字符集包含的字符个数不同，常见字符集名称：ASCII字符集、GB2312字符集、BIG5字符集、 GB18030字符集、Unicode字符集等。计算机要准确的处理各种字符集文字，需要进行字符编码，以便计算机能够识别和存储各种文字。中文文字数目大，而且还分为简体中文和繁体中文两种不同书写规则的文字，而计算机最初是按英语单字节字符设计的，因此，对中文字符进行编码，是中文信息交流的技术基础。
+​	下面介绍几个常见的字符集：ASCII字符集、GB2312、 GBK、utf-8、utf-16、utf-32
+​	所谓字符集就是按一定的规则去解释或者翻译0 1 代码的，有点像翻译表或者对照表。
+ASCII 以及EASCII ​	首先，我们要明白计算机内部所有东西都是以1和0来表示的，刚开始我们用8位0 1代码进行表示，一共有2^8= 256种状态，由于当时计算机很昂贵并且很大，美国人只有用了127个字符就表示了英语中所有的字符，这就是ASSIC码，从此ASSIC码诞生了，
+并用后面的128~256号状态来表示西欧其他国家的字符，于是把0~256号状态的所有字符统称为扩展的ASCCI字符（即EASCII），即最高位为0 代表0~127号字符，最高位为1 是后面扩展的字符集,记住，此时计算机始终按照8位二进制进行编码.
+GB2312 、GBK 、GB 18030 ​	等到了中国，发现这些0~256号状态都被别人使用了，而且中国的汉字太多，于是中国人准备用两个字节来表示一个汉字，并应该兼容最初的0~127号字符集，于是中国人这样设计，当最高位为0时，计算机就按ASSCI码(1位)进行编码，当发现最高位是1时，就按两个字节进行编码，eg: 1001000&#39;10001011 这两个字节都对应两个十进制数分别是72和11 ，于是就想设计一个二维矩阵建立与汉字的对应关系，按照这个二维矩阵的行和列一样进行查找对比，就可以确定一个汉字了，并且保留了0~127号码的对应规则（这就是我们经常发现为什么英文不乱码而中文乱码的原因）.
+​	这个二维矩阵对应的字符集，就成为GB2312字符集,这样和后面的EASCCI就冲突了，然而日本、韩国等世界上几乎每个国家都有自己的字符集，于是后面的第128~256号字符集经常发生冲突（即乱码，计算机不知道应该按照GB2312、EASSIC、日文的字符集、等进行编码，所有就会出现乱码 ）。
+​	这里补充说明一点，GB2312字符集表示的汉字也比较少，于是在GB2312的基础上扩展产生GBK编码以及GB 18030 等汉字字符集)
+ANSI ​	严格说ANSI并不是一个字符集。前面我们讲到每个国家都有自己的编码规则，于是Windows公司设计了ANSI规则，ANSI根据电脑操作系统的设置，自动关联对应的编码，eg： 在美国就按ASCII码进行编码，并自动设置为默认编码,同理在中国，就按GBK进行编码，而在日本，就按日本对应的字符集进行编码&amp;hellip;&amp;hellip;
+​	所以ANSI简单来说是一个自动判别系统,但这样在不同字符进行切换时，就会出现乱码的问题。于是迫切希望有同一的编码规则，于是Unicode 编码孕育而生。
+Unicode 、utf-8、utf-16、utf-32 ​	由于世界上存在多种编码，当不同国家的人在进行发送文件时，会出现乱码（因为解读的规则不一样，同一段0  1 代码，中国按照GBK去解读，而西欧安装EASSCI字符集去解读，这样必然计算机弄不清楚，必会出现乱码）,于是有一个社区就说要不我们把世界上的所有文字都进行统一编码吧！这样就不会产生乱码了，于是产生了Unicode编码，当然Unicode是一个很大的集合，大概用了4个字节（即32位 0 1代码去表示）,这样美国人或者西欧人不干了，因为原本我存储一个英文单词words只需要5个字节，现在用Unicode就变成了20个字节，这样硬盘的空间严重浪费，于是产生出来utf-8、utf-16、utf-32字符集，这里重点解释一下utf-8字符集，这个是可变长编码，计算机可以根据前面的一个1个字节的编码规则进行自动判断，该是用一个字节去解读还是用2个、3个字节去解读(这里这个规则有点复杂，反正计算机能从第一个字节中解读出来，到底应该用几个字节取解读)。
+ utf-8 : 使用1~4个字节存储一个Unicode字符。 utf-16 : 使用2或4个字节存储 utf-32 : 使用4个字节存储  乱码产生的原因 ​	假设在一个文本编辑器中写入hollo world 你好世界 ，编码方式为utf-8，</description>
+    </item>
+    
+    <item>
+      <title>glmnet包解读1</title>
+      <link>/post/2018-09-13-glmnet1/</link>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-09-13-glmnet1/</guid>
+      <description>1 介绍 2 快速开始 3 线性回归  3.1 高斯簇 3.2 多响应高斯簇  4 逻辑回归  4.1 二项分布逻辑回归 4.2 多分类逻辑回归  5 泊松回归  5.1 加载数据集 5.2 拟合模型 5.3 查看拟合效果 5.4 预测  6 Cox模型  6.1 载入数据集 6.2 拟合模型 6.3 查看拟合效果 6.4 交叉验证  7 稀疏矩阵   1 介绍 glmnet 包解决了一下问题（目标函数） \[ \min_{\beta_0,\beta} \frac{1}{N} \sum_{i=1}^{N} w_i l(y_i,\beta_0+\beta^T x_i) + \lambda\left[(1-\alpha)||\beta||_2^2/2 + \alpha ||\beta||_1\right], \] #### 1.1 glmnet包安装</description>
+    </item>
+    
+    <item>
+      <title>独热编码--哑变量</title>
+      <link>/post/2018-08-31-%E7%8B%AC%E7%83%AD%E7%BC%96%E7%A0%81-%E5%93%91%E5%8F%98%E9%87%8F/</link>
+      <pubDate>Fri, 31 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-08-31-%E7%8B%AC%E7%83%AD%E7%BC%96%E7%A0%81-%E5%93%91%E5%8F%98%E9%87%8F/</guid>
+      <description>独热编码–哑变量  独热编码1 独热编码2 独热编码3 独热编码4 独热编码5 独热编码6 独热编码7 独热编码8 独热编码 转变为原始变量 （即逆运算）    独热编码–哑变量 独热编码： n种状态 转变为n列
+哑变量： n种状态转变为n-1列（目的：为了防止共线性的问题）
+testFrame &amp;lt;- data.frame(First=sample(1:10, 20, replace=TRUE), Second=sample(1:20, 20, replace=TRUE), Third=sample(1:10, 20, replace=TRUE), Fourth=factor(rep(c(&amp;quot;=A&amp;quot;, &amp;quot;=B&amp;quot;, &amp;quot;=C&amp;quot;, &amp;quot;=D&amp;quot;),5)), Fifth=ordered(rep(c(&amp;quot;=E&amp;quot;, &amp;quot;=F&amp;quot;, &amp;quot;=G&amp;quot;,&amp;quot;=H&amp;quot;, &amp;quot;=I&amp;quot;), 4)), Sixth=rep(c(&amp;quot;=a&amp;quot;, &amp;quot;=b&amp;quot;), 10), Seventh=factor(c(rep(c(&amp;quot;=J&amp;quot;,&amp;quot;=K&amp;quot;,&amp;quot;=L&amp;quot;),6),&amp;quot;=J&amp;quot;,&amp;quot;=K&amp;quot;)) , stringsAsFactors=F) head(testFrame) #&amp;gt; First Second Third Fourth Fifth Sixth Seventh #&amp;gt; 1 8 7 8 =A =E =a =J #&amp;gt; 2 9 2 5 =B =F =b =K #&amp;gt; 3 7 20 10 =C =G =a =L #&amp;gt; 4 4 9 3 =D =H =b =J #&amp;gt; 5 1 6 2 =A =I =a =K #&amp;gt; 6 1 13 1 =B =E =b =L str(testFrame) #&amp;gt; &amp;#39;data.</description>
+    </item>
+    
+    <item>
+      <title>Scrapy框架&#43;selenium爬取京东相机</title>
+      <link>/md/2018-08-10-scrapy/</link>
+      <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-08-10-scrapy/</guid>
+      <description>1 创建一个srcapy项目： （项目名为：jingdong)，会生成一系列文件夹，命令如下(cmd下运行)：
+scrapy startproject jingdong 2 创建爬虫文件 在刚刚生成的jingdong文件夹下面找到spiders文件夹,在spider文件下创建一个爬虫文件（名字叫jd）&amp;ndash; 用来解析网页的，命令如下(cmd下运行)：
+scarpy genspider jd &amp;#34;list.jd.com&amp;#34; # 创建一个jd.py的爬虫文件，爬虫名为jd ，以及指定爬虫允许爬取的范围：只能在jd.com下. 3 编写items.py文件 创建爬虫目标（明确需要提取的数据），如下：
+import scrapy class JingdongItem(scrapy.Item): # define the fields for your item here like: # 所有商品的名称、链接、价格、销售店铺、评论数的信 # 商品名称 name = scrapy.Field() # 商品的简介 abstract = scrapy.Field() # 商品的链接 link = scrapy.Field() # 商品的价格 price = scrapy.Field() # 店铺名 shop_name = scrapy.Field() # 评论数 commet = scrapy.Field() 4 设置setting文件，开启管道 ITEM_PIPELINES = { &amp;#39;jingdong.</description>
+    </item>
+    
+    <item>
+      <title>ggplot2一页多图(图独立)</title>
+      <link>/post/2018-07-15-ggplot2%E4%B8%80%E9%A1%B5%E5%A4%9A%E5%9B%BE%E7%8B%AC%E7%AB%8B%E5%9B%BE/</link>
+      <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-07-15-ggplot2%E4%B8%80%E9%A1%B5%E5%A4%9A%E5%9B%BE%E7%8B%AC%E7%AB%8B%E5%9B%BE/</guid>
+      <description>方法一: 使用grid包 方法二: 使用patchwork包  使用plot_layout()函数调整页面布局 图表之间添加或删除空格–plot_spacer()    在一个页面上自由组合各种图(可以毫无关联)，省空间，又能表达自己需求。
+require(ggplot2) require(grid) #####现将图画好，并且赋值变量，储存##### p1 &amp;lt;- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) + geom_point() p2 &amp;lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point() p3 &amp;lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point() + facet_grid(.~color,scale = &amp;quot;free&amp;quot;) p1 p2 p3 这里有三张图p1,p1,p3，我想把它输出到一个页面上，不单独输出，可以用一些方法
+方法一: 使用grid包 ########新建画图页面########### grid.newpage() ##新建页面 pushViewport(viewport(layout = grid.layout(2,2))) ####将页面分成2*2矩阵 vplayout &amp;lt;- function(x,y){ viewport(layout.pos.row = x, layout.</description>
+    </item>
+    
+    <item>
+      <title>猫眼电影票房抓取</title>
+      <link>/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/</link>
+      <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/</guid>
+      <description>猫眼电影票房抓取 基本设置 library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) remDr$open() # 打开浏览器  #&amp;gt; [1] &amp;#34;Connecting to remote server&amp;#34; #&amp;gt; $applicationCacheEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $rotatable #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $mobileEmulationEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $networkConnectionEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $chrome #&amp;gt; $chrome$chromedriverVersion #&amp;gt; [1] &amp;#34;2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7)&amp;#34; #&amp;gt;  #&amp;gt; $chrome$userDataDir #&amp;gt; [1] &amp;#34;C:\\Users\\zsc\\AppData\\Local\\Temp\\scoped_dir10136_5944&amp;#34; #&amp;gt;  #&amp;gt;  #&amp;gt; $takesHeapSnapshot #&amp;gt; [1] TRUE #&amp;gt;  #&amp;gt; $pageLoadStrategy #&amp;gt; [1] &amp;#34;normal&amp;#34; #&amp;gt;  #&amp;gt; $databaseEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $handlesAlerts #&amp;gt; [1] TRUE #&amp;gt;  #&amp;gt; $hasTouchScreen #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $version #&amp;gt; [1] &amp;#34;67.</description>
+    </item>
+    
+    <item>
+      <title>相关图之corrgram</title>
+      <link>/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/</link>
+      <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/</guid>
+      <description>相关图： 所谓相关图是基于变量间的相关系数大小，通过可视化方法反应不同变量组合间相关关系的差异图形。可以把相关图分为相关矩阵图、相关层次图
+相关矩阵图 R语言中，绘制相关矩阵图的包主要有两个：corrgram::corrgram和corrplot::corrplot
+此处都以mtcars数据集为例，说明这两个函数的使用
+相关矩阵图一—–corrgram corrgram::corrgram()函数 corrgram(x, type = NULL, order = FALSE, labels, panel = panel.shade, lower.panel = panel, upper.panel = panel, diag.panel = NULL, text.panel = textPanel, label.pos = c(0.5, 0.5), label.srt = 0, cex.labels = NULL, font.labels = 1, row1attop = TRUE, dir = &amp;quot;&amp;quot;, gap = 0, abs = FALSE, col.regions = colorRampPalette(c(&amp;quot;red&amp;quot;, &amp;quot;salmon&amp;quot;, &amp;quot;white&amp;quot;, &amp;quot;royalblue&amp;quot;, &amp;quot;navy&amp;quot;)), cor.method = &amp;quot;pearson&amp;quot;, outer.labels = NULL, ...) 参数解释： x: 数据框或者相关矩阵,输入数据框时，会自动识别数值型列进行计算相关矩阵，然后再绘图 order: 是否让变量按主成分分析相关矩阵排列.</description>
+    </item>
+    
+    <item>
+      <title>相关图之corrplot</title>
+      <link>/post/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrplot/</link>
+      <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrplot/</guid>
+      <description>相关矩阵图二—–corrplot corrplot::corrplot()函数 由于corrgram::corrgram()函数没有显示相关性的大小度量关系，于是经常用corrplot::corrplot()函数来画相关矩阵图，不过此图的缺点是title画出来不好看
+corrplot(corr, method = c(&amp;quot;circle&amp;quot;, &amp;quot;square&amp;quot;, &amp;quot;ellipse&amp;quot;, &amp;quot;number&amp;quot;, &amp;quot;shade&amp;quot;,&amp;quot;color&amp;quot;, &amp;quot;pie&amp;quot;), type = c(&amp;quot;full&amp;quot;, &amp;quot;lower&amp;quot;, &amp;quot;upper&amp;quot;), add = FALSE, col = NULL, bg = &amp;quot;white&amp;quot;, title = &amp;quot;&amp;quot;, is.corr = TRUE, diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0), addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE, order = c(&amp;quot;original&amp;quot;, &amp;quot;AOE&amp;quot;, &amp;quot;FPC&amp;quot;, &amp;quot;hclust&amp;quot;, &amp;quot;alphabet&amp;quot;), hclust.method = c(&amp;quot;complete&amp;quot;, &amp;quot;ward&amp;quot;, &amp;quot;ward.D&amp;quot;, &amp;quot;ward.D2&amp;quot;, &amp;quot;single&amp;quot;, &amp;quot;average&amp;quot;, &amp;quot;mcquitty&amp;quot;, &amp;quot;median&amp;quot;, &amp;quot;centroid&amp;quot;), addrect = NULL, rect.</description>
+    </item>
+    
+    <item>
+      <title>相关图之ggplot系列扩展1</title>
+      <link>/post/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bggplot%E6%89%A9%E5%B1%951/</link>
+      <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bggplot%E6%89%A9%E5%B1%951/</guid>
+      <description>由于corrplot包画图存在一些问题，比如图像不美观，以及title显示不出，等等
+于是有了ggplot2 的扩展系列
+ggcorrplot包 专门画相关系数矩阵图： https://github.com/kassambara/ggcorrplot
+GGally 包： 对ggplot2进行了更多的扩展，其中包括相关系数图： http://ggobi.github.io/ggally/index.html#alterations
+ggcorrplot包 library(ggcorrplot) library(purrr) data(mtcars) corr &amp;lt;- cor(mtcars) # 相关系数矩阵 corr %&amp;gt;% head() #&amp;gt; mpg cyl disp hp drat wt #&amp;gt; mpg 1.0000000 -0.8521620 -0.8475514 -0.7761684 0.6811719 -0.8676594 #&amp;gt; cyl -0.8521620 1.0000000 0.9020329 0.8324475 -0.6999381 0.7824958 #&amp;gt; disp -0.8475514 0.9020329 1.0000000 0.7909486 -0.7102139 0.8879799 #&amp;gt; hp -0.7761684 0.8324475 0.7909486 1.0000000 -0.4487591 0.6587479 #&amp;gt; drat 0.6811719 -0.6999381 -0.7102139 -0.4487591 1.0000000 -0.</description>
+    </item>
+    
+    <item>
+      <title>相关图之ggplot系列扩展2</title>
+      <link>/post/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bggplot%E6%89%A9%E5%B1%952/</link>
+      <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bggplot%E6%89%A9%E5%B1%952/</guid>
+      <description>由于corrplot包画图存在一些问题，比如图像不美观，以及title显示不出，等等
+于是有了ggplot2 的扩展系列
+ggcorrplot包 专门画相关系数矩阵图： https://github.com/kassambara/ggcorrplot
+GGally 包： 对ggplot2进行了更多的扩展，其中包括相关系数图： http://ggobi.github.io/ggally/index.html#alterations
+GGally::ggcorr()函数 介绍 该ggcorr函数是一个可视化函数，用于将相关矩阵绘制为ggplot2对象。它的灵感来自Stack Overflow问题。
+ 解释 相关矩阵显示了相对大量的连续变量之间的相关系数。然而，虽然R提供了一种通过cor函数创建这种矩阵的简单方法，但它没有为该函数创建的矩阵提供绘图方法。
+该ggcorr功能提供了这样的绘图方法，使用ggplot2包中实现的“图形语法” 来渲染绘图。在实践中，其结果在图形上接近corrplot功能的结果，这是优秀arm包装的一部分。
+ 安装 install.packages(&amp;quot;GGally&amp;quot;) # 或者 source(&amp;quot;https://raw.githubusercontent.com/briatte/ggcorr/master/ggcorr.R&amp;quot;)  依赖 主要的包依赖ggcorr是ggplot2用于绘图构造的包。
+library(ggplot2) 该ggplot2软件包可以从被安装CRAN通过install.packages。这样做也将安装reshape2包，内部ggcorr用于数据操作。
+library(GGally) ggcorr(mtcars) ggcorr(iris) # ggcorr会自动挑选数值型变量进行画图,它还产生一个警告，指示数据集的一列不包含数字数据，因此从相关矩阵中删除。从传递给的数据集中删除列可以避免警告， eg: ggcorr(iris[,-5]) #&amp;gt; Warning in ggcorr(iris): data in column(s) &amp;#39;Species&amp;#39; are not numeric and were #&amp;gt; ignored 注意：当与连续色标一起使用时，ggcorr当前也会产生与色彩插值相关的警告。这是一个无害的警告，应该在未来的更新ggplot2和scales包中消失。此警告隐藏在此小插图的其余部分中。
+ggcorr(mtcars)# 默认接受数据框，矩阵 ## 可接受相关系数矩阵 ## ggcorr支持cor函数提供的所有相关方法。参考cor()函数: ## cor(x, y = NULL, use = &amp;quot;everything&amp;quot;,method = c(&amp;quot;pearson&amp;quot;, &amp;quot;kendall&amp;quot;, &amp;quot;spearman&amp;quot;)) ggcorr(data = NULL, cor_matrix = cor(mtcars, use = &amp;quot;everything&amp;quot;))  控制图例的颜色块 默认图例颜色是连续的，</description>
+    </item>
+    
+    <item>
+      <title>泰坦尼克号预测(kaggle)</title>
+      <link>/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/</link>
+      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/</guid>
+      <description>options(width = 300) knitr::opts_chunk$set(message = F,warning = F,comment = &amp;quot;#&amp;gt;&amp;quot;,collapse = TRUE) 读入数据 library(data.table) train=fread(&amp;quot;data/train.csv&amp;quot;,na.strings = c(&amp;quot;&amp;quot;,NA)) test=fread(&amp;quot;data/test.csv&amp;quot;,na.strings = c(&amp;quot;&amp;quot;,NA)) #把两个合并起来进行数据处理--两个data.table的合并 combine =rbindlist(list(train,test),fill=TRUE) #### 其实个人不建议这样操作，因为不能把测试集和训练集一起处理，应该分开处理  数据处理 # 统计每一列的缺失率 combine[,lapply(.SD, function(x)sum(is.na(x)))] #&amp;gt; PassengerId Survived Pclass Name Sex Age SibSp Parch Ticket Fare Cabin Embarked #&amp;gt; 1: 0 418 0 0 0 263 0 0 0 1 1014 2 # 可以看出 我们需要对缺失列进行处理，以及一些特征衍生工作 library(zoo) library(purrr) combine[,Age := na.spline(Age)] # age变量进行处理，进行样条插补 combine[,Fare := na.</description>
+    </item>
+    
+    <item>
+      <title>seq*函数族</title>
+      <link>/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/</link>
+      <pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/</guid>
+      <description>seq(from = 1, to = 1, by = 步长（默认为1),length.out = NULL, along.with = NULL, ...) seq.int(from, to, by, length.out, along.with, ...) seq_along(along.with) seq_len(length.out) from：生成向量的起点， to：生成向量的终点，默认步长为1（可修改） length.out：向量中元素数目 along.with：表示生成的向量为现有一向量元素的索引 主要介绍seq_along(along.with) 和seq_len(length.out)函数，应用于循环中
+比如:
+# 要循环某个向量长度的次数,比如向量a，其长度未知 for(i in seq_along(a)){...} 代替 for(i in 1:length(a)){...} ## 经常犯这样的错误，不美观 # 循环中，循环1:10可以用一下方法 for(i in seq_len(10)){...} 代替 for(i in 1:10){...} head(x,5)  : 取向量的前5个元素，向量 ，数据框 ，list都适用
+tail(x,5): 取向量的后5个元素，等价 x[-(1:(length(x)-5))] 等价 x[(length(n-4):length(n)]</description>
+    </item>
+    
+    <item>
+      <title>正则表达式(通用)</title>
+      <link>/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/</guid>
+      <description>正则表达式&amp;ndash;表格  注意： 由于每个软件的正则表达式的转义字符是不一样的，比如R中一般用\\.来代表匹配小数点. 表格中的\  ，但在软件中可能需要\\才能表达出来，eg:\d 匹配任意一个数字， 可能需要使用\\d  1. 基本的元字符    元字符 说明     . 匹配任意单个字符，字母、数字甚至是.字符本身   | 逻辑或操作符   [ ] 匹配该字符集合中的一个字符（各个字符之间是or关系）**注意: ** [.] 只匹配点本身,不是特殊字符,不用转义.   [^ ] 对字符集合求非就是排除该字符集合[^0-9]  ： 匹配任何不适数字的字符   - 定义一个区间,[A-Za-z09]: 匹配(大小)字母和数字-只有出现在[]之间才是元字符-出现在其他地方，则表示一个普通字符   \ 对下一个字符进行转义    2. 数量元字符    元字符 说明     * 匹配前一个字符(或字符集合或子表达式)的零次或多次重复   + 匹配前一个字符(或字符集合或子表达式)的一次或多次重复   ?</description>
+    </item>
+    
+    <item>
+      <title>R中时间类型概念</title>
+      <link>/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/</guid>
+      <description>基本类型介绍 在R中，所有有关时间和日期的类(包),都可以处理日历时间(eg:2018年4月13日)，只有某些特定的类才能处理日期时间类型(eg:2018年4月13日 下午6:45)
+   类 处理类型 说明 强制转换 R所在包     Date类 日历日期 实际存储的为数字，是从1970年1月1日算起到该时间以天计算的一个数值.eg: &amp;ldquo;2018-04-13&amp;rdquo; as.Date() 基本函数   POSIXct类 日期时间 实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;个人建议使用这个，存储数据 as.POSIXct() 基本函数   POSIXlt类 日期时间 实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;存储非结构化数据 as.POSIXlt() 基本函数   Date类 日历日期 同上 as_date() lubridate包   POSIXct类 日期时间 同上 as_datetime() lubridate包   difftime类 时间 实际存储的为数字，是从当天00:00:00算起到该时间以秒计算的一个数值.eg:&amp;ldquo;00:01:25&amp;rdquo; hms::as.hms(85) lubridate包    在实际工作中，只要满足要求，尽量适用比较简单的类型，先考虑Date ，在考虑POSIXct
+R中处理时间序列的包：   chron ： 常用于计量经济学和时间序列分析中</description>
+    </item>
+    
+    <item>
+      <title>R 语言并行化计算之foreach包</title>
+      <link>/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</link>
+      <pubDate>Sun, 08 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/</guid>
+      <description>foreach包执行任务的核心理念与传统的apply组函数基本一致，都是与split – apply – combine一致的流程，不过foreach比传统apply组函数的优越之处在于，它可以通过调用操作系统的多核运行性能来执行并行任务，这样特别是对于I/O密集型任务而言，可以大大节省代码执行效率。
+解读foreach()函数
+library(&amp;#34;doParallel&amp;#34;) #加载doParallel包用于之后注册进程 library(&amp;#34;foreach&amp;#34;) #导入foreach包 ######################################################################## ########## foreach()函数主要是对原本的for循环进行并行运算 ############### ######################################################################### #############并行化格式 detectCores() #这个网上说是核数，但实际上是线程数，和真实的物理核多一倍，4核8线程 cl&amp;lt;- makeCluster(detectCores()) # 不过R中能运行满线程 ，即detectCores()返回的核数。 registerDoParallel(cl) #进行进程注册 mydata1 &amp;lt;- foreach( ..., # 并行化参数（循环参数）,当参数为两个以上时，选长度较短的循环完为止. .combine, #合并方式，default是list，“c”返回vector,cbind和rbind返回矩阵,也可以自定义函数. # &amp;#34;+&amp;#34;和&amp;#34;*&amp;#34;是対返回后的list进行同列操作 .init, #.combine函数的第一个变量,当.combine参数被具体化是才用 .final=NULL, #返回最后结果 .inorder=TRUE,#返回和原始输入相同顺序的结果 .multicombine=FALSE,#设定.combine函数的传递参数，FALSE表示其参数是2，TRUE可以设定多个参数 .maxcombine=if (.multicombine) 100 else 2, #设定.combine的最大参数 .errorhandling=c(&amp;#39;stop&amp;#39;, &amp;#39;remove&amp;#39;, &amp;#39;pass&amp;#39;),#如果循环中出现错误，对错误的处理方法 .packages=NULL,# 指定在%dopar%运算过程中依赖的package（%do%会忽略这个选项）。 .export=NULL, # 在编译函数的时候需要预先加载一些内容进去，类似parallel的clusterExport .noexport=NULL, .verbose=FALSE) ##是否打印运行信息 ) %dopar% {***} #并行的代码，也可以是相应的函数,即我们for循环的函数体 stopCluster(cl) # 结束集群 注意：平时我们大多数使用时，很多参数都选取默认状态，其中常用参数为：... 、.combine、.packages.
+基本操作
+library(&amp;#34;doParallel&amp;#34;) #加载doParallel包用于之后注册进程 library(&amp;#34;foreach&amp;#34;) #导入foreach包 cl&amp;lt;- makeCluster(detectCores()-1) registerDoParallel(cl) #进行进程注册 getDoParWorkers() # #查看注册了多少个核 code=function(){ x1&amp;lt;-(a + b); x2&amp;lt;-a*b; c(x1,x2); } # 并行化参数,当参数为两个以上时，选长度较短的循环完为止.</description>
+    </item>
+    
+    <item>
+      <title>RSelenium应用--京东商品</title>
+      <link>/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/</guid>
+      <description>library(RSelenium) library(stringr) setwd(&amp;#34;E:\\rwork\\Rselenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) # 默认情况下，Selenium Server侦听端口为4444 remDr$open() # 打开浏览器  # remDr$getStatus() ## 使用该status方法查询远程服务器的状态。 url=&amp;#34;https://www.baidu.com/&amp;#34; remDr$navigate(url) # navigate方法打开网页，url一定要完整 ## remDr$getCurrentUrl() # 获取当前页面的url ###########################进行搜索关键词 ##### 按属性--属性值搜索 ,可以是css,xpath ,id ,属性等 对应值 webElem &amp;lt;- remDr$findElement(using = &amp;#39;css&amp;#39;, &amp;#34;#kw&amp;#34;) # 找到这个元素--进行搜索关键词 webElem$sendKeysToElement(list(&amp;#34;京东&amp;#34;,key=&amp;#34;enter&amp;#34;)) #### 获取当前页面的所有标题，每个链接的标题都包含在&amp;lt;h3 class = &amp;#34;t&amp;#34;&amp;gt;标签中。我们将h3首先访问标题 #### 注意 findElements和 findElement方法是获取一个或者多个的区别 webElems &amp;lt;- remDr$findElements(using = &amp;#39;css&amp;#39;, &amp;#34;h3.t&amp;#34;) resHeaders &amp;lt;- unlist(lapply(webElems, function(x){x$getElementText()})) # resHeaders ######################## 鼠标点击事件 webElem&amp;lt;-remDr$findElement(using = &amp;#34;css&amp;#34;,&amp;#34;#w-f80518 &amp;gt; div &amp;gt; h2 &amp;gt; a.</description>
+    </item>
+    
+    <item>
+      <title>利用RSelenium包模拟浏览器爬取网页信息</title>
+      <link>/md/2018-04-06-rselenium/</link>
+      <pubDate>Fri, 06 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-04-06-rselenium/</guid>
+      <description>1.背景介绍： 现在很多网页都采用AJAX这种异步加载的网页结构，简单的页面爬取不了这些数据
+例如：
+2、这是需要R包&amp;mdash;RSelenium包
+使用RSelenium包的准备
+0、JAVA 环境的准备 ，安装是否成功可以进行xlsx包进行测试
+1、Chrome驱动 下载,注意chrome驱动一定要和chrome浏览器对应 ,比如我的浏览器 65.0.3325.181 ，对应表放在文章最后,或者点击这里,,怎么查看浏览器版本，点击谷歌浏览器右上【&amp;hellip;】&amp;mdash;【帮助】&amp;ndash;【关于Google Chrome】就可以看到浏览器版本了。
+2、Selenium Standalone Server下载 我用的是 selenium-server-standalone-3.11.0.jar
+3、PhantomJS下载 ,无头浏览器。(这个个人需要的话就下载，我用Google浏览器就够了)
+2、安装流程： 使用前的基本配置   首先，安装JAVA JDK 1.8。
+  然后，安装Chrome（最新版本）。
+  之后，把解压后的ChromeDriver.exe（最新版本）放在Chrome的安装路径下。一定要和chrome.exe放在同一个目录下面。例如
+  把chromedriver.exe所在目录的路径(建议放在和chrome.exe)放入环境变量中即可,
+  基本配置基本完成
+  3、RSelenium使用与实例 3.1、使用前的基础步骤 1、首先 ，打开cmd ，切换到 selenium-server-standalone-3.0.1.jar文件所在的位置，我的都在C:\RSelenium这个目录下 ，切换以后 ，运行
+java -jar selenium-server-standalone-3.11.0.jar
+显示 ：
+或者直接在Rstudio中运行system(&#39;java -jar &amp;quot;C:/RSelenium/selenium-server-standalone-3.11.0.jar&amp;quot;&#39;,wait = FALSE)代码即可。
+2、运行后，最小化，不要关闭，在打开Rstudio,
+3、通过R调用Selenium Server并打开网页，对页面进行点击，选取相应条件。通过RSelenium与rvest共同爬取数据。通过 一步一步解读Rcode来解释这一过程。
+3.2、案例1 浏览器的基本操作
+library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) remDr$open() # 打开浏览器  remDr$getStatus()# 使用该status方法查询远程服务器的状态。 # 关闭浏览器  # remDr$quit() # 直接退出  # remDr$close() # close用于关闭当前会话，也可以用作关闭浏览器  **访问DOM中的元素 **</description>
+    </item>
+    
+    <item>
+      <title>R语言字符处理---基本函数</title>
+      <link>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</guid>
+      <description>R语言字符处理&amp;mdash;基本函数    函数 说明     Encoding(x) Encoding(x) &amp;lt;- value enc2native(x) enc2utf8(x) 读取或设置字符向量的编码常结合iconv(x, from = &amp;ldquo;&amp;rdquo;, to = &amp;ldquo;&amp;quot;)函数使用注意：Encoding(x) &amp;lt;- value 这是一种赋值函数   nchar(x, type = &amp;ldquo;chars&amp;rdquo;, allowNA = FALSE, keepNA = NA)nzchar(x, keepNA = FALSE) nchar()返回字符长度nzchar()判断是否空字符keepNA为真是NA保留，不计入计数对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。对于NULL，nchar和nzchar函数会忽略掉。   substr(x, start, stop)substring(text, first, last = 1000000L)substr(x, start, stop) &amp;lt;- valuesubstring(text, first, last = 1000000L) &amp;lt;- value 提取或替换字符向量的子字段，substring同substr功能一样   strtrim(x, width) 按显示宽度截断字符串   paste (&amp;hellip;, sep = &amp;quot; &amp;ldquo;, collapse = NULL)paste0(&amp;hellip;, collapse = NULL) 通过sep连接间隔连接对象,返回字符串向量设定collapse的话，会通过collapse连接间隔将上一步的字符串向量连接成一个字符串   strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE) 基于split子句分割字符向量xfixed为TRUE的话，完全匹配split；否则，基于正则表达式。可以使用split=NULL来分割每个字符。   chartr(old, new, x) 将x中的字符old变换为字符new注意替换的是单个对应的字符，而非字符串   tolower(x)toupper(x) 大小写转换   sprintf(fmt, &amp;hellip;) 系统C库函数sprintf封装器，格式化输出函数        正则表达式&amp;mdash;&amp;ndash;字符串匹配函数    函数 说明     grep(pattern, x, ignore.</description>
+    </item>
+    
+    <item>
+      <title>R语言字符处理函数包---stringr包</title>
+      <link>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</link>
+      <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/</guid>
+      <description>1.stringr介绍 stringr包被定义为一致的、简单易用的字符串工具集。所有的函数和参数定义都具有一致性，比如，用相同的方法进行NA处理和0长度的向量处理。
+字符串处理虽然不是R语言中最主要的功能，却也是必不可少的，数据清洗、可视化等的操作都会用到。对于R语言本身的base包提供的字符串基础函数，随着时间的积累，已经变得很多地方不一致，不规范的命名，不标准的参数定义，很难看一眼就上手使用。字符串处理在其他语言中都是非常方便的事情，R语言在这方面确实落后了。stringr包就是为了解决这个问题，让字符串处理变得简单易用，提供友好的字符串操作接口。
+2.stringr的API介绍 stringr包常用的字符串的处理以str_开头来命名，方便更直观理解函数的定义。我们可以根据使用习惯对函数进行分类：
+字符串拼接函数    函数 说明 R Base中对应函数     str_c()str_join() 同str_c() 字符串拼接 paste(),paste0()   str_trim()) 去掉字符串的空格和TAB(\t)    str_pad() 用pad参数填充字符串的长度，长度自己设定    str_dup() 复制字符串    str_wrap() 控制字符串输出格式 strtrim()   str_sub()str_sub() &amp;lt;- value 截取字符串抽取或替换正则表达式匹配子串 regmatches()regmatches() &amp;lt;- value    字符串计算函数    函数 说明 R Base中对应函数     str_count() 字符串计数，返回指定匹配出现的次数    str_length() 返回字符的长度 nchar()   str_sort() 对字符值进行排序    str_order() 字符串索引排序，     字符串匹配函数    函数 说明 R Base中对应函数     str_split()str_split_fixed() 同上 按照模式分割字符串 strsplit()   str_match()str_match_all() 从字符串中提取首个匹配组    str_replacestr_replace_all 替换首个匹配模式 sub()gsub()   str_replace_na() 把NA替换为NA字符串    str_locate()str_locate_all() 返回首个匹配模式的字符的位置 regexpr()gregexpr()   str_extract()str_extract_all() 提取首个匹配模式的字符    str_subset() 返回匹配的字符串    str_detect() 检测字符是否存在某些指定模式 grepl()   word() 从文本中提取单词     字符串变换函数    函数 说明 R Base中对应函数     str_conv() 字符编码转换,基本函数中的比较好用 iconv(x, from = &amp;ldquo;&amp;rdquo;, to = &amp;ldquo;&amp;quot;)   str_to_upper()str_to_lower() 字符串转成大写/小写 tolower(x)toupper(x)   str_to_title()同大小写转换 字符串转成首字母大写     参数控制函数， 仅用于构造功能的参数，不能独立使用。</description>
+    </item>
+    
+    <item>
+      <title>Windows系统下R Markdown 设置中文pdf完美解决方案</title>
+      <link>/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</link>
+      <pubDate>Sat, 10 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</guid>
+      <description>方法一： 生成pdf中文 后文有与之对应的方法。
+需要安装完整版的CTeX_2.92套装（有没有感觉文件很大，文章最后教大家一个简单的安装版本），还要自己新建一个文本文件命名为header.tex,其内容为\usepackage{ctex} ,把这个文件和运行的rmarkdown文件保存在同级目录中，然后把rmarkdown的头文件yaml改写为如下情况：
+--- title: &#39;Untitled&#39; author: &#39;zsc&#39; date: &amp;quot;`r Sys.Date()`&amp;quot; output: pdf_document: includes: in_header: header.tex keep_tex: yes latex_engine: xelatex --- 这样就可以生成中文的pdf了
+于是我仿照上面的步骤，写了一个函数rmarkdown_pdf 保存为rmarkdown_pdf.R
+rmarkdown_pdf=function(file_name,new_filename=file_name){ cat(&amp;quot;\\usepackage{ctex}\n&amp;quot;, file = &amp;quot;header.tex&amp;quot;) txt=&amp;quot;--- title: &#39;Untitled&#39; author: &#39;zsc&#39; date: \&amp;quot;`r Sys.Date()`\&amp;quot; output:\n pdf_document:\n includes:\n in_header: header.tex\n keep_tex: yes\n latex_engine: xelatex --- &amp;quot; x=readLines(file_name,n=-1,encoding = &amp;quot;UTF-8&amp;quot;) la=max(which(x==&amp;quot;---&amp;quot;)[1:2]) cat(c(txt,x[(la+1):length(x)]),sep = &amp;quot;\n&amp;quot;,file = new_filename,append = F) rm(list = ls()) } 在把这个函数加载到自定义环境中，
+  第一步：安装目录找到Rprofile.site这个文件，我的是在“D:\R\etc”这个目录；
+  第二步：用文本文件打开Rprofile.</description>
+    </item>
+    
+    <item>
+      <title>R计算微积分</title>
+      <link>/post/test-toc/</link>
+      <pubDate>Sat, 10 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/test-toc/</guid>
+      <description>(一)R 计算微积分 1.1差分 x=1:12 diff(x) #向量差分 后面一个数减去前面一个数 ## [1] 1 1 1 1 1 1 1 1 1 1 1 z=matrix(x,3,4) z ## [,1] [,2] [,3] [,4] ## [1,] 1 4 7 10 ## [2,] 2 5 8 11 ## [3,] 3 6 9 12 diff(z) #矩阵差分 前行减去后行 ## [,1] [,2] [,3] [,4] ## [1,] 1 1 1 1 ## [2,] 1 1 1 1  1.2 符号计算–微分 1.</description>
+    </item>
+    
+    <item>
+      <title>data.table -- 3常见操作</title>
+      <link>/md/2018-01-18-datatable3/</link>
+      <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-18-datatable3/</guid>
+      <description>knitr::opts_chunk$set(message = F,warning = F,comment = &amp;quot;#&amp;gt;&amp;quot;,collapse = TRUE) 数据准备
+library(data.table) library(magrittr) iris_1 = data.table(iris[1:5,]) iris_2 = data.table(iris[51:55,]) iris_1 iris_2 1. 两个data.table行合并 ##### --- 两个data.table行合并 --两个数据的列数应该相等 ##### #### --- 方法一 --纯粹的合并 rbind(iris_1,iris_2) ### -- 方法2 --- l = list(iris_1,iris_2) rbindlist(l, use.names=TRUE, fill=TRUE) %&amp;gt;% head() 2. 两个data.table列合并 ##### --- 两个data.table列合并 --两个数据的行数应该相等 ## --方法一 纯粹的合并 cbind(iris_1[,1:2],iris_2[,5]) ## --方法2 --- 类似 dplyr包中的链接 # merge(iris_1[,1:2], iris_2[,5], all=TRUE,sort=F) ## --方法3 --- 类似 dplyr包中的链接 # dt_a[dt_b,on=.(b = y)] 多个data.</description>
+    </item>
+    
+    <item>
+      <title>data.table -- 2基本概念</title>
+      <link>/md/2018-01-17-datatable2/</link>
+      <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-17-datatable2/</guid>
+      <description>data.table基本概念和其余函数&amp;mdash;还需要修改 set*  函数族 会改变原有的数据，没有返回值，在data.table里，操作符&amp;quot;:=&amp;quot;和所有的以set开头函数（比如setkey,setorder,setname等）一样，它们都会更新输入的原数据。
+library(data.table) iris_dt = data.table(iris) # setnames(DT,oldnames,newnames) # 改变DT的列名oldnames,newnames为向量即变量 #改变列的顺序 col_names = colnames(iris_dt) setcolorder(iris_dt,col_names[5:1]) # 更改某行某列的值,即更新元素的值 set(iris_dt,1,1,NA)# 更改1行1列的值为NA 1、键（主键）的概念  data.table从来不使用行名。data.table类似有行名的形式为1:，2: , ... 主键会对筛选的列进行重排序 我们把data.table数据中的行名叫做键（或主键），他类似于python的字典，使用键值对类型查找数据，键要求唯一，每一行有且只有一个键。但是R中的键可以用多个甚至可以重复，键就相当于索引，通过键进行数据的查找 setkey() 和 setkeyv()可以直接更新输入的data.table，就和上一讲中的操作符&amp;quot;:=&amp;ldquo;一样。它们没有返回值。 这个主键和其它语言不一样，例如python的键，唯一，在r中任意列都能使用setkey()来设置主键  library(data.table) mtcars_dt &amp;lt;- data.table(mtcars) # 可以看出mtcars数据集中的行名没有了，替而代之为1: ，2: # 若想保留行名，设置keep.rownames = T，当keep.rowname＝&amp;quot;new&amp;quot;时，列名改为new即可 mtcars_dt &amp;lt;- data.table(mtcars,keep.rownames = T)#默认创建一个叫做 rn的列，并且将行名赋值给这一列。 mtcars_dt 1.2、设置／获取／使用主键 怎么将数据中的某一列设置为主键呢？&amp;mdash;setkey()函数
+ setkey(DT, key) 将DT中的key列设置为主键，但是类行名 1:，2:,&amp;hellip;,不会发生改变, 上面等价 setkeyv(DT, &amp;quot;key&amp;quot;) ，也将DT中的key列设置为主键 一旦将某一列设置成data.table的主键，就可以在参数i里指定 .()来subset那些主键了(就可以进行行筛选了)。我们还是用mtcars数据集，我们增加一个新列new  mtcars_dt &amp;lt;- data.table(mtcars) mtcars_dt[,new:=Sys.Date()+1:32] #增加一列new，内容为时间 setkey(mtcars_dt,new) mtcars_dt # 类似行名并没有发生改变， mtcars_dt[.</description>
+    </item>
+    
+    <item>
+      <title>data.table -- 1基本函数</title>
+      <link>/md/2018-01-16-datatable1/</link>
+      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-16-datatable1/</guid>
+      <description>data.table本质上是一个list，它们的列包含的元素个数都相同。
+1、数据的读写 1.1数据读入－－fread 选其常用的参数如下：
+fread(input,na.strings=&amp;#34;NA&amp;#34;, file, stringsAsFactors=FALSE,encoding=&amp;#34;unknown&amp;#34;, ...)  input 入的文件对象，fread函数可以自动判断分隔符类型，自动判断首行是否是列标题，同时默认读入时字符型变量不会变为因子型。也可也从网页读取数据 na.strings,对NA的解释； file文件路径，再确保没有执行shell命令时很有用，也可以在input参数输入; stringsASFactors是否转化字符串为因子， encoding，默认&amp;quot;unknown&amp;quot;，其它可能&amp;quot;UTF-8&amp;quot;或者&amp;quot;Latin-1&amp;quot;，不是用来重新编码的，而是允许处理的字符串在本机编码; showProgress = T 显示进度条 integer64 当数据列中有大于2 ^ 31的整数,可能会丢失精度 quote 对带双引号的字符添加转义,在R中正常显示,但是输出时,可能会引起成倍的双引号,因此建议使用fwrite时,设置该参数quote = FALSE  1.2数据写入－－fwrite fwrite(x, file = &amp;#34;&amp;#34;, append = FALSE, na = &amp;#34;&amp;#34;, row.names = FALSE, col.names = TRUE,logicalAsInt = FALSE, ...)  x,比如data.frame和data.table等R的对象； file，输出文件名,&amp;ldquo;&amp;ldquo;意味着直接输出到操作台； append，如果TRUE,在原文件的后面添加；默认删除原来文件的数据，重新存储。 na,na值的表示，默认&amp;rdquo;&amp;quot;； row.names，是否写出行名，因为data.table没有行名，所以默认FALSE； col.names ，是否写出列名，默认TRUE，如果没有定义，并且append=TRUE和文件存在，那么就会默认使用FALSE; logicalAsInt,逻辑值作为数字写出还是作为FALSE和TRUE写出；  1.3 数据框转为data.table 对于数据的处理，data.table包提供了一个非常简洁的通用格式：DT[i,j,by]，
+ 其中i控制列, j控制列, by控制分组. 上述表达式的意思是: 对于数据集DT，先选取子集行i, 然后通过by分组计算j。i设定数据的选取条件，j设定结果的计算方式，by设定数据的分组情况。通过这个，我们可以在一行代码中很方便地完成处理过程。首先需要把数据变为data.table类型  library(data.table) library(magrittr) ### 方法一: 赋值转换 mtcars_dt &amp;lt;- data.</description>
+    </item>
+    
+    <item>
+      <title>因子数据类型处理</title>
+      <link>/post/2018-01-14-factor/</link>
+      <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-01-14-factor/</guid>
+      <description>因子类型 变量可归结为名义型、有序型或连续型变量，
+类别（名义型）变量和有序类别（有序型）变量在R中称为因子（factor） ，如性别、省份、职业。
+ 类别（名义型）变量是没有顺序之分的类别变量。
+ 有序型变量表示一种顺序关系，代表有序量度，如打分结果，疾病严重程度等。而非数量关系。
+  连续型变量可以呈现为某个范围内的任意值，比如年龄
+1、基础函数 针对因子型数据，我们一般需要用到三种变化
+ 更改level标签名 更改level顺序 创建有序因子  用factor()函数把字符型向量转换成因子，如
+x &amp;lt;- c(&amp;quot;男&amp;quot;, &amp;quot;女&amp;quot;, &amp;quot;男&amp;quot;, &amp;quot;男&amp;quot;, &amp;quot;女&amp;quot;) sex &amp;lt;- factor(x) #将此向量存储为(1, 2, 1, 1，2)，并在内部将其关联为1=&amp;quot;男&amp;quot;和2=&amp;quot;女&amp;quot;（具体赋值根据字母顺序而定）。 sex ## [1] 男 女 男 男 女 ## Levels: 男 女 attributes(sex) ## $levels ## [1] &amp;quot;男&amp;quot; &amp;quot;女&amp;quot; ## ## $class ## [1] &amp;quot;factor&amp;quot; 因子有class属性，取值为&#34;factor&#34;， 还有一个levels(水平值)属性， 此属性可以用levels()函数访问，如
+levels(sex)#查看某个因子的标签有哪些 ## [1] &amp;quot;男&amp;quot; &amp;quot;女&amp;quot; 因子的levels属性可以看成是一个映射， 把整数值1,2,…,映射成这些水平值， 因子在保存时会保存成整数值1,2,等与水平值对应的编号。 这样可以节省存储空间， 在建模计算的程序中也比较有利于进行数学运算。</description>
+    </item>
+    
+    <item>
+      <title>R软件常见问题</title>
+      <link>/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>1、读取数据编码问题   读取csv文件出现中文乱码方案，增加编码格式参数
+read.csv(trainPath,header=TRUE,stringsAsFactors=TRUE,encoding = &amp;quot;UTF-8&amp;quot;)   保存csv文件中出现乱码，编码格式参数
+write.csv(outp, file = path, quote = F, fileEncoding = &amp;quot;UTF-8&amp;quot;) #存储utf-8也乱码，我的电脑有时会发疯，有时又不会   source 加载R脚本中文乱码
+source(&amp;quot;core.R&amp;quot;,encoding=&amp;quot;utf-8&amp;quot;)   RStudio中脚本中文乱码，编码格式设置：tools -&amp;gt; global option&amp;hellip;., 设置为UTF-8，最后，在打开文件的时候，选择File -&amp;gt; Reopen with encoding菜单，选择我们使用UTF-8编码打开文件，这样子就可以正确地显示中文了。
+  R语言环境的显示问题
+sessionInfo() Sys.getlocale() Sys.setlocale(category = &amp;quot;LC_ALL&amp;quot;,local=&amp;quot;us&amp;quot;) Sys.setlocale(category = &amp;quot;LC_ALL&amp;quot;,local=&amp;quot;chinese&amp;quot;)   2、保存数据编码问题(win中) 由于用Rstudio设置了保存的编码都用UTF-8，所以在保存文件时（特别是csv文件），经常遇到乱码的现象，比如使用data.table:::fwrite()、自带的write.csv()、readr:::write_csv()都乱码
+产生的原因：
+因为excel打开文件时默认使用unicode的编码方式（还有的网友说是默认以ANSI编码方式打开，待考）。在Unicode基本多文种平面定义的字符（无论是拉丁字母、汉字或其他文字或符号），一律使用2字节储存。恰恰utf-8是1字节的存储方式，所以excel直接打开时会出现乱码。
+解决办法：
+  **方法1、数据导入&amp;ndash;**不建议
+打开 Excel，执行“数据”-&amp;gt;“自文本”，选择 CSV 文件，出现文本导入向导，选择“分隔符号”，下一步，勾选“逗号”，去掉“ Tab 键”，下一步，完成，在“导入数据”对话框里，直接点确定。导入之后，所有汉字显示正常，乱码问题解决。
+万一这个文本里面的有逗号，巧好分割时候是逗号（csv文件是以逗号进行存储的）,这就会对不齐了，产生新的问题
+  方法2、先另存再打开
+使用记事本打开CSV文件，“文件”-&amp;gt;“另存为”，编码方式选择ANSI，保存完毕后，用EXCEL打开这个文件就不会出现乱码的情况。
+不会乱码以后选择另存为excel</description>
+    </item>
+    
+    <item>
+      <title>1、go语言安装与LiteIDE的配置</title>
+      <link>/md/2018-01-05-goinstall/</link>
+      <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-05-goinstall/</guid>
+      <description>先下载 liteide 和go 安装包， 由于我的是win10 ，直接下载win的，直接点击下一步就可以安装go语言了，他会自动安装到C：\go 我设置为F :\go
+在cmd 命令中输入 ：go env 显示
+set GOARCH=amd64 # cpu架构 set GOBIN= # 工作目录下的bin文件夹 set GOEXE=.exe # 生成可执行文件的后缀 set GOHOSTARCH=amd64 #交叉编译参数 set GOHOSTOS=windows #交叉编译参数 set GOOS=windows #当前系统名称 set GOPATH=C:\Users\zsc\go # 我的工作目录 set GORACE= # set GOROOT=F:\go	#go的安装目录 set GOTOOLDIR=F:\go\pkg\tool\windows_amd64 # set GCCGO=gccgo set CC=gcc set GOGCCFLAGS=-m64 -mthreads -fmessage-length=0 -fdebug-prefix-map=C:\Users\zsc\AppData\Local\Temp\go-build974907835=/tmp/go-build -gno-record-gcc-switches set CXX=g++ set CGO_ENABLED=1 set CGO_CFLAGS=-g -O2 set CGO_CPPFLAGS= set CGO_CXXFLAGS=-g -O2 set CGO_FFLAGS=-g -O2 set CGO_LDFLAGS=-g -O2 set PKG_CONFIG=pkg-config 好像这后面的可以不用管，去电脑的环境变量里面新增</description>
+    </item>
+    
+    <item>
+      <title>dplyr -- 3合并数据</title>
+      <link>/post/2018-01-04-dplyr3/</link>
+      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-01-04-dplyr3/</guid>
+      <description>1、转换与合并 2、筛选与合并 3、集合操作 4、数据排序 5、   记录是一行,字段是一列
+1、转换与合并 left_join(a, b, by = “x1”)： 向数据集a中加入匹配的数据集b记录（行）。
+right_join(a, b, by = “x1”)： 向数据集b中加入匹配的数据集a记录。
+inner_join(a, b, by = “x1”)： 合并数据。仅保留匹配的记录。
+full_join(a, b, by = “x1”)： 合并数据。保留所有记录，所有行。没有的用NA填充
+library(dplyr) a=data.frame(x1=c(&amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;,&amp;quot;C&amp;quot;),x2=c(1:3)) b=data.frame(x1=c(&amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;,&amp;quot;D&amp;quot;),x3=c(&amp;quot;T&amp;quot;,&amp;quot;F&amp;quot;,&amp;quot;T&amp;quot;)) a;b ## x1 x2 ## 1 A 1 ## 2 B 2 ## 3 C 3 ## x1 x3 ## 1 A T ## 2 B F ## 3 D T left_join(a, b, by = &amp;quot;x1&amp;quot;)# 向数据集a中加入匹配的数据集b记录。 ## x1 x2 x3 ## 1 A 1 T ## 2 B 2 F ## 3 C 3 &amp;lt;NA&amp;gt; right_join(a, b, by = &amp;quot;x1&amp;quot;)# 向数据集b中加入匹配的数据集a记录。 ## x1 x2 x3 ## 1 A 1 T ## 2 B 2 F ## 3 D NA T inner_join(a, b, by = &amp;quot;x1&amp;quot;)# 合并数据。仅保留匹配的记录。 ## x1 x2 x3 ## 1 A 1 T ## 2 B 2 F full_join(a, b, by = &amp;quot;x1&amp;quot;)# 合并数据。保留所有记录，所有行，没有的用NA填充 ## x1 x2 x3 ## 1 A 1 T ## 2 B 2 F ## 3 C 3 &amp;lt;NA&amp;gt; ## 4 D NA T  2、筛选与合并 semi_join(a, b, by = “x1”)： 数据集a中能与数据集b匹配的记录。</description>
+    </item>
+    
+    <item>
+      <title>dplyr -- 2实战</title>
+      <link>/post/2018-01-03-dplyrshizhan2/</link>
+      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-01-03-dplyrshizhan2/</guid>
+      <description>1.1、选择行filter() 1.2、选择列 select() 1.3、排序arrange() 1.4、添加新变量mutate 1.5 汇总(行): summarise() 1.6、分组动作   把前两天的两篇文章合并，解决方法：名字还是不能太长，在content目录下新建test目录，把它放在content目录下的test目录，不放在post目录，我的test目录只有两篇文章
+1.1、选择行filter() 安装nycflights13包，该软件包中的飞机航班数据将用于本文中dplyr包各个函数的演示
+library(dplyr) library(nycflights13) 函数tbl_df()将过长过大的数据集转换为显示更友好的 tbl_df 类型:
+flights &amp;lt;- tbl_df(flights) head(flights) #有336,776 x 19 ## # A tibble: 6 x 19 ## year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time ## &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; ## 1 2013 1 1 517 515 2 830 819 ## 2 2013 1 1 533 529 4 850 830 ## 3 2013 1 1 542 540 2 923 850 ## 4 2013 1 1 544 545 -1 1004 1022 ## 5 2013 1 1 554 600 -6 812 837 ## 6 2013 1 1 554 558 -4 740 728 ## # … with 11 more variables: arr_delay &amp;lt;dbl&amp;gt;, carrier &amp;lt;chr&amp;gt;, flight &amp;lt;int&amp;gt;, ## # tailnum &amp;lt;chr&amp;gt;, origin &amp;lt;chr&amp;gt;, dest &amp;lt;chr&amp;gt;, air_time &amp;lt;dbl&amp;gt;, distance &amp;lt;dbl&amp;gt;, ## # hour &amp;lt;dbl&amp;gt;, minute &amp;lt;dbl&amp;gt;, time_hour &amp;lt;dttm&amp;gt; filter(flights,origin == &amp;quot;JFK&amp;quot;,month == 6L) #－ 获取六月份所有从”JFK”机场起飞的航班 ## # A tibble: 9,472 x 19 ## year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time ## &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; ## 1 2013 6 1 2 2359 3 341 350 ## 2 2013 6 1 538 545 -7 925 922 ## 3 2013 6 1 539 540 -1 832 840 ## 4 2013 6 1 553 600 -7 700 711 ## 5 2013 6 1 554 600 -6 851 908 ## 6 2013 6 1 557 600 -3 934 942 ## 7 2013 6 1 559 600 -1 856 930 ## 8 2013 6 1 606 610 -4 847 906 ## 9 2013 6 1 609 615 -6 759 808 ## 10 2013 6 1 615 610 5 837 847 ## # … with 9,462 more rows, and 11 more variables: arr_delay &amp;lt;dbl&amp;gt;, ## # carrier &amp;lt;chr&amp;gt;, flight &amp;lt;int&amp;gt;, tailnum &amp;lt;chr&amp;gt;, origin &amp;lt;chr&amp;gt;, dest &amp;lt;chr&amp;gt;, ## # air_time &amp;lt;dbl&amp;gt;, distance &amp;lt;dbl&amp;gt;, hour &amp;lt;dbl&amp;gt;, minute &amp;lt;dbl&amp;gt;, time_hour &amp;lt;dttm&amp;gt; slice(flights,1:2) #选取前面的1:2行 ## # A tibble: 2 x 19 ## year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time ## &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; ## 1 2013 1 1 517 515 2 830 819 ## 2 2013 1 1 533 529 4 850 830 ## # … with 11 more variables: arr_delay &amp;lt;dbl&amp;gt;, carrier &amp;lt;chr&amp;gt;, flight &amp;lt;int&amp;gt;, ## # tailnum &amp;lt;chr&amp;gt;, origin &amp;lt;chr&amp;gt;, dest &amp;lt;chr&amp;gt;, air_time &amp;lt;dbl&amp;gt;, distance &amp;lt;dbl&amp;gt;, ## # hour &amp;lt;dbl&amp;gt;, minute &amp;lt;dbl&amp;gt;, time_hour &amp;lt;dttm&amp;gt; sample_n(flights, 4, replace = TRUE)# 随机选取4条数据记录。 ## # A tibble: 4 x 19 ## year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time ## &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; ## 1 2013 8 22 1857 1705 112 2150 2020 ## 2 2013 5 27 1958 1925 33 2152 2129 ## 3 2013 9 10 1345 1345 0 1520 1520 ## 4 2013 11 21 1058 1100 -2 1311 1304 ## # … with 11 more variables: arr_delay &amp;lt;dbl&amp;gt;, carrier &amp;lt;chr&amp;gt;, flight &amp;lt;int&amp;gt;, ## # tailnum &amp;lt;chr&amp;gt;, origin &amp;lt;chr&amp;gt;, dest &amp;lt;chr&amp;gt;, air_time &amp;lt;dbl&amp;gt;, distance &amp;lt;dbl&amp;gt;, ## # hour &amp;lt;dbl&amp;gt;, minute &amp;lt;dbl&amp;gt;, time_hour &amp;lt;dttm&amp;gt; flights %&amp;gt;% top_n(4,dep_time) ## # A tibble: 29 x 19 ## year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time ## &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; ## 1 2013 10 30 2400 2359 1 327 337 ## 2 2013 11 27 2400 2359 1 515 445 ## 3 2013 12 5 2400 2359 1 427 440 ## 4 2013 12 9 2400 2359 1 432 440 ## 5 2013 12 9 2400 2250 70 59 2356 ## 6 2013 12 13 2400 2359 1 432 440 ## 7 2013 12 19 2400 2359 1 434 440 ## 8 2013 12 29 2400 1700 420 302 2025 ## 9 2013 2 7 2400 2359 1 432 436 ## 10 2013 2 7 2400 2359 1 443 444 ## # … with 19 more rows, and 11 more variables: arr_delay &amp;lt;dbl&amp;gt;, carrier &amp;lt;chr&amp;gt;, ## # flight &amp;lt;int&amp;gt;, tailnum &amp;lt;chr&amp;gt;, origin &amp;lt;chr&amp;gt;, dest &amp;lt;chr&amp;gt;, air_time &amp;lt;dbl&amp;gt;, ## # distance &amp;lt;dbl&amp;gt;, hour &amp;lt;dbl&amp;gt;, minute &amp;lt;dbl&amp;gt;, time_hour &amp;lt;dttm&amp;gt;  1.</description>
+    </item>
+    
+    <item>
+      <title>dplyr -- 1基本函数简介</title>
+      <link>/md/2018-01-01-dplyr/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-01-dplyr/</guid>
+      <description>0、dplyr初始 由于R语言每一个步骤没有赋值的话，是不会改变原有的数据，都是建立一个新的数据。原有数据不改变。
+  dplyr::tbl_df(iris)： 将数据转化为tbl类。只会显示适合屏幕大小的数据：
+  dplyr::glimpse(iris)： tbl数据的信息密集概括。 类似str()函数
+  dplyr::%&amp;gt;%： 将左边的对象作为第一个参数（或参数 .）传递到右边的函数中。利用%&amp;gt;%进行“Piping”管道操作增强了代码的可读性，
+  x %&amp;gt;% f(y) 相当于 f(x, y) y %&amp;gt;% f(x, ., z) 相当于 f(x, y, z )    1、filter 行过滤  **filter(iris, Sepal.Length &amp;gt; 7) ：**抽取符合逻辑条件的数据记录。 **distinct(iris) ：**删除重复记录。 distinct(iris, Species) 保留iris某一列的唯一值 **sample_frac(iris, 0.5, replace = TRUE) ：**随机选取部分数据(占总体的0.5)记录。 **sample_n(iris, 10, replace = TRUE) ：**随机选取n条数据记录。 **slice(iris, 10:15) ：**通过位置选取数据记录。 **top_n(storms, 2, date) ：**选取并排列前n条数据记录 （若为分组数据则按组排序）  2、select 列过滤 rename(.</description>
+    </item>
+    
+    <item>
+      <title>tibble包的列和行名相互转换以及添加行和列</title>
+      <link>/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/</link>
+      <pubDate>Sun, 31 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/</guid>
+      <description>1、列与行名相互转化 tibble包：
+  has_rownames(df)：检查是否存在行名
+  remove_rownames(df) ： 移除行名
+  rownames_to_column(df, var = &amp;ldquo;rowname&amp;rdquo;) ： 行名变为某列
+ rowid_to_column(df, var = &amp;ldquo;rowid&amp;rdquo;)： 行名变为某列,只能变为数字,个人不推荐    column_to_rownames(df, var = &amp;ldquo;rowname&amp;rdquo;) ： 某列变为行名，并删除某列,要求这个列值唯一
+  library(tibble) head(mtcars) has_rownames(mtcars) #检查是否存在行名 new_mtcars=rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;) #行名变为某列,行名此时被移除 head(new_mtcars) has_rownames(rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) has_rownames(rowid_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) df=remove_rownames(mtcars)#： 移除行名 head(df) column_to_rownames(new_mtcars, var = &amp;quot;new_col&amp;quot;)# 某列变为行名，并删除某列,要求这个列值唯一 2、添加行与列 添加行：
+ add_row(.data, &amp;hellip;, .before = NULL, .after = NULL)  添加列：</description>
+    </item>
+    
+    <item>
+      <title>hugo--blogdown生成的目录</title>
+      <link>/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</guid>
+      <description>1、先介绍一下有hugo生成的目录 站点下面的目录和必须的文件由hugo自己生成。一般它是这样的： archetypes/ : 全局原型，也就是内容模板。 |____default.md : 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板 content/ ：内容，存放“XXX.md”/&amp;quot;XXX&amp;gt;Rmd&amp;quot;文件，文件名可以用中文 data/ ：存放数据文件 layouts/ ：和archetypes一起将被我们的主题覆盖掉 public/ ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。 static/ ：静态目录，完全复制到public。比如图片、js、php脚本 themes/ ：主题目录，一个站可有多个主题，就像换衣服 |____aaa ：主题aaa，可以有很多个 |____bbb ：主题bbb |____archetypes : 主题的内容模板 |____layouts ：布局，就是html模板 |____static ：静态的，放主题的js，css文件 |____LICENSE.md ：这个，呵呵，不说大家也知道 |____theme.toml ：主题的信息配置 config.toml ：站点配置文件，可以配置站点名字等等很多信息 主题部分并未全部介绍，这个将在主题部分详细讲解。
+2、静态文件 不需要hugo处理的文件叫做静态文件。存放在 站点的static 目录是个好主意。
+ static目录下的文件将会原封不动的复制到public下面，比如您建立了个img的目录存图片，在md文件中将直接使用”img/aaa.jpg”来引用图片，
+特别的，如果您的站点有php等脚本运用，和一些其他的文件，比如各搜索引擎的验证文件等，也可以放在这里。不建议直接将文件存放于public目录，因为我习惯不高兴就删了全来！相信你也会有不高兴的时候的。（后面比如要上传的google网站分析的html文件）
+ 3、站点配置文件 站点根目录下有一个”config.toml“就是配置文件 E:\test_blog下的config.toml
+信息存在的地，hugo有三个地方可以放信息，  一个是站点的配置文件“config.toml”， 一个是我们文章文件md文件的头部（默认的用三个“&amp;mdash;”号开始和结束，也可以用三个“+++”号 最后一个是“data”数据目录。  congfig.toml该文件默认支持的全部参数：可以用键值对，也可以用赋值语句
+以 hugo-lithium-theme主题为例
+介绍几个后面可能会用的参数
+baseurl = &amp;quot;http://qaz.netlify.com&amp;quot; # 基础路径,当自己有网站的时候就写自己的 relativeurls = true #使用想对路径方便本地浏览 languageCode = &amp;quot;zh-cn&amp;quot; #编码 title = &amp;quot;A Hugo website&amp;quot;	#网站的title theme = &amp;quot;hugo-lithium-theme&amp;quot; googleAnalytics = &amp;quot;&amp;quot; #谷歌网站分析添加自己的id，形如：UA-XXXXXX-X disqusShortname = &amp;quot;http-qaz-netlify-com&amp;quot; # disqusShortname 的名字，一定要找准 ignoreFiles = [&amp;quot;\\.</description>
+    </item>
+    
+    <item>
+      <title>hugo--分类标签添加</title>
+      <link>/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</guid>
+      <description>分类标签添加 找到single.html的页面 添加，从 http://fontawesome.io 下载文件 解压暂时只需要css/font-awesome.min.css 和fontawesome-webfont.woff2 引入到head.html中，
+把下面的代码添加到single.html  {{ with .Params.tags }} {{ if ge (len .) 1 }} &amp;lt;div class=&amp;quot;article-headline&amp;quot;&amp;gt; &amp;lt;i class=&amp;quot;fa fa-tags&amp;quot;&amp;gt; &amp;lt;/i&amp;gt;&amp;lt;!-- end--&amp;gt; {{ range . }} &amp;lt;a href=&amp;quot;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&amp;quot;&amp;gt;{{ . }}&amp;lt;/a&amp;gt; {{ end }} &amp;lt;/div&amp;gt; {{ end }} {{ end}}  下面对content\下文件夹的引入以及添加相关信息  &amp;lt;!-- 这个是content\下的post文件夹 --&amp;gt; {{ if eq .Section &amp;quot;post&amp;quot; }} &amp;lt;div class=&amp;quot;article-date&amp;quot;&amp;gt;{{ with .Params.Author }} {{.}} &amp;amp;middot; {{ end }} 字数共{{ .</description>
+    </item>
+    
+    <item>
+      <title>添加谷歌网站分析</title>
+      <link>/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-12-30-%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E5%88%86%E6%9E%90/</guid>
+      <description>添加谷歌网站分析
+直接在config.toml中的googleAnalytics = &amp;quot;&amp;quot; 把自己的Id写进去即可完成.</description>
+    </item>
+    
+    <item>
+      <title>博客搭建——blogdown之md</title>
+      <link>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
+      <description>1、下载安装、配置好R与Rstudio 2、打开Rstudio&amp;mdash;-下载blogdown包 if(!require(devtools)) install.packages(&#39;devtools&#39;) devtools::install_github(&#39;rstudio/blogdown&#39;) 等待安装，缺什么安装什么，
+3、在rstudio中安装hugo软件,只需运行下面函数即可 blogdown::install_hugo() 注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中
+4、创建测试网站  可用命令blogdown::new_site(), 在rstudio中的左上角点击【file】&amp;ndash;【New Project】&amp;mdash;【Website using blogdown】  适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，
+5、创建完成 在刚刚所在目录【E:\test_blog】下面有很多文件，其他的可以不用管，可以找到一个config.tom配置文件，更改与你相关的信息，添加relativeurls =true保存(意思是引用想对路径)，也可以不用暂时不用管这个，毕竟我们只是了解创建博客步骤，但是还是请你留意两个文件content\ 和public\ ，content\ 用来写文章的文件，暂时还没有public\文件夹,这个是把content\ 文件夹下面的文章转变为html博客文章
+6、运行blogdown:::serve_site() 博客创建完成.  也可以点击【adds】&amp;ndash;【serve_site】，rstudio右边会有本地浏览  7、发布到网上  创建github和netlify网站的账号，下载git客服端，以及github客服端，可能有相关配置，配置好即可 打开github客服端，点击【file】&amp;ndash;【Create a new repository】添加仓库地址即我们刚刚的创建博客的地址，选择E\test_blog ，选择子目录和父目录都不可以，只能选择他，填写相关Name 和 Description完成即可，可以勾选 &amp;hellip;..a README,创建完成 初次可以看到History里面有我们刚刚的文件 ，点击Publish repository，弹出对话框，有一个Name，这个是要上传给github仓库的名字，它自动创建为test_blog,也有描述内容，注意他勾选了一个Keep this code private ，这个要点取消，最后一步点击【Publish repository】,等待完成 上github官网，查看你的仓库，已经有一个test_blog仓库 进入netlify官网 ,点击【New site from Git】&amp;mdash;【github】（取消勾选下面的LImit Github&amp;hellip;&amp;hellip;..）&amp;ndash;选择刚刚的test_blog仓库&amp;mdash;在显示Publish directory 的地方如数public&amp;mdash;最后点击部署，等待完成 找到部署完成以后会有个绿色的网站，我的是：https://thirsty-hawking-274891.netlify.com,点击进入，就是我们部署的博客了， 网站名太难记，可以改名，改为自己喜欢的民资，只能改netlify的前面的地方,我改为：qaz.netlify.com  8、发布新帖  方法一：将原有的.md或 .Rmd拷贝粘贴，改一下标题和内容即可； 方法二：在RSudio代码窗口点击 Addins- New Post， 按提示填写即可。  写完以后，保存，运行建站函数blogdown::build_site() 。这样文件发生变化，github客服端自动检测，只需要你填写【Change】下面的summary和Description，点击提交给master，再次同步到github（点击Fetch origin） 完成，netlify自动同步github的内容 进入你的博客网站可以看到有了新变化    9、添加disqus评论功能(科学上网)   注册登录disqus ,点击头像 &amp;ndash;settings &amp;mdash;Add Disqus To site&amp;ndash;[GET STARTED]&amp;mdash;&amp;ndash;I want to install Disqus on my site &amp;mdash;&amp;mdash;输入刚刚的网站 ：qaz.</description>
+    </item>
+    
+    <item>
+      <title>hugo-blogdown搭建网页过程中的小问题</title>
+      <link>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>1、hugo路径设置 在建立网站的时候，用rmarkdown生成的图片引用到网页中，不能使用中文，不然图片路径找不到（即不能正常显示）且不能用空格，但是可以用-,表示路径。 所以目录还是用英文吧，不过标题可以用中文
+2、hugo生成网页首页产生0001样式 这是由于文章开头没有声明yaml格式，注意title author可以用双引号也可以不用，但请注意date的日期格式，尽量用date: 2017-12-28 这样的格式
+3 运行blogdown:::serve_site()函数本地监听没有反应 即运行blogdown:::serve_site()改函数时，本地不能预览，这是由于我们自己写的rmd或者md文件的编码不是UTF-8引起的，所以我们一般要设置Rstudio的全局属性中保存UTF-8编码，但是这样在保存文件时又会产生新的问题，特别是保存的是csv文件
+还有一种情况是设置了全局属性echo = TRUE这个选项，不过这个选项还有待验证
+参见：
+4、网站图片引入居中设置 方法一：嵌入html标签
+&amp;lt;img src=&amp;quot;./xxx.png&amp;quot; width = &amp;quot;300&amp;quot; height = &amp;quot;200&amp;quot; alt=&amp;quot;图片名称&amp;quot; align=center /&amp;gt; 方法二：
+	&amp;lt;div align=&amp;quot;center&amp;quot;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
+解决方法： 这是由于rmd的文件名中有中文，写成英文即可。
+疑问： rmd文章短的时候可以用中文名。但是中文长的时候就不能用中文
+6、 hogo生成动态网页 不显示图片 比如 DT包 、plotly包、dygraph、等
+建议引用widgetframe包 如下 （并且rmd文件不能有中文名，不然不能识别，文章的标题可以是中文）
+library(dygraphs) library(widgetframe) ## 载入需要的程辑包：htmlwidgets ## Loading required package: htmlwidgets ts &amp;lt;- dygraph(nhtemp, main = &amp;quot;New Haven Temperatures&amp;quot;) frameWidget(ts, height = 350, width = &#39;95%&#39;) </description>
+    </item>
+    
+    <item>
+      <title>R语言标准化数据处理</title>
+      <link>/post/2017-11-13-%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 13 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-11-13-%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96%E6%96%B9%E6%B3%95/</guid>
+      <description>##　1、标准化——数据处理 ***
+preProcess(x, method = c(&amp;quot;center&amp;quot;, &amp;quot;scale&amp;quot;), thresh = 0.95, pcaComp = NULL, na.remove = TRUE, k = 5, knnSummary = mean, outcome = NULL, fudge = 0.2, numUnique = 3, verbose = FALSE, freqCut = 95/5,　uniqueCut = 10, cutoff = 0.9, ...) predict(object, newdata, ...)  x: 为一个矩阵或数据框，对于非数值型变量将被忽略　 method: 指定数据标准化的方法，默认为“center”和“scale”。（必须同时使用这两个，若选一个只能对应中心化或均值化）
+ 其中center表示预测变量值减去均值；scale表示预测变量值除以标准差，故默认标准化方法就是\((x-mu)/std\)。
+ 如果使用range方法，则数据标准为[0,1]的范围，即\((x-min)/(max-min)\)。   ppMethods &amp;lt;- c(&amp;quot;BoxCox&amp;quot;, &amp;quot;YeoJohnson&amp;quot;, &amp;quot;expoTrans&amp;quot;, &amp;quot;invHyperbolicSine&amp;quot;, &amp;quot;center&amp;quot;, &amp;quot;scale&amp;quot;, &amp;quot;range&amp;quot;, &amp;quot;knnImpute&amp;quot;, &amp;quot;bagImpute&amp;quot;, &amp;quot;medianImpute&amp;quot;, &amp;quot;pca&amp;quot;, &amp;quot;ica&amp;quot;, &amp;quot;spatialSign&amp;quot;, &amp;quot;ignore&amp;quot;, &amp;quot;keep&amp;quot;, &amp;quot;remove&amp;quot;, &amp;quot;zv&amp;quot;, &amp;quot;nzv&amp;quot;, &amp;quot;conditionalX&amp;quot;, &amp;quot;corr&amp;quot;)  thresh:如果使用主成分分析（PCA)方法，该参数指定累计方差至少达到0.</description>
+    </item>
+    
+    <item>
+      <title>数据集划分—-训练集和测试集方法</title>
+      <link>/md/2017-11-13-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86/</link>
+      <pubDate>Mon, 13 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-11-13-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86/</guid>
+      <description>1.随机采样sample()&amp;mdash;例：iris数据  sample(x, size, replace = FALSE, prob = NULL)  Index = sample(nrow(iris),size = nrow(iris)*0.8) trian_data = iris[Index,] #作为训练集 test_data = iris[-Index,] #作为测试集 类似的还有dplyr包中的sample_n函数
+ sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL)
+ 2. carte包&amp;ndash;createDatePartition 来进行分区抽样  inTrain =createDataPartition(响应变量y ,p=0.8,list=FALSE)  inTrain : 产生对应数据集行的索引 y 要分类或预测的变量, p 对应y的数据个数的概率  library(caret) set.seed(2012) #随机种子 Index =createDataPartition(iris$Species,p=0.8,list=FALSE) # 不知道为何？ iris[,5]不能使用 trian_data = iris[Index,] #作为训练集 test_data = iris[-Index,] #作为测试集 # 同样用上面第一种方法 产生数据集即可 3.</description>
+    </item>
+    
+    <item>
+      <title>R语言文件目录相关操作</title>
+      <link>/md/2017-04-08-r%E4%B8%AD%E8%AF%AD%E8%A8%80%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Sat, 08 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-04-08-r%E4%B8%AD%E8%AF%AD%E8%A8%80%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</guid>
+      <description>1. 文件系统介绍 R语言对文件系统的操作，包括文件操作和目录操作，函数API都定义在base包中。
+2. 目录操作 2.1 查看目录
+查看当前目录下的子目录。
+ setwd() #设定某个目录为当前目录 getwd() # 当前的目录 list.dirs() # 查看当前目录的子目录 参数详见dir() dir() #查看当前目录的子目录和文件。 dir(path=&amp;quot;C:/windows&amp;quot;)#查看指定目录的子目录和文件 dir(path=&amp;quot;C:/windows&amp;quot;,all.files=TRUE)# 列出目录下所有的目录和文件，包括隐藏文件 dir(path=&amp;quot;C:/windows&amp;quot;,pattern=&#39;^R&#39;)#只列出以字母R开头的子目录或文件 file.info(&amp;quot;.&amp;quot;) # 查看当前目录权限 2.2 创建目录
+dir.create(&amp;quot;your dir&amp;quot;) # 在当前目录下，新建一个目录 dir.create(path=&amp;quot;a1/b2/c3&amp;quot;,recursive = TRUE) #递归创建一个3级子目录./a1/b2/c3，直接创建会出错 2.3 检查目录是否存在
+system(&amp;quot;tree&amp;quot;) # 通过系统命令查看目录结构 file.exists(&amp;quot;./a1&amp;quot;) # 查看某个目录是否存在,可以多层次调用目录 2.4 检查目录的权限
+df&amp;lt;-dir(full.names = TRUE) #获取当前目录的所有目录(不含子目录)和文件名（含后缀） file.access(df, model=0) == 0 # 检查文件或目录是否存在，mode=0 # 检查文件或目录是否可执行，mode=1，目录为可以执行 # 检查文件或目录是否可写，mode=2 # 检查文件或目录是否可读，mode=4 2.5修改目录权限。
+ Sys.chmod(&amp;quot;./create&amp;quot;, mode = &amp;quot;0555&amp;quot;, use_umask = TRUE) # 修改目录权限，所有用户只读 2.</description>
+    </item>
+    
+    <item>
+      <title>knn算法简介</title>
+      <link>/post/2017-03-23-knn%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-03-23-knn%E7%AE%97%E6%B3%95/</guid>
+      <description>行业应用：比如文字识别、面部识别、预测某人是否喜欢推荐电影
+基因模式识别：比如用于检测某种疾病，更适合于稀有事件的分类问题（客户流失识别）
+ 应用场合：通常最近邻分类器适用特征与目标类之间的关系比较复杂的数字类型或者二者关系难以理解，但是相似类间的特征都是相似的  特点：
+1. 简单有效，对数据分布没有假设，数据训练也很快。
+但是他没有模型输出，因此限制了对特征的理解。
+ 分类阶段比较慢。
+ 需要标准化(nominal)特征以及缺少数据需要预先处理
+    优点 缺点    简单且有效 不产生模型．在发现特彻之间关系上的能力有限  对数据的分布没有要求 分类阶段很慢, 需要大量的内存  训练阶段很快 名义变量（特征变量）和缺失数据需要额外处理    k的取值：
+1. k通常在3~10之间直接取值（看分析者的心情）
+2. 可采用一般方法：k等于训练数据个数的平方根（15个数据，k可能取4）
+1. 导入数据 #导入数据 # import the CSV file wbcd &amp;lt;- read.csv(&amp;quot;wisc_bc_data.csv&amp;quot;, stringsAsFactors = FALSE) # 查看一下数据结构，发现除了要预测的变量diagnosis是字符型变量其余全是数字型变量 str(wbcd) ## &amp;#39;data.frame&amp;#39;: 569 obs. of 32 variables: ## $ id : int 87139402 8910251 905520 868871 9012568 906539 925291 87880 862989 89827 .</description>
+    </item>
+    
+    <item>
+      <title>回归树与模型树</title>
+      <link>/post/2017-02-18-tree-model/</link>
+      <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-02-18-tree-model/</guid>
+      <description>1、理解回归树与模型树 决策树可用于聚类（类别变量），也可用于数值预测,但是本节只考虑决策树用于数值预测.
+决策树用于数值预测可以分为回归树和模型树
+回归树: 回归树中并没用使用线性回归的方法，而是基于到达叶节点的案例的平均值做出预测
+ 模型树: 模型树和回归树以大致相同的方式生长，但是在每个叶节点，根据到达该节点的案例建立多元线性回归模型。根据叶节点的数目，一棵模型树可能会建立几十甚至上百个这样的模型，可能会使模型树比同等的回归树更难解释，但好处也行能提高精确度。
+   2、回归树与模型树的优缺点   优点 缺点    将决策树的优点对数值型数据建立模型的能力相结合 不像线性回归那么常用  能自动选择特征，允许该方法与大量特征一起使用 需要大量的训练数据  不需要使用者事先指定模型 难以确定单个特征对于结果的总体净影响  拟合某些类型的数据可能会比线性回归好 可能比回归模型难以解释  不要求用统计的知识来解释模型     用于数值预测的决策树的建立方式与用于分类的决策树建立的方式大致相同。从根节点开始，按照特征使用分而治之的决策对数据进行划分，在进行一次分割后，将会导致结果最大化的均匀增长。
+在分类决策树中，一致性(均匀性)是有熵值度量 ，而对于数值型数据是未定义的， 对于数值型决策，一致性(均匀性)可通过统计量(方差、标准差、平均绝对偏差)来度量,根据使用的决策树生长算法，度量方法可能用所不同，但基本原理相同.  常见的一个分割标准成为标准偏差减少(Standard Deciation Reduction,SDR),其公式定义如下\[SDR=sd(T)\]
+ 3、例子——-估计葡萄酒的质量 白葡萄酒包含4898个葡萄酒案例的11种化学特征的信息，对于每种葡萄酒，实验室分析测量的特征包括酸性、含糖量、氯化物含量、硫的含量、酒精度、PH值和密度值
+3.1读入数据 其所有特征都是数值型
+wine &amp;lt;- read.csv(&amp;quot;whitewines.csv&amp;quot;) 研究一下结果变量的分布,由于是离散的，可用直方图来研究葡萄酒质量的分布：
+hist(wine$quality) 符合正态分布。大约以数值为6为中心(也可用summary()函数发现一些数据的异常值等等)，最后划分训练数据与测试数据(数据是随机排序),75%的训练数据，25%的测试数据
+wine_train &amp;lt;- wine[1:3750, ] wine_test &amp;lt;- wine[3751:4898, ]  3.2基于数据训练模型—-回归树 library(rpart) m.rpart &amp;lt;- rpart(quality ~ .</description>
+    </item>
+    
+    <item>
+      <title>ggfortify包简介</title>
+      <link>/post/2017-02-01-ggfortify1jianjie/</link>
+      <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-02-01-ggfortify1jianjie/</guid>
+      <description>ggfortify 是一个简单易用的R软件包，它可以仅仅使用一行代码来对许多受欢迎的R软件包结果进行二维可视化，这让统计学家以及数据科学家省去了许多繁琐和重复的过程，不用对结果进行任何处理就能以 ggplot 的风格画出好看的图，大大地提高了工作的效率。
+接下来我将简单介绍一下怎么用 ggplot2 和 ggfortify 来很快地对PCA、聚类以及LFDA的结果进行可视化，然后将简单介绍用 ggfortify 来对时间序列进行快速可视化的方法。一下都是个人理解，
+1、PCA (主成分分析) 其实本包，大多数画图都是采用主成分（不包括因子分析）降维得到两个主成分，在进一步使其主成分为坐标，对应与每个点给出相应的颜色和类别
+ggfortify 使 ggplot2 知道怎么诠释PCA对象。加载好 ggfortify 包之后, 你可以对stats::prcomp 和stats::princomp对象使用 ggplot2::autoplot。
+autoplot()函数是ggplot2中的，不过ggfortify包里面有泛函s3类的autoplot解释这个函数
+ggbiplot()函数中的参数就是autoplot()函数中的参数
+autoplot(object, data = NULL, scale = 1, x = 1, y = 2, ...) object : 对象 data : 对应的数据框 colour = &amp;#39;Species&amp;#39; : 若有分类因子变量，可以对不同的类别添加颜色,当为连续值时为逐渐变色 shape = FALSE ： 调整点的形状，可以让所有的点消失，只留下标识（可以为具体的数字，就是形状类型） main 、xlab 、ylab ： 标题 label = TRUE label.size = 3 : 可以给每个点加上标识（以rownames为标准），也可以调整标识的大小.（默认为FALSE） label.</description>
+    </item>
+    
+    <item>
+      <title>2、caret包其他函数介绍</title>
+      <link>/post/2017-01-28-caret1otherfun/</link>
+      <pubDate>Sat, 28 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-01-28-caret1otherfun/</guid>
+      <description>一、创建哑变量 如果你有一个因子型变量需要进行哑变量处理，你会怎么办？也许你会根据该变量的m个水平数构建m-1个哑变量，不错，这样的思路是没有问题的。但如果发现该变量确实很重要，而且水平数目非常多，那你一定会抓狂！如果你会caret包中的dummyVars()函数，那将如虎添翼，效率倍增~我们来看看该函数是如何实现哑变量构建的。
+函数语法及参数介绍：
+dummyVars(formula, data, sep = &#34;.&#34;,levelsOnly = FALSE, fullRank = FALSE, ...) predict(object, newdata, na.action = na.pass, ...)
+ formula: 公式右边请指定需要处理为哑变量的因子型变量
+ sep:设置变量与水平间的分割符，默认为实心点。如x.a，x就是变量名,a就是x的一个水平
+ levelsOnly:逻辑值，如果为True，则列名中剔除原变量名。如x.a变为a,把因子作为变量名
+ object:为dummyVars()函数构成的结果
+ newdata:需要处理的新数据
+ na.action:缺失值的对待，变量水平中如果有缺失值，则结果仍为缺失值
+  library(caret) dummy &amp;lt;- dummyVars(formula = ~ ., data = iris,levelsOnly=TRUE)#把因子作为变量名 pred &amp;lt;- predict(dummy, newdata = iris) head(pred) ## Sepal.Length Sepal.Width Petal.Length Petal.Width setosa versicolor virginica ## 1 5.1 3.5 1.4 0.2 1 0 0 ## 2 4.</description>
+    </item>
+    
+    <item>
+      <title>R语言与可视化</title>
+      <link>/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+      <description>R可视化  静态图形 动态图形  静态图形  基础统计图 grDevice Lattile Grid ggplot2 地图 ggmap ggplot2 maptools maps sp 网络 igraph linkcomm statmet 特殊图形 基因组的(ggbio……)  动态图形  非浏览器平台 rgl rggobi(ggobi) animation(animation) RGtk2 iplots  动态图形  浏览器平台 ggvis rCharts(http://ramnathv.github.io/rCharts/) recharts (https://recharts.cosx.org/) plotly(https://plotly-r.com/, https://plot.ly/r/) googlevis Remap(https://github.com/Lchiffon/REmap) htmlwidgets 框架  leaflet(地图) dygraphs (时间序列) diagrammeR(diagram) – 化学结构 network3D (网格) DT (表格) threeJS (3D数据展示)    </description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>/about/</guid>
+      <description>发现自己经常遗忘一些东西，
+需要的时候到处去百度谷歌，
+为了自我方便写记录个人生活。</description>
+    </item>
+    
+    <item>
+      <title>Rweka包解读</title>
+      <link>/md/2015-11-16-rweka/</link>
+      <pubDate>Mon, 16 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2015-11-16-rweka/</guid>
+      <description>1. 数据输入和输出 WOW()：查看Weka函数的参数。 Weka_control()：设置Weka函数的参数。 read.arff()：读(ARFF)格式的数据。一般的数据需要用这两个函数（先写再读）进行转换成（arff）格式的数据 write.arff()：将数据写入Weka Attribute-Relation File Format (ARFF)格式的文件。 2. 数据预处理   Normalize()：无监督的标准化连续性数据,即min-max标准化。对于字符、逻辑、因子变量跳过，只对连续数据标准化
+  Discretize()：用MDL(最小描述长度)方法，有监督的离散化连续性数值数据。感觉用处不大，把连续的数据全离散成“all”字符
+  3. 分类和回归   IBk()：k最近邻分类，用法和LBR一样
+  LBR()：naive Bayes法分类
+  RWeka包中的IBK函数实现knn算法 * model=IBk(formula, data, subset, na.action,control = Weka_control(), options = NULL) + formula:公式，分类变量~特征，和回归一样 + data : 训练数据集,必须为*.raff格式的数据,对于R中的数据， + 可以先把某个对象先用write.arff(iris,&amp;#39;iris.arff&amp;#39;)写成raff文件格式 + 再次用read.arff(&amp;#34;iris.arff&amp;#34;)读入R内存中即可 + control:参数控制 control=Weka_control(K= 22,X = TRUE) + X K都为大写，表示自动选取1：K=22里面最适合的K近邻分类 * evaluate_Weka_classifier(object, newdata = NULL, cost = NULL, numFolds = 0, complexity = FALSE, class = FALSE, seed = NULL, .</description>
+    </item>
+    
+    <item>
+      <title>GA包---遗传算法</title>
+      <link>/md/2015-11-09-ga/</link>
+      <pubDate>Mon, 09 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2015-11-09-ga/</guid>
+      <description>GA包&amp;mdash;遗传算法 1、用法：(默认求解最大值)  ga(type = c(&amp;#34;binary&amp;#34;, &amp;#34;real-valued&amp;#34;, &amp;#34;permutation&amp;#34;), fitness, ..., # fitness:适应度函数  min, max, #解得下界/解得上界(多元变量为一个向量) nBits, #一个种群用二进制编码的长度是多少(长度越大代表精度越高) population = gaControl(type)$population, # 初始种群 selection = gaControl(type)$selection, #选择 crossover = gaControl(type)$crossover, #交叉 mutation = gaControl(type)$mutation, #变异 popSize = 50, #种群大小 pcrossover = 0.8, #交叉概率（默认0.8） pmutation = 0.1, #变异概率（默认0.1） elitism = base::max(1, round(popSize*0.05)), #代沟(默认情况下,前5%个体将在每个迭代中保留) updatePop = FALSE, postFitness = NULL, maxiter = 100, # 最大迭代次数(默认100) run = maxiter, maxFitness = Inf, # 适应度函数的上界,GA搜索后中断 names = NULL, suggestions = NULL, optim = FALSE, optimArgs = list(method = &amp;#34;L-BFGS-B&amp;#34;, poptim = 0.</description>
+    </item>
+    
+  </channel>
+</rss>

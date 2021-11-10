@@ -1,0 +1,45 @@
+<!-- <footer>
+    <br>
+    <p style="float:right;margin:0 1rem;">
+        &copy; {{ now.Format "2006" }} <a href="https://github.com/{{.Site.Params.githubName}}">{{ .Site.Params.author }}</a>
+      </p>
+    <hr>
+</footer> -->
+<br>
+<hr>
+<!-- load bootstrap JS -->
+{{ partial "footer_googleAnalytics" . }}
+
+{{ partial "footer_series_Zoom_Button" . }}
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+<!--目录的展开与收缩  -->
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>

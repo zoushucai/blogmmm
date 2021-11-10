@@ -1,0 +1,142 @@
+{{ partial "header.html" . }}
+
+{{ if and (gt .WordCount 4 ) (.Params.toc) }}
+<!--  目录的主要思路  -->
+<!--  先隐藏目录,然后用 juery 进行显示  -->
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    <!-- style="z-index:999" 把该div 置于最上层 -->
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            <!-- 显示目录 -->
+            <div id="divtocTableOfContents">
+            {{ .TableOfContents }}
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;//获取 a 标签的个数
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        // var items = document.querySelector("#divtocTableOfContents ul a"); 
+        // // alert(items.innerHTML.length);
+        // var bb = items.getAttribute('href').length;
+        // // alert(items.getAttribute('href'));
+        // if(bb>=3){
+        //     var x = document.getElementById("div-content-my");
+        //     x.remove(x.selectedIndex);
+        // }
+    }); // jQuery
+</script>  
+
+<!--这个是 JavaScript 的
+<script>
+        window.onload=function(){  
+        var items = document.querySelector("#divtocTableOfContents ul a"); 
+        // alert(items.innerHTML.length);
+        var bb = items.getAttribute('href').length;
+        // alert(items.getAttribute('href'));
+        if(bb>=3){
+            var x = document.getElementById("div-content-my");
+            x.remove(x.selectedIndex);
+        }
+    }
+</script>
+-->
+
+{{ end }}
+
+
+
+
+
+<div class="inner">
+    <!-- 单个页面左边有 home 链接 -->
+<!--     {{ if eq .Site.Params.single false }} {{ else }} <div class="side-btn"><a href="{{.Site.BaseURL}}" class="back">Home</a></div>{{ end }}-->
+
+<!-- 博客显示内容 -->
+    <div class="blog-post">
+        <!-- 显示 标签信息 -->
+        {{ partial "single_lable.html" . }}
+    
+        <!-- 显示内容 -->
+        <section id="content">
+            {{ .Content }}
+        </section>
+    </div>
+    <br>
+    <!-- 引入累积阅读量 -->
+    {{ partial "readCounter.html" . }}
+    
+
+    <!-- 编辑按钮 -->
+    {{ if eq .Params.editbtn false }}
+    {{else if or (.Site.Params.editBtn) (.Params.editbtn) }}
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    {{end}}
+    <!-- 添加上下页链接 -->
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        {{ with .PrevInSection }}
+        <a class="previous" href="{{.Permalink}}"> 上一篇: {{.Title}}</a>
+        {{ end }}
+    </li>
+    <li style="float:right;list-style:none">
+        {{ with .NextInSection }}
+        <a class="next" href="{{.Permalink}}"> 下一篇: {{.Title}}</a>
+        {{ end }}
+    </li>
+     <!-- 代码复制 -->
+    {{ if eq .Params.copycode false }}
+    {{ else if or (.Site.Params.copycode) (.Params.copycode)}}
+    <script src="{{.Site.BaseURL}}js/copyCode.js"></script>
+    <script src="{{.Site.BaseURL}}js/tooltips.js"></script>
+    {{ end }}
+<!--     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+-->   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    {{ partial "footer.html" . }}
+</div> <!-- closes the outer/inner div -->
+
+
+<!-- 引入数学公式 -->
+{{ partial "katexmath.html" . }}
+{{ partial "mathJax.html" . }}
+{{ partial "mathjax2version.html" . }}
+
+
+<br>
+<div class="inner">
+              <!-- 引入评论系统 --- disqus -->
+          {{ partial "disqus" . }}  
+          <!-- 引入评论系统 --- gittalk -->
+          {{ partial "footer_gittalk" . }}  
+          {{ partial "footer_valine" . }}
+</div>
+
+<br>
+<br>
+{{ partial "mynamefooter.html" .}}
+<br>
+<br>
+
+

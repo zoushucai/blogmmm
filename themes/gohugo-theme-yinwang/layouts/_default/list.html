@@ -1,0 +1,38 @@
+{{ partial "header.html" . }}
+<div class="outer">
+    {{ $pages := .Pages }}
+    {{ if .IsHome }}
+    {{ $pages = .Site.RegularPages }}
+    {{ end }}
+    {{ range (where $pages "Section" "!=" "").GroupByDate "2006" }}
+    <ul class="list-group">
+        <!-- .Key对应分组后的变量 -->
+<!--         <h2 class="archive-title" align="center">{{ .Key }}</h2>-->
+        {{ range .Pages }}
+        <li class="list-group-item title">
+            {{if .Params.series }}
+            <a href="{{ .Permalink }}" data-series="{{ .Params.series }}" style="margin-left:1rem;"> 
+                <strong>{{ .Title }} </strong> &nbsp
+                <i class="fa fa-calendar-alt mycolorfont"></i> 
+                <time class="mycolorfont">{{ .Date.Format "2006-01-02" }}</time> 
+            </a>
+            {{ else }}
+            <a href="{{ .Permalink }}"> {{ .Title }} </a>
+                <i class="fa fa-calendar-alt mycolorfont"></i>
+                <time class="mycolorfont">{{ .Date.Format "2006-01-02" }}</time>
+            <!-- <time style="color:black;float: right;margin-right: 1rem; ">{{ .Date.Format "2006-01-02" }}</time> 这个是可以是右端对齐的css-->
+            {{ end }}
+        </li>
+        {{ end }}
+        {{ end }}
+    </ul>
+</div>
+<!-- list主页中的 页面元素 -->
+{{ partial "mynamefooter.html" .}}
+<br>
+<br>
+<div class="outerfoot">
+{{ partial "footer.html" . }}
+</div>
+
+

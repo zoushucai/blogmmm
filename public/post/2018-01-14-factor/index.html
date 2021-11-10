@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>因子数据类型处理</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                因子数据类型处理
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-01-14 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/factor"> #factor </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="因子类型" class="section level1">
+<h1>因子类型</h1>
+<p>变量可归结为名义型、有序型或连续型变量，</p>
+<p><strong>类别（名义型）变量</strong>和<strong>有序类别（有序型）变量</strong>在R中称为<strong>因子（factor）</strong> ，如性别、省份、职业。</p>
+<ul>
+<li><p><strong>类别（名义型）变量</strong>是没有顺序之分的类别变量。</p></li>
+<li><p><strong>有序型变量</strong>表示一种顺序关系，代表有序量度，如打分结果，疾病严重程度等。而非数量关系。</p></li>
+</ul>
+<p><strong>连续型变量</strong>可以呈现为某个范围内的任意值，比如年龄</p>
+<div id="基础函数" class="section level2">
+<h2>1、基础函数</h2>
+<p>针对因子型数据，我们一般需要用到三种变化</p>
+<ul>
+<li>更改level标签名</li>
+<li>更改level顺序</li>
+<li>创建有序因子</li>
+</ul>
+<p>用<code>factor()</code>函数把字符型向量转换成因子，如</p>
+<pre class="r"><code>x &lt;- c(&quot;男&quot;, &quot;女&quot;, &quot;男&quot;, &quot;男&quot;,  &quot;女&quot;)
+sex &lt;- factor(x) #将此向量存储为(1, 2, 1, 1，2)，并在内部将其关联为1=&quot;男&quot;和2=&quot;女&quot;（具体赋值根据字母顺序而定）。
+sex</code></pre>
+<pre><code>## [1] 男 女 男 男 女
+## Levels: 男 女</code></pre>
+<pre class="r"><code>attributes(sex)</code></pre>
+<pre><code>## $levels
+## [1] &quot;男&quot; &quot;女&quot;
+## 
+## $class
+## [1] &quot;factor&quot;</code></pre>
+<p>因子有class属性，取值为<code>"factor"</code>， 还有一个<code>levels</code>(水平值)属性， 此属性可以用<code>levels()</code>函数访问，如</p>
+<pre class="r"><code>levels(sex)#查看某个因子的标签有哪些</code></pre>
+<pre><code>## [1] &quot;男&quot; &quot;女&quot;</code></pre>
+<p>因子的<code>levels</code>属性可以看成是一个映射， 把整数值1,2,…,映射成这些水平值， 因子在保存时会保存成整数值1,2,等与水平值对应的编号。 这样可以节省存储空间， 在建模计算的程序中也比较有利于进行数学运算。</p>
+<p>要表示<strong>有序型变量</strong>，需要为函数factor()指定参数ordered=TRUE。给定向量：</p>
+<pre class="r"><code>status &lt;- c(&quot;Poor&quot;, &quot;Improved&quot;, &quot;Excellent&quot;, &quot;Poor&quot;)
+status1 &lt;- factor(status, ordered=TRUE)#会默认关联其值并且按关联的值排序（其实按ascii码表排序），
+status1  # 明显可以看出这要的排序并不是我们想要的。</code></pre>
+<pre><code>## [1] Poor      Improved  Excellent Poor     
+## Levels: Excellent &lt; Improved &lt; Poor</code></pre>
+<pre class="r"><code>#可以用选项levels自行指定各水平值, 不指定时由x的不同值来求得。
+status2 &lt;- factor(status, order=TRUE,levels=c(&quot;Poor&quot;, &quot;Improved&quot;, &quot;Excellent&quot;))
+status2</code></pre>
+<pre><code>## [1] Poor      Improved  Excellent Poor     
+## Levels: Poor &lt; Improved &lt; Excellent</code></pre>
+<pre class="r"><code>#也可以将数字型变量转为因子变量 ，
+x &lt;- c(1, 2, 1, 1, 2)
+(sex=factor(x)) #可以看出，因子水平没有任何区分,可以用labels指定标签</code></pre>
+<pre><code>## [1] 1 2 1 1 2
+## Levels: 1 2</code></pre>
+<pre class="r"><code>sex &lt;- factor(x, levels=c(1, 2),labels=c(&quot;Male&quot;, &quot;Female&quot;)) #注意到标签的顺序必须和水平相一致
+sex</code></pre>
+<pre><code>## [1] Male   Female Male   Male   Female
+## Levels: Male Female</code></pre>
+<p><code>factor()</code>函数的一般形式为</p>
+<pre class="r"><code>factor(x, levels = sort(unique(x), na.last = TRUE), labels, exclude = NA, ordered = FALSE)</code></pre>
+<p>可以用选项<code>levels</code>自行指定各水平值, 不指定时由x的不同值来求得。 可以用选项<code>labels</code>指定各水平的标签, 不指定时用各水平值的对应字符串。可以用<code>exclude</code>选项指定要转换为缺失值(NA)的元素值集合。 如果指定了<code>levels</code>, 则当自变量<code>x</code>的某个元素等于第个水平值时输出的因子对应元素值取整数, 如果该元素值没有出现在<code>levels</code>中则输出的因子对应元素值取NA。 <code>ordered</code>取真值时表示因子水平是有次序的(按编码次序)。</p>
+<p>事实上，经常处理数据的时候，数据都是给定的，读入数据的时候常用 <code>read.csv()</code>函数的默认操作会把输入文件的字符型列自动转换成因子， 这对于性别、职业、地名这样的列是合适的， 但是对于姓名、日期、详细地址这样的列则不合适。 所以，在<code>read.csv()</code>调用中经常加选项<code>stringsAsFactors=FALSE</code>选项禁止这样的自动转换，还可以用<code>colClasses</code>选项逐个指定每列的类型。</p>
+<p>用<code>as.numeric()</code>可以把因子转换为纯粹的整数值，如</p>
+<pre class="r"><code>as.numeric(sex)</code></pre>
+<pre><code>## [1] 1 2 1 1 2</code></pre>
+<p>因为因子实际保存为整数值， 所以对因子进行一些字符型操作可能导致错误。 用<code>as.character()</code>可以把因子转换成原来的字符型，如</p>
+<pre class="r"><code>as.character(sex)</code></pre>
+<pre><code>## [1] &quot;Male&quot;   &quot;Female&quot; &quot;Male&quot;   &quot;Male&quot;   &quot;Female&quot;</code></pre>
+<p>为了对因子执行字符型操作（如取子串）， 保险的做法是先用<code>as.character()</code>函数强制转换为字符型。</p>
+<p>因为一个因子的levels属性是该因子独有的， 所以合并两个因子有可能造成错误。如</p>
+<pre class="r"><code>li1 &lt;- factor(c(&#39;男&#39;, &#39;女&#39;))
+li2 &lt;- factor(c(&#39;男&#39;, &#39;男&#39;))
+c(li1, li2)</code></pre>
+<pre><code>## [1] 1 2 1 1</code></pre>
+<p>结果不再是因子。 正确的做法是</p>
+<pre class="r"><code>factor(c(as.character(li1), as.character(li2)))#合并因子正确的方法</code></pre>
+<pre><code>## [1] 男 女 男 男
+## Levels: 男 女</code></pre>
+<p>即恢复成字符型后合并， 然后再转换为因子。 在合并两个数据框时也存在这样的问题。 当然，如果在定义<code>li1</code>和<code>li2</code> 时都用了<code>levels=c('男', '女')</code>选项， <code>c(li1, li2)</code>也能给出正确结果。</p>
+<div id="table函数" class="section level4">
+<h4><code>table()</code>函数</h4>
+<p>用<code>table()</code>函数统计因子各水平的出现次数（称为频数或频率）。</p>
+<pre class="r"><code>table(sex) #返回一个特殊的有元素名的向量</code></pre>
+<pre><code>## sex
+##   Male Female 
+##      3      2</code></pre>
+<p>对一个变量用table函数计数的结果是一个特殊的有元素名的向量， 元素名是自变量的不同取值， 结果的元素值是对应的频数。 单个因子或单个向量的频数结果可以用向量的下标访问方法取出单个频数或若干个频数的子集。</p>
+</div>
+</div>
+<div id="forcats包的处理因子函数" class="section level2">
+<h2>2、forcats包的处理因子函数</h2>
+<p>在分类变量类数较多时，往往需要对因子水平另外排序、合并等， forcats包提供了一些针对因子的方便函数。</p>
+<p>其中的函数分为如下几类，未特别指明levels和标签一样</p>
+<p><strong>1.修改levels顺序的函数，向量内元素不变</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fct_relevel(f, …, after = 0L)</td>
+<td>手动重新排列因子水平</td>
+</tr>
+<tr class="even">
+<td>fct_inorder(f, ordered = NA)</td>
+<td>按照第一次出现的次序排列</td>
+</tr>
+<tr class="odd">
+<td>fct_infreq(f, ordered = NA)</td>
+<td>按照出现的频率排列</td>
+</tr>
+<tr class="even">
+<td>fct_reorder(f, x, fun = median, …, .desc = FALSE)</td>
+<td>通过对另一个变量进行排序来重新排列因子水平</td>
+</tr>
+<tr class="odd">
+<td>fct_reorder2(f, x, y, fun = last2, …, .desc = TRUE)</td>
+<td>同上，作用不一样</td>
+</tr>
+<tr class="even">
+<td>fct_shuffle(f)</td>
+<td>随机排列因子水平</td>
+</tr>
+<tr class="odd">
+<td>fct_rev(f)</td>
+<td>倒序</td>
+</tr>
+<tr class="even">
+<td>fct_shift(f, n = 1L)</td>
+<td>实现前后移动，滚动变化</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2.变换levels名称的函数</strong></p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fct_anon(f,prefix="")</td>
+<td>levels用升序的数字替代，prefix参数表示在数字前面要保留的字符</td>
+</tr>
+<tr class="even">
+<td>fct_collapse(f, …)</td>
+<td>levels更改，主要用于levels的合并</td>
+</tr>
+<tr class="odd">
+<td>fct_recode(f, …)</td>
+<td>手动更改,把指定的标签进行更改</td>
+</tr>
+<tr class="even">
+<td><strong>fct_lump(f, n, prop, other_level = “Other”, ties.method = c(“min”,“average”, “first”, “last”, “random”, “max”))</strong></td>
+<td>将最小/最常见的因子水平（levels）合并为“other”<br /></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>若n, prop的值丢失，则将出现次数比较低的标签结合在一起变为other(算法没弄懂，何为比较低)<br />若指定n，表明保留n个最多的level，其余的变为other，指定负数，表明保留最少的<br />若指定prop=0.1 表明保留数量超过10%的level，其余的变为other,同理可以指定负数<br />ties.method可以指定计算方法（同时指定n），若为max,表明次数超过n的保留，低于n的改变为other<br />指定other_level可以更改替换名称</td>
+</tr>
+<tr class="even">
+<td>fct_other(f, keep, drop, other_level = “Other”)</td>
+<td>若指定keep,将指定的 level保留，其余变成“other”,<br />若指定drop,将指定的 level 设置成“other”</td>
+</tr>
+<tr class="odd">
+<td>fct_relabel(f, fun, …)</td>
+<td>在原有基础上进行修改</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3.其他函数</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fct_c(f1,f2)</td>
+<td>将两个factor结合 或者fct_c(list(f1, f2))</td>
+</tr>
+<tr class="even">
+<td>fct_count(f, sort = FALSE)</td>
+<td>对factor的标签进行统计计数并转化为tibble</td>
+</tr>
+<tr class="odd">
+<td>fct_unique(f)</td>
+<td>对每一个level只有一个，向量中元素按照level的顺序排列</td>
+</tr>
+<tr class="even">
+<td>fct_drop(f)</td>
+<td>默认将没有对应level值去掉</td>
+</tr>
+<tr class="odd">
+<td>fct_explicit_na(f, na_level = “(Missing)”)</td>
+<td>使显式值缺失</td>
+</tr>
+</tbody>
+</table>
+<p>（下面三个更一般的函数，上面这些函数都有着特定的功能，基本上都是调用下面这三个函数实现的）</p>
+<table>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>lvls_reorder(f, idx, ordered = NA)</td>
+<td>更改level顺序</td>
+</tr>
+<tr class="even">
+<td>lvls_revalue(f, new_levels)</td>
+<td>整体更改level名称</td>
+</tr>
+<tr class="odd">
+<td>lvls_expand(f, new_levels)</td>
+<td>增加额外的level值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="例子" class="section level2">
+<h2>3、例子</h2>
+<p>1.修改level顺序的函数使用</p>
+<pre class="r"><code>library(forcats)
+library(ggplot2)
+f &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;))
+fct_relevel(f) # 查看f的levels</code></pre>
+<pre><code>## [1] a b c d
+## Levels: a b c d</code></pre>
+<pre class="r"><code>fct_relevel(f, &quot;c&quot;) # 把水平c移动到第一位</code></pre>
+<pre><code>## [1] a b c d
+## Levels: c a b d</code></pre>
+<pre class="r"><code>fct_relevel(f, &quot;b&quot;, &quot;a&quot;) #把水平b a 移动到前两位</code></pre>
+<pre><code>## [1] a b c d
+## Levels: b a c d</code></pre>
+<pre class="r"><code>fct_relevel(f, &quot;a&quot;, after = 2) # 把水平a放在第2位之后，即放在第3位</code></pre>
+<pre><code>## [1] a b c d
+## Levels: b c a d</code></pre>
+<pre class="r"><code>fct_relevel(f, &quot;a&quot;, after = Inf) # 把水平a移动到最后</code></pre>
+<pre><code>## [1] a b c d
+## Levels: b c d a</code></pre>
+<pre class="r"><code>#########################################
+f &lt;- factor(c(&quot;b&quot;, &quot;b&quot;, &quot;a&quot;, &quot;c&quot;, &quot;c&quot;, &quot;c&quot;))
+fct_inorder(f) # 按照第一次出现的次序排列</code></pre>
+<pre><code>## [1] b b a c c c
+## Levels: b a c</code></pre>
+<pre class="r"><code>fct_infreq(f) # 按照出现的频率排列</code></pre>
+<pre><code>## [1] b b a c c c
+## Levels: c b a</code></pre>
+<pre class="r"><code>#######################
+# 随机排序
+f &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))
+fct_shuffle(f)</code></pre>
+<pre><code>## [1] a b c
+## Levels: a c b</code></pre>
+<pre class="r"><code>fct_shuffle(f)</code></pre>
+<pre><code>## [1] a b c
+## Levels: b a c</code></pre>
+<pre class="r"><code>########################
+# 倒序
+f &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))
+fct_rev(f)</code></pre>
+<pre><code>## [1] a b c
+## Levels: c b a</code></pre>
+<pre class="r"><code>#######################
+fct_shift(f) # 第一项放到最后</code></pre>
+<pre><code>## [1] a b c
+## Levels: b c a</code></pre>
+<pre class="r"><code>fct_shift(f, 2) # 前两项放在最后</code></pre>
+<pre><code>## [1] a b c
+## Levels: c a b</code></pre>
+<pre class="r"><code>fct_shift(f, -1) # 最后一项移到最前面</code></pre>
+<pre><code>## [1] a b c
+## Levels: c a b</code></pre>
+<pre class="r"><code>######################################################################
+##fac_reorder()可以根据不同因子水平分成的组中另一数值型变量的统计量值排序##
+######################################################################
+par(mfrow=c(1,3))
+boxplot(Sepal.Width ~ Species, data = iris,main=&quot;因子顺序按默认排序&quot;)#默认的图,因子顺序按默认排序
+# 按照分组变量Sepal.Width的均值从小到大排列(默认)
+boxplot(Sepal.Width ~ fct_reorder(Species, Sepal.Width, median), data = iris,main=&quot;按分组变量Sepal.Width的均值升序排列&quot;)
+# 设置.desc=T，则从大到小
+boxplot(Sepal.Width ~ fct_reorder(Species, Sepal.Width, median, .desc=T), data = iris,main=&quot;按分组变量Sepal.Width的均值降序排列&quot;) </code></pre>
+<p><img src="/post/2018-01-14-factor_files/figure-html/unnamed-chunk-11-1.png" width="960" /></p>
+<pre class="r"><code>par(mfrow=c(1,1))
+# 按照分组变量time的最后一个值对应的weight的大小顺序排列（升序）
+chks &lt;- subset(ChickWeight, as.integer(Chick) &lt; 10)
+chks &lt;- transform(chks, Chick = fct_shuffle(Chick))#fct_shuffle()函数随机排列因子水平
+ggplot(chks, aes(Time, weight, colour = fct_reorder2(Chick, Time, weight))) +
+    geom_point()+geom_line() +labs(colour = &quot;Chick&quot;)+ggtitle(&quot;按照分组变量time的最后一个值对应的weight的大小顺序排列(升序)&quot;)+
+  theme(plot.title = element_text(hjust = 0.5))  #也就加上这一行标题就居中了</code></pre>
+<p><img src="/post/2018-01-14-factor_files/figure-html/unnamed-chunk-11-2.png" width="960" /></p>
+<p>2.修改level标签的函数使用</p>
+<pre class="r"><code>f &lt;- factor(c(&quot;b&quot;, &quot;b&quot;, &quot;a&quot;, &quot;c&quot;, &quot;c&quot;, &quot;c&quot;))
+fct_anon(f)      #levels用升序的数字替代，</code></pre>
+<pre><code>## [1] 2 2 3 1 1 1
+## Levels: 1 2 3</code></pre>
+<pre class="r"><code>fct_anon(f, &quot;x&quot;)     # prefix参数表示在数字前面要保留的字符</code></pre>
+<pre><code>## [1] x2 x2 x1 x3 x3 x3
+## Levels: x1 x2 x3</code></pre>
+<pre class="r"><code>fct_collapse(f, &quot;x&quot;=c(&quot;a&quot;,&quot;b&quot;), &quot;y&quot;=&quot;c&quot;) #把a。b标签合并成x，c标签替代为y</code></pre>
+<pre><code>## [1] x x x y y y
+## Levels: x y</code></pre>
+<pre class="r"><code>fct_collapse(f, &quot;x&quot;=c(&quot;a&quot;,&quot;b&quot;)) # 只改变一部分也可以</code></pre>
+<pre><code>## [1] x x x c c c
+## Levels: x c</code></pre>
+<pre class="r"><code>x &lt;- factor(rep(LETTERS[1:9], times = c(40, 10, 5, 27, 1, 1, 1, 1, 1)))
+x %&gt;% table() #统计标签的出现的次数</code></pre>
+<pre><code>## .
+##  A  B  C  D  E  F  G  H  I 
+## 40 10  5 27  1  1  1  1  1</code></pre>
+<pre class="r"><code>x %&gt;% fct_lump() %&gt;% table() #把出现次数比较低值得标签保留，其余的变成other,并统计出现的次数</code></pre>
+<pre><code>## .
+##     A     D Other 
+##    40    27    20</code></pre>
+<pre class="r"><code>x %&gt;% fct_lump() %&gt;% fct_inorder() %&gt;% table()</code></pre>
+<pre><code>## .
+##     A Other     D 
+##    40    20    27</code></pre>
+<pre class="r"><code># 将指定的level设置成other
+x &lt;- factor(rep(LETTERS[1:9], times = c(40, 10, 5, 27, 1, 1, 1, 1, 1)))
+fct_other(x, keep = c(&quot;A&quot;, &quot;B&quot;)) # 保留这两个A、B这两个标签，其余变为other</code></pre>
+<pre><code>##  [1] A     A     A     A     A     A     A     A     A     A     A     A    
+## [13] A     A     A     A     A     A     A     A     A     A     A     A    
+## [25] A     A     A     A     A     A     A     A     A     A     A     A    
+## [37] A     A     A     A     B     B     B     B     B     B     B     B    
+## [49] B     B     Other Other Other Other Other Other Other Other Other Other
+## [61] Other Other Other Other Other Other Other Other Other Other Other Other
+## [73] Other Other Other Other Other Other Other Other Other Other Other Other
+## [85] Other Other Other
+## Levels: A B Other</code></pre>
+<pre class="r"><code>fct_other(x, drop = c(&quot;A&quot;, &quot;B&quot;)) # 把A、B这个两个标签变成other</code></pre>
+<pre><code>##  [1] Other Other Other Other Other Other Other Other Other Other Other Other
+## [13] Other Other Other Other Other Other Other Other Other Other Other Other
+## [25] Other Other Other Other Other Other Other Other Other Other Other Other
+## [37] Other Other Other Other Other Other Other Other Other Other Other Other
+## [49] Other Other C     C     C     C     C     D     D     D     D     D    
+## [61] D     D     D     D     D     D     D     D     D     D     D     D    
+## [73] D     D     D     D     D     D     D     D     D     D     E     F    
+## [85] G     H     I    
+## Levels: C D E F G H I Other</code></pre>
+<pre class="r"><code># 手动更改
+x &lt;- factor(c(&quot;apple&quot;, &quot;bear&quot;, &quot;banana&quot;, &quot;dear&quot;))
+fct_recode(x, fruit = &quot;apple&quot;, &quot;fruit&quot; = &quot;banana&quot;)#把标签apple替换为friut，banana也替换为friut,双引号可加可不加</code></pre>
+<pre><code>## [1] fruit bear  fruit dear 
+## Levels: fruit bear dear</code></pre>
+<pre class="r"><code>fct_recode(x, NULL = &quot;apple&quot;, fruit = &quot;banana&quot;) # 移除apple标签，向量对应位置变成NA</code></pre>
+<pre><code>## [1] &lt;NA&gt;  bear  fruit dear 
+## Levels: fruit bear dear</code></pre>
+<p>3.其他函数</p>
+<pre class="r"><code># 对每一个level计数
+f &lt;- factor(c(&quot;b&quot;, &quot;b&quot;, &quot;a&quot;, &quot;c&quot;, &quot;c&quot;, &quot;c&quot;))
+fct_count(f)   # 对factor的标签进行统计计数并转化为tibble</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   f         n
+##   &lt;fct&gt; &lt;int&gt;
+## 1 a         1
+## 2 b         2
+## 3 c         3</code></pre>
+<pre class="r"><code># 唯一化
+unique(f)</code></pre>
+<pre><code>## [1] b a c
+## Levels: a b c</code></pre>
+<pre class="r"><code>fct_unique(f) # 向量中元素按照level的顺序排列</code></pre>
+<pre><code>## [1] a b c
+## Levels: a b c</code></pre>
+<pre class="r"><code>f &lt;- factor(c(&quot;a&quot;, &quot;b&quot;), levels = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))
+f</code></pre>
+<pre><code>## [1] a b
+## Levels: a b c</code></pre>
+<pre class="r"><code>fct_drop(f) # 默认将没有对应值的level去掉</code></pre>
+<pre><code>## [1] a b
+## Levels: a b</code></pre>
+</div>
+<div id="forcats包因子总结" class="section level2">
+<h2>4、forcats包因子总结</h2>
+<p>fct_lump(f, n, prop)： 根据因子水平（levels）的值合并为“other”</p>
+<p>fct_collapse(f, …) : levels更改，主要用于levels的合并（主要合并现有的因子水平）</p>
+<p>fac_reorder() : 可以根据不同因子水平分成的组中另一数值型变量的统计量值排序。</p>
+<p>fct_count(f, sort = FALSE) : 对factor的标签进行统计计数并转化为tibble</p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Mojave 10.14.5
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] ggplot2_3.3.2 forcats_0.5.0
+## 
+## loaded via a namespace (and not attached):
+##  [1] pillar_1.4.6      compiler_4.0.2    tools_4.0.2       digest_0.6.25    
+##  [5] evaluate_0.14     lifecycle_0.2.0   tibble_3.0.3      gtable_0.3.0     
+##  [9] viridisLite_0.3.0 pkgconfig_2.0.3   rlang_0.4.7       cli_2.0.2        
+## [13] yaml_2.2.1        blogdown_0.20     xfun_0.17         withr_2.2.0      
+## [17] stringr_1.4.0     dplyr_1.0.1       knitr_1.29        generics_0.0.2   
+## [21] vctrs_0.3.2       grid_4.0.2        tidyselect_1.1.0  glue_1.4.1       
+## [25] R6_2.4.1          fansi_0.4.1       rmarkdown_2.3     bookdown_0.20    
+## [29] purrr_0.3.4       farver_2.0.3      magrittr_1.5      scales_1.1.1     
+## [33] ellipsis_0.3.1    htmltools_0.5.0   assertthat_0.2.1  colorspace_1.4-1 
+## [37] labeling_0.3      utf8_1.1.4        stringi_1.4.6     munsell_0.5.0    
+## [41] crayon_1.3.4</code></pre>
+</div>
+</div>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/post/2018-01-14-factor/" class="leancloud_visitors" data-flag-title="因子数据类型处理">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/post/2018-01-04-dplyr3/"> 上一篇: dplyr -- 3合并数据</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/post/test-toc/"> 下一篇: R计算微积分</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/post\/2018-01-14-factor.html");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

@@ -1,0 +1,315 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>plotMathfun</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-07-26"><meta name="DC.source" content="plotMathfun.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">&#28165;&#29702;&#31354;&#38388;</a></li><li><a href="#2">&#26041;&#27861;&#19968;: &#22522;&#26412;&#30340;&#21442;&#25968;&#35774;&#32622;---&#29992;&#20110;&#35843;&#25972;&#22270;&#24418;&#30340;&#24418;&#29366;&#22823;&#23567;</a></li><li><a href="#3">&#26041;&#27861;&#20108;: &#22352;&#26631;&#36724;&#26159;&#19977;&#35282;&#24418;&#30340;</a></li></ul></div><h2 id="1">&#28165;&#29702;&#31354;&#38388;</h2><pre class="codeinput">clc ;clear <span class="string">all</span>; close <span class="string">all</span>;
+</pre><h2 id="2">&#26041;&#27861;&#19968;: &#22522;&#26412;&#30340;&#21442;&#25968;&#35774;&#32622;---&#29992;&#20110;&#35843;&#25972;&#22270;&#24418;&#30340;&#24418;&#29366;&#22823;&#23567;</h2><pre class="codeinput">a =0.5; b=2.5; c=3.5; d=5;
+alpha = 0.4;
+max_x = d+1;
+max_y = 1+0.3;
+min_x = -1;
+min_y = -0.3;
+
+e1 = (b-a)*alpha + a;
+e2 = d-(d-c)*alpha;
+
+
+<span class="comment">% &#30011;&#20986;&#22522;&#26412;&#30340;&#20989;&#25968;&#22270;&#24418;</span>
+figure(1);
+<span class="comment">% &#30011;&#20986;&#20989;&#25968;&#22270;&#24418;</span>
+x = linspace(a,d);<span class="comment">%a:0.001:d;</span>
+y = ( (x -a)/(b-a) ).*(a &lt;=x &amp; x&lt;=b ) + 1.*(b&lt;x &amp; x&lt;c) + ((x-d)/(c-d) ).*(c&lt;=x &amp; x&lt;=d);
+plot(x,y,<span class="string">'linestyle'</span>,<span class="string">'-'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>,<span class="string">'linewidth'</span>,2);
+hold <span class="string">on</span>;
+<span class="comment">% &#30011;&#22402;&#30452;&#20110;y&#36724;&#30340;&#34394;&#32447;</span>
+line([0 d+0.5],[alpha alpha],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+line([0 b],[1 1],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+
+<span class="comment">% &#30011;&#22402;&#30452;&#20110;x&#36724;&#30340;&#34394;&#32447;</span>
+line([e1 e1],[0 alpha],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+line([e2 e2],[0 alpha],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+
+line([b b],[0 1],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+line([c c],[0 1],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+
+<span class="comment">% &#35774;&#32622;&#22352;&#26631;&#36724;</span>
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+<span class="comment">% &#35774;&#32622;&#22352;&#26631;&#36724;&#30340;&#33539;&#22260;</span>
+ax.YLim = [min_y,max_y];
+ax.XLim = [min_x,max_x];
+
+<span class="comment">% &#35774;&#32622;&#35201;&#26174;&#31034;&#30340;&#22352;&#26631;&#36724;&#30340;&#21051;&#24230;&#20197;&#21450;&#26631;&#31614;</span>
+ax.XTick = [a, e1, b, c, e2, d]; <span class="comment">% x&#36724;&#21051;&#24230;</span>
+ax.XTickLabel = {<span class="string">'a'</span>,<span class="string">'(b-a)\alpha+a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d-(d-c)\alpha'</span>,<span class="string">'d'</span>}; <span class="comment">% x &#36724;&#26631;&#31614;</span>
+
+ax.YTick = [alpha, 1]; <span class="comment">%y&#36724;&#19981;&#26174;&#31034;&#21051;&#24230;</span>
+ax.YTickLabel ={<span class="string">'\alpha'</span>,<span class="string">'1'</span>};
+
+<span class="comment">% X Y &#36724;&#30340;&#21517;&#31216;</span>
+text(max_x*0.95, - max_y * 0.0385,<span class="string">'X'</span>);
+text(-0.05*max_x, max_y*0.95,<span class="string">'N(x)'</span>);
+
+<span class="comment">%&#20851;&#38381;&#22270;&#20687;&#22235;&#21608;&#30340;&#32447;&#26465;</span>
+box <span class="string">off</span>
+
+<span class="comment">% &#30011;&#22352;&#26631;&#36724;&#31661;&#22836;</span>
+<span class="comment">% &#26041;&#27861;&#19968;&#65306;</span>
+fill([max_x max_x*(1-0.025) max_x*(1-0.025)],[0 max_y*0.013 -max_y*0.013],<span class="string">'k'</span>)
+fill([0 max_x*0.013 -max_x*0.013],[max_y max_y*(1-0.025) max_y*(1-0.025)],<span class="string">'k'</span>)
+</pre><img vspace="5" hspace="5" src="plotMathfun_01.png" alt=""> <h2 id="3">&#26041;&#27861;&#20108;: &#22352;&#26631;&#36724;&#26159;&#19977;&#35282;&#24418;&#30340;</h2><pre class="codeinput">clc ;clear <span class="string">all</span>; close <span class="string">all</span>;
+a =0.5; b=2.5; c=3.5; d=5;
+alpha = 0.4;
+max_x = d+1;
+max_y = 1+0.3;
+min_x = -1;
+min_y = -0.3;
+
+e1 = (b-a)*alpha + a;
+e2 = d-(d-c)*alpha;
+
+
+<span class="comment">% &#30011;&#20986;&#22522;&#26412;&#30340;&#20989;&#25968;&#22270;&#24418;</span>
+figure(1);
+<span class="comment">% &#30011;&#20986;&#20989;&#25968;&#22270;&#24418;</span>
+x = linspace(a,d);<span class="comment">%a:0.001:d;</span>
+y = ( (x -a)/(b-a) ).*(a &lt;=x &amp; x&lt;=b ) + 1.*(b&lt;x &amp; x&lt;c) + ((x-d)/(c-d) ).*(c&lt;=x &amp; x&lt;=d);
+plot(x,y,<span class="string">'linestyle'</span>,<span class="string">'-'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>,<span class="string">'linewidth'</span>,2);
+hold <span class="string">on</span>;
+<span class="comment">% &#30011;&#22402;&#30452;&#20110;y&#36724;&#30340;&#34394;&#32447;</span>
+line([0 d+0.5],[alpha alpha],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+line([0 b],[1 1],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+
+<span class="comment">% &#30011;&#22402;&#30452;&#20110;x&#36724;&#30340;&#34394;&#32447;</span>
+line([e1 e1],[0 alpha],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+line([e2 e2],[0 alpha],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+
+line([b b],[0 1],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+line([c c],[0 1],<span class="string">'linestyle'</span>,<span class="string">'--'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>);
+
+<span class="comment">% &#35774;&#32622;&#22352;&#26631;&#36724;</span>
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+<span class="comment">% &#35774;&#32622;&#22352;&#26631;&#36724;&#30340;&#33539;&#22260;</span>
+ax.YLim = [min_y,max_y];
+ax.XLim = [min_x,max_x];
+
+<span class="comment">% &#35774;&#32622;&#35201;&#26174;&#31034;&#30340;&#22352;&#26631;&#36724;&#30340;&#21051;&#24230;&#20197;&#21450;&#26631;&#31614;</span>
+ax.XTick = [a, e1, b, c, e2, d]; <span class="comment">% x&#36724;&#21051;&#24230;</span>
+ax.XTickLabel = {<span class="string">'a'</span>,<span class="string">'(b-a)\alpha+a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d-(d-c)\alpha'</span>,<span class="string">'d'</span>}; <span class="comment">% x &#36724;&#26631;&#31614;</span>
+
+ax.YTick = [alpha, 1]; <span class="comment">%y&#36724;&#19981;&#26174;&#31034;&#21051;&#24230;</span>
+ax.YTickLabel ={<span class="string">'\alpha'</span>,<span class="string">'1'</span>};
+
+<span class="comment">% X Y &#36724;&#30340;&#21517;&#31216;</span>
+text(max_x*0.95, - max_y * 0.0385,<span class="string">'X'</span>);
+text(-0.05*max_x, max_y*0.95,<span class="string">'N(x)'</span>);
+
+<span class="comment">%&#20851;&#38381;&#22270;&#20687;&#22235;&#21608;&#30340;&#32447;&#26465;</span>
+box <span class="string">off</span>
+
+<span class="comment">% &#30011;&#22352;&#26631;&#36724;&#31661;&#22836;</span>
+<span class="comment">% &#26041;&#27861;&#20108;</span>
+<span class="comment">% y&#36724;&#30340;&#22352;&#26631;&#36724;&#31661;&#22836;</span>
+f1 = @(x) (x + max_y) .*( -0.5 &lt;=x &amp; x&lt;=0 ) + (-x + max_y).*(0&lt;x &amp; x&lt;0.5);
+fplot(f1,[-0.1 0.1],<span class="string">'linestyle'</span>,<span class="string">'-'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>,<span class="string">'linewidth'</span>,0.5);
+hold <span class="string">on</span>
+
+x = 5.9:0.001:max_x;
+plot(x, -0.5*(x - max_x),<span class="string">'linestyle'</span>,<span class="string">'-'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>,<span class="string">'linewidth'</span>,0.5);
+hold <span class="string">on</span>
+plot(x,  0.5*(x - max_x),<span class="string">'linestyle'</span>,<span class="string">'-'</span>,<span class="string">'Color'</span>,<span class="string">'k'</span>,<span class="string">'linewidth'</span>,0.5);
+</pre><img vspace="5" hspace="5" src="plotMathfun_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 清理空间
+clc ;clear all; close all;
+%% 方法一: 基本的参数设置REPLACE_WITH_DASH_DASH-用于调整图形的形状大小
+a =0.5; b=2.5; c=3.5; d=5;
+alpha = 0.4;
+max_x = d+1;
+max_y = 1+0.3;
+min_x = -1;
+min_y = -0.3;
+
+e1 = (b-a)*alpha + a;
+e2 = d-(d-c)*alpha;
+
+
+% 画出基本的函数图形
+figure(1);
+% 画出函数图形
+x = linspace(a,d);%a:0.001:d;
+y = ( (x -a)/(b-a) ).*(a <=x & x<=b ) + 1.*(b<x & x<c) + ((x-d)/(c-d) ).*(c<=x & x<=d);
+plot(x,y,'linestyle','-','Color','k','linewidth',2);
+hold on;
+% 画垂直于y轴的虚线
+line([0 d+0.5],[alpha alpha],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+line([0 b],[1 1],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+
+% 画垂直于x轴的虚线
+line([e1 e1],[0 alpha],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+line([e2 e2],[0 alpha],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+
+line([b b],[0 1],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+line([c c],[0 1],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+
+% 设置坐标轴
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+% 设置坐标轴的范围
+ax.YLim = [min_y,max_y];
+ax.XLim = [min_x,max_x];
+
+% 设置要显示的坐标轴的刻度以及标签
+ax.XTick = [a, e1, b, c, e2, d]; % x轴刻度
+ax.XTickLabel = {'a','(b-a)\alpha+a','b','c','d-(d-c)\alpha','d'}; % x 轴标签
+
+ax.YTick = [alpha, 1]; %y轴不显示刻度
+ax.YTickLabel ={'\alpha','1'};
+
+% X Y 轴的名称
+text(max_x*0.95, - max_y * 0.0385,'X');
+text(-0.05*max_x, max_y*0.95,'N(x)');
+
+%关闭图像四周的线条
+box off
+
+% 画坐标轴箭头
+% 方法一：
+fill([max_x max_x*(1-0.025) max_x*(1-0.025)],[0 max_y*0.013 -max_y*0.013],'k')
+fill([0 max_x*0.013 -max_x*0.013],[max_y max_y*(1-0.025) max_y*(1-0.025)],'k')
+
+
+%% 方法二: 坐标轴是三角形的
+clc ;clear all; close all;
+a =0.5; b=2.5; c=3.5; d=5;
+alpha = 0.4;
+max_x = d+1;
+max_y = 1+0.3;
+min_x = -1;
+min_y = -0.3;
+
+e1 = (b-a)*alpha + a;
+e2 = d-(d-c)*alpha;
+
+
+% 画出基本的函数图形
+figure(1);
+% 画出函数图形
+x = linspace(a,d);%a:0.001:d;
+y = ( (x -a)/(b-a) ).*(a <=x & x<=b ) + 1.*(b<x & x<c) + ((x-d)/(c-d) ).*(c<=x & x<=d);
+plot(x,y,'linestyle','-','Color','k','linewidth',2);
+hold on;
+% 画垂直于y轴的虚线
+line([0 d+0.5],[alpha alpha],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+line([0 b],[1 1],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+
+% 画垂直于x轴的虚线
+line([e1 e1],[0 alpha],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+line([e2 e2],[0 alpha],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+
+line([b b],[0 1],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+line([c c],[0 1],'linestyle','REPLACE_WITH_DASH_DASH','Color','k');
+
+% 设置坐标轴
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+% 设置坐标轴的范围
+ax.YLim = [min_y,max_y];
+ax.XLim = [min_x,max_x];
+
+% 设置要显示的坐标轴的刻度以及标签
+ax.XTick = [a, e1, b, c, e2, d]; % x轴刻度
+ax.XTickLabel = {'a','(b-a)\alpha+a','b','c','d-(d-c)\alpha','d'}; % x 轴标签
+
+ax.YTick = [alpha, 1]; %y轴不显示刻度
+ax.YTickLabel ={'\alpha','1'};
+
+% X Y 轴的名称
+text(max_x*0.95, - max_y * 0.0385,'X');
+text(-0.05*max_x, max_y*0.95,'N(x)');
+
+%关闭图像四周的线条
+box off
+
+% 画坐标轴箭头
+% 方法二
+% y轴的坐标轴箭头
+f1 = @(x) (x + max_y) .*( -0.5 <=x & x<=0 ) + (-x + max_y).*(0<x & x<0.5);
+fplot(f1,[-0.1 0.1],'linestyle','-','Color','k','linewidth',0.5);
+hold on 
+
+x = 5.9:0.001:max_x;
+plot(x, -0.5*(x - max_x),'linestyle','-','Color','k','linewidth',0.5);
+hold on 
+plot(x,  0.5*(x - max_x),'linestyle','-','Color','k','linewidth',0.5);
+##### SOURCE END #####
+--></body></html>

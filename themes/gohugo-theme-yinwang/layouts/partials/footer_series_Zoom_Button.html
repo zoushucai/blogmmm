@@ -1,0 +1,73 @@
+<!-- series Posts -->
+{{ if .IsHome }}
+<!-- 主页显示系列博客 -->
+      <script>
+       (function(){
+        var seriesA = document.getElementsByTagName("a");
+        seriesA = Array.from(seriesA).filter(x =>x.getAttribute("data-series"));
+        var nameSeries = {}
+        if(seriesA.length){
+          seriesA.forEach(x =>{
+            var xdata = x.getAttribute("data-series")
+            if(nameSeries[xdata]){
+              nameSeries[xdata].push(x)
+            }else{
+              nameSeries[xdata] = [x]
+            }
+          })
+        }
+
+        function createE(){
+          var detailsArr = [] // full html
+          var postPosArr = [] // outerHTML
+          for(let i in nameSeries){
+            var dcreateE = document.createElement("details")
+            var screateE = document.createElement("summary")
+            screateE.innerHTML = `${i} <i style="border-radius: 49%;border: 2px dashed #fe16fe;padding:3px;">${nameSeries[i].length} </i>`;
+            var inner = screateE.outerHTML // details innerHTML
+
+            nameSeries[i].forEach(x =>{
+              inner += x.outerHTML
+              x.parentElement.style.display = "none"
+            })
+            postPosArr.push(nameSeries[i][0])
+            dcreateE.innerHTML = inner
+            detailsArr.push(dcreateE)
+          }
+          console.info(postPosArr)
+          console.log(detailsArr[0])
+          postPosArr.forEach(a =>{
+            a.parentElement.style.display = "block"
+            a.outerHTML = detailsArr.shift().outerHTML
+          })
+        }
+        createE()
+       })()
+      </script>
+{{ else }}
+      <!--  不是主页  引入其他功能 -->
+      <!-- 引入功能1:  点击图片是否放大 -->
+      {{if eq .Params.imagezoom false }}
+
+      {{else if  or (.Site.Params.imageZoom) (.Params.imagezoom) }}
+      <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.4/dist/medium-zoom.min.js"></script>
+
+      <script>
+        const zoom = mediumZoom()
+        
+        zoom.attach("img")
+      </script>
+
+      {{end}}
+
+       <!--  引入功能2:  编辑按钮 -->
+      <!-- // START - Edit Button -->
+      {{if .Site.Params.githubRepo}}
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("{{ .Site.Params.githubRepo }}/edit/master/content/{{ with .File }}{{ .Path }}{{ end }}");
+              });</script>
+      {{ end }}
+          <!-- // END - Edit Button -->
+
+{{ end }}

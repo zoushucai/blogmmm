@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shiny on zsc</title>
+    <link>/tags/shiny/</link>
+    <description>Recent content in shiny on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/shiny/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R&amp;shiny自动截图</title>
+      <link>/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</guid>
+      <description>利用webshot 进行截图 library(shiny) library(ggplot2) histogram &amp;lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) { df &amp;lt;- data.frame( x = c(x1, x2), g = c(rep(&amp;quot;x1&amp;quot;, length(x1)), rep(&amp;quot;x2&amp;quot;, length(x2))) ) ggplot(df, aes(x, fill = g)) + geom_histogram(binwidth = binwidth) + coord_cartesian(xlim = xlim) } ui &amp;lt;- fluidPage( fluidRow( column(3, numericInput(&amp;quot;lambda1&amp;quot;, label = &amp;quot;lambda1&amp;quot;, value = 3), numericInput(&amp;quot;lambda2&amp;quot;, label = &amp;quot;lambda2&amp;quot;, value = 4), numericInput(&amp;quot;n&amp;quot;, label = &amp;quot;n&amp;quot;, value = 1e4, min = 0), # 增加一个按钮 actionButton(&amp;quot;simulate&amp;quot;, &amp;quot;Simulate!</description>
+    </item>
+    
+    <item>
+      <title>创建属于自己的rmarkdown模板文件</title>
+      <link>/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-05-18-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84rmd%E6%A8%A1%E6%9D%BF/</guid>
+      <description>rmarkdown模板文件的创建 &amp;mdash;- 修改prettydoc模板
+下载链接: zscbeautiful
+下载下来后, 把css和html 分别放在对应的目录中替换即可
+Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/library/prettydoc/ , 只需把下载下来的文件进行替换即可
+创建模板的步骤: 新建文件&amp;mdash;&amp;gt; R mardown&amp;mdash;&amp;gt; From Template如图:
+参考: https://cosx.org/2019/10/prettydoc-internals-ljj/</description>
+    </item>
+    
+  </channel>
+</rss>

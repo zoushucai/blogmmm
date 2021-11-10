@@ -1,0 +1,100 @@
+---
+title: "测试rmarkdown输出页面"
+date: "2019-05-11"
+tags: ["R"]
+---
+
+
+```{r setup, include=FALSE}
+options(width = 600)
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+# autodep=TRUE
+# tags: ["series"]
+# series: "我是系列博文哦"
+```
+
+
+```{r}
+t(iris[1:30,])
+```
+
+这是行内公式$a^2+b^2+\sqrt{c}$,这是行间公式
+$$x^2+y^2= z^2$$
+## 动态图
+
+```{r,eval=FALSE}
+library(ggplot2)
+library(plotly)
+p <- ggplot(data = diamonds, aes(x = cut, fill = clarity)) +
+            geom_bar(position = "dodge")
+ggplotly(p)
+
+```
+
+
+```{r,eval=FALSE}
+library(rbokeh)
+figure() %>%
+  ly_points(Sepal.Length, Sepal.Width, data = iris,
+    color = Species, glyph = Species,
+    hover = list(Sepal.Length, Sepal.Width))
+```
+
+
+```{r,eval=FALSE}
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```
+
+
+<div class="row">
+<div class="col-md-4" markdown="1">
+```{r}
+summary(cars)
+```
+</div>
+<div class="col-md-4" markdown="1">
+```{r}
+summary(iris)
+``` 
+</div>
+<div class="col-md-4" markdown="1">
+```{r}
+summary(iris)
+```
+</div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-4" markdown="1">
+```c
+int foo (void) {
+    int i;
+}
+```
+</div>
+<div class="col-md-4" markdown="1">
+```c
+int foo (void) {
+    int i;
+}
+```  
+</div>
+
+<div class="col-md-4" markdown="1">
+```c
+int foo (void) {
+    int i;
+}
+```  
+</div>
+</div>
+
+
+```{r}
+sessionInfo()
+```
+

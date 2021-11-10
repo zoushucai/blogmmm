@@ -1,0 +1,165 @@
+---
+title: "省略号参数— 可变长参数"
+date: "2019-04-30"
+tags:
+  - R
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#省略号参数-可变长参数">省略号参数— 可变长参数</a>
+<ul>
+<li><a href="#捕获省略号中的内容">1.捕获省略号中的内容</a></li>
+<li><a href="#用省略号传递给图形参数">2. 用省略号传递给图形参数</a></li>
+<li><a href="#将省略号与其他参数结合">3. 将省略号与其他参数结合</a></li>
+<li><a href="#也可对省略号取名称">4. 也可对省略号取名称</a></li>
+<li><a href="#将省略号参数解压缩为本地函数变量甚至是全局变量">5. 将省略号参数解压缩为本地函数变量（甚至是全局变量）</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="省略号参数-可变长参数" class="section level1">
+<h1>省略号参数— 可变长参数</h1>
+<p>​ 在R中我们查看别人的函数或者内部函数，经常用到<code>…</code>这种参数，<code>...</code>也称把可变长参数，今天就来聊一聊中方法的使用。</p>
+<div id="捕获省略号中的内容" class="section level2">
+<h2>1.捕获省略号中的内容</h2>
+<p>先看一个例子：构造一个函数然后对所有的参数进行相加求和。</p>
+<pre class="r"><code>addemup &lt;- function(x, ...){
+   args &lt;- list(...)# 推荐把省略号的内容分配给list,然后在对该list进行操作
+   for (a in args){
+                x &lt;- x + a 
+   } 
+   x
+ }
+
+addemup(1,1)
+#&gt; [1] 2
+addemup(1,2,3,4,5)
+#&gt; [1] 15</code></pre>
+<p>我们还可以通过<strong><code>..1</code>,<code>..2</code>到<code>..9</code>等直接引用列表<code>…</code>中的内容。<code>..1</code>表示第一项，<code>..2</code>表示第二项，以此类推</strong>。</p>
+<p>对list操作可以结合<strong>purrr包中的map, reduce, accumulate</strong>和基础函数<strong>do.call</strong>等 操作更方便。一个实际的例子，</p>
+<pre><code>DGM_U = function(...){
+  #######  第一部分是对参数的检查 #####################
+  # 输入的参数为U_{k}，U_{k}代表一个完整的区间乘积互反判断矩阵。
+  n = nrow(..1)
+  m = ncol(..1)
+  args &lt;- list(...)
+  stopifnot( length(args) &gt;=2, all( map_lgl(args,is.matrix)),2*n ==m )
+  # 检查所有的矩阵维度是否一样
+  library(purrr)
+  t = map(args,dim) %&gt;% do.call(rbind, .) 
+  stopifnot( nrow(unique(t)) == 1)
+  
+  ####### 第二部分 对参数的操作，达到想要的目的###########
+  ## 1. 使用快捷的函数
+  k = 1 / length(args)
+  UB = reduce( map(args,function(x)fenjie(x)$B),`*`)^k
+  UD = reduce( map(args, function(x)fenjie(x)$D), `*`)^k
+  
+  ## 2. 使用循环操作 -- 对比操作
+  # UB = matrix(1,nrow = n, ncol = n)
+  # UD = matrix(1,nrow = n, ncol = n)
+  # for(xx in args){
+  #   B = fenjie(xx)$B
+  #   D = fenjie(xx)$D
+  #   for(i in 1:n){
+  #     for(j in 1:n){
+  #       UB[i,j] = UB[i,j] * B[i,j]
+  #       UD[i,j] = UD[i,j] * D[i,j]
+  #     }
+  #   }
+  # }
+  # k = 1 / length(args)
+  # UB = UB^( k)
+  # UD = UD^(k)
+  return( hecheng(UB,UD))
+}
+# 由于该函数引用了部分其他函数，故这里不能运行
+DGM_U(U_t1,U_t2,U_t3)</code></pre>
+</div>
+<div id="用省略号传递给图形参数" class="section level2">
+<h2>2. 用省略号传递给图形参数</h2>
+<p>我们知道R中的图形参数是有很多的，可以把它传递给图形参数。</p>
+<pre class="r"><code>nicePlot = function(X,Y,...){
+  xlabel = deparse(substitute(X)) # 捕获X的输入
+  ylabel = deparse(substitute(Y)) # 捕获Y的输入
+  
+  plot(X,Y,type =&#39;o&#39;,
+      xlab = xlabel,ylab = ylabel,main = paste(xlabel,ylabel,sep = &#39;--&#39;),
+      ...)
+}
+
+Date = 1:7
+Sales = c(100,120,150,130,160,210,120)
+nicePlot(Date,Sales,col=&#39;red&#39;)</code></pre>
+<p><img src="/post/2019-04-30-ellipsisParameter_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>其中<strong>substitute()</strong>函数捕获输入的内容(无论输入什么样的内容，则原样输出)，<strong>deparse() </strong>函数将其转变为字符串</p>
+</div>
+<div id="将省略号与其他参数结合" class="section level2">
+<h2>3. 将省略号与其他参数结合</h2>
+<pre class="r"><code>v &lt;- c(sqrt(1:100))
+f &lt;- function(x, ...) { 
+   print(x); 
+   summary(...)
+  }
+f(&quot;Here is the summary for v.&quot;, v, digits=2)
+#&gt; [1] &quot;Here is the summary for v.&quot;
+#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;     1.0     5.1     7.1     6.7     8.7    10.0</code></pre>
+</div>
+<div id="也可对省略号取名称" class="section level2">
+<h2>4. 也可对省略号取名称</h2>
+<p>实际上，参数本身的值不是通过省略号参数传递的唯一信息。也可以使用参数的名称（如果指定），例如：</p>
+<pre class="r"><code>f &lt;- function(...) {
+  names(list(...))
+  
+   # 进一步的分析
+}
+
+f(some_number = 123,some_string =&#39;abc&#39;,some_missing_value = NA)
+#&gt; [1] &quot;some_number&quot;        &quot;some_string&quot;        &quot;some_missing_value&quot;</code></pre>
+</div>
+<div id="将省略号参数解压缩为本地函数变量甚至是全局变量" class="section level2">
+<h2>5. 将省略号参数解压缩为本地函数变量（甚至是全局变量）</h2>
+<pre class="r"><code>rm(list = ls())
+f &lt;- function(...) {
+  args &lt;- list(...)
+  for( i in 1:length(args) ){ 
+    assign( x = names(args)[i],value = args[[i]] )
+  }
+  ls()#显示可用的变量 #使用省略号参数作为当前变量进行进一步操作
+  
+  # 进一步的分析
+}
+
+f( some_number = 123,some_string =&quot;abc&quot;)
+#&gt; [1] &quot;args&quot;        &quot;i&quot;           &quot;some_number&quot; &quot;some_string&quot;</code></pre>
+<pre class="r"><code>sessionInfo()
+#&gt; R version 4.0.2 (2020-06-22)
+#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)
+#&gt; Running under: macOS Mojave 10.14.5
+#&gt; 
+#&gt; Matrix products: default
+#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+#&gt; 
+#&gt; locale:
+#&gt; [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
+#&gt; 
+#&gt; attached base packages:
+#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
+#&gt; 
+#&gt; loaded via a namespace (and not attached):
+#&gt;  [1] compiler_4.0.2  magrittr_1.5    bookdown_0.20   tools_4.0.2    
+#&gt;  [5] htmltools_0.5.0 yaml_2.2.1      stringi_1.4.6   rmarkdown_2.3  
+#&gt;  [9] blogdown_0.20   knitr_1.29      stringr_1.4.0   digest_0.6.25  
+#&gt; [13] xfun_0.17       rlang_0.4.7     evaluate_0.14</code></pre>
+</div>
+</div>

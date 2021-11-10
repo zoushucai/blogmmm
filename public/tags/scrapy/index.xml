@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scrapy on zsc</title>
+    <link>/tags/scrapy/</link>
+    <description>Recent content in Scrapy on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 10 Aug 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/scrapy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Scrapy框架&#43;selenium爬取京东相机</title>
+      <link>/md/2018-08-10-scrapy/</link>
+      <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-08-10-scrapy/</guid>
+      <description>1 创建一个srcapy项目： （项目名为：jingdong)，会生成一系列文件夹，命令如下(cmd下运行)：
+scrapy startproject jingdong 2 创建爬虫文件 在刚刚生成的jingdong文件夹下面找到spiders文件夹,在spider文件下创建一个爬虫文件（名字叫jd）&amp;ndash; 用来解析网页的，命令如下(cmd下运行)：
+scarpy genspider jd &amp;#34;list.jd.com&amp;#34; # 创建一个jd.py的爬虫文件，爬虫名为jd ，以及指定爬虫允许爬取的范围：只能在jd.com下. 3 编写items.py文件 创建爬虫目标（明确需要提取的数据），如下：
+import scrapy class JingdongItem(scrapy.Item): # define the fields for your item here like: # 所有商品的名称、链接、价格、销售店铺、评论数的信 # 商品名称 name = scrapy.Field() # 商品的简介 abstract = scrapy.Field() # 商品的链接 link = scrapy.Field() # 商品的价格 price = scrapy.Field() # 店铺名 shop_name = scrapy.Field() # 评论数 commet = scrapy.Field() 4 设置setting文件，开启管道 ITEM_PIPELINES = { &amp;#39;jingdong.</description>
+    </item>
+    
+  </channel>
+</rss>

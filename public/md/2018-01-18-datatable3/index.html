@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>data.table -- 3常见操作</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                data.table -- 3常见操作
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                         
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-01-18 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/data.table"> #data.table </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <pre tabindex="0"><code class="language-{r" data-lang="{r">knitr::opts_chunk$set(message = F,warning = F,comment = &quot;#&gt;&quot;,collapse = TRUE)
+</code></pre><p><strong>数据准备</strong></p>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(data.table)
+library(magrittr)
+iris_1 = data.table(iris[1:5,])
+iris_2 = data.table(iris[51:55,])
+iris_1
+iris_2
+</code></pre><h2 id="1-两个datatable行合并">1. 两个data.table行合并</h2>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">##### --- 两个data.table行合并 --两个数据的列数应该相等 ##### 
+#### --- 方法一 --纯粹的合并
+rbind(iris_1,iris_2)
+
+### -- 方法2  --- 
+l = list(iris_1,iris_2)
+rbindlist(l, use.names=TRUE, fill=TRUE) %&gt;% head()
+
+
+</code></pre><h2 id="2-两个datatable列合并">2. 两个data.table列合并</h2>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">##### --- 两个data.table列合并 --两个数据的行数应该相等
+## --方法一  纯粹的合并
+cbind(iris_1[,1:2],iris_2[,5])
+## --方法2  --- 类似 dplyr包中的链接
+# merge(iris_1[,1:2], iris_2[,5], all=TRUE,sort=F) 
+
+## --方法3  --- 类似 dplyr包中的链接
+# dt_a[dt_b,on=.(b = y)]
+
+</code></pre><p><strong>多个data.table 合并&ndash; 按照自己想要的方式合并</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e"># Merge multiple data.tables </span>
+dt_list    <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(dt1, dt2, dt3)
+merge_func <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(<span style="color:#66d9ef">...</span>) <span style="color:#a6e22e">merge</span>(<span style="color:#66d9ef">...</span>, all <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, by<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;carname&#39;</span>)
+dt_merged  <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Reduce</span>(merge_func, dt_list)
+</code></pre></div><h2 id="3-把list类型转变为datatable类型">3. 把list类型转变为data.table类型</h2>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">####  把list类型转变为data.table类型
+aa = lapply(1:5, function(x) list('CR' = x,'CSI' = x^2))
+aa
+rbindlist(aa)
+
+
+</code></pre><h2 id="4对列进行批量操作">4.对列进行批量操作</h2>
+<h3 id="4-1对列进行操作">4. 1对列进行操作</h3>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">## 对每一列都进行某个操作
+iris_1[,lapply(.SD, function(x)length(x))]
+
+## 也可以指定列进行计算
+iris_1[,lapply(.SD, function(x){sum(x)/.N}),.SDcol = 1:3]
+# 指定的列，可以使用数字列，也可以使用字符列
+
+iris_1[,lapply(.SD, function(x){sum(x)/.N}),.SDcol = c(&quot;Sepal.Length&quot;,&quot;Sepal.Width&quot;)]
+
+
+
+
+
+#### 排除列进行操作,  排除列可以用！ 也可用 - 
+# eg： 排除某些列，然后对剩下的列进行操作
+iris_1 = data.table(iris[1:50,])
+iris_1[1:5, lapply(.SD, function(x)x*100 ),.SDcols = !(5)] # 排除第5列，对其余列进行操作
+iris_1[1:5, lapply(.SD, function(x)x*100 ),.SDcols = !(4:5)]# 
+
+iris_1[1:5, lapply(.SD, function(x)x*100 ),.SDcols = -(c(1,5))] 
+iris_1[1:5, lapply(.SD, function(x)x*100 ),.SDcols = !(c(&quot;Sepal.Length&quot;,&quot;Species&quot;))]
+
+
+</code></pre><h3 id="42-对列进行有匹配的筛选">4.2 对列进行有匹配的筛选</h3>
+<p>只用<code>data.table</code> 包</p>
+<pre tabindex="0"><code>iris_dt = data.table(iris[1:5,])
+# 筛选列名中包含&quot;Sep&quot;字符串的列,这类似于shell中的grep命令,或者基本R中的grepl命令
+iris_dt[,names(iris_dt) %like% &quot;Sep&quot;, with=FALSE]
+
+# 筛选列名中包含&quot;Length&quot;字符串的列
+iris_dt[,names(iris_dt) %like% &quot;Length&quot;, with=FALSE]
+
+</code></pre><p>也可以引进<code>dplyr包</code>进行结合使用，</p>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(data.table)
+iris_1 = data.table(iris[1:5,])
+library(dplyr)
+iris_1[,select(.SD,contains(&quot;S&quot;))] # 从列中筛选出列名包含&quot;S&quot;的列，这列contains函数不区分大小写
+iris_1[,select(.SD,contains(&quot;s&quot;))] 
+
+iris_1[,select(.SD,starts_with(&quot;Sep&quot;))]  # 列名是&quot;Sep&quot;字符串开始的
+iris_1[,select(.SD,ends_with(&quot;th&quot;))] # 列名是&quot;th&quot;字符串结束的
+
+
+iris_1[,select_if(.SD,is.numeric)] # 为数值型属性的列
+iris_1[,select_if(.SD,is.factor)] 
+
+
+
+</code></pre><h3 id="4-3-对列进行批量重命名">4. 3 对列进行批量重命名</h3>
+<h4 id="431-更新部分列">4.3.1 更新部分列</h4>
+<p>** 记住<code>.SD</code>只能用于<code>:=</code>的右边 ，不能用于左边，左边应该是字符、数值格式**</p>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">iris_1[,colnames(iris_1[,1:4]) := lapply(.SD[,1:4],function(x) x*100)]
+iris_1
+
+# iris_1[,colnames(.SD[,1:4]) := lapply(.SD[,1:4],function(x) x*100)] # 出错
+</code></pre><h4 id="432左边利用数值进行更新列">4.3.2左边利用数值进行更新列</h4>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}"># 左边利用数值进行更新列
+iris_1 = data.table(iris[1:5,])
+iris_1[1:5, (c(2,3,4)):=lapply(.SD, function(x)x*100 ),.SDcols = !(c(1,5))]
+iris_1[1:5,]
+
+
+iris_1 = data.table(iris[1:5,])
+## 如果左边用数字并打上() 代表第几列，指定第几列的操作
+iris_1[,(2:3):=Species] # 把第2：3列的值进行更新，即第2:3列都为Species列
+iris_1
+
+</code></pre><h4 id="433-左边利用字符串更新列">4.3.3 左边利用字符串更新列</h4>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}"># 左边利用字符串更新列
+## 对指定的列进行计算 --- 并修改原有的列
+iris_1 = data.table(iris[1:5,])
+col_names = c(&quot;Sepal.Length&quot;,&quot;Sepal.Width&quot;)
+iris_1[, (col_names) := lapply(.SD, function(x)x*10 ),.SDcols = col_names]
+iris_1
+
+</code></pre><h2 id="5datatable-数据的重组与拆分">5.data.table 数据的重组与拆分</h2>
+<p>这里的<code>melt</code> 和<code>cast</code> 针对<code>data.table</code> 进行了优化</p>
+<ul>
+<li>
+<p><code>melt</code>  — — 把宽格式数据转化成长格式。</p>
+</li>
+<li>
+<p><code>dcast</code>  — — 把长格式数据转化成宽格式。参考前面的,这里只讲<code>data.frame</code>, <code>data.table</code>类似</p>
+</li>
+</ul>
+<p><strong>如果不是data.table数据格式，推荐使用tidyr包进行数据的重组与拆分</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">melt</span>(data, id.vars <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;&#34;</span>),<span style="color:#75715e">#保留的列 ，可以省略(表示不保留列)</span>
+         measure.vars<span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>), <span style="color:#75715e"># 指定列进行融合，不指定时表示全部融合，可以使用正则表达式</span>
+         variable.name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;variable&#39;</span>,value.name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;value&#39;</span>)<span style="color:#75715e"># 融合后的名字与值</span>
+</code></pre></div><p>参见下图：</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/melt.png" alt="melt"></p>
+<h2 id="6-实现dplyr中的join_left操作">6. 实现dplyr中的join_left操作</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>语法1</th>
+<th>语法2(推荐)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inner</td>
+<td>X[Y,nomatch=0] 或者<!-- raw HTML omitted -->Y[X,nomatch=0]</td>
+<td>merge(X,Y,all=F)</td>
+</tr>
+<tr>
+<td>Left</td>
+<td>Y[X]</td>
+<td>merge(X,Y,all.x=T)</td>
+</tr>
+<tr>
+<td>Right</td>
+<td>X[Y]</td>
+<td>merge(X,Y,all.y=T)</td>
+</tr>
+<tr>
+<td>Full</td>
+<td>-</td>
+<td>merge(X,Y,all=T)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">merge</span>(x, y, by <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, by.x <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, by.y <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, all <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+all.x <span style="color:#f92672">=</span> all, all.y <span style="color:#f92672">=</span> all, sort <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, suffixes <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;.x&#34;</span>, <span style="color:#e6db74">&#34;.y&#34;</span>), no.dups <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+allow.cartesian<span style="color:#f92672">=</span><span style="color:#a6e22e">getOption</span>(<span style="color:#e6db74">&#34;datatable.allow.cartesian&#34;</span>),  <span style="color:#75715e"># default FALSE</span>
+<span style="color:#66d9ef">...</span>)
+
+参数解释
+	x, y <span style="color:#f92672">:</span> 需要合并的数据集
+	by <span style="color:#f92672">:</span> 用于连接两个数据集的列,当两个数据集公共列名相同,可以写成 by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;公共列名&#34;</span>
+	by.x, by.y<span style="color:#f92672">:</span> 用于指定依据那个列合并,常用与当两个数据集公共列名不一样的时候
+	all, all.x, all.y 指定对于的合并类型 
+</code></pre></div><h2 id="7--按照a列分组后找出b列的最大值">7.  按照A列分组后,找出B列的最大值</h2>
+<p>即选择每组中某列对应最大值的行,</p>
+<p><del>分组有一个功能,即提取所有的值都是唯一的.</del></p>
+<p><del><code>unique()</code>函数提供的唯一性, 有一定缺陷</del></p>
+<ul>
+<li><del>作用于向量, 返回唯一的向量, 有重复项默认前面的值作为返回对象</del></li>
+<li><del>作用于数据框,返回数据框的每一行都唯一</del></li>
+<li><del>不能到达数据框A列保持唯一,若A列有重复项,选择B列中最大的那个值作为返回对象.</del></li>
+</ul>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">ID    &lt;- c(1,1,1,2,2,2,2,3,3)
+Value &lt;- c(2,3,5,2,5,8,17,3,5)
+Event &lt;- c(1,1,2,1,2,1,2,2,2)
+group &lt;- data.frame(Subject=ID, pt=Value, Event=Event)
+require(data.table) 
+group &lt;- as.data.table(group)
+group
+# 所有最大值
+group[group[, .I[pt == max(pt)], by=Subject]$V1,]
+
+# 只想要第一个最大值
+group[group[, .I[which.max(pt)], by=Subject]$V1,]# 方法一: 很快
+group[, .SD[which.max(pt)], by=Subject]# 方法二: 较慢
+
+
+</code></pre><p><a href="https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group">https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group</a></p>
+<h2 id="8-按照a列分组后找出b列的第2大的值">8. 按照A列分组后,找出B列的第2大的值</h2>
+<pre tabindex="0"><code>
+group[group[,.I[order(-pt)[2]],by=.(Subject)]$V1,]
+
+
+group[,.SD[order(-pt)[2]], by = Subject]
+
+</code></pre><pre tabindex="0"><code>  ## 方法一:
+  dtf_t = dt[dt[, .I[order(-count_dot,abbr_len)[1]], by=journal_lower]$V1,]
+
+  ## 方法二:
+  dtf = dt[dt[, .I[{
+    temp = which(count_dot == max(count_dot))
+    ifelse(length(temp) == 1, temp, which.min(abbr_len))
+  }], by = journal_lower]$V1,]
+</code></pre>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-01-18-datatable3/" class="leancloud_visitors" data-flag-title="data.table -- 3常见操作">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-01-17-datatable2/"> 上一篇: data.table -- 2基本概念</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/"> 下一篇: Windows系统下R Markdown 设置中文pdf完美解决方案</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-01-18-datatable3.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

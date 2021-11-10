@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>latex on zsc</title>
+    <link>/tags/latex/</link>
+    <description>Recent content in latex on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 14 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/latex/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>latex 参考文献格式: GB/7714</title>
+      <link>/md/2020-08-14-gb7714/</link>
+      <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-14-gb7714/</guid>
+      <description>注意所有一下运行环境均在MacTex 2018 下运行的, 如果是MacTex 2020 且更新到最新的话,以下方法会报错&amp;hellip;原因是之后的版本修改了一些参数.(有空在出Mactex 2020的)
+1. bst 文件 bst样式文件来源:
+https://github.com/CTeX-org/gbt7714-bibtex-style
+1.1. 使用方法 方法一: 直接使用gbt7714 宏包,一般texlive自带该宏包,不过版本应该比较旧是1.XX 可以更新到2.*
+\documentclass{article} \usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \bibliographystyle{gbt7714-numerical} \usepackage[super]{gbt7714} \begin{document} 正文 \cite{herrera2004some} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{xu2014weak,xu2018methods} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究} \bibliography{test} \end{document} 方法二: 也可以下载单个的bst文件, 放在.tex所在的目录下,这样使用
+\documentclass{article} \usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用 \usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接 \usepackage[super,sort&amp;amp;compress,square]{natbib} \bibliographystyle{gbt7714-numerical} \begin{document} 正文 \cite{herrera2004some} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{xu2014weak,xu2018methods} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究} \cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究} \bibliography{test} \end{document} 1.2. 修改默认样式 在 bst 文件开始处的 load.config 函数中，有一组配置参数用来控制样 式，下表列出了每一项的默认值和功能。若变量被设为#1则表示该项被启用， 设为#0则不启用。默认的值是严格遵循国标的配置。
+2. biblatex 格式 由于版本原因,需要biblatex-gb7714-2015 下载对应的文件,放入当前目录</description>
+    </item>
+    
+    <item>
+      <title>latex 参考文献生成(总结)</title>
+      <link>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</link>
+      <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/</guid>
+      <description>生成latex参考文献大致有4种方法&amp;hellip;..
+使用环境: MacTeX 2018 + texstudio, texstudio编译器改为xelatex
+0. 什么是*.bib 文件 注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为.bib的文件,这里我建立一个bib文件, 如text.bib, 去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:
+把上图的内容复制到我们所创建的test.bib文件中即可.
+注意: 生成参考文献的好坏,80% 都看你的bib数据文件
+1. 使用 thebibliography 环境&amp;ndash; 手动书写 使用格式:
+\begin{thebibliography}{99} \bibitem{citekey1} ***自己书写参考文献*** \bibitem{citekey2} ***自己书写参考文献*** ..... \end{thebibliography} 完整的案例如下:
+\documentclass{article} \usepackage{ctex}%加载ctex宏包，中文支持  \begin{document} 测试文档，参考文献\cite{hosseini2016modeling,wang2019snow} \begin{thebibliography}{99} \bibitem{hosseini2016modeling}	Hosseini~S, Barker~K. Modeling infrastructure resilience using {{Bayesian}} networks: {{A}}	case study of inland waterway ports [J]. Computers \&amp;amp; Industrial Engineering, 2016, 93: 252-266. \bibitem{wang2019snow} Wang~J, Liu~H. Snow removal resource location and allocation optimization for urban road network recovery: a resilience perspective [J].</description>
+    </item>
+    
+    <item>
+      <title>latex 缩写期刊</title>
+      <link>/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</link>
+      <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/</guid>
+      <description>以下软件对参考文献都不能完美的满足我的要求, 因此可以结合不同软件的优势,达到最后的效果
+1. zotero 设置—首选项—bitter bibtex —export — 最下面有一个期刊缩写,选购就能导出缩写的期刊名了
+ 特点:  使用该软件, 系统自带的期刊缩写对照表很少, 且不能添加对照表, 不会自动更新bib文件 可以按照key键的顺序(升序) 导出bib数据库, 只需导出时选中[biter bibtex]选项即可 也可以安装以前的方式导出bib数据库, 只需导出时选中[bibtex]选项即可    2. Mendeley  特点:  默认情况下, 联网会自动更新bib数据库, 这一点很烦(for me), 因此可以直接断网使用该软件 期刊缩写很好,内置了很多比较全的期刊缩写.但某些期刊仍不全面,且缩写的格式看不见    3. Jabref软件 特点:
+  内置的期刊缩写相对较少, 但是可以手动添加期刊缩写列表(官网有), 就是电脑卡
+  由于bib文件中使用的是\&amp;amp; , 而jabref软件中默认使用&amp;amp;, 这样对照表中可能不会存在相应的缩写
+  不能导出按照key键顺序导出相应的bib文件
+  使用期刊缩写时,首先使用展开期刊全名,才去缩写,不然有可能找不到,
+  不会自动更新bib文件
+下面是使用期刊缩写步骤, 先管理期刊缩写名(选择使用哪种类型的对照表),在进行期刊缩写
+  4. 自用软件包journalabbr  利用Jabref软件提供了大量的期刊缩写列表https://github.com/JabRef/abbrv.jabref.org,但是在Jabref软件中使用经常死机. 借助 pandoc , 该软件提供了大量命令参数, 感兴趣的可以去探索, 而xieyihui 通过使用*.</description>
+    </item>
+    
+    <item>
+      <title>latex 笔记</title>
+      <link>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/</guid>
+      <description>1, 交叉引用 \eqref{eq:eq1} :交叉引用公式编号自动带括号: 2, 完整模板解析 \documentclass[review]{elsarticle} %\usepackage{ctex} \usepackage{lineno, hyperref} \hypersetup{colorlinks=true, citecolor=blue, anchorcolor=blue} \modulolinenumbers[5] %\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue]{hyperref}  \usepackage{amsmath} \usepackage{amssymb} \usepackage{amsthm} \usepackage[american]{babel} % 具有多语种处理功能的宏包,英文为默认文字,和microtype包一起使用,用于页面两端对齐 \usepackage{microtype} % 用于页面两端对齐  \usepackage{graphicx} % 插图包 --- \includegraphics[height=高度][angle=旋转角度]{图片文件名} \usepackage{multirow} % 处理表格 --列合并用”\multicolumn“，行合并用。\multirow{2}{*}{显示的文本} % 引用 --- \multirow 函数/标志符： {占用行数} {方框边界竖线|文字居左中右|方框边界竖线} {内容} % 引用 --- \multicolumn 函数/标志符： {占用列数} {方框边界竖线|文字居左中右|方框边界竖线} {内容}  \usepackage{indentfirst} %段首缩进需要的宏包 \setlength{\parindent}{2em}%设置段首缩进两个汉字 %\noindent强制不缩进 % \setlength{\parskip}{1em}%paragraph skip,调整的是段落间距离  %\usepackage{lscape} % 表格横置, 只需要引用 landscape 环境即可 %\usepackage{pdflscape} % 页面横置,只需引用landscape环境即可 %\usepackage[figuresright]{rotating} % 将表格旋转为纵向放置，使用rotating宏包 % 要使用 sidewaystable 环境 %\usepackage{natbib}\usepackage[authoryear]{natbib}  \usepackage{enumerate} % enumerate 宏包 ,可以给有序列表设置 label,以及有缩进 %\usepackage{enumitem} % 可以给出缩进调整间距, label %\usepackage{showkeys} % 引用时显示引用的 label %\usepackage{paralist} % 列表相互嵌套是的缩进 ,也可以给出相应 label ,但是 label 和缩进都要设置  %%%%%% 交叉引用 开始%%%%%%% %% 第一部分 自定义新环境, \theoremstyle{definition} %自定义环境内的风格,比如字体是否为斜体,等等,这里采用的是正体 \newtheorem{thm}{Theorem} \newtheorem{cor}{Corollary} \newtheorem{lem}{Lemma} \newtheorem{pot}{\bf Proof} \newtheorem{rmk}{Definition} \newtheorem{pro}{Property} \newtheorem{example}{Example} %\newtheorem{exmp}{Example}  %% 第二部分 ,如果想要在引用时,自动添加definition,Theorem等字样,使用下面这部分 \usepackage[capitalize, nameinlink]{cleveref} %交叉应用 在数字前自动添加某些字符; 引用时 用\cref{}的形式 \crefname{thm}{Theorem}{Theorems} %\crefname{cor}{Corollary}{Corollarys} \crefname{lem}{Lemma}{Lemmas} \crefname{pot}{Proof} {Proofs} \crefname{rmk}{Definition}{Definitions} \crefname{pro}{Property}{Propertys} \crefname{example}{Example}{Examples} \crefname{figure}{Figure}{Figures} % 图片以及表格有默认的,但是也可以重新定义 % \DeclareUnicodeCharacter{0301}{\&amp;#39;{e}} %pdflatex 需要用到 UTF-8 字符时，需要此命令  %%%%%% 交叉引用结束 %%%%%%%  \journal{European Journal of Operational Research} % 参考文献的引用样式,可以去网上找各大期刊的模板 \bibliographystyle{elsarticle-harv}\biboptions{authoryear} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%一下为正文部分 \begin{document} \section{Introduction} \section{Preliminaries} \section*{Acknowledgements} \setcitestyle{numbers} \bibliography{references} % 这里引用的 bibtex 参考文献 \end{document} 注释:</description>
+    </item>
+    
+    <item>
+      <title>bib与enw文件之间的相互转换</title>
+      <link>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</guid>
+      <description>*.bib 与*.enw 文件之间的相互转换 方法一: JabRef 软件
+方法二: bibutils
+为了将BibTeX转换为带标签的Endnote，只需调用：
+$ bib2xml input.bib | xml2end &amp;gt; output.enw 转换为RIS类似于：
+$ bib2xml input.bib | xml2ris &amp;gt; output.ris </description>
+    </item>
+    
+    <item>
+      <title>mactex卸载</title>
+      <link>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-07-01-mactex%E5%8D%B8%E8%BD%BD/</guid>
+      <description>mactex卸载 参考： http://www.tug.org/mactex/uninstalling.html
+https://blog.csdn.net/nicekwell/article/details/97279215
+MacTeX是mac下的latex工具，卸载方法：
+1、/usr/local/texlive/2018/ 目录，这是占用空间最大的目录
+2、卸载GUI，到/Application/ 目录里删掉几个app即可。
+3、/Library/TeX
+4、~/Library/texlive/2019
+sudo rm -rf /usr/local/texlive/ sudo rm -rf /Library/TeX/ sudo rm -rf ~/Library/texlive cd /usr/local/ sudo rm -rf texlive/ cd /Library/ sudo rm -rf TeX/ cd ~/Library/texlive sudo rm -rf 2020 cd ~/Library sudo rm -rf texlive </description>
+    </item>
+    
+    <item>
+      <title>latex &#43; bib &#43; csl</title>
+      <link>/md/2019-11-04-latex-bib-csl/</link>
+      <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-11-04-latex-bib-csl/</guid>
+      <description>参考文献格式化调整系统 利用shiny制作
+利用 latex 写学术论文, 总爱遇到一个问题, 参考文献的样式问题, 由于 latex 的原因,不能使用 csl 参考样式文件, 因此本应用孕育而生.
+1, 只需要上传对应的 tex 源文件, 以及 bbl 文件和 csl 参考文献, 就能导出\bibitem 格式文件,
+2, 为什么要写这个,不用bst 模板文件 + bbl?
+ 我们导师只需要一个 tex 源文件,其余不相关的文件统统要柔和到一个文件里面,就这么简单.  3, 由于本人能力有限,如有问题,希望批评指正.</description>
+    </item>
+    
+  </channel>
+</rss>

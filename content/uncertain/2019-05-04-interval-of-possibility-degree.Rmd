@@ -1,0 +1,314 @@
+---
+title: "求区间可能度矩阵的算法(Liu 2009)"
+date: "2019-05-04"
+categories: ["决策方法"]
+tags:
+  - R
+  - 决策方法
+  - AHP
+series: "不确定多属性决策方法---徐泽水"
+keywords:
+  - AHP
+  - R 
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+options(width = 600)
+knitr::opts_chunk$set(autodep=TRUE,message = F,warning = F,comment = "#>",collapse = TRUE)
+
+```
+
+# 求区间可能度矩阵的算法
+
+## 0. 参考论文:
+
+徐泽水： [A consistency improving method in the analytic hierarchy process](http://www.sciencedirect.com/science/article/pii/S037722179800109X) 1999年
+
+刘芳：[Acceptable consistency analysis of interval reciprocal comparison matrices](http://dl.acm.org/citation.cfm?id=1619182)  2009年
+
+
+
+## 1. 主要思路：
+
+1. 把区间乘性互反矩阵U拆成两个正互反判断矩阵B和D,B，D都是正的互反判断矩阵。其中B的下三角元素大于D矩阵的下三角元素，B的上三角小于D的上三角元素 ，简称B的下三角大，上三角小
+2. 一致性检验，若拆分后的B，D矩阵一致性不满足条件(即$CR<= 0.1$) ，则用徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准($CR <=0.1$).
+3.  然后分别计算矩阵$B，D$的权重向量$w(B),w(D)$ ,注意这里的权重没有归一化处理.
+4. 通过公式$w_i = [min(w_i(B),w_i(D)),max(w_i(B),w_i(D))]$,把两个权重向量组合成一个区间向量。
+5. 通过区间向量$w$计算出区间向量的可能度矩阵$P$。
+
+
+
+## 2.主要函数构建：
+
+0. `consistency(A):` 求正互反判断矩阵的一致性指标，返回一个list
+
+1. `em_get_w(A) :` 特征值求权重 ——  没有归一化权重
+2. `gm_get_w(A)：` 几何平均求权重 — — 没有归一化权重
+3. `get_w(B,D):` 分别获取B，D的权重（可以指定几何平均或者特征值求权重），然后组成区间权重向量（即小的在前，大的在后），这里返回的是一个矩阵，把每一个区间数看做矩阵的一行。
+4. `fenjie(U ):` 把区间矩阵U分解成正互反判断矩阵B和D
+5. `adjust_w(A,lambda) :` 利用论文的方法进行调整，返回调整后符合一致性条件的一致性矩阵。
+6. `degree_probability(a,b)` 函数计算两个区间数的可能度
+7. `probability_matrix(w)` 给一个n*2 的区间数，求其可能度矩阵
+
+
+
+```{r}
+
+rm(list = ls())
+# 0。 一致性指标的求解
+consistency = function(A){
+  lambda = Re(eigen(A)$values[1]) # 矩阵A的最大特征值
+  n  = nrow(A)
+  RI = c(0,0,0.58,0.90,1.12,1.24,1.32,1.41,1.45);
+  CI = (lambda-n) / (n-1);
+  CR = CI / RI[n];
+  eig_w = eigen(A)$vectors[,1] / sum( eigen(A)$vectors[,1]);
+  return(list("eig_value"=lambda,"CI"=CI,"RI"=RI[n],"CR"=CR,'eig_w'=Re( eig_w )))
+}
+
+
+
+# 1. 特征值求权重
+em_get_w = function(A){
+  n = nrow(A)
+  stopifnot(nrow(A) ==  ncol(A))
+  
+  lambda = Re(eigen(A)$values[1]) # 矩阵A的最大特征值
+  n = nrow(A)
+  RI = c(0,0,0.58,0.90,1.12,1.24,1.32,1.41,1.45);
+  CI=(lambda-n)/(n-1);
+  CR=CI/RI[n];
+  eig_origin = eigen(A)$vectors[,1]
+  eig_w = eigen(A)$vectors[,1] # /sum(eigen(A)$vectors[,1]);
+  eig_w = Re(eig_w)
+  return(eig_w)
+}
+# 2. 几何平均求权重 -- 
+gm_get_w =function(A){
+  n = nrow(A)
+  stopifnot(nrow(A) ==  ncol(A))
+  temp = apply(A, 1, function(x) prod(x)^(1/n) )
+  w = temp # /sum(temp) 
+  return(w)
+}
+# 3. 合并权重
+get_w = function(B,D,method = c('gm_get_w','em_get_w') ){
+  n = nrow(B)
+  stopifnot(n == nrow(D))
+  method <- match.arg(method)
+  f = get(method)
+  w_B = f(B)
+  w_D = f(D)
+  w_L = rep(0,length(w_B))
+  w_U = rep(0,length(w_B))
+  for(i in 1:length(w_B)){
+    w_L[i] = min(w_B[i],w_D[i])
+    w_U[i] = max(w_B[i],w_D[i])
+  }
+  w = matrix(c(w_L,w_U), ncol= 2 )
+  return(w)
+}
+
+
+
+# 4. 通过U进行分解，分解出B，D矩阵，
+fenjie = function(U){
+  n = nrow(U)
+  stopifnot(ncol(U) == 2*n)
+  
+  B = matrix(0,nrow = n,ncol = n)
+  D = matrix(0,nrow = n,ncol = n)
+  
+  for(i in 1:n){
+    for(j in 1:n){
+      if(i<j){
+        B[i,j] = U[i,j*2]
+        D[i,j] = U[i,2*j-1]
+      }else if(i>j){
+        B[i,j] = U[i,2*j-1]
+        D[i,j] = U[i,j*2]
+      }else{
+        B[i,j] = U[i,2*j]
+        D[i,j] =U[i,2*j]
+      }
+    }
+  }
+  return(list('B'=B,'D'=D))
+}
+
+
+# 5. 徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准(CR <=0.1).
+adjust_w <- function(A, lambda) {
+  k <- 0
+  n = nrow(A)
+  m = ncol(A)
+  stopifnot(n == m)
+  temp_CR <- consistency(A)$CR
+  temp_w <- consistency(A)$eig_w
+  while (temp_CR >= 0.1 && k < 1000) {
+    for (i in 1:n) {
+      for (j in 1:n) {
+          A[i, j] <- (A[i, j]^lambda) * (temp_w[i] / temp_w[j])^(1 - lambda)
+      }
+    }
+    temp_CR <- consistency(A)$CR
+    temp_w <- consistency(A)$eig_w
+    k <- k + 1
+  }
+  return(A)
+}
+
+
+
+# 6. degree_probability 函数计算两个区间数的可能度
+degree_probability <- function(a, b) {
+  # 输入的a,b代表一个区间，即是一个二维向量，且小的在前面，大的元素在后面
+  stopifnot(length(a) == length(b), length(a) == 2, a[1] <= a[2], b[1] <= b[2])
+  temp <- 0
+  if (a[1] == a[2] && b[1] == b[2]) {
+    if (a[1] > b[1]) {
+      temp <- 1
+    } else if (a[1] == b[1]) {
+      temp <- 0.5
+    } else {
+      temp <- 0
+    }
+  } else if (a[1] == a[2] && b[1] != b[2]) {
+    if (a[1] > b[2]) {
+      temp <- 1
+    } else if (b[1] <= a[1] & a[1] <= b[2]) {
+      temp <- (a[1] - b[1]) / (b[2] - b[1])
+    } else {
+      temp <- 0
+    }
+  } else if (a[1] != a[2] && b[1] == b[2]) {
+    if (a[1] > b[1]) {
+      temp <- 1
+    } else if (a[1] <= b[1] & b[1] <= a[2]) {
+      temp <- (a[2] - b[1]) / (a[2] - a[1])
+    } else {
+      temp <- 0
+    }
+  } else if (a[1] != a[2] && b[1] != b[2]) {
+    if (a[1] < a[2] && a[2] <= b[1] && b[1] < b[2]) {
+      temp <- 0
+    } else if (a[1] <= b[1] && b[1] < a[2] && a[2] <= b[2]) {
+      s_t <- (a[2] - b[1]) * (a[2] - b[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      temp <- s_t / s
+    } else if (a[1] <= b[1] && b[1] <= b[2] && b[2] <= a[2]) {
+      s_t <- ((a[2] - b[2]) + (a[2] - b[1])) * (b[2] - b[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      temp <- s_t / s
+    } else if (b[1] < a[1] && a[1] < a[2] && a[2] < b[2]) { 
+      # 可写等号b[1] <= a[1] && a[1]<a[2] &&a[2]<=b[2]
+      s_t <- ((a[1] - b[1]) + (a[2] - b[1])) * (a[2] - a[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      temp <- s_t / s
+    } else if (b[1] < a[1] && a[1] < b[2] && b[2] < a[2]) {
+      s_tt <- (b[2] - a[1]) * (b[2] - a[1]) * 0.5
+      s <- (b[2] - b[1]) * (a[2] - a[1])
+      s_t <- s - s_tt
+      temp <- s_t / s
+    } else if (b[1] < b[2] && b[2] <= a[1] && a[1] < a[2]) {
+      temp <- 1
+    } else {
+      stop("运行出错")
+    }
+  } else {
+    stop("运行出错,请检查")
+  }
+  return(temp)
+}
+
+# 7. probability_matrix 给一个n*2 的区间数，求其可能度矩阵
+probability_matrix <- function(Z) {
+  # probability_matrix函数输入一个n*2的矩阵，每一行代表输出各个方案的综合属性值得区间数
+  # 此函数输出各方案两两比较的可能度矩阵。
+  # degree_probability函数求两个区间数的可能度，
+  # a，b代表输入的区间数，输入这两个
+  P <- matrix(0, ncol = nrow(Z), nrow = nrow(Z))
+  for (i in 1:nrow(Z)) {
+    for (j in 1:nrow(Z)) {
+      P[i, j] <- degree_probability(Z[i, ], Z[j, ])
+    }
+  }
+  return(P)
+}
+
+
+
+```
+
+总结: 只需给出一个区间判断矩阵，返回最终的权重(前提是B和D要满足一致性条件$CR<=0.1$)
+
+##  3. 测试
+
+### 3.1 例1： B 和D都满足一致性指标
+
+```{r}
+
+U = matrix(c(1,1,2,5,2,4,1,3,
+             1/5,1/2,1,1,1,3,1,2,
+             1/4,1/2,1/3,1,1,1,1/2,1,
+             1/3,1,1/2,1,1,2,1,1),nrow = 4,byrow = T)
+fenjie(U) 
+
+## 一致性检验
+library(purrr)
+fenjie(U) %>% map(function(x)consistency(x)$CR) # 求解矩阵B，D的一致性指标
+
+# 直接求出区间权重，以及根据权重求出区间可能度矩阵
+( w = get_w(B= fenjie(U)$B ,D = fenjie(U)$D) ) #每一行对应第i个方案的区间权重
+
+( P = probability_matrix(w) ) # 可能度矩阵P
+```
+
+
+
+
+
+### 3.2   例2： B 和D不满足一致性指标
+
+```{r}
+
+U  = matrix(c(1,1,1,2,1,2,2,3,
+              1/2,1,1,1,3,5,4,5,
+              1/2,1,1/5,1/3,1,1,6,8,
+              1/3,1/2,1/5,1/4,1/8,1/6,1,1),nrow = 4,byrow = T)
+fenjie(U)
+fenjie(U) %>% map(function(x)consistency(x)$CR) # 可以发现B和D的一致性不满足条件
+
+## 方法一： 进行调整
+adjust_w(fenjie(U)$B,lambda = 0.6) %>% round(4)
+adjust_w(fenjie(U)$D,lambda = 0.88) %>% round(4)
+
+## 方法二:进行调整 --  多参数映射
+temp = fenjie(U) %>% map2(.,list(0.6,0.88),function(x,y)round( adjust_w(x,y),4) )
+temp
+temp %>% map(function(x)consistency(x)$CR)#检验权重情况
+
+
+# 求出调整后的B和D的权重
+( w = get_w(B= temp$B ,D = temp$D) ) #每一行对应第i个方案的区间权重
+( P = probability_matrix(w) ) # 可能度矩阵P
+```
+
+## 4. 总结:
+
+无论什么样的区间矩阵(一致性是否满足)，都可以用步骤
+
+```R 
+# list(0.6,0.88)中的0.6和0.88 为调整adjust_w()函数参数中的lambda值对应
+temp = fenjie(U) %>% map2(., list(0.6,0.88),function(x,y)round( adjust_w(x,y),4) )
+w = get_w(B= temp$B ,D = temp$D)#每一行对应第i个方案的区间权重
+w
+
+P = probability_matrix(w)
+P
+```
+

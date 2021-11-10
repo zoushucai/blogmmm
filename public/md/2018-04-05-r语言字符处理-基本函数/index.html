@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>R语言字符处理---基本函数</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                R语言字符处理---基本函数
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-04-05 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h2 id="r语言字符处理---基本函数">R语言字符处理&mdash;基本函数</h2>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encoding(x)        <!-- raw HTML omitted -->Encoding(x) &lt;- value  <!-- raw HTML omitted -->enc2native(x)  <!-- raw HTML omitted -->enc2utf8(x)</td>
+<td>读取或设置字符向量的编码<!-- raw HTML omitted -->常结合iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)函数使用<!-- raw HTML omitted -->注意：Encoding(x) &lt;- value 这是一种赋值函数</td>
+</tr>
+<tr>
+<td>nchar(x, type = &ldquo;chars&rdquo;, allowNA = FALSE, keepNA = NA)<!-- raw HTML omitted -->nzchar(x, keepNA = FALSE)</td>
+<td>nchar()返回字符长度<!-- raw HTML omitted -->nzchar()判断是否空字符<!-- raw HTML omitted -->keepNA为真是NA保留，不计入计数<!-- raw HTML omitted -->对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。<!-- raw HTML omitted -->对于NULL，nchar和nzchar函数会忽略掉。</td>
+</tr>
+<tr>
+<td>substr(x, start, stop)<!-- raw HTML omitted -->substring(text, first, last = 1000000L)<!-- raw HTML omitted -->substr(x, start, stop) &lt;- value<!-- raw HTML omitted -->substring(text, first, last = 1000000L) &lt;- value</td>
+<td>提取或替换字符向量的子字段，substring同substr功能一样</td>
+</tr>
+<tr>
+<td>strtrim(x, width)</td>
+<td>按显示宽度截断字符串</td>
+</tr>
+<tr>
+<td>paste (&hellip;, sep = &quot; &ldquo;, collapse = NULL)<!-- raw HTML omitted -->paste0(&hellip;, collapse = NULL)</td>
+<td>通过sep连接间隔连接对象,返回字符串向量<!-- raw HTML omitted -->设定collapse的话，会通过collapse连接间隔将上一步的字符串向量连接成一个字符串</td>
+</tr>
+<tr>
+<td>strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE)</td>
+<td>基于split子句分割字符向量x<!-- raw HTML omitted -->fixed为TRUE的话，完全匹配split；否则，基于正则表达式。<!-- raw HTML omitted -->可以使用split=NULL来分割每个字符。</td>
+</tr>
+<tr>
+<td>chartr(old, new, x)</td>
+<td>将x中的字符old变换为字符new<!-- raw HTML omitted -->注意替换的是单个对应的字符，而非字符串</td>
+</tr>
+<tr>
+<td>tolower(x)<!-- raw HTML omitted -->toupper(x)</td>
+<td>大小写转换</td>
+</tr>
+<tr>
+<td>sprintf(fmt, &hellip;)</td>
+<td>系统C库函数sprintf封装器，格式化输出函数</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="正则表达式-----字符串匹配函数">正则表达式&mdash;&ndash;字符串匹配函数</h2>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>若x为list，则找出和(参数pattern)匹配的序列编号<!-- raw HTML omitted -->若x为字符串，则判别改字符串中是否包含特定的字符,包含返回1，不包含返回integer(0)<!-- raw HTML omitted -->若x为字符向量,同list<!-- raw HTML omitted -->只找到第一个即可</td>
+</tr>
+<tr>
+<td>grepl(pattern, x, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>返回TRUE 或FALSE</td>
+</tr>
+<tr>
+<td>sub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>只替换匹配到的第一个字符串</td>
+</tr>
+<tr>
+<td>gsub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>替换匹配到的所用字符串</td>
+</tr>
+<tr>
+<td>regexpr(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>返回第一个和(参数pattern)匹配的起始位置(或下标)和匹配长度(pattern的长度，若为正则，则是匹配字符串的实际长度)<!-- raw HTML omitted -->若没有则返回: -1</td>
+</tr>
+<tr>
+<td>gregexpr(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>regexpr()函数只匹配第一个，想要多次匹配则用gregexpr()函数</td>
+</tr>
+<tr>
+<td>regexec(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>和regexpr()函数一样</td>
+</tr>
+<tr>
+<td></td>
+<td>共同参数解析：<!-- raw HTML omitted -->   1、fixed = TRUE: 使用精确匹配<!-- raw HTML omitted -->   2、perl = TRUE: 使用Perl风格正则表达式<!-- raw HTML omitted -->   3、fixed = FALSE且perl = FALSE: 使用POSIX 1003.2扩展正则表达式<!-- raw HTML omitted -->   4、 useBytes = TRUE时逐字节匹配，否则逐字符匹配</td>
+</tr>
+<tr>
+<td>regmatches(x, m, invert = FALSE)<!-- raw HTML omitted -->regmatches(x, m, invert = FALSE) &lt;- value</td>
+<td>抽取或替换正则表达式匹配子串<!-- raw HTML omitted --> invert = TRUE则抽取或替换不匹配子串<!-- raw HTML omitted --> str&lt;-c(&ldquo;Now is &ldquo;,&ldquo;the&rdquo;,&rdquo; time &ldquo;) <!-- raw HTML omitted -->m&lt;-regexpr(&rdquo; +&quot;,str)<!-- raw HTML omitted -->regmatches(str,m)&lt;- &ldquo;9999&rdquo;<!-- raw HTML omitted -->str</td>
+</tr>
+<tr>
+<td>glob2rx(pattern, trim.head = FALSE, trim.tail = TRUE)</td>
+<td>将通配符模式变成正则表达式</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="grep函数参数">grep()函数参数：</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">pattern</td>
+<td style="text-align:center">包含正则表达式的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">寻找匹配的字符向量，或者可以通过字符向量强制转换的对象。支持长向量</td>
+</tr>
+<tr>
+<td style="text-align:center">ignore.case</td>
+<td style="text-align:center">如果为FALSE，则模式匹配区分大小写；如果为TRUE，则在匹配期间忽略大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">perl</td>
+<td style="text-align:center">如果为TRUE，使用perl匹配的正则表达式</td>
+</tr>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:center">如果为FALSE，则返回包含由grep确定的匹配的索引的向量，如果为TRUE，则返回包含匹配元素本身的向量</td>
+</tr>
+<tr>
+<td style="text-align:center">fixed</td>
+<td style="text-align:center">如果为TRUE，则pattern是要按原样匹配的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">useBytes</td>
+<td style="text-align:center">如果为TRUE，则匹配是逐字节而不是逐字符完成的</td>
+</tr>
+<tr>
+<td style="text-align:center">invert</td>
+<td style="text-align:center">如果为TRUE，则返回不匹配的元素的索引或值</td>
+</tr>
+</tbody>
+</table>
+<p>grep()能对向量中特定条件的元素进行查询，默认return为index,。grep()语法与grep()大致相似，但默认return为logical。</p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/" class="leancloud_visitors" data-flag-title="R语言字符处理---基本函数">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/"> 上一篇: R语言字符处理函数包---stringr包</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-04-06-rselenium/"> 下一篇: 利用RSelenium包模拟浏览器爬取网页信息</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-04-05-R语言字符处理---基本函数.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

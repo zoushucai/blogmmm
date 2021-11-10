@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Matlabs on zsc</title>
+    <link>/matlab/</link>
+    <description>Recent content in Matlabs on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 15 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="/matlab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MATLAB 与 R 在排序上的区别</title>
+      <link>/matlab/2019-11-15-matlab-r-rank/</link>
+      <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-15-matlab-r-rank/</guid>
+      <description>MATLAB 与 R 在排序上的区别 R 中的 rank , 返回一个向量的秩 R语言排序有几个基本函数： sort()；rank()；order() sort（）是对向量进行从小到大的排序 rank（）返回的是对向量中每个数值对应的秩 order（）返回的值表示位置，依次对应的是向量的最小值、次小值、第三小值......最大值 &amp;gt; data=c(5,6,8,2,4,9) &amp;gt; sort(data) [1] 2 4 5 6 8 9 &amp;gt; rank(data) % 秩,即排序后的位置,比如 data 中的第一个元素 5,在升序排序中是占第 3 个位置,所以返回 3. [1] 3 4 5 1 2 6 &amp;gt; order(data) [1] 4 5 1 2 3 6 MATLAB [y , index] = sort(x); y 把 x 排列升序后的结果 % 类似 R 中的 sort index 为 x 的秩 % 类似 R 中的 order tiedrank(data) % 类似 R 中的 rank, 返回平均秩, ans = 3 4 5 1 2 6 &amp;gt;&amp;gt; data=[5,6,8,2,4,9]; [y, index] =sort(data) y = 2 4 5 6 8 9 index = 4 5 1 2 3 6 有 y == data(index) &amp;gt;&amp;gt; tiedrank(data) ans = 3 4 5 1 2 6 tiedrank([10 20 30 40 20]) % 返回平均秩 ans = 1 2.</description>
+    </item>
+    
+    <item>
+      <title>Armadillo &#43; Rcpp  VS  MATLAB/octave</title>
+      <link>/matlab/2019-11-14-matlab_rcpp_c/</link>
+      <pubDate>Thu, 14 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-14-matlab_rcpp_c/</guid>
+      <description>*Armadillo + Rcpp VS MATLAB/octave  http://arma.sourceforge.net/docs.html  1. Armadillo VS matlab    Matlab/Octave Armadillo Notes     A,B,C代表矩阵a,b,c 代表向量 vec x(10);vec y = zeros(10);rowvec x(10); rowvec y = zeros(10); rowvec a = {1,2,3,4};vec b = {1,2,3,4};mat A = randu(10,10); C++中要声明向量类型(这里都是 double 类型)vec 默认 colvec(等价),是列向量   A(1,1) A(0,0) C++ 索引从 0 开始   A(k,k) A(k-1,k-1)         size(A,1) A.</description>
+    </item>
+    
+    <item>
+      <title>matlab 问题集合基础</title>
+      <link>/matlab/2019-11-13-matlab-question/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-13-matlab-question/</guid>
+      <description>1、inputname获取函数参数名字,返回一个字符串 2、 输入可变长参数,以及输出可变长参数 3、 nargin 捕获输入参数的个数, nargout 捕获输出参数的个数. function varargout = foo(varargin) %输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储,  %而inputname 存变量名的方式,用的是字符数组矩阵的形式 if nargin == 2 varargout{1} = a1; varargout{2} = a2; else nargin == 3 varargout{1} = a1; varargout{2} = a2; varargout{3} = a3; end function varargout = combin_index(varargin) variable_name = cell(1,nargin); % 创建一个 1* nargin 大小的 cell, for i = 1:nargin T = f(varargin{i}); % 获取的新参数 传递给另一个函数 variable_name{i} = inputname(i); % 由于变量名是字符,所以用细胞来存储 end % variable_name 这个 cell 存储了变量名 4、 table 类型的变量如何进行转置,对于表格，您可以使用&amp;rsquo;table2cell&amp;rsquo;和&amp;rsquo;cell2table&amp;rsquo;的组合： Xc = table2cell(X) % 这里 X 为要转置的表,Xt 为转置后的表 Xt = cell2table(Xc&amp;#39;,&amp;#39;RowNames&amp;#39;,X.</description>
+    </item>
+    
+    <item>
+      <title>MATLAB函数中参数的问题</title>
+      <link>/matlab/2019-11-13-matlab-fun-arg/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-13-matlab-fun-arg/</guid>
+      <description>1. nargin, nargout— 捕获输入输出参数个数 　函数功能: 返回函数参数数量(一般在函数内部使用)
+　在函数内部使用时,nargin 和 nargout分别表明有输入和输出参数数量。若在函数外部使用, nargin 和nargout对给定的函数，表明输入和输出参数数量。如果一个函数有可变数量的参数，参数数量为负值。
+ nargin：返回函数输入参数的数量。 nargin(fun)：返回函数 fun输入参数数量。如果函数参数数量可变，nargin 返回一个负值。fun 可以是函数名或映射函数的函数句柄。 nargout：返回函数输出参数的数量。 nargout(fun)：返回函数fun的输出参数数量。fun可以使函数名或映射函数的函数句柄。  2. inputname — 获取函数参数名称,返回一个字符串 　函数功能: 返回函数指定输入参数的名称字符串(只能在函数内部使用).
+​	inputname(argnum) : 注意: 这里的 argnum是一个数字,表示第几个参数,返回的是第argnum个参数的名称字符串。如果输入参数没有名称（例如它是一个表达式，而不是一个变量），这时会返回空字符串(&#39;&#39;)。 这个常常和varargin参数一起使用.
+3. varargin / varargout — —可变长输入/输出参数 函数功能: 在一个函数中，用于表示输入参数不确定的情况(只能在函数内部使用)
+本质上 是一个 cell 数组(大小 1* size(varargin,2)), 它包含了用户输入的参数.
+用 varargin{i} 调用第 i 个参数, 用varargin{:}调用所有的参量;
+function varargout = combin_index(varargin) %输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储,  %而inputname 存变量名的方式,用的是cell字符数组矩阵的形式 % 由于 nargin 参数已经计算了输入参数的总个数. size(varargin,2) 等价(某些情况下) variable_name = cell(1,nargin); % 创建一个 1* nargin 大小的 cell, for i = 1:nargin T = foo(varargin{i}); % 获取的新参数 传递给另一个函数 variable_name{i} = inputname(i); % 由于变量名是字符,所以用细胞来存储 end % variable_name 这个 cell 存储了变量名 这个varargout一般用的较少…….</description>
+    </item>
+    
+    <item>
+      <title>MATLAB集合</title>
+      <link>/matlab/plotmathfun/</link>
+      <pubDate>Mon, 24 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/plotmathfun/</guid>
+      <description>画数学坐标系_函数图像</description>
+    </item>
+    
+  </channel>
+</rss>

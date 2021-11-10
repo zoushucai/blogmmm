@@ -1,0 +1,205 @@
+---
+title: 3.2 基于方案满意度的多属性决策方法
+author: zsc
+date: "2019-02-26"
+categories: ["决策方法"]
+tags:
+  - R
+  - 决策方法
+series: "不确定多属性决策方法---徐泽水"
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+# 徐泽水《不确定多属性决策方法与应用》81页
+
+```{r}
+##  3.2 基于方案满意度的多属性决策方法---徐泽水《不确定多属性决策方法与应用》81页 --3.2.2 实例分析
+library(data.table)
+library(dplyr)
+A = c(47177, 16.61, 8.89, 31.05, 15.77,
+      43323, 9.08, 3.65, 29.80, 8.44,
+      59023, 13.84, 6.06, 26.55, 12.87,
+      46821, 10.59, 3.51, 22.46, 7.41,
+      41646, 13.24, 4.64, 24.33, 9.33,
+      26446, 10.16, 2.38, 26.80, 9.85,
+      38381, 11.97, 4.79, 26.45, 10.64,
+      57808, 10.29, 4.54, 23.00, 9.23,
+      28869, 7.68, 2.12, 31.08, 9.05,
+      38812, 8.92, 3.38, 25.68, 8.73,
+      30721, 10.87, 4.15, 30.36, 11.44,
+      24848, 10.77,2.42, 30.71, 11.37,
+      26925, 9.34, 3.06, 30.11, 10.84,
+      23269, 8.25, 2.58, 32.57, 8.62,
+      28267, 8.13, 3.17, 29.25, 9.17,
+      21583, 7.14, 4.66, 35.35, 11.27)
+
+A= matrix(A,nrow = 16,ncol = 5,byrow = T) %>% data.table()
+A # 原始决策矩阵
+```
+
+## 第一步: 把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵
+```{r}
+#### 第一步: 把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵
+### norm_matrix()函数，根据书中收益型属性（按公式1.2）与成本型属性(按公式1.4)分别进行归一化
+#####  注意这个与前面的norm_matrix函数(即下面norm_matrix2)结果相同，只是代码显得更少了,保证了列名不变
+norm_matrix = function(A, shouyi = NULL, chengben = NULL) {
+  stopifnot(!is.null(shouyi) | !is.null(chengben))
+  if (is.matrix(A)) A = data.table(A)
+  m = ncol(A)
+  if (is.null(chengben)) chengben = setdiff(1:m, shouyi)
+  if (is.null(shouyi)) shouyi = setdiff(1:m, chengben)
+  # 如果输入的shouyi与chengben向量交集不为空，且并集不是全集，则算法出错
+  stopifnot(length(intersect(shouyi, chengben)) == 0, setequal(union(shouyi, chengben), 1:m))
+  R =copy(A) # 重新赋值
+  if (length(chengben) == 0) {
+    R[, colnames(R)[shouyi] := lapply(.SD, function(x) x / max(x)), .SDcols = shouyi] # 收益型属性归一化 （书中1.2式）
+  } else if (length(shouyi) == 0) {
+    R[, colnames(R)[chengben] := lapply(.SD, function(x) min(x) / x  ), .SDcols = chengben]# 成本型属性归一化 （书中1.3式）
+  } else{
+    R[, colnames(R)[shouyi] := lapply(.SD, function(x) x / max(x)), .SDcols = shouyi] # 收益型属性归一化 （书中1.2式）
+    R[, colnames(R)[chengben] := lapply(.SD, function(x) min(x) / x  ), .SDcols = chengben]# 成本型属性归一化 （书中1.3式）
+  }
+  return(setDF(R))
+}
+```
+
+```{r}
+norm_matrix2 = function(A,shouyi=NULL,chengben=NULL){
+  if(is.matrix(A))A = data.table(A)
+  stopifnot(!is.null(shouyi) | !is.null(chengben))
+  m = ncol(A)
+  if(is.null(chengben)) chengben =setdiff(1:m,shouyi) 
+  if(is.null(shouyi)) shouyi = setdiff(1:m,chengben)
+  stopifnot(length(intersect(shouyi,chengben))==0,setequal(union(shouyi,chengben),1:m))
+  
+  if( length(chengben) == 0 ){
+    # 对决策矩阵进行重命名
+    colnames(A)=paste0('V',1:m)
+    shouyi = paste0("V",shouyi)
+    R = A    
+    # 归一化
+    R[,':='(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+  }else if( length(shouyi) == 0 ){
+    #对决策矩阵进行重命名
+    names(A)=paste0('V',1:m)
+    chengben = paste0("V",chengben)
+    R = A
+    # 归一化
+    R[,':='(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcol = chengben]# 成本型属性归一化 （书中1.3式）
+  }else{
+    #对决策矩阵进行重命名
+    names(A)=paste0('V',1:m)
+    shouyi = paste0("V",shouyi)
+    chengben = paste0("V",chengben)
+    R = A
+    # 归一化
+    R[,':='(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+    R[,':='(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcol = chengben]# 成本型属性归一化 （书中1.3式）    
+  }
+  R = as.data.frame(R)
+  return(R)
+}
+```
+
+```{r}
+R = norm_matrix(A, chengben = 4)
+round(R,3)
+```
+## 第二步 ： 求出综合属性正理想值z_max,以及综合属性负理想值z_min
+```{r}
+###### 第二步 ： 求出综合属性正理想值z_max,以及综合属性负理想值z_min
+M_zonghe_position = function(R,lower_c,upper_c){
+   #综合属性正理想值z_max
+    library(Rglpk)
+    n = nrow(R)
+    m = ncol(R)
+    ## 约束条件，权和向量为1 
+    mat = matrix(rep(1,m),nrow = 1) 
+    dir = c("==")
+    rhs = c(1)
+    ## 
+    types = c("C") # 表示解为实数
+    bounds <- list(lower = list(ind = 1L:m, val = lower_c),
+                   upper = list(ind = 1L:m, val = upper_c))
+    ###  下面 max_obj 函数中的xx为R矩阵的某一行
+    max_obj = function(xx) Rglpk_solve_LP(xx, mat, dir, rhs, bounds, types,max = TRUE)$optimum
+    return(apply(R, 1, max_obj))
+}
+z_max = M_zonghe_position(R,lower_c = c(0.22,0.18,0.15,0.23,0.16),upper_c = c(0.24,0.20,0.17,0.26,0.17))
+round(z_max,3)
+
+
+## 求出综合属性负理想值
+M_zonghe_negative = function(R,lower_c,upper_c){
+  #综合属性负理想值z_min
+  if(is.data.table(R)) R = as.data.frame(R)
+  library(Rglpk)
+  n = nrow(R)
+  m = ncol(R)
+  ## 约束条件，权和向量为1 
+  mat = matrix(rep(1,m),nrow = 1) 
+  dir = c("==")
+  rhs = c(1)
+  ## 
+  types = c("C") # 表示解为实数
+  bounds <- list(lower = list(ind = 1L:m, val = lower_c),
+                 upper = list(ind = 1L:m, val = upper_c))
+  ###  下面 max_obj 函数中的xx为R矩阵的某一行
+  min_obj = function(xx) Rglpk_solve_LP(xx, mat, dir, rhs, bounds, types)$optimum
+  return(apply(R, 1, min_obj))
+}
+z_min = M_zonghe_negative(R,lower_c = c(0.22,0.18,0.15,0.23,0.16),upper_c = c(0.24,0.20,0.17,0.26,0.17))
+z_min
+```
+
+##  第三步： 求出各方按的满意度，PW 矩阵的每一行为对应方案的满意度矩阵
+
+```{r}
+#####  第三步： 求出各方按的满意度，PW 矩阵的每一行为对应方案的满意度矩阵，
+# 把满意度矩阵的每一行乘以对应属性的权重，则为该方案的满意度，但此时属性权重未知
+# 通过建立线性目标函数，求解出属性权重
+PW = matrix(0,ncol = ncol(R),nrow = nrow(R))
+for(i in 1:nrow(R)){
+  for(j in 1:ncol(R)){
+    PW[i,j] = (R[i,j] - z_min[i])/(z_max[i] - z_min[i])
+  }
+}
+PW
+
+### 通过满意度矩阵，求出属性权重
+M_w = function(R,lower_c,upper_c){
+  library(Rglpk)
+  n = nrow(R)
+  m = ncol(R)
+  obj = c(apply(R, 2, sum)) # 设置目标函数
+  mat = matrix(rep(1,m),nrow = 1) # 约束条件，权和向量为1 
+  dir = c("==")
+  rhs = c(1)
+  types = c("C")
+  bounds <- list(lower = list(ind = 1L:m, val = lower_c),
+                 upper = list(ind = 1L:m, val = upper_c))
+  return(Rglpk_solve_LP(obj, mat, dir, rhs, bounds, types,max =TRUE )$solution)
+}
+w = M_w(PW,lower_c = c(0.22,0.18,0.15,0.23,0.16),upper_c = c(0.24,0.20,0.17,0.26,0.17))
+w # 权重
+### 通过权重确定方案综合指标值
+z = apply(R, 1, function(x)sum(x*w))
+z
+```
+##第四步，#按降序排列，最大的为方案最优
+```{r}
+#########第四步，#按降序排列，最大的为方案最优
+
+round(z,4)%>% rank %>% order(.,decreasing=T)#按降序排列，最大的为最优
+
+```
+

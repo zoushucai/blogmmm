@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>R 语言并行化计算之foreach包</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                R 语言并行化计算之foreach包
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-04-08 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/foreach"> #foreach </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <p>foreach包执行任务的核心理念与传统的apply组函数基本一致，都是与split – apply – combine一致的流程，不过foreach比传统apply组函数的优越之处在于，它可以通过调用操作系统的多核运行性能来执行并行任务，这样特别是对于I/O密集型任务而言，可以大大节省代码执行效率。</p>
+<p><strong>解读foreach()函数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;doParallel&#34;</span>)      <span style="color:#75715e">#加载doParallel包用于之后注册进程</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;foreach&#34;</span>)         <span style="color:#75715e">#导入foreach包</span>
+<span style="color:#75715e">########################################################################</span>
+<span style="color:#75715e">##########  foreach()函数主要是对原本的for循环进行并行运算 ###############</span>
+<span style="color:#75715e">#########################################################################</span>
+<span style="color:#75715e">#############并行化格式</span>
+<span style="color:#a6e22e">detectCores</span>() <span style="color:#75715e">#这个网上说是核数，但实际上是线程数，和真实的物理核多一倍，4核8线程</span>
+cl<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(<span style="color:#a6e22e">detectCores</span>())      <span style="color:#75715e"># 不过R中能运行满线程 ，即detectCores()返回的核数。</span>
+<span style="color:#a6e22e">registerDoParallel</span>(cl)       <span style="color:#75715e">#进行进程注册</span>
+mydata1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(
+          <span style="color:#66d9ef">...</span>,        <span style="color:#75715e"># 并行化参数（循环参数）,当参数为两个以上时，选长度较短的循环完为止.</span>
+          .combine,  <span style="color:#75715e">#合并方式，default是list，“c”返回vector,cbind和rbind返回矩阵,也可以自定义函数.</span>
+                      <span style="color:#75715e"># &#34;+&#34;和&#34;*&#34;是対返回后的list进行同列操作</span>
+          .init,      <span style="color:#75715e">#.combine函数的第一个变量,当.combine参数被具体化是才用</span>
+          .final<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>, <span style="color:#75715e">#返回最后结果</span>
+          .inorder<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>,<span style="color:#75715e">#返回和原始输入相同顺序的结果</span>
+          .multicombine<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>,<span style="color:#75715e">#设定.combine函数的传递参数，FALSE表示其参数是2，TRUE可以设定多个参数</span>
+          .maxcombine<span style="color:#f92672">=</span><span style="color:#a6e22e">if </span>(.multicombine) <span style="color:#ae81ff">100</span> else <span style="color:#ae81ff">2</span>,  <span style="color:#75715e">#设定.combine的最大参数</span>
+          .errorhandling<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;stop&#39;</span>, <span style="color:#e6db74">&#39;remove&#39;</span>, <span style="color:#e6db74">&#39;pass&#39;</span>),<span style="color:#75715e">#如果循环中出现错误，对错误的处理方法</span>
+          .packages<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>,<span style="color:#75715e"># 指定在%dopar%运算过程中依赖的package（%do%会忽略这个选项）。</span>
+          .export<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>, <span style="color:#75715e"># 在编译函数的时候需要预先加载一些内容进去，类似parallel的clusterExport</span>
+          .noexport<span style="color:#f92672">=</span><span style="color:#66d9ef">NULL</span>,
+          .verbose<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>) <span style="color:#75715e">##是否打印运行信息</span>
+  ) <span style="color:#f92672">%dopar%</span> {<span style="color:#f92672">***</span>} <span style="color:#75715e">#并行的代码，也可以是相应的函数,即我们for循环的函数体</span>
+
+<span style="color:#a6e22e">stopCluster</span>(cl)   <span style="color:#75715e"># 结束集群</span>
+
+</code></pre></div><p>注意：平时我们大多数使用时，很多参数都选取默认状态，其中常用参数为：<code>...</code> 、<code>.combine</code>、<code>.packages</code>.</p>
+<p><strong>基本操作</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;doParallel&#34;</span>)      <span style="color:#75715e">#加载doParallel包用于之后注册进程</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;foreach&#34;</span>)         <span style="color:#75715e">#导入foreach包</span>
+cl<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(<span style="color:#a6e22e">detectCores</span>()<span style="color:#ae81ff">-1</span>)      
+<span style="color:#a6e22e">registerDoParallel</span>(cl)       <span style="color:#75715e">#进行进程注册</span>
+<span style="color:#a6e22e">getDoParWorkers</span>()  <span style="color:#75715e">#  #查看注册了多少个核</span>
+
+code<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(){
+    x1<span style="color:#f92672">&lt;-</span>(a <span style="color:#f92672">+</span> b);
+    x2<span style="color:#f92672">&lt;-</span>a<span style="color:#f92672">*</span>b;
+    <span style="color:#a6e22e">c</span>(x1,x2);  
+}
+
+<span style="color:#75715e"># 并行化参数,当参数为两个以上时，选长度较短的循环完为止.</span>
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>),.combine<span style="color:#f92672">=</span>list) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;c&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())<span style="color:#75715e">#每次的结果按向量排列合并为向量</span>
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cbind&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())<span style="color:#75715e">#每次的结果按列排列合并为矩阵</span>
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rbind&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())<span style="color:#75715e">#每次的结果按行排列合并为矩阵</span>
+
+<span style="color:#75715e">#  # &#34;+&#34;和&#34;*&#34;是対返回后的list(或者rbind)结果，对其结果进行同列&#34;+&#34;或&#34;*&#34;操作</span>
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;+&#34;</span>)<span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())  
+
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;*&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())
+
+
+<span style="color:#75715e">#.combine使用自定义函数,也是对返回的list进行同列操作</span>
+
+cfun <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(a, b) <span style="color:#a6e22e">paste</span>(a,b,sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;,&#34;</span>)
+(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>, b<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cfun&#34;</span>) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">code</span>())
+
+<span style="color:#a6e22e">stopCluster</span>(cl)   <span style="color:#75715e"># 结束集群</span>
+</code></pre></div><p><strong>常用操作</strong></p>
+<p>巧好最近在研究爬虫，以R爬虫为列，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
+<span style="color:#a6e22e">library</span>(rvest)
+<span style="color:#a6e22e">library</span>(data.table)
+<span style="color:#a6e22e">library</span>(tibble)
+<span style="color:#a6e22e">library</span>(dplyr)
+<span style="color:#a6e22e">library</span>(stringr)
+<span style="color:#75715e">##################################################################</span>
+<span style="color:#75715e">################  对某单一页面进行操作提取</span>
+people_information<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(url){
+  web<span style="color:#f92672">=</span><span style="color:#a6e22e">read_html</span>(url,encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;GBK&#34;</span>)
+  people_info<span style="color:#f92672">=</span>web <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;table.teach_info_table&gt;tr&gt;td&#34;</span>)<span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_text</span>()
+  people_info<span style="color:#f92672">=</span>people_info[<span style="color:#ae81ff">-5</span>] <span style="color:#75715e">#这里是储存照片的地方</span>
+  
+  people_attr<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>()
+  people_value<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>()
+  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(people_info)){
+    <span style="color:#a6e22e">if</span>(i<span style="color:#f92672">%%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+      people_attr<span style="color:#f92672">=</span><span style="color:#a6e22e">append</span>(people_attr,people_info[i])
+    }else {
+      people_value<span style="color:#f92672">=</span><span style="color:#a6e22e">append</span>(people_value,people_info[i])
+    }
+  }
+  
+  people_info<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>(people_attr,people_value) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">apply</span>(.,2,<span style="color:#a6e22e">function</span>(x){<span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;(\\t)&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,x)}) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.data.frame</span>()
+  people_info<span style="color:#f92672">=</span><span style="color:#a6e22e">apply</span>(people_info, <span style="color:#ae81ff">2</span>, str_trim)
+  <span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">5</span>)
+  <span style="color:#a6e22e">return</span>(people_info)
+}
+<span style="color:#75715e">#########################################################################</span>
+<span style="color:#75715e">########### 读取我们要爬取的所有链接（这里的链接，我提前已经爬取好了，存储在本地）</span>
+df<span style="color:#f92672">=</span><span style="color:#a6e22e">fread</span>(<span style="color:#e6db74">&#34;people.csv&#34;</span>,encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span>)
+link_finally<span style="color:#f92672">=</span>df[,link_finally]
+len<span style="color:#f92672">=</span><span style="color:#a6e22e">length</span>(link_finally)<span style="color:#75715e"># 3000+多个网页</span>
+p_info<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>()
+
+
+<span style="color:#75715e">################################################################</span>
+<span style="color:#75715e">##################### 并行化爬取</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;doParallel&#34;</span>)      <span style="color:#75715e">#加载doParallel包用于之后注册进程</span>
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;foreach&#34;</span>)         <span style="color:#75715e">#导入foreach包</span>
+<span style="color:#75715e">##### 我要循环爬取的信息</span>
+myfun<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(i){
+  <span style="color:#a6e22e">people_information</span>(i) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.data.frame</span>()
+}
+<span style="color:#75715e">##### 每次循环完成获得的数据，进行如下两两合并</span>
+bind_fun<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(a,b){
+  <span style="color:#a6e22e">full_join</span>(a,b,by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;people_attr&#34;</span>)  <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.data.frame</span>()
+}
+<span style="color:#75715e">######### 并行开始</span>
+cl<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(<span style="color:#a6e22e">detectCores</span>()<span style="color:#ae81ff">-1</span>)      
+<span style="color:#a6e22e">registerDoParallel</span>(cl)       <span style="color:#75715e">#进行进程注册</span>
+p_info <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">foreach</span>(i<span style="color:#f92672">=</span>link_finally[1<span style="color:#f92672">:</span>len], <span style="color:#75715e">#循环的长度,不在是&#34;in&#34;</span>
+                  .combine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bind_fun&#34;</span>,
+                  .packages <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;rvest&#34;</span>, <span style="color:#e6db74">&#34;data.table&#34;</span>,<span style="color:#e6db74">&#34;tibble&#34;</span>,<span style="color:#e6db74">&#34;dplyr&#34;</span>,<span style="color:#e6db74">&#34;stringr&#34;</span>) 
+                  ) <span style="color:#f92672">%dopar%</span> <span style="color:#a6e22e">myfun</span>(i)
+<span style="color:#a6e22e">stopCluster</span>(cl)   
+<span style="color:#75715e">####### 结束并行</span>
+
+<span style="color:#75715e">##########################################################################</span>
+<span style="color:#75715e">##### 对抓取的结果p_info数据进行处理</span>
+<span style="color:#a6e22e">colnames</span>(p_info)<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">dim</span>(p_info)[2]
+p_info<span style="color:#f92672">=</span><span style="color:#a6e22e">t</span>(p_info)
+<span style="color:#a6e22e">write.csv</span>(p_info,<span style="color:#e6db74">&#34;people_info3333.csv&#34;</span>,row.names <span style="color:#f92672">=</span> F)
+</code></pre></div><p><strong>补充函数</strong></p>
+<ul>
+<li>detectCores()             #查看自己电脑的线程数，</li>
+<li>getDoParWorkers( )    #查看注册了多少个核，配合doMC package中的registerDoMC( )使用</li>
+<li>getDoParRegistered( ) # 查看doPar是否注册；如果没有注册返回FALSE</li>
+<li>getDoParName( )       #查看已经注册的doPar的名字</li>
+<li>getDoParVersion( )    #查看已经注册的doPar的version</li>
+</ul>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-04-08-r%E8%AF%AD%E8%A8%80%E5%B9%B6%E8%A1%8C%E5%8C%96%E8%AE%A1%E7%AE%97%E4%B9%8Bforeach%E5%8C%85/" class="leancloud_visitors" data-flag-title="R 语言并行化计算之foreach包">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/"> 上一篇: RSelenium应用--京东商品</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/"> 下一篇: R中时间类型概念</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-04-08-R语言并行化计算之foreach包.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

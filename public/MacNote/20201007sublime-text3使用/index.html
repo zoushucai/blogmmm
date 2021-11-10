@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>sublime text3 使用方法以及相关插件</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                sublime text3 使用方法以及相关插件
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2020-10-07 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/mac"> #mac </a></li>
+                        
+                        <span> </span>
+                        
+                        <span>分类:</span>
+                        <li><a class="link" href="/categories/mac%e7%b3%bb%e7%bb%9f%e8%ae%be%e7%bd%ae"> @mac系统设置 </a></li>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="sublime-text3-使用方法以及相关插件">sublime text3 使用方法以及相关插件</h1>
+<h2 id="1-软件的下载">1. 软件的下载</h2>
+<p>1, 官网下载地址: <a href="http://www.sublimetext.com/">http://www.sublimetext.com/</a></p>
+<p>2, 如果不安装插件,那还不如不装 sublime, 参考: <a href="https://packagecontrol.io/installation">https://packagecontrol.io/installation</a></p>
+<h2 id="2-插件的安装">2. 插件的安装</h2>
+<h3 id="21-安装package-control">2.1 安装Package Control</h3>
+<ul>
+<li>现在sublime 4 已出，自带这个功能啦 （2021年11月更新）</li>
+</ul>
+<h3 id="22-使用package-control组件安装插件">2.2 使用Package Control组件安装插件</h3>
+<p><strong>mac: Cmd+Shift+P</strong>（Win：<strong>Ctrl+Shift+P</strong>），输入 <strong>install</strong> 选中 <strong>Install Package</strong> 并回车，输入或选择你需要的插件回车就安装了（注意左下角的小文字变化，会提示安装成功），安装其它插件也类似.</p>
+<h2 id="3-插件推荐">3. 插件推荐</h2>
+<h3 id="31-软件风格">3.1 软件风格</h3>
+<p>风格包网站: <a href="https://packagecontrol.io">https://packagecontrol.io</a>](<a href="https://packagecontrol.io/">https://packagecontrol.io/</a>)</p>
+<p>风格包: Spacegray：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">https://packagecontrol.io/packages/Theme%20-%20Spacegray
+</code></pre></div><ol>
+<li>Preferences &gt; color scheme &gt;theme-spacegray</li>
+<li>Preferences-&gt; setting 中设置以下</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&#34;theme&#34;: &#34;Spacegray.sublime-theme&#34;,
+&#34;color_scheme&#34;: &#34;Packages/Theme - Spacegray/base16-ocean.dark.tmTheme&#34;
+</code></pre></div><h3 id="32-主题推荐">3.2 主题推荐</h3>
+<h4 id="321-material-主题"><strong>3.2.1 Material</strong> 主题</h4>
+<ul>
+<li>安装主题</li>
+</ul>
+<p>快捷键 <code>⌘(Command) + ⇧(Shift) + P</code>回车后输入<code>Package Control:Install</code>再回车，输入<code>Material</code>搜索主题进行安装。</p>
+<ul>
+<li>启用主题</li>
+</ul>
+<p>快捷键<code>⌘(Command) + ⇧(Shift) + P</code>回车后输入<code>Material Theme: Activate theme</code>回车后选择自己喜欢的配色方案。</p>
+<blockquote>
+<p>推荐<code>Material Theme</code>或者<code>Material Theme Darker</code>都相当赞。</p>
+</blockquote>
+<h4 id="322-materialize-主题"><strong>3.2.2 Materialize</strong> 主题</h4>
+<ul>
+<li>安装主题</li>
+</ul>
+<p>快捷键 <code>⌘(Command) + ⇧(Shift) + P</code>回车后输入<code>Package Control:Install</code>再回车，输入<code>Materialize</code>搜索主题进行安装。</p>
+<ul>
+<li>启用主题</li>
+</ul>
+<p>快捷键<code>⌘(Command) + ⇧(Shift) + P</code>回车后输入<code>Activate Materialize Theme</code>回车后选择自己喜欢的配色方案。</p>
+<blockquote>
+<p>推荐 <code>Material Dracula</code>或者<code>Material Flatland</code></p>
+</blockquote>
+<h3 id="32-常用插件推荐">3.2 常用插件推荐</h3>
+<ul>
+<li>
+<p><strong>Emmet</strong>  写前端  html/css 用的</p>
+</li>
+<li>
+<p><strong>HTM5</strong></p>
+</li>
+<li>
+<p><strong>ConvertToUTF8</strong>  防止打开文件出现乱码</p>
+</li>
+<li>
+<p><strong>Codecs33</strong>  同理打开文件防止出现乱码 ,建议和ConvertToUTF8一起安装</p>
+</li>
+<li>
+<p><strong>ChineseLocalizations</strong>  汉化 sublime</p>
+</li>
+<li>
+<p><strong>SideBarEnhancements</strong>： 增强左边面板 <a href="https://packagecontrol.io/packages/SideBarEnhancements,">https://packagecontrol.io/packages/SideBarEnhancements,</a>可惜只能在project中使用</p>
+</li>
+<li>
+<p><strong>AdvancedNewFile</strong>： 快速创建文件. (alt+ command +N)</p>
+</li>
+<li>
+<p><strong>A File Icon</strong> :  左边面板显示图标</p>
+</li>
+<li>
+<p>docblockr：代码注释提示插件 <a href="https://packagecontrol.io/packages/DocBlockr">https://packagecontrol.io/packages/DocBlockr</a></p>
+</li>
+<li>
+<p>SideBarTools：扩展左侧面板（相对<strong>SideBarEnhancements</strong>少了一些功能）</p>
+</li>
+<li>
+<p>Local History：本地历史记录 <a href="https://packagecontrol.io/packages/Local%20History">https://packagecontrol.io/packages/Local%20History</a></p>
+</li>
+<li>
+<p>Color Hightlight:  css中使得颜色直接在sublime中展示,(注意网上有很多人推荐Color Hightlighter插件,试了一下,此软件我的mac电脑不行),  Color Hightlight 插件直接下载即可用</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020100616image-20200520150836677.png" alt="image-20200520150836677"></p>
+</li>
+<li>
+<p>ColorPicker(调色板): CSS 中直接使用快捷键即可调出调色板,更改颜色.据说默认的快捷键有冲突,建议更改</p>
+<p>打开<code>Sublime Text --&gt; Preferences --&gt; Browse Packages</code>找到<code>ColorPicker</code>文件夹并进入（注意此处进入文件夹的方式），分别有<code>linux</code> <code>mac</code>和<code>windows</code>的快捷键设置文件，根据你的操作系统，打开相应文件即可设置, 如图</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020100616image-20200520151522130.png" alt="image-20200520151522130"></p>
+</li>
+</ul>
+<h3 id="33-格式化代码">3.3 格式化代码</h3>
+<p>首先通过以下路径打开用户按键绑定文件：</p>
+<p>Preferences → Key Bindings – User</p>
+<p>然后在其中添加以下代码（如果你有需要的话，其中的快捷键组合是可以自己定义的）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[
+	//格式化代码,single_line参数删除时，格式化只影响当前光标所在行
+	{&#34;keys&#34;: [&#34;ctrl+alt+l&#34;], &#34;command&#34;: &#34;reindent&#34; , &#34;args&#34;: {&#34;single_line&#34;: false}}
+]
+</code></pre></div><h3 id="34-内容检索">3.4 内容检索</h3>
+<p><strong>快速查找</strong></p>
+<p>默认情况下，Sublime Text支持函数快速查找，按Ctrl+Shift+R打开查找面板，就可以快速定位函数所在的文件，如果安装了emmet插件将会失效，我们需要做以下操作进行修复。</p>
+<p>编辑 emmet插件配置项：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{&#34;disabled_keymap_actions&#34;: &#34;reflect_css_value&#34;}
+</code></pre></div><p><strong>代码跟踪</strong></p>
+<p>鼠标移动到函数上面，会自动显示方法的文件列表。或按 f12 键显示函数的文件列表</p>
+<h3 id="35-快捷键">3.5 快捷键</h3>
+<p>使用快捷键可以显著提高开发效率，所以还是有必要掌握的。</p>
+<ol>
+<li>搜索文件：ctrl+p 输入文件名</li>
+<li>搜索函数/方法：ctrl+p 输入<code>“文件名@方法名”</code> 如 User@show</li>
+<li>跳转到指定行：ctrl+p 输入<code>文件名:行号</code>,只输入: 时在当前文件跳转</li>
+<li>查找当前文件方法：ctrl+r</li>
+<li>返回/前进编辑位置：Alt + -、Alt + Shift + -</li>
+<li>切换标签页：Ctrl + PgUp、Ctrl + PgDn</li>
+<li>选中单词：Ctrl + D 连续按会选中页面中所有单词，以实现批量编辑</li>
+<li>以单词为单位快速移动光标：Ctrl + ←、Ctrl + →</li>
+<li>选中当前行：Ctrl + L</li>
+<li>跳转到第几行：Ctrl+G</li>
+<li>跳转到对应括号：Ctrl+M</li>
+<li>开关侧栏：Ctrl+K+B</li>
+<li>选中当前括号内容，重复可选着括号本身：Ctrl+Shift+M</li>
+<li>注释当前html标签块：Ctrl+Shift+/</li>
+<li>专注编写模式：Shift+F11</li>
+<li>分屏显示：Alt+Shift+数字</li>
+<li>Ctrl+Enter 在下一行插入新行。举个栗子：即使光标不在行尾，也能快速向下插入一行。</li>
+<li>Ctrl+Shift+Enter 在上一行插入新行。举个栗子：即使光标不在行首，也能快速向上插入一行。</li>
+<li>Ctrl+Shift+[ 选中代码，按下快捷键，折叠代码。</li>
+<li>Ctrl+Shift+] 选中代码，按下快捷键，展开代码。</li>
+</ol>
+<p>参考： <a href="https://curder.gitbooks.io/blog/">https://curder.gitbooks.io/blog/</a></p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/" class="leancloud_visitors" data-flag-title="sublime text3 使用方法以及相关插件">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"> 上一篇: mac 软件安装</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/macnote/20201008zoteroset/"> 下一篇: zotero 设置</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/macnote\/20201007sublime text3使用.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

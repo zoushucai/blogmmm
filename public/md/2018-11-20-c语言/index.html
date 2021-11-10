@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>用c语言设置定时关机</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#创建定时任务">创建定时任务</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#直接注入关机命令">直接注入关机命令</a></li>
+    <li><a href="#结合定时任务关机">结合定时任务关机</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                用c语言设置定时关机
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-11-20 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="c代码">C代码</h1>
+<h2 id="创建定时任务">创建定时任务</h2>
+<p>发现代码，win有自动防范木马的可能，于是要手动去在定时任务勾选某些指标，所以不可行。</p>
+<pre tabindex="0"><code># include&lt;stdio.h&gt;
+# include &lt;windows.h&gt;
+int main() {
+  //如果存在任务名为myTaskName2 则强制删除，若没有则报错，但不终止该程序的运行
+	system(&quot;schtasks /delete /tn myTaskName2 /f&quot;); 
+	// 创建一个任务名为myTaskName2的任务,/tr 后面是 要执行的命令， 双引号要转义，/st 后面接的是触发时间
+	system(&quot;schtasks /create /tn myTaskName2  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 22:35:00&quot;);
+
+	system(&quot;schtasks /delete /tn myTaskName4 /f&quot;);
+	system(&quot;schtasks /create /tn myTaskName4  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 22:42:00&quot;);
+
+	system(&quot;schtasks /delete /tn myTaskName3 /f&quot;);
+	system(&quot;schtasks /create /tn myTaskName3  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 22:52:00&quot;);
+
+	system(&quot;schtasks /delete /tn myTaskName5 /f&quot;);
+	system(&quot;schtasks /delete /tn myTaskName6 /f&quot;);
+	system(&quot;schtasks /delete /tn myTaskName7 /f&quot;);
+	system(&quot;schtasks /create /tn myTaskName5  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 23:00:00&quot;);
+	system(&quot;schtasks /create /tn myTaskName6  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 23:15:00&quot;);
+	system(&quot;schtasks /create /tn myTaskName7  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 23:27:00&quot;);
+
+	system(&quot;schtasks /delete /tn myTaskName8 /f&quot;);
+	system(&quot;schtasks /delete /tn myTaskName9 /f&quot;);
+	system(&quot;schtasks /create /tn myTaskName8  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 23:43:00&quot;);
+	system(&quot;schtasks /create /tn myTaskName9  /f /tr \&quot;shutdown -s -f -t 10\&quot; /sc once /st 23:58:00&quot;);
+
+	return 0;
+}
+</code></pre><h1 id="编译运行后">编译运行后</h1>
+<p>编译运行后，找到对应得exe文件 ,把其放在开始启动目录中即可（<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</code>）</p>
+<p>或者 写一个bat命令，放在开始启动目录，eg：
+<code>start &quot;&quot; &quot;E:\TIM\xin\Bin\TIM.exe&quot; &amp; ping localhost -n 5</code></p>
+<p>命令中的<code>&amp;</code> <code>&amp;&amp;</code> <code>||</code> 分别的含义：<br>
+其中：</p>
+<ul>
+<li>&amp; : 用来分隔一个命令行中的多个命令,即运行第一个命令，然后运行第二个命令。</li>
+<li>&amp;&amp; ： 只有在符号 &amp;&amp; 前面的命令成功时，才用于运行该符号后面的命令</li>
+<li>|| : 只有在符号 || 前面的命令失败时，才用于运行符号 || 后面的命令。</li>
+</ul>
+<h2 id="直接注入关机命令">直接注入关机命令</h2>
+<p>这样感觉，电脑右下角一直有一个图标，
+于是再次改进</p>
+<pre tabindex="0"><code># include&lt;stdio.h&gt;
+#include &lt;time.h&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;windows.h&gt;
+
+void loop_shut(){
+	while(1){
+		system(&quot;shutdown -s -f -t 5&quot;);
+		Sleep(1);
+	}
+}
+int main()
+{
+	char str1[100]=&quot;shutdown -s -f -t &quot;;
+	char str2[32];
+	char *str3; 
+	int now_hour=0,now_min=0,now_second=0;
+	struct tm * tmpointer;  //申明tm结构体指针
+	time_t secs;  //申明time_t类型变量
+	time(&amp;secs); //获取当前系统日期与时间
+	tmpointer = localtime(&amp;secs); //获取tm结构的日期时间,获取当地日期与时间
+	printf(&quot;\Now: %d-%d-%d %d:%d:%d\n&quot;,tmpointer-&gt;tm_mon,tmpointer-&gt;tm_mday,
+	tmpointer-&gt;tm_year+1900,tmpointer-&gt;tm_hour,tmpointer-&gt;tm_min,tmpointer-&gt;tm_sec); 
+	//获取当前系统时间 
+	now_hour = tmpointer-&gt;tm_hour;
+	now_min = tmpointer-&gt;tm_min;
+	now_second = tmpointer-&gt;tm_sec;
+	
+	
+	
+    printf(&quot;\n当前时间:%d:%d:%d&quot;,tmpointer-&gt;tm_hour,tmpointer-&gt;tm_min,tmpointer-&gt;tm_sec);
+	
+	//设置关机时间
+	int close_hour = 22,close_min =30,close_sec = 0;
+	printf(&quot;\n关机时间:%d:%d:%d\n&quot;,close_hour,close_min,close_sec);
+
+	int i=0,j=0;
+	int diff_hour ,diff_min;//时间差
+	int left_time ;//离关机时间还剩多少秒 (单位:秒)
+	diff_hour = now_hour - close_hour; //离关机时间还剩多少个小时 
+	diff_min = now_min -close_min;// 离关机时间还剩多少个分钟 
+	printf(&quot;时间差: 小时:%d  分钟:%d \n&quot;,diff_hour,diff_min);
+	//时间在 关机时间后 
+	if(diff_hour &gt; 0) {
+		// 当前小时在关机时间之后  
+		printf(&quot;正在关机1\n&quot;);
+		system(&quot;shutdown -s -f -t 10&quot;);//立即关机 
+		loop_shut(); 
+			
+	}else if(diff_hour ==0){
+		//当前小时 正在关机时间处 
+		if(diff_min &lt;0){
+			//没超过关机时间 
+			printf(&quot;正在关机2\n&quot;);
+			diff_min =(-1) * diff_min;
+			i = diff_min*60;
+			printf(&quot;还剩%d秒==%d分钟\n&quot;,i,diff_min);
+			itoa(i,str2,10);//把数字转变为字符串 ，后面的10 为10进制 
+			strcat(str1,str2);  //拼接字符串 
+			system(str1);
+		}else if(diff_min ==0){
+			printf(&quot;正在关机3\n&quot;);
+			system(&quot;shutdown -s -f -t 20&quot;);//立即关机 
+			loop_shut();
+		}else{
+			//超过关机时间 
+			printf(&quot;正在关机4\n&quot;);
+			system(&quot;shutdown -s -f -t 20&quot;);//立即关机 
+			loop_shut();
+		}
+	}else{
+		//当前小时 在关机时间之前 
+		printf(&quot;正在关机5\n&quot;);
+		left_time = diff_hour*(-1)*60 + diff_min*(-1);
+		i = left_time*60;
+		printf(&quot;还剩%d秒==%d分钟\n&quot;,i,left_time);
+		itoa(i,str2,10);//把数字转变为字符串 ，后面的10 为10进制 
+		strcat(str1,str2);  //拼接字符串 
+		system(str1);
+	}
+  return 0; 
+}
+
+</code></pre><h2 id="结合定时任务关机">结合定时任务关机</h2>
+<p>到某个时间以后，如果在重启，就会直接关机（除非你手速快）,并把生成的exe文件设置为开机启动。</p>
+<pre tabindex="0"><code># include &lt;stdio.h&gt;
+# include &lt;time.h&gt;
+# include &lt;stdlib.h&gt;
+# include &lt;string.h&gt;
+# include &lt;windows.h&gt;
+
+void loop_shut() {
+	while(1) {
+		system(&quot;shutdown -s -f -t 5&quot;);
+		Sleep(6);
+	}
+}
+int main() {
+	//设置关机时间
+	int close_hour = 22,close_min =35,close_sec = 0;
+
+	int diff_hour ,diff_min;//声明变量用来存储时间差
+    int temp;
+	//声明变量获取时间结构
+	int now_hour=0,now_min=0,now_second=0;
+	struct tm * tmpointer;  //申明tm结构体指针
+	time_t secs;  //申明time_t类型变量
+	time(&amp;secs); //获取当前系统日期与时间
+	tmpointer = localtime(&amp;secs); //获取tm结构的日期时间,获取当地日期与时间
+
+	//获取当前系统时间
+	now_hour = tmpointer-&gt;tm_hour;
+	now_min = tmpointer-&gt;tm_min;
+	now_second = tmpointer-&gt;tm_sec;
+
+	//时间差
+	diff_hour = now_hour - close_hour; //离关机时间还剩多少个小时
+	diff_min = now_min -close_min;// 离关机时间还剩多少个分钟
+	//关机程序，时间在22:30分以后 以及早上7点之前
+	temp = ( diff_hour &gt;0 ||(diff_hour ==0 &amp;&amp; diff_min&gt;=0) ) || (now_hour &lt;7); 
+	if(temp) {
+		// 已过关机时间之后
+		printf(&quot;正在关机1\n&quot;);
+		//system(&quot;shutdown -s -f -t 5&quot;);//立即关机 ,有时候需要保存一点重要资料
+		loop_shut();
+	} else {
+		printf(&quot;不关机!&quot;);
+	}
+	return 0;
+}
+</code></pre><p>同时在win的程序计划任务中自己添加几个任务，到点自动关机，注意第一个留一点时间，保存文件，后面一个直接关机.并设置选项，不然不会自动运行
+如下:</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/guanji01.png" alt=""></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/guanji02.png" alt=""></p>
+<p>亲试，根本还没有看到桌面，就显示关机了.</p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-11-20-c%E8%AF%AD%E8%A8%80/" class="leancloud_visitors" data-flag-title="用c语言设置定时关机">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-11-19-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E6%9C%80%E4%BC%98%E5%8C%96matlab/"> 上一篇: 运筹学与最优化matlab</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-11-22-%E8%BF%90%E7%AD%B9%E5%AD%A6%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/"> 下一篇: 运筹学最短路问题</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-11-20-C语言.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>3.1 基于理想点的多属性决策方法</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                3.1 基于理想点的多属性决策方法
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2019-02-26 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/%e5%86%b3%e7%ad%96%e6%96%b9%e6%b3%95"> #决策方法 </a></li>
+                        
+                        <span> </span>
+                        
+                        <span>分类:</span>
+                        <li><a class="link" href="/categories/%e5%86%b3%e7%ad%96%e6%96%b9%e6%b3%95"> @决策方法 </a></li>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            
+<script src="2019-02-26-3-1基于理想点的多属性决策方法_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#徐泽水不确定多属性决策方法与应用78页">徐泽水《不确定多属性决策方法与应用》78页</a></li>
+</ul>
+</div>
+
+<div id="徐泽水不确定多属性决策方法与应用78页" class="section level2">
+<h2>徐泽水《不确定多属性决策方法与应用》78页</h2>
+<pre class="r"><code>##  3.1 基于理想点的多属性决策方法---徐泽水《不确定多属性决策方法与应用》78页 --3.1.2 实例分析
+
+library(data.table)
+library(dplyr)
+A = c(0.37,1800,2,19,90,
+      0.58,2800,5,28,105,
+      0.52,3500,5,32,130,
+      0.43,1900,3,27,98)
+      
+A= matrix(A,nrow = 4,ncol = 5,byrow = T) %&gt;% data.table()
+A # 原始决策矩阵
+#&gt;      V1   V2 V3 V4  V5
+#&gt; 1: 0.37 1800  2 19  90
+#&gt; 2: 0.58 2800  5 28 105
+#&gt; 3: 0.52 3500  5 32 130
+#&gt; 4: 0.43 1900  3 27  98
+
+####################################################### ##############################
+##################  正理想点偏差 -----  且 决策者不能提供任何权重信息  ###############
+####################################################### ##############################
+#### 第一步把原始决策矩阵A 利用适当的方法进行规范化为R，R为归一化后的矩阵
+### norm_matrix()函数，根据书中收益型属性（按公式1.2）与成本型属性(按公式1.4)分别进行归一化
+norm_matrix = function(A,shouyi=NULL,chengben=NULL){
+  if(is.matrix(A))A = data.table(A)
+  stopifnot(!is.null(shouyi) | !is.null(chengben))
+  m = ncol(A)
+  if(is.null(chengben)) chengben =setdiff(1L:m,shouyi) 
+  if(is.null(shouyi)) shouyi = setdiff(1:m,chengben)
+  stopifnot(length(intersect(shouyi,chengben))==0,setequal(union(shouyi,chengben),1:m))
+
+  if( length(chengben) == 0 ){
+    # 对决策矩阵进行重命名
+    names(A)=paste0(&#39;V&#39;,1:m)
+    shouyi = paste0(&quot;V&quot;,shouyi)
+    R = A    
+    # 归一化
+    R[,&#39;:=&#39;(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+  }else if( length(shouyi) == 0 ){
+    #对决策矩阵进行重命名
+    names(A)=paste0(&#39;V&#39;,1:m)
+    chengben = paste0(&quot;V&quot;,chengben)
+    R = A
+    # 归一化
+    R[,&#39;:=&#39;(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcols = chengben]# 成本型属性归一化 （书中1.3式）
+  }else{
+    #对决策矩阵进行重命名
+    names(A)=paste0(&#39;V&#39;,1:m)
+    shouyi = paste0(&quot;V&quot;,shouyi)
+    chengben = paste0(&quot;V&quot;,chengben)
+    R = A
+    # 归一化
+    R[,&#39;:=&#39;(c(shouyi),lapply(.SD, function(x)x/max(x))),.SDcols =shouyi] # 收益型属性归一化 （书中1.2式）
+    R[,&#39;:=&#39;(c(chengben),lapply(.SD,function(x)min(x)/x)),.SDcols = chengben]# 成本型属性归一化 （书中1.3式）    
+  }
+  R = as.data.frame(R)
+  return(R)
+}
+R = norm_matrix(A,shouyi = c(1:5))
+R
+#&gt;          V1        V2  V3      V4        V5
+#&gt; 1 0.6379310 0.5142857 0.4 0.59375 0.6923077
+#&gt; 2 1.0000000 0.8000000 1.0 0.87500 0.8076923
+#&gt; 3 0.8965517 1.0000000 1.0 1.00000 1.0000000
+#&gt; 4 0.7413793 0.5428571 0.6 0.84375 0.7538462
+#### 第二步  最小化方案与正理想点之间的偏差，得出属性权重向量
+M_position = function(R){ # 输入归一化后的决策矩阵。
+  m =  ncol(R)
+  n = nrow(R)
+  # ## 程序 1 
+   temp = apply(R, 2, FUN = function(x)1/(n-sum(x)) )
+   w = temp/sum(temp) 
+   return(w)
+  # ## 程序 2 
+  # w = rep(0,m)
+  # s = 0
+  # for(j in 1:m){
+  #   s = s + 1/(n - sum(R[,j]))
+  # }
+  # for(j in 1:m){
+  #   w[j] = (1/(n - sum(R[,j])))/s 
+  # }
+  # return(w)
+}
+w = M_position(R)
+w
+#&gt;        V1        V2        V3        V4        V5 
+#&gt; 0.2282300 0.1446113 0.1652700 0.2403928 0.2214959
+#### 第三步  计算出的权重向量，带入目标函数，并对目标函数值升序排序，排序结果，即为方案的优劣结果
+f_obj = apply(R, 1, function(x){ sum( (1-x)*w*w ) })
+round(f_obj,4) # 按升序排列，则最优结果为: x3 &gt; x2 &gt; x4 &gt; x1
+#&gt; [1] 0.0840 0.0208 0.0054 0.0551
+
+
+####################################################### ##############################
+##################  负（或正）理想点偏差 -----  且 决策者提供权重信息  ########## 
+######################   （本质求解线性规划问题） 书中77页M3.3 和 M-3.6###############################
+####################################################### ##############################
+########  方法一： 正理想点偏差
+# 第一步： 归一化决策矩阵
+# 第二步： 得出属性权重向量
+# M_position_tigong_w 输入决策矩阵(为规范化后的决策矩阵)，以及提供权重信息,以向量形式给出
+# 该函数输入结果为： 得出属性权重向量
+
+M_position_tigong_w = function(R,lower_c,upper_c){
+  library(Rglpk)
+  n = nrow(R)
+  m = ncol(R)
+  obj = n - c(apply(R, 2, sum)) # 设置目标函数
+  mat = matrix(rep(1,m),nrow = 1) # 约束条件，权和向量为1 
+  dir = c(&quot;==&quot;)
+  rhs = c(1)
+  types = c(&quot;C&quot;)
+  bounds &lt;- list(lower = list(ind = 1L:m, val = lower_c),
+                 upper = list(ind = 1L:m, val = upper_c))
+  return(Rglpk_solve_LP(obj, mat, dir, rhs, bounds, types)$solution)
+}
+
+
+w = M_position_tigong_w(R,lower_c = c(0.15,0.13,0.15,0.20,0.20),
+                    upper_c = c(0.25,0.15,0.20,0.25,0.23))
+w
+#&gt; [1] 0.25 0.13 0.15 0.25 0.22
+round(w,2)
+#&gt; [1] 0.25 0.13 0.15 0.25 0.22
+####  第三步： 把计算出的权重向量，带入目标函数，并对目标函数值升序排序，排序结果，即为方案的优劣结果
+apply(R, 1, function(x) sum( (1-x)*w ) )
+#&gt; [1] 0.41291491 0.09955769 0.02586207 0.27730009
+apply(R, 1, function(x) sum( (1-x)*w ) ) %&gt;% rank %&gt;% order()# 按升序排列，则最优结果为: x3 &gt; x2 &gt; x4 &gt; x1
+#&gt; [1] 3 2 4 1
+
+
+
+########  方法二： 负理想点偏差
+# 第一步： 归一化决策矩阵
+# 第二步： 得出属性权重向量
+# M_negative_w 输入决策矩阵(为规范化后的决策矩阵)，以及提供权重信息,以向量形式给出
+# 该函数输入结果为： 得出属性权重向量
+M_negative_w = function(R,lower_c,upper_c){
+  library(Rglpk)
+  n = nrow(R)
+  m = ncol(R)
+  obj = c(apply(R, 2, sum)) # 设置目标函数
+  mat = matrix(rep(1,m),nrow = 1) # 约束条件，权和向量为1 
+  dir = c(&quot;==&quot;)
+  rhs = c(1)
+  types = c(&quot;C&quot;)
+  bounds &lt;- list(lower = list(ind = 1L:m, val = lower_c),
+                 upper = list(ind = 1L:m, val = upper_c))
+  return(Rglpk_solve_LP(obj, mat, dir, rhs, bounds, types,max =TRUE )$solution)
+}
+w = M_position_tigong_w(R,lower_c = c(0.15,0.13,0.15,0.20,0.20),
+                        upper_c = c(0.25,0.15,0.20,0.25,0.23))
+w
+#&gt; [1] 0.25 0.13 0.15 0.25 0.22
+round(w,2)
+#&gt; [1] 0.25 0.13 0.15 0.25 0.22
+####  第三步： 把计算出的权重向量，带入目标函数，并对目标函数值升序排序，排序结果，即为方案的优劣结果
+apply(R, 1, function(x) sum( (1-x)*w ) )
+#&gt; [1] 0.41291491 0.09955769 0.02586207 0.27730009
+apply(R, 1, function(x) sum( (1-x)*w ) ) %&gt;% rank %&gt;% order()# 按升序排列，则最优结果为: x3 &gt; x2 &gt; x4 &gt; x1
+#&gt; [1] 3 2 4 1</code></pre>
+</div>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/uncertain/2019-02-26-3-1%E5%9F%BA%E4%BA%8E%E7%90%86%E6%83%B3%E7%82%B9%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/" class="leancloud_visitors" data-flag-title="3.1 基于理想点的多属性决策方法">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/uncertain/2019-02-26-3-2%E5%9F%BA%E4%BA%8E%E6%96%B9%E6%A1%88%E6%BB%A1%E6%84%8F%E5%BA%A6%E7%9A%84%E5%A4%9A%E5%B1%9E%E6%80%A7%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95/"> 上一篇: 3.2 基于方案满意度的多属性决策方法</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/uncertain/2019-02-26-2-1%E6%A8%A1%E7%B3%8A%E4%BA%92%E8%A1%A5%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5%E7%9A%84%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95/"> 下一篇: 2.1 模糊互补判断矩阵的排序方法</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/uncertain\/2019-02-26-3-1基于理想点的多属性决策方法.html");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

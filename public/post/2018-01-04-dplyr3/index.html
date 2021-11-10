@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>dplyr -- 3合并数据</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                dplyr -- 3合并数据
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-01-04 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/dplyr"> #dplyr </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#转换与合并">1、转换与合并</a></li>
+<li><a href="#筛选与合并">2、筛选与合并</a></li>
+<li><a href="#集合操作">3、集合操作</a></li>
+<li><a href="#数据排序">4、数据排序</a></li>
+<li><a href="#section">5、</a></li>
+</ul>
+</div>
+
+<p>记录是一行,字段是一列</p>
+<div id="转换与合并" class="section level2">
+<h2>1、转换与合并</h2>
+<p>left_join(a, b, by = “x1”)： 向数据集a中加入匹配的数据集b记录（行）。</p>
+<p>right_join(a, b, by = “x1”)： 向数据集b中加入匹配的数据集a记录。</p>
+<p>inner_join(a, b, by = “x1”)： 合并数据。仅保留匹配的记录。</p>
+<p>full_join(a, b, by = “x1”)： 合并数据。保留所有记录，所有行。没有的用NA填充</p>
+<pre class="r"><code>library(dplyr)
+a=data.frame(x1=c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;),x2=c(1:3))
+b=data.frame(x1=c(&quot;A&quot;,&quot;B&quot;,&quot;D&quot;),x3=c(&quot;T&quot;,&quot;F&quot;,&quot;T&quot;))
+a;b</code></pre>
+<pre><code>##   x1 x2
+## 1  A  1
+## 2  B  2
+## 3  C  3</code></pre>
+<pre><code>##   x1 x3
+## 1  A  T
+## 2  B  F
+## 3  D  T</code></pre>
+<pre class="r"><code>left_join(a, b, by = &quot;x1&quot;)# 向数据集a中加入匹配的数据集b记录。</code></pre>
+<pre><code>##   x1 x2   x3
+## 1  A  1    T
+## 2  B  2    F
+## 3  C  3 &lt;NA&gt;</code></pre>
+<pre class="r"><code>right_join(a, b, by = &quot;x1&quot;)#    向数据集b中加入匹配的数据集a记录。</code></pre>
+<pre><code>##   x1 x2 x3
+## 1  A  1  T
+## 2  B  2  F
+## 3  D NA  T</code></pre>
+<pre class="r"><code>inner_join(a, b, by = &quot;x1&quot;)#    合并数据。仅保留匹配的记录。</code></pre>
+<pre><code>##   x1 x2 x3
+## 1  A  1  T
+## 2  B  2  F</code></pre>
+<pre class="r"><code>full_join(a, b, by = &quot;x1&quot;)# 合并数据。保留所有记录，所有行，没有的用NA填充</code></pre>
+<pre><code>##   x1 x2   x3
+## 1  A  1    T
+## 2  B  2    F
+## 3  C  3 &lt;NA&gt;
+## 4  D NA    T</code></pre>
+</div>
+<div id="筛选与合并" class="section level2">
+<h2>2、筛选与合并</h2>
+<p>semi_join(a, b, by = “x1”)： 数据集a中能与数据集b匹配的记录。</p>
+<p>anti_join(a, b, by = “x1”)： 数据集a中与数据集b不匹配的记录</p>
+</div>
+<div id="集合操作" class="section level2">
+<h2>3、集合操作</h2>
+<p>intersect(x, y)： 均出现在数据集x和y中的记录。xy交集</p>
+<p>union(x, y)： 出现在数据集x或y中的记录。 xy并集</p>
+<p>setdiff(x, y)： 仅出现在数据集x而不在y中的记录。x与y的差集</p>
+<p>bind_rows(x, y)： 把数据集y作为新的⾏行添加到x中。</p>
+<p>bind_cols(x, y)： 把数据集y作为新的列添加到x中。</p>
+<ul>
+<li>注意：数据按所在位置匹配。</li>
+<li>和rbind（） 与cbind（）不一样的是，rbind（）/cbind（）对数据合并有严格的要求</li>
+</ul>
+<pre class="r"><code>x=data.frame(A=c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;),B=c(&quot;t&quot;,&quot;u&quot;,&quot;v&quot;),C=c(1:3))
+y=data.frame(A=c(&quot;a&quot;,&quot;b&quot;,&quot;d&quot;),B=c(&quot;t&quot;,&quot;u&quot;,&quot;v&quot;),D=c(2:4))
+x;y</code></pre>
+<pre><code>##   A B C
+## 1 a t 1
+## 2 b u 2
+## 3 c v 3</code></pre>
+<pre><code>##   A B D
+## 1 a t 2
+## 2 b u 3
+## 3 d v 4</code></pre>
+<pre class="r"><code>bind_rows(x, y) #行合并，列全部显示，没有的用NA填充 ，选择.id=&quot;name&quot;参数，多增加一列，列名name</code></pre>
+<pre><code>##   A B  C  D
+## 1 a t  1 NA
+## 2 b u  2 NA
+## 3 c v  3 NA
+## 4 a t NA  2
+## 5 b u NA  3
+## 6 d v NA  4</code></pre>
+<pre class="r"><code>bind_rows(x, y,.id=&quot;name&quot;)# 为了区别数据是分别来自于两个其他数据库，可以用id进行区别</code></pre>
+<pre><code>##   name A B  C  D
+## 1    1 a t  1 NA
+## 2    1 b u  2 NA
+## 3    1 c v  3 NA
+## 4    2 a t NA  2
+## 5    2 b u NA  3
+## 6    2 d v NA  4</code></pre>
+<pre class="r"><code>bind_cols(x, y) #列合并，</code></pre>
+<pre><code>##   A...1 B...2 C A...4 B...5 D
+## 1     a     t 1     a     t 2
+## 2     b     u 2     b     u 3
+## 3     c     v 3     d     v 4</code></pre>
+</div>
+<div id="数据排序" class="section level2">
+<h2>4、数据排序</h2>
+<p>arrange(.data, …, .by_group = FALSE) :根据变量进行排序
++ 默认升序，在变量前面添加desc()则变为降序
++ .by_group = FALSE 默认忽视对组的升序排序,设置为TRUE则把组进行升序排序以后再按比变量进行排序</p>
+<pre class="r"><code>arrange(mtcars, cyl, desc(disp))  #根据变量进行排序</code></pre>
+<pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3</code></pre>
+<pre class="r"><code>by_cyl &lt;- mtcars %&gt;% group_by(cyl)
+
+by_cyl %&gt;% arrange(desc(wt), .by_group = TRUE) #默认忽视对组的升序排序,设置为TRUE则把组进行升序排序以后再按比变量进行排序</code></pre>
+<pre><code>## # A tibble: 32 x 11
+## # Groups:   cyl [3]
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  24.4     4 147.     62  3.69  3.19  20       1     0     4     2
+##  2  22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2
+##  3  21.4     4 121     109  4.11  2.78  18.6     1     1     4     2
+##  4  21.5     4 120.     97  3.7   2.46  20.0     1     0     3     1
+##  5  22.8     4 108      93  3.85  2.32  18.6     1     1     4     1
+##  6  32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1
+##  7  26       4 120.     91  4.43  2.14  16.7     0     1     5     2
+##  8  27.3     4  79      66  4.08  1.94  18.9     1     1     4     1
+##  9  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1
+## 10  30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2
+## # … with 22 more rows</code></pre>
+</div>
+<div id="section" class="section level2">
+<h2>5、</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Mojave 10.14.5
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] dplyr_1.0.1
+## 
+## loaded via a namespace (and not attached):
+##  [1] knitr_1.29       magrittr_1.5     tidyselect_1.1.0 R6_2.4.1        
+##  [5] rlang_0.4.7      fansi_0.4.1      stringr_1.4.0    tools_4.0.2     
+##  [9] xfun_0.17        utf8_1.1.4       cli_2.0.2        htmltools_0.5.0 
+## [13] ellipsis_0.3.1   assertthat_0.2.1 yaml_2.2.1       digest_0.6.25   
+## [17] tibble_3.0.3     lifecycle_0.2.0  crayon_1.3.4     bookdown_0.20   
+## [21] purrr_0.3.4      vctrs_0.3.2      glue_1.4.1       evaluate_0.14   
+## [25] rmarkdown_2.3    blogdown_0.20    stringi_1.4.6    compiler_4.0.2  
+## [29] pillar_1.4.6     generics_0.0.2   pkgconfig_2.0.3</code></pre>
+</div>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/post/2018-01-04-dplyr3/" class="leancloud_visitors" data-flag-title="dplyr -- 3合并数据">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/post/2018-01-03-dplyrshizhan2/"> 上一篇: dplyr -- 2实战</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/post/2018-01-14-factor/"> 下一篇: 因子数据类型处理</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/post\/2018-01-04-dplyr3.html");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

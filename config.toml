@@ -1,0 +1,79 @@
+baseURL = "/"
+theme = "gohugo-theme-yinwang"
+languageCode = "zh-CN"
+title = "zsc"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
+
+# 设置 markdown 类型  默认为: goldmark , 显示公式有一定问题,但是目录可以显示
+# 设置为 mmark, 能更好的显示公式,但是目录不行了
+
+[params]
+  # single = false # 单页面的 home 去除
+  googleAnalytics = "UA-111691389-1" # 谷歌统计gtag
+  katexmath = true
+  mathJax = false
+  mathjax2version = false
+  highlight = "github"  #"atom-one-dark" # 默认样式 `github`
+  langs = ["r", "yaml","latex","matlab","mathematica","julia","julia-repl","powershell","bash","shell",'python'] 
+  # 加载语言 --- 对应的页面 header_costum.html
+  
+  #highlightjsVersion = "9.12.0"
+  #highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"
+  #highlightjsLang = ["r", "yaml"]
+  #highlightjsTheme = "github"
+  # MathJaxCDN = "//cdnjs.cloudflare.com/ajax/libs"
+  # MathJaxVersion = "2.7.5"
+  copycode = true # 代码复制按钮
+  pageNotFoundTitle = "404 - Page not found"
+  githubName = "zoushucai"
+  author = "zsc"
+  githubRepo = "https://github.com/zoushucai/blogmmm"
+  editBtn = true # githubRepo,editBtn两个字段一起，才能搞好编辑按钮, 并且会有提示警告
+  
+  backgroundColor = "#fbf6ec" # 加点黄黄的背景色
+  labels = true # 添加标签链接 即每个页面上的分类标签#  
+  #post = "/:year/:month/:day/:slug/"
+  menus = true
+  enableDisqus = false
+  DisqusShortname = "moyujian"
+  readCounterValine = true   # 使用valine的阅读统计
+  readCounteribusuanzi = false # 使用不算子的阅读统计
+  
+[params.gitalk] 
+    enableGitalk = false  # 是否启动gittalk 评论功能
+    clientID = "1ac619514eb62e50868e" # Your client ID
+    clientSecret = "00a68b78164fc5b30a5f4786d93d06ffa30b86f6" # Your client secret
+    repo = "www.zsccy.xyz" # The repo to store comments
+    owner = "mo01item" # Your GitHub ID
+    admin= "mo01item" # Required. Github repository owner and collaborators. (Users who having write access to this repository)
+    id= "location.pathname" # The unique id of the page 应该可以随便设置.
+    labels= "gitalk" # Github issue labels. If you used to use Gitment, you can change it
+    perPage= 15 # Pagination size, with maximum 100.
+    pagerDirection= "last" # Comment sorting direction, available values are 'last' and 'first'.
+    createIssueManually= false # If it is 'false', it is auto to make a Github issue when the administrators login.
+    distractionFreeMode= false # Enable hot key (cmd|ctrl + enter) submit comment.
+[params.valine]
+    enable = true
+    appId = 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz'
+    appKey = 'r5RJAasN8e0mB9sq6y9pEcX0'
+    notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
+    verify = false # Verification code
+    avatar = 'identicon'
+    placeholder = '说点什么吧...'
+    visitor = true # 文章阅读统计
+
+[[menu.main]]
+    name = "Categories"
+    url = "/Categories/"
+[[menu.main]]
+    name = "Tags"
+    url = "/Tags/"
+[[menu.main]]
+    name = "Home"
+    url = "/"
+[[menu.main]]
+    name = "About"
+    url = "/About/"
+[[menu.main]]
+    name = "存在的问题"
+    url = "/Issue/"

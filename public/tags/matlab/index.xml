@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MATLAB on zsc</title>
+    <link>/tags/matlab/</link>
+    <description>Recent content in MATLAB on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 16 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/matlab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>matlab优化工具01线性规划之linprog</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B701%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Blinprog/</guid>
+      <description>matlab优化工具01线性规划之linprog 常用这些函数， 写个笔记
+matlab 优化工具箱函数 基本函数 
+全局优化函数  遗传算法 ga() , 推荐, 可以处理带有约束问题的优化, 还可以求解混合整数规划 模式搜索算法 patternsearch() 模拟退火求解 simulannealbnd() 粒子群算法 particleswarm  基本选项参数  optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项  %% 函数用法与解释 options = optimset(&amp;#39;paraml&amp;#39;,vaJuel,&amp;#39;param2&amp;#39;,value2,...) % 如果选择用系统的默认值，则只需将参数的值设为 \[\]. optimset: 列出一个完整的优化参数列表及相应的可选值。 options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。 options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。 options=optimset(oldopts, &amp;#39;paraml&amp;#39; ,valuel ,...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。 %% eg: 列出所有的优化参数列表 &amp;gt;&amp;gt; optimset %% 结果省略  optimget 函数: 想查看某个优化参数的值  %% val= optimget(options, &amp;#39;param&amp;#39; ) : 获取优化参数结构体 options 中参数 param 的值。 val = optimget(options, &amp;#39;param&amp;#39;， default): 如果参数 param 在 options 中没有定义，则返回其默认值 %% eg: 查看某个优化参数的值 clc,clear all; options = optimset(&amp;#39;fmincon&amp;#39;) % 省略结果 options =optimset(options, &amp;#39;Display&amp;#39; , &amp;#39;iter&amp;#39;) %修改 Display 属性值为iter val = optimget(options,&amp;#39;Display&amp;#39;) % 重新获取fmincon 函数的 Display属性值</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具02非线性规划之fmincon</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B702%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E4%B9%8Bfmincon/</guid>
+      <description>matlab优化工具02非线性规划之fmincon 由于经常用到一些matlab中基本的优化函数, 于是写一个笔记, 由于新版本的文档和以前版本的文档有点不一样, 搞得查起来有点费劲, 不过推荐新版本的文档
+非线性规划的标准型及参数解释 \[ \begin{aligned} &amp; \min \quad f(x) \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ c(x) \leq 0 \\ \operatorname{ceq}(x)=0 \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; f(x)是目标函数, x, b, beq是向量, \\ &amp; \textbf{A}, \textbf{Aeq}是矩阵,\\ &amp; c(x) 和 ceq(x) 是向量函數 \\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ &amp;c(x) 非线性不等式, ceq(x)非线性等式 \\ \end{aligned} \]
+% 2.基本语法 [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options) [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___) %% 等号左边参数解释 x 的返回值是决策向量x的取值，fval 的返回值是目标函数f(x)的取值 exitflag 参数，描述函数计算的退出条件 output, 输出模型的优化信息参数 lambda, 返回解x处包含拉格朗日乘子的lambda参数 grad, 返回解x处fun函数的梯度值 hessian, 返回解x处fun函数的hessian矩阵 %% 等号右边参数解释 fun是用M文件定义的函数f(x),代表了(非)线性目标函数, 对于复杂问题, 建议写出目标函数以及非线性约束的梯度 x0是x的初始值 A,b,Aeq,beq定义了线性约束 ,如果没有线性约束，则A=[],b=[],Aeq=[],beq=[] lb和ub是变量x的下界和上界，如果下界和上界没有约束，则lb=[],ub=[],也可以写成lb的各分量都为 -inf, ub的各分量都为inf nonlcon是用M文件定义的非线性向量函数约束,如果没有则写[] options定义了优化参数，不填写表示使用Matlab默认的参数设置 eg: options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;Algorithm&amp;#39;,&amp;#39;sqp&amp;#39;); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;SpecifyObjectiveGradient&amp;#39;,true); options = optimoptions(&amp;#39;fmincon&amp;#39;,&amp;#39;Display&amp;#39;,&amp;#39;iter&amp;#39;,&amp;#39;PlotFcn&amp;#39;,&amp;#39;optimplotfval&amp;#39;);    options 常见取值 说明     Algorithm 优化算法:</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具03全局优化之ga</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/</guid>
+      <description>matlab优化工具03全局优化之ga 首先,要明白遗传算法的基本思路,然后再利用这个函数求解问题,是非常方便的.
+新版本中很多优化函数的属性设置都采用: optimoptions(&#39;优化函数&#39;, &#39;属性1&#39;,&#39;属性值1&#39;,....)
+故gaoptimset不推荐了,但是基本都差不多,可能个别参数名变了
+一般模型及函数解释 \[ \begin{aligned} &amp; \min \quad f(x) \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ c(x) \leq 0 \\ \operatorname{ceq}(x)=0 \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; f(x)是目标函数, x, b, beq是向量, \\ &amp; \textbf{A}, \textbf{Aeq}是矩阵,\\ &amp; c(x) 和 ceq(x) 是向量函數 \\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ &amp;c(x) 非线性不等式, ceq(x)非线性等式 \\ \end{aligned} \]
+(求解最小值)语法: x = ga(fun,nvars,A,b,[],[],lb,ub,nonlcon,IntCon,options) [x,fval,exitflag,output,population,scores] = ga(___) % 解释: fun 为适应度句柄函数, 一般其输入为1*nvars的向量 nvars, 即目标函数自变量的个数 A,b,Aeq,beq,LB,UB,nonlcon参数与fmincon中类似,不在解释 IntCon, 整数约束, 指定变量的下标则说明该变量为整数变量 options, 算法的属性设置 x,最优解 fval, 最优解对应的目标函数值 exitflag, 算法停止的原因 output, 输出算法结构 population, 最终得到种群适应度的列向量 scores, 最终得到的种群 options = optimoptions(&amp;#39;ga&amp;#39;,&amp;#39;PlotFcn&amp;#39;,@gaplotbestf); optimoptions **Optimization 解读, 详细解读,参考官网,这里只给出一些概念 **</description>
+    </item>
+    
+    <item>
+      <title>matlab优化工具04二次规划之quadprog</title>
+      <link>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B704%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92%E4%B9%8Bquadprog/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B704%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92%E4%B9%8Bquadprog/</guid>
+      <description>matlab优化工具04二次规划之quadprog 二次规划问题是目标函数为 $ \textbf{x}$ 的二次形式, 约束条件为线性等式或不等式约束
+二次规划的一般模型 \[ \begin{aligned} &amp; \min \quad f^T x + \frac{1}{2}x^T \textbf{H} x \\ &amp; \text {s.t.} \begin{cases} \textbf{A} \cdot x \leq b \\ \textbf{Aeq} \cdot x=beq \\ l b \leq x \leq u b \end{cases}\\ \\ &amp; x, b, beq是向量, f^T 为一次项的系数, \\ &amp; \textbf{A}是矩阵,\textbf{H}是矩阵 \\ &amp; \textbf{H}是矩阵,即二次项系数,用以描述x_i^2 以及 x_i x_j项\\ &amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\ \end{aligned} \]
+当然,二次规划的目标函数中的二次项还可以用元素的形式表达,即 \( \begin{aligned} \frac{1}{2}\left(h_{11} x_{1}^{2}+h_{12} x_{1} x_{2}+\cdots+h_{1 n} x_{1} x_{n}+h_{21} x_{1} x_{2}+h_{22} x_{2}^{2}+\cdots+h_{n n} x_{n}^{2}\right) \end{aligned} \)</description>
+    </item>
+    
+    <item>
+      <title>corr详解(MATLAB)</title>
+      <link>/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-12-11-corr%E8%AF%A6%E8%A7%A3matlab/</guid>
+      <description>corr详解（MATLAB）  corrcoef是对两个列向量，或者一个矩阵的每列进行的，用的是pearson相关 corr可以对两个矩阵的每列进行，也可以对一个矩阵的每列进行，相关的类型可以是pearson或者Kendall或者Spearman 总之，corr强大很多  1、corrcoef R = corrcoef(A) 输入：一个矩阵A，
+方法：计算矩阵A的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。
+返回： 一个相关系数矩阵R，
+A = randn(n,m); % A是一个n*m的矩阵 corrcoef(A) % 返回一个m*m的对称矩阵 R = corrcoef(A,B) 输入： 两个向量，A，B均为列向量
+返回：一个2*2 对称的相关系数矩阵
+如果A, B 均为矩阵，则先把A，B转变为列向量，然后再计算皮尔逊相关系数，即等价于如下形式
+A = randn(n,m); % A是一个n*m的矩阵 B = randn(n,m); % B是一个n*m的矩阵, %% 注意A，B矩阵的个数一定要一样 corrcoef(A,B） % 返回一个2*2的对称矩阵 corrcoef(A(:),B(:)) % 等价 corrcoef(A,B） 2、corr rho = corr(X) 输入：一个矩阵X
+方法: 计算矩阵X的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。
+返回： 返回一个对称的相关系数矩阵rho
+rho = corr(X,Y) 输入： X为$nm1$的矩阵，Y为$nm2$的矩阵
+方法：返回输入矩阵X和Y中每对列之间的成对相关系数矩阵。
+返回一个$m1*m2$的矩阵，其中第i行第j列元素代表X的第i列与Y第j列的相关系数
+[rho,pval] = corr(___,Name,Value) R = corr(X,&#39;Type&#39;,&#39;Pearson&#39;) R = corr(X,Y,&#39;Type&#39;,&#39;Pearson&#39;) R = corr(X,Y,&#39;Type&#39;,&#39;Kendall&#39;) R = corr(X,Y,&#39;Type&#39;,&#39;Spearman&#39;) </description>
+    </item>
+    
+    <item>
+      <title>计算各种距离 （matlab）</title>
+      <link>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</guid>
+      <description>pdist &amp;ndash;不推荐使用&amp;ndash;好像是计算元素之间的距离
+观测值对之间的成对距离
+matlab中自带的计算距离矩阵的函数有两个pdist和pdist2。前者计算一个向量自身的距离矩阵，后者计算两个向量之间的距离矩阵。基本调用形式如下：
+输入： 一个矩阵
+计算方法: 案例计算各自的距离
+D = pdist(X) D = pdist(X,Distance) D = pdist(X,Distance,DistParameter) pdist2 &amp;mdash; 计算向量之间的距离</description>
+    </item>
+    
+    <item>
+      <title>MATLAB 与 R 在排序上的区别</title>
+      <link>/matlab/2019-11-15-matlab-r-rank/</link>
+      <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-15-matlab-r-rank/</guid>
+      <description>MATLAB 与 R 在排序上的区别 R 中的 rank , 返回一个向量的秩 R语言排序有几个基本函数： sort()；rank()；order() sort（）是对向量进行从小到大的排序 rank（）返回的是对向量中每个数值对应的秩 order（）返回的值表示位置，依次对应的是向量的最小值、次小值、第三小值......最大值 &amp;gt; data=c(5,6,8,2,4,9) &amp;gt; sort(data) [1] 2 4 5 6 8 9 &amp;gt; rank(data) % 秩,即排序后的位置,比如 data 中的第一个元素 5,在升序排序中是占第 3 个位置,所以返回 3. [1] 3 4 5 1 2 6 &amp;gt; order(data) [1] 4 5 1 2 3 6 MATLAB [y , index] = sort(x); y 把 x 排列升序后的结果 % 类似 R 中的 sort index 为 x 的秩 % 类似 R 中的 order tiedrank(data) % 类似 R 中的 rank, 返回平均秩, ans = 3 4 5 1 2 6 &amp;gt;&amp;gt; data=[5,6,8,2,4,9]; [y, index] =sort(data) y = 2 4 5 6 8 9 index = 4 5 1 2 3 6 有 y == data(index) &amp;gt;&amp;gt; tiedrank(data) ans = 3 4 5 1 2 6 tiedrank([10 20 30 40 20]) % 返回平均秩 ans = 1 2.</description>
+    </item>
+    
+    <item>
+      <title>Armadillo &#43; Rcpp  VS  MATLAB/octave</title>
+      <link>/matlab/2019-11-14-matlab_rcpp_c/</link>
+      <pubDate>Thu, 14 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-14-matlab_rcpp_c/</guid>
+      <description>*Armadillo + Rcpp VS MATLAB/octave  http://arma.sourceforge.net/docs.html  1. Armadillo VS matlab    Matlab/Octave Armadillo Notes     A,B,C代表矩阵a,b,c 代表向量 vec x(10);vec y = zeros(10);rowvec x(10); rowvec y = zeros(10); rowvec a = {1,2,3,4};vec b = {1,2,3,4};mat A = randu(10,10); C++中要声明向量类型(这里都是 double 类型)vec 默认 colvec(等价),是列向量   A(1,1) A(0,0) C++ 索引从 0 开始   A(k,k) A(k-1,k-1)         size(A,1) A.</description>
+    </item>
+    
+    <item>
+      <title>matlab 问题集合基础</title>
+      <link>/matlab/2019-11-13-matlab-question/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-13-matlab-question/</guid>
+      <description>1、inputname获取函数参数名字,返回一个字符串 2、 输入可变长参数,以及输出可变长参数 3、 nargin 捕获输入参数的个数, nargout 捕获输出参数的个数. function varargout = foo(varargin) %输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储,  %而inputname 存变量名的方式,用的是字符数组矩阵的形式 if nargin == 2 varargout{1} = a1; varargout{2} = a2; else nargin == 3 varargout{1} = a1; varargout{2} = a2; varargout{3} = a3; end function varargout = combin_index(varargin) variable_name = cell(1,nargin); % 创建一个 1* nargin 大小的 cell, for i = 1:nargin T = f(varargin{i}); % 获取的新参数 传递给另一个函数 variable_name{i} = inputname(i); % 由于变量名是字符,所以用细胞来存储 end % variable_name 这个 cell 存储了变量名 4、 table 类型的变量如何进行转置,对于表格，您可以使用&amp;rsquo;table2cell&amp;rsquo;和&amp;rsquo;cell2table&amp;rsquo;的组合： Xc = table2cell(X) % 这里 X 为要转置的表,Xt 为转置后的表 Xt = cell2table(Xc&amp;#39;,&amp;#39;RowNames&amp;#39;,X.</description>
+    </item>
+    
+    <item>
+      <title>MATLAB函数中参数的问题</title>
+      <link>/matlab/2019-11-13-matlab-fun-arg/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-13-matlab-fun-arg/</guid>
+      <description>1. nargin, nargout— 捕获输入输出参数个数 　函数功能: 返回函数参数数量(一般在函数内部使用)
+　在函数内部使用时,nargin 和 nargout分别表明有输入和输出参数数量。若在函数外部使用, nargin 和nargout对给定的函数，表明输入和输出参数数量。如果一个函数有可变数量的参数，参数数量为负值。
+ nargin：返回函数输入参数的数量。 nargin(fun)：返回函数 fun输入参数数量。如果函数参数数量可变，nargin 返回一个负值。fun 可以是函数名或映射函数的函数句柄。 nargout：返回函数输出参数的数量。 nargout(fun)：返回函数fun的输出参数数量。fun可以使函数名或映射函数的函数句柄。  2. inputname — 获取函数参数名称,返回一个字符串 　函数功能: 返回函数指定输入参数的名称字符串(只能在函数内部使用).
+​	inputname(argnum) : 注意: 这里的 argnum是一个数字,表示第几个参数,返回的是第argnum个参数的名称字符串。如果输入参数没有名称（例如它是一个表达式，而不是一个变量），这时会返回空字符串(&#39;&#39;)。 这个常常和varargin参数一起使用.
+3. varargin / varargout — —可变长输入/输出参数 函数功能: 在一个函数中，用于表示输入参数不确定的情况(只能在函数内部使用)
+本质上 是一个 cell 数组(大小 1* size(varargin,2)), 它包含了用户输入的参数.
+用 varargin{i} 调用第 i 个参数, 用varargin{:}调用所有的参量;
+function varargout = combin_index(varargin) %输入可变长参数,以及输出可变长参数,都是放在一个细胞中存储,  %而inputname 存变量名的方式,用的是cell字符数组矩阵的形式 % 由于 nargin 参数已经计算了输入参数的总个数. size(varargin,2) 等价(某些情况下) variable_name = cell(1,nargin); % 创建一个 1* nargin 大小的 cell, for i = 1:nargin T = foo(varargin{i}); % 获取的新参数 传递给另一个函数 variable_name{i} = inputname(i); % 由于变量名是字符,所以用细胞来存储 end % variable_name 这个 cell 存储了变量名 这个varargout一般用的较少…….</description>
+    </item>
+    
+    <item>
+      <title>非线性规划2</title>
+      <link>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</link>
+      <pubDate>Tue, 25 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</guid>
+      <description>Rsolnp 非线性规划问题
+$$ \begin{align} \min \quad &amp;amp; f(x)\ \text { s.t. } &amp;amp; \begin{cases} \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}} \end{cases} \end{align}
+$$
+其中, $f(x),g(x),h(x)$ 都是光滑函数,
+solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL, ineqUB = NULL, LB = NULL, UB = NULL, control = list(), ...)
+pars : 初始值(向量),
+fun : 最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的f(x)
+eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</description>
+    </item>
+    
+    <item>
+      <title>MATLAB集合</title>
+      <link>/matlab/plotmathfun/</link>
+      <pubDate>Mon, 24 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/plotmathfun/</guid>
+      <description>画数学坐标系_函数图像</description>
+    </item>
+    
+    <item>
+      <title>混合粒子群算法matlab</title>
+      <link>/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-01-13-%E6%B7%B7%E5%90%88%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95matlab/</guid>
+      <description>链接</description>
+    </item>
+    
+  </channel>
+</rss>

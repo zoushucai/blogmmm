@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>GA包---遗传算法</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1用法默认求解最大值">1、用法：(默认求解最大值)</a></li>
+    <li><a href="#2参数说明">2、参数说明</a></li>
+    <li><a href="#3举例">3.举例</a>
+      <ul>
+        <li><a href="#31-一元函数--xcosx-">3.1. 一元函数: $ |x|+cos(x) $</a></li>
+        <li><a href="#32-一元函数-xsup2supxcosx-监视跟踪">3.2. 一元函数: (<em>x</em><!-- raw HTML omitted -->2<!-- raw HTML omitted --> + <em>x</em>)<em>c<strong>o</strong>s</em>(<em>x</em>) 监视跟踪</a></li>
+        <li><a href="#33-二元函数-20xsub1subsup2supxsub2subsup2sup10cos2πxsub1subcos2πxsub2sub">3.3. 二元函数: 20 + <em>x</em><!-- raw HTML omitted -->1<!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --> + <em>x</em><!-- raw HTML omitted -->2<!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --> − 10(<em>c<strong>o</strong>s</em>(2<em>π**x</em><!-- raw HTML omitted -->1<!-- raw HTML omitted -->) + <em>c<strong>o</strong>s</em>(2<em>π**x</em><!-- raw HTML omitted -->2<!-- raw HTML omitted -->))</a></li>
+        <li><a href="#34曲线拟合">3.4.曲线拟合</a></li>
+        <li><a href="#35子集的选择">3.5子集的选择</a></li>
+        <li><a href="#36约束优化">3.6、约束优化</a></li>
+        <li><a href="#37-解决tsp问题">3.7. 解决TSP问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                GA包---遗传算法
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2015-11-09 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="ga包---遗传算法">GA包&mdash;遗传算法</h1>
+<h2 id="1用法默认求解最大值">1、用法：(默认求解最大值)</h2>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;binary&#34;</span>, <span style="color:#e6db74">&#34;real-valued&#34;</span>, <span style="color:#e6db74">&#34;permutation&#34;</span>),   
+   fitness, <span style="color:#66d9ef">...</span>,                            <span style="color:#75715e">#  fitness:适应度函数 </span>
+   min, max,                                <span style="color:#75715e">#解得下界/解得上界(多元变量为一个向量)</span>
+   nBits,                               <span style="color:#75715e">#一个种群用二进制编码的长度是多少(长度越大代表精度越高)</span>
+   population <span style="color:#f92672">=</span> <span style="color:#a6e22e">gaControl</span>(type)<span style="color:#f92672">$</span>population,     <span style="color:#75715e"># 初始种群</span>
+   selection <span style="color:#f92672">=</span> <span style="color:#a6e22e">gaControl</span>(type)<span style="color:#f92672">$</span>selection,       <span style="color:#75715e">#选择</span>
+   crossover <span style="color:#f92672">=</span> <span style="color:#a6e22e">gaControl</span>(type)<span style="color:#f92672">$</span>crossover,       <span style="color:#75715e">#交叉</span>
+   mutation <span style="color:#f92672">=</span> <span style="color:#a6e22e">gaControl</span>(type)<span style="color:#f92672">$</span>mutation,         <span style="color:#75715e">#变异</span>
+   popSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>,                               <span style="color:#75715e">#种群大小</span>
+   pcrossover <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>,                           <span style="color:#75715e">#交叉概率（默认0.8）</span>
+   pmutation <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>,                            <span style="color:#75715e">#变异概率（默认0.1）</span>
+   elitism <span style="color:#f92672">=</span> base<span style="color:#f92672">::</span><span style="color:#a6e22e">max</span>(<span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">round</span>(popSize<span style="color:#f92672">*</span><span style="color:#ae81ff">0.05</span>)),   <span style="color:#75715e">#代沟(默认情况下,前5%个体将在每个迭代中保留)</span>
+   updatePop <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+   postFitness <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+   maxiter <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>,                               <span style="color:#75715e"># 最大迭代次数(默认100)</span>
+   run <span style="color:#f92672">=</span> maxiter,
+   maxFitness <span style="color:#f92672">=</span> <span style="color:#66d9ef">Inf</span>,                            <span style="color:#75715e"># 适应度函数的上界,GA搜索后中断</span>
+   names <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+   suggestions <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, 
+   optim <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+   optimArgs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;L-BFGS-B&#34;</span>, 
+                    poptim <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span>,
+                    pressel <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>,
+                    control <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(fnscale <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>, maxit <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>)),
+   keepBest <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,                             <span style="color:#75715e">#是否保留每一代的最优解</span>
+   parallel <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,                             <span style="color:#75715e">#是否采用并行运算</span>
+   monitor <span style="color:#f92672">=</span> <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">interactive</span>())                   <span style="color:#75715e">#绘图用的,监控遗传算法的运行状况</span>
+               { <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is.RStudio</span>()) gaMonitor else gaMonitor2 } 
+             else <span style="color:#66d9ef">FALSE</span>,
+   seed <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)         <span style="color:#75715e">#一个整数值包含随机数发生器的状态。这个参数可以用来复制GA搜索的结果。</span>
+</code></pre></div><h2 id="2参数说明">2、参数说明</h2>
+<hr>
+<ul>
+<li>type: 解得编码类型
+<ol>
+<li>binary :二进制编码</li>
+<li>real-valued：实数浮点编码</li>
+<li>permutation：问题涉及到重新排序的列表，字符串编码。可求解TSP问题</li>
+</ol>
+</li>
+<li>通过gaControl设置默认的遗传算子。检索当前设置操作:
+<ul>
+<li>gaControl(“binary”)</li>
+<li>gaControl(“real-valued”)</li>
+<li>gaControl(“permutation”)</li>
+</ul>
+</li>
+</ul>
+<h2 id="3举例">3.举例</h2>
+<hr>
+<h3 id="31-一元函数--xcosx-">3.1. 一元函数: $ |x|+cos(x) $</h3>
+<p>该函数有最小值<em>f</em>(0) = 1（ − <em>R</em> &lt; <em>x</em> &lt;  + <em>R</em>）,这里我们将注意力集中在 − 20 &lt; <em>x</em> &lt; 20,这个函数可以用R来定义和绘图:</p>
+<ul>
+<li>
+<p>函数图像</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(GA)
+f <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x)  <span style="color:#a6e22e">abs</span>(x)<span style="color:#f92672">+</span><span style="color:#a6e22e">cos</span>(x)
+<span style="color:#a6e22e">curve</span>(f, <span style="color:#ae81ff">-20</span>, <span style="color:#ae81ff">20</span>)
+</code></pre></div></li>
+</ul>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-1-1.png" alt=""></p>
+<ul>
+<li>求解最小值</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">fitness <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x) <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span>(x)  <span style="color:#75715e">#由于这个函数默认求解最大值，所以我们求-f(x)的最大值</span>
+GA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;real-valued&#34;</span>, fitness <span style="color:#f92672">=</span> fitness, min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-20</span>, max <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>)
+
+GA  <span style="color:#75715e">##返回的结果GA为S4对象，一个GA类型 调用其属性用@符号 </span>
+<span style="color:#75715e">#&gt; An object of class &#34;ga&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Call:</span>
+<span style="color:#75715e">#&gt; ga(type = &#34;real-valued&#34;, fitness = fitness, min = -20, max = 20)</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Available slots:</span>
+<span style="color:#75715e">#&gt;  [1] &#34;call&#34;         &#34;type&#34;         &#34;lower&#34;        &#34;upper&#34;        &#34;nBits&#34;       </span>
+<span style="color:#75715e">#&gt;  [6] &#34;names&#34;        &#34;popSize&#34;      &#34;iter&#34;         &#34;run&#34;          &#34;maxiter&#34;     </span>
+<span style="color:#75715e">#&gt; [11] &#34;suggestions&#34;  &#34;population&#34;   &#34;elitism&#34;      &#34;pcrossover&#34;   &#34;pmutation&#34;   </span>
+<span style="color:#75715e">#&gt; [16] &#34;optim&#34;        &#34;fitness&#34;      &#34;summary&#34;      &#34;bestSol&#34;      &#34;fitnessValue&#34;</span>
+<span style="color:#75715e">#&gt; [21] &#34;solution&#34;</span>
+<span style="color:#a6e22e">summary</span>(GA)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  real-valued </span>
+<span style="color:#75715e">#&gt; Population size       =  50 </span>
+<span style="color:#75715e">#&gt; Number of generations =  100 </span>
+<span style="color:#75715e">#&gt; Elitism               =  2 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.1 </span>
+<span style="color:#75715e">#&gt; Search domain = </span>
+<span style="color:#75715e">#&gt;        x1</span>
+<span style="color:#75715e">#&gt; lower -20</span>
+<span style="color:#75715e">#&gt; upper  20</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 100 </span>
+<span style="color:#75715e">#&gt; Fitness function value = -1.000093 </span>
+<span style="color:#75715e">#&gt; Solution = </span>
+<span style="color:#75715e">#&gt;                x1</span>
+<span style="color:#75715e">#&gt; [1,] 9.324736e-05</span>
+<span style="color:#a6e22e">plot</span>(GA)  <span style="color:#75715e">#  #默认情况下，ga函数通过打印每个迭代的平均值和最佳适应度值来监视搜索,画出每代最佳的适应度函数值与每代的平均适应度函数值</span>
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-3-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">curve</span>(f, <span style="color:#ae81ff">-20</span>, <span style="color:#ae81ff">20</span>)  <span style="color:#75715e"># 画出最优值</span>
+<span style="color:#a6e22e">abline</span>(v <span style="color:#f92672">=</span> GA<span style="color:#f92672">@</span>solution, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-4-1.png" alt=""></p>
+<h3 id="32-一元函数-xsup2supxcosx-监视跟踪">3.2. 一元函数: (<em>x</em><!-- raw HTML omitted -->2<!-- raw HTML omitted --> + <em>x</em>)<em>c<strong>o</strong>s</em>(<em>x</em>) 监视跟踪</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">f <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x)  (x^2<span style="color:#f92672">+</span>x)<span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(x)      <span style="color:#75715e"># -10 &lt; x &lt; 10</span>
+min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-10</span>
+max <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+<span style="color:#a6e22e">curve</span>(f, min, max)<span style="color:#75715e">#画出该函数的图形</span>
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-5-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">###################</span>
+<span style="color:#75715e">###求解最优值 ####</span>
+GA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;real-valued&#34;</span>, fitness <span style="color:#f92672">=</span> f, min <span style="color:#f92672">=</span> min, max <span style="color:#f92672">=</span> max)
+<span style="color:#a6e22e">summary</span>(GA)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  real-valued </span>
+<span style="color:#75715e">#&gt; Population size       =  50 </span>
+<span style="color:#75715e">#&gt; Number of generations =  100 </span>
+<span style="color:#75715e">#&gt; Elitism               =  2 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.1 </span>
+<span style="color:#75715e">#&gt; Search domain = </span>
+<span style="color:#75715e">#&gt;        x1</span>
+<span style="color:#75715e">#&gt; lower -10</span>
+<span style="color:#75715e">#&gt; upper  10</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 100 </span>
+<span style="color:#75715e">#&gt; Fitness function value = 47.70562 </span>
+<span style="color:#75715e">#&gt; Solution = </span>
+<span style="color:#75715e">#&gt;            x1</span>
+<span style="color:#75715e">#&gt; [1,] 6.560541</span>
+
+<span style="color:#a6e22e">plot</span>(GA)<span style="color:#75715e"># 画图</span>
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-7-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">xfun<span style="color:#f92672">::</span><span style="color:#a6e22e">pkg_load2</span>(<span style="color:#e6db74">&#39;gifski&#39;</span>) <span style="color:#75715e"># 安装并加载该软件包</span>
+
+<span style="color:#75715e">########################</span>
+<span style="color:#75715e">##编写自己的跟踪功能,点代表一个解，来监视搜索</span>
+<span style="color:#75715e">## 定义一个新的监视器函数，然后将此函数作为可选参数传递给ga:</span>
+monitor <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(obj) { 
+    <span style="color:#a6e22e">curve</span>(f, <span style="color:#ae81ff">-10</span>, <span style="color:#ae81ff">10</span>, main <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;iteration =&#34;</span>, obj<span style="color:#f92672">@</span>iter))
+    <span style="color:#a6e22e">points</span>(obj<span style="color:#f92672">@</span>population, obj<span style="color:#f92672">@</span>fitness, pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>, col <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+    <span style="color:#a6e22e">rug</span>(obj<span style="color:#f92672">@</span>population, col <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+    <span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">0.2</span>)}
+<span style="color:#75715e">## 监视函数</span>
+
+GA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;real-valued&#34;</span>, fitness <span style="color:#f92672">=</span> f, min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-10</span>, max <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, monitor <span style="color:#f92672">=</span> monitor)
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-9-.gif" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">##############</span>
+<span style="color:#75715e">## 也可以储存为视频，观看，利用动画的函数做出视频  </span>
+<span style="color:#75715e"># library(animation)    </span>
+<span style="color:#75715e"># oopts = ani.options(ffmpeg = &#34;F:/ffmpeg/bin/ffmpeg.exe&#34;)#在winds中设置ffmpeg    </span>
+<span style="color:#75715e"># saveVideo({    </span>
+<span style="color:#75715e">#   #打印图片    </span>
+<span style="color:#75715e">#   GA = ga(type = &#34;real-valued&#34;, fitness = f, min = -10, max = 10, monitor = monitor)    </span>
+<span style="color:#75715e">#   ani.options(interval = 0.1, nmax = 250)    </span>
+<span style="color:#75715e"># }, video.name = &#34;jianshi.mp4&#34;, other.opts = &#34;-b 500k&#34;)    </span>
+<span style="color:#75715e">###############  </span>
+
+<span style="color:#75715e">##########################</span>
+GA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;real-valued&#34;</span>, fitness <span style="color:#f92672">=</span> f, min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-10</span>, max <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, monitor <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)<span style="color:#75715e">#最优值</span>
+<span style="color:#a6e22e">summary</span>(GA)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  real-valued </span>
+<span style="color:#75715e">#&gt; Population size       =  50 </span>
+<span style="color:#75715e">#&gt; Number of generations =  100 </span>
+<span style="color:#75715e">#&gt; Elitism               =  2 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.1 </span>
+<span style="color:#75715e">#&gt; Search domain = </span>
+<span style="color:#75715e">#&gt;        x1</span>
+<span style="color:#75715e">#&gt; lower -10</span>
+<span style="color:#75715e">#&gt; upper  10</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 100 </span>
+<span style="color:#75715e">#&gt; Fitness function value = 47.70562 </span>
+<span style="color:#75715e">#&gt; Solution = </span>
+<span style="color:#75715e">#&gt;            x1</span>
+<span style="color:#75715e">#&gt; [1,] 6.560538</span>
+
+<span style="color:#75715e">##画出图像</span>
+<span style="color:#a6e22e">monitor</span>(GA)
+<span style="color:#a6e22e">abline</span>(v <span style="color:#f92672">=</span> GA<span style="color:#f92672">@</span>solution, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-11-1.png" alt=""></p>
+<h3 id="33-二元函数-20xsub1subsup2supxsub2subsup2sup10cos2πxsub1subcos2πxsub2sub">3.3. 二元函数: 20 + <em>x</em><!-- raw HTML omitted -->1<!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --> + <em>x</em><!-- raw HTML omitted -->2<!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --> − 10(<em>c<strong>o</strong>s</em>(2<em>π**x</em><!-- raw HTML omitted -->1<!-- raw HTML omitted -->) + <em>c<strong>o</strong>s</em>(2<em>π**x</em><!-- raw HTML omitted -->2<!-- raw HTML omitted -->))</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">Rastrigin <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x1, x2) {
+    <span style="color:#ae81ff">20</span> <span style="color:#f92672">+</span> x1^2 <span style="color:#f92672">+</span> x2^2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">cos</span>(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">pi</span> <span style="color:#f92672">*</span> x1) <span style="color:#f92672">+</span> <span style="color:#a6e22e">cos</span>(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">pi</span> <span style="color:#f92672">*</span> x2))
+}
+x1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5.12</span>, <span style="color:#ae81ff">5.12</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
+x2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5.12</span>, <span style="color:#ae81ff">5.12</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
+f <span style="color:#f92672">=</span> <span style="color:#a6e22e">outer</span>(x1, x2, Rastrigin)
+<span style="color:#a6e22e">persp3D</span>(x1, x2, f, theta <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>, phi <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>)
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-12-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">filled.contour</span>(x1, x2, f, color.palette <span style="color:#f92672">=</span> jet.colors)
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-12-2.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">monitor <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(obj) {
+    <span style="color:#a6e22e">contour</span>(x1, x2, f, drawlabels <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, col <span style="color:#f92672">=</span> <span style="color:#a6e22e">gray</span>(<span style="color:#ae81ff">0.5</span>))
+    <span style="color:#a6e22e">title</span>(<span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;iteration =&#34;</span>, obj<span style="color:#f92672">@</span>iter), font.main <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+    <span style="color:#a6e22e">points</span>(obj<span style="color:#f92672">@</span>population, pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>, col <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+    <span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">0.2</span>)
+}
+
+GA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;real-valued&#34;</span>, fitness <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x) <span style="color:#f92672">-</span><span style="color:#a6e22e">Rastrigin</span>(x[1], x[2]), min <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-5.12</span>, 
+    <span style="color:#ae81ff">-5.12</span>), max <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5.12</span>, <span style="color:#ae81ff">5.12</span>), popSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>, maxiter <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>, monitor <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)  <span style="color:#75715e">#定义monitor,暂时不运行</span>
+
+<span style="color:#a6e22e">summary</span>(GA)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  real-valued </span>
+<span style="color:#75715e">#&gt; Population size       =  50 </span>
+<span style="color:#75715e">#&gt; Number of generations =  100 </span>
+<span style="color:#75715e">#&gt; Elitism               =  2 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.1 </span>
+<span style="color:#75715e">#&gt; Search domain = </span>
+<span style="color:#75715e">#&gt;          x1    x2</span>
+<span style="color:#75715e">#&gt; lower -5.12 -5.12</span>
+<span style="color:#75715e">#&gt; upper  5.12  5.12</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 100 </span>
+<span style="color:#75715e">#&gt; Fitness function value = -0.0001561961 </span>
+<span style="color:#75715e">#&gt; Solution = </span>
+<span style="color:#75715e">#&gt;                x1           x2</span>
+<span style="color:#75715e">#&gt; [1,] 0.0002792732 0.0008422104</span>
+
+<span style="color:#a6e22e">plot</span>(GA)
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-13-1.png" alt=""></p>
+<h3 id="34曲线拟合">3.4.曲线拟合</h3>
+<p>XXX提出了一种利用树木生长数据的曲线拟合应用。利用一种被称为理查兹曲线（贝尔曼方程）的流行生态模型，将云杉树树干的体积与年龄的关系进行建模。该方程为
+<em>f</em>(<em>x</em>) = <em>a</em>(1 − <em>e</em><!-- raw HTML omitted --> − <em>b**x</em><!-- raw HTML omitted -->)<!-- raw HTML omitted --><em>c</em><!-- raw HTML omitted -->
+这是一个非线性回归模型参数<em>θ</em> = (<em>a</em>, <em>b</em>, <em>c</em>)<!-- raw HTML omitted --><em>T</em><!-- raw HTML omitted -->。使用二次损失函数(即非线性最小二乘法)，理查兹曲线可以使用遗传算法进行拟合:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"> <span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;trees&#34;</span>, package <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;spuRs&#34;</span>)  <span style="color:#75715e"># 1200行* 3列(100颗数，每棵树一共有12次观察值)，其中三列为ID，年龄(Age)，体积(Vol)</span>
+ 
+ tree <span style="color:#f92672">=</span> trees[trees<span style="color:#f92672">$</span>ID <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;1.3.11&#34;</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>]  <span style="color:#75715e">#提取某一颗树， 一共有12个观测值  两个变量(Age,Vol)</span>
+ richards <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x, theta) theta[1] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">exp</span>(<span style="color:#f92672">-</span>theta[2] <span style="color:#f92672">*</span> x))^theta[3] <span style="color:#75715e">#上面的f(x)</span>
+ fitnessL2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(theta, x, y) <span style="color:#f92672">-</span><span style="color:#a6e22e">sum</span>((y <span style="color:#f92672">-</span> <span style="color:#a6e22e">richards</span>(x, theta))^2)<span style="color:#75715e">#损失函数，用非线性最小二乘法</span>
+ <span style="color:#75715e">###等价  fitnessL1 = function(theta, x, y) -sum(abs(y - richards(x, theta)))</span>
+ <span style="color:#75715e">###损失函数中绝对值与平方的关系</span>
+ GA2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;real-valued&#34;</span>, fitness <span style="color:#f92672">=</span> fitnessL2,
+            x <span style="color:#f92672">=</span> tree<span style="color:#f92672">$</span>Age, y <span style="color:#f92672">=</span> tree<span style="color:#f92672">$</span>Vol, min <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">3000</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>), max <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4000</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>),
+            popSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>, crossover <span style="color:#f92672">=</span> gareal_blxCrossover, maxiter <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>,
+            run <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>, names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>))
+ <span style="color:#a6e22e">summary</span>(GA2)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  real-valued </span>
+<span style="color:#75715e">#&gt; Population size       =  500 </span>
+<span style="color:#75715e">#&gt; Number of generations =  5000 </span>
+<span style="color:#75715e">#&gt; Elitism               =  25 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.1 </span>
+<span style="color:#75715e">#&gt; Search domain = </span>
+<span style="color:#75715e">#&gt;          a b c</span>
+<span style="color:#75715e">#&gt; lower 3000 0 2</span>
+<span style="color:#75715e">#&gt; upper 4000 1 4</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 2902 </span>
+<span style="color:#75715e">#&gt; Fitness function value = -2773.843 </span>
+<span style="color:#75715e">#&gt; Solution = </span>
+<span style="color:#75715e">#&gt;            a          b        c</span>
+<span style="color:#75715e">#&gt; [1,] 3592.21 0.01544159 2.783316</span>
+ GA2<span style="color:#f92672">@</span>solution
+<span style="color:#75715e">#&gt;            a          b        c</span>
+<span style="color:#75715e">#&gt; [1,] 3592.21 0.01544159 2.783316</span>
+</code></pre></div><p>注意，给定了x和y中的观测数据后，我们要求在参数<em>θ</em>
+下，适应度函数fitnessL2最大化，后者在调用函数ga时提供了进一步的参数，并且在搜索过程中保持不变。</p>
+<h3 id="35子集的选择">3.5子集的选择</h3>
+<p>给定一组预测因子，子集选择的目的是确定最相关的预测因子，以解释响应变量的变化。我们可以利用遗传算法来赛选出更好的相关因子，从而产生更好的估计和更清晰的回归系数解释。使用二进制字符串可以自然地处理赛选子集问题，其中1表示选择该变量，0表示不选择该变量。</p>
+<p>候选子集的适合度可以通过几种模型选择标准之一来衡量，比如AIC、BIC等</p>
+<p>我们首先从UsingR包中加载数据集，然后通过OLS拟合线性回归模型:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"> <span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;fat&#34;</span>, package <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UsingR&#34;</span>)<span style="color:#75715e">#252*19</span>
+ mod <span style="color:#f92672">=</span> <span style="color:#a6e22e">lm</span>(body.fat.siri <span style="color:#f92672">~</span> age <span style="color:#f92672">+</span> weight <span style="color:#f92672">+</span> height <span style="color:#f92672">+</span> neck <span style="color:#f92672">+</span> chest <span style="color:#f92672">+</span> abdomen <span style="color:#f92672">+</span>
+                hip <span style="color:#f92672">+</span> thigh <span style="color:#f92672">+</span> knee <span style="color:#f92672">+</span> ankle <span style="color:#f92672">+</span> bicep <span style="color:#f92672">+</span> forearm <span style="color:#f92672">+</span> wrist, data <span style="color:#f92672">=</span> fat)
+    <span style="color:#75715e">#通过观察，因变量（body.fat.siri） 与上述 13个自变量有关系</span>
+ <span style="color:#a6e22e">summary</span>(mod)
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Call:</span>
+<span style="color:#75715e">#&gt; lm(formula = body.fat.siri ~ age + weight + height + neck + chest + </span>
+<span style="color:#75715e">#&gt;     abdomen + hip + thigh + knee + ankle + bicep + forearm + </span>
+<span style="color:#75715e">#&gt;     wrist, data = fat)</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Residuals:</span>
+<span style="color:#75715e">#&gt;      Min       1Q   Median       3Q      Max </span>
+<span style="color:#75715e">#&gt; -11.1687  -2.8639  -0.1014   3.2085  10.0068 </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Coefficients:</span>
+<span style="color:#75715e">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span style="color:#75715e">#&gt; (Intercept) -18.18849   17.34857  -1.048  0.29551    </span>
+<span style="color:#75715e">#&gt; age           0.06208    0.03235   1.919  0.05618 .  </span>
+<span style="color:#75715e">#&gt; weight       -0.08844    0.05353  -1.652  0.09978 .  </span>
+<span style="color:#75715e">#&gt; height       -0.06959    0.09601  -0.725  0.46925    </span>
+<span style="color:#75715e">#&gt; neck         -0.47060    0.23247  -2.024  0.04405 *  </span>
+<span style="color:#75715e">#&gt; chest        -0.02386    0.09915  -0.241  0.81000    </span>
+<span style="color:#75715e">#&gt; abdomen       0.95477    0.08645  11.044  &lt; 2e-16 ***</span>
+<span style="color:#75715e">#&gt; hip          -0.20754    0.14591  -1.422  0.15622    </span>
+<span style="color:#75715e">#&gt; thigh         0.23610    0.14436   1.636  0.10326    </span>
+<span style="color:#75715e">#&gt; knee          0.01528    0.24198   0.063  0.94970    </span>
+<span style="color:#75715e">#&gt; ankle         0.17400    0.22147   0.786  0.43285    </span>
+<span style="color:#75715e">#&gt; bicep         0.18160    0.17113   1.061  0.28966    </span>
+<span style="color:#75715e">#&gt; forearm       0.45202    0.19913   2.270  0.02410 *  </span>
+<span style="color:#75715e">#&gt; wrist        -1.62064    0.53495  -3.030  0.00272 ** </span>
+<span style="color:#75715e">#&gt; ---</span>
+<span style="color:#75715e">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Residual standard error: 4.305 on 238 degrees of freedom</span>
+<span style="color:#75715e">#&gt; Multiple R-squared:  0.749,  Adjusted R-squared:  0.7353 </span>
+<span style="color:#75715e">#&gt; F-statistic: 54.65 on 13 and 238 DF,  p-value: &lt; 2.2e-16</span>
+</code></pre></div><p>设计矩阵(没有截距)和响应变量从拟合模型对象中提取:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"> x <span style="color:#f92672">=</span> <span style="color:#a6e22e">model.matrix</span>(mod)[, <span style="color:#ae81ff">-1</span>] <span style="color:#75715e"># 252*13  选取13 个自变量的列，构建自变量</span>
+ y <span style="color:#f92672">=</span> <span style="color:#a6e22e">model.response</span>(<span style="color:#a6e22e">model.frame</span>(mod)) <span style="color:#75715e"># 提取因变量的列，</span>
+</code></pre></div><p>那么，最大化的适应度函数可以定义为:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">   fitness <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(string) {
+     inc <span style="color:#f92672">=</span> <span style="color:#a6e22e">which</span>(string <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+     X <span style="color:#f92672">=</span> <span style="color:#a6e22e">cbind</span>(<span style="color:#ae81ff">1</span>, x[,inc])
+     mod <span style="color:#f92672">=</span> <span style="color:#a6e22e">lm.fit</span>(X, y)
+     <span style="color:#a6e22e">class</span>(mod) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>
+    <span style="color:#f92672">-</span><span style="color:#a6e22e">AIC</span>(mod)
+  }
+</code></pre></div><p>这仅仅是利用字符串对应位置上的1所标识的预测因子来估计回归模型，并返回所选标准的负值。注意，截取项总是包含在内，并且我们使用基本的lm。拟合函数加速计算。下面的R代码运行GA:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"> GA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(<span style="color:#e6db74">&#34;binary&#34;</span>, fitness <span style="color:#f92672">=</span> fitness, nBits <span style="color:#f92672">=</span> <span style="color:#a6e22e">ncol</span>(x),names <span style="color:#f92672">=</span> <span style="color:#a6e22e">colnames</span>(x))<span style="color:#75715e"># monitor = plot</span>
+ <span style="color:#a6e22e">plot</span>(GA)
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-18-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"> <span style="color:#a6e22e">summary</span>(GA)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  binary </span>
+<span style="color:#75715e">#&gt; Population size       =  50 </span>
+<span style="color:#75715e">#&gt; Number of generations =  100 </span>
+<span style="color:#75715e">#&gt; Elitism               =  2 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.1 </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 100 </span>
+<span style="color:#75715e">#&gt; Fitness function value = -1458.996 </span>
+<span style="color:#75715e">#&gt; Solution = </span>
+<span style="color:#75715e">#&gt;      age weight height neck chest abdomen hip thigh knee ankle bicep forearm</span>
+<span style="color:#75715e">#&gt; [1,]   1      1      0    1     0       1   1     1    0     0     0       1</span>
+<span style="color:#75715e">#&gt;      wrist</span>
+<span style="color:#75715e">#&gt; [1,]     1</span>
+</code></pre></div><p>利用GA找到的最优子集得到的线性回归模型如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">  mod2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">lm</span>(body.fat.siri <span style="color:#f92672">~</span> .,
+               data <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(body.fat.siri <span style="color:#f92672">=</span> y, x[,GA<span style="color:#f92672">@</span>solution <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>]))
+  <span style="color:#a6e22e">summary</span>(mod2)
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Call:</span>
+<span style="color:#75715e">#&gt; lm(formula = body.fat.siri ~ ., data = data.frame(body.fat.siri = y, </span>
+<span style="color:#75715e">#&gt;     x[, GA@solution == 1]))</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Residuals:</span>
+<span style="color:#75715e">#&gt;      Min       1Q   Median       3Q      Max </span>
+<span style="color:#75715e">#&gt; -10.9757  -2.9937  -0.1644   2.9766  10.2244 </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Coefficients:</span>
+<span style="color:#75715e">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span style="color:#75715e">#&gt; (Intercept) -22.65637   11.71385  -1.934  0.05426 .  </span>
+<span style="color:#75715e">#&gt; age           0.06578    0.03078   2.137  0.03356 *  </span>
+<span style="color:#75715e">#&gt; weight       -0.08985    0.03991  -2.252  0.02524 *  </span>
+<span style="color:#75715e">#&gt; neck         -0.46656    0.22462  -2.077  0.03884 *  </span>
+<span style="color:#75715e">#&gt; abdomen       0.94482    0.07193  13.134  &lt; 2e-16 ***</span>
+<span style="color:#75715e">#&gt; hip          -0.19543    0.13847  -1.411  0.15940    </span>
+<span style="color:#75715e">#&gt; thigh         0.30239    0.12904   2.343  0.01992 *  </span>
+<span style="color:#75715e">#&gt; forearm       0.51572    0.18631   2.768  0.00607 ** </span>
+<span style="color:#75715e">#&gt; wrist        -1.53665    0.50939  -3.017  0.00283 ** </span>
+<span style="color:#75715e">#&gt; ---</span>
+<span style="color:#75715e">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Residual standard error: 4.282 on 243 degrees of freedom</span>
+<span style="color:#75715e">#&gt; Multiple R-squared:  0.7466, Adjusted R-squared:  0.7382 </span>
+<span style="color:#75715e">#&gt; F-statistic: 89.47 on 8 and 243 DF,  p-value: &lt; 2.2e-16</span>
+</code></pre></div><p>上述两种解决方案相比，</p>
+<h3 id="36约束优化">3.6、约束优化</h3>
+<p>背包问题:假定背包的最大容量为W，N件物品，每件物品都有自己的价值和重量，将物品放入背包中使得背包内物品的总价值最大。</p>
+<p>如果第i项选择为背包，则xi = 1，不选则xi =
+0。考虑以下数据，利润(p)，权重(w)和容量(V):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"> p <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">3</span>)
+ w <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">4</span>)
+ V <span style="color:#f92672">=</span> <span style="color:#ae81ff">14</span>
+<span style="color:#75715e">#利用二进制遗传算法可以解决背包问题，但由于不等式约束，并不是所有可行解都可行。我们可以通过惩罚不可行的解决办法来考虑约束。因此，适应度函数可以定义如下:</span>
+ knapsack <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x) {
+   f <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(x <span style="color:#f92672">*</span> p)
+   penalty <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(w) <span style="color:#f92672">*</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">sum</span>(x <span style="color:#f92672">*</span> w)<span style="color:#f92672">-</span>V)
+   f <span style="color:#f92672">-</span> penalty
+   }
+<span style="color:#75715e">#当目标函数f被惩罚时，一个量取决于提出的解决方案的容量与背包容量之间的距离。然后:</span>
+ GA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;binary&#34;</span>, fitness <span style="color:#f92672">=</span> knapsack, nBits <span style="color:#f92672">=</span> <span style="color:#a6e22e">length</span>(w),
+             maxiter <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>, run <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>, popSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>)
+ <span style="color:#a6e22e">summary</span>(GA)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  binary </span>
+<span style="color:#75715e">#&gt; Population size       =  20 </span>
+<span style="color:#75715e">#&gt; Number of generations =  1000 </span>
+<span style="color:#75715e">#&gt; Elitism               =  1 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.1 </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 200 </span>
+<span style="color:#75715e">#&gt; Fitness function value = 21 </span>
+<span style="color:#75715e">#&gt; Solution = </span>
+<span style="color:#75715e">#&gt;      x1 x2 x3 x4 x5 x6 x7</span>
+<span style="color:#75715e">#&gt; [1,]  1  0  0  1  1  0  0</span>
+ <span style="color:#a6e22e">sum</span>(p <span style="color:#f92672">*</span> GA<span style="color:#f92672">@</span>solution)
+<span style="color:#75715e">#&gt; [1] 21</span>
+ <span style="color:#a6e22e">sum</span>(w <span style="color:#f92672">*</span> GA<span style="color:#f92672">@</span>solution)
+<span style="color:#75715e">#&gt; [1] 14</span>
+</code></pre></div><h3 id="37-解决tsp问题">3.7. 解决TSP问题</h3>
+<p>有若干个城市(n个)，任何两个城市之间的距离都是确定的，现要求一旅行商从某城市出发必须经过每一个城市且只在一个城市逗留一次，最后回到出发的城市，问如何事先确定一条最短的线路。可行的解决方案的设置是由可能的途径的总数,等于(n−1)!/2.</p>
+<p>考虑一个简单的例子，现在共有A、B、C、D四个城市。</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-21-1.png" alt=""></p>
+<blockquote>
+<p>为了将图中关系数据化，可用如下规则来描述：<br>
+城市映射为编号：A——1，B——2，C——3，D——4；<br>
+城市之间的距离用二维数组来表示，记为D[i][j]，如：D[1][2]表示城市A与城市B之间的距离，于是D[1][2]=7，同时也表示我现在处于A–1城市，将要去B–2城市；<br>
+用一维数组S[i]来存储访问过的路径。比如随机访问路径1–3–2–4–1，求其总和为<em>D</em><!-- raw HTML omitted -->13<!-- raw HTML omitted --> + <em>D</em><!-- raw HTML omitted -->32<!-- raw HTML omitted --> + <em>D</em><!-- raw HTML omitted -->24<!-- raw HTML omitted --> + <em>D</em><!-- raw HTML omitted -->41<!-- raw HTML omitted -->
+观察下标，发现和路径成偏移一位的状态，</p>
+</blockquote>
+<p>可用遗传算法解决此类问题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">#city数据结构 一共有31个城市，计算出每两个城市之间的距离，用距离矩阵表示</span>
+D<span style="color:#f92672">=</span><span style="color:#a6e22e">as.matrix</span>(<span style="color:#a6e22e">dist</span>(city)) <span style="color:#75715e"># 距离矩阵</span>
+<span style="color:#75715e">#定义总的路线长度</span>
+tourLength <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(tour, distMatrix) {
+   tour <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(tour, tour[1]) <span style="color:#75715e">#设置为回路，代表所走的路径</span>
+   route <span style="color:#f92672">=</span> <span style="color:#a6e22e">embed</span>(tour, <span style="color:#ae81ff">2</span>)[,<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>]<span style="color:#75715e">#根据回路,产生对应的距离矩阵的下标,每一行代表一个坐标，第一行处于i坐标</span>
+   <span style="color:#a6e22e">sum</span>(distMatrix[route])
+}
+tspFitness <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(tour, <span style="color:#66d9ef">...</span>) <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#a6e22e">tourLength</span>(tour, <span style="color:#66d9ef">...</span>)
+
+GA3 <span style="color:#f92672">=</span> <span style="color:#a6e22e">ga</span>(type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;permutation&#34;</span>, fitness <span style="color:#f92672">=</span> tspFitness, distMatrix <span style="color:#f92672">=</span> D,
+          min <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, max <span style="color:#f92672">=</span> <span style="color:#a6e22e">dim</span>(D)[1], popSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>, maxiter <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>,
+          run <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>, pmutation <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>)
+
+<span style="color:#a6e22e">summary</span>(GA3)
+<span style="color:#75715e">#&gt; ─ Genetic Algorithm ────────── </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA settings: </span>
+<span style="color:#75715e">#&gt; Type                  =  permutation </span>
+<span style="color:#75715e">#&gt; Population size       =  50 </span>
+<span style="color:#75715e">#&gt; Number of generations =  5000 </span>
+<span style="color:#75715e">#&gt; Elitism               =  2 </span>
+<span style="color:#75715e">#&gt; Crossover probability =  0.8 </span>
+<span style="color:#75715e">#&gt; Mutation probability  =  0.2 </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; GA results: </span>
+<span style="color:#75715e">#&gt; Iterations             = 3424 </span>
+<span style="color:#75715e">#&gt; Fitness function value = 5.952314e-05 </span>
+<span style="color:#75715e">#&gt; Solutions = </span>
+<span style="color:#75715e">#&gt;      x1 x2 x3 x4 x5 x6 x7 x8 x9 x10  ...  x30 x31</span>
+<span style="color:#75715e">#&gt; [1,] 14 15  1 29 11  6 23 16 24  25        13  12</span>
+<span style="color:#75715e">#&gt; [2,]  7 13 12 14 15  1 29 11  6  23         4   5</span>
+
+<span style="color:#75715e">#找到的解决方案对应于一条独特的路径，其行程长度等于:</span>
+<span style="color:#a6e22e">apply</span>(GA3<span style="color:#f92672">@</span>solution, <span style="color:#ae81ff">1</span>, tourLength, D)
+<span style="color:#75715e">#&gt; [1] 16800.19 16800.19</span>
+</code></pre></div><p>图形对比</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(ggplot2)
+<span style="color:#a6e22e">library</span>(tibble)
+city<span style="color:#f92672">=</span><span style="color:#a6e22e">rownames_to_column</span>(city, var <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rowname&#34;</span>)
+<span style="color:#75715e">#原始图像</span>
+<span style="color:#75715e"># p=ggplot(data=city,aes(x=X1,y=X2))+geom_point(shape=19,size=4,col=&#34;red&#34;)+theme_bw()+</span>
+<span style="color:#75715e">#   geom_text(aes(label=rowname),size=4,vjust=1.5)+geom_path(linetype=2)+ggtitle(&#34;初始顺序&#34;)</span>
+<span style="color:#a6e22e">library</span>(dplyr)
+city_solution<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>(solution<span style="color:#f92672">=</span><span style="color:#a6e22e">as.factor</span>(GA3<span style="color:#f92672">@</span>solution[1,]))
+re_city<span style="color:#f92672">=</span><span style="color:#a6e22e">inner_join</span>(city_solution,city,by<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;solution&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rowname&#34;</span>))
+<span style="color:#75715e">#re_city #最优解城市顺序</span>
+<span style="color:#75715e">##最优解城市图像</span>
+j<span style="color:#f92672">=</span><span style="color:#a6e22e">ggplot</span>(data<span style="color:#f92672">=</span>re_city,<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>X1,y<span style="color:#f92672">=</span>X2))<span style="color:#f92672">+</span><span style="color:#a6e22e">geom_point</span>(shape<span style="color:#f92672">=</span><span style="color:#ae81ff">19</span>,size<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">theme_bw</span>()<span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_text</span>(<span style="color:#a6e22e">aes</span>(label<span style="color:#f92672">=</span>solution),size<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,vjust<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">geom_path</span>(linetype<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;最优解&#34;</span>)<span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_point</span>(x<span style="color:#f92672">=</span>re_city[1,<span style="color:#ae81ff">2</span>],y<span style="color:#f92672">=</span>re_city[1,<span style="color:#ae81ff">3</span>],shape<span style="color:#f92672">=</span><span style="color:#ae81ff">17</span>,size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>)<span style="color:#f92672">+</span>
+   <span style="color:#a6e22e">theme</span>(plot.title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>)) <span style="color:#f92672">+</span> <span style="color:#a6e22e">theme</span>(text<span style="color:#f92672">=</span><span style="color:#a6e22e">element_text</span>(family<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Songti SC&#34;</span>))
+
+j 
+</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-26-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">sessionInfo</span>()
+<span style="color:#75715e">#&gt; R version 4.0.2 (2020-06-22)</span>
+<span style="color:#75715e">#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)</span>
+<span style="color:#75715e">#&gt; Running under: macOS Mojave 10.14.5</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Matrix products: default</span>
+<span style="color:#75715e">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib</span>
+<span style="color:#75715e">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; locale:</span>
+<span style="color:#75715e">#&gt; [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; attached base packages:</span>
+<span style="color:#75715e">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; other attached packages:</span>
+<span style="color:#75715e">#&gt; [1] dplyr_1.0.1      tibble_3.0.3     ggplot2_3.3.2    igraph_1.2.5    </span>
+<span style="color:#75715e">#&gt; [5] GA_3.2           iterators_1.0.12 foreach_1.5.0   </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; loaded via a namespace (and not attached):</span>
+<span style="color:#75715e">#&gt;  [1] Rcpp_1.0.5       compiler_4.0.2   pillar_1.4.6     formatR_1.7     </span>
+<span style="color:#75715e">#&gt;  [5] tools_4.0.2      digest_0.6.25    evaluate_0.14    lifecycle_0.2.0 </span>
+<span style="color:#75715e">#&gt;  [9] gtable_0.3.0     pkgconfig_2.0.3  rlang_0.4.7      cli_2.0.2       </span>
+<span style="color:#75715e">#&gt; [13] yaml_2.2.1       xfun_0.17        withr_2.2.0      stringr_1.4.0   </span>
+<span style="color:#75715e">#&gt; [17] knitr_1.29       generics_0.0.2   vctrs_0.3.2      tidyselect_1.1.0</span>
+<span style="color:#75715e">#&gt; [21] grid_4.0.2       glue_1.4.1       R6_2.4.1         gifski_0.8.6    </span>
+<span style="color:#75715e">#&gt; [25] fansi_0.4.1      rmarkdown_2.3    farver_2.0.3     purrr_0.3.4     </span>
+<span style="color:#75715e">#&gt; [29] magrittr_1.5     scales_1.1.1     codetools_0.2-16 htmltools_0.5.0 </span>
+<span style="color:#75715e">#&gt; [33] ellipsis_0.3.1   assertthat_0.2.1 colorspace_1.4-1 labeling_0.3    </span>
+<span style="color:#75715e">#&gt; [37] stringi_1.4.6    munsell_0.5.0    crayon_1.3.4</span>
+</code></pre></div>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2015-11-09-ga/" class="leancloud_visitors" data-flag-title="GA包---遗传算法">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2015-11-16-rweka/"> 下一篇: Rweka包解读</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2015-11-09-GA.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

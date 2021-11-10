@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    {{ with .Site.LanguageCode }}
+    <meta http-equiv="content-language" content="{{ . }}" />
+    {{ end }}
+
+    {{ if .IsHome }}
+    <!-- 是否是主页,主页加载 -->
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no">
+    {{ else }}
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    {{ end }}
+
+    <!-- load bootstrap css -->
+    <title>{{.Title}}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"> -->
+    <!--  参考: https://v3.bootcss.com/getting-started/ -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="{{.Site.BaseURL}}css/stylesheet.css">
+    <link rel="stylesheet" href="{{.Site.BaseURL}}css/home.css">
+
+    <!-- 多点背景色，不要老白老白的 -->
+    {{ with .Site.Params.backgroundColor }}
+        <style type="text/css">
+        body { background-color: {{ . }};}
+        </style>
+    {{end}}
+    <!-- 根据页面不同,引入不同的css样式 -->
+        {{ partial "header_costum" . }}
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <!--  会样式不对  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script> -->     
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     <!-- 增加codecopy tooltip css 可惜要引起其他css结构发生变化-->
+<!--      <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />
+ -->     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        // ignore resize events as long as an actualResizeHandler execution is in the queue
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            // The actualResizeHandler will execute at a rate of 15fps
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    <!-- 只有在首页才给出，导航条  {{ if .IsHome }} {{ partial "header_nav" . }}{{ end }} -->
+      
+      <!-- 每个页面都显示导航条 -->
+        {{ partial "header_nav" . }}
+
+<!--     {{ if .IsHome }}
+    <section id="page-title">
+          <h1><a href="">{{ .Site.Title | default "Basics"}}</a></h1>
+          <span id="author-name">
+            <h6><a href="about/">{{ .Site.Params.Author }}</a></h6>
+          </span>
+        </section>
+    {{ end }} -->

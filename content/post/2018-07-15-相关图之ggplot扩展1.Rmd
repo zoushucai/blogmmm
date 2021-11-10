@@ -1,0 +1,74 @@
+---
+title: 相关图之ggplot系列扩展1
+author: zsc
+date: "2018-07-15"
+tags:
+  - R
+keywords:
+  - R
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+由于corrplot包画图存在一些问题，比如图像不美观，以及title显示不出，等等
+
+于是有了ggplot2 的扩展系列
+
+ggcorrplot包 专门画相关系数矩阵图： https://github.com/kassambara/ggcorrplot
+
+GGally 包： 对ggplot2进行了更多的扩展，其中包括相关系数图： http://ggobi.github.io/ggally/index.html#alterations
+
+
+
+## ggcorrplot包
+
+```{r}
+library(ggcorrplot)
+library(purrr)
+data(mtcars)
+corr <- cor(mtcars) # 相关系数矩阵
+corr %>% head()
+
+# Compute a matrix of correlation p-values
+p.mat <- cor_pmat(mtcars) # 计算矩阵之间的相关性p—值
+p.mat %>% head()
+
+## 相关矩阵可视化
+ggcorrplot(corr)# #method默认为square
+ggcorrplot(corr, method = "circle")
+
+## 重新排序相关矩阵
+#### 使用分层聚类
+ggcorrplot(corr, hc.order = TRUE, outline.col = "white")
+
+## 相关图布局的类型
+ggcorrplot(corr, hc.order = TRUE, type = "lower",outline.col = "white")#下三角矩阵图
+ggcorrplot(corr, hc.order = TRUE, type = "upper",outline.col = "white")#上三角矩阵图
+
+## 更改颜色以及主题
+####  colors参数
+ggcorrplot(corr, hc.order = TRUE, type = "lower",
+   outline.col = "white",
+   ggtheme = ggplot2::theme_gray,
+   colors = c("#6D9EC1", "white", "#E46726"))
+
+## 添加相关系数
+#### 设置参数lab = TRUE
+ggcorrplot(corr, hc.order = TRUE, type = "lower",lab = TRUE)#添加相关系数, 设置参数lab = TRUE
+
+## 增加显著性水平，不显著的话就不添加了
+#### 设置参数p.mat
+ggcorrplot(corr, hc.order = TRUE,type = "lower", p.mat = p.mat) # 增加显著性水平,设置参数p.mat
+ggcorrplot(corr, p.mat = p.mat, hc.order=TRUE, type = "lower", insig = "blank")# 将不显著的色块设置成空白
+
+## 可以添加标题，像ggplot2那样添加标题， 这样好看一些
+ggcorrplot(corr)+ggtitle("mtcars的相关矩阵图")+ theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+
+```{r}
+sessionInfo()
+```
+

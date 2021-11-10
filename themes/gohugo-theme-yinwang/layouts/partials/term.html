@@ -1,0 +1,16 @@
+<div class="site-header-content" style="margin:0% 5% 0% 5%;height:auto" >
+    <br>
+    {{ $data := .Data }}
+    <div class="list-term" style="height:auto">
+        <ul class="list-group">
+      		{{ range $key, $value := .Data.Terms.Alphabetical }}
+             	<li class="list-group-item title" style="display: inline-block;width: 31%;text-align: center;margin-bottom: 0.05%;margin-right: 0%">
+          		    <a href="{{ $.Site.BaseURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}" style="overflow:scroll;white-space:nowrap;"> 
+                  {{ $value.Name }} &#x2F; ({{ $value.Count }}) </a>
+              </li>
+          {{ end }}
+       </ul>
+   </div>
+</div>
+
+<!-- style="overflow:auto;" -->

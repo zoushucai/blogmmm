@@ -1,0 +1,169 @@
+---
+title: 独热编码--哑变量
+author: zsc
+date: "2018-08-31"
+tags:
+  - R
+keywords:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+## 独热编码--哑变量
+
+独热编码： n种状态 转变为n列
+
+哑变量： n种状态转变为n-1列（目的：为了防止共线性的问题）
+
+```{r}
+testFrame <- data.frame(First=sample(1:10, 20, replace=TRUE),
+                        Second=sample(1:20, 20, replace=TRUE),
+                        Third=sample(1:10, 20, replace=TRUE),
+                        Fourth=factor(rep(c("=A", "=B", "=C", "=D"),5)),
+                        Fifth=ordered(rep(c("=E", "=F", "=G","=H", "=I"), 4)),
+                        Sixth=rep(c("=a", "=b"), 10),
+                        Seventh=factor(c(rep(c("=J","=K","=L"),6),"=J","=K")) , 
+                        stringsAsFactors=F)
+
+head(testFrame)
+str(testFrame)
+
+```
+
+### 独热编码1  
+
+```{r}
+###########################################################################
+#### 以下涉及公式的地方，
+#### 公式右边,-1代表不要截距项同时生成独热编码（只在一个因子变量的情况下）
+#### 公式左边为要排除的变量
+###########################################################################
+
+
+###### 独热编码1  
+library(data.table)
+library(magrittr)
+iris_dt = data.table(iris)
+library(mltools)## 此编码必须依赖data.table
+one_hot(iris_dt)%>% head()
+
+```
+
+
+
+### 独热编码2
+
+```{r}
+###### 独热编码2
+library(onehot) #先编码后预测输出独热编码
+encoder <- onehot(iris)
+x <- predict(encoder, iris)
+x %>% head()
+
+## 类似的还有 caret::dummyVars函数
+library(caret)
+dummy <- dummyVars(~ ., data = iris, fullRank = TRUE)
+predict(dummy,iris)  %>% head()
+
+dummy <- dummyVars(~.-1, data = iris, fullRank = TRUE)
+predict(dummy,iris)  %>% head()
+
+```
+
+### 独热编码3
+
+```{r}
+###### 独热编码3
+model.matrix(~.-1,iris)  %>% head()
+#### 类似Matrix包，只不过这个包用的是系数矩阵，这个包对大数据的时候特别友好
+library(Matrix)
+sparse.model.matrix(~.-1, data = iris)%>% head()
+
+```
+
+### 独热编码4
+
+```{r}
+
+###### 独热编码4
+library(qdapTools)
+#只适用于factor向量，不能用数据框，必须是一列，生成的列名为因子水平
+mtabulate(iris$Species) %>% head()
+# 同理,下面这个也只能适用于只含有因子的向量（不能用于数据框），生成的列名为因子水平
+library(nnet)
+class.ind(iris$Species) %>% head()
+
+```
+
+### 独热编码5
+
+```{r}
+###### 独热编码5
+## 只能用于因子的数据框，不能包含向量or数字列
+library(ade4)
+acm.disjonctif(iris[,5,drop=F]) %>% head()
+
+```
+
+
+
+### 独热编码6 
+
+```{r}
+###### 独热编码 6  ************
+library(dummies)
+# 全部转换，指定列, 设置all=F  只显示被转换的因子变量
+alldata <- dummy.data.frame(iris, names=c("Species"), sep="_",all=T)
+alldata %>% head() 
+
+#把所有factor类型都转变为独热编码
+dummy.data.frame(iris, dummy.class="factor") %>% head()
+dummy.data.frame(testFrame, dummy.class="factor") %>% head() 
+
+```
+
+
+
+### 独热编码7
+
+```{r}
+###### 独热编码7
+library(useful)
+build.x(~.,iris)%>% head()
+build.x(~.-1,iris)%>% head()
+build.y(Species~.,data = iris) # 直接把公式左边的保留即可，不做任何修改
+```
+
+
+
+### 独热编码8
+
+```{r}
+###### 独热编码8
+head(model.matrix(First~ Second + Fourth + Fifth, testFrame)) 
+head(model.matrix(First~ .-1, testFrame))
+head(model.matrix(First~ ., testFrame))
+
+```
+
+### 独热编码 转变为原始变量 （即逆运算）
+
+```{r}
+##独热编码 转变为原始变量 （即逆运算）
+
+d = model.matrix(~Species-1 ,iris) 
+d =data.frame(d)
+ifelse(rowSums(d)>=1,names(d)[max.col(d)],NA)
+
+```
+
+```{r}
+sessionInfo()
+```
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>函数图像 on zsc</title>
+    <link>/tags/%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F/</link>
+    <description>Recent content in 函数图像 on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 15 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>画函数图像--R语言</title>
+      <link>/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</guid>
+      <description>据我了解, 计算机软件中画的函数图像大概有两种方法:
+ 方法一: 该图像有一系列密集点组成, 已达到欺骗人们的眼睛.感觉认为是连续的. 方法二: 为了解决方法一种的问题,把每两个点之间用直线连接已达到连续的状态  在本文中我们将利用R语言来画函数图像—- 重点以ggplot2来展示
+1. \(y = f(x)\) 的函数图像 比如:
+\[ \begin{aligned}y &amp;amp;= sin(x),\\ y &amp;amp;= cos(x), \\ y &amp;amp;= \dfrac{1}{1+e^{(-x)}},\\ y &amp;amp;= x^2 . \end{aligned} \]
+这是我们中学最常见的函数.
+方法一: curve()画函数图像 所用函数调用格式
+curve(expr, from = NULL, to = NULL, n = 101, add = FALSE,  type = &amp;quot;l&amp;quot;, xname = &amp;quot;x&amp;quot;, xlab = xname, ylab = NULL,  log = NULL, xlim = NULL, .</description>
+    </item>
+    
+  </channel>
+</rss>

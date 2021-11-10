@@ -1,0 +1,34 @@
+        <div>
+            <h2 align="center" id = "singe-h2">
+                {{ .Params.title }}
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        {{ .Params.author }} 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        {{ .Date.Format "2006-01-02" }} 
+                    </span>
+                </time>
+                <!-- 显示标签 -->
+                {{if eq .Params.labels false }}
+                {{else if or (.Site.Params.labels) (.Params.labels) }}
+                <div>
+                    <ul class="tags">
+                        {{ if .Params.tags }}
+                        <span>标签:</span>
+                        {{ range .Params.tags }}<li><a class="link" href="{{$.Site.BaseURL}}tags/{{lower . }}"> #{{lower . }} </a></li>{{ end }}
+                        {{ end }}
+                        <span> </span>
+                        {{ if .Params.categories }}
+                        <span>分类:</span>
+                        {{ range .Params.categories }}<li><a class="link" href="{{$.Site.BaseURL}}categories/{{lower . }}"> @{{lower . }} </a></li>{{ end }}
+                        {{ end }}
+                    </ul>
+                    {{ end }}
+                </div>
+            </h2>
+        </div>

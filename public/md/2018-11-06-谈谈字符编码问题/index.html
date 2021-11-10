@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>谈谈字符编码问题</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#常见的字符集">常见的字符集：</a>
+      <ul>
+        <li><a href="#ascii-以及eascii">ASCII 以及EASCII</a></li>
+        <li><a href="#gb2312-gbk-gb-18030">GB2312 、GBK 、GB 18030</a></li>
+        <li><a href="#ansi">ANSI</a></li>
+        <li><a href="#unicode-utf-8utf-16utf-32">Unicode 、utf-8、utf-16、utf-32</a></li>
+      </ul>
+    </li>
+    <li><a href="#乱码产生的原因">乱码产生的原因</a></li>
+    <li><a href="#常见的很多字符集有不同的名字">常见的很多字符集有不同的名字</a></li>
+    <li><a href="#常见的例子">常见的例子：</a>
+      <ul>
+        <li><a href="#1c-语言">1、c 语言</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考:</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                谈谈字符编码问题
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-11-06 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <p>最近在实验室编写文件，遇到一件奇怪的事情，在自己的笔记本上能正常编码，却在学校的电脑上编码总是乱码，于是经历种种磨难，算是弄明白了一点点，下面简单介绍一下字符编码的知识（由于编码种类繁多，我只简单的提一下，其余自己百度，文末有相关链接）</p>
+<h2 id="常见的字符集">常见的字符集：</h2>
+<p>​	百度百科定义： 字符(Character)是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。字符集(Character set)是多个字符的集合，字符集种类较多，每个字符集包含的字符个数不同，常见字符集名称：ASCII字符集、GB2312字符集、BIG5字符集、 GB18030字符集、Unicode字符集等。计算机要准确的处理各种字符集文字，需要进行<a href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/8446880">字符编码</a>，以便计算机能够识别和存储各种文字。中文文字数目大，而且还分为简体中文和<a href="https://baike.baidu.com/item/%E7%B9%81%E4%BD%93%E4%B8%AD%E6%96%87/2677789">繁体中文</a>两种不同书写规则的文字，而计算机最初是按英语单<a href="https://baike.baidu.com/item/%E5%AD%97%E8%8A%82/1096318">字节</a>字符设计的，因此，对中文字符进行编码，是中文信息交流的技术基础。</p>
+<p>​	下面介绍几个常见的字符集：<strong>ASCII字符集、GB2312、 GBK、utf-8、utf-16、utf-32</strong></p>
+<p>​	所谓字符集就是按一定的规则去解释或者翻译<code>0</code> <code>1</code> 代码的，有点像翻译表或者对照表。</p>
+<h3 id="ascii-以及eascii">ASCII 以及EASCII</h3>
+<p>​	首先，我们要明白计算机内部所有东西都是以<code>1</code>和<code>0</code>来表示的，刚开始我们用8位<code>0</code>  <code>1</code>代码进行表示，一共有2^8= 256种状态，由于当时计算机很昂贵并且很大，美国人只有用了127个字符就表示了英语中所有的字符，这就是<code>ASSIC</code>码，从此<code>ASSIC</code>码诞生了，</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/20181106zifuma01.jpg" alt=""></p>
+<p>并用后面的128~256号状态来表示西欧其他国家的字符，于是把0~256号状态的所有字符统称为<code>扩展的ASCCI字符</code>（即<code>EASCII</code>），即最高位为0 代表0~127号字符，最高位为1 是后面扩展的字符集,记住，此时计算机始终按照8位二进制进行编码.</p>
+<h3 id="gb2312-gbk-gb-18030">GB2312 、GBK 、GB 18030</h3>
+<p>​	等到了中国，发现这些0~256号状态都被别人使用了，而且中国的汉字太多，于是中国人准备用两个字节来表示一个汉字，并应该兼容最初的0~127号字符集，于是中国人这样设计，当最高位为0时，计算机就按ASSCI码(1位)进行编码，当发现最高位是1时，就按两个字节进行编码，eg: <code>1001000'10001011</code> 这两个字节都对应两个十进制数分别是72和11 ，于是就想设计一个二维矩阵建立与汉字的对应关系，按照这个二维矩阵的行和列一样进行查找对比，就可以确定一个汉字了，并且保留了0~127号码的对应规则（这就是我们经常发现为什么英文不乱码而中文乱码的原因）.</p>
+<p>​	这个二维矩阵对应的字符集，就成为GB2312字符集,这样和后面的EASCCI就冲突了，然而日本、韩国等世界上几乎每个国家都有自己的字符集，于是后面的第128~256号字符集经常发生冲突（即乱码，计算机不知道应该按照GB2312、EASSIC、日文的字符集、等进行编码，所有就会出现乱码 ）。</p>
+<p>​	这里补充说明一点，GB2312字符集表示的汉字也比较少，于是在GB2312的基础上扩展产生GBK编码以及GB 18030 等汉字字符集)</p>
+<h3 id="ansi">ANSI</h3>
+<p>​	严格说ANSI并不是一个字符集。前面我们讲到每个国家都有自己的编码规则，于是Windows公司设计了ANSI规则，ANSI根据电脑操作系统的设置，自动关联对应的编码，eg： 在美国就按ASCII码进行编码，并自动设置为默认编码,同理在中国，就按GBK进行编码，而在日本，就按日本对应的字符集进行编码&hellip;&hellip;</p>
+<p>​	所以ANSI简单来说是一个自动判别系统,但这样在不同字符进行切换时，就会出现乱码的问题。于是迫切希望有同一的编码规则，于是Unicode 编码孕育而生。</p>
+<h3 id="unicode-utf-8utf-16utf-32">Unicode 、utf-8、utf-16、utf-32</h3>
+<p>​	由于世界上存在多种编码，当不同国家的人在进行发送文件时，会出现乱码（因为解读的规则不一样，同一段<code>0 </code> <code>1</code> 代码，中国按照GBK去解读，而西欧安装EASSCI字符集去解读，这样必然计算机弄不清楚，必会出现乱码）,于是有一个社区就说要不我们把世界上的所有文字都进行统一编码吧！这样就不会产生乱码了，于是产生了Unicode编码，当然Unicode是一个很大的集合，大概用了4个字节（即32位 <code>0</code> <code>1</code>代码去表示）,这样美国人或者西欧人不干了，因为原本我存储一个英文单词<code>words</code>只需要5个字节，现在用Unicode就变成了20个字节，这样硬盘的空间严重浪费，于是产生出来utf-8、utf-16、utf-32字符集，这里重点解释一下utf-8字符集，这个是可变长编码，计算机可以根据前面的一个1个字节的编码规则进行自动判断，该是用一个字节去解读还是用2个、3个字节去解读(这里这个规则有点复杂，反正计算机能从第一个字节中解读出来，到底应该用几个字节取解读)。</p>
+<ul>
+<li><code>utf-8</code> :  使用1~4个字节存储一个Unicode字符。</li>
+<li><code>utf-16 </code>: 使用2或4个字节存储</li>
+<li><code>utf-32</code> :  使用4个字节存储</li>
+</ul>
+<h2 id="乱码产生的原因">乱码产生的原因</h2>
+<p>​	假设在一个文本编辑器中写入<code>hollo  world  你好世界 </code>，编码方式为<code>utf-8</code>，</p>
+<p>​	当按下ctrl + s时，文本编辑器将会按照<code>unicode</code>字符集中查找每个字符对应的码，再按照<code>utf-8</code>的方式，将<code>hollo  world</code>存为单字节，而将<code>你好世界</code>存成2~4个字节，此过程称为 <strong><code>编码</code></strong>。</p>
+<p>​	关掉文件，以<code>utf-8</code>方式打开文件，此时编辑器读取所有字节，按照之前存入的逆向逻辑，将字节分成一段一段，每一段即表示一个字符，查<code>unicode</code>表，依次解读为<code>hollo  world  你好世界</code>，此逆向过程称为 <strong><code>解码</code></strong>。</p>
+<p>​	但假如上面的文件以<code>gbk</code>方式去解码会发生什么？<code>gbk</code>会按照它的逻辑，将每两个字节都当成一个字符，继而去<code>gbk</code>字符集里边去查对应的字符，结果可想而知，都是一些你不想看到奇奇怪怪的字符，不是你想要的字符,此即为**<code>乱码</code>**。</p>
+<p>​	还有当在编程的时候，控制台显示器，能否支持该字符集，比如win下的cmd 默认支持GBk ，当你用UTF-8的字符去展示时，也会乱码，同样的道理，这是因为显示器的解读规则出了错误</p>
+<h2 id="常见的很多字符集有不同的名字">常见的很多字符集有不同的名字</h2>
+<p>由于不同字符集 之间差异很小，或者是别名，于是都统称为一类字符,后面遇到在补充.</p>
+<ul>
+<li>ANSI = Windows 1252 = CP 1252 = Windows code page 1252 = Windows Latin-1</li>
+</ul>
+<h2 id="常见的例子">常见的例子：</h2>
+<h3 id="1c-语言">1、c 语言</h3>
+<p>c语言有时在编译的时候经常为出现乱码 ，这是怎么解决？</p>
+<ul>
+<li>
+<p>首先，我们应该知道这个文件的编码方式 &mdash;-  可以用Notepad++ 去查看文件的编码，或者用记事本进行查看.</p>
+</li>
+<li>
+<p>其次,我们应该以对应编码的方式去解码（在c语言中进行编译.）这样就不会产生乱码了.</p>
+</li>
+</ul>
+<p>eg: 这里我准备在R中进行调用shell 命名去调用cmd命令来编译C语言.</p>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">
+
+
+
+#查看 当前cmd窗口的显示编码 一般为 936 代码GBK，
+shell(&quot;chcp&quot;,intern = TRUE) # 参数intern = TRUE 把输出对象变成R对象（即输出在R中显示，并可以赋值给变量）
+
+
+#########  如果文件是按照 UTF-8 编码的
+shell(&quot;g++ -fexec-charset=GBK -finput-charset=UTF-8 testutf8.cpp -o abc.exe&quot;)
+shell(&quot;abc.exe&quot;,intern = TRUE)
+
+########### 如果文件是按照GBK编码的
+shell(&quot;g++  testgbk.cpp -o abc1.exe &amp;&amp; abc1.exe&quot;,intern = TRUE)
+
+shell(&quot;rm abc1.exe&quot;)
+shell(&quot;rm abc.exe&quot;)
+
+
+
+########## 如果你不清楚你的文件编码，R语言也可以进行相关的判断（不是很准确）
+# Ruchardet包 和 wand包
+
+</code></pre><h2 id="参考">参考:</h2>
+<p><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a></p>
+<p><a href="https://github.com/LeoYuan/leoyuan.github.io/issues/25">https://github.com/LeoYuan/leoyuan.github.io/issues/25</a></p>
+<p><a href="https://www.crifan.com/files/doc/docbook/char_encoding/release/webhelp/why_ansi_called_native.html">https://www.crifan.com/files/doc/docbook/char_encoding/release/webhelp/why_ansi_called_native.html</a></p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-11-06-%E8%B0%88%E8%B0%88%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="leancloud_visitors" data-flag-title="谈谈字符编码问题">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-08-10-scrapy/"> 上一篇: Scrapy框架&#43;selenium爬取京东相机</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"> 下一篇: GitHubDesktop权限问题解决办法</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-11-06-谈谈字符编码问题.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

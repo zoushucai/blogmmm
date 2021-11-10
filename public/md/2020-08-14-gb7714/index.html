@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>latex 参考文献格式: GB/7714</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-bst-文件">1. bst 文件</a>
+      <ul>
+        <li><a href="#11-使用方法">1.1. 使用方法</a></li>
+        <li><a href="#12--修改默认样式">1.2.  修改默认样式</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-biblatex-格式">2. biblatex 格式</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                latex 参考文献格式: GB/7714
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2020-08-14 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/latex"> #latex </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <p><strong>注意所有一下运行环境均在MacTex 2018 下运行的, 如果是MacTex 2020 且更新到最新的话,以下方法会报错&hellip;原因是之后的版本修改了一些参数.(有空在出Mactex 2020的)</strong></p>
+<h2 id="1-bst-文件">1. bst 文件</h2>
+<p><code>bst</code>样式文件来源:</p>
+<p><a href="https://github.com/CTeX-org/gbt7714-bibtex-style">https://github.com/CTeX-org/gbt7714-bibtex-style</a></p>
+<h3 id="11-使用方法">1.1. 使用方法</h3>
+<h4 id="方法一">方法一:</h4>
+<p>直接使用<code>gbt7714</code> 宏包,一般texlive自带该宏包,不过版本应该比较旧是<code>1.XX</code> 可以更新到2.*</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+<span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[UTF8]</span>{ctex} <span style="color:#75715e">% 中文包,如果含有公式也适用
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[colorlinks,linkcolor=red]</span>{hyperref} <span style="color:#75715e">% 超链接
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\bibliographystyle</span>{gbt7714-numerical}
+<span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[super]</span>{gbt7714}
+
+
+<span style="color:#66d9ef">\begin</span>{document}
+	
+正文
+
+<span style="color:#66d9ef">\cite</span>{herrera2004some}
+<span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+<span style="color:#66d9ef">\cite</span>{xu2014weak,xu2018methods}
+<span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+<span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究}
+
+<span style="color:#66d9ef">\bibliography</span>{test}
+
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><h4 id="方法二">方法二:</h4>
+<p>也可以下载单个的<code>bst</code>文件, 放在<code>.tex</code>所在的目录下,这样使用</p>
+<pre tabindex="0"><code>\documentclass{article}
+\usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用
+\usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接
+
+\usepackage[super,sort&amp;compress,square]{natbib}
+\bibliographystyle{gbt7714-numerical}
+\begin{document}
+正文
+\cite{herrera2004some}
+\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+\cite{xu2014weak,xu2018methods}
+\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究}
+
+\bibliography{test}
+
+\end{document}
+</code></pre><h3 id="12--修改默认样式">1.2.  修改默认样式</h3>
+<p>在 bst 文件开始处的 load.config 函数中，有一组配置参数用来控制样 式，下表列出了每一项的默认值和功能。若变量被设为<code>#1</code>则表示该项被启用， 设为<code>#0</code>则不启用。默认的值是严格遵循国标的配置。</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091514image-20200825124849683.png" alt="image-20200825124849683"></p>
+<h2 id="2-biblatex-格式">2. biblatex 格式</h2>
+<p>由于版本原因,需要<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a> 下载对应的文件,放入当前目录</p>
+<blockquote>
+<p>最简单的方法是从本项目源码中下载 gb7714-2015.bbx, gb7714-2015ay.bbx, gb7714-2015.cbx, gb7714-2015ay.cbx 四个文件放到你要编译的主文档所在目录，如果需要使用gbk编码，则还需复制 gb7714-2015-gbk.def 文件。对于已经安装的用户需要更新到最新版，也可以下载这些文件替换系统已经安装的文件。</p>
+</blockquote>
+<p>首先,把后端改为<code>biber</code>, 然后使用<code>biblatex</code>格式来生成参考文献.</p>
+<pre tabindex="0"><code>\documentclass{article}
+\usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用
+\usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接
+
+\usepackage[backend = biber, style=gb7714-2015, gbnamefmt =  lowercase, gbbiblabel=bracket]{biblatex}
+\addbibresource[location=local]{test.bib}
+\renewcommand{\bibfont}{\zihao{5}\songti}%设置参考文献的字体和字号
+\setlength{\bibitemsep}{2pt}%设置各条参考文献之间的间距为2pt
+
+\begin{document}
+。。。正文。。。。。x
+\cite{herrera2004some}
+\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+\cite{xu2014weak,xu2018methods}
+\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究}
+
+\printbibliography[heading=bibliography,title=参考文献]
+
+\end{document}
+
+
+</code></pre><p>更多详细信息,可参考:<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
+<p>参考:</p>
+<p>更多详细信息,可参考:<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
+<p>参考:</p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%92%8C%E5%BC%95%E7%94%A8%E6%A0%B7%E5%BC%8Fcaspervector.pdf">biblatex参考文献和引用样式caspervector</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-zh-cn.pdf">biblatex-zh-cn</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-solution-to-latex-bibliography.pdf">biblatex-solution-to-latex-bibliography</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-gb7714-2015.pdf">biblatex-gb7714-2015</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biber-zh-cn.pdf">biber-zh-cn</a></p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2020-08-14-gb7714/" class="leancloud_visitors" data-flag-title="latex 参考文献格式: GB/7714">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/"> 上一篇: latex 参考文献生成(总结)</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/"> 下一篇: 画函数图像--R语言</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2020-08-14-GB7714.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

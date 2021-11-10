@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>R结合C&#43;&#43;</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-c-加上-featureapply-并行">2.1 C++ 加上 feature.apply 并行</a></li>
+    <li><a href="#22-利用c-openmp并行">2.2 利用c++ openMP并行</a></li>
+    <li><a href="#23运行对比">2.3运行对比</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                R结合C&#43;&#43;
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2019-05-24 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="1-r结合c">1. R结合C++</h1>
+<p>首先要配置好<code>R</code>和<code>C++</code>的环境，在R官网中分别有不同操作系统的环境配置条件，按照下载R软件的步骤，在下载R软件页面有相应的配置说明。如果是mac系统也可以参考这篇文章：<a href="http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/">macOS</a></p>
+<p>基本的用法可以参考：</p>
+<ol>
+<li>
+<p><a href="http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html">http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp.html</a></p>
+</li>
+<li>
+<p>个人建议要写<code>c++ </code>代码给<code>R</code>软件使用，建议不要混合编程，我只是简单的实验过，这样会降低代码运行的效率，甚至，可能比R本身的运算还慢。</p>
+</li>
+<li>
+<p>基本的<code>c++</code> 大概能写一些简单的循环运算，但要涉及比较复杂的矩阵运算此时需要额外的库，不过不怕麻烦你自己也可以用<code>c++</code>写，这里推荐使用<a href="http://arma.sourceforge.net/">Armadillo</a> 库，语法和<code>MATLAB</code>很相似，上手很快。</p>
+</li>
+<li>
+<p>由于查资料发现，<a href="http://arma.sourceforge.net/">Armadillo</a> 被<a href="http://dirk.eddelbuettel.com/code/rcpp.armadillo.html">RcppArmadillo</a>包给封装了，但基本没有对其做任何更改，所以你只需要简单的引入相应的<code>Rcpp</code>环境，就能简单的写<code>c++</code>了，再次说明，<code>c++</code>中最好不要混写R代码。</p>
+</li>
+<li>
+<p>CSDN上有关<code>Armadillo</code>库的介绍，个人觉得还不错，https://blog.csdn.net/jnulzl/article/details/46808515</p>
+</li>
+<li>
+<p><code>c++ </code>并行运算对比 以及<code>RcppArmadillo</code>包的使用，如下，先做总结，推荐使用<code>feature.apply</code>包来并行<code>c++</code>代码，虽然有时候没有<code>C++ openMP</code>快，但是基本上符合人们需求，而且<code>feature.apply</code>包使用起来很简单，相对于其他<code>R</code>并行计算的包，不出错，记得使用<code>doParallel</code>包来并行<code>C++</code>总是出错，所以推荐<code>feature.apply</code>并行。</p>
+</li>
+</ol>
+<h1 id="2-r运行速度对比">2. R运行速度对比</h1>
+<h2 id="21-c-加上-featureapply-并行">2.1 C++ 加上 feature.apply 并行</h2>
+<p>把下面的代码存为<code>sample_c.cpp</code>，然后运行<code>Rcpp::sourceCpp('sample_c.cpp')</code>即可</p>
+<ul>
+<li><code>sample_mat</code> ： 随机构造n阶正互反判断矩阵</li>
+<li><code>eig_max</code>：  求矩阵的最大特征值</li>
+<li><code>veig_max(int n,int k =10000)</code>: 求k个n阶的最大特征值，返回一个向量。</li>
+</ul>
+<pre tabindex="0"><code>// [[Rcpp::depends(RcppArmadillo)]]
+#include &lt;RcppArmadillo.h&gt;
+#include &lt;Rcpp.h&gt;
+using namespace Rcpp;
+using namespace arma;
+
+
+// [[Rcpp::export]]
+mat sample_mat(int n)
+{
+  // 第一步： 随机构造n阶正互反判断矩阵
+  vec  P = {1,2,3,4,5,6,7,8,9,1/2.0,1/3.0,1/4.0,1/5.0,1/6.0,1/7.0,1/8.0,1/9.0};
+  vec  v = randu&lt;vec&gt;(0.5*n*(n-1)); //声明一个向量，并赋予随机值
+  v *= 17;
+  v = floor(v);
+  
+  
+  mat A(n,n); // 声明一个n*n的矩阵
+  int i = 0,j = 0,k=0,temp = 0;
+  
+  for(i = 0; i&lt;n;i++){
+    for(j =0; j&lt;n;j++){
+      if( i &gt;j){
+        temp =  static_cast&lt;int&gt;(v(k++));
+        A(i,j) = P(temp);
+        A(j,i) = 1/ P(temp);
+      }else{
+        A(i,j) =1;
+      }
+    }
+  }
+  return(A);
+}
+
+
+// [[Rcpp::export]]
+double eig_max(mat A)
+{
+  // 第二步：求矩阵的最大特征值
+  cx_vec eigval = eig_gen(A);
+  return max(real(eigval));
+}
+
+// [[Rcpp::export]]
+NumericVector veig_max(int n,int k =10000){
+  int m = 0;
+  mat A;
+  NumericVector res(k);
+  for(m = 0; m&lt;k;m++){
+    A = sample_mat(n);
+    res(m) = eig_max(A);
+  }
+  return res;
+}
+</code></pre><h2 id="22-利用c-openmp并行">2.2 利用c++ openMP并行</h2>
+<p>同理，把下面代码保存为<code>veig_max_mp.cpp</code>, 运行	<code> Rcpp::sourceCpp('veig_max_mp.cpp')</code>,只输出一个<code>veig_max_mp</code>函数，</p>
+<p>由于c++中利用了并行，所R中不能再进行并行了，这样会报错。</p>
+<pre tabindex="0"><code>// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppArmadillo)]]
+#include &lt;RcppArmadillo.h&gt;
+#include &lt;Rcpp.h&gt;
+#include &lt;omp.h&gt;
+using namespace Rcpp;
+using namespace arma;
+
+double CI(int n)
+{
+  vec  P = {1,2,3,4,5,6,7,8,9,1/2.0,1/3.0,1/4.0,1/5.0,1/6.0,1/7.0,1/8.0,1/9.0};
+  vec  v = randu&lt;vec&gt;(0.5*n*(n-1)); //声明一个向量，并赋予随机值
+  v *= 17;
+  v = floor(v);
+  
+  mat A(n,n); // 声明一个n*n的矩阵
+  int i = 0,j= 0,k=0,temp =0;
+  for(i = 0; i&lt;n;i++){
+    for(j =0; j&lt;n;j++){
+      if( i &gt;j){
+        temp =  static_cast&lt;int&gt;(v(k++));
+        A(i,j) = P(temp);
+        A(j,i) = 1/ P(temp);
+      }else{
+        A(i,j) =1;
+      }
+      
+    }
+  }
+  cx_vec eigval;
+  
+  eig_gen(eigval,A);
+  // cout&lt;&lt; omp_get_max_threads() &lt;&lt; endl;
+  return max(real(eigval));
+}
+
+// [[Rcpp::export]]
+NumericVector veig_max_mp(int n,int k =10000){
+  int ii = omp_get_max_threads();
+  omp_set_num_threads(ii-1);
+  int m = 0;
+  NumericVector res(k);
+  #pragma omp parallel for
+  for(m =0; m&lt;k;m++){
+    res(m) = CI(n);
+  }
+  return res;
+}
+
+
+
+</code></pre><h2 id="23运行对比">2.3运行对比</h2>
+<p>利用上面的函数，在R中运行进行对比(在24核32G的服务器上)</p>
+<pre tabindex="0"><code>system.time({
+  d = lapply(3:20,veig_max_mp, k=1000000)
+})
+
+library(future.apply)
+plan(multicore)
+system.time({
+    b = future_lapply(3:20,veig_max,k=1000000)
+})
+
+
+system.time({
+    b = lapply(3:20,veig_max,k=1000000)
+})
+</code></pre><p>时间如下：</p>
+<pre tabindex="0"><code>&gt; system.time({
++   d = lapply(3:20,veig_max_mp, k=1000000)
++ })
+    user   system  elapsed 
+1991.430    0.731  199.972 
+&gt; 
+&gt; library(future.apply)
+Loading required package: future
+&gt; plan(multicore)
+&gt; system.time(
++   {
++     b = future_lapply(3:20,veig_max,k=1000000)
++   }
++ )
+    user   system  elapsed 
+1321.397    4.237  204.492 
+&gt; system.time(
++   {
++     b = lapply(3:20,veig_max,k=1000000)
++   }
++ )
+    user   system  elapsed 
+1514.744    0.805 1515.093 
+&gt; sessionInfo()
+R version 3.5.2 (2018-12-20)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /usr/lib64/R/lib/libRblas.so_
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] future.apply_1.2.0 future_1.12.0     
+
+loaded via a namespace (and not attached):
+ [1] compiler_3.5.2            parallel_3.5.2            tools_3.5.2              
+ [4] RcppArmadillo_0.9.300.2.0 listenv_0.7.0             yaml_2.2.0               
+ [7] Rcpp_1.0.1                codetools_0.2-16          digest_0.6.18            
+[10] globals_0.12.4  
+</code></pre>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2019-05-24-randc/" class="leancloud_visitors" data-flag-title="R结合C&#43;&#43;">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2019-05-02-environment/"> 上一篇: 环境</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2019-05-26-dongtaikeshihua/"> 下一篇: 动态可视化如此简单</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2019-05-24-RandC.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

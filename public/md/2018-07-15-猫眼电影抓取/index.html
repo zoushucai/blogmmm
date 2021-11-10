@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>猫眼电影票房抓取</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本设置">基本设置</a></li>
+    <li><a href="#百度页面搜索">百度页面搜索</a></li>
+    <li><a href="#页面跳转--点击操作">页面跳转&ndash;点击操作</a></li>
+    <li><a href="#页面信息抓取">页面信息抓取</a></li>
+    <li><a href="#r版本已经本地环境">R版本已经本地环境</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                猫眼电影票房抓取
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-07-15 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/selenium"> #selenium </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="猫眼电影票房抓取">猫眼电影票房抓取</h1>
+<h2 id="基本设置">基本设置</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(RSelenium)
+<span style="color:#a6e22e">library</span>(stringr)
+<span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#34;C:\\RSelenium&#34;</span>)
+<span style="color:#75715e">######## 初始化浏览器####</span>
+remDr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">remoteDriver</span>(
+  browserName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chrome&#34;</span>,  <span style="color:#75715e"># 浏览器可以自己设置firefox、chrome、phantomjs（要配置）</span>
+  remoteServerAddr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span>,
+  port <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444L</span>)
+
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">open</span>() <span style="color:#75715e"># 打开浏览器 </span>
+<span style="color:#75715e">#&gt; [1] &#34;Connecting to remote server&#34;</span>
+<span style="color:#75715e">#&gt; $applicationCacheEnabled</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $rotatable</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $mobileEmulationEnabled</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $networkConnectionEnabled</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $chrome</span>
+<span style="color:#75715e">#&gt; $chrome$chromedriverVersion</span>
+<span style="color:#75715e">#&gt; [1] &#34;2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7)&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $chrome$userDataDir</span>
+<span style="color:#75715e">#&gt; [1] &#34;C:\\Users\\zsc\\AppData\\Local\\Temp\\scoped_dir10136_5944&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $takesHeapSnapshot</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $pageLoadStrategy</span>
+<span style="color:#75715e">#&gt; [1] &#34;normal&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $databaseEnabled</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $handlesAlerts</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $hasTouchScreen</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $version</span>
+<span style="color:#75715e">#&gt; [1] &#34;67.0.3396.99&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $platform</span>
+<span style="color:#75715e">#&gt; [1] &#34;Windows NT&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $browserConnectionEnabled</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $nativeEvents</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $acceptSslCerts</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $acceptInsecureCerts</span>
+<span style="color:#75715e">#&gt; [1] FALSE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $locationContextEnabled</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $webStorageEnabled</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $browserName</span>
+<span style="color:#75715e">#&gt; [1] &#34;chrome&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $takesScreenshot</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $javascriptEnabled</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $cssSelectorsEnabled</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $setWindowRect</span>
+<span style="color:#75715e">#&gt; [1] TRUE</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $unexpectedAlertBehaviour</span>
+<span style="color:#75715e">#&gt; [1] &#34;&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $webdriver.remote.sessionid</span>
+<span style="color:#75715e">#&gt; [1] &#34;4b56b8063909582c3c83ee6449cee0da&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; $id</span>
+<span style="color:#75715e">#&gt; [1] &#34;4b56b8063909582c3c83ee6449cee0da&#34;</span>
+url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com/&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">navigate</span>(url)   <span style="color:#75715e"># 打开网页</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">10</span>)<span style="color:#75715e">#由于网络原因，把时间设置多一点</span>
+</code></pre></div><h2 id="百度页面搜索">百度页面搜索</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">###########################进行搜索关键词</span>
+<span style="color:#75715e">#####  按属性--属性值搜索 ,可以是css,xpath ,id ,属性等 对应值</span>
+<span style="color:#75715e">## 注意findElement 和 findElements 的区别</span>
+webElem <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;#kw&#34;</span>) <span style="color:#75715e"># 找到这个元素--进行搜索关键词</span>
+webElem<span style="color:#f92672">$</span><span style="color:#a6e22e">sendKeysToElement</span>(<span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;猫眼&#34;</span>,key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enter&#34;</span>)) <span style="color:#75715e"># 输入关键词并提交</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">10</span>)
+
+
+<span style="color:#75715e">#### 获取当前页面的所有标题，每个链接的标题都包含在&lt;h3 class = &#34;t&#34;&gt;标签中。我们将h3首先访问标题</span>
+<span style="color:#75715e">#### 注意 findElements和 findElement方法是获取一个或者多个的区别</span>
+webElems <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">findElement</span>(using <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;css&#39;</span>, <span style="color:#e6db74">&#34;h3.t a&#34;</span>)
+webElems<span style="color:#f92672">$</span><span style="color:#a6e22e">getElementText</span>() <span style="color:#75715e"># 获取当前选中的节点的标题，有一些时候有广告等不能保证每次都在第一个节点</span>
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;猫眼专业版-实时票房&#34;</span>
+webElems<span style="color:#f92672">$</span><span style="color:#a6e22e">getElementAttribute</span>(<span style="color:#e6db74">&#34;href&#34;</span>)  <span style="color:#75715e"># 获取当前选中的节点属性</span>
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;http://www.baidu.com/link?url=YDvi2e0Yjs1ptfGCxgkewv3E6DgGgwTHPjfAKJfBE5EU9Sa8WA-xbHh_hcKN7bjC&#34;</span>
+webElems<span style="color:#f92672">$</span><span style="color:#a6e22e">clickElement</span>()   <span style="color:#75715e"># 点击此元素</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">10</span>)
+</code></pre></div><h2 id="页面跳转--点击操作">页面跳转&ndash;点击操作</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">
+<span style="color:#75715e">###########窗口页面跳转</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>()<span style="color:#75715e"># 可以看出当前页面还是百度的页面，并没有跳转到猫眼页面</span>
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=1&amp;tn=baidu&amp;wd=%E7%8C%AB%E7%9C%BC&amp;rsv_pq=acd1c97500015f3c&amp;rsv_t=0cc2OOqo%2BlNoq457a3mkHEq4etPV2GyS5BTIhno4%2FV7JnkZ9Vnp2acwulq8&amp;rqlang=cn&amp;rsv_enter=1&amp;rsv_sug3=2&amp;rsv_sug2=0&amp;inputT=54&amp;rsv_sug4=55&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentWindowHandle</span>()<span style="color:#75715e"># 查看当前属于哪个窗口页面</span>
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;CDwindow-8F6C1A2636C0DA716E6C8C75C865B191&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getTitle</span>()<span style="color:#75715e"># 当前窗口页面的标题</span>
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;猫眼_百度搜索&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getWindowHandles</span>() <span style="color:#75715e"># 获取当前浏览器所有的窗口页面</span>
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;CDwindow-8F6C1A2636C0DA716E6C8C75C865B191&#34;</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; [[2]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;CDwindow-2C1F3D52E7A8D15E93073535B5699ACA&#34;</span>
+
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">10</span>)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## 现在进行页面跳转</span>
+<span style="color:#75715e">### 这有两个窗口时，可以直接排除跳转，如有多个窗口，一般输入窗口代码进行跳转</span>
+currWin <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentWindowHandle</span>() <span style="color:#75715e"># 当前窗口</span>
+allWins <span style="color:#f92672">&lt;-</span> remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getWindowHandles</span>()          <span style="color:#75715e"># 所有窗口，这里只有两个</span>
+otherWindow <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.character</span>( <span style="color:#a6e22e">setdiff</span>(allWins,currWin) )          <span style="color:#75715e"># 排除当前窗口，获取其他窗口</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">switchToWindow</span>(otherWindow)          <span style="color:#75715e"># 窗口跳转函数，若其他窗口有多个，需要指定一个</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getCurrentUrl</span>()
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;http://piaofang.maoyan.com/dashboard&#34;</span>
+remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getTitle</span>()<span style="color:#75715e"># 跳转成功</span>
+<span style="color:#75715e">#&gt; [[1]]</span>
+<span style="color:#75715e">#&gt; [1] &#34;500 Internal Privoxy Error&#34;</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">10</span>)
+</code></pre></div><h2 id="页面信息抓取">页面信息抓取</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">maxWindowSize</span>()<span style="color:#75715e"># 窗口最大化--有时要</span>
+<span style="color:#a6e22e">library</span>(rvest)
+<span style="color:#a6e22e">library</span>(stringr)
+
+<span style="color:#75715e"># 提取当前页面的源代码</span>
+webpage<span style="color:#f92672">=</span><span style="color:#a6e22e">read_html</span>(remDr<span style="color:#f92672">$</span><span style="color:#a6e22e">getPageSource</span>()[[1]],encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;utf-8&#34;</span>)
+<span style="color:#75715e"># 提取电影的名字,当节点有很多时，但每个节点的属性只提取 一个时，可以用html_attr()函数</span>
+title <span style="color:#f92672">&lt;-</span>  webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;table.dashboard-table td.moviename-td&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_attr</span>(<span style="color:#e6db74">&#34;title&#34;</span>)
+
+
+title
+<span style="color:#75715e">#&gt;  [1] &#34;我不是药神&#34;                         </span>
+<span style="color:#75715e">#&gt;  [2] &#34;邪不压正&#34;                           </span>
+<span style="color:#75715e">#&gt;  [3] &#34;新大头儿子和小头爸爸3：俄罗斯奇遇记&#34;</span>
+<span style="color:#75715e">#&gt;  [4] &#34;阿修罗&#34;                             </span>
+<span style="color:#75715e">#&gt;  [5] &#34;超人总动员2&#34;                        </span>
+<span style="color:#75715e">#&gt;  [6] &#34;动物世界&#34;                           </span>
+<span style="color:#75715e">#&gt;  [7] &#34;小悟空&#34;                             </span>
+<span style="color:#75715e">#&gt;  [8] &#34;侏罗纪世界2&#34;                        </span>
+<span style="color:#75715e">#&gt;  [9] &#34;神奇马戏团&#34;                         </span>
+<span style="color:#75715e">#&gt; [10] &#34;风语咒&#34;                             </span>
+<span style="color:#75715e">#&gt; [11] &#34;幸福马上来&#34;                         </span>
+<span style="color:#75715e">#&gt; [12] &#34;您一定不要错过&#34;                     </span>
+<span style="color:#75715e">#&gt; [13] &#34;美丽童年&#34;                           </span>
+<span style="color:#75715e">#&gt; [14] &#34;阿飞正传&#34;                           </span>
+<span style="color:#75715e">#&gt; [15] &#34;天佑之爱&#34;                           </span>
+<span style="color:#75715e">#&gt; [16] &#34;第七个小矮人&#34;                       </span>
+<span style="color:#75715e">#&gt; [17] &#34;猛虫过江&#34;                           </span>
+<span style="color:#75715e">#&gt; [18] &#34;金蝉脱壳2&#34;                          </span>
+<span style="color:#75715e">#&gt; [19] &#34;冰雪女王2：冬日魔咒&#34;                </span>
+<span style="color:#75715e">#&gt; [20] &#34;细思极恐&#34;                           </span>
+<span style="color:#75715e">#&gt; [21] &#34;出·路&#34;                              </span>
+<span style="color:#75715e">#&gt; [22] &#34;龙虾刑警&#34;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## XML组件提供了网页采集链接 列表 和表格的便利函数 </span>
+<span style="color:#75715e">##  对应 ： getHTMLLinks()  readHTMLList() readHTMLTable()</span>
+<span style="color:#75715e">##### rvest 包 只提供了网页采集 表格的便利函数-- html_table(trim=T,header=T)</span>
+<span style="color:#75715e"># 提取商品的简介信息 ，若class属性有多个值时，只用一个即可</span>
+<span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">10</span>)
+xinxi <span style="color:#f92672">&lt;-</span> webpage <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_nodes</span>(<span style="color:#e6db74">&#34;table.dashboard-table&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">html_table</span>(header <span style="color:#f92672">=</span> F,trim<span style="color:#f92672">=</span>T)
+data  <span style="color:#f92672">=</span> xinxi[[2]]
+<span style="color:#a6e22e">names</span>(data) <span style="color:#f92672">=</span> xinxi[[1]] 
+data <span style="color:#75715e">## 如果要循环则翻页即可，而且由于此页面是实时更新的，所以只能获取当前时刻的,其中&lt;U+00A0&gt;为空字符</span>
+<span style="color:#75715e">#&gt;                                                  影片 (点击  优先展示)</span>
+<span style="color:#75715e">#&gt; 1                          01我不是药神上映11天&lt;U+00A0&gt;&lt;U+00A0&gt;24.08亿</span>
+<span style="color:#75715e">#&gt; 2                              02邪不压正上映3天&lt;U+00A0&gt;&lt;U+00A0&gt;2.82亿</span>
+<span style="color:#75715e">#&gt; 3  03新大头儿子和小头爸爸3：俄罗斯奇遇记上映10天&lt;U+00A0&gt;&lt;U+00A0&gt;1.16亿</span>
+<span style="color:#75715e">#&gt; 4                              04阿修罗上映3天&lt;U+00A0&gt;&lt;U+00A0&gt;4593.8万</span>
+<span style="color:#75715e">#&gt; 5                          05超人总动员2上映24天&lt;U+00A0&gt;&lt;U+00A0&gt;3.39亿</span>
+<span style="color:#75715e">#&gt; 6                             06动物世界上映17天&lt;U+00A0&gt;&lt;U+00A0&gt;4.80亿</span>
+<span style="color:#75715e">#&gt; 7                               07小悟空上映2天&lt;U+00A0&gt;&lt;U+00A0&gt;559.1万</span>
+<span style="color:#75715e">#&gt; 8                         08侏罗纪世界2上映31天&lt;U+00A0&gt;&lt;U+00A0&gt;16.64亿</span>
+<span style="color:#75715e">#&gt; 9                               09神奇马戏团点映&lt;U+00A0&gt;&lt;U+00A0&gt;50.8万</span>
+<span style="color:#75715e">#&gt; 10                                  10风语咒点映&lt;U+00A0&gt;&lt;U+00A0&gt;73.4万</span>
+<span style="color:#75715e">#&gt; 11                        11幸福马上来上映38天&lt;U+00A0&gt;&lt;U+00A0&gt;9280.0万</span>
+<span style="color:#75715e">#&gt; 12                     12您一定不要错过上映10天&lt;U+00A0&gt;&lt;U+00A0&gt;477.9万</span>
+<span style="color:#75715e">#&gt; 13                             13美丽童年上映3天&lt;U+00A0&gt;&lt;U+00A0&gt;98.2万</span>
+<span style="color:#75715e">#&gt; 14                          14阿飞正传上映21天&lt;U+00A0&gt;&lt;U+00A0&gt;1888.6万</span>
+<span style="color:#75715e">#&gt; 15                             15天佑之爱上映3天&lt;U+00A0&gt;&lt;U+00A0&gt;26.0万</span>
+<span style="color:#75715e">#&gt; 16                      16第七个小矮人上映30天&lt;U+00A0&gt;&lt;U+00A0&gt;2545.8万</span>
+<span style="color:#75715e">#&gt; 17                            17猛虫过江上映31天&lt;U+00A0&gt;&lt;U+00A0&gt;2.03亿</span>
+<span style="color:#75715e">#&gt; 18                         18金蝉脱壳2上映17天&lt;U+00A0&gt;&lt;U+00A0&gt;9077.1万</span>
+<span style="color:#75715e">#&gt; 19                19冰雪女王2：冬日魔咒2016-12&lt;U+00A0&gt;&lt;U+00A0&gt;3565.2万</span>
+<span style="color:#75715e">#&gt; 20                           20细思极恐上映10天&lt;U+00A0&gt;&lt;U+00A0&gt;105.6万</span>
+<span style="color:#75715e">#&gt; 21                               21出·路重映21天&lt;U+00A0&gt;&lt;U+00A0&gt;32.5万</span>
+<span style="color:#75715e">#&gt; 22                          22龙虾刑警上映24天&lt;U+00A0&gt;&lt;U+00A0&gt;6865.6万</span>
+<span style="color:#75715e">#&gt;    综合票房(万) 票房占比 排片场次 排片占比 场均人次 上座率</span>
+<span style="color:#75715e">#&gt; 1      10718.21    54.9%   133823    45.6%       24  17.2%</span>
+<span style="color:#75715e">#&gt; 2       5548.16    28.4%    93891    32.0%       17  13.0%</span>
+<span style="color:#75715e">#&gt; 3       1049.08     5.3%    16284     5.5%       19  19.9%</span>
+<span style="color:#75715e">#&gt; 4        753.19     3.8%    22813     7.7%       10  11.3%</span>
+<span style="color:#75715e">#&gt; 5        391.33     2.0%     4074     1.3%       29  28.1%</span>
+<span style="color:#75715e">#&gt; 6        321.86     1.6%     5207     1.7%       17  18.6%</span>
+<span style="color:#75715e">#&gt; 7        264.19     1.3%     9186     3.1%       10  11.8%</span>
+<span style="color:#75715e">#&gt; 8        240.23     1.2%     3833     1.3%       19  24.6%</span>
+<span style="color:#75715e">#&gt; 9         50.82     0.2%      256    &lt;0.1%       53  53.7%</span>
+<span style="color:#75715e">#&gt; 10        32.82     0.1%      159    &lt;0.1%       47  58.8%</span>
+<span style="color:#75715e">#&gt; 11        17.09    &lt;0.1%       91    &lt;0.1%       55  53.3%</span>
+<span style="color:#75715e">#&gt; 12        14.71    &lt;0.1%      445     0.1%       12  14.4%</span>
+<span style="color:#75715e">#&gt; 13        10.27    &lt;0.1%      124    &lt;0.1%       23  46.5%</span>
+<span style="color:#75715e">#&gt; 14         7.20    &lt;0.1%      316     0.1%        7  11.8%</span>
+<span style="color:#75715e">#&gt; 15         5.33    &lt;0.1%      290    &lt;0.1%        8  17.4%</span>
+<span style="color:#75715e">#&gt; 16         2.76    &lt;0.1%       68    &lt;0.1%       14  14.1%</span>
+<span style="color:#75715e">#&gt; 17         2.69    &lt;0.1%      317     0.1%        3   7.6%</span>
+<span style="color:#75715e">#&gt; 18         2.35    &lt;0.1%      607     0.2%        2   3.9%</span>
+<span style="color:#75715e">#&gt; 19         2.08    &lt;0.1%       24    &lt;0.1%       26  21.6%</span>
+<span style="color:#75715e">#&gt; 20         1.65    &lt;0.1%      445     0.1%        2   3.4%</span>
+<span style="color:#75715e">#&gt; 21         1.60    &lt;0.1%       10    &lt;0.1%       50  90.7%</span>
+<span style="color:#75715e">#&gt; 22         1.07    &lt;0.1%      142    &lt;0.1%        3   4.9%</span>
+</code></pre></div><h2 id="r版本已经本地环境">R版本已经本地环境</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">sessionInfo</span>()
+<span style="color:#75715e">#&gt; R version 3.5.1 (2018-07-02)</span>
+<span style="color:#75715e">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span>
+<span style="color:#75715e">#&gt; Running under: Windows 10 x64 (build 16299)</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; Matrix products: default</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; locale:</span>
+<span style="color:#75715e">#&gt; [1] LC_COLLATE=Chinese (Simplified)_China.936 </span>
+<span style="color:#75715e">#&gt; [2] LC_CTYPE=Chinese (Simplified)_China.936   </span>
+<span style="color:#75715e">#&gt; [3] LC_MONETARY=Chinese (Simplified)_China.936</span>
+<span style="color:#75715e">#&gt; [4] LC_NUMERIC=C                              </span>
+<span style="color:#75715e">#&gt; [5] LC_TIME=Chinese (Simplified)_China.936    </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; attached base packages:</span>
+<span style="color:#75715e">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; other attached packages:</span>
+<span style="color:#75715e">#&gt; [1] rvest_0.3.2     xml2_1.2.0      stringr_1.3.1   RSelenium_1.7.3</span>
+<span style="color:#75715e">#&gt; </span>
+<span style="color:#75715e">#&gt; loaded via a namespace (and not attached):</span>
+<span style="color:#75715e">#&gt;  [1] Rcpp_0.12.17     knitr_1.20       magrittr_1.5     R6_2.2.2        </span>
+<span style="color:#75715e">#&gt;  [5] httr_1.3.1       caTools_1.17.1   tools_3.5.1      binman_0.1.0    </span>
+<span style="color:#75715e">#&gt;  [9] selectr_0.4-1    semver_0.2.0     htmltools_0.3.6  openssl_1.0.1   </span>
+<span style="color:#75715e">#&gt; [13] yaml_2.1.19      rprojroot_1.3-2  digest_0.6.15    assertthat_0.2.0</span>
+<span style="color:#75715e">#&gt; [17] bitops_1.0-6     curl_3.2         evaluate_0.10.1  wdman_0.2.2     </span>
+<span style="color:#75715e">#&gt; [21] rmarkdown_1.10   stringi_1.2.3    compiler_3.5.1   backports_1.1.2 </span>
+<span style="color:#75715e">#&gt; [25] XML_4.0-0        jsonlite_1.5</span>
+</code></pre></div>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/" class="leancloud_visitors" data-flag-title="猫眼电影票房抓取">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/"> 上一篇: 相关图之corrgram</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-08-10-scrapy/"> 下一篇: Scrapy框架&#43;selenium爬取京东相机</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-07-15-猫眼电影抓取.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>求区间可能度矩阵的算法(Liu 2009)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                求区间可能度矩阵的算法(Liu 2009)
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                         
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2019-05-04 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/%e5%86%b3%e7%ad%96%e6%96%b9%e6%b3%95"> #决策方法 </a></li><li><a class="link" href="/tags/ahp"> #ahp </a></li>
+                        
+                        <span> </span>
+                        
+                        <span>分类:</span>
+                        <li><a class="link" href="/categories/%e5%86%b3%e7%ad%96%e6%96%b9%e6%b3%95"> @决策方法 </a></li>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#求区间可能度矩阵的算法">求区间可能度矩阵的算法</a>
+<ul>
+<li><a href="#参考论文">0. 参考论文:</a></li>
+<li><a href="#主要思路">1. 主要思路：</a></li>
+<li><a href="#主要函数构建">2.主要函数构建：</a></li>
+<li><a href="#测试">3. 测试</a>
+<ul>
+<li><a href="#例1-b-和d都满足一致性指标">3.1 例1： B 和D都满足一致性指标</a></li>
+<li><a href="#例2-b-和d不满足一致性指标">3.2 例2： B 和D不满足一致性指标</a></li>
+</ul></li>
+<li><a href="#总结">4. 总结:</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="求区间可能度矩阵的算法" class="section level1">
+<h1>求区间可能度矩阵的算法</h1>
+<div id="参考论文" class="section level2">
+<h2>0. 参考论文:</h2>
+<p>徐泽水： <a href="http://www.sciencedirect.com/science/article/pii/S037722179800109X">A consistency improving method in the analytic hierarchy process</a> 1999年</p>
+<p>刘芳：<a href="http://dl.acm.org/citation.cfm?id=1619182">Acceptable consistency analysis of interval reciprocal comparison matrices</a> 2009年</p>
+</div>
+<div id="主要思路" class="section level2">
+<h2>1. 主要思路：</h2>
+<ol style="list-style-type: decimal">
+<li>把区间乘性互反矩阵U拆成两个正互反判断矩阵B和D,B，D都是正的互反判断矩阵。其中B的下三角元素大于D矩阵的下三角元素，B的上三角小于D的上三角元素 ，简称B的下三角大，上三角小</li>
+<li>一致性检验，若拆分后的B，D矩阵一致性不满足条件(即<span class="math inline">\(CR&lt;= 0.1\)</span>) ，则用徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准(<span class="math inline">\(CR &lt;=0.1\)</span>).</li>
+<li>然后分别计算矩阵<span class="math inline">\(B，D\)</span>的权重向量<span class="math inline">\(w(B),w(D)\)</span> ,注意这里的权重没有归一化处理.</li>
+<li>通过公式<span class="math inline">\(w_i = [min(w_i(B),w_i(D)),max(w_i(B),w_i(D))]\)</span>,把两个权重向量组合成一个区间向量。</li>
+<li>通过区间向量<span class="math inline">\(w\)</span>计算出区间向量的可能度矩阵<span class="math inline">\(P\)</span>。</li>
+</ol>
+</div>
+<div id="主要函数构建" class="section level2">
+<h2>2.主要函数构建：</h2>
+<ol start="0" style="list-style-type: decimal">
+<li><p><code>consistency(A):</code> 求正互反判断矩阵的一致性指标，返回一个list</p></li>
+<li><p><code>em_get_w(A) :</code> 特征值求权重 —— 没有归一化权重</p></li>
+<li><p><code>gm_get_w(A)：</code> 几何平均求权重 — — 没有归一化权重</p></li>
+<li><p><code>get_w(B,D):</code> 分别获取B，D的权重（可以指定几何平均或者特征值求权重），然后组成区间权重向量（即小的在前，大的在后），这里返回的是一个矩阵，把每一个区间数看做矩阵的一行。</p></li>
+<li><p><code>fenjie(U ):</code> 把区间矩阵U分解成正互反判断矩阵B和D</p></li>
+<li><p><code>adjust_w(A,lambda) :</code> 利用论文的方法进行调整，返回调整后符合一致性条件的一致性矩阵。</p></li>
+<li><p><code>degree_probability(a,b)</code> 函数计算两个区间数的可能度</p></li>
+<li><p><code>probability_matrix(w)</code> 给一个n*2 的区间数，求其可能度矩阵</p></li>
+</ol>
+<pre class="r"><code>
+rm(list = ls())
+# 0。 一致性指标的求解
+consistency = function(A){
+  lambda = Re(eigen(A)$values[1]) # 矩阵A的最大特征值
+  n  = nrow(A)
+  RI = c(0,0,0.58,0.90,1.12,1.24,1.32,1.41,1.45);
+  CI = (lambda-n) / (n-1);
+  CR = CI / RI[n];
+  eig_w = eigen(A)$vectors[,1] / sum( eigen(A)$vectors[,1]);
+  return(list(&quot;eig_value&quot;=lambda,&quot;CI&quot;=CI,&quot;RI&quot;=RI[n],&quot;CR&quot;=CR,&#39;eig_w&#39;=Re( eig_w )))
+}
+
+
+
+# 1. 特征值求权重
+em_get_w = function(A){
+  n = nrow(A)
+  stopifnot(nrow(A) ==  ncol(A))
+  
+  lambda = Re(eigen(A)$values[1]) # 矩阵A的最大特征值
+  n = nrow(A)
+  RI = c(0,0,0.58,0.90,1.12,1.24,1.32,1.41,1.45);
+  CI=(lambda-n)/(n-1);
+  CR=CI/RI[n];
+  eig_origin = eigen(A)$vectors[,1]
+  eig_w = eigen(A)$vectors[,1] # /sum(eigen(A)$vectors[,1]);
+  eig_w = Re(eig_w)
+  return(eig_w)
+}
+# 2. 几何平均求权重 -- 
+gm_get_w =function(A){
+  n = nrow(A)
+  stopifnot(nrow(A) ==  ncol(A))
+  temp = apply(A, 1, function(x) prod(x)^(1/n) )
+  w = temp # /sum(temp) 
+  return(w)
+}
+# 3. 合并权重
+get_w = function(B,D,method = c(&#39;gm_get_w&#39;,&#39;em_get_w&#39;) ){
+  n = nrow(B)
+  stopifnot(n == nrow(D))
+  method &lt;- match.arg(method)
+  f = get(method)
+  w_B = f(B)
+  w_D = f(D)
+  w_L = rep(0,length(w_B))
+  w_U = rep(0,length(w_B))
+  for(i in 1:length(w_B)){
+    w_L[i] = min(w_B[i],w_D[i])
+    w_U[i] = max(w_B[i],w_D[i])
+  }
+  w = matrix(c(w_L,w_U), ncol= 2 )
+  return(w)
+}
+
+
+
+# 4. 通过U进行分解，分解出B，D矩阵，
+fenjie = function(U){
+  n = nrow(U)
+  stopifnot(ncol(U) == 2*n)
+  
+  B = matrix(0,nrow = n,ncol = n)
+  D = matrix(0,nrow = n,ncol = n)
+  
+  for(i in 1:n){
+    for(j in 1:n){
+      if(i&lt;j){
+        B[i,j] = U[i,j*2]
+        D[i,j] = U[i,2*j-1]
+      }else if(i&gt;j){
+        B[i,j] = U[i,2*j-1]
+        D[i,j] = U[i,j*2]
+      }else{
+        B[i,j] = U[i,2*j]
+        D[i,j] =U[i,2*j]
+      }
+    }
+  }
+  return(list(&#39;B&#39;=B,&#39;D&#39;=D))
+}
+
+
+# 5. 徐泽水(1999年)的文章方法进行调整，直到满足一致性条件为准(CR &lt;=0.1).
+adjust_w &lt;- function(A, lambda) {
+  k &lt;- 0
+  n = nrow(A)
+  m = ncol(A)
+  stopifnot(n == m)
+  temp_CR &lt;- consistency(A)$CR
+  temp_w &lt;- consistency(A)$eig_w
+  while (temp_CR &gt;= 0.1 &amp;&amp; k &lt; 1000) {
+    for (i in 1:n) {
+      for (j in 1:n) {
+          A[i, j] &lt;- (A[i, j]^lambda) * (temp_w[i] / temp_w[j])^(1 - lambda)
+      }
+    }
+    temp_CR &lt;- consistency(A)$CR
+    temp_w &lt;- consistency(A)$eig_w
+    k &lt;- k + 1
+  }
+  return(A)
+}
+
+
+
+# 6. degree_probability 函数计算两个区间数的可能度
+degree_probability &lt;- function(a, b) {
+  # 输入的a,b代表一个区间，即是一个二维向量，且小的在前面，大的元素在后面
+  stopifnot(length(a) == length(b), length(a) == 2, a[1] &lt;= a[2], b[1] &lt;= b[2])
+  temp &lt;- 0
+  if (a[1] == a[2] &amp;&amp; b[1] == b[2]) {
+    if (a[1] &gt; b[1]) {
+      temp &lt;- 1
+    } else if (a[1] == b[1]) {
+      temp &lt;- 0.5
+    } else {
+      temp &lt;- 0
+    }
+  } else if (a[1] == a[2] &amp;&amp; b[1] != b[2]) {
+    if (a[1] &gt; b[2]) {
+      temp &lt;- 1
+    } else if (b[1] &lt;= a[1] &amp; a[1] &lt;= b[2]) {
+      temp &lt;- (a[1] - b[1]) / (b[2] - b[1])
+    } else {
+      temp &lt;- 0
+    }
+  } else if (a[1] != a[2] &amp;&amp; b[1] == b[2]) {
+    if (a[1] &gt; b[1]) {
+      temp &lt;- 1
+    } else if (a[1] &lt;= b[1] &amp; b[1] &lt;= a[2]) {
+      temp &lt;- (a[2] - b[1]) / (a[2] - a[1])
+    } else {
+      temp &lt;- 0
+    }
+  } else if (a[1] != a[2] &amp;&amp; b[1] != b[2]) {
+    if (a[1] &lt; a[2] &amp;&amp; a[2] &lt;= b[1] &amp;&amp; b[1] &lt; b[2]) {
+      temp &lt;- 0
+    } else if (a[1] &lt;= b[1] &amp;&amp; b[1] &lt; a[2] &amp;&amp; a[2] &lt;= b[2]) {
+      s_t &lt;- (a[2] - b[1]) * (a[2] - b[1]) * 0.5
+      s &lt;- (b[2] - b[1]) * (a[2] - a[1])
+      temp &lt;- s_t / s
+    } else if (a[1] &lt;= b[1] &amp;&amp; b[1] &lt;= b[2] &amp;&amp; b[2] &lt;= a[2]) {
+      s_t &lt;- ((a[2] - b[2]) + (a[2] - b[1])) * (b[2] - b[1]) * 0.5
+      s &lt;- (b[2] - b[1]) * (a[2] - a[1])
+      temp &lt;- s_t / s
+    } else if (b[1] &lt; a[1] &amp;&amp; a[1] &lt; a[2] &amp;&amp; a[2] &lt; b[2]) { 
+      # 可写等号b[1] &lt;= a[1] &amp;&amp; a[1]&lt;a[2] &amp;&amp;a[2]&lt;=b[2]
+      s_t &lt;- ((a[1] - b[1]) + (a[2] - b[1])) * (a[2] - a[1]) * 0.5
+      s &lt;- (b[2] - b[1]) * (a[2] - a[1])
+      temp &lt;- s_t / s
+    } else if (b[1] &lt; a[1] &amp;&amp; a[1] &lt; b[2] &amp;&amp; b[2] &lt; a[2]) {
+      s_tt &lt;- (b[2] - a[1]) * (b[2] - a[1]) * 0.5
+      s &lt;- (b[2] - b[1]) * (a[2] - a[1])
+      s_t &lt;- s - s_tt
+      temp &lt;- s_t / s
+    } else if (b[1] &lt; b[2] &amp;&amp; b[2] &lt;= a[1] &amp;&amp; a[1] &lt; a[2]) {
+      temp &lt;- 1
+    } else {
+      stop(&quot;运行出错&quot;)
+    }
+  } else {
+    stop(&quot;运行出错,请检查&quot;)
+  }
+  return(temp)
+}
+
+# 7. probability_matrix 给一个n*2 的区间数，求其可能度矩阵
+probability_matrix &lt;- function(Z) {
+  # probability_matrix函数输入一个n*2的矩阵，每一行代表输出各个方案的综合属性值得区间数
+  # 此函数输出各方案两两比较的可能度矩阵。
+  # degree_probability函数求两个区间数的可能度，
+  # a，b代表输入的区间数，输入这两个
+  P &lt;- matrix(0, ncol = nrow(Z), nrow = nrow(Z))
+  for (i in 1:nrow(Z)) {
+    for (j in 1:nrow(Z)) {
+      P[i, j] &lt;- degree_probability(Z[i, ], Z[j, ])
+    }
+  }
+  return(P)
+}
+</code></pre>
+<p>总结: 只需给出一个区间判断矩阵，返回最终的权重(前提是B和D要满足一致性条件<span class="math inline">\(CR&lt;=0.1\)</span>)</p>
+</div>
+<div id="测试" class="section level2">
+<h2>3. 测试</h2>
+<div id="例1-b-和d都满足一致性指标" class="section level3">
+<h3>3.1 例1： B 和D都满足一致性指标</h3>
+<pre class="r"><code>
+U = matrix(c(1,1,2,5,2,4,1,3,
+             1/5,1/2,1,1,1,3,1,2,
+             1/4,1/2,1/3,1,1,1,1/2,1,
+             1/3,1,1/2,1,1,2,1,1),nrow = 4,byrow = T)
+fenjie(U) 
+#&gt; $B
+#&gt;           [,1]      [,2] [,3] [,4]
+#&gt; [1,] 1.0000000 5.0000000    4    3
+#&gt; [2,] 0.2000000 1.0000000    3    2
+#&gt; [3,] 0.2500000 0.3333333    1    1
+#&gt; [4,] 0.3333333 0.5000000    1    1
+#&gt; 
+#&gt; $D
+#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]  1.0    2    2  1.0
+#&gt; [2,]  0.5    1    1  1.0
+#&gt; [3,]  0.5    1    1  0.5
+#&gt; [4,]  1.0    1    2  1.0
+
+## 一致性检验
+library(purrr)
+fenjie(U) %&gt;% map(function(x)consistency(x)$CR) # 求解矩阵B，D的一致性指标
+#&gt; $B
+#&gt; [1] 0.08209909
+#&gt; 
+#&gt; $D
+#&gt; [1] 0.02246186
+
+# 直接求出区间权重，以及根据权重求出区间可能度矩阵
+( w = get_w(B= fenjie(U)$B ,D = fenjie(U)$D) ) #每一行对应第i个方案的区间权重
+#&gt;           [,1]      [,2]
+#&gt; [1,] 1.4142136 2.7831577
+#&gt; [2,] 0.8408964 1.0466351
+#&gt; [3,] 0.5372850 0.7071068
+#&gt; [4,] 0.6389431 1.1892071
+
+( P = probability_matrix(w) ) # 可能度矩阵P
+#&gt;      [,1]      [,2]      [,3]       [,4]
+#&gt; [1,]  0.5 1.0000000 1.0000000 1.00000000
+#&gt; [2,]  0.0 0.5000000 1.0000000 0.55395713
+#&gt; [3,]  0.0 0.0000000 0.5000000 0.02486059
+#&gt; [4,]  0.0 0.4460429 0.9751394 0.50000000</code></pre>
+</div>
+<div id="例2-b-和d不满足一致性指标" class="section level3">
+<h3>3.2 例2： B 和D不满足一致性指标</h3>
+<pre class="r"><code>
+U  = matrix(c(1,1,1,2,1,2,2,3,
+              1/2,1,1,1,3,5,4,5,
+              1/2,1,1/5,1/3,1,1,6,8,
+              1/3,1/2,1/5,1/4,1/8,1/6,1,1),nrow = 4,byrow = T)
+fenjie(U)
+#&gt; $B
+#&gt;           [,1] [,2]  [,3] [,4]
+#&gt; [1,] 1.0000000  2.0 2.000    3
+#&gt; [2,] 0.5000000  1.0 5.000    5
+#&gt; [3,] 0.5000000  0.2 1.000    8
+#&gt; [4,] 0.3333333  0.2 0.125    1
+#&gt; 
+#&gt; $D
+#&gt;      [,1]      [,2]      [,3] [,4]
+#&gt; [1,]  1.0 1.0000000 1.0000000    2
+#&gt; [2,]  1.0 1.0000000 3.0000000    4
+#&gt; [3,]  1.0 0.3333333 1.0000000    6
+#&gt; [4,]  0.5 0.2500000 0.1666667    1
+fenjie(U) %&gt;% map(function(x)consistency(x)$CR) # 可以发现B和D的一致性不满足条件
+#&gt; $B
+#&gt; [1] 0.2752221
+#&gt; 
+#&gt; $D
+#&gt; [1] 0.1232627
+
+## 方法一： 进行调整
+adjust_w(fenjie(U)$B,lambda = 0.6) %&gt;% round(4)
+#&gt;        [,1]   [,2]   [,3]   [,4]
+#&gt; [1,] 1.0000 1.4696 1.9339 3.9751
+#&gt; [2,] 0.6805 1.0000 3.4564 5.5703
+#&gt; [3,] 0.5171 0.2893 1.0000 5.6119
+#&gt; [4,] 0.2516 0.1795 0.1782 1.0000
+adjust_w(fenjie(U)$D,lambda = 0.88) %&gt;% round(4)
+#&gt;        [,1]   [,2]   [,3]   [,4]
+#&gt; [1,] 1.0000 0.9428 0.9943 2.1061
+#&gt; [2,] 1.0607 1.0000 2.7732 4.1112
+#&gt; [3,] 1.0057 0.3606 1.0000 5.5695
+#&gt; [4,] 0.4748 0.2432 0.1795 1.0000
+
+## 方法二:进行调整 --  多参数映射
+temp = fenjie(U) %&gt;% map2(.,list(0.6,0.88),function(x,y)round( adjust_w(x,y),4) )
+temp
+#&gt; $B
+#&gt;        [,1]   [,2]   [,3]   [,4]
+#&gt; [1,] 1.0000 1.4696 1.9339 3.9751
+#&gt; [2,] 0.6805 1.0000 3.4564 5.5703
+#&gt; [3,] 0.5171 0.2893 1.0000 5.6119
+#&gt; [4,] 0.2516 0.1795 0.1782 1.0000
+#&gt; 
+#&gt; $D
+#&gt;        [,1]   [,2]   [,3]   [,4]
+#&gt; [1,] 1.0000 0.9428 0.9943 2.1061
+#&gt; [2,] 1.0607 1.0000 2.7732 4.1112
+#&gt; [3,] 1.0057 0.3606 1.0000 5.5695
+#&gt; [4,] 0.4748 0.2432 0.1795 1.0000
+temp %&gt;% map(function(x)consistency(x)$CR)#检验权重情况
+#&gt; $B
+#&gt; [1] 0.09525181
+#&gt; 
+#&gt; $D
+#&gt; [1] 0.09474896
+
+
+# 求出调整后的B和D的权重
+( w = get_w(B= temp$B ,D = temp$D) ) #每一行对应第i个方案的区间权重
+#&gt;           [,1]      [,2]
+#&gt; [1,] 1.1853702 1.8333497
+#&gt; [2,] 1.8648143 1.9025351
+#&gt; [3,] 0.9572122 1.1921409
+#&gt; [4,] 0.2995165 0.3794326
+( P = probability_matrix(w) ) # 可能度矩阵P
+#&gt;              [,1] [,2]      [,3] [,4]
+#&gt; [1,] 0.5000000000  0.0 0.9998494  1.0
+#&gt; [2,] 1.0000000000  0.5 1.0000000  1.0
+#&gt; [3,] 0.0001505719  0.0 0.5000000  1.0
+#&gt; [4,] 0.0000000000  0.0 0.0000000  0.5</code></pre>
+</div>
+</div>
+<div id="总结" class="section level2">
+<h2>4. 总结:</h2>
+<p>无论什么样的区间矩阵(一致性是否满足)，都可以用步骤</p>
+<pre class="r"><code># list(0.6,0.88)中的0.6和0.88 为调整adjust_w()函数参数中的lambda值对应
+temp = fenjie(U) %&gt;% map2(., list(0.6,0.88),function(x,y)round( adjust_w(x,y),4) )
+w = get_w(B= temp$B ,D = temp$D)#每一行对应第i个方案的区间权重
+w
+
+P = probability_matrix(w)
+P</code></pre>
+</div>
+</div>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/uncertain/2019-05-04-interval-of-possibility-degree/" class="leancloud_visitors" data-flag-title="求区间可能度矩阵的算法(Liu 2009)">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/uncertain/2019-05-03-adjust-w-xuzeshui1999/"> 上一篇: 正互反矩阵一致性调整方法(徐泽水1999)</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/uncertain/2019-05-05-incomplete-interval-gdm/"> 下一篇: 残缺区间群体决策模型（GDM Liu 2012)</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/uncertain\/2019-05-04-interval-of-possibility-degree.html");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

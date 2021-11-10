@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>latex 笔记</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                latex 笔记
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2020-08-10 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/mac"> #mac </a></li><li><a class="link" href="/tags/latex"> #latex </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h2 id="1--交叉引用">1,  交叉引用</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\eqref</span>{eq:eq1}   :交叉引用公式编号自动带括号: 
+
+
+</code></pre></div><h2 id="2-完整模板解析">2, 完整模板解析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span><span style="color:#a6e22e">[review]</span>{elsarticle}
+
+<span style="color:#75715e">%\usepackage{ctex}
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span>{lineno, hyperref}
+<span style="color:#66d9ef">\hypersetup</span>{colorlinks=true, citecolor=blue, anchorcolor=blue}
+
+
+<span style="color:#66d9ef">\modulolinenumbers</span><span style="color:#a6e22e">[5]</span>
+
+<span style="color:#75715e">%\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue]{hyperref}
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\usepackage</span>{amsmath}
+<span style="color:#66d9ef">\usepackage</span>{amssymb}
+<span style="color:#66d9ef">\usepackage</span>{amsthm}
+
+<span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[american]</span>{babel} <span style="color:#75715e">% 具有多语种处理功能的宏包,英文为默认文字,和microtype包一起使用,用于页面两端对齐
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span>{microtype} <span style="color:#75715e">% 用于页面两端对齐
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\usepackage</span>{graphicx} <span style="color:#75715e">% 插图包 ---  \includegraphics[height=高度][angle=旋转角度]{图片文件名}
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span>{multirow} <span style="color:#75715e">% 处理表格 --列合并用”\multicolumn“，行合并用。\multirow{2}{*}{显示的文本}
+</span><span style="color:#75715e">% 引用 ---  \multirow 函数/标志符： {占用行数} {方框边界竖线|文字居左中右|方框边界竖线} {内容}
+</span><span style="color:#75715e">% 引用 --- \multicolumn 函数/标志符： {占用列数} {方框边界竖线|文字居左中右|方框边界竖线} {内容}
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\usepackage</span>{indentfirst} <span style="color:#75715e">%段首缩进需要的宏包 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\setlength</span>{<span style="color:#66d9ef">\parindent</span>}{2em}<span style="color:#75715e">%设置段首缩进两个汉字 %\noindent强制不缩进
+</span><span style="color:#75715e">% \setlength{\parskip}{1em}%paragraph skip,调整的是段落间距离
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">%\usepackage{lscape} % 表格横置, 只需要引用 landscape 环境即可
+</span><span style="color:#75715e">%\usepackage{pdflscape} % 页面横置,只需引用landscape环境即可
+</span><span style="color:#75715e">%\usepackage[figuresright]{rotating} % 将表格旋转为纵向放置，使用rotating宏包 % 要使用 sidewaystable 环境
+</span><span style="color:#75715e">%\usepackage{natbib}\usepackage[authoryear]{natbib}
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\usepackage</span>{enumerate} <span style="color:#75715e">% enumerate 宏包 ,可以给有序列表设置 label,以及有缩进
+</span><span style="color:#75715e">%\usepackage{enumitem} % 可以给出缩进调整间距, label
+</span><span style="color:#75715e">%\usepackage{showkeys} % 引用时显示引用的 label
+</span><span style="color:#75715e">%\usepackage{paralist} % 列表相互嵌套是的缩进 ,也可以给出相应 label ,但是 label 和缩进都要设置
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e">%%%%%%  交叉引用 开始%%%%%%%
+</span><span style="color:#75715e">%% 第一部分 自定义新环境,
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\theoremstyle</span>{definition} <span style="color:#75715e">%自定义环境内的风格,比如字体是否为斜体,等等,这里采用的是正体
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\newtheorem</span>{thm}{Theorem}
+<span style="color:#66d9ef">\newtheorem</span>{cor}{Corollary}
+<span style="color:#66d9ef">\newtheorem</span>{lem}{Lemma}
+<span style="color:#66d9ef">\newtheorem</span>{pot}{<span style="color:#66d9ef">\bf</span> Proof}
+<span style="color:#66d9ef">\newtheorem</span>{rmk}{Definition}
+<span style="color:#66d9ef">\newtheorem</span>{pro}{Property}
+<span style="color:#66d9ef">\newtheorem</span>{example}{Example}
+<span style="color:#75715e">%\newtheorem{exmp}{Example}
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">%% 第二部分 ,如果想要在引用时,自动添加definition,Theorem等字样,使用下面这部分
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[capitalize, nameinlink]</span>{cleveref} <span style="color:#75715e">%交叉应用 在数字前自动添加某些字符; 引用时 用\cref{}的形式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\crefname</span>{thm}{Theorem}{Theorems}
+<span style="color:#75715e">%\crefname{cor}{Corollary}{Corollarys}
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\crefname</span>{lem}{Lemma}{Lemmas}
+<span style="color:#66d9ef">\crefname</span>{pot}{Proof} {Proofs} 
+<span style="color:#66d9ef">\crefname</span>{rmk}{Definition}{Definitions} 
+<span style="color:#66d9ef">\crefname</span>{pro}{Property}{Propertys}
+<span style="color:#66d9ef">\crefname</span>{example}{Example}{Examples} 
+<span style="color:#66d9ef">\crefname</span>{figure}{Figure}{Figures} <span style="color:#75715e">% 图片以及表格有默认的,但是也可以重新定义
+</span><span style="color:#75715e">% \DeclareUnicodeCharacter{0301}{\&#39;{e}} %pdflatex 需要用到 UTF-8 字符时，需要此命令
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e">%%%%%%  交叉引用结束 %%%%%%%
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">\journal</span>{European Journal of Operational Research}
+
+
+
+<span style="color:#75715e">% 参考文献的引用样式,可以去网上找各大期刊的模板
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\bibliographystyle</span>{elsarticle-harv}<span style="color:#66d9ef">\biboptions</span>{authoryear}
+
+<span style="color:#75715e">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%一下为正文部分
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
+<span style="color:#66d9ef">\section</span>{Introduction}
+
+<span style="color:#66d9ef">\section</span>{Preliminaries}
+<span style="color:#66d9ef">\section*</span>{Acknowledgements} 
+
+
+
+
+<span style="color:#66d9ef">\setcitestyle</span>{numbers}
+<span style="color:#66d9ef">\bibliography</span>{references} <span style="color:#75715e">% 这里引用的 bibtex 参考文献
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\end</span>{document}
+
+</code></pre></div><p>注释:</p>
+<p>对自定义环境格式的设置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\theoremstyle</span>{definition} <span style="color:#75715e">%环境内的风格,比如字体是否为斜体,等等,这里采用的是正体
+</span><span style="color:#75715e">%\theoremstyle{plain} is the default. it sets the text in italic and adds extra space above and below the \newtheorems listed below it in the input. it is recommended for theorems, corollaries, lemmas, propositions, conjectures, criteria, and (possibly; depends on the subject area) algorithms.
+</span><span style="color:#75715e">%\theoremstyle{plain} 是默认值。它将文本设置为斜体，并在输入的\\newTheorem的上方和下方添加额外的空间。建议用于定理、推论、引理、命题、猜想、标准和（可能；取决于主题区域）算法。
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">%\theoremstyle{definition} adds extra space above and below, but sets the text in roman. it is recommended for definitions, conditions, problems, and examples; i&#39;ve alse seen it used for exercises.
+</span><span style="color:#75715e">%\theoremstyle{definition} 在上方和下方添加额外的空格，但将文本设置为罗马文本。建议用于定义、条件、问题和示例；我也见过它用于练习。
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">%\theoremstyle{remark} is set in roman, with no additional space above or below. it is recommended for remarks, notes, notation, claims, summaries, acknowledgments, cases, and conclusions.
+</span><span style="color:#75715e">%\theoremstyle{remark} 设置为罗马，上面或下面没有额外的空间。建议用于备注、注释、注释、索赔、总结、确认、案例和结论。
+</span></code></pre></div><p>2， 参考文献尽量使用<code>*.bib</code>的格式 ，这样方便管理，然后使用 <code>jabref</code>软件进行 <code> *.bib</code> 文件格式的管理</p>
+<p>3， <code>bib</code>文件可以用Google学术生成导出<code>bibtex</code>格式文件</p>
+<p>4， 参考文献 &ndash; 使用作者加年份排版 如下：（同时使用）,一般去网上找对应期刊的 bst 文件模板即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\usepackage</span>{natbib} <span style="color:#75715e">%参考文献 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\setcitestyle</span>{authoryear,round,comma,aysep={;},yysep={,},notesep={, }}
+<span style="color:#66d9ef">\usepackage</span>{hyperref} <span style="color:#75715e">%为了更加好看可以设置超链接颜色,首先要确保引用的包不能冲突，
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\hypersetup</span>{colorlinks=true,citecolor=blue} <span style="color:#75715e">%设置超链接颜色
+</span></code></pre></div><p>特别注意:::  有些模板以及引用了相关的包，这样会造成相应包的冲突，可以尝试：</p>
+<p>1、 先不引用这个包以及相关设置，检查能否运行 &ndash;能进行下一步</p>
+<p>2、 利用这个包的相关参数进行修改，看能否达到自己的目的</p>
+<p>zscdeMacBook-Air.local</p>
+<p>如果以上还是出现包的冲突，则仔细检查</p>
+<p>注意：：：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#75715e">%\bibliographystyle{elsarticle-num} 
+</span><span style="color:#75715e">% 不能与  \setcitestyle{authoryear,round,comma,aysep={;},yysep={,},notesep={, }}同时使用
+</span></code></pre></div><p>5、 参考文献的使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex">文章开始前：{document}前
+<span style="color:#66d9ef">\bibliographystyle</span>{elsarticle-num}  <span style="color:#75715e">% 使用模板自带的参考文献格式
+</span><span style="color:#75715e">% \bibliographystyle{plainnat} % 包自带的格式
+</span><span style="color:#75715e">% \setcitestyle{authoryear,round,comma,aysep={;},yysep={,},notesep={, }} % 简单的自定义格式 
+</span><span style="color:#75715e">%%注意以上三种不能冲突使用，只能择其一
+</span><span style="color:#75715e"></span>文章结尾：使用 即可
+
+<span style="color:#66d9ef">\section*</span>{References}
+<span style="color:#75715e">%%%%\setcitestyle{numbers} % 注意这里只是 修改参考文献的样式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\bibliography</span>{references} <span style="color:#75715e">% references.bib文件。即参考文献
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p>6、现在很多文章的定理、定义、推论、例子都采用统一编号，不再是独立编号。如定义 1.1，接下来可能 是定理 1.2，然后推论 1.3，等等。这可以用如下的定义来完成:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"> <span style="color:#66d9ef">\newtheorem</span>{thm}{Theorem}[section] <span style="color:#75715e">%如果不采用章节号做前缀，则不用[section] 
+</span><span style="color:#75715e"></span> 
+ <span style="color:#66d9ef">\newtheorem</span>{defn}[thm]{Definition} <span style="color:#75715e">%这句定义使得defn环境和thm共享编号 
+</span><span style="color:#75715e"></span> 
+ <span style="color:#66d9ef">\newtheorem</span>{lem}[thm]{Lemma} <span style="color:#75715e">%这句定义使得lem环境和thm共享编号
+</span><span style="color:#75715e"></span> 
+<span style="color:#66d9ef">\newtheorem</span>{thm}{Theorem}
+<span style="color:#66d9ef">\newtheorem</span>{cor}{Corollary}
+<span style="color:#66d9ef">\newtheorem</span>{lem}{Lemma}
+<span style="color:#66d9ef">\newtheorem</span>{pot}{<span style="color:#66d9ef">\bf</span> Proof}
+<span style="color:#66d9ef">\newtheorem</span>{rmk}{Definition}
+<span style="color:#66d9ef">\newtheorem</span>{pro}{Property}
+
+</code></pre></div><p>7、公式环境的区别</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex">公式环境的区别： 参考latex入门(刘海洋)
+
+gather 环境得到的公式每行居中
+align环境允许按照等号或其他关系（只需要在关系符号前加 &amp; ）对齐
+
+
+组合公式快环境
+cases 环境太特殊( 不推荐)
+gathered  组合公式与要组合的公式 居中排列组合一个整体
+aligned   类似align
+alignedat
+</code></pre></div><p>8 enumerate 编号缩进问题, 直接使用空格</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\begin</span>{enumerate}[<span style="color:#66d9ef">\hspace</span>{2em} 1). ]
+    <span style="color:#66d9ef">\item</span> <span style="color:#e6db74">$</span>A^<span style="color:#f92672">*</span><span style="color:#e6db74">$</span> also is RC matrix.
+
+    <span style="color:#66d9ef">\item</span> every row of matrix <span style="color:#e6db74">$</span>A^<span style="color:#f92672">*</span><span style="color:#e6db74">$</span> is arranged in ascending order.
+
+    <span style="color:#66d9ef">\item</span> every column of matrix <span style="color:#e6db74">$</span>A^<span style="color:#f92672">*</span><span style="color:#e6db74">$</span> is arranged in descending order.
+<span style="color:#66d9ef">\end</span>{enumerate}
+</code></pre></div>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2020-08-10-latex%E7%AC%94%E8%AE%B0/" class="leancloud_visitors" data-flag-title="latex 笔记">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2020-07-29-bib%E4%B8%8Eenw%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/"> 上一篇: bib与enw文件之间的相互转换</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/"> 下一篇: latex 缩写期刊</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2020-08-10-latex笔记.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

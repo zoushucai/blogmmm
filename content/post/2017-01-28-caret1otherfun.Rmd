@@ -1,0 +1,293 @@
+---
+title: 2、caret包其他函数介绍
+author: zsc
+date: '2017-01-28'
+tags:
+  - R
+  - carte
+keywords:
+  - R
+  - carte
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
+### 一、创建哑变量
+
+如果你有一个因子型变量需要进行哑变量处理，你会怎么办？也许你会根据该变量的m个水平数构建m-1个哑变量，不错，这样的思路是没有问题的。但如果发现该变量确实很重要，而且水平数目非常多，那你一定会抓狂！**如果你会caret包中的dummyVars()函数**，那将如虎添翼，效率倍增~我们来看看该函数是如何实现哑变量构建的。  
+
+函数语法及参数介绍：  
+
+`dummyVars(formula, data, sep = ".",levelsOnly = FALSE, fullRank = FALSE, ...)  `
+`predict(object, newdata, na.action = na.pass, ...) `
+
+- **formula:** 公式右边请指定需要处理为哑变量的因子型变量   
+- **sep:**设置变量与水平间的分割符，默认为实心点。如x.a，x就是变量名,a就是x的一个水平  
+
+- **levelsOnly:**逻辑值，如果为True，则列名中剔除原变量名。如x.a变为a,把因子作为变量名
+
+- **object:**为dummyVars()函数构成的结果   
+
+- **newdata:**需要处理的新数据   
+
+- **na.action:**缺失值的对待，变量水平中如果有缺失值，则结果仍为缺失值  
+
+```{r}
+library(caret)
+dummy <- dummyVars(formula = ~ ., data = iris,levelsOnly=TRUE)#把因子作为变量名
+pred <- predict(dummy, newdata = iris)
+head(pred)
+```
+  如果有很多因子变量需要转换为哑变量呢？ 
+
+```{r}
+set.seed(1234)
+f1 <- sample(c('a','b','c'),100,replace = T)
+f2 <- sample(c('f','m'),100,replace = T)
+f3 <- sample(c('h','m','l'),100,replace = T)
+x <- round(runif(100,1,10))
+
+df <- data.frame(x = x, f1 = f1, f2 = f2, f3 = f3)
+
+#可以直接用下面的方法一步搞定，和上面一样非常方便
+
+dummy=dummyVars(formula = ~.,data=df)#不是因子变量得自动过滤
+pred <- predict(dummy, newdata = df)
+head(pred)
+```
+
+### 二、近零方差变量的删除
+数据集中有某些变量的值非常稀少，而其他值可能又很多，例如性别字段，共有1000个观测，女只有10个观测，男990个观测，**一般直接删除该变量**，若有很多呢？   
+数语法及参数介绍：
+
+```
+nearZeroVar(x, freqCut = 95/5, uniqueCut = 10, saveMetrics = FALSE, 
+				names = FALSE,foreach = FALSE, allowParallel = TRUE)    
+nzv(x, freqCut = 95/5, uniqueCut = 10, saveMetrics = FALSE, names = FALSE) 
+```
+- **x:**为一个向量或矩阵或数据框，需要注意的是，必须是数值型对象，
+  - 如果是字符型的变量，建议转换为数值型的值，可通过factor函数实现    
+- **freqCut:**为一个阈值，默认值为95/5，即最频繁的数值个数除以次频繁的数值个数。
+  - 如上面的性别字段，990/10>95/5  
+- **uniqueCut:**为一个阈值，默认值为10%，即某个变量中不同值的个数除以样本总量。
+  - 如上面的性别字段，2/1000<0.1(根据近零方差的判断标准是，如果某个变量的freqCut超过了给到的默认阈值，并且uniqueCut低于给到的默认阈值，就认为改变量是近零方差的。）  
+- **saveMetrics:**逻辑值，默认为False，
+  - 如果为True的话会返回一个统计表，反映每个变量是否为零方差和近零方差 
+- **names:**逻辑值，默认为False，
+  - 如果为True的话，返回零方差和近零方差的变量名，否则返回对应的索引值  
+- **foreach:**是否指定使用foreach包进行计算，如果使用，计算过程将消耗更少的内存，但会比较耗时间  
+
+- **allowParallel:**是否指定使用foreach包进行并行运算，如果使用，将会消耗更多内存，但执行时间将更少  
+
+
+```{r}
+data(mdrr)# 加载数据mdrr，得到的数据框竟是mdrrDescr
+data.frame(table(mdrrDescr$nR11)) #某个变量的观测频率分布
+dim(mdrrDescr)# 原数据维度
+#方法1
+df <- nearZeroVar(mdrrDescr, saveMetrics= TRUE)#得到一个数据框
+df[df$nzv,][1:10,]#df$nzv为逻辑值，选择TRUE的，为领方差变量
+sum(df$nzv)#零方差变量为TURE的个数为45
+filterdf = mdrrDescr[,!df$nzv] #剔除零方差变量
+# 方法2
+nzv <- nearZeroVar(mdrrDescr) #直接得到一个向量，零方差变量得序号列
+filteredDescr <- mdrrDescr[,-nzv] #剔除零方差变量
+dim(filteredDescr) 
+all(filterdf==filteredDescr)
+
+```
+
+
+#### 三、删除高相关的预测变量和完全线性关系的变量
+在某些模型算法中就明确要求**变量间不能有高度线性相关的变量**，因为这会导致模型非常敏感与不稳定，例如线性回归模型或基于最小二乘方法的其他模型一般度要求变量间尽量不存在线性相关性。那问题来了，**我该如何检验并剔除高相关的变量呢？**  
+
+### 
+
+`findCorrelation(x, cutoff = .90, verbose = FALSE,names = FALSE, exact = ncol(x) < 100)  `
+
+- **x:**为一个相关系数矩阵
+
+- **cutoff:**指定高度线性相关的临界值，默认为0.9
+- **verbose:**逻辑值，指定是否打印出函数运算的详细结果
+- **names:**逻辑值，是否返回变量名，默认返回需要删除变量的对应索引值
+- **exact:**逻辑值，是否重新计算每一步的平均相关系数
+
+```{r}
+#返回相关系数矩阵中的上三角值
+corr <- cor(iris[,1:4])
+corr[upper.tri(corr)]
+#虽然能够一幕了然的看到那些相关系数是高相关的，但不能明确那组变量间是高相关的。
+#
+fC = findCorrelation(corr, cutoff = .8)
+fC
+head(iris[fC])
+head(iris[-fC])
+```
+### 3.1 矩阵的线性相关
+```{r}
+ltfrDesign <- matrix(0, nrow=6, ncol=6)
+ltfrDesign[,1] <- c(1, 1, 1, 1, 1, 1)
+ltfrDesign[,2] <- c(1, 1, 1, 0, 0, 0)
+ltfrDesign[,3] <- c(0, 0, 0, 1, 1, 1)
+ltfrDesign[,4] <- c(1, 0, 0, 1, 0, 0)
+ltfrDesign[,5] <- c(0, 1, 0, 0, 1, 0)
+ltfrDesign[,6] <- c(0, 0, 1, 0, 0, 1)
+
+
+comboInfo <- findLinearCombos(ltfrDesign)#返回一个列表，是列向量的索引
+comboInfo
+ltfrDesign[, -comboInfo$remove] #移除线性依赖相关的向量
+
+```
+### 四、数据标准化处理 preProcess()函数  
+  参考其他资料，我讲讲其他的  
+
+### 五、缺失数据的处理  
+　　可以用preProcess()函数，该函数提供了三种缺失值填补的方法，即**<font color='red'>K近邻方法、Bagging树集成方法和中位数法</font>**。
+
+### **需要注意的是，采用K近邻方法时，会对原始数据进行标准化，如果需要返回原始值，还需将标准化公式倒推回来；**使用Bagging树集成方法，理论上对缺失值的填补更权威，但其效率比较低；使用中位数方法，速度非常快，但填补的准确率有待验证。如果你想使用多重插补法，不妨也可以**试试mice包**，其操作原理是基于MC（蒙特卡洛模拟法）。
+
+```{r}
+set.seed(1234)
+y <- runif(1000,1,10)
+x1 <- 2 - 1.32*y + rnorm(1000)
+x2 <- 1.3 + 0.8 * y + rnorm(1000)
+df <- data.frame(y = y, x1 = x1, x2 = x2)
+
+#对y变量随机构造一些缺失值
+df$y[sample(1000,26)] <- NA 
+summary(df$y)
+
+
+#k临近替补法
+imputation_k <- preProcess(df,method = 'knnImpute')
+pred_k <- predict(imputation_k, df)
+summary(pred_k$y)
+
+
+#bagging树替补法
+imputation_bag <- preProcess(df,method = 'bagImpute')
+pred_bag <- predict(imputation_bag, df)
+summary(pred_bag$y)
+
+
+#中位数替补法
+imputation_m <- preProcess(df,method = 'medianImpute')
+pred_m <- predict(imputation_m, df)
+summary(pred_m$y)
+```
+
+###  六、变量转换
+　　**preProcess()函数也可以帮助我们实现变量的转换**，例如降维操作，降维的目的是考虑到变量太多，通过降维能使主成分之间不相关或独立，而且还保留了数据绝大部分信息。**我们常见的PCA和ICA就是用于降维，通过设置preProcess()函数的method参数就可方便的实现变量的降维操作。**  
+
+　　当**method='pca'**时，就是指定**主成分分析法**实现数据的降维，原数据集的变量会改为P1，P2...，而且**该方法也会强制原始数据进行标准化处理**；    
+
+　　当**method='ica'**时，就是指定**独立成分分析法**实现数据的降维，原数据集的变量会改为IC1，IC2，...。  　　
+
+```{r}
+x1 <- c(5700,1000,3400,3800,4000,8200,1200,9100,9900,9600,9600,9400)
+x2 <- c(12.8,10.9,8.8,13.6,12.8,8.3,11.4,11.5,12.5,13.7,9.6,11.4)
+x3 <- c(2500,600,1000,1700,1600,2600,400,3300,3400,3600,3300,4000)
+x4 <- c(270,10,10,140,140,60,10,60,180,390,80,100)
+x5 <- c(25000,10000,9000,25000,25000,12000,16000,14000,18000,25000,12000,13000)
+my_data <- data.frame(x1 = x1, x2 = x2, x3 = x3, x4 = x4, x5 = x5)
+
+#pca
+pca <- preProcess(my_data, pcaComp = 2, method = 'pca')
+pred_pca <- predict(pca, newdata = my_data)
+head(pred_pca)
+
+ica <- preProcess(my_data,n.comp= 2, method = 'ica')
+pred_ica <- predict(ica, newdata = my_data)
+head(pred_ica)
+```
+
+
+### 七、数据分割
+#### 7.1 简单的抽样---createDataPartition()
+函数语法及参数介绍：
+
+  ` createDataPartition(y, times = 1, p = 0.5,list = TRUE,groups = min(5, length(y)))`
+
+- **y:** 指定数据集中的输出变量  
+
+- **times:** 指定创建的样本个数，默认简单随机抽取一组样本  
+
+- **p:** 指定数据集中用于训练集的比例  
+
+- **list:** 是否已列表或矩阵的形式存储随机抽取的索引号，默认为TRUE  
+
+- **groups:** 如果输出变量为数值型数据，则默认按分位数分组进行取样  
+
+```{r}
+
+idx2 <- createDataPartition(iris$Species, p = 0.8, list = FALSE)
+#设置p=0.8时，就隐含了两层含义，即从总体中抽取80%的样本，同时在各个因子水平下也取80%的样本
+train2 <- iris[idx2,]
+test2 <- iris[-idx2,]
+```
+
+#### 7.2 使用有放回的方法进行抽样（BootStrap)
+
+ `createResample(y, times = 10, list = TRUE)`
+
+- **y:**指定数据集中的输出变量  
+
+- **times:**指定抽样组数，默认为10组  
+- **list:**是否已列表或矩阵的形式存储随机抽取的索引号，默认为TRUE  
+
+```{r}
+createResample(iris[,5], times = 2, list = TRUE)
+```
+#### 7.3  用于交叉验证的样本抽样
+
+```
+createFolds(y, k = 10, list = TRUE, returnTrain = FALSE)
+createMultiFolds(y, k = 10, times = 5)
+```
+
+- **y:**指定数据集中的输出变量     
+
+- **k:**指定k重交叉验证的样本，默认为10重。每重的样本量为总量/k。    
+
+- **list:**是否已列表或矩阵的形式存储随机抽取的索引号，默认为TRUE    
+
+- **returnTrain:**是否返回抽样的真实值，默认返回样本的索引值    
+
+- **times:**指定抽样组数，默认为5组（每组中都有10重抽样）    
+
+```{r}
+createFolds(iris[,5], k = 2, list = TRUE, returnTrain = F)
+# 产生多个交叉验证的数据指标索引
+createMultiFolds(iris[,5], k = 2, times = 2)
+```
+####  7.4  时间序列抽样
+
+简单随机抽样的时间序列可能不是最好的方法重新取样时间系列数据，将采用新的方法（滚动预测技术）  
+
+`createTimeSlices(y, initialWindow, horizon = 1, fixedWindow = TRUE,skip = 0)  `
+
+- initialWindow: 最初的连续值的数量在每一个训练集样本  
+
+- horizon：连续值在测试集样本的数量   
+
+- fixedWindow:一个逻辑:如果FALSE,训练集总是从第一个样本训练集数据分割大小会有所不同。  
+
+```{r}
+createTimeSlices(1:9, initialWindow=5, horizon=1, fixedWindow = FALSE)
+createTimeSlices(1:9, initialWindow=5, horizon=1, fixedWindow = TRUE)
+createTimeSlices(1:9, initialWindow=5, horizon=3, fixedWindow = TRUE)
+createTimeSlices(1:9, initialWindow=5, horizon=3, fixedWindow = FALSE)
+
+createTimeSlices(1:15, 5, 3)
+createTimeSlices(1:15, 5, 3, skip = 2)
+createTimeSlices(1:15, 5, 3, skip = 3)
+```
+
+
+
+```{r}
+sessionInfo()
+```

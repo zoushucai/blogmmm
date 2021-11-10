@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>dplyr -- 1基本函数简介</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0dplyr初始">0、dplyr初始</a></li>
+    <li><a href="#1filter-行过滤">1、filter 行过滤</a></li>
+    <li><a href="#2select-列过滤">2、select 列过滤</a>
+      <ul>
+        <li><a href="#arguments">Arguments</a></li>
+      </ul>
+    </li>
+    <li><a href="#3mutate-添加新变量组成新数据集-原数据不改变-">3、mutate 添加新变量，组成新数据集。 原数据不改变 。</a></li>
+    <li><a href="#4概况数据行组成新数据集-原数据不改变-">4、概况数据（行），组成新数据集。 原数据不改变 。</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                dplyr -- 1基本函数简介
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-01-01 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/dplyr"> #dplyr </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h2 id="0dplyr初始">0、dplyr初始</h2>
+<p>由于R语言每一个步骤没有赋值的话，是不会改变原有的数据，都是建立一个新的数据。原有数据不改变。</p>
+<ul>
+<li>
+<p><strong><code>dplyr::tbl_df(iris)</code>：</strong> 将数据转化为tbl类。只会显示适合屏幕大小的数据：</p>
+</li>
+<li>
+<p><strong><code>dplyr::glimpse(iris)</code>：</strong> tbl数据的信息密集概括。 类似str()函数</p>
+</li>
+<li>
+<p><strong><code>dplyr::%&gt;%</code>：</strong> 将左边的对象作为第一个参数（或参数 .）传递到右边的函数中。利用%&gt;%进行“Piping”管道操作增强了代码的可读性，</p>
+<blockquote>
+<pre tabindex="0"><code>   x %&gt;% f(y) 相当于  f(x, y)
+   y %&gt;% f(x, ., z) 相当于  f(x, y, z )
+</code></pre></blockquote>
+</li>
+</ul>
+<h2 id="1filter-行过滤">1、filter 行过滤</h2>
+<ul>
+<li>**<code>filter(iris, Sepal.Length &gt; 7) </code>：**抽取符合逻辑条件的数据记录。</li>
+<li>**<code>distinct(iris) </code>：**删除重复记录。 distinct(iris, Species)  保留iris某一列的唯一值</li>
+<li>**<code>sample_frac(iris, 0.5, replace = TRUE) </code>：**随机选取部分数据(占总体的0.5)记录。</li>
+<li>**<code>sample_n(iris, 10, replace = TRUE) </code>：**随机选取n条数据记录。</li>
+<li>**<code>slice(iris, 10:15) </code>：**通过位置选取数据记录。</li>
+<li>**<code>top_n(storms, 2, date) </code>：**选取并排列前n条数据记录 （若为分组数据则按组排序）</li>
+</ul>
+<h2 id="2select-列过滤">2、select 列过滤</h2>
+<pre tabindex="0"><code>rename(.data, ...)
+rename_all(.tbl, .funs = list(), ...)
+rename_if(.tbl, .predicate, .funs = list(), ...)
+rename_at(.tbl, .vars, .funs = list(), ...)
+
+
+select(.data, ...)
+select_all(.tbl, .funs = list(), ...)
+select_if(.tbl, .predicate, .funs = list(), ...)
+select_at(.tbl, .vars, .funs = list(), ...)
+
+</code></pre><h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th><code>.tbl</code></th>
+<th>A <code>tbl</code> object.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.funs</code></td>
+<td>A function <code>fun</code>, a purrr style lambda <code>~ fun(.)</code> or a list of either form.</td>
+</tr>
+<tr>
+<td><code>...</code></td>
+<td>Additional arguments for the function calls in <code>.funs</code>. These are evaluated only once, with <a href="http://127.0.0.1:31926/help/library/rlang/html/tidy-dots.html">tidy dots</a> support. <!-- raw HTML omitted -->注意: .funs一般是一个函数列表,处理自变量之外,一般不知道额外参数,要指定额外参数,此时需要在这里特别指定.</td>
+</tr>
+<tr>
+<td><code>.predicate</code></td>
+<td>A predicate function to be applied to the columns or a logical vector. The variables for which <code>.predicate</code> is or returns <code>TRUE</code>are selected. This argument is passed to<code>rlang::as_function()</code> and thus supports quosure-style lambda functions and strings representing function names.<!-- raw HTML omitted -->直译过来,指的是谓词函数, 必须是返回<code>ture</code> or <code>false</code> 的逻辑函数. 像<code>is.character,all,is.null</code>等等.</td>
+</tr>
+<tr>
+<td><code>.vars</code></td>
+<td>A list of columns generated by <code>vars()</code>, a character vector of column names, a numeric vector of column positions, or <code>NULL</code>.<!-- raw HTML omitted --> 可以用字符串 或者列索引(数字) 组成的列,匹配列名用</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong><code>select(df, newname=a, b, c ) </code>:</strong> 通过列名或帮助函数选取列变量。 同时也可以对列名进行重命名。</p>
+</li>
+<li>
+<p><strong><code>select(df, a:b)  </code>:</strong> 选取在a和b之间的所有列（包含 a和b）</p>
+</li>
+<li>
+<p><strong><code>select(df, -a)  </code>:</strong>   选取除a以外的所有列</p>
+</li>
+<li>
+<p><strong><code>select(df,...,funs)</code>:</strong></p>
+</li>
+<li>
+<p><strong><code>df</code>:</strong> 数据框</p>
+</li>
+<li>
+<p><strong><code>funs:</code></strong> 所用函数( 注意::  一般不建议在选择列的同时,对列进行操作)</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong><code>contains(&quot;.&quot;) </code>：</strong>   选取名称中含有字符的列。
+<ul>
+<li>**<code>starts_with(&quot;Sepal&quot;)</code>  :**选取名称以指定字符串为首的列。</li>
+</ul>
+</li>
+<li>**<code>ends_with(&quot;Length&quot;)</code> ：**选取名称以指定字符串结尾的列。</li>
+<li><strong><code>matches(&quot;.t.&quot;)</code>：</strong> 选取名称符合指定表达式规则的列。</li>
+<li>**<code>num_range(&quot;x&quot;, 1:5) </code>:**选取名为x1、x2、x3、x4、x5的列。</li>
+<li>**<code>one_of(c(&quot;Species&quot;, &quot;Genus&quot;)) </code> :**选取名称在指定名字组内的列。    e.g. <code>a:b</code>  eg.  <code>-a</code></li>
+<li><strong><code>everything([ df ])</code>：</strong>  列较多的情况下把不需要排序的列用evything()直接列出。当有df是返回1:df的列数,当为向量是返回1: 向量长度。 eg: <code>select(iris,Species,everything())</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p>**<code>select_if(df, &lt;条件&gt;, fun)</code>:**对df数据集 选出满足条件为真的列执行fun。</p>
+<ul>
+<li><code>&lt;条件&gt;</code>是对整个列属性进行判断筛选(真则保留，假则丢弃)。然后在对列名进行处理。</li>
+<li><code>funs</code>是对列名进行筛选处理.</li>
+<li>注意： 当同时使用<code>&lt;条件&gt;, fun</code> 时，以条件为准，<code>fun</code>是对满足条件后的列的列名进行处理，不能对列进行进一步筛选。</li>
+<li><code>select(df,...,funs)</code> 和<code>select_if(df,&lt;条件&gt;)</code>的区别
+<ul>
+<li><code>select_if</code>的条件是对列的属性进行筛选</li>
+<li><code>select</code>中的<code>funs</code>函数是对列名进行筛选</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>select_at(.tbl, .vars, .funs = list(), ...)</code> 是对<code>select_if</code>的加强版</p>
+<ul>
+<li><code>select_at(mtcars, vars(-contains(&quot;ar&quot;), starts_with(&quot;c&quot;))</code> 可以看做是多个对列名多个条件的筛选。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3mutate-添加新变量组成新数据集-原数据不改变-">3、mutate 添加新变量，组成新数据集。 原数据不改变 。</h2>
+<ul>
+<li>
+<p><strong><code>rename()</code></strong> 重命列名  eg.  <code>rename(iris, petal_length = Petal.Length)</code></p>
+<ul>
+<li><code>rename_all(iris,funs(c(1:5)))</code>或<code>rename_all(iris,funs(c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;)))</code>把整个列名都重新赋值</li>
+<li><code>rename_at(.tbl, .vars, .funs = list())</code></li>
+<li><code>rename_if(.tbl, .predicate, .funs = list())</code></li>
+<li>建议把参数<code>.vars=... , .funs = ...</code>显示调用，不然函数会报错</li>
+</ul>
+</li>
+<li>
+<p><strong><code>mutate(mtcars, gpm = 1/mpg)</code>：</strong>  在原有数据的基础上添加新列（多列）组成新数据集。 原数据不改变 。</p>
+</li>
+<li>
+<p>**<code>transmute(mtcars, gpm = 1/mpg)</code>：**直接创建一个新列（多列）组成新数据集。</p>
+<ul>
+<li>
+<p><strong><code>mutate_all(.tbl, .funs, …)</code></strong> :  对<strong>每一列</strong>应用 funs，组成新数据集，</p>
+</li>
+<li>
+<p><code>mutate_at(.tbl, .vars, .funs, ..., .cols = NULL) </code>：对<strong>指定的列</strong>运行窗口函数，组成新数据，</p>
+</li>
+<li>
+<p><strong><code>mutate_if(.tbl, .predicate, .funs, …) </code></strong>：对<strong>指定类型的列</strong>运行窗口函数，组成新数据，</p>
+<blockquote>
+<p><strong><code>vars() </code>:</strong> 表示需要进行概述的列</p>
+<p><strong><code>.funs</code>的用法</strong></p>
+<ul>
+<li>建议显示调用改参数<code>.funs=</code></li>
+<li>直接在函数中写明需要运行的函数:  <code>mutate_all(faithful, .funs(log))</code></li>
+<li>结合funs写出调用的函数:  <code>mutate_all(faithful, funs(log(.), log2(.)))</code>
+<ul>
+<li>运行两个以上函数，保留原数据的基础上增加新列，新列会自动根据函数名自动重命名</li>
+<li>也可以自己重命名,：<code>mutate_all(faithful, funs(a=log(.), b= log2(.)))</code></li>
+<li>当funs只有一个时且自己进行重命名时，会保留原数据的基础上增加新列构成新数据，<code>mutate_all(faithful, funs(a=log2(.)))</code></li>
+<li>mutate_if(car,is.character,as.factor )也可以直接省略括号</li>
+</ul>
+</li>
+</ul>
+<p>还可以把NULL赋值给列，已达到删除列的效果。</p>
+<p>以下用法类似：
+<code>summarise_all(.tbl, .funs, ...) </code></p>
+<p><code>summarise_if(.tbl, .predicate, .funs, ...)</code></p>
+<p><code>summarise_at(.tbl, .vars, .funs, ..., .cols = NULL)</code></p>
+<p><code>mutate_all(.tbl, .funs, ...)</code></p>
+<p><code>mutate_if(.tbl, .predicate, .funs, ...)</code></p>
+<p><code>mutate_at(.tbl, .vars, .funs, ..., .cols = NULL)</code></p>
+<p><code>transmute_all(.tbl, .funs, ...)</code></p>
+<p><code>transmute_if(.tbl, .predicate, .funs, ...)</code></p>
+<p><code>transmute_at(.tbl, .vars, .funs, ..., .cols = NULL) </code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>窗体函数（.funs）</p>
+<ul>
+<li>
+<p><code>lead(x, n = 1L, default = NA, order_by = NULL, ...)</code></p>
+</li>
+<li>
+<p><code>lag(x, n = 1L, default = NA, order_by = NULL, ...)　</code></p>
+<blockquote>
+<p>lead和lag函数主要用于替换数据，lead表示整体向前替换，lag表示整体向后替换，n表示替换的个数，default表示要替换的结果，默认为NA 。order_by是根据某一列进行排序。</p>
+</blockquote>
+</li>
+<li>
+<p><code>cume_dist() </code>： 累积分布。</p>
+</li>
+<li>
+<p><code>dense_rank() </code>： 无缝排序。</p>
+</li>
+<li>
+<p><code>min_rank() </code>： 排序。并列时，其他序号顺延。</p>
+</li>
+<li>
+<p><code>ntile()</code> ： 把向量分为n份。</p>
+</li>
+<li>
+<p><code>percent_rank() </code>： 把数据在[0, 1]中重组并排列。</p>
+</li>
+<li>
+<p><code>row_number() </code>： 排序。并列时，位置在前的并列数 据序号在前。</p>
+</li>
+<li>
+<p><code>between() </code>： 数值是否在a和b之间？</p>
+<ul>
+<li>
+<p><code>cumall() </code>： 累积all函数</p>
+</li>
+<li>
+<p><code>cumany()</code> ： 累积any函数</p>
+</li>
+<li>
+<p><code>cummean()</code> ： 累积mean函数</p>
+</li>
+<li>
+<p><code>cumsum()</code> ： 累积sum函数</p>
+</li>
+<li>
+<p><code>cummax()</code> ： 累积max函数</p>
+</li>
+<li>
+<p><code>cummin() </code>： 累积  min函数</p>
+</li>
+<li>
+<p><code>cumprod() </code>： 累积prod函数</p>
+</li>
+<li>
+<p><code>pmax()</code> ： 针对元素的max函数</p>
+</li>
+<li>
+<p><code>pmin() </code>： 针对元素的min函数</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="4概况数据行组成新数据集-原数据不改变-">4、概况数据（行），组成新数据集。 原数据不改变 。</h2>
+<ul>
+<li><code>summarise(iris, avg = mean(Sepal.Length))</code> 将数据概括为单行数值。
+<ul>
+<li><strong><code>summarise_all(.tbl, .funs, ...)</code></strong> : 对<strong>每一列</strong>运行概述函数</li>
+<li><strong><code>summarise_at(.tbl, .vars, .funs, ..., .cols=NULL)</code></strong> :对<strong>指定的列</strong>运行概述函数</li>
+<li><strong><code>summarise_if(.tbl, .predicate, .funs)</code></strong>: 对<strong>指定类型的列</strong>运行概述函数</li>
+</ul>
+</li>
+<li><code>count(iris, Species, wt = Sepal.Length)</code> 计算各变量中每一个特定值的⾏行数（带权重或不带 权重）.
+<ul>
+<li><code>wt</code>可选参数
+<ul>
+<li>不带<code>wt</code>时：对分组进行<strong>计数</strong>统计</li>
+<li>带<code>wt</code>时，对分组后的变量<code>Sepal.Length</code>进行<strong>求和</strong>统计</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>利用概述函数概括数据信息，输入数值向量而返回单一数值，如：</p>
+<p><strong>计数</strong></p>
+<ul>
+<li><strong><code>length(x)</code></strong>：返回一组<strong>向量（包括列表）或因子的长度</strong></li>
+<li><strong><code>nrow() / ncol()</code></strong>：总行数/总列数</li>
+<li><strong><code>n()</code></strong>：返回观测行的行数，<strong>不能单独使用</strong>（可被用于 <code>summarise()、mutate()、filter()</code> ）</li>
+<li><code>n_distinct(x, na.rm=FALSE)</code>：返回不重复的行数
+<ul>
+<li><strong><code>sum(!is.na())</code></strong>：计算非空值的行数</li>
+</ul>
+</li>
+</ul>
+<p><strong>位置与序列</strong></p>
+<ul>
+<li><strong><code>first(x)/last(x)</code></strong>    向量的最后一个值。</li>
+<li><strong><code>nth(x,n)</code></strong> 返回向量的第n个值。</li>
+</ul>
+<p><strong>分布</strong></p>
+<ul>
+<li><strong><code>IQR()</code></strong> 向量的IQR（四分位距）。</li>
+<li><strong><code>min() /max()</code></strong> 向量中的最小(大)值。</li>
+<li><strong><code>mean()</code></strong> 向量中的均值。  <strong>mean(!is.na())</strong> ：非空值的均值</li>
+<li><strong><code>median()</code></strong> 向量中的中位数。</li>
+<li><strong><code>var()</code></strong> 向量中的⽅方差。</li>
+<li><strong><code>sd()</code></strong> 向量中的标准差。</li>
+<li><strong><code>range()</code></strong> 返回值域，即最大最小值</li>
+<li><strong><code>colSums(x) / rowSums(x)</code></strong>：各列/行求和</li>
+<li><strong><code>colMeans(x) / rowMeans(x)</code></strong>：各列/行求均值</li>
+</ul>
+<h4 id="heading"></h4>
+<p>##5、分组汇总</p>
+<ul>
+<li>
+<p><code>group_by(.data, ..., add = FALSE)</code></p>
+</li>
+<li>
+<p><code>ungroup(x, ...)  </code></p>
+<blockquote>
+<p><code>... </code>： 表示用于分组的列名；</p>
+<p><code>add= FALSE</code>默认)</p>
+<ul>
+<li><code>FALSE</code>，表示会覆盖原来的分组，相当于对源数据重新分组；</li>
+<li>若为<code>TRUE</code>,则不覆盖，相当于在原来的基础上在进行分组；</li>
+</ul>
+<blockquote>
+<p><code>group_by(iris, Species)</code> 把在Species中的值相同的数据组合成行。</p>
+<p><code>ungroup(iris)</code> 从数据框中移除组合信息。</p>
+<ul>
+<li><code>iris   %&gt;%   group_by(Species)   %&gt;%   summarise(…) </code>为每一个分组分别计算行概述。</li>
+<li><code>iris   %&gt;%   group_by(Species)   %&gt;%   mutate(…)</code> 按组计算新变量。</li>
+</ul>
+</blockquote>
+<p>同样也有</p>
+<p><code>group_by_all(.tbl, .funs = list(), ...)   </code></p>
+<p><code>group_by_at(.tbl, .vars, .funs = list(), ..., .add = FALSE)</code></p>
+<p><code>group_by_if(.tbl, .predicate, .funs = list(), ..., .add = FALSE)</code></p>
+</blockquote>
+</li>
+</ul>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-01-01-dplyr/" class="leancloud_visitors" data-flag-title="dplyr -- 1基本函数简介">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/"> 上一篇: tibble包的列和行名相互转换以及添加行和列</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-01-05-goinstall/"> 下一篇: 1、go语言安装与LiteIDE的配置</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-01-01-dplyr.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

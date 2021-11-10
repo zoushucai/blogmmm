@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>符号计算 on zsc</title>
+    <link>/tags/%E7%AC%A6%E5%8F%B7%E8%AE%A1%E7%AE%97/</link>
+    <description>Recent content in 符号计算 on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 10 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E7%AC%A6%E5%8F%B7%E8%AE%A1%E7%AE%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R计算微积分</title>
+      <link>/post/test-toc/</link>
+      <pubDate>Sat, 10 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/test-toc/</guid>
+      <description>(一)R 计算微积分 1.1差分 x=1:12 diff(x) #向量差分 后面一个数减去前面一个数 ## [1] 1 1 1 1 1 1 1 1 1 1 1 z=matrix(x,3,4) z ## [,1] [,2] [,3] [,4] ## [1,] 1 4 7 10 ## [2,] 2 5 8 11 ## [3,] 3 6 9 12 diff(z) #矩阵差分 前行减去后行 ## [,1] [,2] [,3] [,4] ## [1,] 1 1 1 1 ## [2,] 1 1 1 1  1.2 符号计算–微分 1.</description>
+    </item>
+    
+  </channel>
+</rss>

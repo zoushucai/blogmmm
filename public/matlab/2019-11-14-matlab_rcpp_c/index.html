@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>Armadillo &#43; Rcpp  VS  MATLAB/octave</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-armadillo-vs--matlab">1. Armadillo VS  matlab</a></li>
+    <li><a href="#2-r-数据类型对照表">2. R 数据类型对照表</a></li>
+    <li><a href="#3-rcpp-语法糖">3. Rcpp 语法糖</a></li>
+    <li><a href="#4-迭代器">4. 迭代器</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                Armadillo &#43; Rcpp  VS  MATLAB/octave
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2019-11-14 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/matlab"> #matlab </a></li><li><a class="link" href="/tags/rcpp"> #rcpp </a></li><li><a class="link" href="/tags/c"> #c </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="armadillo--rcpp--vs--matlaboctave">*<strong>Armadillo + Rcpp  VS  MATLAB/octave</strong></h1>
+<ul>
+<li><a href="http://arma.sourceforge.net/docs.html">http://arma.sourceforge.net/docs.html</a></li>
+</ul>
+<h2 id="1-armadillo-vs--matlab">1. Armadillo VS  matlab</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Matlab/Octave</strong></th>
+<th><strong>Armadillo</strong></th>
+<th><strong>Notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A,B,C代表矩阵<!-- raw HTML omitted -->a,b,c 代表向量</td>
+<td>vec x(10);<!-- raw HTML omitted -->vec y = zeros<!-- raw HTML omitted -->(10);<!-- raw HTML omitted -->rowvec x(10); <!-- raw HTML omitted -->rowvec y = zeros<!-- raw HTML omitted -->(10); <!-- raw HTML omitted -->rowvec a = {1,2,3,4};<!-- raw HTML omitted -->vec b = {1,2,3,4};<!-- raw HTML omitted -->mat    A = randu<!-- raw HTML omitted -->(10,10);</td>
+<td>C++中要声明向量类型<!-- raw HTML omitted -->(这里都是 double 类型)<!-- raw HTML omitted -->vec 默认 colvec(等价),是列向量</td>
+</tr>
+<tr>
+<td>A(1,1)</td>
+<td>A(0,0)</td>
+<td>C++ 索引从 0 开始</td>
+</tr>
+<tr>
+<td>A(k,k)</td>
+<td>A(k-1,k-1)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>size(A,1)</td>
+<td>A.n_rows</td>
+<td>C++ 中直接利用对象的属性</td>
+</tr>
+<tr>
+<td>size(A,2)</td>
+<td>A.n_cols</td>
+<td></td>
+</tr>
+<tr>
+<td>size(Q,3)</td>
+<td>Q.n_slices</td>
+<td>这里 Q 是一个三维数组</td>
+</tr>
+<tr>
+<td>numel(A)<!-- raw HTML omitted -->length(A(:))</td>
+<td>A.n_elem</td>
+<td>矩阵 A 中所有元素的个数,行数$\times$ 列数</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A(:, k)</td>
+<td>A.col(k)</td>
+<td>注意这里的索引问题,为了方便 这里不做转换</td>
+</tr>
+<tr>
+<td>A(k, :)</td>
+<td>A.row(k)</td>
+<td></td>
+</tr>
+<tr>
+<td>A(:, p:q)</td>
+<td>A.cols(p,q)</td>
+<td></td>
+</tr>
+<tr>
+<td>A(p:q, :)</td>
+<td>A.rows(p,q)</td>
+<td></td>
+</tr>
+<tr>
+<td>A(p:q, r:s)</td>
+<td>A( span(p,q), span(r,s) ) <!-- raw HTML omitted -->A.submat(p, r, q, s)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Q(:, :, k)</td>
+<td>Q.slice(k)</td>
+<td>Q 是一个三维数组</td>
+</tr>
+<tr>
+<td>Q(:, :, t:u)</td>
+<td>Q.slices(t, u)</td>
+<td></td>
+</tr>
+<tr>
+<td>Q(p:q, r:s, t:u)</td>
+<td>Q( span(p,q), span(r,s), span(t,u) )</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A'</td>
+<td>A.t() <!-- raw HTML omitted -->trans(A)</td>
+<td></td>
+</tr>
+<tr>
+<td>A^(-1)</td>
+<td>inv(A)</td>
+<td>求 A 的逆<!-- raw HTML omitted -->R 中是: solve(A)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A = zeros(size(A))</td>
+<td>A.zeros()</td>
+<td>把矩阵 A复制为 0 矩阵</td>
+</tr>
+<tr>
+<td>A = ones(size(A))</td>
+<td>A.ones()</td>
+<td></td>
+</tr>
+<tr>
+<td>A = zeros(k)</td>
+<td>A = zeros<!-- raw HTML omitted -->(k,k)</td>
+<td>创建一个$k \times k$ 的 0 矩阵,并赋值给 A</td>
+</tr>
+<tr>
+<td>A = ones(k)</td>
+<td>A = ones<!-- raw HTML omitted -->(k,k)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A + B</td>
+<td>A + B</td>
+<td></td>
+</tr>
+<tr>
+<td>A - B</td>
+<td>A - B</td>
+<td></td>
+</tr>
+<tr>
+<td>A .* B</td>
+<td>A % B</td>
+<td></td>
+</tr>
+<tr>
+<td>A ./ B</td>
+<td>A / B</td>
+<td></td>
+</tr>
+<tr>
+<td>A*B</td>
+<td>A*B</td>
+<td></td>
+</tr>
+<tr>
+<td>A \ B</td>
+<td>solve(A,B)<!-- raw HTML omitted -->inv(A)*B</td>
+<td></td>
+</tr>
+<tr>
+<td>A / B</td>
+<td>无<!-- raw HTML omitted -->A*inv(B)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A ./ a</td>
+<td>A.each_row() / a</td>
+<td>a为行向量 ,C++中不能是列除以行<!-- raw HTML omitted -->注意和 MATLAB 的区别</td>
+</tr>
+<tr>
+<td>A ./ b</td>
+<td>A.each_col() /b</td>
+<td>b为列向量,</td>
+</tr>
+<tr>
+<td>A .* a</td>
+<td>A.each_row() % a</td>
+<td>a 为行向量</td>
+</tr>
+<tr>
+<td>A .* b</td>
+<td>A.each_col  % b</td>
+<td>b为列向量</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sqrt(A)</td>
+<td>sqrt(A)</td>
+<td>求数组元素的开方</td>
+</tr>
+<tr>
+<td>A .^ p</td>
+<td>pow(A,p)</td>
+<td>求数组元素的次方</td>
+</tr>
+<tr>
+<td>exp(A)</td>
+<td>exp(A)</td>
+<td>以自然常数为底数的指数</td>
+</tr>
+<tr>
+<td>log(A)</td>
+<td>log(A)</td>
+<td></td>
+</tr>
+<tr>
+<td>log2(A)</td>
+<td>log2(A)</td>
+<td>这里都是以数组形式运算</td>
+</tr>
+<tr>
+<td>log10(A)</td>
+<td>log10(A)</td>
+<td></td>
+</tr>
+<tr>
+<td>sign(A)</td>
+<td>sign(A)</td>
+<td>符号函数</td>
+</tr>
+<tr>
+<td></td>
+<td>向量的^ 也可以用 pow计算</td>
+<td>注意,Rcpp 并不提供^运算, <!-- raw HTML omitted -->支持向量的 <code>+</code> <code>-</code> <code>*</code> <code>/</code> <!-- raw HTML omitted -->以及 <code>==</code> <code>! =</code> <code>&lt;</code> <code>&gt;</code> <code>&gt; =</code> <code>&lt;=</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x = A(:)</td>
+<td>vec  x = vectorise(A)</td>
+<td>把矩阵转变为列向量(即按内存排序), <!-- raw HTML omitted -->C++ 中不能是行向量</td>
+</tr>
+<tr>
+<td>X = [ A  B ]</td>
+<td>X = join_horiz(A,B)</td>
+<td>矩阵的拼接</td>
+</tr>
+<tr>
+<td>X = [ A; B ]</td>
+<td>X = join_vert(A,B)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A = randn(2,4);</td>
+<td>mat A = randn(2,4);</td>
+<td>产生维度为 2*4 的标准正太分布数据</td>
+</tr>
+<tr>
+<td>A = randi(2,4)</td>
+<td>mat A = randi(2,4)<!-- raw HTML omitted -->mat A = randi(2,4,distr_param(3,8))</td>
+<td>以$2\times 4 $的随机整数,0 到正无穷<!-- raw HTML omitted -->产生 $2 \times 4$ 的随机矩阵,范围 [3,8]之间的整数</td>
+</tr>
+<tr>
+<td>A = randu(2,4)</td>
+<td>mat A = randu(2,4)</td>
+<td>产生维度为 2*4 的标准均匀分布数据</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>a *  b</td>
+<td>a % b <!-- raw HTML omitted -->A.row(i)%A.row(i)<!-- raw HTML omitted -->A.col(i) %A.col(i)</td>
+<td>a ,b 为列向量 , 向量对应元素相乘</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sum(A,1)<!-- raw HTML omitted -->sum(A)</td>
+<td>rowvec a = sum(A, 0)<!-- raw HTML omitted -->rowvec a = sum(A)</td>
+<td>C++. 中 0 代表列 ,1 代表行</td>
+</tr>
+<tr>
+<td>sum(A,2)</td>
+<td>colvec  a = sum(A,1)</td>
+<td>MATLAB 中 1 代表列, 2 代表行</td>
+</tr>
+<tr>
+<td>sum(A(:))</td>
+<td>double y = aucc(A)</td>
+<td></td>
+</tr>
+<tr>
+<td>mean(A)</td>
+<td>mean(A)</td>
+<td>与 sum 函数类似</td>
+</tr>
+<tr>
+<td>max(A)<!-- raw HTML omitted -->max(A,1)<!-- raw HTML omitted -->max(A,2)</td>
+<td>rowvec a = max(M);<!-- raw HTML omitted -->rowvec b = max(M,0);<!-- raw HTML omitted -->colvec c = max(M,1);</td>
+<td>与 sum 函数类似(还有 min 之类的)</td>
+</tr>
+<tr>
+<td>min(A)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-r-数据类型对照表">2. R 数据类型对照表</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>R vector</th>
+<th>Rcpp vector</th>
+<th>Rcpp matrix</th>
+<th>Rcpp scalar</th>
+<th>C++ scalar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logical</td>
+<td><code>logical</code></td>
+<td><code>LogicalVector</code></td>
+<td><code>LogicalMatrix</code></td>
+<td>-</td>
+<td><code>bool</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td><code>integer</code></td>
+<td><code>IntegerVector</code></td>
+<td><code>IntegerMatrix</code></td>
+<td>-</td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td>Real</td>
+<td><code>numeric</code></td>
+<td><code>NumericVector</code></td>
+<td><code>NumericMatrix</code></td>
+<td>-</td>
+<td><code>double</code></td>
+</tr>
+<tr>
+<td>Complex</td>
+<td><code>complex</code></td>
+<td><code>ComplexVector</code></td>
+<td><code>ComplexMatrix</code></td>
+<td><code>Rcomplex</code></td>
+<td><code>complex</code></td>
+</tr>
+<tr>
+<td>String</td>
+<td><code>character</code></td>
+<td><code>CharacterVector</code><!-- raw HTML omitted -->(<code>StringVector</code>)</td>
+<td><code>CharacterMatrix</code><!-- raw HTML omitted -->(<code>StringMatrix</code>)</td>
+<td><code>String</code></td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>Date</td>
+<td><code>Date</code></td>
+<td><code>DateVector</code></td>
+<td>-</td>
+<td><code>Date</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td>Datetime</td>
+<td><code>POSIXct</code></td>
+<td><code>DatetimeVector</code></td>
+<td>-</td>
+<td><code>Datetime</code></td>
+<td><code>time_t</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>R</th>
+<th>Rcpp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data.frame</code></td>
+<td><code>DataFrame</code></td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td><code>List</code></td>
+</tr>
+<tr>
+<td>S3 class</td>
+<td><code>List</code></td>
+</tr>
+<tr>
+<td>S4 class</td>
+<td><code>S4</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-rcpp-语法糖">3. Rcpp 语法糖</h2>
+<p>即 Rcpp 中提供了基础 R 中的的一些基本函数,几乎和 基础 R 一样,支持向量运算.</p>
+<p><a href="https://teuder.github.io/rcpp4everyone_en/">https://teuder.github.io/rcpp4everyone_en/</a></p>
+<p><a href="http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp-sugar.html">http://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/rcpp-sugar.html</a></p>
+<table>
+<thead>
+<tr>
+<th>Rcpp</th>
+<th>C++</th>
+<th>Matlab</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rcout</td>
+<td>std::cout</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Rcerr</td>
+<td>std::cerr</td>
+<td></td>
+<td>注意这里的四个函数都只能<!-- raw HTML omitted -->打印一些信息并输出到屏幕,<!-- raw HTML omitted -->并不能中止程序</td>
+</tr>
+<tr>
+<td>Rprintf( format, variables)</td>
+<td>std::printf()</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>REprintf()</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>stop(&ldquo;范围提示信息&rdquo;)</td>
+<td></td>
+<td>error(&lsquo;信息&rsquo;)</td>
+<td>这要遇到这种情况,后面的程序不再运行<!-- raw HTML omitted -->直接打印错误信息</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-迭代器">4. 迭代器</h2>
+<p>RCPP 提供的迭代器</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">NumericVector<span style="color:#f92672">::</span>iterator
+IntegerVector<span style="color:#f92672">::</span>iterator
+LogicalVector<span style="color:#f92672">::</span>iterator
+CharacterVector<span style="color:#f92672">::</span>iterator
+DataFrame<span style="color:#f92672">::</span>iterator
+List<span style="color:#f92672">::</span>iterator
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// [[Rcpp::export]]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">rcpp_sum</span>(NumericVector x) {
+  <span style="color:#66d9ef">double</span> total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">for</span>(NumericVector<span style="color:#f92672">::</span>iterator i <span style="color:#f92672">=</span> x.begin(); i <span style="color:#f92672">!=</span> x.end(); <span style="color:#f92672">++</span>i) {
+    total <span style="color:#f92672">+=</span> <span style="color:#f92672">*</span>i;
+  }
+  <span style="color:#66d9ef">return</span> total;
+}
+</code></pre></div><ul>
+<li><code>i = v.begin()</code> : 迭代器 <code>i</code>指向<code>v</code>的第一个元素</li>
+<li><code>++i</code> : Updates <code>i</code> to the state pointing to the next element.</li>
+<li><code>--i</code> : Updates <code>i</code> to the state pointing to the previous element.</li>
+<li><code>i + 1</code> : Represents an iterator pointing to the element 1 elements behind of <code>i</code>.</li>
+<li><code>i - 1</code> : Represents an iterator pointing to the element 1 elements ahead of <code>i</code>.</li>
+<li><code>*i</code> : 表示指针<code>i</code> 指向的元素的值</li>
+<li><code>v.end()</code> : 表示<code>v</code>的最后一个元素</li>
+<li><code>*(v.begin()+k)</code> : Represents the value of the <code>k</code>-th element of <code>v</code> ( 即 <code>v[k]</code>).</li>
+<li><code>v[k] = *(v.begin() + k)</code></li>
+</ul>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/matlab/2019-11-14-matlab_rcpp_c/" class="leancloud_visitors" data-flag-title="Armadillo &#43; Rcpp  VS  MATLAB/octave">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/matlab/2019-11-13-matlab-question/"> 上一篇: matlab 问题集合基础</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/matlab/2019-11-15-matlab-r-rank/"> 下一篇: MATLAB 与 R 在排序上的区别</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/matlab\/2019-11-14-MATLAB_Rcpp_c.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

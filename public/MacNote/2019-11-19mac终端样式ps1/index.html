@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>mac 终端样式配置</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                mac 终端样式配置
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2019-11-19 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/mac"> #mac </a></li>
+                        
+                        <span> </span>
+                        
+                        <span>分类:</span>
+                        <li><a class="link" href="/categories/mac%e7%b3%bb%e7%bb%9f%e8%ae%be%e7%bd%ae"> @mac系统设置 </a></li>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="mac-终端样式配置">mac 终端样式配置</h1>
+<p>首先，弄明白bash 和zsh&hellip;.</p>
+<h2 id="1-mac-shell一览">1 mac shell一览</h2>
+<p>unix核的系统如linux、macos的shell 默认都是bash</p>
+<p>就如第一张图查询所示，mac有6个shell，默认是/bin/bash</p>
+<h3 id="11-查看安装了哪些shell-">1.1 查看安装了哪些shell ：</h3>
+<pre tabindex="0"><code>cat /etc/shells
+</code></pre><h3 id="12-查看当前使用的shell">1.2 查看当前使用的shell</h3>
+<pre tabindex="0"><code>echo $SHELL   # 方法一
+echo $0       # 方法二
+</code></pre><h3 id="13-bash和zsh切换">1.3 bash和zsh切换</h3>
+<p><strong>切换到bash</strong></p>
+<pre tabindex="0"><code class="language-undefined" data-lang="undefined">chsh -s /bin/bash
+</code></pre><p><strong>切换到zsh</strong></p>
+<pre tabindex="0"><code class="language-undefined" data-lang="undefined">chsh -s /bin/zsh
+</code></pre><p>记得输入切换命令后，要重新打开终端terminal才生效哦！</p>
+<h2 id="2终端美化----iterm2--zsh配置方法">2、终端美化 &mdash;iterm2 + zsh配置方法</h2>
+<h3 id="21-安装iterm2--官网">2.1 安装iterm2 -官网</h3>
+<p>我不能确定zsh是否需要iterm2作为基础，因此我安装了iterm2</p>
+<ul>
+<li>官网下载安装： <a href="https://www.iterm2.com/">https://www.iterm2.com/</a></li>
+<li>brew 安装，<code>$  brew cask install iterm2</code></li>
+</ul>
+<h3 id="22-zsh-配置方法">2.2 zsh 配置方法</h3>
+<p>要自定义各种配置 我们就要修改默认shell 改用zsh，据说zsh比bash更强大（都是浮云 读者自行查找为啥强大吧），oh my zsh是开源的 a delightful &amp; open source framework for Z-Shell，也就是说我们用它 配置zsh更容易</p>
+<p>直接去官网https://ohmyz.sh/ 找到如下命令复制到终端即可（如果遇到提示则输入Yes和回车即可）：</p>
+<pre tabindex="0"><code>$ sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+</code></pre><p>下载完毕后打开终端 样式已经变成zsh的默认样式robbyrussell了</p>
+<h3 id="23-切换主题">2.3 切换主题</h3>
+<p>如果不喜欢oh my zsh的自带主题，可以通过修改配置文件 修改主题</p>
+<p>主题查看 -》<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">oh my zsh github主题列表</a></p>
+<p>我认为好看的主题，mh 、ys、cloud</p>
+<p>打开配置文件</p>
+<pre tabindex="0"><code>vim ~/.zshrc
+</code></pre><p>找到ZSH_THEME，按‘ <strong>i</strong> ’编辑修改主题，编辑完毕后按键盘ese退出并输入&quot;:wq&quot;保存</p>
+<pre tabindex="0"><code>ZSH_THEME=&quot;cloud&quot;
+</code></pre><p>双引号的内容就是你想修改成的主题名，我修改成的 就是cloud主题 还蛮可爱的</p>
+<p>然后重启终端就能发现样式起作用啦，或者不重启，使用命令更新配置</p>
+<pre tabindex="0"><code>source  ~/.zshrc
+</code></pre><h4 id="24-卸载">2.4 卸载</h4>
+<p>必须在处于zsh环境下才能卸载zsh, 它讲默认还原为系统指定的环境（mac则还原为 bash）,卸载命令如下.</p>
+<pre tabindex="0"><code>uninstall_oh_my_zsh
+</code></pre><h2 id="3终端美化----bash推荐">3、终端美化 &mdash;bash(推荐)</h2>
+<p>还有一种方法是用mac自带的bash 进行修改， 这与上面的zsh有冲突，要么使用bash 要么使用zsh,不过zsh也有类似修改样式参数的命令。自行百度</p>
+<h3 id="31--prompt解析">3.1  prompt解析</h3>
+<p>在osx系统下，对系统自带的终端进行配色可以通过设置PS1环境变量来实现的</p>
+<h3 id="在osx系统下prompt的表示成">在osx系统下prompt的表示成</h3>
+<pre tabindex="0"><code>[\u@\h: ] \w \$
+</code></pre><p>示例：</p>
+<pre tabindex="0"><code>[elmman@192: ] ~ $
+</code></pre><h3 id="32-设置ps1环境">3.2 设置PS1环境</h3>
+<p>把一下内容追加到 <code>~/.bash_profile</code>这个文件中保存并退出</p>
+<pre tabindex="0"><code>export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '
+</code></pre><pre tabindex="0"><code>$ vim ~/.bash_profile  % 把上述文件追加到这个文件末尾
+$ source ~/.bash_profile  % 使配置文件生效
+
+</code></pre><p>以一个颜色开始直到遇到另一个颜色命令结束</p>
+<p>上述有一个问题,就是当输入字符过多以后,不会自动换行,会导致字符重叠,建议后改为后面的这个</p>
+<pre tabindex="0"><code>export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PS1='\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '
+</code></pre><p>参考: https://my.oschina.net/6tao/blog/1587040?p=1</p>
+<h3 id="32-ps1-参数解释">3.2 PS1 参数解释</h3>
+<p>在mac下 一般用下面的结构来表示终端</p>
+<pre tabindex="0"><code>[\u@\h: ] \w \$
+</code></pre><p>实例：</p>
+<pre tabindex="0"><code>[zsc@zscdeMacBook-Air:] ~ $ 
+</code></pre><ul>
+<li>
+<p>\u表示用户（这里是elmman）</p>
+</li>
+<li>
+<p>@表示@（这里是@）</p>
+</li>
+<li>
+<p>\h表示host（我的电脑是：zscdeMacBook-Air）</p>
+</li>
+<li>
+<p>:也是个无意义符号（这里是:） 一一对应的</p>
+</li>
+<li>
+<p>\w表示当前目录（这里是~，即家目录）</p>
+</li>
+<li>
+<p>$表示命令提示符（这里是$）</p>
+<p>如果发现用户名太长,可以修改, 参考: <a href="https://zhidao.baidu.com/question/1819212125670125468.html">https://zhidao.baidu.com/question/1819212125670125468.html</a></p>
+<p>改成短的名字,有利用查看(个人觉得)</p>
+</li>
+</ul>
+<h3 id="33-ps1的配色规则即在shell当中颜色的表示码">3.3 PS1的配色规则（即在shell当中颜色的表示码）</h3>
+<table>
+<thead>
+<tr>
+<th>默认 : \e[00m</th>
+<th>黄色 : \e[01;33m</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>黑色 : \e[01;30m</td>
+<td>蓝色 : \e[01;34m&lt;</td>
+</tr>
+<tr>
+<td>红色 : \e[01;31m</td>
+<td>洋红 : \e[01;35m</td>
+</tr>
+<tr>
+<td>绿色 : \e[01;32m</td>
+<td>青色 : \e[01;36m&lt;</td>
+</tr>
+<tr>
+<td></td>
+<td>白色 : \e[01;37m</td>
+</tr>
+</tbody>
+</table>
+<p>其中还有两个命令：</p>
+<ul>
+<li>CLICOLOR=1表示开启命令行颜色设置。</li>
+<li>LSCOLORS=gxfxcxdxbxegedabagacad这个参数是对ls命令展示的内容进行配色，</li>
+</ul>
+<p>参考： <a href="https://blog.csdn.net/maotianyi941005/article/details/86505688">https://blog.csdn.net/maotianyi941005/article/details/86505688</a></p>
+<p>参考 <a href="https://blog.csdn.net/xchenhao/article/details/90648636">https://blog.csdn.net/xchenhao/article/details/90648636</a></p>
+<p>注意，如果使用mac &ndash;默认使用的是bash，因此推荐使用bash，这样能够保证mac 系统有些配置能正常运行，不然可能需要重新去配置zsh。</p>
+<h3 id="linux-更改终端颜色">linux 更改终端颜色</h3>
+<pre tabindex="0"><code>echo &quot;PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '&quot; &gt;&gt; ~/.bashrc 
+
+# 记得重新运行
+$ source ~/.bashrc  % 使配置文件生效
+</code></pre><h2 id="mac中终端中添加显示分支情况">mac中终端中添加显示分支情况</h2>
+<pre tabindex="0"><code>parse_git_branch() {
+    git branch 2&gt; /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w\[\e[01;34m\]$(parse_git_branch) \[\e[01;32m\]\$ '
+</code></pre>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/" class="leancloud_visitors" data-flag-title="mac 终端样式配置">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"> 下一篇: mac常用软件安装</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/macnote\/2019-11-19mac终端样式PS1.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

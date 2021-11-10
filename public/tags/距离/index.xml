@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>距离 on zsc</title>
+    <link>/tags/%E8%B7%9D%E7%A6%BB/</link>
+    <description>Recent content in 距离 on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 11 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E8%B7%9D%E7%A6%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>计算各种距离 （matlab）</title>
+      <link>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2019-12-11-%E8%AE%A1%E7%AE%97%E5%90%84%E7%A7%8D%E8%B7%9D%E7%A6%BBmatlab/</guid>
+      <description>pdist &amp;ndash;不推荐使用&amp;ndash;好像是计算元素之间的距离
+观测值对之间的成对距离
+matlab中自带的计算距离矩阵的函数有两个pdist和pdist2。前者计算一个向量自身的距离矩阵，后者计算两个向量之间的距离矩阵。基本调用形式如下：
+输入： 一个矩阵
+计算方法: 案例计算各自的距离
+D = pdist(X) D = pdist(X,Distance) D = pdist(X,Distance,DistParameter) pdist2 &amp;mdash; 计算向量之间的距离</description>
+    </item>
+    
+  </channel>
+</rss>

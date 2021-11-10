@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R Markdown on zsc</title>
+    <link>/tags/r-markdown/</link>
+    <description>Recent content in R Markdown on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 28 Dec 2017 00:00:00 +0000</lastBuildDate><atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hugo-blogdown搭建网页过程中的小问题</title>
+      <link>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/md/2018-01-07-hugo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>1、hugo路径设置 在建立网站的时候，用rmarkdown生成的图片引用到网页中，不能使用中文，不然图片路径找不到（即不能正常显示）且不能用空格，但是可以用-,表示路径。 所以目录还是用英文吧，不过标题可以用中文
+2、hugo生成网页首页产生0001样式 这是由于文章开头没有声明yaml格式，注意title author可以用双引号也可以不用，但请注意date的日期格式，尽量用date: 2017-12-28 这样的格式
+3 运行blogdown:::serve_site()函数本地监听没有反应 即运行blogdown:::serve_site()改函数时，本地不能预览，这是由于我们自己写的rmd或者md文件的编码不是UTF-8引起的，所以我们一般要设置Rstudio的全局属性中保存UTF-8编码，但是这样在保存文件时又会产生新的问题，特别是保存的是csv文件
+还有一种情况是设置了全局属性echo = TRUE这个选项，不过这个选项还有待验证
+参见：
+4、网站图片引入居中设置 方法一：嵌入html标签
+&amp;lt;img src=&amp;quot;./xxx.png&amp;quot; width = &amp;quot;300&amp;quot; height = &amp;quot;200&amp;quot; alt=&amp;quot;图片名称&amp;quot; align=center /&amp;gt; 方法二：
+	&amp;lt;div align=&amp;quot;center&amp;quot;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
+解决方法： 这是由于rmd的文件名中有中文，写成英文即可。
+疑问： rmd文章短的时候可以用中文名。但是中文长的时候就不能用中文
+6、 hogo生成动态网页 不显示图片 比如 DT包 、plotly包、dygraph、等
+建议引用widgetframe包 如下 （并且rmd文件不能有中文名，不然不能识别，文章的标题可以是中文）
+library(dygraphs) library(widgetframe) ## 载入需要的程辑包：htmlwidgets ## Loading required package: htmlwidgets ts &amp;lt;- dygraph(nhtemp, main = &amp;quot;New Haven Temperatures&amp;quot;) frameWidget(ts, height = 350, width = &#39;95%&#39;) </description>
+    </item>
+    
+  </channel>
+</rss>

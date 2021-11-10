@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>latex 参考文献生成(总结)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-什么是bib-文件">0. 什么是<code>*.bib</code> 文件</a></li>
+    <li><a href="#1-使用-thebibliography-环境---手动书写">1. 使用 <code>thebibliography</code> 环境&ndash; 手动书写</a></li>
+    <li><a href="#2-使用-bst-文件----自动生成">2. 使用 <code>*.bst</code> 文件 &ndash; 自动生成</a></li>
+    <li><a href="#3-使用csl-样式文件----自动生成">3. 使用<code>*.csl</code> 样式文件 &ndash; 自动生成</a></li>
+    <li><a href="#4-使用biblatex----未来的版本">4. 使用biblatex &ndash; 未来的版本</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                latex 参考文献生成(总结)
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2020-08-13 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/latex"> #latex </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <p>生成latex参考文献大致有4种方法&hellip;..</p>
+<p>使用环境: <code>MacTeX 2018 + texstudio</code>, texstudio编译器改为xelatex</p>
+<h2 id="0-什么是bib-文件">0. 什么是<code>*.bib</code> 文件</h2>
+<p>注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为<code>.bib</code>的文件,这里我建立一个bib文件, 如<code>text.bib</code>,  去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111644929.png" alt="image-20200809111644929"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111700803.png" alt="image-20200809111700803"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111722093.png" alt="image-20200809111722093"></p>
+<p>把上图的内容复制到我们所创建的<code>test.bib</code>文件中即可.</p>
+<p><strong>注意: 生成参考文献的好坏,80% 都看你的bib数据文件</strong></p>
+<h2 id="1-使用-thebibliography-环境---手动书写">1. 使用 <code>thebibliography</code> 环境&ndash; 手动书写</h2>
+<p>使用格式:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tex" data-lang="tex"><span style="color:#66d9ef">\begin</span>{thebibliography}{99}
+		<span style="color:#66d9ef">\bibitem</span>{citekey1} ***自己书写参考文献***
+		<span style="color:#66d9ef">\bibitem</span>{citekey2} ***自己书写参考文献***
+		.....
+<span style="color:#66d9ef">\end</span>{thebibliography}
+</code></pre></div><p>完整的案例如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\begin</span>{document}
+	
+	测试文档，参考文献<span style="color:#66d9ef">\cite</span>{hosseini2016modeling,wang2019snow}
+	<span style="color:#66d9ef">\begin</span>{thebibliography}{99}
+		<span style="color:#66d9ef">\bibitem</span>{hosseini2016modeling}	Hosseini~S, Barker~K. Modeling infrastructure resilience using {{Bayesian}} networks: {{A}}	case study of inland waterway ports [J]. Computers <span style="color:#66d9ef">\&amp;</span> Industrial Engineering, 2016, 93: 252-266.
+		<span style="color:#66d9ef">\bibitem</span>{wang2019snow}
+		Wang~J, Liu~H. Snow removal resource location and allocation optimization for urban
+		road network recovery: a resilience perspective [J]. Journal of Ambient Intelligence and Humanized Computing, 2019,
+		10<span style="color:#66d9ef">\penalty</span>0 (1): 395-408.
+	<span style="color:#66d9ef">\end</span>{thebibliography}
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p><strong>个人不推荐</strong></p>
+<h2 id="2-使用-bst-文件----自动生成">2. 使用 <code>*.bst</code> 文件 &ndash; 自动生成</h2>
+<p>texlive 2018 系统自带的bst文件数量大致有375个</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ cd  /usr/local/texlive/2018/texmf-dist/bibtex/bst 
+$ find . -name *.bst | WC -l
+</code></pre></div><p>系统默认的参考文献风格在目录<code>base</code>中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ cat /usr/local/texlive/2018/texmf-dist/bibtex/bst/base
+</code></pre></div><p>一共8种,为最基本的参考文献风格样式, 解释如下</p>
+<pre tabindex="0"><code>plain，按字母的顺序排列，比较次序为作者、年度和标题.
+unsrt，样式同plain，只是按照引用的先后排序.
+alpha，用作者名首字母+年份后两位作标号，以字母顺序排序.
+abbrv，类似plain，将月份全拼改为缩写，更显紧凑.
+ieeetr，国际电气电子工程师协会期刊样式.
+acm，美国计算机学会期刊样式.
+siam，美国工业和应用数学学会期刊样式.
+apalike，美国心理学学会期刊样式.
+</code></pre><p>如果系统自带&mdash;- 一般情况下直接使用就好,  案例如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
+
+测试文档，参考文献<span style="color:#66d9ef">\cite</span>{xu2018methods,xu2014weak}
+
+<span style="color:#66d9ef">\bibliographystyle</span>{unsrt} <span style="color:#75715e">% unsrt 可以替换为任意风格的样式文件
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\bibliography</span>{test}<span style="color:#75715e">% 这里填写bib文件名,无后缀
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p>生成的pdf截图如下:</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809112144024.png" alt="image-20200809112144024"></p>
+<p>比如我要使用<code>/usr/local/texlive/2018/texmf-dist/bibtex/bst/elsarticle/elsarticle-num-names.bst  </code> 这个参考文献样式, 只需直接替换使用即可,如下,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
+	测试文档，参考文献<span style="color:#66d9ef">\cite</span>{xu2018methods,xu2014weak}
+	<span style="color:#66d9ef">\bibliographystyle</span>{elsarticle-num-names}
+	<span style="color:#66d9ef">\bibliography</span>{test}
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p><strong>还有一种方法, 把对应的bst文件拷贝到当前目录使用(当然,你也可以指定bst文件的具体路径), 然后在使用即可.</strong></p>
+<p>当然有些期刊自己会提供对应的<code> *.bst</code>样式文件, 那么安照期刊的要求来即可.</p>
+<p>顺便提一句,  通过 <code>*.bst</code>生成的参考文献当前目录会生成一个后缀名为<code>.bbl</code>的文件,你可以打开它, 里面是一个完整的 <code>thebibliography</code> 环境, 即可以通过<code>bst</code>文件自动生成<code>thebibliography</code>环境里面的条目信息.</p>
+<p>补充:</p>
+<p>我要投稿,怎么知道是用哪个<code>*.bst</code>文件, 一般情况下期刊官网会提供, 若没有提供,按以下步骤查找</p>
+<ol>
+<li>首先记住你要准备投的期刊, 然后在 <a href="https://csl.mendeley.com/searchByName/">这个网站</a>搜索, 一般情况下, 你准备的期刊参考文献有一个别名, 说白了可能是其他期刊的文献格式, 于是你找到那个别名.</li>
+<li>然后在目录<code>/usr/local/texlive/2018/texmf-dist/bibtex/bst </code>下去搜索你要的bst 参考文献</li>
+</ol>
+<p>备注:</p>
+<p><a href="https://www.elsevier.com/authors/author-schemas/latex-instructions">爱思唯尔(Elsevier)期刊模板:</a></p>
+<p><a href="https://www.ctan.org/pkg/elsarticle">latex 官网自带的 elsevier 模板:</a></p>
+<h2 id="3-使用csl-样式文件----自动生成">3. 使用<code>*.csl</code> 样式文件 &ndash; 自动生成</h2>
+<p>由于<code>Zotero</code>软件提供了大量的<code>csl</code>样式文件,大致接近<a href="https://www.zotero.org/styles">1万个参考文献样式</a>,  而 latex 软件本身是不能直接支持<code>csl</code>文件的</p>
+<ul>
+<li>方法一: 可以使用 像<code>Zotero, Mendeley</code> 软件支持, 但是不能像<code>bst</code>文件那样使用,只能手动粘贴.参考文献数量多了,自然不方便</li>
+<li>方法二: 借助 <a href="https://www.pandoc.org/">pandoc</a> , 该软件提供了大量命令参数, 感兴趣的可以去探索,  而xieyihui 通过使用<code>*.Rmd</code>文件进行了封装(前提要安装并了解<code>R + Rstudio</code>),  个人在巨人的肩上, 进行了简单封装,提供了一个R包<a href="https://github.com/zoushucai/journalabbr">journalabbr</a>提供了一个本地app 和一个<a href="https://zoushucai.shinyapps.io/shiny_cankaowenxian/">在线app</a>, 该app提供期刊缩写, 美化bib数据库文件以及提供类似<code>bst</code>文件那样批量生成一个完整的 <code>thebibliography</code> 环境. app截图如下:</li>
+</ul>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809120534362.png" alt="image-20200809120534362"></p>
+<h2 id="4-使用biblatex----未来的版本">4. 使用biblatex &ndash; 未来的版本</h2>
+<p>这里仅以国标gb7714为例子</p>
+<p>首先把texstudio编译器改为xelatex, 并把bibtex 后端改为 biber. , 提供一个案例如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
+<span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\usepackage</span>[backend = biber, style=gb7714-2015,gbnamefmt =  lowercase,
+gbbiblabel=bracket]{biblatex}
+<span style="color:#66d9ef">\addbibresource</span><span style="color:#a6e22e">[location=local]</span>{test.bib}
+<span style="color:#66d9ef">\renewcommand</span>{<span style="color:#66d9ef">\bibfont</span>}{<span style="color:#66d9ef">\zihao</span>{5}<span style="color:#66d9ef">\songti</span>}<span style="color:#75715e">%设置参考文献的字体和字号
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\setlength</span>{<span style="color:#66d9ef">\bibitemsep</span>}{2pt}<span style="color:#75715e">%设置各条参考文献之间的间距为2pt
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">\begin</span>{document}
+	测试文档，参考文献<span style="color:#66d9ef">\cite</span>{xu2018methods,xu2014weak}
+
+<span style="color:#66d9ef">\printbibliography</span><span style="color:#a6e22e">[heading=bibliography,title=参考文献]</span>
+<span style="color:#66d9ef">\end</span>{document}
+
+
+</code></pre></div><p>更多,可参考
+<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%92%8C%E5%BC%95%E7%94%A8%E6%A0%B7%E5%BC%8Fcaspervector.pdf">biblatex参考文献和引用样式caspervector.pdf</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-zh-cn.pdf">biblatex-zh-cn</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-solution-to-latex-bibliography.pdf">biblatex-solution-to-latex-bibliography</a></p>
+<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-gb7714-2015.pdf">biblatex-gb7714-2015</a></p>
+<p>关于 国标gb7714 我们后面在进一步介绍.</p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2020-08-13-latex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E7%94%9F%E6%88%90/" class="leancloud_visitors" data-flag-title="latex 参考文献生成(总结)">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2020-08-11-latex%E7%BC%A9%E5%86%99%E6%9C%9F%E5%88%8A/"> 上一篇: latex 缩写期刊</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2020-08-14-gb7714/"> 下一篇: latex 参考文献格式: GB/7714</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2020-08-13-latex参考文献生成.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

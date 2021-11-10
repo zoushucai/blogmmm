@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>matlab优化工具04二次规划之quadprog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                matlab优化工具04二次规划之quadprog
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2021-05-16 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/matlab"> #matlab </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h1 id="matlab优化工具04二次规划之quadprog">matlab优化工具04二次规划之quadprog</h1>
+
+<p>二次规划问题是目标函数为 $ \textbf{x}$ 的二次形式, 约束条件为线性等式或不等式约束</p>
+
+<h3 id="二次规划的一般模型">二次规划的一般模型</h3>
+
+<p><span  class="math">\[
+\begin{aligned}
+& \min \quad  f^T x + \frac{1}{2}x^T \textbf{H} x \\
+& \text {s.t.} \begin{cases}
+\textbf{A} \cdot x \leq b \\
+\textbf{Aeq} \cdot x=beq \\
+l b \leq x \leq u b
+\end{cases}\\ \\
+&  x, b, beq是向量, f^T 为一次项的系数,  \\
+& \textbf{A}是矩阵,\textbf{H}是矩阵 \\ 
+& \textbf{H}是矩阵,即二次项系数,用以描述x_i^2 以及 x_i x_j项\\
+&\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\
+\end{aligned}
+\]</span></p>
+
+<p>当然,二次规划的目标函数中的二次项还可以用元素的形式表达,即
+<span  class="math">\(
+\begin{aligned}
+\frac{1}{2}\left(h_{11} x_{1}^{2}+h_{12} x_{1} x_{2}+\cdots+h_{1 n} x_{1} x_{n}+h_{21} x_{1} x_{2}+h_{22} x_{2}^{2}+\cdots+h_{n n} x_{n}^{2}\right)
+\end{aligned}
+\)</span></p>
+
+<p><strong>定理:</strong> 如果$\textbf{H}$ 矩阵为正定矩阵, 则二次规划问题是凸问题. 即它的求解与初始值无关,只要有可行解,则一定是全局最优解.</p>
+
+<p>如果二次规划问题非凸,则该函数不能得出原始问题的全局最优解,甚至可能不能得出可行解.</p>
+
+<h4 id="matlab-函数---quadprog">matlab 函数— —  quadprog</h4>
+<pre tabindex="0"><code>%% 语法
+x = quadprog(H,f,A,b,Aeq,beq,lb,ub)
+x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0)
+x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0,options)
+x = quadprog(problem)
+[x,fval,exitflag,output,lambda] = quadprog(___)
+
+%% 不解释了, 看前面的fmincon函数
+x0 初始值</code></pre>
+<h4 id="例1">例1</h4>
+
+<p><span  class="math">\[
+\begin{aligned}
+min  & \quad \left(x_{1}-1\right)^{2}+\left(x_{2}-2\right)^{2}+\left(x_{3}-3\right)^{2}+\left(x_{4}-4\right)^{2} \\
+& \text{s.t.} \begin{cases}
+x_{1}+x_{2}+x_{3}+x_{4} \leqslant 5 \\
+3 x_{1}+3 x_{2}+2 x_{3}+x_{4} \leqslant 10 \\
+x_{1}, x_{2}, x_{3}, x_{4} \geqslant 0
+\end{cases}
+\end{aligned}
+\]</span></p>
+
+<h5 id="方法一-根据上述方程写出标准形式的二次规划">方法一: 根据上述方程,写出标准形式的二次规划</h5>
+
+<p><span  class="math">\[
+f(x)=x_{1}^{2}+x_{2}^{2}+x_{3}^{2}+x_{4}^{2}-2 x_{1}-4 x_{2}-6 x_{3}-8 x_{4}+30
+\]</span></p>
+
+<p>然后写出 $\textbf{H}$和$f^T$,代码如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">clc,clear all;format compact;
+f = [<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>;<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>;<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>;<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>];
+H = diag([<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>]);
+A = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>;
+	<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>];
+b = [<span style="color:#ae81ff">5</span>;<span style="color:#ae81ff">10</span>];
+lb = [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>];
+ub = [];
+x0=[];
+options = optimoptions(<span style="color:#e6db74">&#39;quadprog&#39;</span>,<span style="color:#e6db74">&#39;Display&#39;</span>,<span style="color:#e6db74">&#39;iter&#39;</span>);
+[x,fval,exitflag,output,lambda] = quadprog(H,f,A,b,[],[],lb,ub,x0,options)
+<span style="color:#75715e">% ---------------------------- 结果 -------------------------</span>
+x =
+    <span style="color:#ae81ff">0.0000</span>
+    <span style="color:#ae81ff">0.6667</span>
+    <span style="color:#ae81ff">1.6667</span>
+    <span style="color:#ae81ff">2.6667</span>
+fval =
+  <span style="color:#f92672">-</span><span style="color:#ae81ff">23.6667</span></code></pre></div>
+<h5 id="方法2--采用问题描述的形式--结构体">方法2 : 采用问题描述的形式 — 结构体</h5>
+
+<p>这种模式,不需要手工推导$\textbf{H}$ 矩阵</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%% 问题描述形式 --- 以结构体方式创建 </span>
+<span style="color:#75715e">%%</span>
+<span style="color:#75715e">% optimproblem(&#39;ObjectiveSense&#39;,&#39;max&#39;)  % 最优化问题的创建,  ObjectiveSense属性求最大值(默认最小值)</span>
+<span style="color:#75715e">%%  optimvar 决策变量的定义,n,m,k 设置决策变量的维度,不设置k则变量维度为n*m</span>
+<span style="color:#75715e">% x = optimvar(&#39;x&#39;,n,m,k,&#39;LowerBound&#39;,lb,&#39;UpperBound&#39;,ub)</span>
+
+
+
+clc,clear all;format compact;
+x = optimvar(<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;LowerBound&#39;</span>,[<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>],<span style="color:#e6db74">&#39;UpperBound&#39;</span>,[]);
+objec = sum( (x <span style="color:#f92672">-</span> [<span style="color:#ae81ff">1</span>;<span style="color:#ae81ff">2</span>;<span style="color:#ae81ff">3</span>;<span style="color:#ae81ff">4</span>])<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span> );
+prob = optimproblem(<span style="color:#e6db74">&#39;Objective&#39;</span>,objec);
+prob.Constraints.cons1 = sum(x) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">5</span>;
+prob.Constraints.cons2 = <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">+</span> x(<span style="color:#ae81ff">4</span>) <span style="color:#f92672">&lt;</span>=<span style="color:#ae81ff">10</span>;
+sols = solve(prob);
+x=sols.x
+
+<span style="color:#75715e">%% ---------------------------- 结果 -------------------------</span>
+x =
+    <span style="color:#ae81ff">0.0000</span>
+    <span style="color:#ae81ff">0.6667</span>
+    <span style="color:#ae81ff">1.6667</span>
+    <span style="color:#ae81ff">2.6667</span>
+    
+<span style="color:#75715e">%% 上述问题还可以简化,利用向量的形式给出</span>
+clc,clear all;format compact;
+x = optimvar(<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;LowerBound&#39;</span>,[<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>],<span style="color:#e6db74">&#39;UpperBound&#39;</span>,[]);
+objec = sum( (x <span style="color:#f92672">-</span> [<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]<span style="color:#f92672">&#39;</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span> );
+prob = optimproblem(<span style="color:#e6db74">&#39;Objective&#39;</span>,objec);
+prob.Constraints.cons1 = sum(x) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">5</span>;
+prob.Constraints.cons2 = [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> x <span style="color:#f92672">&lt;</span>=<span style="color:#ae81ff">10</span>;
+sols = solve(prob);
+x=sols.x
+
+<span style="color:#75715e">%% ---------------------------- 结果 -------------------------</span>
+x =
+    <span style="color:#ae81ff">0.0000</span>
+    <span style="color:#ae81ff">0.6667</span>
+    <span style="color:#ae81ff">1.6667</span>
+    <span style="color:#ae81ff">2.6667</span></code></pre></div>
+<h4 id="例2">例2:</h4>
+
+<p><span  class="math">\[
+\begin{aligned}
+ \min \quad & -2 x_{1}+3 x_{2}-4 x_{3}+4 x_{1}^{2}+2 x_{2}^{2}+7 x_{3}^{2}-2 x_{1} x_{2}-2 x_{1} x_{3}+3 x_{2} x_{3} \\
+& \text{s.t. }\begin{cases}
+2 x_{1}+x_{2}+3 x_{3} \geq 8 \\
+x_{1}+2 x_{2}+x_{3} \leq 7 \\
+-3 x_{1}+2 x_{2} \leq-5 \\
+x_{1}, x_{2}, x_{3} \geq 0
+\end{cases}
+\end{aligned}
+\]</span></p>
+
+<p>由于上述问题采用手工的方法比较麻烦,因此可以采用问题描述的形式求解该问题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">clc,clear all;format compact;
+x = optimvar(<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;LowerBound&#39;</span>,[<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>],<span style="color:#e6db74">&#39;UpperBound&#39;</span>,[]);
+objec = <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>)^<span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>)^<span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">7</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>)^<span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>);
+prob = optimproblem(<span style="color:#e6db74">&#39;Objective&#39;</span>,objec);
+prob.Constraints.cons1 = [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>] <span style="color:#f92672">*</span> x <span style="color:#f92672">&gt;</span>= <span style="color:#ae81ff">8</span>;
+prob.Constraints.cons2 = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> x <span style="color:#f92672">&lt;</span>=<span style="color:#ae81ff">7</span>;
+prob.Constraints.cons3 = [<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x <span style="color:#f92672">&lt;</span>= <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>;
+sols = solve(prob);
+x=sols.x
+
+<span style="color:#75715e">%% ---------------------------- 结果 -------------------------</span>
+Solving problem using quadprog.
+Your Hessian is not symmetric. Resetting H=(H<span style="color:#f92672">+</span>H<span style="color:#f92672">&#39;</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2.</span>
+
+Minimum found that satisfies the constraints.
+
+Optimization completed because the objective <span style="color:#66d9ef">function</span> is non<span style="color:#f92672">-</span>decreasing in 
+feasible directions, to within the value of the optimality tolerance,
+and constraints are satisfied to within the value of the constraint tolerance.
+
+<span style="color:#f92672">&lt;</span>stopping criteria details<span style="color:#f92672">&gt;</span>
+x =
+    <span style="color:#ae81ff">2.2500</span>
+    <span style="color:#ae81ff">0.8750</span>
+    <span style="color:#ae81ff">0.8750</span></code></pre></div>
+<p>上述可以看到 <code>Your Hessian is not symmetric. Resetting H=(H+H')/2.</code>   说明给出了警告,指出自动生成的Hesse 矩阵是非对称的,  所以建议设置<code>H=(H+H')/2</code>  将其转化为对称矩阵. 由于问题描述模式没有输入H矩阵. 因此,应该将问题描述模式转为结构体模型,再来处理H矩阵(这样做不会产生警告,不过最后的结果都是一样的).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#f92672">&gt;&gt;</span> p = prob2struct(prob);
+p = 
+  包含以下字段的 struct:
+
+     intcon: []
+         lb: [<span style="color:#ae81ff">3</span>×<span style="color:#ae81ff">1</span> double]
+         ub: [<span style="color:#ae81ff">3</span>×<span style="color:#ae81ff">1</span> double]
+         x0: []
+      Aineq: [<span style="color:#ae81ff">3</span>×<span style="color:#ae81ff">3</span> double]
+      bineq: [<span style="color:#ae81ff">3</span>×<span style="color:#ae81ff">1</span> double]
+        Aeq: []
+        beq: []
+         f0: <span style="color:#ae81ff">0</span>
+     solver: <span style="color:#e6db74">&#39;quadprog&#39;</span>
+          H: [<span style="color:#ae81ff">3</span>×<span style="color:#ae81ff">3</span> double]
+          f: [<span style="color:#ae81ff">3</span>×<span style="color:#ae81ff">1</span> double]
+    options: []
+<span style="color:#f92672">&gt;&gt;</span> p.H = (p.H <span style="color:#f92672">+</span> p.H<span style="color:#f92672">&#39;</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+<span style="color:#f92672">&gt;&gt;</span> x1 = quadprog(p)
+x1 =
+    <span style="color:#ae81ff">2.2500</span>
+    <span style="color:#ae81ff">0.8750</span>
+    <span style="color:#ae81ff">0.8750</span></code></pre></div>
+<h3 id="双下标二次规划">双下标二次规划</h3>
+
+<p>主要是根据线性模型中的运输问题直接扩展而来的, 即把线性模型中的运输问题的目标函数用二次项表示,其他的约束条件都不变</p>
+
+<p><strong>线性模型中的运输问题</strong></p>
+
+<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161058image-20210516105838325.png" alt="image-20210516105838325"></figure></p>
+
+<p><strong>双下标二次规划的一个改进版本</strong></p>
+
+<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161643image-20210516164342083.png" alt="image-20210516164342083"></figure></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%%  对凹费用运输问题的求解,假设 n = 4, m = 6, a,b,C,D 已知;</span>
+<span style="color:#75715e">%% 双虾标的运输问题（凹费用运输问题）</span>
+<span style="color:#75715e">% 已知 n, m,a,b,C,D</span>
+clc,clear all;format compact;
+n = <span style="color:#ae81ff">4</span>; m = <span style="color:#ae81ff">6</span>;
+a = [<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">24</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">24</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">12</span>]<span style="color:#f92672">&#39;</span>;
+b = [<span style="color:#ae81ff">29</span>,<span style="color:#ae81ff">41</span>,<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">21</span>];
+C= [<span style="color:#ae81ff">300</span>, <span style="color:#ae81ff">270</span>, <span style="color:#ae81ff">460</span>, <span style="color:#ae81ff">800</span>;
+    <span style="color:#ae81ff">740</span>, <span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">540</span>, <span style="color:#ae81ff">380</span>;
+    <span style="color:#ae81ff">300</span>, <span style="color:#ae81ff">490</span>, <span style="color:#ae81ff">380</span>, <span style="color:#ae81ff">760</span>;
+    <span style="color:#ae81ff">430</span>, <span style="color:#ae81ff">250</span>, <span style="color:#ae81ff">390</span>, <span style="color:#ae81ff">600</span>; 
+    <span style="color:#ae81ff">210</span>, <span style="color:#ae81ff">830</span>, <span style="color:#ae81ff">470</span>, <span style="color:#ae81ff">680</span>;
+    <span style="color:#ae81ff">360</span>, <span style="color:#ae81ff">290</span>, <span style="color:#ae81ff">400</span> ,<span style="color:#ae81ff">310</span>];
+D = [<span style="color:#f92672">-</span><span style="color:#ae81ff">7</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>;
+    <span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">14</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">7</span>;
+    <span style="color:#f92672">-</span><span style="color:#ae81ff">13</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>;
+    <span style="color:#f92672">-</span><span style="color:#ae81ff">7</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>;
+    <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">21</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">13</span>;
+    <span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>];
+
+x = optimvar(<span style="color:#e6db74">&#39;x&#39;</span>,m,n,<span style="color:#e6db74">&#39;LowerBound&#39;</span>,<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#39;UpperBound&#39;</span>,[]);
+objec = sum(sum(C <span style="color:#f92672">.*</span> x <span style="color:#f92672">+</span> D<span style="color:#f92672">.*</span> (x<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>)) );
+prob = optimproblem(<span style="color:#e6db74">&#39;Objective&#39;</span>,objec);
+prob.Constraints.cons1 = sum(x,<span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> b;
+prob.Constraints.cons2 = sum(x,<span style="color:#ae81ff">2</span>) <span style="color:#f92672">==</span> a;
+sols = solve(prob);
+x=sols.x
+
+<span style="color:#75715e">%% ---------------------------- 结果 -------------------------</span>
+Solving problem using quadprog.
+The problem is non<span style="color:#f92672">-</span>convex.
+x =
+     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>
+     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>
+     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>
+     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>
+     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>
+     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;</span> </code></pre></div>
+<p><strong>注意: 上述结果不满足约束条件,即得出的结果不是可行解, 这时候, 则需要使用fmincon 函数了</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">% 由于上述问题采用问题描述方式书写的，这里进行转化，转化为结构体模式</span>
+p = prob2struct(prob);
+p.solver = <span style="color:#e6db74">&#39;fmincon&#39;</span>; <span style="color:#75715e">%转为结构体必须修改必要的参数</span>
+f = @(x) sum(C(:) <span style="color:#f92672">.*</span> x <span style="color:#f92672">+</span> D(:) <span style="color:#f92672">.*</span> x<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>);
+p.Objective = f; <span style="color:#75715e">%定义目标函数</span>
+ff  = optimset;
+ff.TolX =eps; <span style="color:#75715e">% 一个比较苛刻的误差值l</span>
+ff.TolFun=eps;
+p.options = ff;
+p.x0 =<span style="color:#ae81ff">100</span><span style="color:#f92672">*</span>rand(m<span style="color:#f92672">*</span>n,<span style="color:#ae81ff">1</span>);
+x0 =fmincon_global(p,<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">10</span>,n<span style="color:#f92672">*</span>m,<span style="color:#ae81ff">50</span>);
+X0 = reshape(x0,m,n)
+
+<span style="color:#75715e">%% ---------------------------- 结果 -------------------------</span>
+X0 =
+    <span style="color:#ae81ff">6.0000</span>    <span style="color:#ae81ff">2.0000</span>    <span style="color:#ae81ff">0.0000</span>    <span style="color:#ae81ff">0.0000</span>
+    <span style="color:#ae81ff">0.0000</span>    <span style="color:#ae81ff">3.0000</span>    <span style="color:#ae81ff">0.0000</span>   <span style="color:#ae81ff">21.0000</span>
+   <span style="color:#ae81ff">20.0000</span>    <span style="color:#ae81ff">0.0000</span>    <span style="color:#ae81ff">0.0000</span>    <span style="color:#ae81ff">0.0000</span>
+    <span style="color:#ae81ff">0.0000</span>   <span style="color:#ae81ff">24.0000</span>    <span style="color:#ae81ff">0.0000</span>    <span style="color:#ae81ff">0.0000</span>
+    <span style="color:#ae81ff">3.0000</span>    <span style="color:#ae81ff">0.0000</span>   <span style="color:#ae81ff">13.0000</span>    <span style="color:#ae81ff">0.0000</span>
+    <span style="color:#ae81ff">0.0000</span>   <span style="color:#ae81ff">12.0000</span>    <span style="color:#ae81ff">0.0000</span>    <span style="color:#ae81ff">0.0000</span></code></pre></div>
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B704%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92%E4%B9%8Bquadprog/" class="leancloud_visitors" data-flag-title="matlab优化工具04二次规划之quadprog">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2020-08-16-r%E5%8A%A8%E7%94%BB/"> 上一篇: R动画</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2021-05-16-matlab%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B703%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96%E4%B9%8Bga/"> 下一篇: matlab优化工具03全局优化之ga</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2021-05-16-matlab优化工具04二次规划之quadprog.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>正则表达式(通用)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#正则表达式--表格">正则表达式&ndash;表格</a>
+      <ul>
+        <li><a href="#1-基本的元字符">1. 基本的元字符</a></li>
+        <li><a href="#2-数量元字符">2. 数量元字符</a></li>
+        <li><a href="#3-位置元字符">3. 位置元字符</a></li>
+        <li><a href="#4-特殊字符元字符">4. 特殊字符元字符</a></li>
+        <li><a href="#5-posix字符类">5. POSIX字符类</a></li>
+        <li><a href="#6-回溯引用和环视">6. 回溯引用和环视</a></li>
+        <li><a href="#7-大小写转换">7. 大小写转换</a></li>
+        <li><a href="#8-多行匹配模式">8. 多行匹配模式</a></li>
+        <li><a href="#9-注意事项">9. 注意事项</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                正则表达式(通用)
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-05-19 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <h2 id="正则表达式--表格">正则表达式&ndash;表格</h2>
+<ul>
+<li>注意： 由于每个软件的正则表达式的转义字符是不一样的，比如R中一般用<code>\\.</code>来代表匹配小数点<code>.</code></li>
+<li>表格中的<code>\ </code> ，但在软件中可能需要<code>\\</code>才能表达出来，eg:<code>\d</code> 匹配任意一个数字， 可能需要使用<code>\\d</code></li>
+</ul>
+<!-- raw HTML omitted -->
+<h3 id="1-基本的元字符">1. 基本的元字符</h3>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>匹配任意单个字符，字母、数字甚至是.字符本身</td>
+</tr>
+<tr>
+<td>|</td>
+<td>逻辑或操作符</td>
+</tr>
+<tr>
+<td><code>[ ]</code></td>
+<td>匹配该字符集合中的一个字符<!-- raw HTML omitted -->（各个字符之间是or关系）<!-- raw HTML omitted --> **注意: **  <code>[.]</code>  <strong>只匹配点本身,不是特殊字符,不用转义.</strong></td>
+</tr>
+<tr>
+<td><code>[^ ]</code></td>
+<td>对字符集合求非<!-- raw HTML omitted -->就是排除该字符集合<!-- raw HTML omitted --><code>[^0-9] </code> ： 匹配任何不适数字的字符</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>定义一个区间,<!-- raw HTML omitted --><code>[A-Za-z09]</code>: 匹配(大小)字母和数字<!-- raw HTML omitted --><code>-</code>只有出现在<code>[]</code>之间才是元字符<!-- raw HTML omitted --><code>-</code>出现在其他地方，则表示一个普通字符</td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>对下一个字符进行转义</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h3 id="2-数量元字符">2. 数量元字符</h3>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>匹配前一个字符(或字符集合或子表达式)的零次或多次重复</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>匹配前一个字符(或字符集合或子表达式)的一次或多次重复</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>匹配前一个字符(或字符集合或子表达式)的零次或一次重复</td>
+</tr>
+<tr>
+<td><code>*?</code></td>
+<td><code>* </code>的懒惰型版本</td>
+</tr>
+<tr>
+<td><code>+?</code></td>
+<td><code>+</code>的懒惰型版本</td>
+</tr>
+<tr>
+<td><code>{n}</code></td>
+<td>匹配前一个字符(或字符集合或子表达式)的n次重复</td>
+</tr>
+<tr>
+<td><code>{m,n}</code></td>
+<td>匹配前一个字符(或字符集合或子表达式)至少m次且至多n次重复</td>
+</tr>
+<tr>
+<td><code>{n, }</code></td>
+<td>匹配前一个字符(或字符集合或子表达式)n次重复或更多次重复（至少n次）</td>
+</tr>
+<tr>
+<td><code>{n, }?</code></td>
+<td><code>{n, }</code>的懒惰型版本</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h3 id="3-位置元字符">3. 位置元字符</h3>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>^</code></td>
+<td>匹配字符串的开头</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>匹配字符串的结束</td>
+</tr>
+<tr>
+<td><code>\A</code></td>
+<td>匹配字符串的开头（大多数语言不支持, 类似<code>^</code>）</td>
+</tr>
+<tr>
+<td><code>\Z</code></td>
+<td>匹配字符串的结束（大多数语言不支持, 类似<code>$</code>）</td>
+</tr>
+<tr>
+<td><code>\&lt;</code></td>
+<td>匹配单词的开头（是\b的更细粒度控制，支持的语言并不多见）</td>
+</tr>
+<tr>
+<td><code>\&gt;</code></td>
+<td>匹配单词的结束（是\b的更细粒度控制，支持的语言并不多见）</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>匹配单词的边界（开头或结束）<!-- raw HTML omitted -->eg: <code>\bcap\b</code>: 表示匹配<code>cap</code>这个完整单词. 因为<code>\b</code>是边界，<!-- raw HTML omitted -->且匹配到的字符串长度为3个字符，而不是5个字符<!-- raw HTML omitted -->简单的说, <code>\b</code>匹配的是一个这样的位置，<!-- raw HTML omitted -->一边是单词（能够被<code>\w</code>匹配的字母、数字、和下划线,<!-- raw HTML omitted -->另一边是其他内容（能够被<code>\W</code>相匹配的字符)</td>
+</tr>
+<tr>
+<td><code>\B</code></td>
+<td><code>\b</code>的反义</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h3 id="4-特殊字符元字符">4. 特殊字符元字符</h3>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[\b]</code></td>
+<td>退格字符</td>
+</tr>
+<tr>
+<td><code>\c</code></td>
+<td>匹配一个控制字符</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>匹配任意一个数字字符（等价与 <code>[0-9]</code>）</td>
+</tr>
+<tr>
+<td><code>\D</code></td>
+<td><code>\d</code>的反义  【匹配任意一个非数字字符（等价与<code>[^0-9]</code>）】</td>
+</tr>
+<tr>
+<td><code>\f</code></td>
+<td>换页符</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>换行符</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>回车符</td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>任何一个空白字符 （等价<code>[\f\n\r\t\v] </code>)</td>
+</tr>
+<tr>
+<td><code>\S</code></td>
+<td><code>\s</code>的反义    （等价<code>[^\f\n\r\t\v] </code>)</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>制表符(Tab字符）</td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td>垂直制表符</td>
+</tr>
+<tr>
+<td><code>\w</code></td>
+<td>匹配任意一个字母数字字符（大小写均可）或下划线字符 （等价<code>[a-zA-Z0-9_]</code>）</td>
+</tr>
+<tr>
+<td><code>\W</code></td>
+<td><code>\w</code>的反义  （等价<code>[^a-zA-Z0-9_]</code>）</td>
+</tr>
+<tr>
+<td><code>\x</code></td>
+<td>匹配一个16进制数字</td>
+</tr>
+<tr>
+<td><code>\0</code></td>
+<td>匹配一个8进制数字</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h3 id="5-posix字符类">5. POSIX字符类</h3>
+<ul>
+<li>但并不是所用的语言都支持，JavaScript不支持</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字符类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[:alnum:]</code></td>
+<td>任何一个字母或数字（等价与<code>[a-zA-Z0-9]</code>）</td>
+</tr>
+<tr>
+<td><code>[:alpha:]</code></td>
+<td>任何一个字母（等价与<code>[a-zA-Z]</code>）</td>
+</tr>
+<tr>
+<td><code>[:blank:]</code></td>
+<td>空格或制表符（等价与<code>[\t ]</code> ) 注意：这里t后面有一个空格</td>
+</tr>
+<tr>
+<td><code>[:cntrl:]</code></td>
+<td>ASCII控制字符（ASCII 0 到31，再加上ASCII 127）</td>
+</tr>
+<tr>
+<td><code>[:digit:]</code></td>
+<td>任何一个数字（等价于<code>[0-9]</code>)</td>
+</tr>
+<tr>
+<td><code>[:graph:]</code></td>
+<td>和<code>[:print:]</code>一样，但不包括空格</td>
+</tr>
+<tr>
+<td><code>[:lower:]</code></td>
+<td>任何一个小写字母（等价于<code>[a-z]</code>）</td>
+</tr>
+<tr>
+<td><code>[:print:]</code></td>
+<td>任何一个可以打印的字符</td>
+</tr>
+<tr>
+<td><code>[:punct:]</code></td>
+<td>既不属于[:alnum:]也不属于[:cntrl:]的任何一个字符</td>
+</tr>
+<tr>
+<td><code>[:space:]</code></td>
+<td>任何一个空白符，包括空格（等价于<code>[^\f\n\r\t\v ] </code>） 注意v后面有一个空格</td>
+</tr>
+<tr>
+<td><code>[:upper:]</code></td>
+<td>任何一个大写字母（等价于<code>[A-Z]</code>）</td>
+</tr>
+<tr>
+<td><code>[:xdigit:]</code></td>
+<td>任何一个16进制数字（等价于<code>[a-fA-F0-9]</code>)</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512image-20200713131134821.png" alt="image-20200713131134821"></p>
+<h3 id="6-回溯引用和环视">6. 回溯引用和环视</h3>
+<ul>
+<li>必须在（和）里面使用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>( )</code></td>
+<td>定义一个子表达式<!-- raw HTML omitted -->`( ()</td>
+</tr>
+<tr>
+<td><code>\1</code></td>
+<td>对前面的子表达式进行回溯引用，并且<strong>只能用于匹配括号里面的子表达式</strong><!-- raw HTML omitted -->eg: 匹配第1个子表达式；\2代表第2个子表达式：以此类推<!-- raw HTML omitted -->有些语言用的是 <code>$1, $2, ....</code><!-- raw HTML omitted --><strong>可以理解为变量</strong></td>
+</tr>
+<tr>
+<td><code>(?=)</code></td>
+<td>向前查找</td>
+</tr>
+<tr>
+<td><code>(?&lt;=)</code></td>
+<td>向后查找</td>
+</tr>
+<tr>
+<td><code>(?!)</code></td>
+<td>负向前查找（对向前查找取非）</td>
+</tr>
+<tr>
+<td><code>(?&lt;!)</code></td>
+<td>负向后查找（对向后查找取非）</td>
+</tr>
+<tr>
+<td><code>(?(&lt;条件&gt;)ture)</code></td>
+<td>嵌入条件（if   then）  <!-- raw HTML omitted -->eg：<code>(?(backference)ture-regex)</code>在条件里使用回溯引用，可以不进行转义?(\1)等价?(1)</td>
+</tr>
+<tr>
+<td><code>(?(&lt;条件&gt;)ture|false )</code></td>
+<td>嵌入条件（if   then  else）<!-- raw HTML omitted -->语法：<code>(?(backference)ture-regex|false-regex)</code></td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h3 id="7-大小写转换">7. 大小写转换</h3>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\E</code></td>
+<td>结束<code>\L</code>或<code>\U</code>转换</td>
+</tr>
+<tr>
+<td><code>\l</code></td>
+<td>把下一个字符转换为小写</td>
+</tr>
+<tr>
+<td><code>\u</code></td>
+<td>把下一个字符转换为大写</td>
+</tr>
+<tr>
+<td><code>\L</code></td>
+<td>把<code>\L</code>到<code>\E</code>之间的字符全部转换为小写（<code>\U</code>、<code>\L</code>要和<code>\E</code>配合使用）</td>
+</tr>
+<tr>
+<td><code>\U</code></td>
+<td>把<code>\U</code>到<code>\E</code>之间的字符全部转换为大写</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h3 id="8-多行匹配模式">8. 多行匹配模式</h3>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(?m)</code></td>
+<td>多行匹配模式（许多语言不支持）<!-- raw HTML omitted -->将换行符视为字符串分隔符</td>
+</tr>
+<tr>
+<td></td>
+<td>在多行匹配模式下，<code>^</code>即可以匹配字符串的开头，也可以匹配行换行符之后的起始位置(新行)<!-- raw HTML omitted --><code>$</code>不仅能匹配字符串结尾，还能匹配换行符之后的结束位置。</td>
+</tr>
+<tr>
+<td></td>
+<td>使用时: <code>(?m)</code>必须出现在整个模式的最前面</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-注意事项">9. 注意事项</h3>
+<ul>
+<li><strong>注意: 子表达式的查找替换问题</strong></li>
+<li>常常需要从查找某些特定的文本, 然后从中提取某些信息, 即查找替换本身都是正则表达式组成, 例如</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex">查: (,)([A-Za-z0-9])    <span style="color:#75715e">% 查找
+</span><span style="color:#75715e"></span>换: <span style="color:#e6db74">$</span><span style="color:#ae81ff">1</span> <span style="color:#e6db74">$</span>2   or  <span style="color:#66d9ef">\1</span> <span style="color:#66d9ef">\2</span>   <span style="color:#75715e">% 在子表达式中间价格空格等等
+</span><span style="color:#75715e"></span>注意: sublime  替换时可能出现大小写问题,一定要不要点击保持大写这个按钮,就是替换前面的那个 AB 按钮
+</code></pre></div><ul>
+<li><strong>注意：POSIX字符类的使用</strong></li>
+<li>通常情况下： 使用两个来<code>[[</code>开头，以<code>]]</code>结束, 这是使用POSIX字符类所必须的.外层的<code>[ ]</code> 表示定义一个字符集合,内层的<code>[ ] </code>表示POSIX字符类本身的组成部分</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex">[[:blank:]]    <span style="color:#75715e">%代表一个空格, 
+</span></code></pre></div><p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%28%E4%BF%AE%E8%AE%A2%E7%89%88%29.pdf">参考链接:正则表达式必知必会(已修整)</a></p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/" class="leancloud_visitors" data-flag-title="正则表达式(通用)">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/"> 上一篇: R中时间类型概念</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/"> 下一篇: seq*函数族</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-05-19-正则表达式通用.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

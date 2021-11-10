@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>泰坦尼克号预测(kaggle)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#读入数据">读入数据</a></li>
+    <li><a href="#数据处理">数据处理</a></li>
+    <li><a href="#特征衍生工作">特征衍生工作</a></li>
+    <li><a href="#对于age变量可以把age分类处理">对于Age变量，可以把age分类处理</a></li>
+    <li><a href="#建模">建模</a>
+      <ul>
+        <li><a href="#决策树建模">决策树建模</a></li>
+        <li><a href="#随机森林建模">随机森林建模</a></li>
+      </ul>
+    </li>
+    <li><a href="#carte包">carte包</a>
+      <ul>
+        <li><a href="#随机森林建模-1">随机森林建模</a></li>
+        <li><a href="#svm建模">svm建模</a></li>
+      </ul>
+    </li>
+    <li><a href="#kaggle的得分">kaggle的得分，</a></li>
+  </ul>
+</nav>
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                泰坦尼克号预测(kaggle)
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2018-07-14 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li><li><a class="link" href="/tags/kaggle"> #kaggle </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            <pre tabindex="0"><code class="language-{r" data-lang="{r">options(width = 300)
+knitr::opts_chunk$set(message = F,warning = F,comment = &quot;#&gt;&quot;,collapse = TRUE)
+</code></pre><h2 id="读入数据">读入数据</h2>
+<pre><code>library(data.table)
+train=fread(&quot;data/train.csv&quot;,na.strings = c(&quot;&quot;,NA))
+test=fread(&quot;data/test.csv&quot;,na.strings = c(&quot;&quot;,NA))
+#把两个合并起来进行数据处理--两个data.table的合并
+combine =rbindlist(list(train,test),fill=TRUE)
+#### 其实个人不建议这样操作，因为不能把测试集和训练集一起处理，应该分开处理
+</code></pre>
+<h2 id="数据处理">数据处理</h2>
+<pre><code># 统计每一列的缺失率
+combine[,lapply(.SD, function(x)sum(is.na(x)))]
+#&gt;    PassengerId Survived Pclass Name Sex Age SibSp Parch Ticket Fare Cabin Embarked
+#&gt; 1:           0      418      0    0   0 263     0     0      0    1  1014        2
+# 可以看出 我们需要对缺失列进行处理，以及一些特征衍生工作
+
+
+library(zoo)
+library(purrr)
+combine[,Age := na.spline(Age)] # age变量进行处理，进行样条插补
+combine[,Fare := na.spline(Fare)] # Fare变量进行处理，进行样条插补
+</code></pre>
+<p>由于Cabin 变量丢失数据太多，于是可以删除这个变量</p>
+<pre><code>combine[,Cabin:=NULL]
+</code></pre>
+<p>以及Embarked这个是个字符串，于是用众数去替代，或者用一些相同的类型的人的指标去替代</p>
+<pre><code>combine[is.na(Embarked),]## 用同等船舱的且上岸第相等的类型去替代
+#&gt;    PassengerId Survived Pclass                                      Name    Sex Age SibSp Parch Ticket Fare Embarked
+#&gt; 1:          62        1      1                       Icard, Miss. Amelie female  38     0     0 113572   80     &lt;NA&gt;
+#&gt; 2:         830        1      1 Stone, Mrs. George Nelson (Martha Evelyn) female  62     0     0 113572   80     &lt;NA&gt;
+combine[Pclass == 1,.N,by=.(Embarked)]
+#&gt;    Embarked   N
+#&gt; 1:        C 141
+#&gt; 2:        S 177
+#&gt; 3:     &lt;NA&gt;   2
+#&gt; 4:        Q   3
+# 可以看出用S去代替
+
+combine[is.na(Embarked),Embarked:=c(&quot;S&quot;,&quot;S&quot;)]
+
+# 再次统计每一列的缺失率
+combine[,lapply(.SD, function(x)sum(is.na(x)))]
+#&gt;    PassengerId Survived Pclass Name Sex Age SibSp Parch Ticket Fare Embarked
+#&gt; 1:           0      418      0    0   0   0     0     0      0    0        0
+</code></pre>
+<h2 id="特征衍生工作">特征衍生工作</h2>
+<p>从名字中提取称谓，并把相同意思的称谓进行融合</p>
+<pre><code># 提取名字的称谓
+library(stringr)
+combine[,Name :=gsub(&quot;(.*, )|(\\..*)&quot;,&quot;&quot;,Name)]
+
+str(combine)
+#&gt; Classes 'data.table' and 'data.frame':   1309 obs. of  11 variables:
+#&gt;  $ PassengerId: int  1 2 3 4 5 6 7 8 9 10 ...
+#&gt;  $ Survived   : int  0 1 1 1 0 0 0 0 1 1 ...
+#&gt;  $ Pclass     : int  3 1 3 1 3 3 1 3 3 2 ...
+#&gt;  $ Name       : chr  &quot;Mr&quot; &quot;Mrs&quot; &quot;Miss&quot; &quot;Mrs&quot; ...
+#&gt;  $ Sex        : chr  &quot;male&quot; &quot;female&quot; &quot;female&quot; &quot;female&quot; ...
+#&gt;  $ Age        : num  22 38 26 35 35 ...
+#&gt;  $ SibSp      : int  1 1 0 1 0 0 0 3 0 1 ...
+#&gt;  $ Parch      : int  0 0 0 0 0 0 0 1 2 0 ...
+#&gt;  $ Ticket     : chr  &quot;A/5 21171&quot; &quot;PC 17599&quot; &quot;STON/O2. 3101282&quot; &quot;113803&quot; ...
+#&gt;  $ Fare       : num  7.25 71.28 7.92 53.1 8.05 ...
+#&gt;  $ Embarked   : chr  &quot;S&quot; &quot;C&quot; &quot;S&quot; &quot;S&quot; ...
+#&gt;  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; 
+#&gt;  - attr(*, &quot;index&quot;)= int 
+#&gt;   ..- attr(*, &quot;__Pclass&quot;)= int  2 4 7 12 24 28 31 32 35 36 ...
+# address(combine)
+combine[,Name :=str_trim(Name)]
+
+combine$Name %&gt;% table()
+#&gt; .
+#&gt;         Capt          Col          Don         Dona           Dr     Jonkheer         Lady        Major       Master         Miss         Mlle          Mme           Mr          Mrs           Ms          Rev          Sir the Countess 
+#&gt;            1            4            1            1            8            1            1            2           61          260            2            1          757          197            2            8            1            1
+
+
+## 把称谓进行融合 
+#因为法语里面 mlle 和Mme 一样
+#combi$appellation[combi$appellation %in% c(&quot;Mlle&quot;,&quot;Mme&quot;)] = &quot;Mlle&quot;
+combine[Name %in% c(&quot;Mlle&quot;,&quot;Mme&quot;),Name:=&quot;Mlle&quot;]
+
+combine[Name %in% c(&quot;Don&quot;,&quot;Major&quot;,&quot;Sir&quot;),Name:=&quot;Sir&quot;]
+
+combine[Name %in% c(&quot;Jonkheer&quot;,&quot;Dona&quot;,&quot;the Countess&quot;,&quot;Lady&quot;),Name:=&quot;Lady&quot;]
+combine[,table(Name)]
+#&gt; Name
+#&gt;   Capt    Col     Dr   Lady Master   Miss   Mlle     Mr    Mrs     Ms    Rev    Sir 
+#&gt;      1      4      8      4     61    260      3    757    197      2      8      4
+## 将称谓改为因子类型
+combine[,Name:= as.factor(Name)]
+</code></pre>
+<p>构造 FamilySize 变量 ，</p>
+<pre><code>#家庭的人数（包括自己） 这里居然不能用=  不然会出错，奇怪，后面试过几次有可以了
+
+combine$FamilySize=as.numeric(combine$SibSp) + as.numeric(combine$Parch) + 1
+
+combine$FamilySize[combine$FamilySize &gt; 6 ] = &quot;Large&quot;
+combine$FamilySize[combine$FamilySize &lt;= 2] = &quot;Small&quot;
+
+combine$FamilySize[combine$FamilySize &gt; 2 &amp; combine$FamilySize &lt;= 6] =  &quot;Middle&quot; 
+
+table(combine$FamilySize)
+#&gt; 
+#&gt;  Large Middle  Small 
+#&gt;     35    249   1025
+combine[,FamilySize := as.factor(FamilySize)]
+</code></pre>
+<h2 id="对于age变量可以把age分类处理">对于Age变量，可以把age分类处理</h2>
+<pre><code>## 把1-3岁的小孩单独分类，因为这种情况跟随母亲活下来的情况很大
+combine$Age[combine$Age&lt;=1]=1
+combine[Age&lt;=3,Age_class := &quot;small&quot;]
+combine[3&lt;Age &amp; Age&lt;=14,Age_class := &quot;juvenile&quot;]
+combine[14&lt;Age &amp; Age&lt;=60,Age_class := &quot;adult&quot;]
+combine[60&lt;Age, Age_class := &quot;old&quot;]
+
+table(combine$Age_class)
+#&gt; 
+#&gt;    adult juvenile      old    small 
+#&gt;     1108      102       43       56
+combine[,Age_class:=as.factor(Age_class)]
+</code></pre>
+<p>把一些字符变量转变为因子变量</p>
+<pre><code># combine[,PassengerId :=as.factor(PassengerId)]
+# combine[,Survived := as.factor(Survived)]
+# combine[,Pclass :=as.factor(Pclass)]
+# combine[,Sex := as.factor(Sex)]
+a = c(&quot;PassengerId&quot;,&quot;Survived&quot;,&quot;Pclass&quot;,&quot;Sex&quot;,&quot;Embarked&quot;)
+combine[,(a):=lapply(.SD,function(x)as.factor(x)), .SDcols = a]
+str(combine)
+#&gt; Classes 'data.table' and 'data.frame':   1309 obs. of  13 variables:
+#&gt;  $ PassengerId: Factor w/ 1309 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+#&gt;  $ Survived   : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 2 2 2 1 1 1 1 2 2 ...
+#&gt;  $ Pclass     : Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 3 1 3 1 3 3 1 3 3 2 ...
+#&gt;  $ Name       : Factor w/ 12 levels &quot;Capt&quot;,&quot;Col&quot;,&quot;Dr&quot;,..: 8 9 6 9 8 8 8 5 9 9 ...
+#&gt;  $ Sex        : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 1 1 1 2 2 2 2 1 1 ...
+#&gt;  $ Age        : num  22 38 26 35 35 ...
+#&gt;  $ SibSp      : int  1 1 0 1 0 0 0 3 0 1 ...
+#&gt;  $ Parch      : int  0 0 0 0 0 0 0 1 2 0 ...
+#&gt;  $ Ticket     : chr  &quot;A/5 21171&quot; &quot;PC 17599&quot; &quot;STON/O2. 3101282&quot; &quot;113803&quot; ...
+#&gt;  $ Fare       : num  7.25 71.28 7.92 53.1 8.05 ...
+#&gt;  $ Embarked   : Factor w/ 3 levels &quot;C&quot;,&quot;Q&quot;,&quot;S&quot;: 3 1 3 3 3 2 3 3 3 1 ...
+#&gt;  $ FamilySize : Factor w/ 3 levels &quot;Large&quot;,&quot;Middle&quot;,..: 3 3 3 3 3 3 3 2 2 3 ...
+#&gt;  $ Age_class  : Factor w/ 4 levels &quot;adult&quot;,&quot;juvenile&quot;,..: 1 1 1 1 1 1 1 4 1 2 ...
+#&gt;  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; 
+#&gt;  - attr(*, &quot;index&quot;)= int
+</code></pre>
+<p>数据划分</p>
+<pre><code>train &lt;- combine[1:891,] %&gt;% as.data.frame()
+test &lt;- combine[892:1309,] %&gt;% as.data.frame()
+</code></pre>
+<h2 id="建模">建模</h2>
+<h3 id="决策树建模">决策树建模</h3>
+<pre><code>## 决策树建模
+library(rpart)
+taitan_tree=rpart(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch + Fare + Embarked + Name + FamilySize, train, method = &quot;class&quot;)
+prediction &lt;- predict(taitan_tree, test, type = &quot;class&quot;)
+submit=data.frame(PassengerId=test$PassengerId,Survived=prediction)
+
+## 存储文件
+# write.csv(submit,&quot;data/submit.csv&quot;,row.names = FALSE)
+
+# 模型评估
+table(train$Survived,predict(taitan_tree,train,type = &quot;class&quot;))
+#&gt;    
+#&gt;       0   1
+#&gt;   0 509  40
+#&gt;   1  96 246
+
+
+library(rpart.plot)
+rpart.plot(taitan_tree)
+</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/kaggletaitan01.png" alt="kaggletaitan01"></p>
+<h3 id="随机森林建模">随机森林建模</h3>
+<pre><code>### 随机森林建模
+library(randomForest)
+model_rf = randomForest(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch + Fare + Embarked + Name + FamilySize, train, method = &quot;class&quot;)
+
+
+
+pred &lt;- predict(model_rf, test, type = &quot;class&quot;)
+submit_rf=data.frame(PassengerId=test$PassengerId,Survived=prediction)
+
+## 存储文件
+# write.csv(submit_rf,&quot;data/submit_rf.csv&quot;,row.names = FALSE)
+
+# 模型评估
+table(train$Survived,predict(model_rf,train,type = &quot;class&quot;))
+#&gt;    
+#&gt;       0   1
+#&gt;   0 531  18
+#&gt;   1  67 275
+</code></pre>
+<h2 id="carte包">carte包</h2>
+<h3 id="随机森林建模-1">随机森林建模</h3>
+<pre><code>library(caret)
+library(foreach)
+library(doParallel)
+
+no_cores &lt;- detectCores() -1
+cl&lt;-makeCluster(no_cores)
+registerDoParallel(cl)
+
+fitControl &lt;- trainControl(method = &quot;repeatedcv&quot;,
+                           number = 10,
+                           repeats = 1)
+grif_rf = expand.grid(.mtry=c(11:13))
+
+set.seed(825)
+rf_cv_Fit1 &lt;- train(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch + Fare + Embarked + Name + FamilySize,
+                 data = train,
+                 metric =&quot;Kappa&quot;,
+                 method = &quot;rf&quot;, 
+                 trControl = fitControl,tuneGrid = grif_rf,
+                 verbose = FALSE)
+</code></pre>
+<p>随机森林&mdash;模型参数与评估</p>
+<pre><code>rf_cv_Fit1
+#&gt; Random Forest 
+#&gt; 
+#&gt; 891 samples
+#&gt;   9 predictor
+#&gt;   2 classes: '0', '1' 
+#&gt; 
+#&gt; No pre-processing
+#&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
+#&gt; Summary of sample sizes: 802, 802, 802, 802, 802, 802, ... 
+#&gt; Resampling results across tuning parameters:
+#&gt; 
+#&gt;   mtry  Accuracy   Kappa    
+#&gt;   11    0.8361423  0.6479535
+#&gt;   12    0.8249064  0.6235846
+#&gt;   13    0.8260175  0.6267026
+#&gt; 
+#&gt; Kappa was used to select the optimal model using the largest value.
+#&gt; The final value used for the model was mtry = 11.
+
+pred_rf_cv = predict(rf_cv_Fit1,test,type = &quot;raw&quot;)
+
+
+submit_rf_cv=data.frame(PassengerId=test$PassengerId,Survived=prediction)
+
+## 存储文件
+# write.csv(submit_rf_cv,&quot;data/submit_rf_cv.csv&quot;,row.names = FALSE)
+
+# 模型评估
+table(train$Survived,predict(rf_cv_Fit1,train,type = &quot;raw&quot;))
+#&gt;    
+#&gt;       0   1
+#&gt;   0 532  17
+#&gt;   1  54 288
+</code></pre>
+<h3 id="svm建模">svm建模</h3>
+<pre><code>library(foreach)
+library(doParallel)
+
+no_cores &lt;- detectCores() -1
+cl&lt;-makeCluster(no_cores)
+
+
+fitControl &lt;- trainControl(method = &quot;repeatedcv&quot;,
+                           number = 10,
+                           repeats = 1)
+grif_svm = expand.grid(sigma=seq(1,100,10),C=seq(1,100,10),Weight=c(1,100 / table(train$Survived)))
+
+set.seed(825)
+svm_cv_Fit1 &lt;- train(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch + Fare + Embarked + Name + FamilySize,
+                 data = train,
+                 metric =&quot;Kappa&quot;,
+                 method = &quot;svmRadialWeights&quot;, 
+                 trControl = fitControl,tuneGrid = grif_svm,
+                 verbose = FALSE)
+
+
+
+svm_cv_Fit1
+#&gt; Support Vector Machines with Class Weights 
+#&gt; 
+#&gt; 891 samples
+#&gt;   9 predictor
+#&gt;   2 classes: '0', '1' 
+#&gt; 
+#&gt; No pre-processing
+#&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
+#&gt; Summary of sample sizes: 802, 802, 802, 802, 802, 802, ... 
+#&gt; Resampling results across tuning parameters:
+#&gt; 
+#&gt;   sigma  C   Weight     Accuracy   Kappa    
+#&gt;    1      1  0.1821494  0.6476529  0.3450120
+#&gt;    1      1  0.2923977  0.6879650  0.4080850
+#&gt;    1      1  1.0000000  0.7811111  0.5336090
+#&gt;    1     11  0.1821494  0.7384270  0.4825548
+#&gt;    1     11  0.2923977  0.7676404  0.5318205
+#&gt;    1     11  1.0000000  0.7889513  0.5539126
+#&gt;    1     21  0.1821494  0.7373034  0.4800775
+#&gt;    1     21  0.2923977  0.7721348  0.5396339
+#&gt;    1     21  1.0000000  0.7878277  0.5513716
+#&gt;    1     31  0.1821494  0.7384270  0.4819020
+#&gt;    1     31  0.2923977  0.7721348  0.5396500
+#&gt;    1     31  1.0000000  0.7878277  0.5520975
+#&gt;    1     41  0.1821494  0.7384395  0.4816815
+#&gt;    1     41  0.2923977  0.7721348  0.5396500
+#&gt;    1     41  1.0000000  0.7878277  0.5528006
+#&gt;    1     51  0.1821494  0.7384519  0.4816418
+#&gt;    1     51  0.2923977  0.7687765  0.5332258
+#&gt;    1     51  1.0000000  0.7867166  0.5502534
+#&gt;    1     61  0.1821494  0.7384519  0.4816418
+#&gt;    1     61  0.2923977  0.7699001  0.5353125
+#&gt;    1     61  1.0000000  0.7889638  0.5549527
+#&gt;    1     71  0.1821494  0.7395755  0.4835483
+#&gt;    1     71  0.2923977  0.7698876  0.5354221
+#&gt;    1     71  1.0000000  0.7878527  0.5519801
+#&gt;    1     81  0.1821494  0.7373408  0.4792572
+#&gt;    1     81  0.2923977  0.7710112  0.5374317
+#&gt;    1     81  1.0000000  0.7878527  0.5519801
+#&gt;    1     91  0.1821494  0.7373408  0.4792572
+#&gt;    1     91  0.2923977  0.7698876  0.5349684
+#&gt;    1     91  1.0000000  0.7889763  0.5539713
+#&gt;   11      1  0.1821494  0.5926966  0.2634169
+#&gt;   11      1  0.2923977  0.6566167  0.3569706
+#&gt;   11      1  1.0000000  0.7464170  0.4589756
+#&gt;   11     11  0.1821494  0.7036954  0.4264619
+#&gt;   11     11  0.2923977  0.7407366  0.4872806
+#&gt;   11     11  1.0000000  0.7486642  0.4607651
+#&gt;   11     21  0.1821494  0.6958302  0.4115283
+#&gt;   11     21  0.2923977  0.7396130  0.4853630
+#&gt;   11     21  1.0000000  0.7486767  0.4596743
+#&gt;   11     31  0.1821494  0.6992010  0.4169313
+#&gt;   11     31  0.2923977  0.7373658  0.4810659
+#&gt;   11     31  1.0000000  0.7430587  0.4490506
+#&gt;   11     41  0.1821494  0.7003246  0.4189393
+#&gt;   11     41  0.2923977  0.7362422  0.4791788
+#&gt;   11     41  1.0000000  0.7430462  0.4501862
+#&gt;   11     51  0.1821494  0.7014357  0.4208375
+#&gt;   11     51  0.2923977  0.7362422  0.4791788
+#&gt;   11     51  1.0000000  0.7441698  0.4527104
+#&gt;   11     61  0.1821494  0.7014357  0.4208375
+#&gt;   11     61  0.2923977  0.7373658  0.4810659
+#&gt;   11     61  1.0000000  0.7452934  0.4553096
+#&gt;   11     71  0.1821494  0.7014357  0.4208375
+#&gt;   11     71  0.2923977  0.7385019  0.4830801
+#&gt;   11     71  1.0000000  0.7441698  0.4526016
+#&gt;   11     81  0.1821494  0.7014357  0.4208375
+#&gt;   11     81  0.2923977  0.7373783  0.4805621
+#&gt;   11     81  1.0000000  0.7441698  0.4526016
+#&gt;   11     91  0.1821494  0.7014357  0.4208375
+#&gt;   11     91  0.2923977  0.7396255  0.4843557
+#&gt;   11     91  1.0000000  0.7430462  0.4506031
+#&gt;   21      1  0.1821494  0.5915730  0.2627613
+#&gt;   21      1  0.2923977  0.6442697  0.3377452
+#&gt;   21      1  1.0000000  0.7452934  0.4553119
+#&gt;   21     11  0.1821494  0.6980774  0.4158949
+#&gt;   21     11  0.2923977  0.7351311  0.4778643
+#&gt;   21     11  1.0000000  0.7452934  0.4542599
+#&gt;   21     21  0.1821494  0.7014482  0.4214853
+#&gt;   21     21  0.2923977  0.7340075  0.4753755
+#&gt;   21     21  1.0000000  0.7441698  0.4526315
+#&gt;   21     31  0.1821494  0.7014482  0.4214853
+#&gt;   21     31  0.2923977  0.7328839  0.4728575
+#&gt;   21     31  1.0000000  0.7430462  0.4506291
+#&gt;   21     41  0.1821494  0.7014482  0.4214853
+#&gt;   21     41  0.2923977  0.7351436  0.4766543
+#&gt;   21     41  1.0000000  0.7441698  0.4538285
+#&gt;   21     51  0.1821494  0.7025718  0.4232449
+#&gt;   21     51  0.2923977  0.7362672  0.4785697
+#&gt;   21     51  1.0000000  0.7430462  0.4515215
+#&gt;   21     61  0.1821494  0.7025718  0.4226345
+#&gt;   21     61  0.2923977  0.7373908  0.4805335
+#&gt;   21     61  1.0000000  0.7430462  0.4515215
+#&gt;   21     71  0.1821494  0.7036954  0.4244115
+#&gt;   21     71  0.2923977  0.7385144  0.4831184
+#&gt;   21     71  1.0000000  0.7430462  0.4515215
+#&gt;   21     81  0.1821494  0.7059426  0.4280555
+#&gt;   21     81  0.2923977  0.7385144  0.4831184
+#&gt;   21     81  1.0000000  0.7430462  0.4515215
+#&gt;   21     91  0.1821494  0.7059426  0.4280555
+#&gt;   21     91  0.2923977  0.7385144  0.4831184
+#&gt;   21     91  1.0000000  0.7430462  0.4515215
+#&gt;   31      1  0.1821494  0.5893258  0.2595359
+#&gt;   31      1  0.2923977  0.6476654  0.3435429
+#&gt;   31      1  1.0000000  0.7441823  0.4522360
+#&gt;   31     11  0.1821494  0.6992010  0.4175620
+#&gt;   31     11  0.2923977  0.7340075  0.4758536
+#&gt;   31     11  1.0000000  0.7419351  0.4474695
+#&gt;   31     21  0.1821494  0.7003246  0.4195318
+#&gt;   31     21  0.2923977  0.7317603  0.4714543
+#&gt;   31     21  1.0000000  0.7408115  0.4464669
+#&gt;   31     31  0.1821494  0.7003246  0.4195318
+#&gt;   31     31  0.2923977  0.7340200  0.4752511
+#&gt;   31     31  1.0000000  0.7408115  0.4464669
+#&gt;   31     41  0.1821494  0.7014482  0.4206810
+#&gt;   31     41  0.2923977  0.7362672  0.4791020
+#&gt;   31     41  1.0000000  0.7396879  0.4444013
+#&gt;   31     51  0.1821494  0.7025718  0.4225303
+#&gt;   31     51  0.2923977  0.7362672  0.4791020
+#&gt;   31     51  1.0000000  0.7385643  0.4424209
+#&gt;   31     61  0.1821494  0.7025718  0.4225544
+#&gt;   31     61  0.2923977  0.7373908  0.4815624
+#&gt;   31     61  1.0000000  0.7385643  0.4424209
+#&gt;   31     71  0.1821494  0.7025718  0.4225544
+#&gt;   31     71  0.2923977  0.7373908  0.4815624
+#&gt;   31     71  1.0000000  0.7374407  0.4403604
+#&gt;   31     81  0.1821494  0.7025718  0.4225544
+#&gt;   31     81  0.2923977  0.7385144  0.4834688
+#&gt;   31     81  1.0000000  0.7363171  0.4391270
+#&gt;   31     91  0.1821494  0.7036954  0.4249922
+#&gt;   31     91  0.2923977  0.7396380  0.4853753
+#&gt;   31     91  1.0000000  0.7363171  0.4391270
+#&gt;   41      1  0.1821494  0.5893258  0.2601027
+#&gt;   41      1  0.2923977  0.6398002  0.3310217
+#&gt;   41      1  1.0000000  0.7441823  0.4522816
+#&gt;   41     11  0.1821494  0.6992010  0.4185330
+#&gt;   41     11  0.2923977  0.7306367  0.4695862
+#&gt;   41     11  1.0000000  0.7385643  0.4412077
+#&gt;   41     21  0.1821494  0.6980774  0.4159480
+#&gt;   41     21  0.2923977  0.7328964  0.4733640
+#&gt;   41     21  1.0000000  0.7385643  0.4412077
+#&gt;   41     31  0.1821494  0.6958552  0.4116192
+#&gt;   41     31  0.2923977  0.7362672  0.4791020
+#&gt;   41     31  1.0000000  0.7374407  0.4392273
+#&gt;   41     41  0.1821494  0.6969913  0.4133824
+#&gt;   41     41  0.2923977  0.7362672  0.4791020
+#&gt;   41     41  1.0000000  0.7374407  0.4392273
+#&gt;   41     51  0.1821494  0.6992385  0.4176660
+#&gt;   41     51  0.2923977  0.7373908  0.4810085
+#&gt;   41     51  1.0000000  0.7363171  0.4379938
+#&gt;   41     61  0.1821494  0.6969913  0.4135130
+#&gt;   41     61  0.2923977  0.7373908  0.4804740
+#&gt;   41     61  1.0000000  0.7363171  0.4391270
+#&gt;   41     71  0.1821494  0.6981149  0.4160191
+#&gt;   41     71  0.2923977  0.7373908  0.4811373
+#&gt;   41     71  1.0000000  0.7363171  0.4391270
+#&gt;   41     81  0.1821494  0.6992385  0.4185078
+#&gt;   41     81  0.2923977  0.7373908  0.4811373
+#&gt;   41     81  1.0000000  0.7363171  0.4391270
+#&gt;   41     91  0.1821494  0.6992385  0.4185078
+#&gt;   41     91  0.2923977  0.7373908  0.4805263
+#&gt;   41     91  1.0000000  0.7351935  0.4370889
+#&gt;   51      1  0.1821494  0.5893258  0.2601027
+#&gt;   51      1  0.2923977  0.6386767  0.3292930
+#&gt;   51      1  1.0000000  0.7430712  0.4485869
+#&gt;   51     11  0.1821494  0.6936205  0.4087871
+#&gt;   51     11  0.2923977  0.7272784  0.4641883
+#&gt;   51     11  1.0000000  0.7385643  0.4412077
+#&gt;   51     21  0.1821494  0.6913858  0.4044756
+#&gt;   51     21  0.2923977  0.7328964  0.4737335
+#&gt;   51     21  1.0000000  0.7374407  0.4392273
+#&gt;   51     31  0.1821494  0.6925094  0.4064855
+#&gt;   51     31  0.2923977  0.7351436  0.4779378
+#&gt;   51     31  1.0000000  0.7363171  0.4379938
+#&gt;   51     41  0.1821494  0.6936330  0.4082625
+#&gt;   51     41  0.2923977  0.7351436  0.4774471
+#&gt;   51     41  1.0000000  0.7363171  0.4379938
+#&gt;   51     51  0.1821494  0.6970037  0.4149275
+#&gt;   51     51  0.2923977  0.7362672  0.4793616
+#&gt;   51     51  1.0000000  0.7351935  0.4359333
+#&gt;   51     61  0.1821494  0.6981273  0.4174162
+#&gt;   51     61  0.2923977  0.7362672  0.4793616
+#&gt;   51     61  1.0000000  0.7340699  0.4338953
+#&gt;   51     71  0.1821494  0.6981273  0.4167874
+#&gt;   51     71  0.2923977  0.7385144  0.4832641
+#&gt;   51     71  1.0000000  0.7340699  0.4338953
+#&gt;   51     81  0.1821494  0.6981273  0.4167874
+#&gt;   51     81  0.2923977  0.7373908  0.4814395
+#&gt;   51     81  1.0000000  0.7351935  0.4358535
+#&gt;   51     91  0.1821494  0.7003745  0.4205404
+#&gt;   51     91  0.2923977  0.7373908  0.4814395
+#&gt;   51     91  1.0000000  0.7329463  0.4318763
+#&gt;   61      1  0.1821494  0.5826217  0.2502068
+#&gt;   61      1  0.2923977  0.6285643  0.3133638
+#&gt;   61      1  1.0000000  0.7408240  0.4441011
+#&gt;   61     11  0.1821494  0.6925094  0.4069598
+#&gt;   61     11  0.2923977  0.7284020  0.4660563
+#&gt;   61     11  1.0000000  0.7363296  0.4355851
+#&gt;   61     21  0.1821494  0.6913858  0.4046547
+#&gt;   61     21  0.2923977  0.7328964  0.4737335
+#&gt;   61     21  1.0000000  0.7363296  0.4355851
+#&gt;   61     31  0.1821494  0.6936330  0.4082625
+#&gt;   61     31  0.2923977  0.7317728  0.4713558
+#&gt;   61     31  1.0000000  0.7340824  0.4316345
+#&gt;   61     41  0.1821494  0.6947566  0.4107686
+#&gt;   61     41  0.2923977  0.7340200  0.4752675
+#&gt;   61     41  1.0000000  0.7340824  0.4315119
+#&gt;   61     51  0.1821494  0.6958801  0.4132805
+#&gt;   61     51  0.2923977  0.7351436  0.4771909
+#&gt;   61     51  1.0000000  0.7340824  0.4314321
+#&gt;   61     61  0.1821494  0.6981273  0.4169757
+#&gt;   61     61  0.2923977  0.7318227  0.4572936
+#&gt;   61     61  1.0000000  0.7329588  0.4294738
+#&gt;   61     71  0.1821494  0.6992509  0.4188250
+#&gt;   61     71  0.2923977  0.7307116  0.4542080
+#&gt;   61     71  1.0000000  0.7329463  0.4305823
+#&gt;   61     81  0.1821494  0.7003745  0.4206999
+#&gt;   61     81  0.2923977  0.7329588  0.4580270
+#&gt;   61     81  1.0000000  0.7329463  0.4305823
+#&gt;   61     91  0.1821494  0.7026217  0.4244271
+#&gt;   61     91  0.2923977  0.7329588  0.4580270
+#&gt;   61     91  1.0000000  0.7329463  0.4305823
+#&gt;   71      1  0.1821494  0.5814981  0.2485895
+#&gt;   71      1  0.2923977  0.6251935  0.3078469
+#&gt;   71      1  1.0000000  0.7419476  0.4467029
+#&gt;   71     11  0.1821494  0.6880150  0.3997900
+#&gt;   71     11  0.2923977  0.7272784  0.4639733
+#&gt;   71     11  1.0000000  0.7340824  0.4312532
+#&gt;   71     21  0.1821494  0.6902622  0.4026816
+#&gt;   71     21  0.2923977  0.7272784  0.4635862
+#&gt;   71     21  1.0000000  0.7352060  0.4343127
+#&gt;   71     31  0.1821494  0.6936330  0.4093879
+#&gt;   71     31  0.2923977  0.7328964  0.4733328
+#&gt;   71     31  1.0000000  0.7340824  0.4322522
+#&gt;   71     41  0.1821494  0.6958801  0.4132805
+#&gt;   71     41  0.2923977  0.7295880  0.4522289
+#&gt;   71     41  1.0000000  0.7329588  0.4302141
+#&gt;   71     51  0.1821494  0.6981273  0.4169757
+#&gt;   71     51  0.2923977  0.7318227  0.4563957
+#&gt;   71     51  1.0000000  0.7329588  0.4302141
+#&gt;   71     61  0.1821494  0.6992509  0.4188250
+#&gt;   71     61  0.2923977  0.7329463  0.4582203
+#&gt;   71     61  1.0000000  0.7307116  0.4255170
+#&gt;   71     71  0.1821494  0.7026217  0.4244271
+#&gt;   71     71  0.2923977  0.7340699  0.4611126
+#&gt;   71     71  1.0000000  0.7307116  0.4255170
+#&gt;   71     81  0.1821494  0.7037453  0.4263832
+#&gt;   71     81  0.2923977  0.7351935  0.4636264
+#&gt;   71     81  1.0000000  0.7307116  0.4255170
+#&gt;   71     91  0.1821494  0.7037453  0.4263832
+#&gt;   71     91  0.2923977  0.7340824  0.4614589
+#&gt;   71     91  1.0000000  0.7307116  0.4260402
+#&gt;   81      1  0.1821494  0.5792634  0.2455210
+#&gt;   81      1  0.2923977  0.6251935  0.3078469
+#&gt;   81      1  1.0000000  0.7408240  0.4446288
+#&gt;   81     11  0.1821494  0.6868914  0.3977439
+#&gt;   81     11  0.2923977  0.7261673  0.4627250
+#&gt;   81     11  1.0000000  0.7329588  0.4291927
+#&gt;   81     21  0.1821494  0.6925094  0.4076129
+#&gt;   81     21  0.2923977  0.7295256  0.4680218
+#&gt;   81     21  1.0000000  0.7329588  0.4299807
+#&gt;   81     31  0.1821494  0.6936330  0.4101861
+#&gt;   81     31  0.2923977  0.7284519  0.4509761
+#&gt;   81     31  1.0000000  0.7307116  0.4258822
+#&gt;   81     41  0.1821494  0.6970037  0.4157226
+#&gt;   81     41  0.2923977  0.7295755  0.4538531
+#&gt;   81     41  1.0000000  0.7318352  0.4281951
+#&gt;   81     51  0.1821494  0.6992509  0.4193634
+#&gt;   81     51  0.2923977  0.7318227  0.4571451
+#&gt;   81     51  1.0000000  0.7318352  0.4281951
+#&gt;   81     61  0.1821494  0.7026217  0.4251154
+#&gt;   81     61  0.2923977  0.7318352  0.4569506
+#&gt;   81     61  1.0000000  0.7318352  0.4287183
+#&gt;   81     71  0.1821494  0.7026217  0.4251154
+#&gt;   81     71  0.2923977  0.7318477  0.4563842
+#&gt;   81     71  1.0000000  0.7318352  0.4287183
+#&gt;   81     81  0.1821494  0.7048689  0.4286436
+#&gt;   81     81  0.2923977  0.7318477  0.4563842
+#&gt;   81     81  1.0000000  0.7318352  0.4287183
+#&gt;   81     91  0.1821494  0.7048689  0.4281019
+#&gt;   81     91  0.2923977  0.7318602  0.4562315
+#&gt;   81     91  1.0000000  0.7318352  0.4286214
+#&gt;   91      1  0.1821494  0.5781523  0.2440235
+#&gt;   91      1  0.2923977  0.6240699  0.3062144
+#&gt;   91      1  1.0000000  0.7408240  0.4450119
+#&gt;   91     11  0.1821494  0.6846442  0.3944491
+#&gt;   91     11  0.2923977  0.7261673  0.4627498
+#&gt;   91     11  1.0000000  0.7318352  0.4279203
+#&gt;   91     21  0.1821494  0.6913858  0.4061352
+#&gt;   91     21  0.2923977  0.7250811  0.4451708
+#&gt;   91     21  1.0000000  0.7318352  0.4279203
+#&gt;   91     31  0.1821494  0.6947566  0.4117704
+#&gt;   91     31  0.2923977  0.7284519  0.4518740
+#&gt;   91     31  1.0000000  0.7284644  0.4218471
+#&gt;   91     41  0.1821494  0.6992509  0.4193634
+#&gt;   91     41  0.2923977  0.7295880  0.4535101
+#&gt;   91     41  1.0000000  0.7284644  0.4218471
+#&gt;   91     51  0.1821494  0.7014981  0.4231977
+#&gt;   91     51  0.2923977  0.7284769  0.4504299
+#&gt;   91     51  1.0000000  0.7284644  0.4223703
+#&gt;   91     61  0.1821494  0.7037453  0.4268340
+#&gt;   91     61  0.2923977  0.7307241  0.4549168
+#&gt;   91     61  1.0000000  0.7284644  0.4223703
+#&gt;   91     71  0.1821494  0.7037453  0.4268340
+#&gt;   91     71  0.2923977  0.7318477  0.4569850
+#&gt;   91     71  1.0000000  0.7284644  0.4223703
+#&gt;   91     81  0.1821494  0.7037453  0.4268340
+#&gt;   91     81  0.2923977  0.7329838  0.4593189
+#&gt;   91     81  1.0000000  0.7295880  0.4249469
+#&gt;   91     91  0.1821494  0.7048689  0.4288071
+#&gt;   91     91  0.2923977  0.7329838  0.4593189
+#&gt;   91     91  1.0000000  0.7307116  0.4269096
+#&gt; 
+#&gt; Kappa was used to select the optimal model using the largest value.
+#&gt; The final values used for the model were sigma = 1, C = 61 and Weight = 1.
+</code></pre>
+<p>svm 参数搜索&mdash;范围进一步变小</p>
+<pre><code># 上面结果最好的参数为： sigma = 1, C = 61 and Weight = 1.
+
+no_cores &lt;- detectCores() -1
+cl&lt;-makeCluster(no_cores)
+#registerDoParallel(cl) # windows要加这个，mac不需要加这个
+
+grif_svm2 = expand.grid(sigma=seq(1,10,1),C=seq(50,70,1),Weight=1)
+
+set.seed(825)
+svm_cv_Fit2 &lt;- train(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch + Fare + Embarked + Name + FamilySize,
+                 data = train,
+                 metric =&quot;Kappa&quot;,
+                 method = &quot;svmRadialWeights&quot;, 
+                 trControl = fitControl,tuneGrid = grif_svm2,
+                 verbose = FALSE)
+
+
+
+svm_cv_Fit2
+#&gt; Support Vector Machines with Class Weights 
+#&gt; 
+#&gt; 891 samples
+#&gt;   9 predictor
+#&gt;   2 classes: '0', '1' 
+#&gt; 
+#&gt; No pre-processing
+#&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
+#&gt; Summary of sample sizes: 802, 802, 802, 802, 802, 802, ... 
+#&gt; Resampling results across tuning parameters:
+#&gt; 
+#&gt;   sigma  C   Accuracy   Kappa    
+#&gt;    1     50  0.7867166  0.5502534
+#&gt;    1     51  0.7867166  0.5502534
+#&gt;    1     52  0.7878402  0.5523393
+#&gt;    1     53  0.7878402  0.5523393
+#&gt;    1     54  0.7878402  0.5523393
+#&gt;    1     55  0.7878402  0.5523393
+#&gt;    1     56  0.7878402  0.5523393
+#&gt;    1     57  0.7878402  0.5523393
+#&gt;    1     58  0.7889638  0.5549527
+#&gt;    1     59  0.7889638  0.5549527
+#&gt;    1     60  0.7889638  0.5549527
+#&gt;    1     61  0.7889638  0.5549527
+#&gt;    1     62  0.7889638  0.5549527
+#&gt;    1     63  0.7889638  0.5549527
+#&gt;    1     64  0.7878527  0.5523786
+#&gt;    1     65  0.7878527  0.5523786
+#&gt;    1     66  0.7878527  0.5523786
+#&gt;    1     67  0.7878527  0.5523786
+#&gt;    1     68  0.7878527  0.5519801
+#&gt;    1     69  0.7878527  0.5519801
+#&gt;    1     70  0.7878527  0.5519801
+#&gt;    2     50  0.7822222  0.5437950
+#&gt;    2     51  0.7822222  0.5437950
+#&gt;    2     52  0.7822222  0.5437950
+#&gt;    2     53  0.7833458  0.5458818
+#&gt;    2     54  0.7833458  0.5458818
+#&gt;    2     55  0.7833458  0.5458818
+#&gt;    2     56  0.7833458  0.5458818
+#&gt;    2     57  0.7822347  0.5433076
+#&gt;    2     58  0.7822347  0.5433076
+#&gt;    2     59  0.7789014  0.5348965
+#&gt;    2     60  0.7777903  0.5321784
+#&gt;    2     61  0.7766792  0.5294305
+#&gt;    2     62  0.7755680  0.5266522
+#&gt;    2     63  0.7744569  0.5238432
+#&gt;    2     64  0.7744569  0.5238432
+#&gt;    2     65  0.7744569  0.5238432
+#&gt;    2     66  0.7744569  0.5238432
+#&gt;    2     67  0.7744569  0.5238432
+#&gt;    2     68  0.7744569  0.5238432
+#&gt;    2     69  0.7744569  0.5238432
+#&gt;    2     70  0.7744569  0.5238432
+#&gt;    3     50  0.7677653  0.5079159
+#&gt;    3     51  0.7677653  0.5079159
+#&gt;    3     52  0.7677653  0.5079159
+#&gt;    3     53  0.7677653  0.5079159
+#&gt;    3     54  0.7677653  0.5079159
+#&gt;    3     55  0.7677653  0.5079159
+#&gt;    3     56  0.7677653  0.5079159
+#&gt;    3     57  0.7677653  0.5079159
+#&gt;    3     58  0.7677653  0.5079159
+#&gt;    3     59  0.7688889  0.5099863
+#&gt;    3     60  0.7688889  0.5099863
+#&gt;    3     61  0.7688889  0.5099863
+#&gt;    3     62  0.7688889  0.5099863
+#&gt;    3     63  0.7688889  0.5099863
+#&gt;    3     64  0.7688889  0.5099863
+#&gt;    3     65  0.7688889  0.5099863
+#&gt;    3     66  0.7688889  0.5099863
+#&gt;    3     67  0.7688889  0.5099863
+#&gt;    3     68  0.7677653  0.5073891
+#&gt;    3     69  0.7666417  0.5053186
+#&gt;    3     70  0.7666417  0.5053186
+#&gt;    4     50  0.7576404  0.4904061
+#&gt;    4     51  0.7576404  0.4904061
+#&gt;    4     52  0.7565169  0.4884006
+#&gt;    4     53  0.7565169  0.4884006
+#&gt;    4     54  0.7565169  0.4884006
+#&gt;    4     55  0.7565169  0.4884006
+#&gt;    4     56  0.7565169  0.4884006
+#&gt;    4     57  0.7565169  0.4884006
+#&gt;    4     58  0.7553933  0.4862959
+#&gt;    4     59  0.7553933  0.4862959
+#&gt;    4     60  0.7553933  0.4862955
+#&gt;    4     61  0.7542697  0.4843110
+#&gt;    4     62  0.7542697  0.4843110
+#&gt;    4     63  0.7542697  0.4843110
+#&gt;    4     64  0.7542697  0.4843110
+#&gt;    4     65  0.7542697  0.4843110
+#&gt;    4     66  0.7542697  0.4843110
+#&gt;    4     67  0.7542697  0.4843110
+#&gt;    4     68  0.7542697  0.4843110
+#&gt;    4     69  0.7542697  0.4843110
+#&gt;    4     70  0.7542697  0.4843110
+#&gt;    5     50  0.7509114  0.4678279
+#&gt;    5     51  0.7509114  0.4678279
+#&gt;    5     52  0.7509114  0.4678279
+#&gt;    5     53  0.7509114  0.4678279
+#&gt;    5     54  0.7509114  0.4678279
+#&gt;    5     55  0.7509114  0.4678279
+#&gt;    5     56  0.7509114  0.4678279
+#&gt;    5     57  0.7509114  0.4678279
+#&gt;    5     58  0.7509114  0.4678279
+#&gt;    5     59  0.7509114  0.4678279
+#&gt;    5     60  0.7509114  0.4678279
+#&gt;    5     61  0.7509114  0.4678279
+#&gt;    5     62  0.7509114  0.4678279
+#&gt;    5     63  0.7509114  0.4678279
+#&gt;    5     64  0.7509114  0.4678279
+#&gt;    5     65  0.7509114  0.4678279
+#&gt;    5     66  0.7509114  0.4678279
+#&gt;    5     67  0.7509114  0.4678279
+#&gt;    5     68  0.7497878  0.4657843
+#&gt;    5     69  0.7497878  0.4657843
+#&gt;    5     70  0.7497878  0.4657843
+#&gt;    6     50  0.7464170  0.4566695
+#&gt;    6     51  0.7464170  0.4566695
+#&gt;    6     52  0.7464170  0.4566695
+#&gt;    6     53  0.7464170  0.4566695
+#&gt;    6     54  0.7464170  0.4566695
+#&gt;    6     55  0.7452934  0.4539311
+#&gt;    6     56  0.7452934  0.4539311
+#&gt;    6     57  0.7441698  0.4519093
+#&gt;    6     58  0.7441698  0.4519093
+#&gt;    6     59  0.7441698  0.4519093
+#&gt;    6     60  0.7441698  0.4519093
+#&gt;    6     61  0.7441698  0.4519093
+#&gt;    6     62  0.7441698  0.4519093
+#&gt;    6     63  0.7441698  0.4519093
+#&gt;    6     64  0.7441698  0.4519093
+#&gt;    6     65  0.7441698  0.4519093
+#&gt;    6     66  0.7441698  0.4519093
+#&gt;    6     67  0.7441698  0.4519093
+#&gt;    6     68  0.7441698  0.4519093
+#&gt;    6     69  0.7441698  0.4519093
+#&gt;    6     70  0.7441698  0.4519093
+#&gt;    7     50  0.7430462  0.4497065
+#&gt;    7     51  0.7430462  0.4497065
+#&gt;    7     52  0.7430462  0.4497065
+#&gt;    7     53  0.7430462  0.4497065
+#&gt;    7     54  0.7430462  0.4497065
+#&gt;    7     55  0.7430462  0.4497065
+#&gt;    7     56  0.7430462  0.4497065
+#&gt;    7     57  0.7430462  0.4497065
+#&gt;    7     58  0.7430462  0.4497065
+#&gt;    7     59  0.7430462  0.4497065
+#&gt;    7     60  0.7430462  0.4497065
+#&gt;    7     61  0.7419226  0.4477303
+#&gt;    7     62  0.7408115  0.4446395
+#&gt;    7     63  0.7408115  0.4446395
+#&gt;    7     64  0.7408115  0.4446395
+#&gt;    7     65  0.7408115  0.4446395
+#&gt;    7     66  0.7408115  0.4446395
+#&gt;    7     67  0.7408115  0.4446395
+#&gt;    7     68  0.7408115  0.4446395
+#&gt;    7     69  0.7396879  0.4414400
+#&gt;    7     70  0.7408115  0.4434618
+#&gt;    8     50  0.7441823  0.4508545
+#&gt;    8     51  0.7441823  0.4508545
+#&gt;    8     52  0.7441823  0.4508545
+#&gt;    8     53  0.7441823  0.4508545
+#&gt;    8     54  0.7430587  0.4488783
+#&gt;    8     55  0.7419351  0.4469231
+#&gt;    8     56  0.7419351  0.4469231
+#&gt;    8     57  0.7419351  0.4469231
+#&gt;    8     58  0.7419351  0.4469231
+#&gt;    8     59  0.7419351  0.4469231
+#&gt;    8     60  0.7419351  0.4469231
+#&gt;    8     61  0.7419351  0.4469231
+#&gt;    8     62  0.7419351  0.4469231
+#&gt;    8     63  0.7419351  0.4469231
+#&gt;    8     64  0.7419351  0.4469231
+#&gt;    8     65  0.7408115  0.4443873
+#&gt;    8     66  0.7408115  0.4443873
+#&gt;    8     67  0.7408115  0.4443873
+#&gt;    8     68  0.7408115  0.4443873
+#&gt;    8     69  0.7408115  0.4443873
+#&gt;    8     70  0.7408115  0.4443873
+#&gt;    9     50  0.7408115  0.4443873
+#&gt;    9     51  0.7408115  0.4443873
+#&gt;    9     52  0.7408115  0.4443873
+#&gt;    9     53  0.7408115  0.4443873
+#&gt;    9     54  0.7408115  0.4443873
+#&gt;    9     55  0.7408115  0.4443873
+#&gt;    9     56  0.7408115  0.4443873
+#&gt;    9     57  0.7408115  0.4443873
+#&gt;    9     58  0.7408115  0.4443873
+#&gt;    9     59  0.7408115  0.4443873
+#&gt;    9     60  0.7408115  0.4443873
+#&gt;    9     61  0.7408115  0.4443873
+#&gt;    9     62  0.7408115  0.4443873
+#&gt;    9     63  0.7408115  0.4443873
+#&gt;    9     64  0.7408115  0.4443873
+#&gt;    9     65  0.7408115  0.4443873
+#&gt;    9     66  0.7419351  0.4469115
+#&gt;    9     67  0.7419351  0.4469115
+#&gt;    9     68  0.7419351  0.4469115
+#&gt;    9     69  0.7419351  0.4469115
+#&gt;    9     70  0.7419351  0.4469115
+#&gt;   10     50  0.7408115  0.4443873
+#&gt;   10     51  0.7408115  0.4443873
+#&gt;   10     52  0.7408115  0.4443873
+#&gt;   10     53  0.7408115  0.4443873
+#&gt;   10     54  0.7419351  0.4469115
+#&gt;   10     55  0.7419351  0.4469115
+#&gt;   10     56  0.7419351  0.4469115
+#&gt;   10     57  0.7419351  0.4469115
+#&gt;   10     58  0.7419351  0.4469115
+#&gt;   10     59  0.7419351  0.4469115
+#&gt;   10     60  0.7430462  0.4500024
+#&gt;   10     61  0.7430462  0.4500024
+#&gt;   10     62  0.7430462  0.4500024
+#&gt;   10     63  0.7430462  0.4500024
+#&gt;   10     64  0.7430462  0.4500024
+#&gt;   10     65  0.7430462  0.4500024
+#&gt;   10     66  0.7430462  0.4500024
+#&gt;   10     67  0.7430462  0.4500024
+#&gt;   10     68  0.7430462  0.4500024
+#&gt;   10     69  0.7430462  0.4500024
+#&gt;   10     70  0.7430462  0.4500024
+#&gt; 
+#&gt; Tuning parameter 'Weight' was held constant at a value of 1
+#&gt; Kappa was used to select the optimal model using the largest value.
+#&gt; The final values used for the model were sigma = 1, C = 58 and Weight = 1.
+
+# 参数进一步缩小 上面最好的为：  sigma = 1, C = 58 and Weight = 1.
+no_cores &lt;- detectCores() -1
+cl&lt;-makeCluster(no_cores)
+# registerDoParallel(cl)
+
+grif_svm3 = expand.grid(sigma=seq(0,1,0.1),C=58,Weight=1)
+
+set.seed(825)
+svm_cv_Fit3 &lt;- train(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch + Fare + Embarked + Name + FamilySize,
+                 data = train,
+                 metric =&quot;Kappa&quot;,
+                 method = &quot;svmRadialWeights&quot;, 
+                 trControl = fitControl,tuneGrid = grif_svm3,
+                 verbose = FALSE)
+
+
+
+svm_cv_Fit3
+#&gt; Support Vector Machines with Class Weights 
+#&gt; 
+#&gt; 891 samples
+#&gt;   9 predictor
+#&gt;   2 classes: '0', '1' 
+#&gt; 
+#&gt; No pre-processing
+#&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
+#&gt; Summary of sample sizes: 802, 802, 802, 802, 802, 802, ... 
+#&gt; Resampling results across tuning parameters:
+#&gt; 
+#&gt;   sigma  Accuracy   Kappa    
+#&gt;   0.0    0.6161673  0.0000000
+#&gt;   0.1    0.8013358  0.5669074
+#&gt;   0.2    0.7979650  0.5612242
+#&gt;   0.3    0.7911985  0.5513664
+#&gt;   0.4    0.7900624  0.5519072
+#&gt;   0.5    0.7878402  0.5495903
+#&gt;   0.6    0.7889638  0.5520950
+#&gt;   0.7    0.7889638  0.5524516
+#&gt;   0.8    0.7889638  0.5537507
+#&gt;   0.9    0.7878527  0.5518741
+#&gt;   1.0    0.7889638  0.5549527
+#&gt; 
+#&gt; Tuning parameter 'C' was held constant at a value of 58
+#&gt; Tuning parameter 'Weight' was held constant at a value of 1
+#&gt; Kappa was used to select the optimal model using the largest value.
+#&gt; The final values used for the model were sigma = 0.1, C = 58 and Weight = 1.
+
+# 参数进一步缩小 上面最好的为： sigma = 0.1, C = 58 and Weight = 1.
+no_cores &lt;- detectCores() -1
+cl&lt;-makeCluster(no_cores)
+# registerDoParallel(cl)
+
+grif_svm4 = expand.grid(sigma=seq(0,0.2,0.01),C=58,Weight=1)
+
+set.seed(825)
+svm_cv_Fit4 &lt;- train(Survived~Pclass +Name + Sex + Age_class + SibSp + Parch + Fare + Embarked + Name + FamilySize,
+                 data = train,
+                 metric =&quot;Kappa&quot;,
+                 method = &quot;svmRadialWeights&quot;, 
+                 trControl = fitControl,tuneGrid = grif_svm4,
+                 verbose = FALSE)
+
+# stopImplicitCluster()
+
+svm_cv_Fit4
+#&gt; Support Vector Machines with Class Weights 
+#&gt; 
+#&gt; 891 samples
+#&gt;   9 predictor
+#&gt;   2 classes: '0', '1' 
+#&gt; 
+#&gt; No pre-processing
+#&gt; Resampling: Cross-Validated (10 fold, repeated 1 times) 
+#&gt; Summary of sample sizes: 802, 802, 802, 802, 802, 802, ... 
+#&gt; Resampling results across tuning parameters:
+#&gt; 
+#&gt;   sigma  Accuracy   Kappa    
+#&gt;   0.00   0.6161673  0.0000000
+#&gt;   0.01   0.8149064  0.5916957
+#&gt;   0.02   0.8114981  0.5856433
+#&gt;   0.03   0.8081273  0.5793144
+#&gt;   0.04   0.8036330  0.5700091
+#&gt;   0.05   0.7991511  0.5611674
+#&gt;   0.06   0.8002622  0.5645199
+#&gt;   0.07   0.8047191  0.5741737
+#&gt;   0.08   0.8047066  0.5738563
+#&gt;   0.09   0.8024719  0.5689492
+#&gt;   0.10   0.8013358  0.5669074
+#&gt;   0.11   0.8013358  0.5669991
+#&gt;   0.12   0.8002122  0.5643613
+#&gt;   0.13   0.8002122  0.5643613
+#&gt;   0.14   0.8013233  0.5663641
+#&gt;   0.15   0.8024469  0.5690019
+#&gt;   0.16   0.8013358  0.5668501
+#&gt;   0.17   0.8002122  0.5645959
+#&gt;   0.18   0.7979650  0.5601587
+#&gt;   0.19   0.7957179  0.5563902
+#&gt;   0.20   0.7979650  0.5612242
+#&gt; 
+#&gt; Tuning parameter 'C' was held constant at a value of 58
+#&gt; Tuning parameter 'Weight' was held constant at a value of 1
+#&gt; Kappa was used to select the optimal model using the largest value.
+#&gt; The final values used for the model were sigma = 0.01, C = 58 and Weight = 1.
+</code></pre>
+<p>svm 模型预测</p>
+<pre><code># 最好的参数 为： sigma = 0.01, C = 58 and Weight = 1.
+
+pred_svm_cv = predict(svm_cv_Fit4,test)
+submit_svm_cv=data.frame(PassengerId=test$PassengerId,Survived=prediction)
+
+## 存储文件
+# write.csv(submit_svm_cv,&quot;data/submit_svm_cv.csv&quot;,row.names = FALSE)
+
+# 模型评估
+table(train$Survived,predict(svm_cv_Fit4,train,type = &quot;raw&quot;))
+#&gt;    
+#&gt;       0   1
+#&gt;   0 519  30
+#&gt;   1  98 244
+</code></pre>
+<h2 id="kaggle的得分">kaggle的得分，</h2>
+<p>一下是把数据提交kaggle以后的得分,可以发现大概都在0.78分左右</p>
+<p>如果需要提升分数，需要重新构建新的特征工程再去预测建模</p>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/" class="leancloud_visitors" data-flag-title="泰坦尼克号预测(kaggle)">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+        <a class="previous" href="/md/2018-07-08-seq%E5%87%BD%E6%95%B0%E6%97%8F/"> 上一篇: seq*函数族</a>
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2018-07-15-%E7%9B%B8%E5%85%B3%E5%9B%BE%E4%B9%8Bcorrgram/"> 下一篇: 相关图之corrgram</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-07-14-kaggle-泰坦.md");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

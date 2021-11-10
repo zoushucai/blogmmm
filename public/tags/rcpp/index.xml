@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rcpp on zsc</title>
+    <link>/tags/rcpp/</link>
+    <description>Recent content in Rcpp on zsc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 14 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/rcpp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Armadillo &#43; Rcpp  VS  MATLAB/octave</title>
+      <link>/matlab/2019-11-14-matlab_rcpp_c/</link>
+      <pubDate>Thu, 14 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/matlab/2019-11-14-matlab_rcpp_c/</guid>
+      <description>*Armadillo + Rcpp VS MATLAB/octave  http://arma.sourceforge.net/docs.html  1. Armadillo VS matlab    Matlab/Octave Armadillo Notes     A,B,C代表矩阵a,b,c 代表向量 vec x(10);vec y = zeros(10);rowvec x(10); rowvec y = zeros(10); rowvec a = {1,2,3,4};vec b = {1,2,3,4};mat A = randu(10,10); C++中要声明向量类型(这里都是 double 类型)vec 默认 colvec(等价),是列向量   A(1,1) A(0,0) C++ 索引从 0 开始   A(k,k) A(k-1,k-1)         size(A,1) A.</description>
+    </item>
+    
+  </channel>
+</rss>
