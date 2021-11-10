@@ -21,28 +21,22 @@ jobs:
           persist-credentials: false  # 这里的坑太大，一定要前面的这些信息
           fetch-depth: 0
 
-      - name: Configure SSH
+      # 显示的注释，是用来判断哪个步骤出错的
+      ##### 1. 先配置 gitee 的ssh
+      - name: Configure SSH and known_hosts
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.REPOSIT_GITEE_PRIVATE_KEY }}" > ~/.ssh/reposit_gitee
-          chmod 600 ~/.ssh/reposit_gitee
-          echo "${{ secrets.REPOSIT_GITHUB_PRIVATE_KEY }}" > ~/.ssh/reposit_github
-          chmod 600 ~/.ssh/reposit_github
-          cat >>~/.ssh/config <<END
-          Host gitee.com
-            HostName gitee.com
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-            IdentityFile ~/.ssh/reposit_gitee
-          Host github.com
-            HostName github.com
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-            IdentityFile ~/.ssh/reposit_github
-          END
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.REPOSIT_GITEE_PRIVATE_KEY }}"
+          mkdir -p ~/.ssh
+          ssh-keyscan gitee.com >> ~/.ssh/known_hosts
+          echo "创建成功gitee的known_hosts"
 
       # 推送 gitee 主仓库
       - name: push main to gitee repository 
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           { 
             # 推送master到gitee
@@ -57,6 +51,8 @@ jobs:
 
       # 推送 gitee 子仓库
       - name: push subtree to gitee repositoy 
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           git remote add gitee-subtree ${{ env.gitee_subree }}  
 
@@ -70,8 +66,30 @@ jobs:
             echo "gitee 子树2"
           }
 
+      # 记得删除ssh配置
+      - name: remove SSH and known_hosts
+        run: |
+          rm -rf ~/.ssh
+          rm -rf /tmp/ssh_agent.sock
+
+      ##### 2. 配置 github 的ssh
+      - name: Configure SSH2
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.REPOSIT_GITHUB_PRIVATE_KEY }}"
+          {
+            mkdir -p ~/.ssh
+          } || {
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+          }
+          echo "创建成功github的known_hosts"
+
       # 推送 github 子仓库
       - name: push subtree to github repositoy 
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           git remote add sub-origin ${{ env.github_rep }}
           
@@ -85,6 +103,7 @@ jobs:
             echo "github 子树2"
           }
 
-      - name: 删除ssh
+      - name: 删除ssh2
         run: |
           rm -rf ~/.ssh
+          rm -rf /tmp/ssh_agent.sock
