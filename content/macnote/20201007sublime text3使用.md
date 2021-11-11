@@ -100,7 +100,7 @@ https://packagecontrol.io/packages/Theme%20-%20Spacegray
 
 - Local History：本地历史记录 https://packagecontrol.io/packages/Local%20History
 
-- Color Hightlight:  css中使得颜色直接在sublime中展示,(注意网上有很多人推荐Color Hightlighter插件,试了一下,此软件我的mac电脑不行),  Color Hightlight 插件直接下载即可用 
+- Color Highlight:  css中使得颜色直接在sublime中展示,(注意网上有很多人推荐Color Hightlighter插件,试了一下,此软件我的mac电脑不行),  Color Highlight 插件直接下载即可用 
 
 	![image-20200520150836677](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020100616image-20200520150836677.png)
 
