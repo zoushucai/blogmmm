@@ -359,42 +359,48 @@ brew cask install keka
 brew cask install mounty 
 			brew cask install baidunetdisk 
 </code></pre><pre tabindex="0"><code>
-
-
-
-ew cask install loopback
-</code></pre><pre tabindex="0"><code>
-
-
-
-先安装 r 以及 rstudio 在安装java, 看能否配置成功
-ew cask install r
-ew cask install rstudio
-	
-ew cask install java8  %安装jdk8的最新版本
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </code></pre></li>
+<li>
+<p>loopback: 收费软件,需要找到破解版,不建议用这个安装,结合 mac 自带的录屏软件,可以录制有声音的视频,不管是系统声音还是软件声音都行.</p>
+<pre tabindex="0"><code>brew cask install loopback
+</code></pre><pre tabindex="0"><code>
+</code></pre></li>
+<li>
+<p>java 的安装,个人建议还是从官网下载安装对应的版本,我记得第一次试的时候,好像没有配置成功</p>
+<pre tabindex="0"><code>% 先安装 r 以及 rstudio 在安装java, 看能否配置成功
+		brew cask install r
+			brew cask install rstudio
+
+brew cask install java   %将会安装jdk的最新版本，jdk内嵌jre
+brew cask install java8  %安装jdk8的最新版本
+
+</code></pre><p>``</p>
+</li>
+<li>
+<p>grammarly : 语法安装软件, 个人不推荐,因为有浏览器插件就够了</p>
+</li>
+<li>
+<p>cajviewer: caj 云阅读</p>
+</li>
+<li>
+<p>zotero: 论文参考文献管理, 可以快速进行期刊缩写与展开</p>
+</li>
+<li>
+<p>mendeley : 论文参考文献管理，可以快速进行期刊缩写与展开</p>
+</li>
+<li>
+<p>jabref : 论文管理软件, 只适合 bibtex 文件的管理, 这个可以缩写期刊, 以及查找文献的 doi, 并且不修改原有的bibtex 文件信息(除非手动修改), 注意一定要找到对应期刊的 bst 文件,才能显示出适合的参考文献格式, 可以集合 zotero 以及 mendeley 的软件查找相应的参考文献样式或者直接从网站https://www.zotero.org/styles查找下载相关参考文献的样式, 最终结合 bibtex 生成最终的 pdf(bibtex文件生成的临时文件 *.bbl 就是对应的的thebibliography环境以及bibitem条目 ),  备注: 个人推荐 jabref, 然后全部的参考文献都去 Google 学术上下载 bibtex 文件,不能一会从百度学术一会从谷歌学术下载,或者从相应的参考软件下载,这样会很乱,  注意:谷歌浏览器插件MyBibCitation Generator 也能产生相应的参考文献样式</p>
+</li>
+<li>
+<p>jabref  % 建议安装开发版本,这个默认是稳定版本</p>
+</li>
 </ul>
-<p>brew cask install grammarly
-brew cask install cajviewer
+<pre tabindex="0"><code>brew cask install grammarly	
+brew cask install cajviewer	
 brew cask install zotero
 brew cask install mendeley
-brew cask install jabref     % 建议安装开发版本,这个默认是稳定版本s</p>
-<pre tabindex="0"><code>
+brew cask install jabref     % 建议安装开发版本,这个默认是稳定版本s
+
 </code></pre>
         </section>
     </div>
