@@ -332,13 +332,14 @@ export PS1='\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;3
 # 记得重新运行
 $ source ~/.bashrc  % 使配置文件生效
 </code></pre><h2 id="mac中终端中添加显示分支情况">mac中终端中添加显示分支情况</h2>
-<pre tabindex="0"><code>parse_git_branch() {
-    git branch 2&gt; /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
-export PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w\[\e[01;34m\]$(parse_git_branch) \[\e[01;32m\]\$ '
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">parse_git_branch<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    git branch 2&gt; /dev/null | sed -e <span style="color:#e6db74">&#39;/^[^*]/d&#39;</span> -e <span style="color:#e6db74">&#39;s/* \(.*\)/ (\1)/&#39;</span>
+<span style="color:#f92672">}</span>
+export CLICOLOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+export LSCOLORS<span style="color:#f92672">=</span>gxfxcxdxbxegedabagacad
+export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w\[\e[01;34m\]$(parse_git_branch) \[\e[01;32m\]\$ &#39;</span>
+</code></pre></div><p><img src="https://i0.hdslb.com/bfs/album/fe8c7995aa5a9840dab4c0645fef56098e52cf35.png" alt="04"></p>
+
         </section>
     </div>
     <br>
