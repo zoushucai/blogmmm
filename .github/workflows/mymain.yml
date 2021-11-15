@@ -20,7 +20,6 @@ jobs:
         with:
           persist-credentials: false  # 这里的坑太大，一定要前面的这些信息
           fetch-depth: 0
-          ssh-known-hosts: ["github.com", "gitee"]
 
       # 显示的注释，是用来判断哪个步骤出错的
       ##### 1. 先配置 gitee 的ssh
@@ -31,7 +30,11 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.REPOSIT_GITEE_PRIVATE_KEY }}"
           ssh-add - <<< "${{ secrets.REPOSIT_GITHUB_PRIVATE_KEY }}"
-          
+         
+          mkdir -p ~/.ssh
+          ssh-keyscan gitee.com >> ~/.ssh/known_hosts
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          echo "创建成功gitee 和gitehub 的known_hosts"
       # 1.推送 gitee 主仓库
       - name: push main to gitee repository 
         env:
@@ -45,16 +48,13 @@ jobs:
             git remote set-url gitee-origin ${{ env.gitee_rep }} 
             echo "这里2"
           }
-
           git push --force gitee-origin main:master
-
       # 2.推送 gitee 子仓库
       - name: push subtree to gitee repositoy 
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           git remote add gitee-subtree ${{ env.gitee_subree }}  
-
           {
             # 推送子树到gitee 的另一仓库
             git push gitee-subtree `git subtree split -P ${{ env.sub_dir }}`:master --force && \
@@ -64,7 +64,6 @@ jobs:
             git push --force gitee-subtree mysubtree2:master && \
             echo "gitee 子树2"
           }
-
       # 3.推送 github 子仓库
       - name: push subtree to github repositoy 
         env:
@@ -81,8 +80,8 @@ jobs:
             git push --force sub-origin  mysubtree1:main
             echo "github 子树2"
           }
-
       - name: 4.删除ssh
         run: |
           rm -rf ~/.ssh
           rm -rf /tmp/ssh_agent.sock
+        
