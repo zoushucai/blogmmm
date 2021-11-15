@@ -20,6 +20,7 @@ jobs:
         with:
           persist-credentials: false  # 这里的坑太大，一定要前面的这些信息
           fetch-depth: 0
+          ssh-known-hosts: ["github.com", "gitee"]
 
       # 显示的注释，是用来判断哪个步骤出错的
       ##### 1. 先配置 gitee 的ssh
@@ -30,12 +31,7 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.REPOSIT_GITEE_PRIVATE_KEY }}"
           ssh-add - <<< "${{ secrets.REPOSIT_GITHUB_PRIVATE_KEY }}"
-         
-          mkdir -p ~/.ssh
-          ssh-keyscan gitee.com >> ~/.ssh/known_hosts
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          echo "创建成功gitee 和gitehub 的known_hosts"
-
+          
       # 1.推送 gitee 主仓库
       - name: push main to gitee repository 
         env:
