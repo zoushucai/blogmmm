@@ -197,19 +197,19 @@
     
         
         <section id="content">
-            <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">seq</span>(from <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, to <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, by <span style="color:#f92672">=</span> 步长（默认为<span style="color:#ae81ff">1</span>),length.out <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, along.with <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, <span style="color:#66d9ef">...</span>)
-
-<span style="color:#a6e22e">seq.int</span>(from, to, by, length.out, along.with, <span style="color:#66d9ef">...</span>)
-
-<span style="color:#a6e22e">seq_along</span>(along.with)  
-
-<span style="color:#a6e22e">seq_len</span>(length.out)
-
-from：生成向量的起点，
-to：生成向量的终点，默认步长为<span style="color:#ae81ff">1</span>（可修改） 
-length.out：向量中元素数目
-along.with：表示生成的向量为现有一向量元素的索引
-</code></pre></div><p>主要介绍<code>seq_along(along.with)  </code>和<code>seq_len(length.out)</code>函数，应用于循环中</p>
+            <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">seq</span>(from <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, to <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, by <span style="color:#f92672">=</span> 步长（默认为<span style="color:#ae81ff">1</span>),length.out <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, along.with <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">seq.int</span>(from, to, by, length.out, along.with, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">seq_along</span>(along.with)  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">seq_len</span>(length.out)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>from：生成向量的起点，
+</span></span><span style="display:flex;"><span>to：生成向量的终点，默认步长为<span style="color:#ae81ff">1</span>（可修改） 
+</span></span><span style="display:flex;"><span>length.out：向量中元素数目
+</span></span><span style="display:flex;"><span>along.with：表示生成的向量为现有一向量元素的索引
+</span></span></code></pre></div><p>主要介绍<code>seq_along(along.with)  </code>和<code>seq_len(length.out)</code>函数，应用于循环中</p>
 <p>比如:</p>
 <pre tabindex="0"><code># 要循环某个向量长度的次数,比如向量a，其长度未知
 for(i in seq_along(a)){...}  代替 for(i in 1:length(a)){...}   ## 经常犯这样的错误，不美观
@@ -413,7 +413,7 @@ for(i in seq_len(10)){...}  代替 for(i in 1:10){...}
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

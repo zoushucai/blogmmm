@@ -248,197 +248,188 @@
         <section id="content">
             <h2 id="1--创建一个srcapy项目">1  创建一个srcapy项目：</h2>
 <p>（项目名为：jingdong)，会生成一系列文件夹，命令如下(cmd下运行)：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">scrapy startproject jingdong
-</code></pre></div><h2 id="2--创建爬虫文件">2  创建爬虫文件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>scrapy startproject jingdong
+</span></span></code></pre></div><h2 id="2--创建爬虫文件">2  创建爬虫文件</h2>
 <p>在刚刚生成的jingdong文件夹下面找到spiders文件夹,在spider文件下创建一个爬虫文件（名字叫jd）&ndash; 用来解析网页的，命令如下(cmd下运行)：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">scarpy genspider jd <span style="color:#e6db74">&#34;list.jd.com&#34;</span>
-<span style="color:#75715e"># 创建一个jd.py的爬虫文件，爬虫名为jd ，以及指定爬虫允许爬取的范围：只能在jd.com下.</span>
-</code></pre></div><h2 id="3--编写itemspy文件">3  编写items.py文件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>scarpy genspider jd <span style="color:#e6db74">&#34;list.jd.com&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建一个jd.py的爬虫文件，爬虫名为jd ，以及指定爬虫允许爬取的范围：只能在jd.com下.</span>
+</span></span></code></pre></div><h2 id="3--编写itemspy文件">3  编写items.py文件</h2>
 <p>创建爬虫目标（明确需要提取的数据），如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> scrapy
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JingdongItem</span>(scrapy<span style="color:#f92672">.</span>Item):
-    <span style="color:#75715e"># define the fields for your item here like:</span>
-    <span style="color:#75715e"># 所有商品的名称、链接、价格、销售店铺、评论数的信</span>
-    <span style="color:#75715e"># 商品名称</span>
-    name <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
-    <span style="color:#75715e"># 商品的简介</span>
-    abstract <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
-    <span style="color:#75715e"># 商品的链接</span>
-    link <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
-    <span style="color:#75715e"># 商品的价格</span>
-    price <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
-    <span style="color:#75715e"># 店铺名</span>
-    shop_name <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
-    <span style="color:#75715e"># 评论数</span>
-    commet <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
-
-</code></pre></div><h2 id="4---设置setting文件开启管道">4   设置setting文件，开启管道</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ITEM_PIPELINES <span style="color:#f92672">=</span> {
-    <span style="color:#e6db74">&#39;jingdong.pipelines.JingdongPipeline&#39;</span>: <span style="color:#ae81ff">300</span>,
-}
-
-</code></pre></div><h2 id="5--编写spidersjdpy-文件-爬虫文件">5  编写spiders/jd.py 文件 （爬虫文件）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> scrapy
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JingdongItem</span>(scrapy<span style="color:#f92672">.</span>Item):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># define the fields for your item here like:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 所有商品的名称、链接、价格、销售店铺、评论数的信</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 商品名称</span>
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 商品的简介</span>
+</span></span><span style="display:flex;"><span>    abstract <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 商品的链接</span>
+</span></span><span style="display:flex;"><span>    link <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 商品的价格</span>
+</span></span><span style="display:flex;"><span>    price <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 店铺名</span>
+</span></span><span style="display:flex;"><span>    shop_name <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 评论数</span>
+</span></span><span style="display:flex;"><span>    commet <span style="color:#f92672">=</span> scrapy<span style="color:#f92672">.</span>Field()
+</span></span></code></pre></div><h2 id="4---设置setting文件开启管道">4   设置setting文件，开启管道</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ITEM_PIPELINES <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;jingdong.pipelines.JingdongPipeline&#39;</span>: <span style="color:#ae81ff">300</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="5--编写spidersjdpy-文件-爬虫文件">5  编写spiders/jd.py 文件 （爬虫文件）</h2>
 <p>编写爬虫文件（我们创建的jd.py,，在spiders这个文件夹下面），此文件用来处理请求和响应，以及提取数据</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
-<span style="color:#f92672">import</span> scrapy
-<span style="color:#f92672">from</span> jingdong.items <span style="color:#f92672">import</span> JingdongItem 
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JdSpider</span>(scrapy<span style="color:#f92672">.</span>Spider):
-	<span style="color:#75715e"># 爬虫名</span>
-    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jd&#34;</span>
-    <span style="color:#75715e"># 允许爬虫作用的范围</span>
-    allowed_domains <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;list.jd.com&#34;</span>]
-    <span style="color:#75715e"># 页面提取url  也可以拼接url:https://list.jd.com/list.html?cat=652,654,831&amp;page=0</span>
-
-    <span style="color:#75715e"># 爬虫起始的url</span>
-    start_urls <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;https://list.jd.com/list.html?cat=652,654,831&#39;</span>]
-    offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 设置爬取的起始页数</span>
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
-        info_list <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//div[@id=&#34;plist&#34;]//li[@class =&#34;gl-item&#34;]&#39;</span>)
-        <span style="color:#66d9ef">for</span> each <span style="color:#f92672">in</span> info_list:
-            <span style="color:#75715e"># 构建item对象，用来保存数据</span>
-            item <span style="color:#f92672">=</span> JingdongItem()
-            <span style="color:#75715e">####################################################</span>
-            <span style="color:#75715e">########## 一下为提取页面信息######################</span>
-            <span style="color:#75715e"># 提取商品的名称，</span>
-            <span style="color:#66d9ef">if</span> len( each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/em/text()&#39;</span>) ) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> :
-                item[<span style="color:#e6db74">&#39;name&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-            <span style="color:#66d9ef">else</span>:
-                item[<span style="color:#e6db74">&#39;name&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/em/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
-    		
-            <span style="color:#75715e"># 商品简介</span>
-            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/i[@class=&#34;promo-words&#34;]/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
-                item[<span style="color:#e6db74">&#39;abstract&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-            <span style="color:#66d9ef">else</span>:
-                item[<span style="color:#e6db74">&#39;abstract&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/i[@class=&#34;promo-words&#34;]/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
-    		
-            <span style="color:#75715e"># 商品链接</span>
-            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/@href&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
-                item[<span style="color:#e6db74">&#39;link&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-            <span style="color:#66d9ef">else</span>:
-                item[<span style="color:#e6db74">&#39;link&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/@href&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
-    		
-            <span style="color:#75715e"># 商品价格</span>
-            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-price&#34;]/strong[1]/i/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
-                item[<span style="color:#e6db74">&#39;price&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-            <span style="color:#66d9ef">else</span>:
-                item[<span style="color:#e6db74">&#39;price&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-price&#34;]/strong[1]//i/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
-    		
-            <span style="color:#75715e"># 商品店铺名称</span>
-            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-shop&#34;]/span/a/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
-                item[<span style="color:#e6db74">&#39;shop_name&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-            <span style="color:#66d9ef">else</span>:
-                item[<span style="color:#e6db74">&#39;shop_name&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-shop&#34;]/span/a/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
-            
-            <span style="color:#75715e"># 商品评论数</span>
-            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-commit p-commit-n&#34;]/strong/a/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
-                item[<span style="color:#e6db74">&#39;commet&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-            <span style="color:#66d9ef">else</span>:
-                item[<span style="color:#e6db74">&#39;commet&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-commit p-commit-n&#34;]/strong/a/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
-            <span style="color:#75715e"># 通过yield 返回数据，返回数据后还能回来继续执行下面的代码</span>
-            <span style="color:#66d9ef">yield</span> item
-        
-        <span style="color:#75715e"># 直接从response获取需要爬取的链接，并发送给请求处理，直到链接处理完成</span>
-        <span style="color:#66d9ef">if</span> len(response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//div[@class=&#34;p-wrap&#34;]//a[@class=&#34;pn-next&#34;]&#39;</span>))<span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>offset<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1000</span>:
-            <span style="color:#75715e"># self.offset手动控制爬取的页面数  ，当然这里没有1000个页面，直到所有为止</span>
-            self<span style="color:#f92672">.</span>offset <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>offset<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
-            next_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//div[@class=&#34;p-wrap&#34;]//a[@class=&#34;pn-next&#34;]/@href&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-            url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://list.jd.com/&#34;</span><span style="color:#f92672">+</span>next_url<span style="color:#75715e"># 找到下一页的url链接</span>
-            <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>url,callback<span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>parse)
-
-
-</code></pre></div><h2 id="6--编写pipelinespy管道文件">6  编写pipelines.py(管道文件)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> scrapy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> jingdong.items <span style="color:#f92672">import</span> JingdongItem 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JdSpider</span>(scrapy<span style="color:#f92672">.</span>Spider):
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># 爬虫名</span>
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jd&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 允许爬虫作用的范围</span>
+</span></span><span style="display:flex;"><span>    allowed_domains <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;list.jd.com&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 页面提取url  也可以拼接url:https://list.jd.com/list.html?cat=652,654,831&amp;page=0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 爬虫起始的url</span>
+</span></span><span style="display:flex;"><span>    start_urls <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;https://list.jd.com/list.html?cat=652,654,831&#39;</span>]
+</span></span><span style="display:flex;"><span>    offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 设置爬取的起始页数</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+</span></span><span style="display:flex;"><span>        info_list <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//div[@id=&#34;plist&#34;]//li[@class =&#34;gl-item&#34;]&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> each <span style="color:#f92672">in</span> info_list:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 构建item对象，用来保存数据</span>
+</span></span><span style="display:flex;"><span>            item <span style="color:#f92672">=</span> JingdongItem()
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">####################################################</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">########## 一下为提取页面信息######################</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 提取商品的名称，</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len( each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/em/text()&#39;</span>) ) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> :
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;name&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;name&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/em/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    		
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 商品简介</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/i[@class=&#34;promo-words&#34;]/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;abstract&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;abstract&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/i[@class=&#34;promo-words&#34;]/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    		
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 商品链接</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/@href&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;link&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;link&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-name&#34;]/a/@href&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    		
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 商品价格</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-price&#34;]/strong[1]/i/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;price&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;price&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-price&#34;]/strong[1]//i/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    		
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 商品店铺名称</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-shop&#34;]/span/a/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;shop_name&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;shop_name&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-shop&#34;]/span/a/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 商品评论数</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-commit p-commit-n&#34;]/strong/a/text()&#39;</span>))<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;commet&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                item[<span style="color:#e6db74">&#39;commet&#39;</span>] <span style="color:#f92672">=</span> each<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;./div/div[@class=&#34;p-commit p-commit-n&#34;]/strong/a/text()&#39;</span>)<span style="color:#f92672">.</span>extract()[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 通过yield 返回数据，返回数据后还能回来继续执行下面的代码</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">yield</span> item
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 直接从response获取需要爬取的链接，并发送给请求处理，直到链接处理完成</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//div[@class=&#34;p-wrap&#34;]//a[@class=&#34;pn-next&#34;]&#39;</span>))<span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>offset<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1000</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># self.offset手动控制爬取的页面数  ，当然这里没有1000个页面，直到所有为止</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>offset <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>offset<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            next_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//div[@class=&#34;p-wrap&#34;]//a[@class=&#34;pn-next&#34;]/@href&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+</span></span><span style="display:flex;"><span>            url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://list.jd.com/&#34;</span><span style="color:#f92672">+</span>next_url<span style="color:#75715e"># 找到下一页的url链接</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>url,callback<span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>parse)
+</span></span></code></pre></div><h2 id="6--编写pipelinespy管道文件">6  编写pipelines.py(管道文件)</h2>
 <p>编写管道文件，处理spider返回的item数据，我把它存为json文件： 如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> json
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JingdongPipeline</span>(object):
-    <span style="color:#66d9ef">def</span> __init__(self):
-        self<span style="color:#f92672">.</span>f <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;jingdong_xiangji.json&#34;</span>,<span style="color:#e6db74">&#34;w&#34;</span>)
-        
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_item</span>(self, item, spider):
-        content <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>dumps(dict(item),ensure_ascii<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
-        self<span style="color:#f92672">.</span>f<span style="color:#f92672">.</span>write(content)
-        <span style="color:#66d9ef">return</span> item <span style="color:#75715e"># 一定要返回item  ，相当于告诉引擎，我做事做完了，请给我下一个item</span>
-    
-    <span style="color:#75715e"># 第一个方法：只执行一次</span>
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">close_spider</span>(self,spider):
-        self<span style="color:#f92672">.</span>f<span style="color:#f92672">.</span>close()
-
-</code></pre></div><h2 id="7--编写middlewarespy下载中间件">7  编写middlewares.py(下载中间件)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JingdongPipeline</span>(object):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>f <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;jingdong_xiangji.json&#34;</span>,<span style="color:#e6db74">&#34;w&#34;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_item</span>(self, item, spider):
+</span></span><span style="display:flex;"><span>        content <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>dumps(dict(item),ensure_ascii<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>f<span style="color:#f92672">.</span>write(content)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> item <span style="color:#75715e"># 一定要返回item  ，相当于告诉引擎，我做事做完了，请给我下一个item</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 第一个方法：只执行一次</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">close_spider</span>(self,spider):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>f<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><h2 id="7--编写middlewarespy下载中间件">7  编写middlewares.py(下载中间件)</h2>
 <p>由于京东这个网站，网页是动态加载的，于是结合selenium进行下载，（如果是静态页面，无需写这个文件，以及后面的第8步）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
-<span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
-<span style="color:#75715e">#检查页面是否加载完毕</span>
-<span style="color:#f92672">import</span> time
-<span style="color:#f92672">from</span> scrapy.http <span style="color:#f92672">import</span> HtmlResponse
-<span style="color:#f92672">from</span> selenium.common.exceptions <span style="color:#f92672">import</span> TimeoutException
-<span style="color:#f92672">from</span> selenium.webdriver.chrome.options <span style="color:#f92672">import</span> Options <span style="color:#75715e">#设置Google的无头浏览器</span>
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JingdongSpiderMiddleware</span>(object):
-    <span style="color:#75715e"># 开始运行的选项</span>
-    <span style="color:#66d9ef">def</span> __init__(self):
-        chrome_options <span style="color:#f92672">=</span> Options()
-        prefs <span style="color:#f92672">=</span>  {<span style="color:#e6db74">&#34;profile.managed_default_content_settings.images&#34;</span>:<span style="color:#ae81ff">2</span>}
-        <span style="color:#75715e"># 设置Chrome浏览器不加载图片的方法</span>
-        chrome_options<span style="color:#f92672">.</span>add_experimental_option(<span style="color:#e6db74">&#34;prefs&#34;</span>,prefs) 
-        <span style="color:#75715e">#设置Google的无头浏览器</span>
-        chrome_options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--headless&#39;</span>) 
-        self<span style="color:#f92672">.</span>browser <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome(chrome_options<span style="color:#f92672">=</span>chrome_options) 
-        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>maximize_window()  <span style="color:#75715e"># 最大化浏览器</span>
-        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>implicitly_wait(<span style="color:#ae81ff">10</span>)<span style="color:#75715e">#隐式等待10s</span>
-        
-    <span style="color:#75715e">#  最后结束的时候运行的选项</span>
-    <span style="color:#66d9ef">def</span> __del__(self):
-        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>close()
-        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>quit()
-        
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_request</span>(self,request,spider):
-        <span style="color:#66d9ef">try</span>:
-            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>get(request<span style="color:#f92672">.</span>url)
-            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>implicitly_wait(<span style="color:#ae81ff">6</span>)
-            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#39;window.scrollTo(0,document.body.scrollHeight)&#39;</span>)
-            time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
-            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#39;window.scrollTo(0,document.body.scrollHeight)&#39;</span>)
-            time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
-            <span style="color:#66d9ef">return</span> HtmlResponse(url<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>current_url,body<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>page_source,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>,request<span style="color:#f92672">=</span>request,status<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>)
-        <span style="color:#66d9ef">except</span> TimeoutException <span style="color:#66d9ef">as</span> e:
-            print(<span style="color:#e6db74">&#34;超时&#34;</span>)
-            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#39;window.stop()&#39;</span>)
-            <span style="color:#66d9ef">return</span> HtmlResponse(url<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>url,status<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>,request <span style="color:#f92672">=</span> request)
-
-</code></pre></div><h2 id="8---设置下载中间件">8   设置下载中间件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#检查页面是否加载完毕</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scrapy.http <span style="color:#f92672">import</span> HtmlResponse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.common.exceptions <span style="color:#f92672">import</span> TimeoutException
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.webdriver.chrome.options <span style="color:#f92672">import</span> Options <span style="color:#75715e">#设置Google的无头浏览器</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JingdongSpiderMiddleware</span>(object):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 开始运行的选项</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        chrome_options <span style="color:#f92672">=</span> Options()
+</span></span><span style="display:flex;"><span>        prefs <span style="color:#f92672">=</span>  {<span style="color:#e6db74">&#34;profile.managed_default_content_settings.images&#34;</span>:<span style="color:#ae81ff">2</span>}
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 设置Chrome浏览器不加载图片的方法</span>
+</span></span><span style="display:flex;"><span>        chrome_options<span style="color:#f92672">.</span>add_experimental_option(<span style="color:#e6db74">&#34;prefs&#34;</span>,prefs) 
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#设置Google的无头浏览器</span>
+</span></span><span style="display:flex;"><span>        chrome_options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--headless&#39;</span>) 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>browser <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome(chrome_options<span style="color:#f92672">=</span>chrome_options) 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>maximize_window()  <span style="color:#75715e"># 最大化浏览器</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>implicitly_wait(<span style="color:#ae81ff">10</span>)<span style="color:#75715e">#隐式等待10s</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#  最后结束的时候运行的选项</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __del__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>quit()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_request</span>(self,request,spider):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>get(request<span style="color:#f92672">.</span>url)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>implicitly_wait(<span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#39;window.scrollTo(0,document.body.scrollHeight)&#39;</span>)
+</span></span><span style="display:flex;"><span>            time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#39;window.scrollTo(0,document.body.scrollHeight)&#39;</span>)
+</span></span><span style="display:flex;"><span>            time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> HtmlResponse(url<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>current_url,body<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>page_source,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>,request<span style="color:#f92672">=</span>request,status<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> TimeoutException <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;超时&#34;</span>)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#39;window.stop()&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> HtmlResponse(url<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>url,status<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>,request <span style="color:#f92672">=</span> request)
+</span></span></code></pre></div><h2 id="8---设置下载中间件">8   设置下载中间件</h2>
 <pre tabindex="0"><code>DOWNLOADER_MIDDLEWARES = {
-     'jingdong.middlewares.JingdongSpiderMiddleware': 543,
+     &#39;jingdong.middlewares.JingdongSpiderMiddleware&#39;: 543,
 }
-
 </code></pre><h2 id="9--最后的settingspy设置文件">9  最后的settings.py(设置文件)</h2>
 <p>由于爬虫有时候网站不让你爬 。有一个robots协议，我们不管这个，需要在setting.py设置，把ROBOTSTXT_OBEY = False即可</p>
 <p>最后我的setting.py 如下:</p>
-<pre tabindex="0"><code>BOT_NAME = 'jingdong'
+<pre tabindex="0"><code>BOT_NAME = &#39;jingdong&#39;
 
-SPIDER_MODULES = ['jingdong.spiders']
-NEWSPIDER_MODULE = 'jingdong.spiders'
+SPIDER_MODULES = [&#39;jingdong.spiders&#39;]
+NEWSPIDER_MODULE = &#39;jingdong.spiders&#39;
 ########################### 以上全自动生成
 #以下为 手动改写
 ROBOTSTXT_OBEY = False 
 DOWNLOADER_MIDDLEWARES = {
-     'jingdong.middlewares.JingdongSpiderMiddleware': 543,
+     &#39;jingdong.middlewares.JingdongSpiderMiddleware&#39;: 543,
 }
 ITEM_PIPELINES = {
-    'jingdong.pipelines.JingdongPipeline'
+    &#39;jingdong.pipelines.JingdongPipeline&#39;
     : 300,
 }
 
-## 解释： 'jingdong.pipelines.JingdongPipeline' ## 注意这里的字典 键要对应前面的类，
+## 解释： &#39;jingdong.pipelines.JingdongPipeline&#39; ## 注意这里的字典 键要对应前面的类，
 #####  jingdong 为爬虫项目名，
 #####  pipelines为爬虫下面的pipelines.py文件的文件名，
 #####  JingdongPipeline为pipelines.py中的类名
-
-
 </code></pre><h2 id="10--最后执行爬虫文件">10  最后执行爬虫文件：</h2>
 <p>cmd下执行：</p>
 <pre tabindex="0"><code>scrapy crawl jd
-# 注意：jd为 spiders/jd.py文件中name的值  即（name = &quot;jd&quot;）
+# 注意：jd为 spiders/jd.py文件中name的值  即（name = &#34;jd&#34;）
 # 也可以执行  scrapy crawl jd  -o  jd_xiangji.csv  
 #### 即存为 json  又有保存了csv文件  ，生成的文件都在当前目录下（我们可以在爬虫的项目的文件下创建一个data文件夹，在这个文件夹下执行爬虫文件，就可以把代码和数据分开了。
 ######################
@@ -646,7 +637,7 @@ ITEM_PIPELINES = {
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

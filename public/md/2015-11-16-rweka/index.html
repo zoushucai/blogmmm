@@ -220,22 +220,22 @@ write.arff()：将数据写入Weka Attribute-Relation File Format (ARFF)格式�
 <p>LBR()：naive Bayes法分类</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">   RWeka包中的IBK函数实现knn算法
-        <span style="color:#f92672">*</span> model<span style="color:#f92672">=</span><span style="color:#a6e22e">IBk</span>(formula, data, subset, na.action,control <span style="color:#f92672">=</span> <span style="color:#a6e22e">Weka_control</span>(), options <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)
-                <span style="color:#f92672">+</span> formula<span style="color:#f92672">:</span>公式，分类变量<span style="color:#f92672">~</span>特征，和回归一样
-                <span style="color:#f92672">+</span> data <span style="color:#f92672">:</span> 训练数据集,必须为<span style="color:#f92672">*</span>.raff格式的数据,对于R中的数据，
-                      <span style="color:#f92672">+</span> 可以先把某个对象先用<span style="color:#a6e22e">write.arff</span>(iris,<span style="color:#e6db74">&#39;iris.arff&#39;</span>)写成raff文件格式
-                      <span style="color:#f92672">+</span> 再次用<span style="color:#a6e22e">read.arff</span>(<span style="color:#e6db74">&#34;iris.arff&#34;</span>)读入R内存中即可
-                <span style="color:#f92672">+</span> control<span style="color:#f92672">:</span>参数控制 control<span style="color:#f92672">=</span><span style="color:#a6e22e">Weka_control</span>(K<span style="color:#f92672">=</span> <span style="color:#ae81ff">22</span>,X <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) 
-                      <span style="color:#f92672">+</span> X K都为大写，表示自动选取<span style="color:#ae81ff">1</span>：K<span style="color:#f92672">=</span><span style="color:#ae81ff">22</span>里面最适合的K近邻分类 
-             
-        <span style="color:#f92672">*</span> <span style="color:#a6e22e">evaluate_Weka_classifier</span>(object, newdata <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, cost <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, 
-                                   numFolds <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, complexity <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
-                                   class <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, seed <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, <span style="color:#66d9ef">...</span>)
-                <span style="color:#f92672">+</span> object<span style="color:#f92672">:</span> 一个Weka_classifier对象,Rweka建立的分类对象模型
-                <span style="color:#f92672">+</span> newdata<span style="color:#f92672">:</span> 测试数据，若为省略或为<span style="color:#ae81ff">0</span> ，则为训练数据
-                <span style="color:#f92672">+</span> numFolds： k<span style="color:#f92672">-</span>交叉验证
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>   RWeka包中的IBK函数实现knn算法
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span> model<span style="color:#f92672">=</span><span style="color:#a6e22e">IBk</span>(formula, data, subset, na.action,control <span style="color:#f92672">=</span> <span style="color:#a6e22e">Weka_control</span>(), options <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">+</span> formula<span style="color:#f92672">:</span>公式，分类变量<span style="color:#f92672">~</span>特征，和回归一样
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">+</span> data <span style="color:#f92672">:</span> 训练数据集,必须为<span style="color:#f92672">*</span>.raff格式的数据,对于R中的数据，
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">+</span> 可以先把某个对象先用<span style="color:#a6e22e">write.arff</span>(iris,<span style="color:#e6db74">&#39;iris.arff&#39;</span>)写成raff文件格式
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">+</span> 再次用<span style="color:#a6e22e">read.arff</span>(<span style="color:#e6db74">&#34;iris.arff&#34;</span>)读入R内存中即可
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">+</span> control<span style="color:#f92672">:</span>参数控制 control<span style="color:#f92672">=</span><span style="color:#a6e22e">Weka_control</span>(K<span style="color:#f92672">=</span> <span style="color:#ae81ff">22</span>,X <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) 
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">+</span> X K都为大写，表示自动选取<span style="color:#ae81ff">1</span>：K<span style="color:#f92672">=</span><span style="color:#ae81ff">22</span>里面最适合的K近邻分类 
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span> <span style="color:#a6e22e">evaluate_Weka_classifier</span>(object, newdata <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, cost <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, 
+</span></span><span style="display:flex;"><span>                                   numFolds <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, complexity <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>                                   class <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, seed <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">+</span> object<span style="color:#f92672">:</span> 一个Weka_classifier对象,Rweka建立的分类对象模型
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">+</span> newdata<span style="color:#f92672">:</span> 测试数据，若为省略或为<span style="color:#ae81ff">0</span> ，则为训练数据
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">+</span> numFolds： k<span style="color:#f92672">-</span>交叉验证
+</span></span></code></pre></div><ul>
 <li>
 <p>J48()：C4.5决策树算法（决策树在分析各个属性时，是完全独立的）。</p>
 </li>
@@ -336,8 +336,6 @@ write.arff()：将数据写入Weka Attribute-Relation File Format (ARFF)格式�
     <br>
     <hr>
     <li style="float:left;list-style:none">
-        
-        <a class="previous" href="/md/2015-11-09-ga/"> 上一篇: GA包---遗传算法</a>
         
     </li>
     <li style="float:right;list-style:none">
@@ -499,7 +497,7 @@ write.arff()：将数据写入Weka Attribute-Relation File Format (ARFF)格式�
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

@@ -13,7 +13,7 @@
       <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
-      <description>1、下载安装、配置好R与Rstudio 2、打开Rstudio&amp;mdash;-下载blogdown包 if(!require(devtools)) install.packages(&#39;devtools&#39;) devtools::install_github(&#39;rstudio/blogdown&#39;) 等待安装，缺什么安装什么，
+      <description>1、下载安装、配置好R与Rstudio 2、打开Rstudio&amp;mdash;-下载blogdown包 if(!require(devtools)) install.packages(&amp;#39;devtools&amp;#39;) devtools::install_github(&amp;#39;rstudio/blogdown&amp;#39;) 等待安装，缺什么安装什么，
 3、在rstudio中安装hugo软件,只需运行下面函数即可 blogdown::install_hugo() 注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中
 4、创建测试网站  可用命令blogdown::new_site(), 在rstudio中的左上角点击【file】&amp;ndash;【New Project】&amp;mdash;【Website using blogdown】  适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，
 5、创建完成 在刚刚所在目录【E:\test_blog】下面有很多文件，其他的可以不用管，可以找到一个config.tom配置文件，更改与你相关的信息，添加relativeurls =true保存(意思是引用想对路径)，也可以不用暂时不用管这个，毕竟我们只是了解创建博客步骤，但是还是请你留意两个文件content\ 和public\ ，content\ 用来写文章的文件，暂时还没有public\文件夹,这个是把content\ 文件夹下面的文章转变为html博客文章

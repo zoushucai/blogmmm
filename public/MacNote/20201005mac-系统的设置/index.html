@@ -204,24 +204,24 @@
 <p>新系统, 首先我们要安装一些必要的软件,和做一些基本的设置.</p>
 <p>本文做一些基本的设置</p>
 <h2 id="更改终端的颜色-和主机名">更改终端的颜色 和主机名</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo echo <span style="color:#e6db74">&#34;export CLICOLOR=1&#34;</span> &gt;&gt; ~/.bash_profile
-sudo echo <span style="color:#e6db74">&#34;export LSCOLORS=gxfxcxdxbxegedabagacad&#34;</span> &gt;&gt; ~/.bash_profile
-sudo echo <span style="color:#e6db74">&#34;export PS1=&#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &#39;&#34;</span>&gt;&gt; ~/.bash_profile
-
-source ~/.bash_profile 
-</code></pre></div><p>参考:  <a href="2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8FPS1">2019-11-19mac终端样式PS1</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo echo <span style="color:#e6db74">&#34;export CLICOLOR=1&#34;</span> &gt;&gt; ~/.bash_profile
+</span></span><span style="display:flex;"><span>sudo echo <span style="color:#e6db74">&#34;export LSCOLORS=gxfxcxdxbxegedabagacad&#34;</span> &gt;&gt; ~/.bash_profile
+</span></span><span style="display:flex;"><span>sudo echo <span style="color:#e6db74">&#34;export PS1=&#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &#39;&#34;</span>&gt;&gt; ~/.bash_profile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>source ~/.bash_profile 
+</span></span></code></pre></div><p>参考:  <a href="2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8FPS1">2019-11-19mac终端样式PS1</a></p>
 <p>命令行更改主机名</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">scutil --set HostName lucky  <span style="color:#75715e"># 重启终端</span>
-hostname   <span style="color:#75715e">#查看主机名</span>
-</code></pre></div><p><img src="https://gitee.com/zscqsmy/winpicgoimg/raw/master/macimg/20211111image-20211111213900221.png" alt="20211111image-20211111213900221"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scutil --set HostName lucky  <span style="color:#75715e"># 重启终端</span>
+</span></span><span style="display:flex;"><span>hostname   <span style="color:#75715e">#查看主机名</span>
+</span></span></code></pre></div><p><img src="https://gitee.com/zscqsmy/winpicgoimg/raw/master/macimg/20211111image-20211111213900221.png" alt="20211111image-20211111213900221"></p>
 <ul>
 <li>备注： 还有在mac中使用vim, 可以有更好的方法 使用sublime</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim a.txt 
-<span style="color:#75715e"># 可以用  </span>
-subl a.txt
-open a.txt
-</code></pre></div><h2 id="以下看情况设置">以下看情况设置</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim a.txt 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 可以用  </span>
+</span></span><span style="display:flex;"><span>subl a.txt
+</span></span><span style="display:flex;"><span>open a.txt
+</span></span></code></pre></div><h2 id="以下看情况设置">以下看情况设置</h2>
 <ul>
 <li>如果不能用则设置</li>
 </ul>
@@ -239,25 +239,25 @@ open a.txt
 <p>找到一个更好用的软件，  <a href="https://gitee.com/docmirror/dev-sidecar">https://gitee.com/docmirror/dev-sidecar</a> 因此可以不设置<code>/etc/hosts</code> 文件啦</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo vim /etc/hosts
-<span style="color:#75715e">#### 把下面的信息添加到 该文件中即可</span>
-199.232.69.194   github.global.ssl.fastly.net
-140.82.113.4      github.com
-199.232.69.194    github.global.ssl.fastly.net
-185.199.110.153   assets-cdn.github.com
-140.82.113.4      gist.github.com
-
-<span style="color:#75715e">#192.30.253.119    gist.github.com</span>
-<span style="color:#75715e">#199.232.28.133    assets-cdn.github.com</span>
-199.232.68.133    raw.githubusercontent.com
-199.232.68.133    gist.githubusercontent.com
-199.232.68.133    cloud.githubusercontent.com
-199.232.68.133    camo.githubusercontent.com
-199.232.68.133    avatars0.githubusercontent.com
-199.232.68.133    avatars1.githubusercontent.com
-199.232.68.133    avatars2.githubusercontent.com
-199.232.68.133    avatars3.githubusercontent.com
-</code></pre></div><p><a href="https://blog.csdn.net/Newbie_J/article/details/104467886/">链接1</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo vim /etc/hosts
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#### 把下面的信息添加到 该文件中即可</span>
+</span></span><span style="display:flex;"><span>199.232.69.194   github.global.ssl.fastly.net
+</span></span><span style="display:flex;"><span>140.82.113.4      github.com
+</span></span><span style="display:flex;"><span>199.232.69.194    github.global.ssl.fastly.net
+</span></span><span style="display:flex;"><span>185.199.110.153   assets-cdn.github.com
+</span></span><span style="display:flex;"><span>140.82.113.4      gist.github.com
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#192.30.253.119    gist.github.com</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#199.232.28.133    assets-cdn.github.com</span>
+</span></span><span style="display:flex;"><span>199.232.68.133    raw.githubusercontent.com
+</span></span><span style="display:flex;"><span>199.232.68.133    gist.githubusercontent.com
+</span></span><span style="display:flex;"><span>199.232.68.133    cloud.githubusercontent.com
+</span></span><span style="display:flex;"><span>199.232.68.133    camo.githubusercontent.com
+</span></span><span style="display:flex;"><span>199.232.68.133    avatars0.githubusercontent.com
+</span></span><span style="display:flex;"><span>199.232.68.133    avatars1.githubusercontent.com
+</span></span><span style="display:flex;"><span>199.232.68.133    avatars2.githubusercontent.com
+</span></span><span style="display:flex;"><span>199.232.68.133    avatars3.githubusercontent.com
+</span></span></code></pre></div><p><a href="https://blog.csdn.net/Newbie_J/article/details/104467886/">链接1</a></p>
 <p><a href="https://blog.csdn.net/u010828718/article/details/106500543?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-106500543.nonecase&amp;utm_term=github%E4%B8%8A%E7%9A%84%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%20mac&amp;spm=1000.2123.3001.4430">链接2</a></p>
 <p>下一节,讲解软件的安装(主要用<code>homebrew</code>),如果上述不设置,可能软件安装不了</p>
 
@@ -455,7 +455,7 @@ open a.txt
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

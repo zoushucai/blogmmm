@@ -57,7 +57,7 @@ flights &amp;lt;- tbl_df(flights) head(flights) #有336,776 x 19 ## # A tibble: 
   remove_rownames(df) ： 移除行名
   rownames_to_column(df, var = &amp;ldquo;rowname&amp;rdquo;) ： 行名变为某列
  rowid_to_column(df, var = &amp;ldquo;rowid&amp;rdquo;)： 行名变为某列,只能变为数字,个人不推荐    column_to_rownames(df, var = &amp;ldquo;rowname&amp;rdquo;) ： 某列变为行名，并删除某列,要求这个列值唯一
-  library(tibble) head(mtcars) has_rownames(mtcars) #检查是否存在行名 new_mtcars=rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;) #行名变为某列,行名此时被移除 head(new_mtcars) has_rownames(rownames_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) has_rownames(rowid_to_column(mtcars, var = &amp;quot;new_col&amp;quot;)) df=remove_rownames(mtcars)#： 移除行名 head(df) column_to_rownames(new_mtcars, var = &amp;quot;new_col&amp;quot;)# 某列变为行名，并删除某列,要求这个列值唯一 2、添加行与列 添加行：
+  library(tibble) head(mtcars) has_rownames(mtcars) #检查是否存在行名 new_mtcars=rownames_to_column(mtcars, var = &amp;#34;new_col&amp;#34;) #行名变为某列,行名此时被移除 head(new_mtcars) has_rownames(rownames_to_column(mtcars, var = &amp;#34;new_col&amp;#34;)) has_rownames(rowid_to_column(mtcars, var = &amp;#34;new_col&amp;#34;)) df=remove_rownames(mtcars)#： 移除行名 head(df) column_to_rownames(new_mtcars, var = &amp;#34;new_col&amp;#34;)# 某列变为行名，并删除某列,要求这个列值唯一 2、添加行与列 添加行：
  add_row(.data, &amp;hellip;, .before = NULL, .after = NULL)  添加列：</description>
     </item>
     

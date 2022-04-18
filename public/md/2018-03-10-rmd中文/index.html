@@ -201,9 +201,9 @@
 <p>后文有与之对应的方法。</p>
 <p>需要安装完整版的CTeX_2.92套装（有没有感觉文件很大，文章最后教大家一个简单的安装版本），还要自己新建一个文本文件命名为<code>header.tex</code>,其内容为<code>\usepackage{ctex}</code> ,把这个文件和运行的rmarkdown文件保存在同级目录中，然后把rmarkdown的头文件yaml改写为如下情况：</p>
 <pre tabindex="0"><code>---
-title: 'Untitled'
-author: 'zsc'
-date: &quot;`r Sys.Date()`&quot;
+title: &#39;Untitled&#39;
+author: &#39;zsc&#39;
+date: &#34;`r Sys.Date()`&#34;
 output:
   pdf_document:
   includes:
@@ -214,20 +214,19 @@ output:
 </code></pre><p>这样就可以生成中文的pdf了</p>
 <p>于是我仿照上面的步骤，写了一个函数<code>rmarkdown_pdf</code> 保存为<code>rmarkdown_pdf.R</code></p>
 <pre tabindex="0"><code>rmarkdown_pdf=function(file_name,new_filename=file_name){
-cat(&quot;\\usepackage{ctex}\n&quot;, file = &quot;header.tex&quot;)
-txt=&quot;---
-title: 'Untitled'
-author: 'zsc'
-date: \&quot;`r Sys.Date()`\&quot;
+cat(&#34;\\usepackage{ctex}\n&#34;, file = &#34;header.tex&#34;)
+txt=&#34;---
+title: &#39;Untitled&#39;
+author: &#39;zsc&#39;
+date: \&#34;`r Sys.Date()`\&#34;
 output:\n  pdf_document:\n    includes:\n      in_header: header.tex\n    keep_tex: yes\n    latex_engine: xelatex
 ---
-&quot;
-x=readLines(file_name,n=-1,encoding = &quot;UTF-8&quot;)
-la=max(which(x==&quot;---&quot;)[1:2])
-cat(c(txt,x[(la+1):length(x)]),sep = &quot;\n&quot;,file = new_filename,append = F)
+&#34;
+x=readLines(file_name,n=-1,encoding = &#34;UTF-8&#34;)
+la=max(which(x==&#34;---&#34;)[1:2])
+cat(c(txt,x[(la+1):length(x)]),sep = &#34;\n&#34;,file = new_filename,append = F)
 rm(list = ls())
 }
-
 </code></pre><p>在把这个函数加载到自定义环境中，</p>
 <ul>
 <li>
@@ -240,7 +239,7 @@ rm(list = ls())
 <pre tabindex="0"><code>.First&lt;-function(){
 # 也可以加载包library(data.table)
 # 加载函数
-source(&quot;函数rmarkdown_pdf.R存放的路径&quot;)路径为1111/22/33 
+source(&#34;函数rmarkdown_pdf.R存放的路径&#34;)路径为1111/22/33 
 }
 </code></pre><p>这种设置，会产生很多的中间文件（系统并未自己删除），亲测成功：</p>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf1.png" alt="pdf1"></p>
@@ -284,7 +283,7 @@ source(&quot;函数rmarkdown_pdf.R存放的路径&quot;)路径为1111/22/33
 
 错误: Failed to compile test.tex. See test.log for more info.
 此外: Warning message:
-In grepl(&quot;==&gt; Fatal error occurred&quot;, x[i], fixed = TRUE) :
+In grepl(&#34;==&gt; Fatal error occurred&#34;, x[i], fixed = TRUE) :
   输入的字符串1不适用于此语言环境
 停止执行
 </code></pre></li>
@@ -300,8 +299,7 @@ In grepl(&quot;==&gt; Fatal error occurred&quot;, x[i], fixed = TRUE) :
 <p>方法一：</p>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong03.png" alt=""></p>
 <p>直接在YAML格式中添加参数即可：</p>
-<pre tabindex="0"><code>
-</code></pre><ol start="4">
+<pre tabindex="0"><code></code></pre><ol start="4">
 <li>方法三： 首先在你的Rmd文件开始部分加入：</li>
 </ol>
 </li>
@@ -322,25 +320,25 @@ output:
 </code></pre><p>去掉注释，更改你自己定义的字体。</p>
 <p>然后利用rmarkdown包正常编译Rmd文件就可以了。</p>
 <p><strong>本机环境</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sessionInfo</span>()
-R version <span style="color:#ae81ff">3.5.1</span> (<span style="color:#ae81ff">2018-07-02</span>)
-Platform<span style="color:#f92672">:</span> x86_64<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#a6e22e">x64 </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
-Running under<span style="color:#f92672">:</span> Windows <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span> <span style="color:#a6e22e">x64 </span>(build <span style="color:#ae81ff">9200</span>)
-
-Matrix products<span style="color:#f92672">:</span> default
-
-locale<span style="color:#f92672">:</span>
-[1] LC_COLLATE<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936  LC_CTYPE<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936   
-[3] LC_MONETARY<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936 LC_NUMERIC<span style="color:#f92672">=</span>C                              
-[5] LC_TIME<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936    
-
-attached base packages<span style="color:#f92672">:</span>
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a <span style="color:#a6e22e">namespace </span>(and not attached)<span style="color:#f92672">:</span>
- [1] compiler_3.5.1  backports_1.1.2 rprojroot_1.3<span style="color:#ae81ff">-2</span> htmltools_0.3.6 tools_3.5.1     yaml_2.2.0     
- [7] Rcpp_1.0.0      rmarkdown_1.10  knitr_1.20      digest_0.6.18   evaluate_0.12  
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sessionInfo</span>()
+</span></span><span style="display:flex;"><span>R version <span style="color:#ae81ff">3.5.1</span> (<span style="color:#ae81ff">2018-07-02</span>)
+</span></span><span style="display:flex;"><span>Platform<span style="color:#f92672">:</span> x86_64<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#a6e22e">x64 </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
+</span></span><span style="display:flex;"><span>Running under<span style="color:#f92672">:</span> Windows <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span> <span style="color:#a6e22e">x64 </span>(build <span style="color:#ae81ff">9200</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Matrix products<span style="color:#f92672">:</span> default
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>locale<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>[1] LC_COLLATE<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936  LC_CTYPE<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936   
+</span></span><span style="display:flex;"><span>[3] LC_MONETARY<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936 LC_NUMERIC<span style="color:#f92672">=</span>C                              
+</span></span><span style="display:flex;"><span>[5] LC_TIME<span style="color:#f92672">=</span><span style="color:#a6e22e">Chinese </span>(Simplified)_China.936    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>attached base packages<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>[1] stats     graphics  grDevices utils     datasets  methods   base     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loaded via a <span style="color:#a6e22e">namespace </span>(and not attached)<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> [1] compiler_3.5.1  backports_1.1.2 rprojroot_1.3<span style="color:#ae81ff">-2</span> htmltools_0.3.6 tools_3.5.1     yaml_2.2.0     
+</span></span><span style="display:flex;"><span> [7] Rcpp_1.0.0      rmarkdown_1.10  knitr_1.20      digest_0.6.18   evaluate_0.12  
+</span></span></code></pre></div>
         </section>
     </div>
     <br>
@@ -535,7 +533,7 @@ loaded via a <span style="color:#a6e22e">namespace </span>(and not attached)<spa
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

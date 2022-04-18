@@ -13,7 +13,7 @@
       <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/md/2020-05-18-shiny%E6%88%AA%E5%9B%BE/</guid>
-      <description>利用webshot 进行截图 library(shiny) library(ggplot2) histogram &amp;lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) { df &amp;lt;- data.frame( x = c(x1, x2), g = c(rep(&amp;quot;x1&amp;quot;, length(x1)), rep(&amp;quot;x2&amp;quot;, length(x2))) ) ggplot(df, aes(x, fill = g)) + geom_histogram(binwidth = binwidth) + coord_cartesian(xlim = xlim) } ui &amp;lt;- fluidPage( fluidRow( column(3, numericInput(&amp;quot;lambda1&amp;quot;, label = &amp;quot;lambda1&amp;quot;, value = 3), numericInput(&amp;quot;lambda2&amp;quot;, label = &amp;quot;lambda2&amp;quot;, value = 4), numericInput(&amp;quot;n&amp;quot;, label = &amp;quot;n&amp;quot;, value = 1e4, min = 0), # 增加一个按钮 actionButton(&amp;quot;simulate&amp;quot;, &amp;quot;Simulate!</description>
+      <description>利用webshot 进行截图 library(shiny) library(ggplot2) histogram &amp;lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) { df &amp;lt;- data.frame( x = c(x1, x2), g = c(rep(&amp;#34;x1&amp;#34;, length(x1)), rep(&amp;#34;x2&amp;#34;, length(x2))) ) ggplot(df, aes(x, fill = g)) + geom_histogram(binwidth = binwidth) + coord_cartesian(xlim = xlim) } ui &amp;lt;- fluidPage( fluidRow( column(3, numericInput(&amp;#34;lambda1&amp;#34;, label = &amp;#34;lambda1&amp;#34;, value = 3), numericInput(&amp;#34;lambda2&amp;#34;, label = &amp;#34;lambda2&amp;#34;, value = 4), numericInput(&amp;#34;n&amp;#34;, label = &amp;#34;n&amp;#34;, value = 1e4, min = 0), # 增加一个按钮 actionButton(&amp;#34;simulate&amp;#34;, &amp;#34;Simulate!</description>
     </item>
     
     <item>

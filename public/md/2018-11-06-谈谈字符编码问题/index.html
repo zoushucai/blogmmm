@@ -302,24 +302,23 @@
 
 
 #查看 当前cmd窗口的显示编码 一般为 936 代码GBK，
-shell(&quot;chcp&quot;,intern = TRUE) # 参数intern = TRUE 把输出对象变成R对象（即输出在R中显示，并可以赋值给变量）
+shell(&#34;chcp&#34;,intern = TRUE) # 参数intern = TRUE 把输出对象变成R对象（即输出在R中显示，并可以赋值给变量）
 
 
 #########  如果文件是按照 UTF-8 编码的
-shell(&quot;g++ -fexec-charset=GBK -finput-charset=UTF-8 testutf8.cpp -o abc.exe&quot;)
-shell(&quot;abc.exe&quot;,intern = TRUE)
+shell(&#34;g++ -fexec-charset=GBK -finput-charset=UTF-8 testutf8.cpp -o abc.exe&#34;)
+shell(&#34;abc.exe&#34;,intern = TRUE)
 
 ########### 如果文件是按照GBK编码的
-shell(&quot;g++  testgbk.cpp -o abc1.exe &amp;&amp; abc1.exe&quot;,intern = TRUE)
+shell(&#34;g++  testgbk.cpp -o abc1.exe &amp;&amp; abc1.exe&#34;,intern = TRUE)
 
-shell(&quot;rm abc1.exe&quot;)
-shell(&quot;rm abc.exe&quot;)
+shell(&#34;rm abc1.exe&#34;)
+shell(&#34;rm abc.exe&#34;)
 
 
 
 ########## 如果你不清楚你的文件编码，R语言也可以进行相关的判断（不是很准确）
 # Ruchardet包 和 wand包
-
 </code></pre><h2 id="参考">参考:</h2>
 <p><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a></p>
 <p><a href="https://github.com/LeoYuan/leoyuan.github.io/issues/25">https://github.com/LeoYuan/leoyuan.github.io/issues/25</a></p>
@@ -519,7 +518,7 @@ shell(&quot;rm abc.exe&quot;)
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

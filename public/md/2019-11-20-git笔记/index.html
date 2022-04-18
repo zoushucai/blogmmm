@@ -200,67 +200,67 @@
             <h2 id="1-git-的安装与配置">1. git 的安装与配置</h2>
 <p>安装不多说,</p>
 <p>初次运行 git前的配置, 配置全局信息: 用户名与邮箱,(此处的用户名与邮箱需要到 github 注册)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git config --global user.name <span style="color:#e6db74">&#34;XXX&#34;</span>
-$ git config --global user.email <span style="color:#e6db74">&#34;email@example.com&#34;</span>
-</code></pre></div><p>如果已经多次使用 git ,可以用以下命令进行查看</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git config -l   % 查看所有配置信息
-$ git config --global -l   % 查看全局配置信息
-$ cat ~/.gitconfig   % 用户的配置文件
-</code></pre></div><p>注意<code>git config</code>命令的<code>--global</code>参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git config --global user.name <span style="color:#e6db74">&#34;XXX&#34;</span>
+</span></span><span style="display:flex;"><span>$ git config --global user.email <span style="color:#e6db74">&#34;email@example.com&#34;</span>
+</span></span></code></pre></div><p>如果已经多次使用 git ,可以用以下命令进行查看</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git config -l   % 查看所有配置信息
+</span></span><span style="display:flex;"><span>$ git config --global -l   % 查看全局配置信息
+</span></span><span style="display:flex;"><span>$ cat ~/.gitconfig   % 用户的配置文件
+</span></span></code></pre></div><p>注意<code>git config</code>命令的<code>--global</code>参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
 <p>一些终端基础命令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ ls -al    <span style="color:#75715e"># 查看所有文件夹</span>
-$ pwd       <span style="color:#75715e"># 查看当前所在的目录</span>
-$ clear     <span style="color:#75715e"># 清屏(终端)</span>
-</code></pre></div><h2 id="2--创建本地仓库">2 . 创建本地仓库</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ ls -al    <span style="color:#75715e"># 查看所有文件夹</span>
+</span></span><span style="display:flex;"><span>$ pwd       <span style="color:#75715e"># 查看当前所在的目录</span>
+</span></span><span style="display:flex;"><span>$ clear     <span style="color:#75715e"># 清屏(终端)</span>
+</span></span></code></pre></div><h2 id="2--创建本地仓库">2 . 创建本地仓库</h2>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git01.png" alt="git01"></p>
 <h3 id="21-创建版本库--即初始化一个空仓库-这个目录下的所有路径都称作工作区">2.1 创建版本库  (即初始化一个空仓库, 这个目录下的所有路径都称作工作区)</h3>
 <p>版本库又名仓库(<strong>repository</strong>)，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git init    <span style="color:#75715e"># 该命令会在当前目录下创建了隐藏目录.git(与 git有关的信息都存储在这个文件夹里面)</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git status    <span style="color:#75715e"># 可以让我们时刻掌握仓库当前的状态, 检查当前文件状态</span>
-<span style="color:#75715e">#可根据返回的字体颜色进行判断(红色代表在工作区,绿色代表在暂存区,什么都看不见证明所有修改的东西都已经提交到历史区)</span>
-</code></pre></div><h3 id="22-把工作区中的文件夹提交到暂存区">2.2 把工作区中的文件(夹)提交到暂存区</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git init    <span style="color:#75715e"># 该命令会在当前目录下创建了隐藏目录.git(与 git有关的信息都存储在这个文件夹里面)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git status    <span style="color:#75715e"># 可以让我们时刻掌握仓库当前的状态, 检查当前文件状态</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#可根据返回的字体颜色进行判断(红色代表在工作区,绿色代表在暂存区,什么都看不见证明所有修改的东西都已经提交到历史区)</span>
+</span></span></code></pre></div><h3 id="22-把工作区中的文件夹提交到暂存区">2.2 把工作区中的文件(夹)提交到暂存区</h3>
 <p>当本地编写文件完成后(在工作区) , 把一些文件提交到暂存区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git add XXX     <span style="color:#75715e"># 把 XXX 单个文件或文件夹提交到暂存区</span>
-$ git add .       <span style="color:#75715e"># 把当前仓库中所有最新修改的文件都提交到暂存区</span>
-$ git add -A      <span style="color:#75715e"># 等价于 git add .</span>
-</code></pre></div><h3 id="23-把暂存区提交到历史区">2.3 把暂存区提交到历史区</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git add XXX     <span style="color:#75715e"># 把 XXX 单个文件或文件夹提交到暂存区</span>
+</span></span><span style="display:flex;"><span>$ git add .       <span style="color:#75715e"># 把当前仓库中所有最新修改的文件都提交到暂存区</span>
+</span></span><span style="display:flex;"><span>$ git add -A      <span style="color:#75715e"># 等价于 git add .</span>
+</span></span></code></pre></div><h3 id="23-把暂存区提交到历史区">2.3 把暂存区提交到历史区</h3>
 <p>狭义的版本库指的是历史区,广义的版本库指的是这个目录下的所有操作.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git commit -m <span style="color:#e6db74">&#34;描述信息&#34;</span>    <span style="color:#75715e"># 是把暂存区的所有文件一次性提交到历史区</span>
-</code></pre></div><h3 id="24-查看历史区的-commit-id">2.4 查看历史区的 commit id</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git commit -m <span style="color:#e6db74">&#34;描述信息&#34;</span>    <span style="color:#75715e"># 是把暂存区的所有文件一次性提交到历史区</span>
+</span></span></code></pre></div><h3 id="24-查看历史区的-commit-id">2.4 查看历史区的 commit id</h3>
 <p>即查看你一共使用了多少次<code>git commit -m '' </code>, 每一次该命令使用都会产生一个 <code>commit id</code> .   下面的命令都可以查看提交的历史(也可以在 github 网站的code查看,前提本地仓库与远程仓库以及同步 )</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git log       <span style="color:#75715e"># 可以查看提交历史，以便确定要回退到哪个版本。 (可用于穿梭历史),</span>
-$ git reflog    <span style="color:#75715e"># 查看命令历史，以便确定要回到未来的哪个版本。 (可用于穿梭未来,包含历史的回滚),</span>
-</code></pre></div><h3 id="25--退回某个commit-id-版本">2.5  退回某个commit id 版本</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git log       <span style="color:#75715e"># 可以查看提交历史，以便确定要回退到哪个版本。 (可用于穿梭历史),</span>
+</span></span><span style="display:flex;"><span>$ git reflog    <span style="color:#75715e"># 查看命令历史，以便确定要回到未来的哪个版本。 (可用于穿梭未来,包含历史的回滚),</span>
+</span></span></code></pre></div><h3 id="25--退回某个commit-id-版本">2.5  退回某个commit id 版本</h3>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git02.png" alt="git02"></p>
 <p>可以用于回滚(即可以回到历史版本,也可回到未来版本(zhu)) ,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git reset --hard ****   <span style="color:#75715e">#可以指定回到某个提交的历史版本, **** 为 commit id,id可以不写全</span>
-</code></pre></div><p>从工作区提交到暂存区,从暂存区提交到历史区: 是把内容复制一份传过去的,本区域依然存在这些信息(只有这样才能对比出那些文件是否进行了修增改删)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git reset --hard ****   <span style="color:#75715e">#可以指定回到某个提交的历史版本, **** 为 commit id,id可以不写全</span>
+</span></span></code></pre></div><p>从工作区提交到暂存区,从暂存区提交到历史区: 是把内容复制一份传过去的,本区域依然存在这些信息(只有这样才能对比出那些文件是否进行了修增改删)</p>
 <h3 id="26-从暂存区撤销到工作区-以及从工作区撤销修改">2.6 从暂存区撤销到工作区, 以及从工作区撤销修改</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git  reset HEAD &lt;file&gt;<span style="color:#75715e"># 从暂存区中删除该文件,但是文件内容不会修改(只撤销提交这个记录,即删除 git add操作),</span>
-$ git checkout --&lt;file&gt; <span style="color:#75715e"># 把工作区的修改后文件的文件还原(撤销修改)</span>
-$ git checkout .          <span style="color:#75715e"># 放弃没有提交的修改(类似回退到最新的一次提交)</span>
-</code></pre></div><h3 id="27--gitignore">2.7  .gitignore</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git  reset HEAD &lt;file&gt;<span style="color:#75715e"># 从暂存区中删除该文件,但是文件内容不会修改(只撤销提交这个记录,即删除 git add操作),</span>
+</span></span><span style="display:flex;"><span>$ git checkout --&lt;file&gt; <span style="color:#75715e"># 把工作区的修改后文件的文件还原(撤销修改)</span>
+</span></span><span style="display:flex;"><span>$ git checkout .          <span style="color:#75715e"># 放弃没有提交的修改(类似回退到最新的一次提交)</span>
+</span></span></code></pre></div><h3 id="27--gitignore">2.7  .gitignore</h3>
 <p>.gitignore 用于定义忽略提交的文件</p>
 <ul>
 <li>所有空行或者以注释符号 <code>＃</code> 开头的行都会被 Git 忽略。</li>
 <li>匹配模式最后跟反斜杠（<code>/</code>）说明要忽略的是目录。</li>
 <li>可以使用标准的 glob 模式匹配。</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">.idea
-/vendor       <span style="color:#75715e"># 忽略目录</span>
-*.txt
-!a.txt    <span style="color:#75715e"># *.txt 和 !a.txt 结合,表示除了a.txt以外的所有 txt 文件都被忽略</span>
-</code></pre></div><h3 id="28一些其他操作">2.8一些其他操作</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git commit --amend   <span style="color:#75715e"># 修改最新一次提交的备注, </span>
-<span style="color:#75715e"># 如果还有新的文件要和上次提交一起, 可以先把新文件添加到暂存区,然后使用 git commit --amend  就可以把新文件添加到最新的一次提交当中</span>
-
-
-$ git rm &lt;file&gt;          <span style="color:#75715e"># 一般情况下, 仓库中(版本库)和本地都会删除该文件</span>
-$ git rm --cached &lt;file&gt;   <span style="color:#75715e"># 删除仓库中的文件,不删除本地文件</span>
-
-$ git clean -fd    <span style="color:#75715e"># 删除没有add 的文件和目录 </span>
-$ git clean -n     <span style="color:#75715e"># 显示将要删除的文件或目录 </span>
-</code></pre></div><h2 id="3-github">3. github</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.idea
+</span></span><span style="display:flex;"><span>/vendor       <span style="color:#75715e"># 忽略目录</span>
+</span></span><span style="display:flex;"><span>*.txt
+</span></span><span style="display:flex;"><span>!a.txt    <span style="color:#75715e"># *.txt 和 !a.txt 结合,表示除了a.txt以外的所有 txt 文件都被忽略</span>
+</span></span></code></pre></div><h3 id="28一些其他操作">2.8一些其他操作</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git commit --amend   <span style="color:#75715e"># 修改最新一次提交的备注, </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 如果还有新的文件要和上次提交一起, 可以先把新文件添加到暂存区,然后使用 git commit --amend  就可以把新文件添加到最新的一次提交当中</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ git rm &lt;file&gt;          <span style="color:#75715e"># 一般情况下, 仓库中(版本库)和本地都会删除该文件</span>
+</span></span><span style="display:flex;"><span>$ git rm --cached &lt;file&gt;   <span style="color:#75715e"># 删除仓库中的文件,不删除本地文件</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ git clean -fd    <span style="color:#75715e"># 删除没有add 的文件和目录 </span>
+</span></span><span style="display:flex;"><span>$ git clean -n     <span style="color:#75715e"># 显示将要删除的文件或目录 </span>
+</span></span></code></pre></div><h2 id="3-github">3. github</h2>
 <h3 id="31-github-简介">3.1 github 简介</h3>
 <blockquote>
 <p>网站: <a href="https://www.github.com">https://www.github.com</a></p>
@@ -289,21 +289,21 @@ $ git clean -n     <span style="color:#75715e"># 显示将要删除的文件或�
 </ul>
 <h3 id="33-把本地仓库信息提交到远程仓库">3.3 把本地仓库信息提交到远程仓库</h3>
 <h4 id="331第一步-首先建立本地仓库与远程仓库的链接">3.3.1第一步: 首先建立本地仓库与远程仓库的链接</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ git remote -v   <span style="color:#75715e"># 查看当前仓库与那个远程仓库建立了链接,没有建立链接,则不显示</span>
-
-设置本地仓库与远程仓库建立一个链接, 链接名为 origin (可以更改,但一般都用这个)
-$ git remote add origin <span style="color:#66d9ef">[git 远程仓库地址]</span>
-
-删除管理信息
-$ git remote rm origin
-</code></pre></div><h4 id="332-第二步-本地仓库提交到远程仓库">3.3.2 第二步: 本地仓库提交到远程仓库</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#提交之前最好先拉取--- 即把远程和本地的进行同步合并</span>
-$ git pull origin master
-<span style="color:#75715e">#把本地代码提交到远程仓库(可能需要 github 的用户名和密码)</span>
-$ git push origin master <span style="color:#75715e">#将 master 分支推送到 origin 服务器</span>
-$ git push -u origin master 上面命令将本地的master分支推送到origin主机
-<span style="color:#75715e"># 加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令: git push，默认只推送当前分支</span>
-</code></pre></div><h2 id="4-分支">4 分支</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git remote -v   <span style="color:#75715e"># 查看当前仓库与那个远程仓库建立了链接,没有建立链接,则不显示</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>设置本地仓库与远程仓库建立一个链接, 链接名为 origin (可以更改,但一般都用这个)
+</span></span><span style="display:flex;"><span>$ git remote add origin <span style="color:#66d9ef">[git 远程仓库地址]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>删除管理信息
+</span></span><span style="display:flex;"><span>$ git remote rm origin
+</span></span></code></pre></div><h4 id="332-第二步-本地仓库提交到远程仓库">3.3.2 第二步: 本地仓库提交到远程仓库</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#提交之前最好先拉取--- 即把远程和本地的进行同步合并</span>
+</span></span><span style="display:flex;"><span>$ git pull origin master
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#把本地代码提交到远程仓库(可能需要 github 的用户名和密码)</span>
+</span></span><span style="display:flex;"><span>$ git push origin master <span style="color:#75715e">#将 master 分支推送到 origin 服务器</span>
+</span></span><span style="display:flex;"><span>$ git push -u origin master 上面命令将本地的master分支推送到origin主机
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令: git push，默认只推送当前分支</span>
+</span></span></code></pre></div><h2 id="4-分支">4 分支</h2>
 <h3 id="41-分支的功能">4.1 分支的功能</h3>
 <p>分支的作用: 用于为项目增加新功能或修复Bug时使用。</p>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git03.png" alt="git03"></p>
@@ -321,7 +321,6 @@ $ git push -u origin master 上面命令将本地的master分支推送到origin�
 
 查看未合并的分支(切换到master):  git branch --no-merged
 查看已经合并的分支(切换到master) : git branch --merged
-
 </code></pre><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git04.png" alt="git04"></p>
 <h3 id="42-合并分支可能会产生冲突">4.2 合并分支可能会产生冲突</h3>
 <h4 id="421--git-分支冲突">4.2.1  git 分支冲突</h4>
@@ -333,19 +332,19 @@ $ git push -u origin master 上面命令将本地的master分支推送到origin�
 </ol>
 <p>另一种解决冲突的办法&mdash;- 强制推送</p>
 <h4 id="422-git强制覆盖本地文件与git远程仓库保持一致">4.2.2. git强制覆盖本地文件（与git远程仓库保持一致）：</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 方法一: 多条命令执行</span>
-git fetch --all
-git reset --hard origin/master
-git pull
-
-<span style="color:#75715e"># 方法二: 单条命令执行, git强制覆盖本地命令（单条执行）：</span>
-git fetch --all <span style="color:#f92672">&amp;&amp;</span> git reset --hard origin/master <span style="color:#f92672">&amp;&amp;</span> git pull
-</code></pre></div><h4 id="423-git强制推送本地代码到远程仓库">4.2.3. git强制推送本地代码到远程仓库</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 方法一: 多条命令执行</span>
+</span></span><span style="display:flex;"><span>git fetch --all
+</span></span><span style="display:flex;"><span>git reset --hard origin/master
+</span></span><span style="display:flex;"><span>git pull
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 方法二: 单条命令执行, git强制覆盖本地命令（单条执行）：</span>
+</span></span><span style="display:flex;"><span>git fetch --all <span style="color:#f92672">&amp;&amp;</span> git reset --hard origin/master <span style="color:#f92672">&amp;&amp;</span> git pull
+</span></span></code></pre></div><h4 id="423-git强制推送本地代码到远程仓库">4.2.3. git强制推送本地代码到远程仓库</h4>
 <p>强制用本地的代码去覆盖掉远程仓库的代码:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git push -f origin master
-%注释： origin远程仓库名，master分支名，-f为force，意为：强行、强制。
-% 一般情况下 推送可简写为 git push. 
-</code></pre></div><h3 id="43-储藏stashing">4.3 储藏（Stashing）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git push -f origin master
+</span></span><span style="display:flex;"><span>%注释： origin远程仓库名，master分支名，-f为force，意为：强行、强制。
+</span></span><span style="display:flex;"><span>% 一般情况下 推送可简写为 git push. 
+</span></span></code></pre></div><h3 id="43-储藏stashing">4.3 储藏（Stashing）</h3>
 <p>当你正在进行项目中某一部分的工作，里面的东西处于一个比较杂乱的状态，而你想转到其他分支上进行一些工作。问题是，你不想提交进行了一半的工作，否则以后你无法回到这个工作点。</p>
 <p>&ldquo;暂存&rdquo; 可以获取你工作目录的中间状态——也就是你修改过的被追踪的文件和暂存的变更——并将它保存到一个未完结变更的堆栈中，随时可以重新应用。</p>
 <ol>
@@ -366,15 +365,15 @@ git fetch --all <span style="color:#f92672">&amp;&amp;</span> git reset --hard o
 <li>删除远程标签 <code>git push origin :v1.0.1</code></li>
 </ol>
 <h3 id="45-生成zip压缩包">4.5 生成zip压缩包</h3>
-<pre tabindex="0"><code>方法一: git archive --format zip --output &quot;./output.zip&quot; master -0
+<pre tabindex="0"><code>方法一: git archive --format zip --output &#34;./output.zip&#34; master -0
 方法二: git archive --format zip --output dump.zip master
 </code></pre><h3 id="46-移动分支的基础点-产生干净的合并记录---rebase">4.6 移动分支的基础点, 产生干净的合并记录 &ndash;rebase</h3>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git05.png" alt="git05"></p>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git06-20200525194419221.png" alt="git06"></p>
 <h3 id="47-git-压缩提交记录次数">4.7 git 压缩提交记录次数</h3>
 <p>发现自己提交次数有点多，想来合并以前的一些提交记录，减少提交次数，命令如下:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git rebase -i HEAD~n  //n代表你要查看的提交记录条数
-</code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/image-20200528104231661.png" alt="image-20200528104231661"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git rebase -i HEAD~n  //n代表你要查看的提交记录条数
+</span></span></code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/image-20200528104231661.png" alt="image-20200528104231661"></p>
 <p><a href="https://blog.csdn.net/xiaowu_zhu/article/details/83345313">https://blog.csdn.net/xiaowu_zhu/article/details/83345313</a></p>
 <h2 id="5-git-别名-alias">5. git 别名 alias</h2>
 <pre tabindex="0"><code># 方式一: 命令设置别名,  a == add .   # 即 git a  == git add .
@@ -579,7 +578,7 @@ $ subl ~/.gitconfig   #用sublime 打开git的配置文件, 注意该配置文�
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

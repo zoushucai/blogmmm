@@ -205,12 +205,12 @@
 </code></pre><h2 id="2-homebrew-主页--httpsbrewsh">2.<code> homebrew</code> 主页:  <a href="https://brew.sh/">https://brew.sh/</a></h2>
 <h3 id="21安装">2.1安装</h3>
 <p>把DSN 设置为<code>8.8.8.8</code>和<code>8.8.4.4</code> 这样才不会报错</p>
-<pre tabindex="0"><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+<pre tabindex="0"><code>/usr/bin/ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;
 </code></pre><h3 id="22-卸载未试过">2.2 卸载(未试过)</h3>
 <p>方法一: 网上找的,</p>
 <p>可参考: <a href="https://blog.csdn.net/qq_41234116/article/details/79366454">https://blog.csdn.net/qq_41234116/article/details/79366454</a></p>
 <p>方法 2: 官方版本</p>
-<pre tabindex="0"><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot;
+<pre tabindex="0"><code>ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&#34;
 </code></pre><p><a href="https://github.com/Homebrew/brew/blob/master/docs/FAQ.md">https://github.com/Homebrew/brew/blob/master/docs/FAQ.md</a></p>
 <p><a href="https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew">https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew</a></p>
 <h3 id="23-安装包-和卸载包">2.3 安装包 和卸载包</h3>
@@ -279,7 +279,7 @@ cleanup [options] [formula|cask]
 
        -s     Scrub the cache, including downloads for even the latest versions. Note downloads for
               any installed formulae or casks will still not be deleted.  If  you  want  to  delete
-              those too: rm -rf &quot;$(brew --cache)&quot;
+              those too: rm -rf &#34;$(brew --cache)&#34;
 
        --prune-prefix
               Only prune the symlinks and directories from the prefix and remove no other files.
@@ -291,19 +291,19 @@ cleanup [options] [formula|cask]
 <p><a href="https://mirror.tuna.tsinghua.edu.cn/help/homebrew/">https://mirror.tuna.tsinghua.edu.cn/help/homebrew/</a></p>
 <p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/">https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/</a></p>
 <p>下面给出清华镜像官网链接(注意在 终端下直接运行下面的<strong>四句命令</strong>即可), ,<strong>一般情况下,替换镜像的命令镜像网站会给出,所以以后要进行更新源的操作,直接去相应的镜像网站找更新命令</strong></p>
-<pre tabindex="0"><code>git -C &quot;$(brew --repo)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+<pre tabindex="0"><code>git -C &#34;$(brew --repo)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
 
-git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+git -C &#34;$(brew --repo homebrew/core)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
 
-git -C &quot;$(brew --repo homebrew/cask)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
+git -C &#34;$(brew --repo homebrew/cask)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
 
 brew update
 </code></pre><p>复原</p>
-<pre tabindex="0"><code>git -C &quot;$(brew --repo)&quot; remote set-url origin https://github.com/Homebrew/brew.git
+<pre tabindex="0"><code>git -C &#34;$(brew --repo)&#34; remote set-url origin https://github.com/Homebrew/brew.git
 
-git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://github.com/Homebrew/homebrew-core.git
+git -C &#34;$(brew --repo homebrew/core)&#34; remote set-url origin https://github.com/Homebrew/homebrew-core.git
 
-git -C &quot;$(brew --repo homebrew/cask)&quot; remote set-url origin https://github.com/Homebrew/homebrew-cask.git
+git -C &#34;$(brew --repo homebrew/cask)&#34; remote set-url origin https://github.com/Homebrew/homebrew-cask.git
 
 brew update
 </code></pre><p>还可以参考::https://www.cnblogs.com/DjangoBlogs/p/10762310.html</p>
@@ -312,14 +312,14 @@ brew update
 <h4 id="251临时替换">2.5.1临时替换</h4>
 <pre tabindex="0"><code>export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 </code></pre><h4 id="252长期替换">2.5.2长期替换</h4>
-<pre tabindex="0"><code>echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' &gt;&gt; ~/.bash_profile
+<pre tabindex="0"><code>echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
 </code></pre><p>注意: 个人理解  Homebrew-bottles 安装的是 类似安装包的形式,即编译好的包.</p>
 <h3 id="26-homebrew-关闭自动更新">2.6 Homebrew 关闭自动更新</h3>
 <h4 id="251临时关闭">2.5.1临时关闭</h4>
 <pre tabindex="0"><code>export HOMEBREW_NO_AUTO_UPDATE=true
 </code></pre><h4 id="252长期关闭">2.5.2长期关闭</h4>
-<pre tabindex="0"><code>echo 'export HOMEBREW_NO_AUTO_UPDATE=true' &gt;&gt; ~/.bash_profile
+<pre tabindex="0"><code>echo &#39;export HOMEBREW_NO_AUTO_UPDATE=true&#39; &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
 </code></pre><h3 id="27-mac-linux命令解释">2.7 mac Linux命令解释</h3>
 <ul>
@@ -401,8 +401,7 @@ brew cask install baidunetdisk
 <li>
 <p>loopback: 收费软件,需要找到破解版,不建议用这个安装,结合 mac 自带的录屏软件,可以录制有声音的视频,不管是系统声音还是软件声音都行.</p>
 <pre tabindex="0"><code>brew cask install loopback
-</code></pre><pre tabindex="0"><code>
-</code></pre></li>
+</code></pre><pre tabindex="0"><code></code></pre></li>
 <li>
 <p>java 的安装,个人建议还是从官网下载安装对应的版本,我记得第一次试的时候,好像没有配置成功</p>
 <pre tabindex="0"><code>% 先安装 r 以及 rstudio 在安装java, 看能否配置成功
@@ -436,7 +435,6 @@ brew cask install cajviewer
 brew cask install zotero
 brew cask install mendeley
 brew cask install jabref     % 建议安装开发版本,这个默认是稳定版本s
-
 </code></pre>
         </section>
     </div>
@@ -632,7 +630,7 @@ brew cask install jabref     % 建议安装开发版本,这个默认是稳定版
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

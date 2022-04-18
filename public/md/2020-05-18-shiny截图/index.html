@@ -238,7 +238,7 @@ library(ggplot2)
 histogram &lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) {
     df &lt;- data.frame(
         x = c(x1, x2),
-        g = c(rep(&quot;x1&quot;, length(x1)), rep(&quot;x2&quot;, length(x2)))
+        g = c(rep(&#34;x1&#34;, length(x1)), rep(&#34;x2&#34;, length(x2)))
     )
     
     ggplot(df, aes(x, fill = g)) +
@@ -248,13 +248,13 @@ histogram &lt;- function(x1, x2, binwidth = 0.1, xlim = c(-3, 3)) {
 ui &lt;- fluidPage(
     fluidRow(
         column(3, 
-               numericInput(&quot;lambda1&quot;, label = &quot;lambda1&quot;, value = 3),
-               numericInput(&quot;lambda2&quot;, label = &quot;lambda2&quot;, value = 4),
-               numericInput(&quot;n&quot;, label = &quot;n&quot;, value = 1e4, min = 0),
+               numericInput(&#34;lambda1&#34;, label = &#34;lambda1&#34;, value = 3),
+               numericInput(&#34;lambda2&#34;, label = &#34;lambda2&#34;, value = 4),
+               numericInput(&#34;n&#34;, label = &#34;n&#34;, value = 1e4, min = 0),
                # 增加一个按钮
-               actionButton(&quot;simulate&quot;, &quot;Simulate!&quot;)
+               actionButton(&#34;simulate&#34;, &#34;Simulate!&#34;)
         ),
-        column(9, plotOutput(&quot;hist&quot;))
+        column(9, plotOutput(&#34;hist&#34;))
     )
 )
 
@@ -277,11 +277,11 @@ server &lt;- function(input, output, session) {
 mm =shinyApp(ui, server)
 Sys.sleep(5)
 library(webshot)
-appshot(mm, &quot;01_hello1.png&quot;,webshot_timeout= 100,delay=10)
+appshot(mm, &#34;01_hello1.png&#34;,webshot_timeout= 100,delay=10)
 # 其中delay参数最好设置大一点, 特别是当使用动态网页时
 
 ## 还可以根据css来截图
-appshot(mm, &quot;01_hello2.png&quot;,webshot_timeout= 100,delay=10,selector='body')
+appshot(mm, &#34;01_hello2.png&#34;,webshot_timeout= 100,delay=10,selector=&#39;body&#39;)
 </code></pre><p>感兴趣可以参考<code>webshot包</code>网站: <a href="https://wch.github.io/webshot/reference/webshot.html">https://wch.github.io/webshot/reference/webshot.html</a></p>
 
         </section>
@@ -478,7 +478,7 @@ appshot(mm, &quot;01_hello2.png&quot;,webshot_timeout= 100,delay=10,selector='bo
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

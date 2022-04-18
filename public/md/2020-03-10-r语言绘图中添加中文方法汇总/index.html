@@ -247,22 +247,22 @@
             <h2 id="基本绘图中添加指定中文字体">基本绘图中添加指定中文字体</h2>
 <h3 id="方法一-使用parfamilystkaiti-">方法一: 使用<code>par(family='STKaiti') </code>,</h3>
 <h3 id="方法二-直接在画图函数后添加family-参数指定字体在r36x--已经不可以了">方法二: 直接在画图函数后添加<code>family</code> 参数指定字体,在R.3.6.x  已经不可以了</h3>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">barplot(df[sex == '男',table(Year)],main = &quot;男性条形统计图&quot;,family = 'Songti SC') 
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">barplot(df[sex == &#39;男&#39;,table(Year)],main = &#34;男性条形统计图&#34;,family = &#39;Songti SC&#39;) 
 </code></pre><h3 id="方法三-使用showtext包需要xquartz软件可以使用brew-cask-install-xquartz">方法三: 使用showtext包,需要xquartz软件,可以使用<code>brew cask install xquartz</code></h3>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(showtext)
 #使用下面的函数查看所有字体,选择中文字体添加
 font_files()
 showtext_auto(enable = TRUE)
-font_add('Songti', 'Songti.ttc','STKaiti','STXihei')  #添加中文字体
-quartz(family = &quot;STXihei&quot;) 
-#可以把STXihei替换成任意想要的字体，如'Songti', 'Songti.ttc','STKaiti'等
+font_add(&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;,&#39;STXihei&#39;)  #添加中文字体
+quartz(family = &#34;STXihei&#34;) 
+#可以把STXihei替换成任意想要的字体，如&#39;Songti&#39;, &#39;Songti.ttc&#39;,&#39;STKaiti&#39;等
 </code></pre><h3 id="方法四-extrafontdbhttpsgithubcomwchextrafontdb--软件包">方法四: <strong><a href="https://github.com/wch/extrafontdb">extrafontdb</a></strong>  软件包</h3>
 <h2 id="方法五-ggplot2绘图中添加指定中文字体">方法五: ggplot2绘图中添加指定中文字体</h2>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(ggplot2) 
 p = ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, col = Species)) + geom_point()
-p = p + labs(title = &quot;iris数据集&quot;)
+p = p + labs(title = &#34;iris数据集&#34;)
 p = p + theme(plot.title = element_text(hjust = 0.5))  #标题居中
-p = p + theme(text=element_text(family=&quot;Songti SC&quot;))
+p = p + theme(text=element_text(family=&#34;Songti SC&#34;))
 p 
 </code></pre>
         </section>
@@ -459,7 +459,7 @@ p
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

@@ -207,17 +207,17 @@
  list.dirs()           # 查看当前目录的子目录  参数详见dir()
  
  dir()                 #查看当前目录的子目录和文件。
- dir(path=&quot;C:/windows&quot;)#查看指定目录的子目录和文件
- dir(path=&quot;C:/windows&quot;,all.files=TRUE)# 列出目录下所有的目录和文件，包括隐藏文件
- dir(path=&quot;C:/windows&quot;,pattern='^R')#只列出以字母R开头的子目录或文件
+ dir(path=&#34;C:/windows&#34;)#查看指定目录的子目录和文件
+ dir(path=&#34;C:/windows&#34;,all.files=TRUE)# 列出目录下所有的目录和文件，包括隐藏文件
+ dir(path=&#34;C:/windows&#34;,pattern=&#39;^R&#39;)#只列出以字母R开头的子目录或文件
  
- file.info(&quot;.&quot;)         # 查看当前目录权限
+ file.info(&#34;.&#34;)         # 查看当前目录权限
 </code></pre><p><strong>2.2 创建目录</strong></p>
-<pre tabindex="0"><code>dir.create(&quot;your dir&quot;)        # 在当前目录下，新建一个目录
-dir.create(path=&quot;a1/b2/c3&quot;,recursive = TRUE)  #递归创建一个3级子目录./a1/b2/c3，直接创建会出错
+<pre tabindex="0"><code>dir.create(&#34;your dir&#34;)        # 在当前目录下，新建一个目录
+dir.create(path=&#34;a1/b2/c3&#34;,recursive = TRUE)  #递归创建一个3级子目录./a1/b2/c3，直接创建会出错
 </code></pre><p><strong>2.3 检查目录是否存在</strong></p>
-<pre tabindex="0"><code>system(&quot;tree&quot;)                      # 通过系统命令查看目录结构
-file.exists(&quot;./a1&quot;)             # 查看某个目录是否存在,可以多层次调用目录
+<pre tabindex="0"><code>system(&#34;tree&#34;)                      # 通过系统命令查看目录结构
+file.exists(&#34;./a1&#34;)             # 查看某个目录是否存在,可以多层次调用目录
 </code></pre><p><strong>2.4 检查目录的权限</strong></p>
 <pre tabindex="0"><code>df&lt;-dir(full.names = TRUE)         #获取当前目录的所有目录(不含子目录)和文件名（含后缀）
 file.access(df, model=0) == 0      # 检查文件或目录是否存在，mode=0
@@ -225,41 +225,40 @@ file.access(df, model=0) == 0      # 检查文件或目录是否存在，mode=0
          						  # 检查文件或目录是否可写，mode=2
           						 # 检查文件或目录是否可读，mode=4
 </code></pre><p><strong>2.5修改目录权限。</strong></p>
-<pre tabindex="0"><code> Sys.chmod(&quot;./create&quot;, mode = &quot;0555&quot;, use_umask = TRUE)  # 修改目录权限，所有用户只读
+<pre tabindex="0"><code> Sys.chmod(&#34;./create&#34;, mode = &#34;0555&#34;, use_umask = TRUE)  # 修改目录权限，所有用户只读
  
 </code></pre><p><strong>2.6 对目录重名</strong></p>
-<pre tabindex="0"><code>file.rename(&quot;create&quot;, &quot;newcreate&quot;)            # 对tcreate目录重命名为newcreate
-unlink(&quot;newcreate&quot;, recursive = TRUE)         # 删除newcreate目录   递归删除
+<pre tabindex="0"><code>file.rename(&#34;create&#34;, &#34;newcreate&#34;)            # 对tcreate目录重命名为newcreate
+unlink(&#34;newcreate&#34;, recursive = TRUE)         # 删除newcreate目录   递归删除
 </code></pre><p><strong>2.7 其他功能函数</strong></p>
-<pre tabindex="0"><code>file.path(&quot;p1&quot;,&quot;p2&quot;,&quot;p3&quot;)                  # 拼接目录字符串
-dirname(path=&quot;&quot;)                           #获得某个路径的目录名
-basename(path=&quot;&quot;)                          #获得某个目录的最底层目录或者文件名
+<pre tabindex="0"><code>file.path(&#34;p1&#34;,&#34;p2&#34;,&#34;p3&#34;)                  # 拼接目录字符串
+dirname(path=&#34;&#34;)                           #获得某个路径的目录名
+basename(path=&#34;&#34;)                          #获得某个目录的最底层目录或者文件名
 normalizePath(c(R.home(), tempdir()))      #获取目录的绝对路径
 </code></pre><h2 id="3-文件操作">3. 文件操作</h2>
 <p><strong>3.1 查看文件</strong></p>
-<pre tabindex="0"><code>file.exists(&quot;readme.txt&quot;)         # 检查文件是否存在
-file.info(&quot;readme.txt&quot;)            # 查看文件完整信息
-file.access(&quot;readme.txt&quot;,0)        # 查看文件访问权限，存在详情见2.4
-file_test(&quot;-d&quot;, &quot;readme.txt&quot;)      #判断是文件还是目录。-d ,是目录返回ture
-file_test(&quot;-f&quot;, &quot;readme.txt&quot;)      # 判断是否是文件 .  -f 是文件但会ture
-
+<pre tabindex="0"><code>file.exists(&#34;readme.txt&#34;)         # 检查文件是否存在
+file.info(&#34;readme.txt&#34;)            # 查看文件完整信息
+file.access(&#34;readme.txt&#34;,0)        # 查看文件访问权限，存在详情见2.4
+file_test(&#34;-d&#34;, &#34;readme.txt&#34;)      #判断是文件还是目录。-d ,是目录返回ture
+file_test(&#34;-f&#34;, &#34;readme.txt&#34;)      # 判断是否是文件 .  -f 是文件但会ture
 </code></pre><p><strong>3.2 创建文件</strong></p>
-<pre tabindex="0"><code>file.create(&quot;A.txt&quot;)            # 创建一个空文件 A.txt
-cat(&quot;file B\n&quot;, file = &quot;B.txt&quot;) # 把相关的内容写入B.txt文件中，没有这个文件则创建文件并写入内容 
+<pre tabindex="0"><code>file.create(&#34;A.txt&#34;)            # 创建一个空文件 A.txt
+cat(&#34;file B\n&#34;, file = &#34;B.txt&#34;) # 把相关的内容写入B.txt文件中，没有这个文件则创建文件并写入内容 
 
-readLines(&quot;A.txt&quot;)         # 读取A.txt并打印
-file.append(&quot;A.txt&quot;, rep(&quot;B.txt&quot;, 10))   # 合并文件,把文件B.txt的内容，合并到 A.txt。
-file.copy(&quot;A.txt&quot;, &quot;C.txt&quot;)    #把文件A.txt复制到文件C.txt ,文件复制
+readLines(&#34;A.txt&#34;)         # 读取A.txt并打印
+file.append(&#34;A.txt&#34;, rep(&#34;B.txt&#34;, 10))   # 合并文件,把文件B.txt的内容，合并到 A.txt。
+file.copy(&#34;A.txt&#34;, &#34;C.txt&#34;)    #把文件A.txt复制到文件C.txt ,文件复制
 </code></pre><p><strong>3.3 修改文件权限</strong></p>
 <pre tabindex="0"><code># 修改文件权限，创建者可读可写可执行，其他人无权限
-Sys.chmod(&quot;A.txt&quot;, mode = &quot;0700&quot;, use_umask = TRUE)
+Sys.chmod(&#34;A.txt&#34;, mode = &#34;0700&#34;, use_umask = TRUE)
 </code></pre><p><strong>3.4 文件重命名</strong></p>
-<pre tabindex="0"><code>file.rename(&quot;A.txt&quot;,&quot;AA.txt&quot;)     # 给文件A.txt重命名为AA.txt
+<pre tabindex="0"><code>file.rename(&#34;A.txt&#34;,&#34;AA.txt&#34;)     # 给文件A.txt重命名为AA.txt
 </code></pre><p><strong>3.5 删除文件</strong></p>
 <p>有两个函数可以使用file.remove和unlink，其中unlink函数使用同删除目录操作是一样的。</p>
-<pre tabindex="0"><code>file.remove(&quot;A.txt&quot;, &quot;B.txt&quot;, &quot;C.txt&quot;)      # 删除文件
-unlink(&quot;readme.txt&quot;)                   # 删除文件
-system(&quot;ls -l&quot;)            # 查看目录文件
+<pre tabindex="0"><code>file.remove(&#34;A.txt&#34;, &#34;B.txt&#34;, &#34;C.txt&#34;)      # 删除文件
+unlink(&#34;readme.txt&#34;)                   # 删除文件
+system(&#34;ls -l&#34;)            # 查看目录文件
 </code></pre><h2 id="4-几个特殊的目录">4. 几个特殊的目录</h2>
 <ul>
 <li>R.home() 查看R软件的相关目录</li>
@@ -464,7 +463,7 @@ system(&quot;ls -l&quot;)            # 查看目录文件
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

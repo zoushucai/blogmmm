@@ -12,7 +12,7 @@
     
 
     
-    <title>zotero 设置</title>
+    <title>hugo--blogdown生成的目录</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     
     
@@ -166,7 +166,7 @@
         
                 <div>
             <h2 align="center" id = "singe-h2">
-                zotero 设置
+                hugo--blogdown生成的目录
                 <time>
                     <br>
                     <span> 
@@ -176,7 +176,7 @@
                     &nbsp 
                     <span>                 
                         <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
-                        2020-10-08 
+                        2017-12-30 
                     </span>
                 </time>
                 
@@ -185,12 +185,9 @@
                     <ul class="tags">
                         
                         <span>标签:</span>
-                        <li><a class="link" href="/tags/mac"> #mac </a></li>
+                        <li><a class="link" href="/tags/hugo"> #hugo </a></li>
                         
                         <span> </span>
-                        
-                        <span>分类:</span>
-                        <li><a class="link" href="/categories/mac%e7%b3%bb%e7%bb%9f%e8%ae%be%e7%bd%ae"> @mac系统设置 </a></li>
                         
                     </ul>
                     
@@ -200,49 +197,87 @@
     
         
         <section id="content">
-            <h1 id="zotero-设置">zotero 设置</h1>
-<p>发现wolai这个软件不错，比这个方便多了</p>
-<p>参考：https://www.wolai.com/ojv74ziTho3c13ui8uxuRf</p>
-<p>备用连接： <a href="https://www.wolai.com/zsccy/6Qyx3yCvvqYyHwM9feHzXF?theme=light">https://www.wolai.com/zsccy/6Qyx3yCvvqYyHwM9feHzXF?theme=light</a></p>
-<h2 id="--插件安装--"><!-- raw HTML omitted --></h2>
+            <h4 id="1先介绍一下有hugo生成的目录">1、先介绍一下有hugo生成的目录</h4>
+<pre tabindex="0"><code>站点下面的目录和必须的文件由hugo自己生成。一般它是这样的：
+
+archetypes/                 : 全局原型，也就是内容模板。
+|____default.md             : 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板
+content/                    ：内容，存放“XXX.md”/&#34;XXX&gt;Rmd&#34;文件，文件名可以用中文
+data/                       ：存放数据文件
+layouts/                    ：和archetypes一起将被我们的主题覆盖掉
+public/                     ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。
+static/                     ：静态目录，完全复制到public。比如图片、js、php脚本
+themes/                     ：主题目录，一个站可有多个主题，就像换衣服
+|____aaa                    ：主题aaa，可以有很多个
+|____bbb                    ：主题bbb
+     |____archetypes        : 主题的内容模板
+     |____layouts           ：布局，就是html模板
+     |____static            ：静态的，放主题的js，css文件
+     |____LICENSE.md        ：这个，呵呵，不说大家也知道
+     |____theme.toml        ：主题的信息配置
+config.toml                 ：站点配置文件，可以配置站点名字等等很多信息
+</code></pre><p>主题部分并未全部介绍，这个将在主题部分详细讲解。</p>
+<h4 id="2静态文件">2、静态文件</h4>
+<p>不需要hugo处理的文件叫做静态文件。存放在 <strong>站点的static</strong> 目录是个好主意。</p>
+<blockquote>
+<p>static目录下的文件将会原封不动的复制到public下面，比如您建立了个img的目录存图片，在md文件中将直接使用”img/aaa.jpg”来引用图片，</p>
+<p>特别的，如果您的站点有php等脚本运用，和一些其他的文件，比如各搜索引擎的验证文件等，也可以放在这里。不建议直接将文件存放于public目录，因为我习惯不高兴就删了全来！相信你也会有不高兴的时候的。（后面比如要上传的google网站分析的html文件）</p>
+</blockquote>
+<h4 id="3站点配置文件">3、站点配置文件</h4>
+<p>站点根目录下有一个”config.toml“就是配置文件  <code>E:\test_blog</code>下的config.toml</p>
+<h5 id="信息存在的地hugo有三个地方可以放信息">信息存在的地，hugo有三个地方可以放信息，</h5>
 <ul>
-<li>
-<!-- raw HTML omitted -->
-</li>
-<li>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<pre tabindex="0"><code> [auth:lower][year][veryshorttitle:lower]
-</code></pre></li>
-<li>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-</li>
-<li>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-</li>
-<li>
-<!-- raw HTML omitted -->
-</li>
-<li>
-<!-- raw HTML omitted -->
-</li>
-<li>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<pre tabindex="0"><code>Collections pane: Show/hide –&gt; CMD+1
-Item pane: Show/hide –&gt; CMD+2
-</code></pre></li>
+<li>一个是站点的配置文件“config.toml”，</li>
+<li>一个是我们文章文件md文件的头部（默认的用三个“&mdash;”号开始和结束，也可以用三个“+++”号</li>
+<li>最后一个是“data”数据目录。</li>
 </ul>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<p>congfig.toml该文件默认支持的<a href="http://www.zimustudio.com/hugo/hugopeizhi.html">全部参数</a>：可以用键值对，也可以用赋值语句</p>
+<p>以 hugo-lithium-theme主题为例</p>
+<p>介绍几个后面可能会用的参数</p>
+<pre tabindex="0"><code>baseurl = &#34;http://qaz.netlify.com&#34;    # 基础路径,当自己有网站的时候就写自己的
+relativeurls = true                    #使用想对路径方便本地浏览
+languageCode = &#34;zh-cn&#34;                #编码
+title = &#34;A Hugo website&#34;			#网站的title
+theme = &#34;hugo-lithium-theme&#34;
+googleAnalytics = &#34;&#34;                 #谷歌网站分析添加自己的id，形如：UA-XXXXXX-X
+disqusShortname = &#34;http-qaz-netlify-com&#34;  # disqusShortname 的名字，一定要找准
+ignoreFiles = [&#34;\\.Rmd$&#34;, &#34;\\.Rmarkdown$&#34;, &#34;_files$&#34;, &#34;_cache$&#34;] 
+hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统计英文
+</code></pre><h4 id="4自定义信息">4、自定义信息</h4>
+<p>站点配置文件并不是只能存放默认的配置项目的，它一样可以存放自定义的数据，并且在模版中被调用。</p>
+<p>下面是本站的目录的自定义信息：</p>
+<pre tabindex="0"><code>[permalinks]
+    post = &#34;/:year/:month/:day/:slug/&#34;
+
+[[menu.main]]
+    name = &#34;About&#34;
+    url = &#34;/about/&#34;
+[[menu.main]]
+    name = &#34;GitHub&#34;
+    url = &#34;https://github.com/rstudio/blogdown&#34;
+[[menu.main]]
+    name = &#34;Twitter&#34;
+    url = &#34;https://twitter.com/rstudio&#34;
+
+[params]
+    description = &#34;A website built through Hugo and blogdown.&#34;
+
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = &#34;9.11.0&#34;
+    highlightjsCDN = &#34;//cdn.bootcss.com&#34;
+    highlightjsLang = [&#34;r&#34;, &#34;yaml&#34;]
+    highlightjsTheme = &#34;github&#34;
+
+    MathJaxCDN = &#34;//cdn.bootcss.com&#34;
+    MathJaxVersion = &#34;2.7.1&#34;
+
+    [params.logo]
+    url = &#34;logo.png&#34;
+    width = 50
+    height = 50
+    alt = &#34;Logo&#34;
+</code></pre><p>找到<code>E:\test_blog\themes\hugo-lithium-theme\layouts\</code> 下面有两个文件夹</p>
+<p>一个<code>_default/</code> <code> partials/</code></p>
 
         </section>
     </div>
@@ -253,7 +288,7 @@ Item pane: Show/hide –&gt; CMD+2
 
 
 
-<span id="/macnote/20201008zoteroset/" class="leancloud_visitors" data-flag-title="zotero 设置">
+<span id="/md/2017-12-30-hugo---blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/" class="leancloud_visitors" data-flag-title="hugo--blogdown生成的目录">
   <span class="post-meta-item-text">文章总阅读量 </span>
   <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
   <p></p>
@@ -276,10 +311,12 @@ Item pane: Show/hide –&gt; CMD+2
     <hr>
     <li style="float:left;list-style:none">
         
-        <a class="previous" href="/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/"> 上一篇: sublime text3 使用方法以及相关插件</a>
+        <a class="previous" href="/md/2017-12-30-hugo---%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/"> 上一篇: hugo--分类标签添加</a>
         
     </li>
     <li style="float:right;list-style:none">
+        
+        <a class="next" href="/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/"> 下一篇: tibble包的列和行名相互转换以及添加行和列</a>
         
     </li>
      
@@ -326,7 +363,7 @@ Item pane: Show/hide –&gt; CMD+2
       
       <script>
               document.getElementById("edit-button").addEventListener("click", function () {
-                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/macnote\/20201008zoteroset.md");
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2017-12-30-hugo ---blogdown生成的目录.md");
               });</script>
       
           
@@ -436,7 +473,7 @@ Item pane: Show/hide –&gt; CMD+2
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

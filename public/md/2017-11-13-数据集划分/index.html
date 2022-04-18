@@ -205,7 +205,6 @@
 Index = sample(nrow(iris),size = nrow(iris)*0.8)
 trian_data = iris[Index,]  #作为训练集
 test_data = iris[-Index,]   #作为测试集
-
 </code></pre><p>类似的还有dplyr包中的<code>sample_n</code>函数</p>
 <blockquote>
 <p>sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL)</p>
@@ -446,7 +445,7 @@ test =iris[folds$Fold01,]
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

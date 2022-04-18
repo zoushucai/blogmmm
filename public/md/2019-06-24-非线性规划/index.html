@@ -163,7 +163,23 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rsolnp">Rsolnp</a></li>
+    <li><a href="#rdonlp2">Rdonlp2</a></li>
+    <li><a href="#matlab-fmincon">Matlab:: fmincon</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#常用非线性规划模型我">常用非线性规划模型(我)</a>
+      <ul>
+        <li><a href="#r">R</a></li>
+        <li><a href="#matlab">Matlab</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -233,272 +249,240 @@
         
         <section id="content">
             <h2 id="rsolnp">Rsolnp</h2>
-
 <p>非线性规划问题</p>
-
 <p>$$
 \begin{align}
 \min \quad &amp; f(x)\
 \text { s.t. } &amp; \begin{cases}
- \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}}
+{g(x)=0} \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}}
 \end{cases}
 \end{align}</p>
-
 <p>$$</p>
-
 <p>其中, $f(x),g(x),h(x)$ 都是光滑函数,</p>
-
-<blockquote g(x)="0">
+<blockquote>
 <p>solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL,
- ineqUB = NULL, LB = NULL, UB = NULL, control = list(), ...)</p>
-
+ineqUB = NULL, LB = NULL, UB = NULL, control = list(), &hellip;)</p>
 <p>pars  :  初始值(向量),</p>
-
 <p>fun   :  最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的f(x)</p>
-
 <p>eqfun :  (可选) 等式约束(左边) ，等价与上述问题的 g(x)</p>
-
 <p>egB : (可选) 等式约束右边值，等价上述问题g(x) = 0 的0</p>
-
 <p>ineqfun : (可选) 不等式约束，等价上述问题的 h(x)</p>
-
 <p>ineqLB :(可选) 不等式约束的下限 ，等价于上述问题的 lh</p>
-
 <p>ineqUB :(可选) 不等式约束的上限 ，等价于上述问题的 uh</p>
-
 <p>LB :(可选) 参变量的下限 ，等价于上述问题的lx</p>
-
 <p>UB: (可选) 参变量的上限 ，等价于上述问题的ux</p>
-
 <p>control :(可选) 优化参数控制表。</p>
 </blockquote>
-
 <p>例子：
-<span  g(x)="0" class="math">\(
+$$
 \begin{align}
-min  \quad & exp({\prod_{i=1}^{5}x_i}) \\
-s.t. \quad & x_1^2 +x_2^2 +x_3^2+x_4^2+x_5^2 = 10 \\
-\quad & x_2x_3-5x_4x_5 = 0 \\
-\quad & x_1^3 +x_2^3 = -1
+min  \quad &amp; exp({\prod_{i=1}^{5}x_i}) \
+s.t. \quad &amp; x_1^2 +x_2^2 +x_3^2+x_4^2+x_5^2 = 10 \
+\quad &amp; x_2x_3-5x_4x_5 = 0 \
+\quad &amp; x_1^3 +x_2^3 = -1
 \end{align}
-\)</span></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># POWELL Problem</span>
-<span style="color:#a6e22e">library</span>(Rsolnp)
-fn1<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(x){
-    <span style="color:#a6e22e">exp</span>(x[1]<span style="color:#f92672">*</span>x[2]<span style="color:#f92672">*</span>x[3]<span style="color:#f92672">*</span>x[4]<span style="color:#f92672">*</span>x[5])
+$$</p>
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}"># POWELL Problem
+library(Rsolnp)
+fn1=function(x){
+    exp(x[1]*x[2]*x[3]*x[4]*x[5])
 }
-eqn1<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(x){
-    z1<span style="color:#f92672">=</span>x[1]<span style="color:#f92672">*</span>x[1]<span style="color:#f92672">+</span>x[2]<span style="color:#f92672">*</span>x[2]<span style="color:#f92672">+</span>x[3]<span style="color:#f92672">*</span>x[3]<span style="color:#f92672">+</span>x[4]<span style="color:#f92672">*</span>x[4]<span style="color:#f92672">+</span>x[5]<span style="color:#f92672">*</span>x[5]
-    z2<span style="color:#f92672">=</span>x[2]<span style="color:#f92672">*</span>x[3]<span style="color:#ae81ff">-5</span><span style="color:#f92672">*</span>x[4]<span style="color:#f92672">*</span>x[5]
-    z3<span style="color:#f92672">=</span>x[1]<span style="color:#f92672">*</span>x[1]<span style="color:#f92672">*</span>x[1]<span style="color:#f92672">+</span>x[2]<span style="color:#f92672">*</span>x[2]<span style="color:#f92672">*</span>x[2]
-    <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">c</span>(z1,z2,z3))
+eqn1=function(x){
+    z1=x[1]*x[1]+x[2]*x[2]+x[3]*x[3]+x[4]*x[4]+x[5]*x[5]
+    z2=x[2]*x[3]-5*x[4]*x[5]
+    z3=x[1]*x[1]*x[1]+x[2]*x[2]*x[2]
+    return(c(z1,z2,z3))
 }
 
-x0 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">-1</span>, <span style="color:#ae81ff">-1</span>)
-powell<span style="color:#f92672">=</span><span style="color:#a6e22e">solnp</span>(x0, fun <span style="color:#f92672">=</span> fn1, eqfun <span style="color:#f92672">=</span> eqn1, eqB <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">-1</span>))</code></pre></div>
-<p>具体参考:<a href="https://cran.r-project.org/web/packages/Rsolnp/index.html">https://cran.r-project.org/web/packages/Rsolnp/index.html</a></p>
-
+x0 = c(-2, 2, 2, -1, -1)
+powell=solnp(x0, fun = fn1, eqfun = eqn1, eqB = c(10, 0, -1))
+</code></pre><p>具体参考:https://cran.r-project.org/web/packages/Rsolnp/index.html</p>
 <h2 id="rdonlp2">Rdonlp2</h2>
-
 <p>这个包有一定的问题，我在运行的时候第一次几乎都正常，能得到正确结果，第二次直接系统崩溃。</p>
-<pre tabindex="0"><code>if(!require(&#39;Rdonlp2&#39;)) install.packages(&#34;Rdonlp2&#34;, repos=&#34;http://R-Forge.R-project.org&#34;)</code></pre>
-<p>模型格式如下：
-<span  class="math">\(
-\begin{array}{l}{\min z=f(\mathbf{x})} \\ {\qquad \begin{array}{l}{\mathrm{x}_{1} \leqslant \mathrm{x} \leqslant \mathrm{x}_{\mathrm{u}}} \\ {\mathrm{b}_{1} \leqslant \mathrm{Ax} \leqslant \mathrm{b}_{\mathrm{u}}} \\ {\mathrm{c}_{1} \leqslant \mathrm{c}(\mathrm{x}) \leqslant \mathrm{c}_{\mathrm{u}}}\end{array}}\end{array}
-\)</span>
+<pre tabindex="0"><code>if(!require(&#39;Rdonlp2&#39;)) install.packages(&#34;Rdonlp2&#34;, repos=&#34;http://R-Forge.R-project.org&#34;)
+</code></pre><p>模型格式如下：
+$$
+\begin{array}{l}{\min z=f(\mathbf{x})} \ {\qquad \begin{array}{l}{\mathrm{x}<em>{1} \leqslant \mathrm{x} \leqslant \mathrm{x}</em>{\mathrm{u}}} \ {\mathrm{b}<em>{1} \leqslant \mathrm{Ax} \leqslant \mathrm{b}</em>{\mathrm{u}}} \ {\mathrm{c}<em>{1} \leqslant \mathrm{c}(\mathrm{x}) \leqslant \mathrm{c}</em>{\mathrm{u}}}\end{array}}\end{array}
+$$
 具体可参考: (R软件在最优化中的应用)[]</p>
-
 <h2 id="matlab-fmincon">Matlab:: fmincon</h2>
-
-<p>可参考 官网函数解释<a href="https://www.mathworks.com/help/optim/ug/fmincon.html">https://www.mathworks.com/help/optim/ug/fmincon.html</a></p>
-
+<p>可参考 官网函数解释https://www.mathworks.com/help/optim/ug/fmincon.html</p>
 <p><a href="https://wenku.baidu.com/view/6bcb651d0b4e767f5acfce97.html?sxts=1561344526517">https://wenku.baidu.com/view/6bcb651d0b4e767f5acfce97.html?sxts=1561344526517</a></p>
-
 <p><a href="https://blog.csdn.net/qq_38784454/article/details/80329021">https://blog.csdn.net/qq_38784454/article/details/80329021</a></p>
-
 <p>《MATLAB数学建模》李昕——清华大学出版</p>
-
 <h4 id="example">example</h4>
-
-<p><span  class="math">\[
+<p>$$
 \begin{array}{l}
-\min f(x) \\
-\text {s.t.}\left\{\begin{array}{l}
-A \cdot x \leq b \\
-\text {Aeq} \cdot x=beq \\
-c(x) \leq 0 \\
-\operatorname{ceq}(x)=0 \\
+\min f(x) \
+\text {s.t.}\left{\begin{array}{l}
+A \cdot x \leq b \
+\text {Aeq} \cdot x=beq \
+c(x) \leq 0 \
+\operatorname{ceq}(x)=0 \
 l b \leq x \leq u b
 \end{array}\right.
-\end{array}\\
-f(x)是目标函数, x, b, beq是向量, \\
-A, Aeq是矩阵\\
+\end{array}\
+f(x)是目标函数, x, b, beq是向量, \
+A, Aeq是矩阵\
 c(x) 和 ceq(x) 是向量函數
-\]</span></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-MATLAB" data-lang="MATLAB"><span style="color:#75715e">% 2.基本语法</span>
-[x,fval]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
-<span style="color:#75715e">% 参数解释</span>
-x的返回值是决策向量x的取值，fval的返回值是目标函数f(x)的取值
-fun是用M文件定义的函数f(x),代表了(非)线性目标函数
-x0是x的初始值
-A,b,Aeq,beq定义了线性约束 ,如果没有线性约束，则A=[],b=[],Aeq=[],beq=[]
-lb和ub是变量x的下界和上界，如果下界和上界没有约束，则lb=[],ub=[],也可以写成lb的各分量都为 <span style="color:#f92672">-</span>inf,ub的各分量都为inf
-nonlcon是用M文件定义的非线性向量函数约束
-options定义了优化参数，不填写表示使用Matlab默认的参数设置</code></pre></div>
-<h4 id="例">例</h4>
-
-<p><span  class="math">\[
-\min f(x) = x_{1}^{2}+x_{2}^{2}+x_{3}^{2}+8 \\
-\text { s. t. }\left\{\begin{array}{l}
-x_{1}^{2}-x_{2}+x_{3}^{2} \geq 0 \\
-x_{1}+x_{2}^{2}+x_{3}^{2} \leq 20 \\
--x_{1}-x_{2}^{2}+2=0 \\
-x_{2}+2 x_{3}^{2}=3 \\
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-MATLAB" data-lang="MATLAB"><span style="display:flex;"><span><span style="color:#75715e">% 2.基本语法</span>
+</span></span><span style="display:flex;"><span>[x,fval]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 参数解释</span>
+</span></span><span style="display:flex;"><span>x的返回值是决策向量x的取值，fval的返回值是目标函数f(x)的取值
+</span></span><span style="display:flex;"><span>fun是用M文件定义的函数f(x),代表了(非)线性目标函数
+</span></span><span style="display:flex;"><span>x0是x的初始值
+</span></span><span style="display:flex;"><span>A,b,Aeq,beq定义了线性约束 ,如果没有线性约束，则A=[],b=[],Aeq=[],beq=[]
+</span></span><span style="display:flex;"><span>lb和ub是变量x的下界和上界，如果下界和上界没有约束，则lb=[],ub=[],也可以写成lb的各分量都为 <span style="color:#f92672">-</span>inf,ub的各分量都为inf
+</span></span><span style="display:flex;"><span>nonlcon是用M文件定义的非线性向量函数约束
+</span></span><span style="display:flex;"><span>options定义了优化参数，不填写表示使用Matlab默认的参数设置
+</span></span></code></pre></div><h4 id="例">例</h4>
+<p>$$
+\min f(x) = x_{1}^{2}+x_{2}^{2}+x_{3}^{2}+8 \
+\text { s. t. }\left{\begin{array}{l}
+x_{1}^{2}-x_{2}+x_{3}^{2} \geq 0 \
+x_{1}+x_{2}^{2}+x_{3}^{2} \leq 20 \
+-x_{1}-x_{2}^{2}+2=0 \
+x_{2}+2 x_{3}^{2}=3 \
 x_{1}, x_{2}, x_{3} \geq 0
 \end{array}\right.
-\]</span></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">clc,clear all
-x0 = rand(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>);  <span style="color:#75715e">% 初始值</span>
-Aeq = [];               <span style="color:#75715e">% 线性等式约束的系数（左边的系数）</span>
-beq = [];                <span style="color:#75715e">% 线性等式约束的值 （右边的值）</span>
-<span style="color:#75715e">%A = [];                % 线性不等式约束的系数</span>
-<span style="color:#75715e">%b = [];                % 线性等式约束的值</span>
-ub = [];      <span style="color:#75715e">% 变量的上限（取等号）</span>
-lb = repelem(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>);      <span style="color:#75715e">% 变量的下限（取等号）</span>
-
-[x,y]=fmincon(@myobjfun,x0,[],[],Aeq,beq,lb,ub,@constrain)
-
-<span style="color:#66d9ef">function</span> f = <span style="color:#a6e22e">myobjfun</span>(x)
-f=x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">8</span>;
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">function</span> [g,h]=<span style="color:#a6e22e">constrain</span>(x)
-g=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>
-    x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">3</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>]; <span style="color:#75715e">% 不等式</span>
-h=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>
-    x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>]; <span style="color:#75715e">% 等式约束</span>
-<span style="color:#66d9ef">end</span></code></pre></div>
-<p>也可以这样写</p>
-
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>clc,clear all
+</span></span><span style="display:flex;"><span>x0 = rand(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>);  <span style="color:#75715e">% 初始值</span>
+</span></span><span style="display:flex;"><span>Aeq = [];               <span style="color:#75715e">% 线性等式约束的系数（左边的系数）</span>
+</span></span><span style="display:flex;"><span>beq = [];                <span style="color:#75715e">% 线性等式约束的值 （右边的值）</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%A = [];                % 线性不等式约束的系数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%b = [];                % 线性等式约束的值</span>
+</span></span><span style="display:flex;"><span>ub = [];      <span style="color:#75715e">% 变量的上限（取等号）</span>
+</span></span><span style="display:flex;"><span>lb = repelem(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>);      <span style="color:#75715e">% 变量的下限（取等号）</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[x,y]=fmincon(@myobjfun,x0,[],[],Aeq,beq,lb,ub,@constrain)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> f = <span style="color:#a6e22e">myobjfun</span>(x)
+</span></span><span style="display:flex;"><span>f=x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> [g,h]=<span style="color:#a6e22e">constrain</span>(x)
+</span></span><span style="display:flex;"><span>g=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">3</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>]; <span style="color:#75715e">% 不等式</span>
+</span></span><span style="display:flex;"><span>h=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>]; <span style="color:#75715e">% 等式约束</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>也可以这样写</p>
 <p>(1)编写M函数myobjfun.m 定义目标函数：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> f=<span style="color:#a6e22e">myobjfun</span>(x)
-	f=x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">8</span>;
-<span style="color:#66d9ef">end</span></code></pre></div>
-<p>(2)编写M函数constrain.m定义非线性约束条件:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> [g,h]=<span style="color:#a6e22e">constrain</span>(x)
-  g=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>
-      x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">3</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>];
-  h=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>
-      x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>];
-  <span style="color:#66d9ef">end</span></code></pre></div>
-<p>(3)编写主程序函数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">[x,y]=fmincon(<span style="color:#e6db74">&#39;fun1&#39;</span>,rand(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>),[],[],[],[],zeros(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>),[],<span style="color:#e6db74">&#39;fun2&#39;</span>)</code></pre></div>
-<p>运行即可得到结果</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> f=<span style="color:#a6e22e">myobjfun</span>(x)
+</span></span><span style="display:flex;"><span>	f=x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>(2)编写M函数constrain.m定义非线性约束条件:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> [g,h]=<span style="color:#a6e22e">constrain</span>(x)
+</span></span><span style="display:flex;"><span>  g=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>      x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">3</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>];
+</span></span><span style="display:flex;"><span>  h=[<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">-</span>x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>      x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>(3)编写主程序函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>[x,y]=fmincon(<span style="color:#e6db74">&#39;fun1&#39;</span>,rand(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>),[],[],[],[],zeros(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>),[],<span style="color:#e6db74">&#39;fun2&#39;</span>)
+</span></span></code></pre></div><p>运行即可得到结果</p>
 <p>参考 : <a href="https://www.cnblogs.com/goodtwo/p/11146540.html">https://www.cnblogs.com/goodtwo/p/11146540.html</a></p>
-
 <h2 id="常用非线性规划模型我">常用非线性规划模型(我)</h2>
-
-<p><span  class="math">\[
+<p>$$
 \begin{align}
-Min \quad & \sum_{i=1}^{n} \sum_{j=1}^{n}\left(\omega_{i}-a_{i j} \omega_{j}\right)^{2}\\  
-s.t \quad & \sum_{i=1}^{n} \omega_{i}=1,\\
-& 1\geq \omega_{i} \geq 0, \quad i=1,2, \ldots, n
+Min \quad &amp; \sum_{i=1}^{n} \sum_{j=1}^{n}\left(\omega_{i}-a_{i j} \omega_{j}\right)^{2}\<br>
+s.t \quad &amp; \sum_{i=1}^{n} \omega_{i}=1,\
+&amp; 1\geq \omega_{i} \geq 0, \quad i=1,2, \ldots, n
 \end{align}
-\]</span></p>
-
+$$</p>
 <p>于是自己写了几个函数模板:</p>
-
 <h3 id="r">R</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(Rsolnp)
-<span style="color:#75715e">## 最小化的目标函数</span>
-obj<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(x){
-  A1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">matrix</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">6</span>,
-                <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>),ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>,nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>,byrow <span style="color:#f92672">=</span> T)
-  s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-  n <span style="color:#f92672">=</span> <span style="color:#a6e22e">nrow</span>(A1)
-  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n){
-    <span style="color:#a6e22e">for</span>(j in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n){
-      s<span style="color:#f92672">=</span> s<span style="color:#f92672">+</span> (x[i]<span style="color:#f92672">-</span> A1[i,j]<span style="color:#f92672">*</span>x[j])^2;
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(Rsolnp)
+## 最小化的目标函数
+obj=function(x){
+  A1 = matrix(c(1,4,3,1,3,4,
+                1/4,1,7,3,1/5,1,
+                1/3,1/7,1,1/5,1/5,1/6,
+                1,1/3,5,1,1,1/3,
+                1/3,5,5,1,1,3,
+                1/4,1,6,3,1/3,1),ncol = 6,nrow = 6,byrow = T)
+  s = 0
+  n = nrow(A1)
+  for(i in 1:n){
+    for(j in 1:n){
+      s= s+ (x[i]- A1[i,j]*x[j])^2;
     }
   }
-  <span style="color:#a6e22e">return</span>(s)
+  return(s)
 }
-<span style="color:#75715e">## 编写解上述非线性规划的函数</span>
-fmin <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(f,n){<span style="color:#75715e"># n代表参数的个数</span>
-  eqn1<span style="color:#f92672">=</span><span style="color:#a6e22e">function</span>(x){
-    <span style="color:#a6e22e">sum</span>(x)
-  } <span style="color:#75715e"># 等式约束的左边  ，eqB 为等式约束的右边，如果有多个则用向量</span>
-  powell<span style="color:#f92672">=</span><span style="color:#a6e22e">solnp</span>(pars<span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>n,n), fun <span style="color:#f92672">=</span> f, eqfun <span style="color:#f92672">=</span> eqn1, eqB <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,LB<span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">0</span>,n) ,UB <span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span>,n))
-  fx <span style="color:#f92672">=</span> powell<span style="color:#f92672">$</span>values
-  x <span style="color:#f92672">=</span> powell<span style="color:#f92672">$</span>pars
-  <span style="color:#a6e22e">return</span>(  <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#39;x&#39;</span> <span style="color:#f92672">=</span> x, <span style="color:#e6db74">&#39;fx&#39;</span> <span style="color:#f92672">=</span> fx<span style="color:#a6e22e">[length</span>(fx)]) )
+## 编写解上述非线性规划的函数
+fmin = function(f,n){# n代表参数的个数
+  eqn1=function(x){
+    sum(x)
+  } # 等式约束的左边  ，eqB 为等式约束的右边，如果有多个则用向量
+  powell=solnp(pars= rep(1/n,n), fun = f, eqfun = eqn1, eqB = 1,LB= rep(0,n) ,UB = rep(1,n))
+  fx = powell$values
+  x = powell$pars
+  return(  list(&#39;x&#39; = x, &#39;fx&#39; = fx[length(fx)]) )
 }
-<span style="color:#a6e22e">fmin</span>(obj,n <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>) <span style="color:#75715e">#调用即可，n代表参数的个数</span>
+fmin(obj,n = 6) #调用即可，n代表参数的个数
 
 
 
-<span style="color:#75715e">########################################</span>
-<span style="color:#a6e22e">library</span>(Rdonlp2)
-objFun <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x){
-  A1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">matrix</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">6</span>,
-                <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,
-                <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>),ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>,nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>,byrow <span style="color:#f92672">=</span> T)
-  s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-  n <span style="color:#f92672">=</span> <span style="color:#a6e22e">nrow</span>(A1)
-  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n){
-    <span style="color:#a6e22e">for</span>(j in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n){
-      s<span style="color:#f92672">=</span> s<span style="color:#f92672">+</span> (x[i]<span style="color:#f92672">-</span> A1[i,j]<span style="color:#f92672">*</span>x[j])^2;
+########################################
+library(Rdonlp2)
+objFun = function(x){
+  A1 = matrix(c(1,4,3,1,3,4,
+                1/4,1,7,3,1/5,1,
+                1/3,1/7,1,1/5,1/5,1/6,
+                1,1/3,5,1,1,1/3,
+                1/3,5,5,1,1,3,
+                1/4,1,6,3,1/3,1),ncol = 6,nrow = 6,byrow = T)
+  s = 0
+  n = nrow(A1)
+  for(i in 1:n){
+    for(j in 1:n){
+      s= s+ (x[i]- A1[i,j]*x[j])^2;
     }
   }
-  <span style="color:#a6e22e">return</span>(s)
+  return(s)
 }
-fmin <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(objFun,n){ <span style="color:#75715e"># 这里n为未知参数的个数.</span>
-  x0 <span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>n,n)
-  lb <span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">0</span>,n) <span style="color:#75715e"># 自变量的下限</span>
-  ub <span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span>,n) <span style="color:#75715e"># 自变量的上限</span>
-  Aeq <span style="color:#f92672">=</span> <span style="color:#a6e22e">matrix</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span>,n),<span style="color:#ae81ff">1</span>,n) 
-  lbeq <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-  ubeq <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-  ret <span style="color:#f92672">=</span> <span style="color:#a6e22e">donlp2</span>(x0,objFun,par.lower <span style="color:#f92672">=</span> lb , par.upper <span style="color:#f92672">=</span> ub,A <span style="color:#f92672">=</span> Aeq,lin.lower <span style="color:#f92672">=</span> lbeq,lin.upper <span style="color:#f92672">=</span> ubeq)
-  <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#39;x&#39;</span> <span style="color:#f92672">=</span> ret<span style="color:#f92672">$</span>par,<span style="color:#e6db74">&#39;objvalue&#39;</span> <span style="color:#f92672">=</span> ret<span style="color:#f92672">$</span>fx)
+fmin = function(objFun,n){ # 这里n为未知参数的个数.
+  x0 = rep(1/n,n)
+  lb = rep(0,n) # 自变量的下限
+  ub = rep(1,n) # 自变量的上限
+  Aeq = matrix(rep(1,n),1,n) 
+  lbeq = 1
+  ubeq = 1
+  ret = donlp2(x0,objFun,par.lower = lb , par.upper = ub,A = Aeq,lin.lower = lbeq,lin.upper = ubeq)
+  list(&#39;x&#39; = ret$par,&#39;objvalue&#39; = ret$fx)
 }
 
-<span style="color:#a6e22e">fmin</span>(objFun,n <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>)<span style="color:#75715e"># 只需要改写objFun 就可以了</span></code></pre></div>
-<h3 id="matlab">Matlab</h3>
-
+fmin(objFun,n = 6)# 只需要改写objFun 就可以了
+</code></pre><h3 id="matlab">Matlab</h3>
 <p>把上述文件存储为<code>fmin.m</code>，以后只需要更改目标函数<code>myobjfun(x,AA)</code>即可,其中x代表未知数, AA 代表目标函数的系数，</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> x = <span style="color:#a6e22e">fmin</span>(AA) <span style="color:#75715e">% 调用函数接口</span>
-n = size(AA,<span style="color:#ae81ff">1</span>) ; <span style="color:#75715e">% 未知数x的长度 </span>
-x0 = repelem(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>n,n);    <span style="color:#75715e">% 初始迭代位置</span>
-Aeq = repelem(<span style="color:#ae81ff">1</span>,n);     <span style="color:#75715e">% 线性等式约束的系数（左边的系数）</span>
-beq = <span style="color:#ae81ff">1</span>;                <span style="color:#75715e">% 线性等式约束的值 （右边的值）</span>
-<span style="color:#75715e">%A = [];                % 线性不等式约束的系数</span>
-<span style="color:#75715e">%b = [];                % 线性等式约束的值</span>
-ub = repelem(<span style="color:#ae81ff">1</span>,n);      <span style="color:#75715e">% 变量的上限（取等号）</span>
-lb = repelem(<span style="color:#ae81ff">0</span>,n);      <span style="color:#75715e">% 变量的下限（取等号）</span>
-[x,fval] = fmincon(@(x)myobjfun(x,AA),x0,[],[],Aeq,beq,lb,ub);
-<span style="color:#75715e">%[x,fval] = fmincon(@myobjfun,x0,[],[],Aeq,beq,lb,ub,[],[],options,A);</span>
-<span style="color:#66d9ef">end</span>
-
-
-<span style="color:#75715e">% 目标函数</span>
-<span style="color:#66d9ef">function</span> s = <span style="color:#a6e22e">myobjfun</span>(x,AA)
-n = size(AA,<span style="color:#ae81ff">1</span>);
-s =<span style="color:#ae81ff">0</span>;
-<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
-    <span style="color:#66d9ef">for</span> j = <span style="color:#ae81ff">1</span>:n
-        s= s<span style="color:#f92672">+</span> (x(i)<span style="color:#f92672">-</span> AA(i,j)<span style="color:#f92672">*</span>x(j))^<span style="color:#ae81ff">2</span>;
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> x = <span style="color:#a6e22e">fmin</span>(AA) <span style="color:#75715e">% 调用函数接口</span>
+</span></span><span style="display:flex;"><span>n = size(AA,<span style="color:#ae81ff">1</span>) ; <span style="color:#75715e">% 未知数x的长度 </span>
+</span></span><span style="display:flex;"><span>x0 = repelem(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>n,n);    <span style="color:#75715e">% 初始迭代位置</span>
+</span></span><span style="display:flex;"><span>Aeq = repelem(<span style="color:#ae81ff">1</span>,n);     <span style="color:#75715e">% 线性等式约束的系数（左边的系数）</span>
+</span></span><span style="display:flex;"><span>beq = <span style="color:#ae81ff">1</span>;                <span style="color:#75715e">% 线性等式约束的值 （右边的值）</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%A = [];                % 线性不等式约束的系数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%b = [];                % 线性等式约束的值</span>
+</span></span><span style="display:flex;"><span>ub = repelem(<span style="color:#ae81ff">1</span>,n);      <span style="color:#75715e">% 变量的上限（取等号）</span>
+</span></span><span style="display:flex;"><span>lb = repelem(<span style="color:#ae81ff">0</span>,n);      <span style="color:#75715e">% 变量的下限（取等号）</span>
+</span></span><span style="display:flex;"><span>[x,fval] = fmincon(@(x)myobjfun(x,AA),x0,[],[],Aeq,beq,lb,ub);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%[x,fval] = fmincon(@myobjfun,x0,[],[],Aeq,beq,lb,ub,[],[],options,A);</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 目标函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> s = <span style="color:#a6e22e">myobjfun</span>(x,AA)
+</span></span><span style="display:flex;"><span>n = size(AA,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>s =<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j = <span style="color:#ae81ff">1</span>:n
+</span></span><span style="display:flex;"><span>        s= s<span style="color:#f92672">+</span> (x(i)<span style="color:#f92672">-</span> AA(i,j)<span style="color:#f92672">*</span>x(j))^<span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div>
         </section>
     </div>
     <br>
@@ -693,7 +677,7 @@ s =<span style="color:#ae81ff">0</span>;
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

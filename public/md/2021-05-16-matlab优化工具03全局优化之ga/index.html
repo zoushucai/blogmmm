@@ -163,7 +163,16 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一般模型及函数解释">一般模型及函数解释</a></li>
+        <li><a href="#例1">例1:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -233,55 +242,49 @@
         
         <section id="content">
             <h1 id="matlab优化工具03全局优化之ga">matlab优化工具03全局优化之ga</h1>
-
 <p>首先,要明白遗传算法的基本思路,然后再利用这个函数求解问题,是非常方便的.</p>
-
-<p>新版本中很多优化函数的属性设置都采用: <code>optimoptions('优化函数', '属性1','属性值1',....)</code></p>
-
+<p>新版本中很多优化函数的属性设置都采用: <code>optimoptions('优化函数', '属性1','属性值1',....) </code></p>
 <p>故<code>gaoptimset</code>不推荐了,但是基本都差不多,可能个别参数名变了</p>
-
 <h3 id="一般模型及函数解释">一般模型及函数解释</h3>
-
-<p><span  class="math">\[
+<p>$$
 \begin{aligned}
-& \min \quad  f(x) \\
-& \text {s.t.} \begin{cases}
-\textbf{A} \cdot x \leq b \\
-\textbf{Aeq} \cdot x=beq \\
-c(x) \leq 0 \\
-\operatorname{ceq}(x)=0 \\
+&amp; \min \quad  f(x) \
+&amp; \text {s.t.} \begin{cases}
+\textbf{A} \cdot x \leq b \
+\textbf{Aeq} \cdot x=beq \
+c(x) \leq 0 \
+\operatorname{ceq}(x)=0 \
 l b \leq x \leq u b
-\end{cases}\\ \\
-& f(x)是目标函数, x, b, beq是向量, \\
-& \textbf{A}, \textbf{Aeq}是矩阵,\\
-& c(x) 和 ceq(x) 是向量函數 \\
-&\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\
-&c(x) 非线性不等式, ceq(x)非线性等式  \\
+\end{cases}\ \
+&amp; f(x)是目标函数, x, b, beq是向量, \
+&amp; \textbf{A}, \textbf{Aeq}是矩阵,\
+&amp; c(x) 和 ceq(x) 是向量函數 \
+&amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
+&amp;c(x) 非线性不等式, ceq(x)非线性等式  \
 \end{aligned}
-\]</span></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">(求解最小值)语法:
-x = ga(fun,nvars,A,b,[],[],lb,ub,nonlcon,IntCon,options)
-[x,fval,exitflag,output,population,scores] = ga(___)
-
-
-<span style="color:#75715e">% 解释:</span>
-fun 为适应度句柄函数, 一般其输入为<span style="color:#ae81ff">1</span><span style="color:#f92672">*</span>nvars的向量
-nvars, 即目标函数自变量的个数
-A,b,Aeq,beq,LB,UB,nonlcon参数与fmincon中类似,不在解释
-IntCon, 整数约束, 指定变量的下标则说明该变量为整数变量
-options, 算法的属性设置
-
-x,最优解
-fval, 最优解对应的目标函数值
-exitflag, 算法停止的原因
-output, 输出算法结构
-population, 最终得到种群适应度的列向量
-scores, 最终得到的种群
-
-options = optimoptions(<span style="color:#e6db74">&#39;ga&#39;</span>,<span style="color:#e6db74">&#39;PlotFcn&#39;</span>,@gaplotbestf);
-optimoptions</code></pre></div>
-<p>**Optimization 解读, 详细解读,参考官网,这里只给出一些概念 **</p>
-
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>(求解最小值)语法:
+</span></span><span style="display:flex;"><span>x = ga(fun,nvars,A,b,[],[],lb,ub,nonlcon,IntCon,options)
+</span></span><span style="display:flex;"><span>[x,fval,exitflag,output,population,scores] = ga(___)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 解释:</span>
+</span></span><span style="display:flex;"><span>fun 为适应度句柄函数, 一般其输入为<span style="color:#ae81ff">1</span><span style="color:#f92672">*</span>nvars的向量
+</span></span><span style="display:flex;"><span>nvars, 即目标函数自变量的个数
+</span></span><span style="display:flex;"><span>A,b,Aeq,beq,LB,UB,nonlcon参数与fmincon中类似,不在解释
+</span></span><span style="display:flex;"><span>IntCon, 整数约束, 指定变量的下标则说明该变量为整数变量
+</span></span><span style="display:flex;"><span>options, 算法的属性设置
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x,最优解
+</span></span><span style="display:flex;"><span>fval, 最优解对应的目标函数值
+</span></span><span style="display:flex;"><span>exitflag, 算法停止的原因
+</span></span><span style="display:flex;"><span>output, 输出算法结构
+</span></span><span style="display:flex;"><span>population, 最终得到种群适应度的列向量
+</span></span><span style="display:flex;"><span>scores, 最终得到的种群
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>options = optimoptions(<span style="color:#e6db74">&#39;ga&#39;</span>,<span style="color:#e6db74">&#39;PlotFcn&#39;</span>,@gaplotbestf);
+</span></span><span style="display:flex;"><span>optimoptions
+</span></span></code></pre></div><p>**Optimization 解读, 详细解读,参考官网,这里只给出一些概念 **</p>
 <ul>
 <li><code>{}</code> 里面的值为默认值</li>
 <li><code>{}*</code>表示存在线性约束时的默认值，对于MutationFcn，也表示存在边界时的默认值。</li>
@@ -289,7 +292,6 @@ optimoptions</code></pre></div>
 <li><strong>NM</strong> 表示该选项不适用于gamultiobj。</li>
 <li><strong>Options for <code>ga</code>, Integer <code>ga</code>, and <code>gamultiobj</code></strong></li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -298,256 +300,220 @@ optimoptions</code></pre></div>
 <th><strong>Values</strong></th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><code>ConstraintTolerance</code></td>
-<td>用以确定非线性约束的可行性,<br>对于选项结构，请使用TolCon。</td>
+<td>用以确定非线性约束的可行性,<!-- raw HTML omitted -->对于选项结构，请使用TolCon。</td>
 <td>Positive scalar | <code>{1e-3}</code></td>
 </tr>
-
 <tr>
 <td>CreationFcn</td>
 <td>建立初始种群的函数句柄</td>
 <td><code>{'gacreationuniform'}</code></td>
 </tr>
-
 <tr>
 <td><code>CrossoverFcn</code></td>
 <td>子代交叉的函数句柄</td>
 <td><code>{'crossoverscattered'}</code> for <code>ga</code>, <code>{'crossoverintermediate'}*</code>for <code>gamultiobj</code></td>
 </tr>
-
 <tr>
 <td>CrossoverFraction</td>
 <td>交叉概率, 不包含由CrossoverFcn产生的子代</td>
 <td>Positive scalar | <code>{0.8}</code></td>
 </tr>
-
 <tr>
 <td><code>Display</code></td>
 <td>Level of display.</td>
 <td><code>'off'</code></td>
 </tr>
-
 <tr>
 <td><code>DistanceMeasureFcn</code></td>
 <td>For <code>gamultiobj</code> only. 拥挤度函数</td>
 <td><code>{'distancecrowding'}</code></td>
 </tr>
-
 <tr>
 <td><code>EliteCount</code></td>
 <td>在当前这一代种群中指定保证在下一代存活的精英个体数目</td>
 <td>Positive integer |<code>{ceil(0.05*PopulationSize)}</code></td>
 </tr>
-
 <tr>
 <td><code>FitnessLimit</code></td>
 <td><strong>NM</strong>, 如果适应度函数的值达到 FitnessLmit 的值，则算法停止</td>
-<td>Scalar | <code>{-Inf}</code> <br>即为一个实数，默认值 为 -lnf</td>
+<td>Scalar | <code>{-Inf}</code> <!-- raw HTML omitted -->即为一个实数，默认值 为 -lnf</td>
 </tr>
-
 <tr>
 <td>FitnessScalingFcn</td>
 <td>对适应度函数的值进行缩放, gamultiobj选项不可用。</td>
 <td><code>{'fitscalingrank'}</code></td>
 </tr>
-
 <tr>
 <td><code>FunctionTolerance</code></td>
 <td>容忍度, For an options structure, use TolFun.</td>
 <td>Positive scalar | <code>{1e-6}</code> for <code>ga</code>, <code>{1e-4}</code> for <code>gamultiobj</code></td>
 </tr>
-
 <tr>
 <td><code>HybridFcn</code></td>
 <td><code>I*</code>  在ga终止后继续优化的函数。指定为名称或函数句柄。</td>
 <td>Function name or handle</td>
 </tr>
-
 <tr>
 <td><code>InitialPopulationMatrix</code></td>
-<td>初始种群.<br>For an options structure, use InitialPopulation.</td>
+<td>初始种群.<!-- raw HTML omitted -->For an options structure, use InitialPopulation.</td>
 <td>为一个矩阵，默认值为 [ ]</td>
 </tr>
-
 <tr>
 <td><code>InitialPopulationRange</code></td>
 <td>初始种群的范围, 说明种群中数据元素类型的取值范围，</td>
 <td>取值为矩阵或向量</td>
 </tr>
-
 <tr>
 <td><code>InitialScoresMatrix</code></td>
 <td>初始适应度函数的评价得分值，</td>
 <td>为一个列向量，默认值为 [ ]</td>
 </tr>
-
 <tr>
 <td>MaxGenerations</td>
 <td>最大迭代次数</td>
 <td>Positive integer |<code>{100*numberOfVariables}</code> for <code>ga</code>, <code>{200*numberOfVariables}</code> for <code>gamultiobj</code></td>
 </tr>
-
 <tr>
 <td>MaxStallGenerations</td>
-<td>适应度停滞限制.当目标函数在 <code>StallTimeLimit</code>代后没有改 善， 则算法停止，</td>
-<td><code>{50}</code> for <code>ga</code>,<br> <code>{100}</code> for <code>gamultiobj</code></td>
+<td>适应度停滞限制.当目标函数在 <code>StallTimeLimit </code>代后没有改 善， 则算法停止，</td>
+<td><code>{50}</code> for <code>ga</code>,<!-- raw HTML omitted --> <code>{100}</code> for <code>gamultiobj</code></td>
 </tr>
-
 <tr>
 <td>MaxStallTime</td>
-<td>适应度停滞限制.当日标函数在 <code>StaLlTimeLimit</code>时间后没有改善，则算法停止，</td>
+<td>适应度停滞限制.当日标函数在 <code>StaLlTimeLimit </code>时间后没有改善，则算法停止，</td>
 <td>默认值为 lnf</td>
 </tr>
-
 <tr>
 <td><code>MaxTime</code></td>
 <td>算法总用时,超过后停止</td>
 <td>Positive scalar | <code>{Inf}</code></td>
 </tr>
-
 <tr>
 <td><em>MigrationDirection</em></td>
 <td>迁移方向</td>
 <td><code>'both'</code></td>
 </tr>
-
 <tr>
 <td><em>MigrationFraction</em></td>
 <td>从一个子种群到另一个子种群的迁移概率</td>
 <td>0到1之间的数, 默认值0.2</td>
 </tr>
-
 <tr>
 <td><em>MigrationInterval</em></td>
 <td></td>
 <td>Positive integer | <code>{20}</code></td>
 </tr>
-
 <tr>
 <td><code>MutationFcn</code></td>
 <td>产生变异子代的函数句柄</td>
-<td><code>{'mutationgaussian'}</code> for <code>ga</code>,  <br><code>{'mutationadaptfeasible'}*</code> for<code>gamultiobj</code></td>
+<td><code>{'mutationgaussian'}</code> for <code>ga</code>,  <!-- raw HTML omitted --><code>{'mutationadaptfeasible'}*</code> for<code>gamultiobj</code></td>
 </tr>
-
 <tr>
 <td><code>NonlinearConstraintAlgorithm</code></td>
 <td>非线性约束算法</td>
 <td><code>{'auglag'}</code> for <code>ga</code>, <code>{'penalty'}</code> for <code>gamultiobj</code></td>
 </tr>
-
 <tr>
 <td><code>OutputFcn</code></td>
 <td>ga 在每次迭代中调用的函数，</td>
 <td>取值为 <code>@gaoutpulgen</code> 或 [J(默认值〉</td>
 </tr>
-
 <tr>
 <td><code>ParetoFraction</code></td>
 <td>仅用于gamultiobj, 保留帕累托解的比例?</td>
 <td>Scalar | <code>{0.35}</code></td>
 </tr>
-
 <tr>
 <td>PlotFcn</td>
 <td>边计算边绘制数据</td>
 <td><code>ga</code> or <code>gamultiobj</code>: `{[]}</td>
 </tr>
-
 <tr>
 <td><code>PopulationSize</code></td>
 <td>种群的数量</td>
 <td>Positive integer | <code>{50}</code> when <code>numberOfVariables &lt;= 5</code>, <code>{200}</code>otherwise</td>
 </tr>
-
 <tr>
 <td><code>PopulationType</code></td>
 <td>种群中数据元素类型的字符串</td>
-<td>'bitstring'`</td>
+<td>&lsquo;bitstring&rsquo;`</td>
 </tr>
-
 <tr>
 <td><code>SelectionFcn</code></td>
 <td>选择句柄函数，用以选择进行交叉和变异的父代</td>
 <td><code>{'selectionstochunif'}</code> for <code>ga</code>, <code>{'selectiontournament'}</code> for<code>gamultiobj</code></td>
 </tr>
-
 <tr>
 <td><code>UseParallel</code></td>
 <td>并行计算</td>
 <td><code>true</code></td>
 </tr>
-
 <tr>
 <td>UseVectorized</td>
-<td>指定函数是否向量化,<br>For an options structure, use <code>Vectorized</code> with the values <code>'on'</code> or <code>'off'</code>.</td>
+<td>指定函数是否向量化,<!-- raw HTML omitted -->For an options structure, use <code>Vectorized</code> with the values <code>'on'</code> or <code>'off'</code>.</td>
 <td>true| <code>{false}</code></td>
 </tr>
 </tbody>
 </table>
-
-<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151602image-20210515160230482.png" alt="image-20210515160230482"></figure></p>
-
-<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151602image-20210515160240881.png" alt="image-20210515160240881"></figure></p>
-
-<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151603image-20210515160305942.png" alt="image-20210515160305942"></figure></p>
-
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151602image-20210515160230482.png" alt="image-20210515160230482"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151602image-20210515160240881.png" alt="image-20210515160240881"></p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151603image-20210515160305942.png" alt="image-20210515160305942"></p>
 <ul>
 <li><strong>可以通过输出 output 参数, 来设置算法参数</strong></li>
 </ul>
-
 <h3 id="例1">例1:</h3>
-
-<p><span  class="math">\[
-min \quad g(x) = (x_1 -10)^3 + (x_2 -20 )^3  \\
+<p>$$
+min \quad g(x) = (x_1 -10)^3 + (x_2 -20 )^3  \
 s.t. \begin{cases}
-(x_1 - 5)^2 + (x_2 - 5)^2 \geq 100\\
-13\leq x_1 \leq 100 \\
+(x_1 - 5)^2 + (x_2 - 5)^2 \geq 100\
+13\leq x_1 \leq 100 \
 0 \leq x_2 \leq 100
-\end{cases}\\
+\end{cases}\
 已知的最优点和最优值 g(x^*) = g(14.095,0.84296) = -6961.81381
-\]</span></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">clc,clear all;
-A = [];
-b = [];
-Aeq = [];
-beq = [];
-lb = [<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">0</span>];
-ub = [<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">100</span>];
-nvars = <span style="color:#ae81ff">2</span>;
-options = optimoptions(<span style="color:#e6db74">&#39;ga&#39;</span>,<span style="color:#e6db74">&#39;Display&#39;</span>,<span style="color:#e6db74">&#39;final&#39;</span>,<span style="color:#e6db74">&#39;PlotFcn&#39;</span>,<span style="color:#e6db74">&#39;gaplotbestf&#39;</span>,<span style="color:#e6db74">&#39;FunctionTolerance&#39;</span>,<span style="color:#ae81ff">1e-6</span>);
-[x,fval] = ga(@myobjfun2,nvars ,A,b,Aeq,beq,lb,ub,@constrain,options)
-
-<span style="color:#75715e">%% 目标函数</span>
-<span style="color:#66d9ef">function</span> f = <span style="color:#a6e22e">myobjfun2</span>(x)
-f = (x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">10</span>)^<span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> (x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">20</span>)^<span style="color:#ae81ff">3</span>;
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">%% 非线性约束</span>
-<span style="color:#66d9ef">function</span> [c, ceq] = <span style="color:#a6e22e">constrain</span>(x)
-<span style="color:#75715e">% 非线性不等式约束</span>
-c = <span style="color:#ae81ff">100</span> <span style="color:#f92672">-</span> (x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>)^<span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> (x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>)^<span style="color:#ae81ff">2</span>;
-<span style="color:#75715e">% 非线性等式约束</span>
-ceq = [];
-<span style="color:#66d9ef">end</span></code></pre></div>
-<p>结果如下:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">Optimization terminated: average change in the fitness value less than options.FunctionTolerance
- and constraint violation is less than options.ConstraintTolerance.
-
-x =
-   <span style="color:#ae81ff">13.6602</span>    <span style="color:#ae81ff">0.0000</span>
-fval =
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">7.9509e+03</span></code></pre></div>
-<p>不知道为什么? 居然比上面给出的结果还要好.  上题来源于 &lt;&lt;智能优化算法及其应用（王凌著）.pdf&gt;&gt;第一章绪论 第8页 — — 第6个函数</p>
-
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>clc,clear all;
+</span></span><span style="display:flex;"><span>A = [];
+</span></span><span style="display:flex;"><span>b = [];
+</span></span><span style="display:flex;"><span>Aeq = [];
+</span></span><span style="display:flex;"><span>beq = [];
+</span></span><span style="display:flex;"><span>lb = [<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>ub = [<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">100</span>];
+</span></span><span style="display:flex;"><span>nvars = <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>options = optimoptions(<span style="color:#e6db74">&#39;ga&#39;</span>,<span style="color:#e6db74">&#39;Display&#39;</span>,<span style="color:#e6db74">&#39;final&#39;</span>,<span style="color:#e6db74">&#39;PlotFcn&#39;</span>,<span style="color:#e6db74">&#39;gaplotbestf&#39;</span>,<span style="color:#e6db74">&#39;FunctionTolerance&#39;</span>,<span style="color:#ae81ff">1e-6</span>);
+</span></span><span style="display:flex;"><span>[x,fval] = ga(@myobjfun2,nvars ,A,b,Aeq,beq,lb,ub,@constrain,options)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 目标函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> f = <span style="color:#a6e22e">myobjfun2</span>(x)
+</span></span><span style="display:flex;"><span>f = (x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">10</span>)^<span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> (x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">20</span>)^<span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 非线性约束</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> [c, ceq] = <span style="color:#a6e22e">constrain</span>(x)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 非线性不等式约束</span>
+</span></span><span style="display:flex;"><span>c = <span style="color:#ae81ff">100</span> <span style="color:#f92672">-</span> (x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>)^<span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> (x(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>)^<span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 非线性等式约束</span>
+</span></span><span style="display:flex;"><span>ceq = [];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>结果如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>Optimization terminated: average change in the fitness value less than options.FunctionTolerance
+</span></span><span style="display:flex;"><span> and constraint violation is less than options.ConstraintTolerance.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x =
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">13.6602</span>    <span style="color:#ae81ff">0.0000</span>
+</span></span><span style="display:flex;"><span>fval =
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">7.9509e+03</span>
+</span></span></code></pre></div><p>不知道为什么? 居然比上面给出的结果还要好.  上题来源于 &laquo;智能优化算法及其应用（王凌著）.pdf&raquo;第一章绪论 第8页 — — 第6个函数</p>
 <p>参考:</p>
-
 <ul>
-<li><p>《MATLAB R2015b最优化计算》--李娅</p></li>
-
-<li><p><a href="https://www.mathworks.com/help/gads/ga.html">https://www.mathworks.com/help/gads/ga.html</a></p></li>
+<li>
+<p>《MATLAB R2015b最优化计算》&ndash;李娅</p>
+</li>
+<li>
+<p><a href="https://www.mathworks.com/help/gads/ga.html">https://www.mathworks.com/help/gads/ga.html</a></p>
+</li>
 </ul>
 
         </section>
@@ -744,7 +710,7 @@ fval =
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

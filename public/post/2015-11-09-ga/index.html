@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="content-language" content="zh-CN" />
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+
+    
+    <title>GA包---遗传算法</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+    
+    
+        <style type="text/css">
+        body { background-color: #fbf6ec;}
+        </style>
+    
+    
+                
+        
+        
+            <link rel="stylesheet" href="/css/main.css"/>
+        
+
+
+
+
+        
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/github.min.css"  />
+         
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/matlab.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/mathematica.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/julia-repl.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/powershell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/shell.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"></script>
+        
+        <script>hljs.initHighlightingOnLoad();</script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+     
+     
+</head>
+
+
+<body>
+    <script>
+        window.addEventListener("resize", resizeThrottler, false);
+
+        var resizeTimeout;
+        function resizeThrottler() {
+        
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            actualResizeHandler();
+        
+            
+            }, 66);
+        }
+        }
+        actualResizeHandler()
+        function actualResizeHandler() {
+                if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent))
+                {
+                    document.body.classList.add('mobile');
+                }else{
+                    document.body.classList.remove('mobile');  
+                }
+    }</script>
+
+    
+      
+      
+            <nav class="navbar navbar-default navbar-static-top" style="opacity: .9" role="navigation">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+                    <span class="big-icon icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="/">zsc</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: auto;">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 100%">
+                    
+                        
+                            
+                            <li class=""><a href="/about/">About</a></li>
+                            
+                            <li class=""><a href="/categories/">Categories</a></li>
+                            
+                            <li class=""><a href="/">Home</a></li>
+                            
+                            <li class=""><a href="/tags/">Tags</a></li>
+                            
+                            <li class=""><a href="/issue/">存在的问题</a></li>
+                            
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+<div class = "div-content" id='div-content-my' style='display: none;' >
+    
+
+    <div class = 'inner-left' id= 'divTableOfContents' style="position:fixed;z-index:999;height: 55%;overflow: scroll;bottom: 5%;width: 22%;top: 25%" >
+            <p class="slide slidemy" align = "center">
+                <a href="javascript:hidediv();" id="strHref" class="btn-slide">目录收起-</a>
+            </p>
+            
+            <div id="divtocTableOfContents">
+            
+            </div>
+    </div>
+</div>
+<script>  
+    $(document).ready(function () {
+    var demo = $("#divtocTableOfContents").find("a").length;
+    if(demo > 2){
+        $("div#div-content-my").fadeIn("slow");
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }); 
+</script>  
+
+
+
+
+
+
+
+
+
+<div class="inner">
+    
+
+
+
+    <div class="blog-post">
+        
+                <div>
+            <h2 align="center" id = "singe-h2">
+                GA包---遗传算法
+                <time>
+                    <br>
+                    <span> 
+                        <i class="fa fa-user-edit" style="color:#888;font-size: 80%;"></i>
+                        zsc 
+                    </span>
+                    &nbsp 
+                    <span>                 
+                        <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
+                        2015-11-09 
+                    </span>
+                </time>
+                
+                
+                <div>
+                    <ul class="tags">
+                        
+                        <span>标签:</span>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
+                        
+                        <span> </span>
+                        
+                    </ul>
+                    
+                </div>
+            </h2>
+        </div>
+    
+        
+        <section id="content">
+            
+
+<div id="TOC">
+
+</div>
+
+<div id="ga包遗传算法" class="section level1">
+<h1>GA包—遗传算法</h1>
+<ul>
+<li><p>2022年3月23更新</p></li>
+<li><p>参考: <a href="https://luca-scr.github.io/GA/">Genetic Algorithms • GA (luca-scr.github.io)</a></p></li>
+</ul>
+<div id="用法默认求解最大值" class="section level2">
+<h2>1、用法：(默认求解最大值)</h2>
+<ul>
+<li>注意: <strong>默认求解最大值</strong></li>
+</ul>
+<hr />
+<pre class="r"><code>ga(type = c(&quot;binary&quot;, &quot;real-valued&quot;, &quot;permutation&quot;),   
+   fitness, ...,                            #  fitness:适应度函数 
+   lower, upper,                                #解得下界/解得上界(多元变量为一个向量)
+   nBits,                               #一个种群用二进制编码的长度是多少(长度越大代表精度越高,一般等于变量的个数即可)
+   population = gaControl(type)$population,     # 初始种群
+   selection = gaControl(type)$selection,       #选择
+   crossover = gaControl(type)$crossover,       #交叉
+   mutation = gaControl(type)$mutation,         #变异
+   popSize = 50,                               #种群大小
+   pcrossover = 0.8,                           #交叉概率（默认0.8）
+   pmutation = 0.1,                            #变异概率（默认0.1）
+   elitism = base::max(1, round(popSize*0.05)),   #代沟(默认情况下,前5%个体将在每个迭代中保留)
+   updatePop = FALSE,
+   postFitness = NULL,
+   maxiter = 100,                               # 最大迭代次数(默认100)
+   run = maxiter,                                #表示连续出现一定数目的目标函数值未改变,则GA终止搜索
+   maxFitness = Inf,                            # 适应度函数的上界,GA搜索后中断
+   names = NULL,                                # 表示决策变量名的向量
+   suggestions = NULL,                          # 包含某些指定的初始种群
+   optim = FALSE,                             
+   # optim默认值为FALSE，用于确定是否应使用使用通用优化算法的局部搜索。有关更多详细信息和更精细的控制，请参阅参数optimArgs。
+   # 简单理解, 即optim= T时, 表面进过一定次数的迭代后从 GA 最优解开始最为 optim函数的初始值,开始进行局部优化
+   # optimArgs 控制本地搜索算法的列表，具有以下组件：
+   optimArgs = list(method = &quot;L-BFGS-B&quot;, # 可以是optim函数中的方法
+                    poptim = 0.1,# 范围[0，1]中的值，指定在每次GA迭代时执行局部搜索的概率(默认值为0.1)。
+                    pressel = 0.5,
+                    control = list(fnscale = -1, maxit = 100)),
+   keepBest = FALSE,                 #一个逻辑参数，指定每次迭代的最佳解决方案是否应该保存在一个名为 bestSol 的槽中。
+   parallel = FALSE,                 #是否采用并行运算
+   monitor = if(interactive())        #绘图用的,监控遗传算法的运行状况
+               { if(is.RStudio()) gaMonitor else gaMonitor2 } 
+             else FALSE,
+   seed = NULL)         #一个整数值包含随机数发生器的状态。这个参数可以用来复制GA搜索的结果。</code></pre>
+</div>
+<div id="参数说明" class="section level2">
+<h2>2、参数说明</h2>
+<pre><code>type: 解得编码类型
+    1.  binary :二进制编码
+    2.  real-valued：实数浮点编码
+    3.  permutation：问题涉及到重新排序的列表，字符串编码。可求解TSP问题
+通过gaControl设置默认的遗传算子。检索当前设置操作:
+    gaControl(“binary”)
+    gaControl(“real-valued”)
+    gaControl(“permutation”)</code></pre>
+</div>
+<div id="举例" class="section level2">
+<h2>3.举例</h2>
+<div id="一元函数" class="section level3">
+<h3>3.1. 一元函数:</h3>
+<ul>
+<li><p>函数为: $ |x|+cos(x) $</p></li>
+<li><p>该函数有最小值$ f(0)=1（−R x R)$</p></li>
+</ul>
+<pre class="r"><code>rm(list = ls())
+library(GA)
+#&gt;  Loading required package: foreach
+#&gt;  Loading required package: iterators
+#&gt;  Package &#39;GA&#39; version 3.2.2
+#&gt;  Type &#39;citation(&quot;GA&quot;)&#39; for citing this R package in publications.
+#&gt;  
+#&gt;  Attaching package: &#39;GA&#39;
+#&gt;  The following object is masked from &#39;package:utils&#39;:
+#&gt;  
+#&gt;      de
+f = function(x)  abs(x)+cos(x)
+curve(f, -20, 20)</code></pre>
+<p><img src="/post/2015-11-09-GA_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>fitness = function(x) -f(x)  #由于这个函数默认求解最大值，所以我们求-f(x)的最大值
+GA = ga(type = &quot;real-valued&quot;, fitness = fitness, lower = -20, upper = 20,monitor=F)# monitor 禁止打印信息
+
+GA  ##返回的结果GA为S4对象，一个GA类型 调用其属性用@符号 
+#&gt;  An object of class &quot;ga&quot;
+#&gt;  
+#&gt;  Call:
+#&gt;  ga(type = &quot;real-valued&quot;, fitness = fitness, lower = -20, upper = 20,     monitor = F)
+#&gt;  
+#&gt;  Available slots:
+#&gt;   [1] &quot;call&quot;         &quot;type&quot;         &quot;lower&quot;        &quot;upper&quot;        &quot;nBits&quot;       
+#&gt;   [6] &quot;names&quot;        &quot;popSize&quot;      &quot;iter&quot;         &quot;run&quot;          &quot;maxiter&quot;     
+#&gt;  [11] &quot;suggestions&quot;  &quot;population&quot;   &quot;elitism&quot;      &quot;pcrossover&quot;   &quot;pmutation&quot;   
+#&gt;  [16] &quot;optim&quot;        &quot;fitness&quot;      &quot;summary&quot;      &quot;bestSol&quot;      &quot;fitnessValue&quot;
+#&gt;  [21] &quot;solution&quot;
+GA@solution # 返回最优解
+#&gt;                 x1
+#&gt;  [1,] 3.252335e-05
+summary(GA)
+#&gt;  ── Genetic Algorithm ─────────────────── 
+#&gt;  
+#&gt;  GA settings: 
+#&gt;  Type                  =  real-valued 
+#&gt;  Population size       =  50 
+#&gt;  Number of generations =  100 
+#&gt;  Elitism               =  2 
+#&gt;  Crossover probability =  0.8 
+#&gt;  Mutation probability  =  0.1 
+#&gt;  Search domain = 
+#&gt;         x1
+#&gt;  lower -20
+#&gt;  upper  20
+#&gt;  
+#&gt;  GA results: 
+#&gt;  Iterations             = 100 
+#&gt;  Fitness function value = -1.000033 
+#&gt;  Solution = 
+#&gt;                 x1
+#&gt;  [1,] 3.252335e-05
+
+
+
+## 画图--- 展示迭代信息
+plot(GA)  #  #默认情况下，ga函数通过打印每个迭代的平均值和最佳适应度值来监视搜索,画出每代最佳的适应度函数值与每代的平均适应度函数值</code></pre>
+<p><img src="/post/2015-11-09-GA_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>
+
+# ####画出最优值
+# curve(f, -20, 20)  #
+# abline(v = GA@solution, lty = 3)</code></pre>
+<pre class="r"><code>### binary 测试
+GA2 = ga(type = &quot;binary&quot;, fitness = fitness, nBits = 1,lower = -20, upper = 20,monitor=F)
+GA2@solution # 返回最优解
+#&gt;       x1
+#&gt;  [1,]  0</code></pre>
+<p>监视功能</p>
+<pre class="r"><code>xfun::pkg_load2(&#39;gifski&#39;) # 安装并加载该软件包
+
+########################
+##编写自己的跟踪功能,点代表一个解，来监视搜索
+## 定义一个新的监视器函数，然后将此函数作为可选参数传递给ga:
+monitor = function(obj) { 
+    curve(f, -10, 10, main = paste(&quot;iteration =&quot;, obj@iter))
+    points(obj@population, obj@fitness, pch = 20, col = 2)
+    rug(obj@population, col = 2)
+    Sys.sleep(0.2)}
+## 监视函数--  运行了会输出很多静态图
+# GA = ga(type = &quot;real-valued&quot;, fitness = f, lower = -10, upper = 10, monitor = monitor)</code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-9-.gif" /></p>
+<pre class="r"><code>##############
+## 也可以储存为视频，观看，利用动画的函数做出视频  
+# library(animation)    
+# oopts = ani.options(ffmpeg = &quot;F:/ffmpeg/bin/ffmpeg.exe&quot;)#在winds中设置ffmpeg    
+# saveVideo({    
+#   #打印图片    
+#   GA = ga(type = &quot;real-valued&quot;, fitness = f, lower = -10, upper = 10, monitor = monitor)    
+#   ani.options(interval = 0.1, nmax = 250)    
+# }, video.name = &quot;jianshi.mp4&quot;, other.opts = &quot;-b 500k&quot;)    
+# 
+################  
+</code></pre>
+</div>
+<div id="二元函数" class="section level3">
+<h3>3.2. 二元函数:</h3>
+<p><span class="math display">\[
+20 + x_1^2 + x_2^2 - 10 (\cos(2 \pi  x_1) + \cos(2  pix_2))
+\]</span></p>
+<pre class="r"><code>rm(list = ls())
+
+Rastrigin = function(x1, x2) {
+    20 + x1^2 + x2^2 - 10 * (cos(2 * pi * x1) + cos(2 * pi * x2))
+}
+# 画图
+# x1 = seq(-5.12, 5.12, by = 0.1)
+# x2 = seq(-5.12, 5.12, by = 0.1)
+# f = outer(x1, x2, Rastrigin)
+# persp3D(x1, x2, f, theta = 50, phi = 20)# 3D图
+# filled.contour(x1, x2, f, color.palette = jet.colors)# 热力图
+
+
+monitor = function(obj) {
+    contour(x1, x2, f, drawlabels = FALSE, col = gray(0.5))
+    title(paste(&quot;iteration =&quot;, obj@iter), font.main = 1)
+    points(obj@population, pch = 20, col = 2)
+    Sys.sleep(0.2)
+}
+
+GA = ga(type = &quot;real-valued&quot;, fitness = function(x) -Rastrigin(x[1], x[2]),
+        lower = c(-5.12,-5.12), upper = c(5.12, 5.12), 
+        popSize = 50, maxiter = 100, monitor = NULL)  #定义monitor,暂时不运行
+
+
+GA@solution
+#&gt;                 x1            x2
+#&gt;  [1,] 5.240738e-05 -6.686151e-05</code></pre>
+</div>
+<div id="最小二乘法" class="section level3">
+<h3>3.3 最小二乘法</h3>
+<p>删除该例子</p>
+</div>
+<div id="子集的选择" class="section level3">
+<h3>3.4 子集的选择</h3>
+<p>给定一组预测因子，子集选择的目的是确定最相关的预测因子，以解释响应变量的变化。我们可以利用遗传算法来赛选出更好的相关因子，从而产生更好的估计和更清晰的回归系数解释。使用二进制字符串可以自然地处理赛选子集问题，其中1表示选择该变量，0表示不选择该变量。</p>
+<p>候选子集的适合度可以通过几种模型选择标准之一来衡量，比如AIC、BIC等</p>
+<p>我们首先从<code>UsingR</code>包中加载数据集，然后通过OLS拟合线性回归模型:</p>
+<pre class="r"><code>rm(list = ls())
+xfun::pkg_load2(&quot;UsingR&quot;)
+data(&quot;fat&quot;, package = &quot;UsingR&quot;)#252*19
+mod = lm(body.fat.siri ~ age + weight + height + 
+           neck + chest + abdomen +
+           hip + thigh + knee + ankle + 
+           bicep + forearm + wrist, 
+         data = fat)#通过观察，因变量（body.fat.siri） 与上述 13个自变量有关系
+summary(mod)
+#&gt;  
+#&gt;  Call:
+#&gt;  lm(formula = body.fat.siri ~ age + weight + height + neck + chest + 
+#&gt;      abdomen + hip + thigh + knee + ankle + bicep + forearm + 
+#&gt;      wrist, data = fat)
+#&gt;  
+#&gt;  Residuals:
+#&gt;       Min       1Q   Median       3Q      Max 
+#&gt;  -11.1687  -2.8639  -0.1014   3.2085  10.0068 
+#&gt;  
+#&gt;  Coefficients:
+#&gt;               Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt;  (Intercept) -18.18849   17.34857  -1.048  0.29551    
+#&gt;  age           0.06208    0.03235   1.919  0.05618 .  
+#&gt;  weight       -0.08844    0.05353  -1.652  0.09978 .  
+#&gt;  height       -0.06959    0.09601  -0.725  0.46925    
+#&gt;  neck         -0.47060    0.23247  -2.024  0.04405 *  
+#&gt;  chest        -0.02386    0.09915  -0.241  0.81000    
+#&gt;  abdomen       0.95477    0.08645  11.044  &lt; 2e-16 ***
+#&gt;  hip          -0.20754    0.14591  -1.422  0.15622    
+#&gt;  thigh         0.23610    0.14436   1.636  0.10326    
+#&gt;  knee          0.01528    0.24198   0.063  0.94970    
+#&gt;  ankle         0.17400    0.22147   0.786  0.43285    
+#&gt;  bicep         0.18160    0.17113   1.061  0.28966    
+#&gt;  forearm       0.45202    0.19913   2.270  0.02410 *  
+#&gt;  wrist        -1.62064    0.53495  -3.030  0.00272 ** 
+#&gt;  ---
+#&gt;  Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+#&gt;  
+#&gt;  Residual standard error: 4.305 on 238 degrees of freedom
+#&gt;  Multiple R-squared:  0.749, Adjusted R-squared:  0.7353 
+#&gt;  F-statistic: 54.65 on 13 and 238 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>设计矩阵(没有截距)和响应变量从拟合模型对象中提取:</p>
+<pre class="r"><code>x = model.matrix(mod)[, -1] # 252*13  选取13 个自变量的列，构建自变量
+y = model.response(model.frame(mod)) # 提取因变量的列，
+
+###### 那么，最大化的适应度函数可以定义为:
+
+ fitness = function(string) {
+   inc = which(string == 1)
+   X = cbind(1, x[,inc])
+   mod = lm.fit(X, y)
+   class(mod) = &quot;lm&quot;
+  -AIC(mod)
+}</code></pre>
+<p>这仅仅是利用字符串对应位置上的1所标识的预测因子来估计回归模型，并返回所选标准的负值。注意，截取项总是包含在内，并且我们使用基本的lm。拟合函数加速计算。下面的R代码运行GA:</p>
+<pre class="r"><code>GA = ga(&quot;binary&quot;, fitness = fitness, nBits = ncol(x),
+        names = colnames(x),monitor = F,parallel = T)# monitor = plot
+
+
+GA@solution
+#&gt;       age weight height neck chest abdomen hip thigh knee ankle bicep forearm
+#&gt;  [1,]   1      1      0    1     0       1   1     1    0     0     0       1
+#&gt;       wrist
+#&gt;  [1,]     1
+
+#####利用GA找到的最优子集得到的线性回归模型如下:
+
+mod2 = lm(body.fat.siri ~ .,
+             data = data.frame(body.fat.siri = y, x[,GA@solution == 1]))
+summary(mod2)
+#&gt;  
+#&gt;  Call:
+#&gt;  lm(formula = body.fat.siri ~ ., data = data.frame(body.fat.siri = y, 
+#&gt;      x[, GA@solution == 1]))
+#&gt;  
+#&gt;  Residuals:
+#&gt;       Min       1Q   Median       3Q      Max 
+#&gt;  -10.9757  -2.9937  -0.1644   2.9766  10.2244 
+#&gt;  
+#&gt;  Coefficients:
+#&gt;               Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt;  (Intercept) -22.65637   11.71385  -1.934  0.05426 .  
+#&gt;  age           0.06578    0.03078   2.137  0.03356 *  
+#&gt;  weight       -0.08985    0.03991  -2.252  0.02524 *  
+#&gt;  neck         -0.46656    0.22462  -2.077  0.03884 *  
+#&gt;  abdomen       0.94482    0.07193  13.134  &lt; 2e-16 ***
+#&gt;  hip          -0.19543    0.13847  -1.411  0.15940    
+#&gt;  thigh         0.30239    0.12904   2.343  0.01992 *  
+#&gt;  forearm       0.51572    0.18631   2.768  0.00607 ** 
+#&gt;  wrist        -1.53665    0.50939  -3.017  0.00283 ** 
+#&gt;  ---
+#&gt;  Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+#&gt;  
+#&gt;  Residual standard error: 4.282 on 243 degrees of freedom
+#&gt;  Multiple R-squared:  0.7466,    Adjusted R-squared:  0.7382 
+#&gt;  F-statistic: 89.47 on 8 and 243 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>上述两种解决方案相比，</p>
+</div>
+<div id="约束优化" class="section level3">
+<h3>3.5 约束优化</h3>
+<ul>
+<li>约束优化,可以通过对目标函数加入惩罚函数来实现,即不在约束范围内的目标函数值设置为 <span class="math inline">\(- \infty\)</span></li>
+</ul>
+<p>背包问题:假定背包的最大容量为W，N件物品，每件物品都有自己的价值和重量，将物品放入背包中使得背包内物品的总价值最大。</p>
+<p>如果第<span class="math inline">\(i\)</span>项选择为背包，则<span class="math inline">\(x_i = 1\)</span>，不选则<span class="math inline">\(x_i = 0\)</span>。考虑以下数据，<code>利润(p)，权重(w)和容量(V):</code></p>
+<pre class="r"><code>rm(list = ls())
+p = c(6, 5, 8, 9, 6, 7, 3)
+w = c(2, 3, 6, 7, 5, 9, 4)
+V = 14
+
+##### 利用二进制遗传算法可以解决背包问题，但由于不等式约束，并不是所有可行解都可行。
+##### 我们可以通过惩罚不可行的解决办法来考虑约束。因此，适应度函数可以定义如下:
+knapsack = function(x) {
+ f = sum(x * p)
+ penalty = sum(w) * abs(sum(x * w)-V)
+ f - penalty
+}
+
+#####  当目标函数f被惩罚时，一个量取决于提出的解决方案的容量与背包容量之间的距离。然后:
+GA = ga(type = &quot;binary&quot;, fitness = knapsack, nBits = length(w),
+           maxiter = 1000, run = 200, popSize = 20)
+
+GA@solution# 解
+#&gt;       x1 x2 x3 x4 x5 x6 x7
+#&gt;  [1,]  1  0  0  1  1  0  0
+
+sum(p * GA@solution)
+#&gt;  [1] 21
+
+sum(w * GA@solution)
+#&gt;  [1] 14</code></pre>
+</div>
+<div id="解决tsp问题" class="section level3">
+<h3>3.7. 解决TSP问题</h3>
+<p>有若干个城市(n个)，任何两个城市之间的距离都是确定的，现要求一旅行商从某城市出发必须经过每一个城市且只在一个城市逗留一次，最后回到出发的城市，问如何事先确定一条最短的线路。可行的解决方案的设置是由可能的途径的总数,等于(n−1)!/2.</p>
+<p>考虑一个简单的例子，现在共有A、B、C、D四个城市。</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-21-1.png" /></p>
+<pre class="r"><code>为了将图中关系数据化，可用如下规则来描述：  
+
+城市映射为编号：A——1，B——2，C——3，D——4；  
+
+城市之间的距离用二维数组来表示，记为D[i,j]，如：D[1,2]表示城市A与城市B之间的距离，于是D[1,2]=7，同时也表示我现在处于A–1城市，将要去B–2城市；  </code></pre>
+<p>可用遗传算法解决此类问题</p>
+<pre class="r"><code>rm(list = ls())
+#city数据结构 一共有31个城市，计算出每两个城市之间的距离，用距离矩阵表示
+D=as.matrix(dist(city)) # 距离矩阵
+#定义总的路线长度
+tourLength = function(tour, distMatrix) {
+   tour = c(tour, tour[1]) #设置为回路，代表所走的路径
+   route = embed(tour, 2)[,2:1]#根据回路,产生对应的距离矩阵的下标,每一行代表一个坐标，第一行处于i坐标
+   sum(distMatrix[route])
+}
+tspFitness = function(tour, ...) 1/tourLength(tour, ...)
+
+GA3 = ga(type = &quot;permutation&quot;, fitness = tspFitness, distMatrix = D,
+          lower  = 1, upper = dim(D)[1], popSize = 50, maxiter = 5000,
+          run = 500, pmutation = 0.2,monitor = F, parallel = T)
+
+summary(GA3)
+
+
+apply(GA3@solution, 1, tourLength, D)#找到的解决方案对应于一条独特的路径，其行程长度等于:
+</code></pre>
+<p>图形对比</p>
+<pre class="r"><code>library(ggplot2)
+library(tibble)
+city=rownames_to_column(city, var = &quot;rowname&quot;)
+#原始图像
+# p=ggplot(data=city,aes(x=X1,y=X2))+geom_point(shape=19,size=4,col=&quot;red&quot;)+theme_bw()+
+#   geom_text(aes(label=rowname),size=4,vjust=1.5)+geom_path(linetype=2)+ggtitle(&quot;初始顺序&quot;)
+library(dplyr)
+city_solution=data.frame(solution=as.factor(GA3@solution[1,]))
+re_city=inner_join(city_solution,city,by=c(&quot;solution&quot;=&quot;rowname&quot;))
+#re_city #最优解城市顺序
+##最优解城市图像
+j=ggplot(data=re_city,aes(x=X1,y=X2))+geom_point(shape=19,size=4,col=&quot;red&quot;)+theme_bw()+
+  geom_text(aes(label=solution),size=4,vjust=1.5)+geom_path(linetype=2)+
+  ggtitle(&quot;最优解&quot;)+
+  geom_point(x=re_city[1,2],y=re_city[1,3],shape=17,size=5,col=&quot;blue&quot;)+
+   theme(plot.title = element_text(hjust = 0.5)) + theme(text=element_text(family=&quot;Songti SC&quot;))
+
+j </code></pre>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-26-1.png" /></p>
+<pre class="r"><code>sessionInfo()
+#&gt;  R version 4.1.3 (2022-03-10)
+#&gt;  Platform: aarch64-apple-darwin20 (64-bit)
+#&gt;  Running under: macOS Big Sur 11.6.5
+#&gt;  
+#&gt;  Matrix products: default
+#&gt;  BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
+#&gt;  LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
+#&gt;  
+#&gt;  locale:
+#&gt;  [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#&gt;  
+#&gt;  attached base packages:
+#&gt;  [1] stats     graphics  grDevices utils     datasets  methods   base     
+#&gt;  
+#&gt;  other attached packages:
+#&gt;  [1] GA_3.2.2         iterators_1.0.14 foreach_1.5.2   
+#&gt;  
+#&gt;  loaded via a namespace (and not attached):
+#&gt;   [1] Rcpp_1.0.8.3        lattice_0.20-45     png_0.1-7          
+#&gt;   [4] assertthat_0.2.1    digest_0.6.29       utf8_1.2.2         
+#&gt;   [7] R6_2.5.1            backports_1.4.1     evaluate_0.15      
+#&gt;  [10] ggplot2_3.3.5       highr_0.9           blogdown_1.8       
+#&gt;  [13] pillar_1.7.0        rlang_1.0.2         data.table_1.14.2  
+#&gt;  [16] rstudioapi_0.13     HistData_0.8-7      gifski_1.4.3-1     
+#&gt;  [19] UsingR_2.0-7        jquerylib_0.1.4     rpart_4.1.16       
+#&gt;  [22] Matrix_1.4-0        checkmate_2.0.0     rmarkdown_2.13     
+#&gt;  [25] splines_4.1.3       stringr_1.4.0       foreign_0.8-82     
+#&gt;  [28] htmlwidgets_1.5.4   munsell_0.5.0       compiler_4.1.3     
+#&gt;  [31] xfun_0.30           pkgconfig_2.0.3     base64enc_0.1-3    
+#&gt;  [34] htmltools_0.5.2     nnet_7.3-17         tidyselect_1.1.2   
+#&gt;  [37] htmlTable_2.4.0     tibble_3.1.6        gridExtra_2.3      
+#&gt;  [40] bookdown_0.25       Hmisc_4.6-0         codetools_0.2-18   
+#&gt;  [43] fansi_1.0.2         crayon_1.5.0        dplyr_1.0.8        
+#&gt;  [46] MASS_7.3-55         grid_4.1.3          jsonlite_1.8.0     
+#&gt;  [49] gtable_0.3.0        lifecycle_1.0.1     DBI_1.1.2          
+#&gt;  [52] magrittr_2.0.2      scales_1.1.1        cli_3.2.0          
+#&gt;  [55] stringi_1.7.6       doParallel_1.0.17   latticeExtra_0.6-29
+#&gt;  [58] bslib_0.3.1         ellipsis_0.3.2      generics_0.1.2     
+#&gt;  [61] vctrs_0.3.8         Formula_1.2-4       RColorBrewer_1.1-2 
+#&gt;  [64] tools_4.1.3         glue_1.6.2          purrr_0.3.4        
+#&gt;  [67] jpeg_0.1-9          parallel_4.1.3      fastmap_1.1.0      
+#&gt;  [70] survival_3.3-1      yaml_2.3.5          colorspace_2.0-3   
+#&gt;  [73] cluster_2.1.2       knitr_1.37          sass_0.4.0</code></pre>
+</div>
+</div>
+</div>
+
+        </section>
+    </div>
+    <br>
+    
+    
+
+
+
+
+<span id="/post/2015-11-09-ga/" class="leancloud_visitors" data-flag-title="GA包---遗传算法">
+  <span class="post-meta-item-text">文章总阅读量 </span>
+  <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
+  <p></p>
+</span>
+
+
+
+    
+
+    
+    
+    <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+        <i class="fa fa-edit">编辑本文</i>
+    </button>
+    
+    
+    
+
+    <br>
+    <hr>
+    <li style="float:left;list-style:none">
+        
+    </li>
+    <li style="float:right;list-style:none">
+        
+        <a class="next" href="/post/2017-01-28-caret1otherfun/"> 下一篇: 2、caret包其他函数介绍</a>
+        
+    </li>
+     
+    
+    <script src="/js/copyCode.js"></script>
+    <script src="/js/tooltips.js"></script>
+    
+   
+    <script>
+    [].slice.call(document.querySelectorAll('table')).forEach(function(el) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-area';
+        el.parentNode.insertBefore(wrapper, el);
+        el.parentNode.removeChild(el);
+        wrapper.appendChild(el);
+        $("table").wrap("<div class='table-area'></div>");
+    })
+    </script>
+
+    
+<br>
+<hr>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111691389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111691389-1');
+</script>
+
+
+
+
+      
+      
+      
+
+       
+      
+      
+      <script>
+              document.getElementById("edit-button").addEventListener("click", function () {
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/post\/2015-11-09-GA.html");
+              });</script>
+      
+          
+
+
+
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  } 
+</script>
+
+
+
+    </style>
+    <script type="text/javascript">
+    function showdiv(){
+        document.getElementById("divtocTableOfContents").style.display="block";
+        document.getElementById("strHref").innerHTML="目录收起-";
+        document.getElementById('divTableOfContents').style.width="22%";
+        document.getElementById('divTableOfContents').style.height="55%";
+        document.getElementById('divTableOfContents').style.top="25%";
+        document.getElementById('divTableOfContents').style.bottom="5%";
+        document.getElementById("strHref").href="javascript:hidediv()";
+    }
+    function hidediv(){
+        document.getElementById("divtocTableOfContents").style.display="none";
+        document.getElementById("strHref").innerHTML="目录展开+";
+        document.getElementById("strHref").href="javascript:showdiv()";
+        document.getElementById('divTableOfContents').style.width="10%";
+        document.getElementById('divTableOfContents').style.height="5%";
+    }
+    </script>
+</body>
+
+</html>
+</div> 
+
+
+
+
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+            delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="inner">
+              
+            
+          
+          
+  
+          
+  
+  <div id="vcomments"></div>
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'HfHPKPkLa0cBEDPcdBAHuqMv-gzGzoHsz',
+        appKey: 'r5RJAasN8e0mB9sq6y9pEcX0',
+        lang:'zh-CN',
+        notify:  false , 
+        verify:  false  ,
+        avatar:'identicon', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+</div>
+
+<br>
+<br>
+<footer>
+    <p style="float:right;margin-right: 5%;margin-top: 0%;">
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
+      </p>
+</footer>
+<br>
+<br>
+
+

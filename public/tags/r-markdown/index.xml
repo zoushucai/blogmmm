@@ -19,13 +19,13 @@
 还有一种情况是设置了全局属性echo = TRUE这个选项，不过这个选项还有待验证
 参见：
 4、网站图片引入居中设置 方法一：嵌入html标签
-&amp;lt;img src=&amp;quot;./xxx.png&amp;quot; width = &amp;quot;300&amp;quot; height = &amp;quot;200&amp;quot; alt=&amp;quot;图片名称&amp;quot; align=center /&amp;gt; 方法二：
-	&amp;lt;div align=&amp;quot;center&amp;quot;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
+&amp;lt;img src=&amp;#34;./xxx.png&amp;#34; width = &amp;#34;300&amp;#34; height = &amp;#34;200&amp;#34; alt=&amp;#34;图片名称&amp;#34; align=center /&amp;gt; 方法二：
+	&amp;lt;div align=&amp;#34;center&amp;#34;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
 解决方法： 这是由于rmd的文件名中有中文，写成英文即可。
 疑问： rmd文章短的时候可以用中文名。但是中文长的时候就不能用中文
 6、 hogo生成动态网页 不显示图片 比如 DT包 、plotly包、dygraph、等
 建议引用widgetframe包 如下 （并且rmd文件不能有中文名，不然不能识别，文章的标题可以是中文）
-library(dygraphs) library(widgetframe) ## 载入需要的程辑包：htmlwidgets ## Loading required package: htmlwidgets ts &amp;lt;- dygraph(nhtemp, main = &amp;quot;New Haven Temperatures&amp;quot;) frameWidget(ts, height = 350, width = &#39;95%&#39;) </description>
+library(dygraphs) library(widgetframe) ## 载入需要的程辑包：htmlwidgets ## Loading required package: htmlwidgets ts &amp;lt;- dygraph(nhtemp, main = &amp;#34;New Haven Temperatures&amp;#34;) frameWidget(ts, height = 350, width = &amp;#39;95%&amp;#39;) </description>
     </item>
     
   </channel>

@@ -12,7 +12,7 @@
     
 
     
-    <title>hugo--blogdown生成的目录</title>
+    <title>R语言字符处理---基本函数</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     
     
@@ -166,7 +166,7 @@
         
                 <div>
             <h2 align="center" id = "singe-h2">
-                hugo--blogdown生成的目录
+                R语言字符处理---基本函数
                 <time>
                     <br>
                     <span> 
@@ -176,7 +176,7 @@
                     &nbsp 
                     <span>                 
                         <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
-                        2017-12-30 
+                        2018-04-05 
                     </span>
                 </time>
                 
@@ -185,7 +185,7 @@
                     <ul class="tags">
                         
                         <span>标签:</span>
-                        <li><a class="link" href="/tags/hugo"> #hugo </a></li>
+                        <li><a class="link" href="/tags/r"> #r </a></li>
                         
                         <span> </span>
                         
@@ -197,88 +197,156 @@
     
         
         <section id="content">
-            <h4 id="1先介绍一下有hugo生成的目录">1、先介绍一下有hugo生成的目录</h4>
-<pre tabindex="0"><code>站点下面的目录和必须的文件由hugo自己生成。一般它是这样的：
-
-archetypes/                 : 全局原型，也就是内容模板。
-|____default.md             : 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板
-content/                    ：内容，存放“XXX.md”/&quot;XXX&gt;Rmd&quot;文件，文件名可以用中文
-data/                       ：存放数据文件
-layouts/                    ：和archetypes一起将被我们的主题覆盖掉
-public/                     ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。
-static/                     ：静态目录，完全复制到public。比如图片、js、php脚本
-themes/                     ：主题目录，一个站可有多个主题，就像换衣服
-|____aaa                    ：主题aaa，可以有很多个
-|____bbb                    ：主题bbb
-     |____archetypes        : 主题的内容模板
-     |____layouts           ：布局，就是html模板
-     |____static            ：静态的，放主题的js，css文件
-     |____LICENSE.md        ：这个，呵呵，不说大家也知道
-     |____theme.toml        ：主题的信息配置
-config.toml                 ：站点配置文件，可以配置站点名字等等很多信息
-</code></pre><p>主题部分并未全部介绍，这个将在主题部分详细讲解。</p>
-<h4 id="2静态文件">2、静态文件</h4>
-<p>不需要hugo处理的文件叫做静态文件。存放在 <strong>站点的static</strong> 目录是个好主意。</p>
-<blockquote>
-<p>static目录下的文件将会原封不动的复制到public下面，比如您建立了个img的目录存图片，在md文件中将直接使用”img/aaa.jpg”来引用图片，</p>
-<p>特别的，如果您的站点有php等脚本运用，和一些其他的文件，比如各搜索引擎的验证文件等，也可以放在这里。不建议直接将文件存放于public目录，因为我习惯不高兴就删了全来！相信你也会有不高兴的时候的。（后面比如要上传的google网站分析的html文件）</p>
-</blockquote>
-<h4 id="3站点配置文件">3、站点配置文件</h4>
-<p>站点根目录下有一个”config.toml“就是配置文件  <code>E:\test_blog</code>下的config.toml</p>
-<h5 id="信息存在的地hugo有三个地方可以放信息">信息存在的地，hugo有三个地方可以放信息，</h5>
-<ul>
-<li>一个是站点的配置文件“config.toml”，</li>
-<li>一个是我们文章文件md文件的头部（默认的用三个“&mdash;”号开始和结束，也可以用三个“+++”号</li>
-<li>最后一个是“data”数据目录。</li>
-</ul>
-<p>congfig.toml该文件默认支持的<a href="http://www.zimustudio.com/hugo/hugopeizhi.html">全部参数</a>：可以用键值对，也可以用赋值语句</p>
-<p>以 hugo-lithium-theme主题为例</p>
-<p>介绍几个后面可能会用的参数</p>
-<pre tabindex="0"><code>baseurl = &quot;http://qaz.netlify.com&quot;    # 基础路径,当自己有网站的时候就写自己的
-relativeurls = true                    #使用想对路径方便本地浏览
-languageCode = &quot;zh-cn&quot;                #编码
-title = &quot;A Hugo website&quot;			#网站的title
-theme = &quot;hugo-lithium-theme&quot;
-googleAnalytics = &quot;&quot;                 #谷歌网站分析添加自己的id，形如：UA-XXXXXX-X
-disqusShortname = &quot;http-qaz-netlify-com&quot;  # disqusShortname 的名字，一定要找准
-ignoreFiles = [&quot;\\.Rmd$&quot;, &quot;\\.Rmarkdown$&quot;, &quot;_files$&quot;, &quot;_cache$&quot;] 
-hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统计英文
-</code></pre><h4 id="4自定义信息">4、自定义信息</h4>
-<p>站点配置文件并不是只能存放默认的配置项目的，它一样可以存放自定义的数据，并且在模版中被调用。</p>
-<p>下面是本站的目录的自定义信息：</p>
-<pre tabindex="0"><code>[permalinks]
-    post = &quot;/:year/:month/:day/:slug/&quot;
-
-[[menu.main]]
-    name = &quot;About&quot;
-    url = &quot;/about/&quot;
-[[menu.main]]
-    name = &quot;GitHub&quot;
-    url = &quot;https://github.com/rstudio/blogdown&quot;
-[[menu.main]]
-    name = &quot;Twitter&quot;
-    url = &quot;https://twitter.com/rstudio&quot;
-
-[params]
-    description = &quot;A website built through Hugo and blogdown.&quot;
-
-    # options for highlight.js (version, additional languages, and theme)
-    highlightjsVersion = &quot;9.11.0&quot;
-    highlightjsCDN = &quot;//cdn.bootcss.com&quot;
-    highlightjsLang = [&quot;r&quot;, &quot;yaml&quot;]
-    highlightjsTheme = &quot;github&quot;
-
-    MathJaxCDN = &quot;//cdn.bootcss.com&quot;
-    MathJaxVersion = &quot;2.7.1&quot;
-
-    [params.logo]
-    url = &quot;logo.png&quot;
-    width = 50
-    height = 50
-    alt = &quot;Logo&quot;
-
-</code></pre><p>找到<code>E:\test_blog\themes\hugo-lithium-theme\layouts\</code> 下面有两个文件夹</p>
-<p>一个<code>_default/</code> <code> partials/</code></p>
+            <h2 id="r语言字符处理---基本函数">R语言字符处理&mdash;基本函数</h2>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encoding(x)        <!-- raw HTML omitted -->Encoding(x) &lt;- value  <!-- raw HTML omitted -->enc2native(x)  <!-- raw HTML omitted -->enc2utf8(x)</td>
+<td>读取或设置字符向量的编码<!-- raw HTML omitted -->常结合iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)函数使用<!-- raw HTML omitted -->注意：Encoding(x) &lt;- value 这是一种赋值函数</td>
+</tr>
+<tr>
+<td>nchar(x, type = &ldquo;chars&rdquo;, allowNA = FALSE, keepNA = NA)<!-- raw HTML omitted -->nzchar(x, keepNA = FALSE)</td>
+<td>nchar()返回字符长度<!-- raw HTML omitted -->nzchar()判断是否空字符<!-- raw HTML omitted -->keepNA为真是NA保留，不计入计数<!-- raw HTML omitted -->对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。<!-- raw HTML omitted -->对于NULL，nchar和nzchar函数会忽略掉。</td>
+</tr>
+<tr>
+<td>substr(x, start, stop)<!-- raw HTML omitted -->substring(text, first, last = 1000000L)<!-- raw HTML omitted -->substr(x, start, stop) &lt;- value<!-- raw HTML omitted -->substring(text, first, last = 1000000L) &lt;- value</td>
+<td>提取或替换字符向量的子字段，substring同substr功能一样</td>
+</tr>
+<tr>
+<td>strtrim(x, width)</td>
+<td>按显示宽度截断字符串</td>
+</tr>
+<tr>
+<td>paste (&hellip;, sep = &quot; &ldquo;, collapse = NULL)<!-- raw HTML omitted -->paste0(&hellip;, collapse = NULL)</td>
+<td>通过sep连接间隔连接对象,返回字符串向量<!-- raw HTML omitted -->设定collapse的话，会通过collapse连接间隔将上一步的字符串向量连接成一个字符串</td>
+</tr>
+<tr>
+<td>strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE)</td>
+<td>基于split子句分割字符向量x<!-- raw HTML omitted -->fixed为TRUE的话，完全匹配split；否则，基于正则表达式。<!-- raw HTML omitted -->可以使用split=NULL来分割每个字符。</td>
+</tr>
+<tr>
+<td>chartr(old, new, x)</td>
+<td>将x中的字符old变换为字符new<!-- raw HTML omitted -->注意替换的是单个对应的字符，而非字符串</td>
+</tr>
+<tr>
+<td>tolower(x)<!-- raw HTML omitted -->toupper(x)</td>
+<td>大小写转换</td>
+</tr>
+<tr>
+<td>sprintf(fmt, &hellip;)</td>
+<td>系统C库函数sprintf封装器，格式化输出函数</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="正则表达式-----字符串匹配函数">正则表达式&mdash;&ndash;字符串匹配函数</h2>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>若x为list，则找出和(参数pattern)匹配的序列编号<!-- raw HTML omitted -->若x为字符串，则判别改字符串中是否包含特定的字符,包含返回1，不包含返回integer(0)<!-- raw HTML omitted -->若x为字符向量,同list<!-- raw HTML omitted -->只找到第一个即可</td>
+</tr>
+<tr>
+<td>grepl(pattern, x, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>返回TRUE 或FALSE</td>
+</tr>
+<tr>
+<td>sub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>只替换匹配到的第一个字符串</td>
+</tr>
+<tr>
+<td>gsub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>替换匹配到的所用字符串</td>
+</tr>
+<tr>
+<td>regexpr(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>返回第一个和(参数pattern)匹配的起始位置(或下标)和匹配长度(pattern的长度，若为正则，则是匹配字符串的实际长度)<!-- raw HTML omitted -->若没有则返回: -1</td>
+</tr>
+<tr>
+<td>gregexpr(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>regexpr()函数只匹配第一个，想要多次匹配则用gregexpr()函数</td>
+</tr>
+<tr>
+<td>regexec(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
+<td>和regexpr()函数一样</td>
+</tr>
+<tr>
+<td></td>
+<td>共同参数解析：<!-- raw HTML omitted -->   1、fixed = TRUE: 使用精确匹配<!-- raw HTML omitted -->   2、perl = TRUE: 使用Perl风格正则表达式<!-- raw HTML omitted -->   3、fixed = FALSE且perl = FALSE: 使用POSIX 1003.2扩展正则表达式<!-- raw HTML omitted -->   4、 useBytes = TRUE时逐字节匹配，否则逐字符匹配</td>
+</tr>
+<tr>
+<td>regmatches(x, m, invert = FALSE)<!-- raw HTML omitted -->regmatches(x, m, invert = FALSE) &lt;- value</td>
+<td>抽取或替换正则表达式匹配子串<!-- raw HTML omitted --> invert = TRUE则抽取或替换不匹配子串<!-- raw HTML omitted --> str&lt;-c(&ldquo;Now is &ldquo;,&ldquo;the&rdquo;,&rdquo; time &ldquo;) <!-- raw HTML omitted -->m&lt;-regexpr(&rdquo; +&quot;,str)<!-- raw HTML omitted -->regmatches(str,m)&lt;- &ldquo;9999&rdquo;<!-- raw HTML omitted -->str</td>
+</tr>
+<tr>
+<td>glob2rx(pattern, trim.head = FALSE, trim.tail = TRUE)</td>
+<td>将通配符模式变成正则表达式</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="grep函数参数">grep()函数参数：</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">pattern</td>
+<td style="text-align:center">包含正则表达式的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">寻找匹配的字符向量，或者可以通过字符向量强制转换的对象。支持长向量</td>
+</tr>
+<tr>
+<td style="text-align:center">ignore.case</td>
+<td style="text-align:center">如果为FALSE，则模式匹配区分大小写；如果为TRUE，则在匹配期间忽略大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">perl</td>
+<td style="text-align:center">如果为TRUE，使用perl匹配的正则表达式</td>
+</tr>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:center">如果为FALSE，则返回包含由grep确定的匹配的索引的向量，如果为TRUE，则返回包含匹配元素本身的向量</td>
+</tr>
+<tr>
+<td style="text-align:center">fixed</td>
+<td style="text-align:center">如果为TRUE，则pattern是要按原样匹配的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">useBytes</td>
+<td style="text-align:center">如果为TRUE，则匹配是逐字节而不是逐字符完成的</td>
+</tr>
+<tr>
+<td style="text-align:center">invert</td>
+<td style="text-align:center">如果为TRUE，则返回不匹配的元素的索引或值</td>
+</tr>
+</tbody>
+</table>
+<p>grep()能对向量中特定条件的元素进行查询，默认return为index,。grep()语法与grep()大致相似，但默认return为logical。</p>
 
         </section>
     </div>
@@ -289,7 +357,7 @@ hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统�
 
 
 
-<span id="/md/2017-12-30-hugo-blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/" class="leancloud_visitors" data-flag-title="hugo--blogdown生成的目录">
+<span id="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86---%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/" class="leancloud_visitors" data-flag-title="R语言字符处理---基本函数">
   <span class="post-meta-item-text">文章总阅读量 </span>
   <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
   <p></p>
@@ -312,12 +380,12 @@ hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统�
     <hr>
     <li style="float:left;list-style:none">
         
-        <a class="previous" href="/md/2017-12-30-hugo-%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/"> 上一篇: hugo--分类标签添加</a>
+        <a class="previous" href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E4%B9%8Bstringr%E5%8C%85/"> 上一篇: R语言字符处理函数包---stringr包</a>
         
     </li>
     <li style="float:right;list-style:none">
         
-        <a class="next" href="/md/2017-12-31-tibble%E5%8C%85%E7%9A%84%E5%88%97-%E8%A1%8C%E5%90%8D%E8%BD%AC%E6%8D%A2/"> 下一篇: tibble包的列和行名相互转换以及添加行和列</a>
+        <a class="next" href="/md/2018-04-06-rselenium/"> 下一篇: 利用RSelenium包模拟浏览器爬取网页信息</a>
         
     </li>
      
@@ -364,7 +432,7 @@ hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统�
       
       <script>
               document.getElementById("edit-button").addEventListener("click", function () {
-                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2017-12-30-hugo ---blogdown生成的目录.md");
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/md\/2018-04-05-R语言字符处理---基本函数.md");
               });</script>
       
           
@@ -474,7 +542,7 @@ hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统�
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

@@ -13,7 +13,7 @@
       <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/md/2018-01-18-datatable3/</guid>
-      <description>knitr::opts_chunk$set(message = F,warning = F,comment = &amp;quot;#&amp;gt;&amp;quot;,collapse = TRUE) 数据准备
+      <description>knitr::opts_chunk$set(message = F,warning = F,comment = &amp;#34;#&amp;gt;&amp;#34;,collapse = TRUE) 数据准备
 library(data.table) library(magrittr) iris_1 = data.table(iris[1:5,]) iris_2 = data.table(iris[51:55,]) iris_1 iris_2 1. 两个data.table行合并 ##### --- 两个data.table行合并 --两个数据的列数应该相等 ##### #### --- 方法一 --纯粹的合并 rbind(iris_1,iris_2) ### -- 方法2 --- l = list(iris_1,iris_2) rbindlist(l, use.names=TRUE, fill=TRUE) %&amp;gt;% head() 2. 两个data.table列合并 ##### --- 两个data.table列合并 --两个数据的行数应该相等 ## --方法一 纯粹的合并 cbind(iris_1[,1:2],iris_2[,5]) ## --方法2 --- 类似 dplyr包中的链接 # merge(iris_1[,1:2], iris_2[,5], all=TRUE,sort=F) ## --方法3 --- 类似 dplyr包中的链接 # dt_a[dt_b,on=.(b = y)] 多个data.</description>
     </item>
     
@@ -24,8 +24,8 @@ library(data.table) library(magrittr) iris_1 = data.table(iris[1:5,]) iris_2 = d
       
       <guid>/md/2018-01-17-datatable2/</guid>
       <description>data.table基本概念和其余函数&amp;mdash;还需要修改 set*  函数族 会改变原有的数据，没有返回值，在data.table里，操作符&amp;quot;:=&amp;quot;和所有的以set开头函数（比如setkey,setorder,setname等）一样，它们都会更新输入的原数据。
-library(data.table) iris_dt = data.table(iris) # setnames(DT,oldnames,newnames) # 改变DT的列名oldnames,newnames为向量即变量 #改变列的顺序 col_names = colnames(iris_dt) setcolorder(iris_dt,col_names[5:1]) # 更改某行某列的值,即更新元素的值 set(iris_dt,1,1,NA)# 更改1行1列的值为NA 1、键（主键）的概念  data.table从来不使用行名。data.table类似有行名的形式为1:，2: , ... 主键会对筛选的列进行重排序 我们把data.table数据中的行名叫做键（或主键），他类似于python的字典，使用键值对类型查找数据，键要求唯一，每一行有且只有一个键。但是R中的键可以用多个甚至可以重复，键就相当于索引，通过键进行数据的查找 setkey() 和 setkeyv()可以直接更新输入的data.table，就和上一讲中的操作符&amp;quot;:=&amp;ldquo;一样。它们没有返回值。 这个主键和其它语言不一样，例如python的键，唯一，在r中任意列都能使用setkey()来设置主键  library(data.table) mtcars_dt &amp;lt;- data.table(mtcars) # 可以看出mtcars数据集中的行名没有了，替而代之为1: ，2: # 若想保留行名，设置keep.rownames = T，当keep.rowname＝&amp;quot;new&amp;quot;时，列名改为new即可 mtcars_dt &amp;lt;- data.table(mtcars,keep.rownames = T)#默认创建一个叫做 rn的列，并且将行名赋值给这一列。 mtcars_dt 1.2、设置／获取／使用主键 怎么将数据中的某一列设置为主键呢？&amp;mdash;setkey()函数
- setkey(DT, key) 将DT中的key列设置为主键，但是类行名 1:，2:,&amp;hellip;,不会发生改变, 上面等价 setkeyv(DT, &amp;quot;key&amp;quot;) ，也将DT中的key列设置为主键 一旦将某一列设置成data.table的主键，就可以在参数i里指定 .()来subset那些主键了(就可以进行行筛选了)。我们还是用mtcars数据集，我们增加一个新列new  mtcars_dt &amp;lt;- data.table(mtcars) mtcars_dt[,new:=Sys.Date()+1:32] #增加一列new，内容为时间 setkey(mtcars_dt,new) mtcars_dt # 类似行名并没有发生改变， mtcars_dt[.</description>
+library(data.table) iris_dt = data.table(iris) # setnames(DT,oldnames,newnames) # 改变DT的列名oldnames,newnames为向量即变量  #改变列的顺序 col_names = colnames(iris_dt) setcolorder(iris_dt,col_names[5:1])  # 更改某行某列的值,即更新元素的值 set(iris_dt,1,1,NA)# 更改1行1列的值为NA 1、键（主键）的概念  data.table从来不使用行名。data.table类似有行名的形式为1:，2: , ... 主键会对筛选的列进行重排序 我们把data.table数据中的行名叫做键（或主键），他类似于python的字典，使用键值对类型查找数据，键要求唯一，每一行有且只有一个键。但是R中的键可以用多个甚至可以重复，键就相当于索引，通过键进行数据的查找 setkey() 和 setkeyv()可以直接更新输入的data.table，就和上一讲中的操作符&amp;quot;:=&amp;ldquo;一样。它们没有返回值。 这个主键和其它语言不一样，例如python的键，唯一，在r中任意列都能使用setkey()来设置主键  library(data.table) mtcars_dt &amp;lt;- data.table(mtcars) # 可以看出mtcars数据集中的行名没有了，替而代之为1: ，2: # 若想保留行名，设置keep.rownames = T，当keep.rowname＝&amp;#34;new&amp;#34;时，列名改为new即可 mtcars_dt &amp;lt;- data.table(mtcars,keep.rownames = T)#默认创建一个叫做 rn的列，并且将行名赋值给这一列。 mtcars_dt 1.2、设置／获取／使用主键 怎么将数据中的某一列设置为主键呢？&amp;mdash;setkey()函数
+ setkey(DT, key) 将DT中的key列设置为主键，但是类行名 1:，2:,&amp;hellip;,不会发生改变, 上面等价 setkeyv(DT, &amp;quot;key&amp;quot;) ，也将DT中的key列设置为主键 一旦将某一列设置成data.table的主键，就可以在参数i里指定 .()来subset那些主键了(就可以进行行筛选了)。我们还是用mtcars数据集，我们增加一个新列new  mtcars_dt &amp;lt;- data.</description>
     </item>
     
     <item>

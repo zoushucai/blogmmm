@@ -163,7 +163,24 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#matlab-优化工具箱函数">matlab 优化工具箱函数</a>
+      <ul>
+        <li><a href="#基本函数">基本函数</a></li>
+        <li><a href="#全局优化函数">全局优化函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#基本选项参数">基本选项参数</a></li>
+    <li><a href="#线性规划的标准型">线性规划的标准型</a>
+      <ul>
+        <li><a href="#matlab-实现线性规划-----linprog">matlab 实现线性规划 &mdash; linprog</a></li>
+        <li><a href="#例1-线性规划">例1 线性规划</a></li>
+        <li><a href="#双下标的线性规划问题------运输问题">双下标的线性规划问题  &mdash; 运输问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -233,202 +250,196 @@
         
         <section id="content">
             <h1 id="matlab优化工具01线性规划之linprog">matlab优化工具01线性规划之linprog</h1>
-
 <p>常用这些函数， 写个笔记</p>
-
 <h2 id="matlab-优化工具箱函数">matlab 优化工具箱函数</h2>
-
 <h3 id="基本函数">基本函数</h3>
-
-<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105160936image-20210516093622862.png" alt="image-20210516093622862"></figure></p>
-
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105160936image-20210516093622862.png" alt="image-20210516093622862"></p>
 <h3 id="全局优化函数">全局优化函数</h3>
-
 <ul>
 <li>遗传算法 ga() , 推荐, 可以处理带有约束问题的优化, 还可以求解混合整数规划</li>
 <li>模式搜索算法 patternsearch()</li>
 <li>模拟退火求解 simulannealbnd()</li>
 <li>粒子群算法 particleswarm</li>
 </ul>
-
 <h2 id="基本选项参数">基本选项参数</h2>
-
 <ul>
 <li>optimset 函数用于获取 MATLAB 优化工具箱所有的属性设置选项</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%% 函数用法与解释</span>
-options = optimset(<span style="color:#e6db74">&#39;paraml&#39;</span>,vaJuel,<span style="color:#e6db74">&#39;param2&#39;</span>,value2,<span style="color:#75715e">...)  % 如果选择用系统的默认值，则只需将参数的值设为 \[\].</span>
-optimset: 列出一个完整的优化参数列表及相应的可选值。
-options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。
-options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。
-options=optimset(oldopts, <span style="color:#e6db74">&#39;paraml&#39;</span> ,valuel ,<span style="color:#75715e">...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options</span>
-options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。
-
-
-<span style="color:#75715e">%% eg: 列出所有的优化参数列表</span>
-<span style="color:#f92672">&gt;&gt;</span> optimset
-<span style="color:#75715e">%% 结果省略</span></code></pre></div>
-<ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%% 函数用法与解释</span>
+</span></span><span style="display:flex;"><span>options = optimset(<span style="color:#e6db74">&#39;paraml&#39;</span>,vaJuel,<span style="color:#e6db74">&#39;param2&#39;</span>,value2,<span style="color:#75715e">...)  % 如果选择用系统的默认值，则只需将参数的值设为 \[\].</span>
+</span></span><span style="display:flex;"><span>optimset: 列出一个完整的优化参数列表及相应的可选值。
+</span></span><span style="display:flex;"><span>options = optimset : 创建一个名为 optoptionslOns 的优化参数结构体，其成员参数的取值为系统的默认值。
+</span></span><span style="display:flex;"><span>options = optimset(optimfun): 创建一个名为 options 的优化参数结构体，其所有参数名及值为优化函数 optimfun 的默认值。
+</span></span><span style="display:flex;"><span>options=optimset(oldopts, <span style="color:#e6db74">&#39;paraml&#39;</span> ,valuel ,<span style="color:#75715e">...) :将优化参数结构体 oldopts中的参数 paraml 改为 valuel 并将更改后的优化参数结构体命名为 options</span>
+</span></span><span style="display:flex;"><span>options = optimset(oldopts，newopts): 将已有的优化参数结构体 oldopts 与新的 优化参数结构体 newopts 合井， newopts 中的任意非空参数值将覆盖 oldopts 中的相应参数值。
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% eg: 列出所有的优化参数列表</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;</span> optimset
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 结果省略</span>
+</span></span></code></pre></div><ul>
 <li>optimget 函数: 想查看某个优化参数的值</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%%</span>
-val= optimget(options, <span style="color:#e6db74">&#39;param&#39;</span> ) : 获取优化参数结构体 options 中参数 param 的值。
-val = optimget(options, <span style="color:#e6db74">&#39;param&#39;</span>， default): 如果参数 param 在 options 中没有定义，则返回其默认值
-<span style="color:#75715e">%% eg: 查看某个优化参数的值</span>
-clc,clear all;
-options = optimset(<span style="color:#e6db74">&#39;fmincon&#39;</span>) <span style="color:#75715e">% 省略结果</span>
-options =optimset(options, <span style="color:#e6db74">&#39;Display&#39;</span> , <span style="color:#e6db74">&#39;iter&#39;</span>) <span style="color:#75715e">%修改 Display 属性值为iter</span>
-val = optimget(options,<span style="color:#e6db74">&#39;Display&#39;</span>) <span style="color:#75715e">% 重新获取fmincon 函数的 Display属性值</span></code></pre></div>
-<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161025image-20210516102520466.png" alt="image-20210516102520466"></figure></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%%</span>
+</span></span><span style="display:flex;"><span>val= optimget(options, <span style="color:#e6db74">&#39;param&#39;</span> ) : 获取优化参数结构体 options 中参数 param 的值。
+</span></span><span style="display:flex;"><span>val = optimget(options, <span style="color:#e6db74">&#39;param&#39;</span>， default): 如果参数 param 在 options 中没有定义，则返回其默认值
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% eg: 查看某个优化参数的值</span>
+</span></span><span style="display:flex;"><span>clc,clear all;
+</span></span><span style="display:flex;"><span>options = optimset(<span style="color:#e6db74">&#39;fmincon&#39;</span>) <span style="color:#75715e">% 省略结果</span>
+</span></span><span style="display:flex;"><span>options =optimset(options, <span style="color:#e6db74">&#39;Display&#39;</span> , <span style="color:#e6db74">&#39;iter&#39;</span>) <span style="color:#75715e">%修改 Display 属性值为iter</span>
+</span></span><span style="display:flex;"><span>val = optimget(options,<span style="color:#e6db74">&#39;Display&#39;</span>) <span style="color:#75715e">% 重新获取fmincon 函数的 Display属性值</span>
+</span></span></code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161025image-20210516102520466.png" alt="image-20210516102520466"></p>
 <h2 id="线性规划的标准型">线性规划的标准型</h2>
-
-<p><span  class="math">\[
+<p>$$
 \begin{aligned}
-& \min \quad   f^T x \\
-& \text {s.t.} \begin{cases}
-\textbf{A} \cdot x \leq b \\
-\textbf{Aeq} \cdot x=beq \\
+&amp; \min \quad   f^T x \
+&amp; \text {s.t.} \begin{cases}
+\textbf{A} \cdot x \leq b \
+\textbf{Aeq} \cdot x=beq \
 lb \leq x \leq ub
-\end{cases}\\ \\
-& f^T, x, b, beq是向量, \\
-& \textbf{A}, \textbf{Aeq}是矩阵,\\
-&\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\
+\end{cases}\ \
+&amp; f^T, x, b, beq是向量, \
+&amp; \textbf{A}, \textbf{Aeq}是矩阵,\
+&amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
 \end{aligned}
-\]</span></p>
-
-<h3 id="matlab-实现线性规划--linprog">matlab 实现线性规划 --- linprog</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">% 语法</span>
-x = linprog(f,A,b,Aeq,beq,lb,ub,options)
-x = linprog(problem)
-[x,fval,exitflag,output,lambda] = linprog(___)
-<span style="color:#75715e">%% 如果不存在某个约束或变量,设置为空即可</span></code></pre></div>
-<h3 id="例1-线性规划">例1 线性规划</h3>
-
-<p><span  class="math">\[
-min \quad f(x) = -5x_1 - 4x_2 - 6x_3 \\
+$$</p>
+<h3 id="matlab-实现线性规划-----linprog">matlab 实现线性规划 &mdash; linprog</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">% 语法</span>
+</span></span><span style="display:flex;"><span>x = linprog(f,A,b,Aeq,beq,lb,ub,options)
+</span></span><span style="display:flex;"><span>x = linprog(problem)
+</span></span><span style="display:flex;"><span>[x,fval,exitflag,output,lambda] = linprog(___)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 如果不存在某个约束或变量,设置为空即可</span>
+</span></span></code></pre></div><h3 id="例1-线性规划">例1 线性规划</h3>
+<p>$$
+min \quad f(x) = -5x_1 - 4x_2 - 6x_3 \
 s.t. \begin{cases}
-x_1 - x_2 + x_3 \leq 20\\
-3x_1 + 2x_2+4x_3 \leq 42\\
-3x_1+2x_2 \leq 30\\
+x_1 - x_2 + x_3 \leq 20\
+3x_1 + 2x_2+4x_3 \leq 42\
+3x_1+2x_2 \leq 30\
 x_1,x_2,x_3 \geq 0
 \end{cases}
-\]</span></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%% matlab 实现 --- 方法一</span>
-clc, clear all;
-f = [<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>]; <span style="color:#75715e">% 列向量</span>
-A = [<span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>;
-    <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>;
-    <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>];
-b = [<span style="color:#ae81ff">20</span>;<span style="color:#ae81ff">42</span>;<span style="color:#ae81ff">30</span>]; <span style="color:#75715e">% 列向量</span>
-lb = zeros(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>); <span style="color:#75715e">% 行向量</span>
-ub = []; <span style="color:#75715e">% 为空,则表示无上限,即正无穷</span>
-options = optimoptions(<span style="color:#e6db74">&#39;linprog&#39;</span>,<span style="color:#e6db74">&#39;Algorithm&#39;</span>,<span style="color:#e6db74">&#39;dual-simplex&#39;</span>,<span style="color:#e6db74">&#39;Display&#39;</span>,<span style="color:#e6db74">&#39;iter&#39;</span>);
-[x,fval,exitflag,output,lambda]  = linprog(f,A,b,[],[],lb,ub,options)
-
-<span style="color:#75715e">% ------------------ 结果 ------------------</span>
-x =
-         <span style="color:#ae81ff">0</span>
-   <span style="color:#ae81ff">15.0000</span>
-    <span style="color:#ae81ff">3.0000</span>
-fval =
-   <span style="color:#f92672">-</span><span style="color:#ae81ff">78</span>
-exitflag =
-     <span style="color:#ae81ff">1</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%% 方法二: 以结构体方式创建 </span>
-<span style="color:#75715e">%%</span>
-<span style="color:#75715e">% optimproblem(&#39;ObjectiveSense&#39;,&#39;max&#39;)  % 最优化问题的创建,  ObjectiveSense属性求最大值(默认最小值)</span>
-<span style="color:#75715e">%%  optimvar 决策变量的定义,n,m,k 设置决策变量的维度,不设置k则变量维度为n*m</span>
-<span style="color:#75715e">% x = optimvar(&#39;x&#39;,n,m,k,&#39;LowerBound&#39;,lb,&#39;UpperBound&#39;,ub)</span>
-
-
-prob = optimproblem(<span style="color:#e6db74">&#39;ObjectiveSense&#39;</span>,<span style="color:#e6db74">&#39;min&#39;</span>);
-x = optimvar(<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;LowerBound&#39;</span>,[<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>]);
-prob.Objective = <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">-</span><span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>); 
-prob.Constraints.c1 = x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> x(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">20</span>;
-prob.Constraints.c2 = <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">42</span>;
-prob.Constraints.c3 = <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">30</span>
-
-
-sols = solve(prob)
-x0 = sols.x
-
-<span style="color:#75715e">% ------------------ 结果 ------------------</span>
-x0 =
-         <span style="color:#ae81ff">0</span>
-   <span style="color:#ae81ff">15.0000</span>
-    <span style="color:#ae81ff">3.0000</span></code></pre></div>
-<h3 id="双下标的线性规划问题---运输问题">双下标的线性规划问题  --- 运输问题</h3>
-
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%% matlab 实现 --- 方法一</span>
+</span></span><span style="display:flex;"><span>clc, clear all;
+</span></span><span style="display:flex;"><span>f = [<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>]; <span style="color:#75715e">% 列向量</span>
+</span></span><span style="display:flex;"><span>A = [<span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>b = [<span style="color:#ae81ff">20</span>;<span style="color:#ae81ff">42</span>;<span style="color:#ae81ff">30</span>]; <span style="color:#75715e">% 列向量</span>
+</span></span><span style="display:flex;"><span>lb = zeros(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>); <span style="color:#75715e">% 行向量</span>
+</span></span><span style="display:flex;"><span>ub = []; <span style="color:#75715e">% 为空,则表示无上限,即正无穷</span>
+</span></span><span style="display:flex;"><span>options = optimoptions(<span style="color:#e6db74">&#39;linprog&#39;</span>,<span style="color:#e6db74">&#39;Algorithm&#39;</span>,<span style="color:#e6db74">&#39;dual-simplex&#39;</span>,<span style="color:#e6db74">&#39;Display&#39;</span>,<span style="color:#e6db74">&#39;iter&#39;</span>);
+</span></span><span style="display:flex;"><span>[x,fval,exitflag,output,lambda]  = linprog(f,A,b,[],[],lb,ub,options)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ------------------ 结果 ------------------</span>
+</span></span><span style="display:flex;"><span>x =
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">15.0000</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3.0000</span>
+</span></span><span style="display:flex;"><span>fval =
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">78</span>
+</span></span><span style="display:flex;"><span>exitflag =
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%% 方法二: 以结构体方式创建 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%%</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% optimproblem(&#39;ObjectiveSense&#39;,&#39;max&#39;)  % 最优化问题的创建,  ObjectiveSense属性求最大值(默认最小值)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%%  optimvar 决策变量的定义,n,m,k 设置决策变量的维度,不设置k则变量维度为n*m</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x = optimvar(&#39;x&#39;,n,m,k,&#39;LowerBound&#39;,lb,&#39;UpperBound&#39;,ub)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>prob = optimproblem(<span style="color:#e6db74">&#39;ObjectiveSense&#39;</span>,<span style="color:#e6db74">&#39;min&#39;</span>);
+</span></span><span style="display:flex;"><span>x = optimvar(<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;LowerBound&#39;</span>,[<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>prob.Objective = <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">-</span><span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>); 
+</span></span><span style="display:flex;"><span>prob.Constraints.c1 = x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> x(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">20</span>;
+</span></span><span style="display:flex;"><span>prob.Constraints.c2 = <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>prob.Constraints.c3 = <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">&lt;</span>= <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sols = solve(prob)
+</span></span><span style="display:flex;"><span>x0 = sols.x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ------------------ 结果 ------------------</span>
+</span></span><span style="display:flex;"><span>x0 =
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">15.0000</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3.0000</span>
+</span></span></code></pre></div><h3 id="双下标的线性规划问题------运输问题">双下标的线性规划问题  &mdash; 运输问题</h3>
 <ul>
-<li><p>如果目标函数以及约束条件中的变量是以矩阵描述,则按照一一对应规则变成向量的形式即可求解</p></li>
-
-<li><p>有些时候书写比较麻烦,比如运输问题, 则可以编写函数使其自动化</p>
-
-<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161058image-20210516105838325.png" alt="image-20210516105838325"></figure></p></li>
+<li>
+<p>如果目标函数以及约束条件中的变量是以矩阵描述,则按照一一对应规则变成向量的形式即可求解</p>
+</li>
+<li>
+<p>有些时候书写比较麻烦,比如运输问题, 则可以编写函数使其自动化</p>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161058image-20210516105838325.png" alt="image-20210516105838325"></p>
+</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> [x,f0, flag] = <span style="color:#a6e22e">transport_linprog</span>(C,s,d,indkey)
-[m,n] = size(C); A=[]; B =[];
-<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
-    Aeq(i,(i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>m<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:i<span style="color:#f92672">*</span>m) =<span style="color:#ae81ff">1</span>;
-<span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:m
-    Aeq(n<span style="color:#f92672">+</span>i,i:m:n<span style="color:#f92672">*</span>m) =<span style="color:#ae81ff">1</span>;
-<span style="color:#66d9ef">end</span>
-xm = zeros(<span style="color:#ae81ff">1</span>,n<span style="color:#f92672">*</span>m);
-f= C(:);
-Beq=[s(:);d(:)];
-<span style="color:#66d9ef">if</span> nargin <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
-    [x,f0,flag] = linprog(f,A,B,Aeq,Beq,xm);
-<span style="color:#66d9ef">else</span>
-    [x,f0,flag] = intlinprog(f,indkey,A,B,Aeq,Beq,xm);
-    x = round(x);
-<span style="color:#66d9ef">end</span>
-x = reshape(x,m,n); <span style="color:#75715e">%将向量解还原为矩阵所需的形式</span>
-<span style="color:#66d9ef">end</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%% 例题</span>
-C = [<span style="color:#ae81ff">464</span>,<span style="color:#ae81ff">513</span>,<span style="color:#ae81ff">654</span>,<span style="color:#ae81ff">867</span>;
-    <span style="color:#ae81ff">352</span>,<span style="color:#ae81ff">416</span>,<span style="color:#ae81ff">690</span>,<span style="color:#ae81ff">791</span>;
-    <span style="color:#ae81ff">995</span>,<span style="color:#ae81ff">682</span>,<span style="color:#ae81ff">388</span>,<span style="color:#ae81ff">685</span>];
-s = [<span style="color:#ae81ff">80</span>,<span style="color:#ae81ff">65</span>,<span style="color:#ae81ff">70</span>,<span style="color:#ae81ff">85</span>];
-d=[<span style="color:#ae81ff">75</span>;<span style="color:#ae81ff">125</span>;<span style="color:#ae81ff">100</span>];
-[x0,f0] = transport_linprog(C,s,d)
-
-<span style="color:#75715e">% ------------------ 结果 ------------------</span>
-Optimal solution found.
-x0 =
-     <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">20</span>     <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">55</span>
-    <span style="color:#ae81ff">80</span>    <span style="color:#ae81ff">45</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>
-     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">70</span>    <span style="color:#ae81ff">30</span>
-f0 =
-      <span style="color:#ae81ff">152535</span></code></pre></div>
-<h4 id="特殊的运输问题---指派问题">特殊的运输问题  --- 指派问题</h4>
-
-<p><figure><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161110image-20210516111020291.png" alt="image-20210516111020291"></figure></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">C= [<span style="color:#ae81ff">15</span>,<span style="color:#ae81ff">18</span>,<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">24</span>;
-    <span style="color:#ae81ff">19</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">22</span>,<span style="color:#ae81ff">18</span>;
-    <span style="color:#ae81ff">26</span>,<span style="color:#ae81ff">17</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">19</span>;
-    <span style="color:#ae81ff">19</span>,<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">17</span>]
-s = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>];<span style="color:#75715e">% s和d向量可以是列向量也可以是行向量</span>
-d = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>];
-[n,m] = size(C);
-[x0,f0] = transport_linprog(C,s,d,<span style="color:#ae81ff">1</span>:n<span style="color:#f92672">*</span>m)
-<span style="color:#75715e">% ------------------ 结果 ------------------</span>
-x0 =
-     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>
-     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>
-     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0</span>
-     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">1</span>
-f0 =
-    <span style="color:#ae81ff">70</span></code></pre></div>
-<p>参考:</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> [x,f0, flag] = <span style="color:#a6e22e">transport_linprog</span>(C,s,d,indkey)
+</span></span><span style="display:flex;"><span>[m,n] = size(C); A=[]; B =[];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
+</span></span><span style="display:flex;"><span>    Aeq(i,(i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>m<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:i<span style="color:#f92672">*</span>m) =<span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:m
+</span></span><span style="display:flex;"><span>    Aeq(n<span style="color:#f92672">+</span>i,i:m:n<span style="color:#f92672">*</span>m) =<span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>xm = zeros(<span style="color:#ae81ff">1</span>,n<span style="color:#f92672">*</span>m);
+</span></span><span style="display:flex;"><span>f= C(:);
+</span></span><span style="display:flex;"><span>Beq=[s(:);d(:)];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> nargin <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    [x,f0,flag] = linprog(f,A,B,Aeq,Beq,xm);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    [x,f0,flag] = intlinprog(f,indkey,A,B,Aeq,Beq,xm);
+</span></span><span style="display:flex;"><span>    x = round(x);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>x = reshape(x,m,n); <span style="color:#75715e">%将向量解还原为矩阵所需的形式</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%% 例题</span>
+</span></span><span style="display:flex;"><span>C = [<span style="color:#ae81ff">464</span>,<span style="color:#ae81ff">513</span>,<span style="color:#ae81ff">654</span>,<span style="color:#ae81ff">867</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">352</span>,<span style="color:#ae81ff">416</span>,<span style="color:#ae81ff">690</span>,<span style="color:#ae81ff">791</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">995</span>,<span style="color:#ae81ff">682</span>,<span style="color:#ae81ff">388</span>,<span style="color:#ae81ff">685</span>];
+</span></span><span style="display:flex;"><span>s = [<span style="color:#ae81ff">80</span>,<span style="color:#ae81ff">65</span>,<span style="color:#ae81ff">70</span>,<span style="color:#ae81ff">85</span>];
+</span></span><span style="display:flex;"><span>d=[<span style="color:#ae81ff">75</span>;<span style="color:#ae81ff">125</span>;<span style="color:#ae81ff">100</span>];
+</span></span><span style="display:flex;"><span>[x0,f0] = transport_linprog(C,s,d)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ------------------ 结果 ------------------</span>
+</span></span><span style="display:flex;"><span>Optimal solution found.
+</span></span><span style="display:flex;"><span>x0 =
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">20</span>     <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">55</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">80</span>    <span style="color:#ae81ff">45</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">70</span>    <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>f0 =
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">152535</span>
+</span></span></code></pre></div><h4 id="特殊的运输问题------指派问题">特殊的运输问题  &mdash; 指派问题</h4>
+<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161110image-20210516111020291.png" alt="image-20210516111020291"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>C= [<span style="color:#ae81ff">15</span>,<span style="color:#ae81ff">18</span>,<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">24</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">19</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">22</span>,<span style="color:#ae81ff">18</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">26</span>,<span style="color:#ae81ff">17</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">19</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">19</span>,<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">17</span>]
+</span></span><span style="display:flex;"><span>s = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>];<span style="color:#75715e">% s和d向量可以是列向量也可以是行向量</span>
+</span></span><span style="display:flex;"><span>d = [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>[n,m] = size(C);
+</span></span><span style="display:flex;"><span>[x0,f0] = transport_linprog(C,s,d,<span style="color:#ae81ff">1</span>:n<span style="color:#f92672">*</span>m)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ------------------ 结果 ------------------</span>
+</span></span><span style="display:flex;"><span>x0 =
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>f0 =
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">70</span>
+</span></span></code></pre></div><p>参考:</p>
 <ul>
-<li><p>matlab函数官网</p></li>
-
-<li><p>&lt;&lt;薛定宇教授大讲堂卷5  MATLAB最优化计算&gt;&gt;_含目录py.pdf</p></li>
-
-<li><p>&lt;&lt;MATLAB R2015b最优化计算---李娅&gt;&gt;_含目录</p></li>
-
-<li><p>&lt;&lt;MATLAB优化算法_张岩，吴水根著_北京：清华大学出版社&gt;&gt;</p></li>
+<li>
+<p>matlab函数官网</p>
+</li>
+<li>
+<p>&lt;&lt;薛定宇教授大讲堂卷5  MATLAB最优化计算&gt;&gt;_含目录py.pdf</p>
+</li>
+<li>
+<p>&lt;&lt;MATLAB R2015b最优化计算&mdash;李娅&gt;&gt;_含目录</p>
+</li>
+<li>
+<p>&lt;&lt;MATLAB优化算法_张岩，吴水根著_北京：清华大学出版社&gt;&gt;</p>
+</li>
 </ul>
 
         </section>
@@ -623,7 +634,7 @@ f0 =
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

@@ -246,13 +246,13 @@
 <p>​	可以参考这篇文章： <a href="http://www.latexstudio.net/archives/4650.html">http://www.latexstudio.net/archives/4650.html</a></p>
 <p>​	如果在word里面直接输入LaTex代码转word公式,eg:  输入<code>$x^2 + y^2$</code> ,然后选中其按 <code>alt + \ </code>即可转换，不过有点慢，耐心等待</p>
 <p>5、 <a href="https://www.typora.io/">Typora</a>  工具，写markdown的，可以写md文件，然后转出latex文件，不过转出的导言区一般是有问题的，我们直接要正文部分，向导言区的头文件之类，要根据文件适当自己添加，这是由于公式的问题，公式之间不能用空行。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{article}
-<span style="color:#66d9ef">\usepackage</span>{ctex} <span style="color:#75715e">% 中文包,如果含有公式也适用
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[colorlinks,linkcolor=red]</span>{hyperref} <span style="color:#75715e">% 超链接
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
-。。。正文。。。。。x
-<span style="color:#66d9ef">\end</span>{document}
-</code></pre></div><p>6、推荐写公式时，不用空白行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\documentclass</span>{article}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{ctex} <span style="color:#75715e">% 中文包,如果含有公式也适用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[colorlinks,linkcolor=red]</span>{hyperref} <span style="color:#75715e">% 超链接
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\begin</span>{document}
+</span></span><span style="display:flex;"><span>。。。正文。。。。。x
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{document}
+</span></span></code></pre></div><p>6、推荐写公式时，不用空白行。</p>
 <h2 id="2-表格to-latex">2. 表格to latex</h2>
 <ul>
 <li>方法一：<a href="http://www.tablesgenerator.com/latex_tables">http://www.tablesgenerator.com/latex_tables</a> :这个网站不错，就是打开有点慢（推荐）。              以及这个网站https://tableconvert.com/</li>
@@ -260,30 +260,30 @@
 <li>方法三：在<code>rstudio</code>中使用<code>stargazer</code>包 (三线头表格,头是双线）</li>
 <li>方法四： 在<code>rstudio</code>中使用<code>xtable</code>包( 三线头表格，头是单线)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e">#####  方法三：#####</span>
-<span style="color:#a6e22e">library</span>(stargazer)
-<span style="color:#a6e22e">library</span>(xlsx) 
-<span style="color:#75715e"># 推荐使用这个包，因为不会发生小数点精度的问题，但是列名可能会发生改变</span>
-<span style="color:#75715e"># 原本的列名是 3，4，....,9 读入后变成了X3,X4,....,X9.</span>
-data <span style="color:#f92672">=</span> <span style="color:#a6e22e">read.xlsx</span>(file <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;工作簿1.xlsx&#34;</span>,sheetIndex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
-                 header <span style="color:#f92672">=</span> T,colClasses <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;character&#34;</span>)
-data
-<span style="color:#a6e22e">stargazer</span>(data,summary <span style="color:#f92672">=</span> F,rownames <span style="color:#f92672">=</span> F)
-
-
-<span style="color:#75715e">##### 方法四： #####</span>
-xtable<span style="color:#f92672">::</span><span style="color:#a6e22e">xtable</span>(<span style="color:#a6e22e">head</span>(iris),digits<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>,caption<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Head of Iris Data&#34;</span>)
-<span style="color:#75715e"># 其中函数中的digits=3控制输出精度，caption就是表格的标题。</span>
-</code></pre></div><p>注意看下图： 把代码粘贴到latex编译器中，上图为<strong>方法三</strong>画的(<strong>一般学术论文，表的标题在上方，图的标题在下方</strong>) ，下图为<strong>方法四</strong>画的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e">#####  方法三：#####</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(stargazer)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(xlsx) 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 推荐使用这个包，因为不会发生小数点精度的问题，但是列名可能会发生改变</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 原本的列名是 3，4，....,9 读入后变成了X3,X4,....,X9.</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> <span style="color:#a6e22e">read.xlsx</span>(file <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;工作簿1.xlsx&#34;</span>,sheetIndex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                 header <span style="color:#f92672">=</span> T,colClasses <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;character&#34;</span>)
+</span></span><span style="display:flex;"><span>data
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stargazer</span>(data,summary <span style="color:#f92672">=</span> F,rownames <span style="color:#f92672">=</span> F)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##### 方法四： #####</span>
+</span></span><span style="display:flex;"><span>xtable<span style="color:#f92672">::</span><span style="color:#a6e22e">xtable</span>(<span style="color:#a6e22e">head</span>(iris),digits<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>,caption<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Head of Iris Data&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 其中函数中的digits=3控制输出精度，caption就是表格的标题。</span>
+</span></span></code></pre></div><p>注意看下图： 把代码粘贴到latex编译器中，上图为<strong>方法三</strong>画的(<strong>一般学术论文，表的标题在上方，图的标题在下方</strong>) ，下图为<strong>方法四</strong>画的。</p>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2019042601.png" alt="2019042601"></p>
 <h2 id="3-引用图片格式">3. 引用图片格式</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\begin</span>{figure}
-	<span style="color:#66d9ef">\centering</span>
-	<span style="color:#66d9ef">\includegraphics</span><span style="color:#a6e22e">[height=8cm,width=10cm]</span>{cci01.jpeg} <span style="color:#75715e">% []是设置图片大小，{}是名称
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">\caption</span>{22.086 percentile} <span style="color:#75715e">% 图片标题
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">\label</span>{fig1} <span style="color:#75715e">% 交叉引用的名称
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">\end</span>{figure}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{figure}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">\centering</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">\includegraphics</span><span style="color:#a6e22e">[height=8cm,width=10cm]</span>{cci01.jpeg} <span style="color:#75715e">% []是设置图片大小，{}是名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">\caption</span>{22.086 percentile} <span style="color:#75715e">% 图片标题
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">\label</span>{fig1} <span style="color:#75715e">% 交叉引用的名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\end</span>{figure}
+</span></span></code></pre></div>
         </section>
     </div>
     <br>
@@ -478,7 +478,7 @@ xtable<span style="color:#f92672">::</span><span style="color:#a6e22e">xtable</s
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

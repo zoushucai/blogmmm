@@ -346,7 +346,7 @@
 <tr>
 <td>str_conv()</td>
 <td>字符编码转换,基本函数中的比较好用</td>
-<td>iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)</td>
+<td>iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&rdquo;)</td>
 </tr>
 <tr>
 <td>str_to_upper()<!-- raw HTML omitted -->str_to_lower()</td>
@@ -372,8 +372,8 @@
 <p><strong>3.1 字符串拼接函数</strong></p>
 <p><strong>3.1.1 str_c，字符串拼接操作，与str_join完全相同，与paste()行为不完全一致。</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_c(..., sep = &quot;&quot;, collapse = NULL)
-str_join(..., sep = &quot;&quot;, collapse = NULL)
+<pre tabindex="0"><code>str_c(..., sep = &#34;&#34;, collapse = NULL)
+str_join(..., sep = &#34;&#34;, collapse = NULL)
 </code></pre><p>参数列表：</p>
 <ul>
 <li>…: 多参数的输入</li>
@@ -381,51 +381,47 @@ str_join(..., sep = &quot;&quot;, collapse = NULL)
 <li>collapse: 把多个向量参数拼接为一个大的字符串，用于字符串的分割符。</li>
 </ul>
 <p>把多个字符串拼接为一个大的字符串。</p>
-<pre tabindex="0"><code>&gt; str_c('a','b')
-[1] &quot;ab&quot;
-&gt; str_c('a','b',sep='-')
-[1] &quot;a-b&quot;
-&gt; str_c(c('a','a1'),c('b','b1'),sep='-')
-[1] &quot;a-b&quot;   &quot;a1-b1&quot;
-
+<pre tabindex="0"><code>&gt; str_c(&#39;a&#39;,&#39;b&#39;)
+[1] &#34;ab&#34;
+&gt; str_c(&#39;a&#39;,&#39;b&#39;,sep=&#39;-&#39;)
+[1] &#34;a-b&#34;
+&gt; str_c(c(&#39;a&#39;,&#39;a1&#39;),c(&#39;b&#39;,&#39;b1&#39;),sep=&#39;-&#39;)
+[1] &#34;a-b&#34;   &#34;a1-b1&#34;
 </code></pre><p>把多个向量参数拼接为一个大的字符串。</p>
-<pre tabindex="0"><code>&gt; str_c(head(letters), collapse = &quot;&quot;)
-[1] &quot;abcdef&quot;
-&gt; str_c(head(letters), collapse = &quot;, &quot;)
-[1] &quot;a, b, c, d, e, f&quot;
+<pre tabindex="0"><code>&gt; str_c(head(letters), collapse = &#34;&#34;)
+[1] &#34;abcdef&#34;
+&gt; str_c(head(letters), collapse = &#34;, &#34;)
+[1] &#34;a, b, c, d, e, f&#34;
 
 # collapse参数，对多个字符串无效
-&gt; str_c('a','b',collapse = &quot;-&quot;)   
-[1] &quot;ab&quot;
-&gt; str_c(c('a','a1'),c('b','b1'),collapse='-')
-[1] &quot;ab-a1b1&quot;
-
+&gt; str_c(&#39;a&#39;,&#39;b&#39;,collapse = &#34;-&#34;)   
+[1] &#34;ab&#34;
+&gt; str_c(c(&#39;a&#39;,&#39;a1&#39;),c(&#39;b&#39;,&#39;b1&#39;),collapse=&#39;-&#39;)
+[1] &#34;ab-a1b1&#34;
 </code></pre><p>拼接有NA值的字符串向量时，NA还是NA</p>
-<pre tabindex="0"><code>&gt; str_c(c(&quot;a&quot;, NA, &quot;b&quot;), &quot;-d&quot;)
-[1] &quot;a-d&quot; NA    &quot;b-d&quot;
-
+<pre tabindex="0"><code>&gt; str_c(c(&#34;a&#34;, NA, &#34;b&#34;), &#34;-d&#34;)
+[1] &#34;a-d&#34; NA    &#34;b-d&#34;
 </code></pre><p>对比str_c()函数和paste()函数之间的不同点。</p>
 <pre tabindex="0"><code># 多字符串拼接，默认的sep参数行为不一致
-&gt; str_c('a','b')
-[1] &quot;ab&quot;
-&gt; paste('a','b')
-[1] &quot;a b&quot;
+&gt; str_c(&#39;a&#39;,&#39;b&#39;)
+[1] &#34;ab&#34;
+&gt; paste(&#39;a&#39;,&#39;b&#39;)
+[1] &#34;a b&#34;
 
 # 向量拼接字符串，collapse参数的行为一致
-&gt; str_c(head(letters), collapse = &quot;&quot;)
-[1] &quot;abcdef&quot;
-&gt; paste(head(letters), collapse = &quot;&quot;)
-[1] &quot;abcdef&quot;
+&gt; str_c(head(letters), collapse = &#34;&#34;)
+[1] &#34;abcdef&#34;
+&gt; paste(head(letters), collapse = &#34;&#34;)
+[1] &#34;abcdef&#34;
  
 #拼接有NA值的字符串向量，对NA的处理行为不一致
-&gt; str_c(c(&quot;a&quot;, NA, &quot;b&quot;), &quot;-d&quot;)
-[1] &quot;a-d&quot; NA    &quot;b-d&quot;
-&gt; paste(c(&quot;a&quot;, NA, &quot;b&quot;), &quot;-d&quot;)
-[1] &quot;a -d&quot;  &quot;NA -d&quot; &quot;b -d&quot; 
-
+&gt; str_c(c(&#34;a&#34;, NA, &#34;b&#34;), &#34;-d&#34;)
+[1] &#34;a-d&#34; NA    &#34;b-d&#34;
+&gt; paste(c(&#34;a&#34;, NA, &#34;b&#34;), &#34;-d&#34;)
+[1] &#34;a -d&#34;  &#34;NA -d&#34; &#34;b -d&#34; 
 </code></pre><p><strong>3.1.2 str_trim:去掉字符串的空格和TAB(\t)</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_trim(string, side = c(&quot;both&quot;, &quot;left&quot;, &quot;right&quot;))
+<pre tabindex="0"><code>str_trim(string, side = c(&#34;both&#34;, &#34;left&#34;, &#34;right&#34;))
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
@@ -433,24 +429,23 @@ str_join(..., sep = &quot;&quot;, collapse = NULL)
 </ul>
 <p>去掉字符串的空格和TAB(\t)</p>
 <pre tabindex="0"><code>#只过滤左边的空格
-&gt; str_trim(&quot;  left space\t\n&quot;,side='left') 
-[1] &quot;left space\t\n&quot;
+&gt; str_trim(&#34;  left space\t\n&#34;,side=&#39;left&#39;) 
+[1] &#34;left space\t\n&#34;
 
 #只过滤右边的空格
-&gt; str_trim(&quot;  left space\t\n&quot;,side='right')
-[1] &quot;  left space&quot;
+&gt; str_trim(&#34;  left space\t\n&#34;,side=&#39;right&#39;)
+[1] &#34;  left space&#34;
 
 #过滤两边的空格
-&gt; str_trim(&quot;  left space\t\n&quot;,side='both')
-[1] &quot;left space&quot;
+&gt; str_trim(&#34;  left space\t\n&#34;,side=&#39;both&#39;)
+[1] &#34;left space&#34;
 
 #过滤两边的空格
-&gt; str_trim(&quot;\nno space\n\t&quot;)
-[1] &quot;no space&quot;
-
+&gt; str_trim(&#34;\nno space\n\t&#34;)
+[1] &#34;no space&#34;
 </code></pre><p><strong>3.1.3 str_pad:补充字符串的长度</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_pad(string, width, side = c(&quot;left&quot;, &quot;right&quot;, &quot;both&quot;), pad = &quot; &quot;)
+<pre tabindex="0"><code>str_pad(string, width, side = c(&#34;left&#34;, &#34;right&#34;, &#34;both&#34;), pad = &#34; &#34;)
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
@@ -460,21 +455,20 @@ str_join(..., sep = &quot;&quot;, collapse = NULL)
 </ul>
 <p>补充字符串的长度。</p>
 <pre tabindex="0"><code># 从左边补充空格，直到字符串长度为20
-&gt; str_pad(&quot;conan&quot;, 20, &quot;left&quot;)
-[1] &quot;               conan&quot;
+&gt; str_pad(&#34;conan&#34;, 20, &#34;left&#34;)
+[1] &#34;               conan&#34;
 
 # 从右边补充空格，直到字符串长度为20
-&gt; str_pad(&quot;conan&quot;, 20, &quot;right&quot;)
-[1] &quot;conan               &quot;
+&gt; str_pad(&#34;conan&#34;, 20, &#34;right&#34;)
+[1] &#34;conan               &#34;
 
 # 从左右两边各补充空格，直到字符串长度为20
-&gt; str_pad(&quot;conan&quot;, 20, &quot;both&quot;)
-[1] &quot;       conan        &quot;
+&gt; str_pad(&#34;conan&#34;, 20, &#34;both&#34;)
+[1] &#34;       conan        &#34;
 
 # 从左右两边各补充x字符，直到字符串长度为20
-&gt; str_pad(&quot;conan&quot;, 20, &quot;both&quot;,'x')
-[1] &quot;xxxxxxxconanxxxxxxxx&quot;
-
+&gt; str_pad(&#34;conan&#34;, 20, &#34;both&#34;,&#39;x&#39;)
+[1] &#34;xxxxxxxconanxxxxxxxx&#34;
 </code></pre><p><strong>3.1.4 str_dup: 复制字符串</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_dup(string, times)
@@ -484,16 +478,15 @@ str_join(..., sep = &quot;&quot;, collapse = NULL)
 <li>times: 复制数量</li>
 </ul>
 <p>复制一个字符串向量。</p>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abca4&#34;, 123, &#34;cba2&#34;)
 
 # 复制2次
 &gt; str_dup(val, 2)
-[1] &quot;abca4abca4&quot; &quot;123123&quot;     &quot;cba2cba2&quot;  
+[1] &#34;abca4abca4&#34; &#34;123123&#34;     &#34;cba2cba2&#34;  
 
 # 按位置复制
 &gt; str_dup(val, 1:3)
-[1] &quot;abca4&quot;        &quot;123123&quot;       &quot;cba2cba2cba2&quot;
-
+[1] &#34;abca4&#34;        &#34;123123&#34;       &#34;cba2cba2cba2&#34;
 </code></pre><p><strong>3.1.5 str_wrap，控制字符串输出格式</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_wrap(string, width = 80, indent = 0, exdent = 0)
@@ -504,10 +497,10 @@ str_join(..., sep = &quot;&quot;, collapse = NULL)
 <li>indent: 段落首行的缩进值</li>
 <li>exdent: 段落非首行的缩进值</li>
 </ul>
-<pre tabindex="0"><code> txt&lt;-'R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。'
+<pre tabindex="0"><code> txt&lt;-&#39;R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。&#39;
 
 # 设置宽度为40个字符
-&gt; cat(str_wrap(txt, width = 40), &quot;\n&quot;)
+&gt; cat(str_wrap(txt, width = 40), &#34;\n&#34;)
 R语言作为统计学一门语言，一直在小众领域
 闪耀着光芒。直到大数据的爆发，R语言变成
 了一门炙手可热的数据分析的利器。随着越来
@@ -516,14 +509,14 @@ R语言作为统计学一门语言，一直在小众领域
 育，银行，电商，互联网….都在使用R语言。 
 
 # 设置宽度为60字符，首行缩进2字符
-&gt; cat(str_wrap(txt, width = 60, indent = 2), &quot;\n&quot;)
+&gt; cat(str_wrap(txt, width = 60, indent = 2), &#34;\n&#34;)
   R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数
 据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来
 越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已
 不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。 
 
 # 设置宽度为10字符，非首行缩进4字符
-&gt; cat(str_wrap(txt, width = 10, exdent = 4), &quot;\n&quot;)
+&gt; cat(str_wrap(txt, width = 10, exdent = 4), &#34;\n&#34;)
 R语言作为
     统计学一
     门语言，
@@ -549,7 +542,6 @@ R语言作为
     电商，互联
     网….都在使
     用R语言。 
-
 </code></pre><p><strong>3.1.6 str_sub,截取字符串</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_sub(string, start = 1L, end = -1L)
@@ -560,73 +552,68 @@ R语言作为
 <li>end : 结束位置</li>
 </ul>
 <p>截取字符串。</p>
-<pre tabindex="0"><code>&gt; txt &lt;- &quot;I am Conan.&quot;
+<pre tabindex="0"><code>&gt; txt &lt;- &#34;I am Conan.&#34;
 
 # 截取1-4的索引位置的字符串
 &gt; str_sub(txt, 1, 4)
-[1] &quot;I am&quot;
+[1] &#34;I am&#34;
 
 # 截取1-6的索引位置的字符串
 &gt; str_sub(txt, end=6)
-[1] &quot;I am C&quot;
+[1] &#34;I am C&#34;
 
 # 截取6到结束的索引位置的字符串
 &gt; str_sub(txt, 6)
-[1] &quot;Conan.&quot;
+[1] &#34;Conan.&#34;
 
 # 分2段截取字符串
 &gt; str_sub(txt, c(1, 4), c(6, 8))
-[1] &quot;I am C&quot; &quot;m Con&quot; 
+[1] &#34;I am C&#34; &#34;m Con&#34; 
 
 # 通过负坐标截取字符串
 &gt; str_sub(txt, -3)
-[1] &quot;an.&quot;
+[1] &#34;an.&#34;
 &gt; str_sub(txt, end = -3)
-[1] &quot;I am Cona&quot;
-
+[1] &#34;I am Cona&#34;
 </code></pre><p>对截取的字符串进行赋值。</p>
-<pre tabindex="0"><code>&gt; x &lt;- &quot;AAABBBCCC&quot;
+<pre tabindex="0"><code>&gt; x &lt;- &#34;AAABBBCCC&#34;
 
 # 在字符串的1的位置赋值为1
 &gt; str_sub(x, 1, 1) &lt;- 1; x
-[1] &quot;1AABBBCCC&quot;
+[1] &#34;1AABBBCCC&#34;
 
 # 在字符串从2到-2的位置赋值为2345
-&gt; str_sub(x, 2, -2) &lt;- &quot;2345&quot;; x
-[1] &quot;12345C&quot;
-
+&gt; str_sub(x, 2, -2) &lt;- &#34;2345&#34;; x
+[1] &#34;12345C&#34;
 </code></pre><p><strong>3.2 字符串计算函数</strong></p>
 <p><strong>3.2.1 str_count, 字符串计数</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_count(string, pattern = &quot;&quot;)
+<pre tabindex="0"><code>str_count(string, pattern = &#34;&#34;)
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配的字符。</li>
 </ul>
 <p>对字符串中匹配的字符计数</p>
-<pre tabindex="0"><code>&gt; str_count('aaa444sssddd', &quot;a&quot;)
+<pre tabindex="0"><code>&gt; str_count(&#39;aaa444sssddd&#39;, &#34;a&#34;)
 [1] 3
-
 </code></pre><p>对字符串向量中匹配的字符计数</p>
-<pre tabindex="0"><code>&gt; fruit &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;pear&quot;, &quot;pineapple&quot;)
-&gt; str_count(fruit, &quot;a&quot;)
+<pre tabindex="0"><code>&gt; fruit &lt;- c(&#34;apple&#34;, &#34;banana&#34;, &#34;pear&#34;, &#34;pineapple&#34;)
+&gt; str_count(fruit, &#34;a&#34;)
 [1] 1 3 1 1
-&gt; str_count(fruit, &quot;p&quot;)
+&gt; str_count(fruit, &#34;p&#34;)
 [1] 2 0 1 3
-
-</code></pre><p>对字符串中的'.&lsquo;字符计数，由于.是正则表达式的匹配符，直接判断计数的结果是不对的。</p>
-<pre tabindex="0"><code>&gt; str_count(c(&quot;a.&quot;, &quot;.&quot;, &quot;.a.&quot;,NA), &quot;.&quot;)
+</code></pre><p>对字符串中的&rsquo;.&lsquo;字符计数，由于.是正则表达式的匹配符，直接判断计数的结果是不对的。</p>
+<pre tabindex="0"><code>&gt; str_count(c(&#34;a.&#34;, &#34;.&#34;, &#34;.a.&#34;,NA), &#34;.&#34;)
 [1]  2  1  3 NA
 
 # 用fixed匹配字符
-&gt; str_count(c(&quot;a.&quot;, &quot;.&quot;, &quot;.a.&quot;,NA), fixed(&quot;.&quot;))
+&gt; str_count(c(&#34;a.&#34;, &#34;.&#34;, &#34;.a.&#34;,NA), fixed(&#34;.&#34;))
 [1]  1  1  2 NA
 
 # 用\\匹配字符
-&gt; str_count(c(&quot;a.&quot;, &quot;.&quot;, &quot;.a.&quot;,NA), &quot;\\.&quot;)
+&gt; str_count(c(&#34;a.&#34;, &#34;.&#34;, &#34;.a.&#34;,NA), &#34;\\.&#34;)
 [1]  1  1  2 NA
-
 </code></pre><p><strong>3.2.2 str_length,字符串长度</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_length(string)
@@ -635,14 +622,12 @@ R语言作为
 <li>string: 字符串，字符串向量。</li>
 </ul>
 <p>计算字符串的长度:</p>
-<pre tabindex="0"><code>&gt; str_length(c(&quot;I&quot;, &quot;am&quot;, &quot;张丹&quot;, NA))
+<pre tabindex="0"><code>&gt; str_length(c(&#34;I&#34;, &#34;am&#34;, &#34;张丹&#34;, NA))
 [1]  1  2  2 NA
-
 </code></pre><p><strong>3.2.3 str_sort, 字符串值排序，同str_order索引排序</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_sort(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
-str_order(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
-
+<pre tabindex="0"><code>str_sort(x, decreasing = FALSE, na_last = TRUE, locale = &#34;&#34;, ...)
+str_order(x, decreasing = FALSE, na_last = TRUE, locale = &#34;&#34;, ...)
 </code></pre><p>参数列表：</p>
 <ul>
 <li>x: 字符串，字符串向量。</li>
@@ -652,37 +637,34 @@ str_order(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
 </ul>
 <p>对字符串值进行排序。</p>
 <pre tabindex="0"><code># 按ASCII字母排序
-&gt; str_sort(c('a',1,2,'11'), locale = &quot;en&quot;)  
-[1] &quot;1&quot;  &quot;11&quot; &quot;2&quot;  &quot;a&quot; 
+&gt; str_sort(c(&#39;a&#39;,1,2,&#39;11&#39;), locale = &#34;en&#34;)  
+[1] &#34;1&#34;  &#34;11&#34; &#34;2&#34;  &#34;a&#34; 
 
 # 倒序排序
 &gt; str_sort(letters,decreasing=TRUE)         
- [1] &quot;z&quot; &quot;y&quot; &quot;x&quot; &quot;w&quot; &quot;v&quot; &quot;u&quot; &quot;t&quot; &quot;s&quot; &quot;r&quot; &quot;q&quot; &quot;p&quot; &quot;o&quot; &quot;n&quot; &quot;m&quot; &quot;l&quot; &quot;k&quot; &quot;j&quot; &quot;i&quot; &quot;h&quot;
-[20] &quot;g&quot; &quot;f&quot; &quot;e&quot; &quot;d&quot; &quot;c&quot; &quot;b&quot; &quot;a&quot;
+ [1] &#34;z&#34; &#34;y&#34; &#34;x&#34; &#34;w&#34; &#34;v&#34; &#34;u&#34; &#34;t&#34; &#34;s&#34; &#34;r&#34; &#34;q&#34; &#34;p&#34; &#34;o&#34; &#34;n&#34; &#34;m&#34; &#34;l&#34; &#34;k&#34; &#34;j&#34; &#34;i&#34; &#34;h&#34;
+[20] &#34;g&#34; &#34;f&#34; &#34;e&#34; &#34;d&#34; &#34;c&#34; &#34;b&#34; &#34;a&#34;
 
 # 按拼音排序
-&gt; str_sort(c('你','好','粉','丝','日','志'),locale = &quot;zh&quot;)  
-[1] &quot;粉&quot; &quot;好&quot; &quot;你&quot; &quot;日&quot; &quot;丝&quot; &quot;志&quot;
-
+&gt; str_sort(c(&#39;你&#39;,&#39;好&#39;,&#39;粉&#39;,&#39;丝&#39;,&#39;日&#39;,&#39;志&#39;),locale = &#34;zh&#34;)  
+[1] &#34;粉&#34; &#34;好&#34; &#34;你&#34; &#34;日&#34; &#34;丝&#34; &#34;志&#34;
 </code></pre><p>对NA值的排序处理</p>
 <pre tabindex="0"><code> #把NA放最后面
-&gt; str_sort(c(NA,'1',NA),na_last=TRUE) 
-[1] &quot;1&quot; NA  NA
+&gt; str_sort(c(NA,&#39;1&#39;,NA),na_last=TRUE) 
+[1] &#34;1&#34; NA  NA
  
 #把NA放最前面
-&gt; str_sort(c(NA,'1',NA),na_last=FALSE) 
-[1] NA  NA  &quot;1&quot;
+&gt; str_sort(c(NA,&#39;1&#39;,NA),na_last=FALSE) 
+[1] NA  NA  &#34;1&#34;
 
 #去掉NA值 
-&gt; str_sort(c(NA,'1',NA),na_last=NA)    
-[1] &quot;1&quot;
-
+&gt; str_sort(c(NA,&#39;1&#39;,NA),na_last=NA)    
+[1] &#34;1&#34;
 </code></pre><p><strong>3.3 字符串匹配函数</strong></p>
 <p><strong>3.3.1 str_split,字符串分割，同str_split_fixed</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_split(string, pattern, n = Inf)
 str_split_fixed(string, pattern, n)
-
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
@@ -690,30 +672,29 @@ str_split_fixed(string, pattern, n)
 <li>n: 分割个数</li>
 </ul>
 <p>对字符串进行分割。</p>
-<pre tabindex="0"><code>&gt; val &lt;- &quot;abc,123,234,iuuu&quot;
+<pre tabindex="0"><code>&gt; val &lt;- &#34;abc,123,234,iuuu&#34;
 
 # 以,进行分割
-&gt; s1&lt;-str_split(val, &quot;,&quot;);s1
+&gt; s1&lt;-str_split(val, &#34;,&#34;);s1
 [[1]]
-[1] &quot;abc&quot;  &quot;123&quot;  &quot;234&quot;  &quot;iuuu&quot;
+[1] &#34;abc&#34;  &#34;123&#34;  &#34;234&#34;  &#34;iuuu&#34;
 
 # 以,进行分割，保留2块
-&gt; s2&lt;-str_split(val, &quot;,&quot;,2);s2
+&gt; s2&lt;-str_split(val, &#34;,&#34;,2);s2
 [[1]]
-[1] &quot;abc&quot;          &quot;123,234,iuuu&quot;
+[1] &#34;abc&#34;          &#34;123,234,iuuu&#34;
 
 # 查看str_split()函数操作的结果类型list
 &gt; class(s1)
-[1] &quot;list&quot;
+[1] &#34;list&#34;
 
 # 用str_split_fixed()函数分割，结果类型是matrix
-&gt; s3&lt;-str_split_fixed(val, &quot;,&quot;,2);s3
+&gt; s3&lt;-str_split_fixed(val, &#34;,&#34;,2);s3
      [,1]  [,2]          
-[1,] &quot;abc&quot; &quot;123,234,iuuu&quot;
+[1,] &#34;abc&#34; &#34;123,234,iuuu&#34;
 
 &gt; class(s3)
-[1] &quot;matrix&quot;
-
+[1] &#34;matrix&#34;
 </code></pre><p><strong>3.3.2 str_subset:返回的匹配字符串</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_subset(string, pattern)
@@ -722,23 +703,22 @@ str_split_fixed(string, pattern, n)
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配的字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abc&quot;, 123, &quot;cba&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abc&#34;, 123, &#34;cba&#34;)
 
 # 全文匹配
-&gt; str_subset(val, &quot;a&quot;)
-[1] &quot;abc&quot; &quot;cba&quot;
+&gt; str_subset(val, &#34;a&#34;)
+[1] &#34;abc&#34; &#34;cba&#34;
 
 # 开头匹配
-&gt; str_subset(val, &quot;^a&quot;)
-[1] &quot;abc&quot;
+&gt; str_subset(val, &#34;^a&#34;)
+[1] &#34;abc&#34;
 
 # 结尾匹配
-&gt; str_subset(val, &quot;a$&quot;)
-[1] &quot;cba&quot;
-
+&gt; str_subset(val, &#34;a$&#34;)
+[1] &#34;cba&#34;
 </code></pre><p><strong>3.3.3 word, 从文本中提取单词</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>word(string, start = 1L, end = start, sep = fixed(&quot; &quot;))
+<pre tabindex="0"><code>word(string, start = 1L, end = start, sep = fixed(&#34; &#34;))
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
@@ -746,23 +726,22 @@ str_split_fixed(string, pattern, n)
 <li>end: 结束位置。</li>
 <li>sep: 匹配字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;I am Conan.&quot;, &quot;http://fens.me, ok&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;I am Conan.&#34;, &#34;http://fens.me, ok&#34;)
 
 # 默认以空格分割，取第一个位置的字符串
 &gt; word(val, 1)
-[1] &quot;I&quot;               &quot;http://fens.me,&quot;
+[1] &#34;I&#34;               &#34;http://fens.me,&#34;
 &gt; word(val, -1)
-[1] &quot;Conan.&quot; &quot;ok&quot;    
+[1] &#34;Conan.&#34; &#34;ok&#34;    
 &gt; word(val, 2, -1)
-[1] &quot;am Conan.&quot; &quot;ok&quot;       
+[1] &#34;am Conan.&#34; &#34;ok&#34;       
 
 # 以,分割，取第一个位置的字符串 
-&gt; val&lt;-'111,222,333,444'
-&gt; word(val, 1, sep = fixed(','))
-[1] &quot;111&quot;
-&gt; word(val, 3, sep = fixed(','))
-[1] &quot;333&quot;
-
+&gt; val&lt;-&#39;111,222,333,444&#39;
+&gt; word(val, 1, sep = fixed(&#39;,&#39;))
+[1] &#34;111&#34;
+&gt; word(val, 3, sep = fixed(&#39;,&#39;))
+[1] &#34;333&#34;
 </code></pre><p><strong>3.3.4 str_detect匹配字符串的字符</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_detect(string, pattern)
@@ -771,80 +750,76 @@ str_split_fixed(string, pattern, n)
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abca4&#34;, 123, &#34;cba2&#34;)
 
 # 检查字符串向量，是否包括a
-&gt; str_detect(val, &quot;a&quot;)
+&gt; str_detect(val, &#34;a&#34;)
 [1]  TRUE FALSE  TRUE
 
 # 检查字符串向量，是否以a为开头
-&gt; str_detect(val, &quot;^a&quot;)
+&gt; str_detect(val, &#34;^a&#34;)
 [1]  TRUE FALSE FALSE
 
 # 检查字符串向量，是否以a为结尾
-&gt; str_detect(val, &quot;a$&quot;)
+&gt; str_detect(val, &#34;a$&#34;)
 [1] FALSE FALSE FALSE
-
 </code></pre><p><strong>3.3.6 str_match,从字符串中提取匹配组</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_match(string, pattern)
 str_match_all(string, pattern)
-
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
 </ul>
 <p>从字符串中提取匹配组</p>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abc&quot;, 123, &quot;cba&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abc&#34;, 123, &#34;cba&#34;)
 
 # 匹配字符a，并返回对应的字符
-&gt; str_match(val, &quot;a&quot;)
+&gt; str_match(val, &#34;a&#34;)
      [,1]
-[1,] &quot;a&quot; 
+[1,] &#34;a&#34; 
 [2,] NA  
-[3,] &quot;a&quot; 
+[3,] &#34;a&#34; 
 
 # 匹配字符0-9，限1个，并返回对应的字符
-&gt; str_match(val, &quot;[0-9]&quot;)
+&gt; str_match(val, &#34;[0-9]&#34;)
      [,1]
 [1,] NA  
-[2,] &quot;1&quot; 
+[2,] &#34;1&#34; 
 [3,] NA  
 
 # 匹配字符0-9，不限数量，并返回对应的字符
-&gt; str_match(val, &quot;[0-9]*&quot;)
+&gt; str_match(val, &#34;[0-9]*&#34;)
      [,1] 
-[1,] &quot;&quot;   
-[2,] &quot;123&quot;
-[3,] &quot;&quot;  
-
+[1,] &#34;&#34;   
+[2,] &#34;123&#34;
+[3,] &#34;&#34;  
 </code></pre><p>从字符串中提取匹配组，以字符串matrix格式返回</p>
-<pre tabindex="0"><code>&gt; str_match_all(val, &quot;a&quot;)
+<pre tabindex="0"><code>&gt; str_match_all(val, &#34;a&#34;)
 [[1]]
      [,1]
-[1,] &quot;a&quot; 
+[1,] &#34;a&#34; 
 
 [[2]]
      [,1]
 
 [[3]]
      [,1]
-[1,] &quot;a&quot; 
+[1,] &#34;a&#34; 
 
-&gt; str_match_all(val, &quot;[0-9]&quot;)
+&gt; str_match_all(val, &#34;[0-9]&#34;)
 [[1]]
      [,1]
 
 [[2]]
      [,1]
-[1,] &quot;1&quot; 
-[2,] &quot;2&quot; 
-[3,] &quot;3&quot; 
+[1,] &#34;1&#34; 
+[2,] &#34;2&#34; 
+[3,] &#34;3&#34; 
 
 [[3]]
      [,1]
-
 </code></pre><p><strong>3.3.7 str_replace，字符串替换</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_replace(string, pattern, replacement)
@@ -854,32 +829,30 @@ str_match_all(string, pattern)
 <li>pattern: 匹配字符。</li>
 <li>replacement: 用于替换的字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abc&quot;, 123, &quot;cba&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abc&#34;, 123, &#34;cba&#34;)
 
 # 把目标字符串第一个出现的a或b，替换为-
-&gt; str_replace(val, &quot;[ab]&quot;, &quot;-&quot;)
-[1] &quot;-bc&quot; &quot;123&quot; &quot;c-a&quot;
+&gt; str_replace(val, &#34;[ab]&#34;, &#34;-&#34;)
+[1] &#34;-bc&#34; &#34;123&#34; &#34;c-a&#34;
 
 # 把目标字符串所有出现的a或b，替换为-
-&gt; str_replace_all(val, &quot;[ab]&quot;, &quot;-&quot;)
-[1] &quot;--c&quot; &quot;123&quot; &quot;c--&quot;
+&gt; str_replace_all(val, &#34;[ab]&#34;, &#34;-&#34;)
+[1] &#34;--c&#34; &#34;123&#34; &#34;c--&#34;
 
 # 把目标字符串所有出现的a，替换为被转义的字符
-&gt; str_replace_all(val, &quot;[a]&quot;, &quot;\1\1&quot;)
-[1] &quot;\001\001bc&quot; &quot;123&quot;        &quot;cb\001\001&quot;
-
+&gt; str_replace_all(val, &#34;[a]&#34;, &#34;\1\1&#34;)
+[1] &#34;\001\001bc&#34; &#34;123&#34;        &#34;cb\001\001&#34;
 </code></pre><p><strong>3.3.8 str_replace_na把NA替换为NA字符串</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_replace_na(string, replacement = &quot;NA&quot;)
+<pre tabindex="0"><code>str_replace_na(string, replacement = &#34;NA&#34;)
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>replacement : 用于替换的字符。</li>
 </ul>
 <p>把NA替换为字符串</p>
-<pre tabindex="0"><code>&gt; str_replace_na(c(NA,'NA',&quot;abc&quot;),'x')
-[1] &quot;x&quot;   &quot;NA&quot;  &quot;abc&quot;
-
+<pre tabindex="0"><code>&gt; str_replace_na(c(NA,&#39;NA&#39;,&#34;abc&#34;),&#39;x&#39;)
+[1] &#34;x&#34;   &#34;NA&#34;  &#34;abc&#34;
 </code></pre><p><strong>3.3.9 str_locate，找到的模式在字符串中的位置。</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_locate(string, pattern)
@@ -889,24 +862,24 @@ str_locate_all(string, pattern)
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca&quot;, 123, &quot;cba&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abca&#34;, 123, &#34;cba&#34;)
 
 # 匹配a在字符串中的位置
-&gt; str_locate(val, &quot;a&quot;)
+&gt; str_locate(val, &#34;a&#34;)
      start end
 [1,]     1   1
 [2,]    NA  NA
 [3,]     3   3
 
 # 用向量匹配
-&gt; str_locate(val, c(&quot;a&quot;, 12, &quot;b&quot;))
+&gt; str_locate(val, c(&#34;a&#34;, 12, &#34;b&#34;))
      start end
 [1,]     1   1
 [2,]     1   2
 [3,]     2   2
 
 # 以字符串matrix格式返回
-&gt; str_locate_all(val, &quot;a&quot;)
+&gt; str_locate_all(val, &#34;a&#34;)
 [[1]]
      start end
 [1,]     1   1
@@ -920,7 +893,7 @@ str_locate_all(string, pattern)
 [1,]     3   3
 
 # 匹配a或b字符，以字符串matrix格式返回
-&gt; str_locate_all(val, &quot;[ab]&quot;)
+&gt; str_locate_all(val, &#34;[ab]&#34;)
 [[1]]
      start end
 [1,]     1   1
@@ -934,7 +907,6 @@ str_locate_all(string, pattern)
      start end
 [1,]     2   2
 [2,]     3   3
-
 </code></pre><p><strong>3.3.10 str_extract从字符串中提取匹配模式</strong></p>
 <p>函数定义：</p>
 <pre tabindex="0"><code>str_extract(string, pattern)
@@ -945,38 +917,37 @@ str_extract_all(string, pattern, simplify = FALSE)
 <li>pattern: 匹配字符。</li>
 <li>simplify: 返回值，TRUE返回matrix，FALSE返回字符串向量</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
+<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abca4&#34;, 123, &#34;cba2&#34;)
 
 # 返回匹配的数字
-&gt; str_extract(val, &quot;\\d&quot;)
-[1] &quot;4&quot; &quot;1&quot; &quot;2&quot;
+&gt; str_extract(val, &#34;\\d&#34;)
+[1] &#34;4&#34; &#34;1&#34; &#34;2&#34;
 
 # 返回匹配的字符
-&gt; str_extract(val, &quot;[a-z]+&quot;)
-[1] &quot;abca&quot; NA     &quot;cba&quot; 
+&gt; str_extract(val, &#34;[a-z]+&#34;)
+[1] &#34;abca&#34; NA     &#34;cba&#34; 
 
 
-&gt; val &lt;- c(&quot;abca4&quot;, 123, &quot;cba2&quot;)
-&gt; str_extract_all(val, &quot;\\d&quot;)
+&gt; val &lt;- c(&#34;abca4&#34;, 123, &#34;cba2&#34;)
+&gt; str_extract_all(val, &#34;\\d&#34;)
 [[1]]
-[1] &quot;4&quot;
+[1] &#34;4&#34;
 
 [[2]]
-[1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
+[1] &#34;1&#34; &#34;2&#34; &#34;3&#34;
 
 [[3]]
-[1] &quot;2&quot;
+[1] &#34;2&#34;
 
-&gt; str_extract_all(val, &quot;[a-z]+&quot;)
+&gt; str_extract_all(val, &#34;[a-z]+&#34;)
 [[1]]
-[1] &quot;abca&quot;
+[1] &#34;abca&#34;
 
 [[2]]
 character(0)
 
 [[3]]
-[1] &quot;cba&quot;
-
+[1] &#34;cba&#34;
 </code></pre><p><strong>3.4 字符串变换函数</strong></p>
 <p><strong>3.4.1 str_conv:字符编码转换</strong></p>
 <p>函数定义：</p>
@@ -988,57 +959,53 @@ character(0)
 </ul>
 <p>对中文进行转码处理。</p>
 <pre tabindex="0"><code># 把中文字符字节化
-&gt; x &lt;- charToRaw('你好');x
+&gt; x &lt;- charToRaw(&#39;你好&#39;);x
 [1] c4 e3 ba c3
 
 # 默认win系统字符集为GBK，GB2312为GBK字集，转码正常
-&gt; str_conv(x, &quot;GBK&quot;)
-[1] &quot;你好&quot;
-&gt; str_conv(x, &quot;GB2312&quot;)
-[1] &quot;你好&quot;
+&gt; str_conv(x, &#34;GBK&#34;)
+[1] &#34;你好&#34;
+&gt; str_conv(x, &#34;GB2312&#34;)
+[1] &#34;你好&#34;
 
 # 转UTF-8失败
-&gt; str_conv(x, &quot;UTF-8&quot;)
-[1] &quot;���&quot;
+&gt; str_conv(x, &#34;UTF-8&#34;)
+[1] &#34;���&#34;
 Warning messages:
-1: In stri_conv(string, encoding, &quot;UTF-8&quot;) :
+1: In stri_conv(string, encoding, &#34;UTF-8&#34;) :
   input data \xffffffc4 in current source encoding could not be converted to Unicode
-2: In stri_conv(string, encoding, &quot;UTF-8&quot;) :
+2: In stri_conv(string, encoding, &#34;UTF-8&#34;) :
   input data \xffffffe3\xffffffba in current source encoding could not be converted to Unicode
-3: In stri_conv(string, encoding, &quot;UTF-8&quot;) :
+3: In stri_conv(string, encoding, &#34;UTF-8&#34;) :
   input data \xffffffc3 in current source encoding could not be converted to Unicode
-
 </code></pre><p>把unicode转UTF-8</p>
-<pre tabindex="0"><code>&gt; x1 &lt;- &quot;\u5317\u4eac&quot;
-&gt; str_conv(x1, &quot;UTF-8&quot;)
-[1] &quot;北京&quot;
-
+<pre tabindex="0"><code>&gt; x1 &lt;- &#34;\u5317\u4eac&#34;
+&gt; str_conv(x1, &#34;UTF-8&#34;)
+[1] &#34;北京&#34;
 </code></pre><p><strong>3.4.2 str_to_upper,字符串大写转换。</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_to_upper(string, locale = &quot;&quot;)
-str_to_lower(string, locale = &quot;&quot;)
-str_to_title(string, locale = &quot;&quot;)
-
+<pre tabindex="0"><code>str_to_upper(string, locale = &#34;&#34;)
+str_to_lower(string, locale = &#34;&#34;)
+str_to_title(string, locale = &#34;&#34;)
 </code></pre><p>参数列表：</p>
 <ul>
 <li>string: 字符串。</li>
 <li>locale:按哪种语言习惯排序</li>
 </ul>
 <p>字符串大写转换:</p>
-<pre tabindex="0"><code>&gt; val &lt;- &quot;I am conan. Welcome to my blog! http://fens.me&quot;
+<pre tabindex="0"><code>&gt; val &lt;- &#34;I am conan. Welcome to my blog! http://fens.me&#34;
 
 # 全大写
 &gt; str_to_upper(val)
-[1] &quot;I AM CONAN. WELCOME TO MY BLOG! HTTP://FENS.ME&quot;
+[1] &#34;I AM CONAN. WELCOME TO MY BLOG! HTTP://FENS.ME&#34;
 
 # 全小写
 &gt; str_to_lower(val)
-[1] &quot;i am conan. welcome to my blog! http://fens.me&quot;
+[1] &#34;i am conan. welcome to my blog! http://fens.me&#34;
 
 # 首字母大写
 &gt; str_to_title(val)
-[1] &quot;I Am Conan. Welcome To My Blog! Http://Fens.Me&quot;
-
+[1] &#34;I Am Conan. Welcome To My Blog! Http://Fens.Me&#34;
 </code></pre><p>字符串在平常的数据处理中经常用过，需要对字符串进行分割、连接、转换等操作，本篇中通过介绍stringr，灵活的字符串处理库，可以有效地提高代码的编写效率。有了好的工具，在用R语言处理字符串就顺手了。</p>
 <p>本文转载张丹的粉丝日志，链接：<a href="http://blog.fens.me/r-stringr/">http://blog.fens.me/r-stringr/</a>，</p>
 
@@ -1079,7 +1046,7 @@ str_to_title(string, locale = &quot;&quot;)
     </li>
     <li style="float:right;list-style:none">
         
-        <a class="next" href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/"> 下一篇: R语言字符处理---基本函数</a>
+        <a class="next" href="/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86---%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/"> 下一篇: R语言字符处理---基本函数</a>
         
     </li>
      
@@ -1236,7 +1203,7 @@ str_to_title(string, locale = &quot;&quot;)
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

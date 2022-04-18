@@ -406,297 +406,292 @@ $$
 <p>(5)终止条件判断：若达到迭代次数则停止算法，输出群体中的最有解，否则转到(3)</p>
 <h2 id="连续函数求最小值-遗传算法通用代码二进制编码">连续函数求最小值 遗传算法通用代码(二进制编码)</h2>
 <p>需要用到遗传算法工具箱，需要自己配置</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%% 清空所有</span>
-clc
-clear all
-close all
-<span style="color:#75715e">%% 定义目标函数值--用向量的形式定义方便以后调用</span>
-<span style="color:#75715e">%ObjFun = @(x,y)21.5+x.*sin(4*pi.*x)+y.*sin(20*pi.*y);</span>
-ObjFun = @(X)<span style="color:#f92672">-</span>(<span style="color:#ae81ff">21.5</span><span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">20</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">2</span>)));
-
-<span style="color:#75715e">%% 定义遗传算法初始参数</span>
-NIND = <span style="color:#ae81ff">100</span>;  <span style="color:#75715e">% 个体数目，或者种群大小（Number of individual）</span>
-MAXGEN = <span style="color:#ae81ff">500</span> ;  <span style="color:#75715e">%最大遗传代数 （Maximum number of generation）</span>
-NVAR = <span style="color:#ae81ff">2</span>; <span style="color:#75715e">% 变量的数目，此处为x1 x2两个变量，所以染色体长度为NVAR * PRECI</span>
-PRECI = <span style="color:#ae81ff">18</span>; <span style="color:#75715e">% 变量的二进制位数（Precision of variable ）若当某个变量长度不一样时，取所有变量中编码最长的那个, </span>
-GGAP = <span style="color:#ae81ff">0.9</span>; <span style="color:#75715e">% 代沟(Generation gap )，</span>
-px = <span style="color:#ae81ff">0.7</span>; <span style="color:#75715e">% 交叉概率</span>
-pm =<span style="color:#ae81ff">0.01</span>; <span style="color:#75715e">% 变异概率</span>
-
-<span style="color:#75715e">%% 建立区域描述器(Build field descriptor),一种特殊矩阵结构。</span>
-<span style="color:#75715e">% 区域描述器结构FieldD =  [len;lb;ub;code;scale;lbin;ubin]</span>
-<span style="color:#75715e">%  其中 len 表示染色体长度；</span>
-<span style="color:#75715e">%  lb、ub 分别指每个变量使用的下界和上界</span>
-<span style="color:#75715e">% code 指明该二进制串是用的什么编码（0代表格雷编码，1代表二进制编码）,常用二进制编码</span>
-<span style="color:#75715e">% scale是否使用对数刻度（为0表示算术刻度，1代表对数刻度），常用算术刻度</span>
-<span style="color:#75715e">% lbin和ubin 表示是否包含变量的上下边界,0表示不包含，1表示包含 ，</span>
-<span style="color:#75715e">%其中rep函数重复某个元素(or矩阵)扩充为指定维度</span>
-FieldD = [rep([PRECI],[<span style="color:#ae81ff">1</span>,NVAR]);[<span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span> <span style="color:#ae81ff">4</span>];[<span style="color:#ae81ff">12.1</span> <span style="color:#ae81ff">5.8</span>];[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>];[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>];[<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>];[<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>]];
-
-<span style="color:#75715e">% 也可以简化为 </span>
-<span style="color:#75715e">%FieldD = [rep([PRECI],[1,NVAR]);rep([-10,15],[1,NVAR]);rep([1;0;1;1]),[1,NVAR]];</span>
-<span style="color:#75715e">% rep([PRECI],[1,NVAR])表示为染色体长度 ---对应参数len；</span>
-<span style="color:#75715e">% rep([-10,15],[1,NVAR]) 所有变量的上下界 ---- 对应参数lb和ub;</span>
-<span style="color:#75715e">% rep([1;0;1;1]),[1,NVAR] 基本的参数</span>
-
-Chrom = crtbp(NIND,NVAR <span style="color:#f92672">*</span> PRECI);<span style="color:#75715e">% 随机创建初始种群，行代表一个染色体（即个体），NVAR * PRECI 代表染色体长度，每一个变量的长度为PRECI。</span>
-
-<span style="color:#75715e">%% 遗传算法优化</span>
-gen = <span style="color:#ae81ff">0</span> ; <span style="color:#75715e">% 迭代计数器</span>
-X = bs2rv(Chrom,FieldD);<span style="color:#75715e">%初始种群转变为十进制数,即解空间</span>
-ObjV = ObjFun(X);<span style="color:#75715e">%计算初始种群的目标函数值</span>
-<span style="color:#75715e">% 优结果的初始跟踪</span>
-<span style="color:#75715e">%trace = zeros(3,MAXGEN) ;% 由于本题巧好是两个变量，方便画图，可用此种方法代替，3代表比变量数目多1，每一列代表每一代种群的最有解和对应的适应度值（最后一个）,</span>
-trace = zeros(<span style="color:#ae81ff">2</span>,MAXGEN);<span style="color:#75715e">%通用方法</span>
-<span style="color:#66d9ef">while</span> gen <span style="color:#f92672">&lt;</span>MAXGEN 
-    FitnV = ranking(ObjV);  <span style="color:#75715e">%分配适应度 (Assign fitness values),这里求最小值</span>
-    SelCh = select(<span style="color:#e6db74">&#39;sus&#39;</span>,Chrom,FitnV,GGAP);<span style="color:#75715e">%选择</span>
-    SelCh = recombin(<span style="color:#e6db74">&#39;xovsp&#39;</span>,SelCh,px);<span style="color:#75715e">% 交叉</span>
-    SelCh = mut(SelCh,pm); <span style="color:#75715e">%变异</span>
-    X = bs2rv(SelCh,FieldD);<span style="color:#75715e">% 子代个体转变为十进制数</span>
-    ObjVSel = ObjFun(X); <span style="color:#75715e">%子代个体的适应度值计算</span>
-    [Chrom,ObjV]=reins(Chrom,SelCh,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,ObjV,ObjVSel);<span style="color:#75715e">%重插入子代到父代，得到新种群</span>
-    gen = gen<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;  <span style="color:#75715e">% 迭代计数器更新</span>
-    [Y,I] = min(ObjV);<span style="color:#75715e">% 获取每代的最有解以及其序号，Y为最优解，I为最有解的个体序号（即种群中所在的行数）</span>
-    <span style="color:#75715e">% 对应设置trace = zeros(3,MAXGEN) ;</span>
-    <span style="color:#75715e">%trace(1:2,gen) = X(I,:); % 记下每一代的最有解，因为有两个变量,gen控 制trace矩阵的列,</span>
-    <span style="color:#75715e">%trace(3,gen) = Y;%记下每一代的最有解对应的适应度值</span>
-    trace(<span style="color:#ae81ff">1</span>,gen)= Y;<span style="color:#75715e">%记下每一代的最有解对应的适应度值</span>
-    trace(<span style="color:#ae81ff">2</span>,gen)= sum(ObjV)<span style="color:#f92672">/</span>length(ObjV);
-<span style="color:#66d9ef">end</span>
-<span style="color:#75715e">% 求出最有解</span>
-[Y,I] = min(ObjV);
-X(I,:)  <span style="color:#75715e">% 最有解</span>
-Y       <span style="color:#75715e">%对应的最优适应度值</span>
-
-<span style="color:#75715e">% 画出寻优结果轨迹图</span>
-figure(<span style="color:#ae81ff">1</span>);
-plot(trace(<span style="color:#ae81ff">1</span>,:));hold on;
-plot(trace(<span style="color:#ae81ff">2</span>,:),<span style="color:#e6db74">&#39;-.&#39;</span>);grid;
-legend(<span style="color:#e6db74">&#39;种群均值的变化&#39;</span>,<span style="color:#e6db74">&#39;解的变化&#39;</span>);
-
-<span style="color:#75715e">%% 画出函数图</span>
-figure(<span style="color:#ae81ff">2</span>);
-lbx = <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span> ; lux = <span style="color:#ae81ff">12.1</span>;
-lby = <span style="color:#ae81ff">4.1</span> ; luy= <span style="color:#ae81ff">5.8</span>;
-ezmesh(<span style="color:#e6db74">&#39;21.5+x*sin(4*pi*x)+y*sin(20*pi*y)&#39;</span>,[lbx,lux,lby,luy],<span style="color:#ae81ff">1000</span>)
-hold on;
-    
-
-</code></pre></div><h2 id="连续函数求最小值-遗传算法通用代码实数编码">连续函数求最小值 遗传算法通用代码(实数编码)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%% 清空所有</span>
+</span></span><span style="display:flex;"><span>clc
+</span></span><span style="display:flex;"><span>clear all
+</span></span><span style="display:flex;"><span>close all
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 定义目标函数值--用向量的形式定义方便以后调用</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%ObjFun = @(x,y)21.5+x.*sin(4*pi.*x)+y.*sin(20*pi.*y);</span>
+</span></span><span style="display:flex;"><span>ObjFun = @(X)<span style="color:#f92672">-</span>(<span style="color:#ae81ff">21.5</span><span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">20</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">2</span>)));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 定义遗传算法初始参数</span>
+</span></span><span style="display:flex;"><span>NIND = <span style="color:#ae81ff">100</span>;  <span style="color:#75715e">% 个体数目，或者种群大小（Number of individual）</span>
+</span></span><span style="display:flex;"><span>MAXGEN = <span style="color:#ae81ff">500</span> ;  <span style="color:#75715e">%最大遗传代数 （Maximum number of generation）</span>
+</span></span><span style="display:flex;"><span>NVAR = <span style="color:#ae81ff">2</span>; <span style="color:#75715e">% 变量的数目，此处为x1 x2两个变量，所以染色体长度为NVAR * PRECI</span>
+</span></span><span style="display:flex;"><span>PRECI = <span style="color:#ae81ff">18</span>; <span style="color:#75715e">% 变量的二进制位数（Precision of variable ）若当某个变量长度不一样时，取所有变量中编码最长的那个, </span>
+</span></span><span style="display:flex;"><span>GGAP = <span style="color:#ae81ff">0.9</span>; <span style="color:#75715e">% 代沟(Generation gap )，</span>
+</span></span><span style="display:flex;"><span>px = <span style="color:#ae81ff">0.7</span>; <span style="color:#75715e">% 交叉概率</span>
+</span></span><span style="display:flex;"><span>pm =<span style="color:#ae81ff">0.01</span>; <span style="color:#75715e">% 变异概率</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 建立区域描述器(Build field descriptor),一种特殊矩阵结构。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 区域描述器结构FieldD =  [len;lb;ub;code;scale;lbin;ubin]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%  其中 len 表示染色体长度；</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%  lb、ub 分别指每个变量使用的下界和上界</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% code 指明该二进制串是用的什么编码（0代表格雷编码，1代表二进制编码）,常用二进制编码</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% scale是否使用对数刻度（为0表示算术刻度，1代表对数刻度），常用算术刻度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% lbin和ubin 表示是否包含变量的上下边界,0表示不包含，1表示包含 ，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%其中rep函数重复某个元素(or矩阵)扩充为指定维度</span>
+</span></span><span style="display:flex;"><span>FieldD = [rep([PRECI],[<span style="color:#ae81ff">1</span>,NVAR]);[<span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span> <span style="color:#ae81ff">4</span>];[<span style="color:#ae81ff">12.1</span> <span style="color:#ae81ff">5.8</span>];[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>];[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>];[<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>];[<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>]];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 也可以简化为 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%FieldD = [rep([PRECI],[1,NVAR]);rep([-10,15],[1,NVAR]);rep([1;0;1;1]),[1,NVAR]];</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% rep([PRECI],[1,NVAR])表示为染色体长度 ---对应参数len；</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% rep([-10,15],[1,NVAR]) 所有变量的上下界 ---- 对应参数lb和ub;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% rep([1;0;1;1]),[1,NVAR] 基本的参数</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Chrom = crtbp(NIND,NVAR <span style="color:#f92672">*</span> PRECI);<span style="color:#75715e">% 随机创建初始种群，行代表一个染色体（即个体），NVAR * PRECI 代表染色体长度，每一个变量的长度为PRECI。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 遗传算法优化</span>
+</span></span><span style="display:flex;"><span>gen = <span style="color:#ae81ff">0</span> ; <span style="color:#75715e">% 迭代计数器</span>
+</span></span><span style="display:flex;"><span>X = bs2rv(Chrom,FieldD);<span style="color:#75715e">%初始种群转变为十进制数,即解空间</span>
+</span></span><span style="display:flex;"><span>ObjV = ObjFun(X);<span style="color:#75715e">%计算初始种群的目标函数值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 优结果的初始跟踪</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%trace = zeros(3,MAXGEN) ;% 由于本题巧好是两个变量，方便画图，可用此种方法代替，3代表比变量数目多1，每一列代表每一代种群的最有解和对应的适应度值（最后一个）,</span>
+</span></span><span style="display:flex;"><span>trace = zeros(<span style="color:#ae81ff">2</span>,MAXGEN);<span style="color:#75715e">%通用方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> gen <span style="color:#f92672">&lt;</span>MAXGEN 
+</span></span><span style="display:flex;"><span>    FitnV = ranking(ObjV);  <span style="color:#75715e">%分配适应度 (Assign fitness values),这里求最小值</span>
+</span></span><span style="display:flex;"><span>    SelCh = select(<span style="color:#e6db74">&#39;sus&#39;</span>,Chrom,FitnV,GGAP);<span style="color:#75715e">%选择</span>
+</span></span><span style="display:flex;"><span>    SelCh = recombin(<span style="color:#e6db74">&#39;xovsp&#39;</span>,SelCh,px);<span style="color:#75715e">% 交叉</span>
+</span></span><span style="display:flex;"><span>    SelCh = mut(SelCh,pm); <span style="color:#75715e">%变异</span>
+</span></span><span style="display:flex;"><span>    X = bs2rv(SelCh,FieldD);<span style="color:#75715e">% 子代个体转变为十进制数</span>
+</span></span><span style="display:flex;"><span>    ObjVSel = ObjFun(X); <span style="color:#75715e">%子代个体的适应度值计算</span>
+</span></span><span style="display:flex;"><span>    [Chrom,ObjV]=reins(Chrom,SelCh,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,ObjV,ObjVSel);<span style="color:#75715e">%重插入子代到父代，得到新种群</span>
+</span></span><span style="display:flex;"><span>    gen = gen<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;  <span style="color:#75715e">% 迭代计数器更新</span>
+</span></span><span style="display:flex;"><span>    [Y,I] = min(ObjV);<span style="color:#75715e">% 获取每代的最有解以及其序号，Y为最优解，I为最有解的个体序号（即种群中所在的行数）</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">% 对应设置trace = zeros(3,MAXGEN) ;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">%trace(1:2,gen) = X(I,:); % 记下每一代的最有解，因为有两个变量,gen控 制trace矩阵的列,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">%trace(3,gen) = Y;%记下每一代的最有解对应的适应度值</span>
+</span></span><span style="display:flex;"><span>    trace(<span style="color:#ae81ff">1</span>,gen)= Y;<span style="color:#75715e">%记下每一代的最有解对应的适应度值</span>
+</span></span><span style="display:flex;"><span>    trace(<span style="color:#ae81ff">2</span>,gen)= sum(ObjV)<span style="color:#f92672">/</span>length(ObjV);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 求出最有解</span>
+</span></span><span style="display:flex;"><span>[Y,I] = min(ObjV);
+</span></span><span style="display:flex;"><span>X(I,:)  <span style="color:#75715e">% 最有解</span>
+</span></span><span style="display:flex;"><span>Y       <span style="color:#75715e">%对应的最优适应度值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 画出寻优结果轨迹图</span>
+</span></span><span style="display:flex;"><span>figure(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>plot(trace(<span style="color:#ae81ff">1</span>,:));hold on;
+</span></span><span style="display:flex;"><span>plot(trace(<span style="color:#ae81ff">2</span>,:),<span style="color:#e6db74">&#39;-.&#39;</span>);grid;
+</span></span><span style="display:flex;"><span>legend(<span style="color:#e6db74">&#39;种群均值的变化&#39;</span>,<span style="color:#e6db74">&#39;解的变化&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 画出函数图</span>
+</span></span><span style="display:flex;"><span>figure(<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>lbx = <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span> ; lux = <span style="color:#ae81ff">12.1</span>;
+</span></span><span style="display:flex;"><span>lby = <span style="color:#ae81ff">4.1</span> ; luy= <span style="color:#ae81ff">5.8</span>;
+</span></span><span style="display:flex;"><span>ezmesh(<span style="color:#e6db74">&#39;21.5+x*sin(4*pi*x)+y*sin(20*pi*y)&#39;</span>,[lbx,lux,lby,luy],<span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>hold on;
+</span></span><span style="display:flex;"><span>    
+</span></span></code></pre></div><h2 id="连续函数求最小值-遗传算法通用代码实数编码">连续函数求最小值 遗传算法通用代码(实数编码)</h2>
 <p>手写</p>
 <p>主函数如下:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#75715e">%%%%% 不用遗传算法工具箱，手写</span>
-<span style="color:#75715e">%% 清空所有</span>
-clc
-clear all
-close all
-<span style="color:#75715e">%% 定义目标函数值--用向量的形式定义方便以后调用</span>
-ObjFun = @(X)<span style="color:#f92672">-</span>(<span style="color:#ae81ff">21.5</span><span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">20</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">2</span>)));
-<span style="color:#75715e">%% GA </span>
-popsize =<span style="color:#ae81ff">100</span>; <span style="color:#75715e">% 种群规模</span>
-lenchrom =<span style="color:#ae81ff">3</span>  ;<span style="color:#75715e">% 变量字符串长度</span>
-pc = <span style="color:#ae81ff">0.7</span>;  <span style="color:#75715e">% 交叉概率</span>
-pm = <span style="color:#ae81ff">0.3</span>;<span style="color:#75715e">% 变异概率</span>
-maxgen = <span style="color:#ae81ff">100</span>; <span style="color:#75715e">%进化次数</span>
-<span style="color:#75715e">% 变量的取值范围</span>
-popmax =<span style="color:#ae81ff">12</span>;
-popmin =<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>;
-bound = [popmin popmax;popmin popmax;popmin popmax];
-<span style="color:#75715e">%% 产生初始种群</span>
-<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:popsize
-    GApop(i,:) = Code(lenchrom,bound);<span style="color:#75715e">%随机产生一个染色体--采用实数编码</span>
-    fitness(i) = ObjFun(GApop(i,:));<span style="color:#75715e">% 计算该染色体的适应度</span>
-<span style="color:#66d9ef">end</span>
-<span style="color:#75715e">% 找到初始种群中最好的染色体和对应的适应度值，并且设置当前的最好染色体和适应度值为全局最好</span>
-gbest = GApop;  <span style="color:#75715e">%当前种群所有的染色体为个体最佳</span>
-fitnessgbest=fitness;<span style="color:#75715e">% 当前种群中所有染色体的适应度值为个体最佳适应度</span>
-[bestfitness,bestindex] = min(fitness);
-zbest =GApop(bestindex,:);<span style="color:#75715e">% 当前最好的染色体为全局最佳染色体</span>
-fitnesszbest=bestfitness;<span style="color:#75715e">% 当前最好的染色体对应的适应度值为全局最佳染色体适应度值</span>
-yy(<span style="color:#ae81ff">1</span>) = fitnesszbest;  <span style="color:#75715e">% 存储每一代的最优适应度值</span>
-<span style="color:#75715e">%% 迭代寻优</span>
-<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:maxgen
-    GApop = Select(GApop,fitness,popsize);<span style="color:#75715e">% 选择</span>
-    GApop=Cross(pc,lenchrom,GApop,popsize,bound);<span style="color:#75715e">% 交叉操作 GA </span>
-    GApop=Mutation(pm,lenchrom,GApop,popsize,[i maxgen],bound);<span style="color:#75715e">% 变异操作 GA</span>
-    pop=GApop;
-    <span style="color:#66d9ef">for</span> j = <span style="color:#ae81ff">1</span>:popsize
-        fitness(j)= ObjFun(pop(j,:));
-        <span style="color:#75715e">% 个体最有值更新</span>
-        <span style="color:#66d9ef">if</span> fitness(j)<span style="color:#f92672">&lt;</span>fitnessgbest(j)
-            gbest(j,:) = pop(j,:);
-            fitnessgbest(j) = fitness(j);
-        <span style="color:#66d9ef">end</span>
-        <span style="color:#75715e">% 群体最有值更新</span>
-        <span style="color:#66d9ef">if</span> fitness(j) <span style="color:#f92672">&lt;</span>fitnesszbest
-            zbest= pop(j,:);
-            fitnesszbest = fitness(j);
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">end</span>
-    yy(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) = fitnesszbest;
-<span style="color:#66d9ef">end</span>
- 
-<span style="color:#75715e">%% 输出结果</span>
-disp(<span style="color:#e6db74">&#39;最优值：&#39;</span>)
-zbest
-disp(<span style="color:#e6db74">&#39;最优适应度：&#39;</span>)
-fitnesszbest
-
-<span style="color:#75715e">%% 画图 -- 进化次数与适应度之间的关系图（折线图）</span>
-figure(<span style="color:#ae81ff">1</span>)
-plot(yy,<span style="color:#e6db74">&#39;linewidth&#39;</span>,<span style="color:#ae81ff">2</span>);
-title([<span style="color:#e6db74">&#39;适应度曲线&#39;</span> ,<span style="color:#e6db74">&#39;终止代数=&#39;</span>,num2str(maxgen)]);
-xlabel(<span style="color:#e6db74">&#39;进化代数&#39;</span>);ylabel(<span style="color:#e6db74">&#39;适应度&#39;</span>);
-grid on ;
-
-</code></pre></div><p>染色体编码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> ret = <span style="color:#a6e22e">Code</span>(lenchrom,bound)
-<span style="color:#75715e">% 本函数将变量编码成染色体，用于随机初始化一个种群</span>
-<span style="color:#75715e">% lenchrom  input : 染色体长度</span>
-<span style="color:#75715e">% bound     input ： 变量的取值范围</span>
-<span style="color:#75715e">% ret       output : 染色体的编码值</span>
-flag = <span style="color:#ae81ff">0</span> ;
-<span style="color:#66d9ef">while</span> flag <span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-    pick = rand(<span style="color:#ae81ff">1</span>,lenchrom);
-    ret = bound(:,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">&#39;+</span>(bound(:,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>bound(:,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">&#39;.*</span>pick;<span style="color:#75715e">%线性插值,bound(:,1)表示变量的下界。</span>
-    flag = test(lenchrom,bound,ret);<span style="color:#75715e">%染色体可行性检查</span>
-<span style="color:#66d9ef">end</span>
-
-</code></pre></div><p>染色体可行性检查(若有多的约束自己加，也可以加到目标函数中)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> flag = <span style="color:#a6e22e">test</span>(lenchrom,bound,code)
-<span style="color:#75715e">% lenchrom input : 染色体长度</span>
-<span style="color:#75715e">% bound    input : 变量的取值范围</span>
-<span style="color:#75715e">% code  output: 染色体的编码值</span>
-<span style="color:#75715e">% 初始变量 </span>
-flag =<span style="color:#ae81ff">1</span>;
-[n,m] = size(code);
-<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
-    <span style="color:#66d9ef">if</span> code(i)<span style="color:#f92672">&lt;</span>bound(i,<span style="color:#ae81ff">1</span>) <span style="color:#f92672">||</span> code(i)<span style="color:#f92672">&gt;</span>bound(i,<span style="color:#ae81ff">2</span>)
-        flag =<span style="color:#ae81ff">0</span>;
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>选择算子如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> ret=<span style="color:#a6e22e">Select</span>(individuals,fitness,sizepop)
-<span style="color:#75715e">% 本函数对每一代种群中的染色体进行选择，以进行后面的交叉和变异 </span>
-<span style="color:#75715e">% individuals input : 种群信息</span>
-<span style="color:#75715e">% fitness input : 适应度</span>
-<span style="color:#75715e">% sizepop input : 种群规模</span>
-<span style="color:#75715e">% ret   output : 经过选择后的种群</span>
-
-sumf = cumsum(fitness<span style="color:#f92672">./</span>sum(fitness));<span style="color:#75715e">%累计概率</span>
-index = [];
-<span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:sizepop
-    pick = rand ; <span style="color:#75715e">% 产生随机数</span>
-    <span style="color:#66d9ef">for</span> j = <span style="color:#ae81ff">1</span>:sizepop
-        <span style="color:#66d9ef">if</span> pick <span style="color:#f92672">&lt;</span>= sumf(j)
-            index =[index j];
-            <span style="color:#66d9ef">break</span>;
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-
-individuals = individuals(index,:);
-fitness=fitness(index);
-ret = individuals;
-
-</code></pre></div><p>交叉算子如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> ret=<span style="color:#a6e22e">Cross</span>(pcross,lenchrom,chrom,sizepop,bound)
-<span style="color:#75715e">%本函数完成交叉操作</span>
-<span style="color:#75715e">% pcorss                input  : 交叉概率</span>
-<span style="color:#75715e">% lenchrom              input  : 染色体的长度</span>
-<span style="color:#75715e">% chrom                 input  : 染色体群</span>
-<span style="color:#75715e">% sizepop               input  : 种群规模</span>
-<span style="color:#75715e">% ret                   output : 交叉后的染色体</span>
-
-<span style="color:#66d9ef">for</span> i=<span style="color:#ae81ff">1</span>:sizepop 
-    
-    <span style="color:#75715e">% 随机选择两个染色体进行交叉</span>
-    pick=rand(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>);
-    <span style="color:#66d9ef">while</span> prod(pick)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#75715e">%检查产生的两个随机数是否存在0 </span>
-        pick=rand(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>);
-    <span style="color:#66d9ef">end</span>
-    index=ceil(pick<span style="color:#f92672">.*</span>sizepop);<span style="color:#75715e">% ceil  向上取整</span>
-    <span style="color:#75715e">% 交叉概率决定是否进行交叉</span>
-    pick=rand;
-    <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-        pick=rand;
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">if</span> pick<span style="color:#f92672">&gt;</span>pcross
-        <span style="color:#66d9ef">continue</span>;
-    <span style="color:#66d9ef">end</span>
-    flag=<span style="color:#ae81ff">0</span>;
-    <span style="color:#66d9ef">while</span> flag<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-        <span style="color:#75715e">% 随机选择交叉位置</span>
-        pick=rand;
-        <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-            pick=rand;
-        <span style="color:#66d9ef">end</span>
-        pos=ceil(pick<span style="color:#f92672">.*</span>sum(lenchrom)); <span style="color:#75715e">%随机选择进行交叉的位置，即选择第几个变量进行交叉，</span>
-        							   <span style="color:#75715e">% 注意：两个染色体交叉的位置相同</span>
-        pick=rand; <span style="color:#75715e">%交叉开始</span>
-        v1=chrom(index(<span style="color:#ae81ff">1</span>),pos); 
-        v2=chrom(index(<span style="color:#ae81ff">2</span>),pos);
-        chrom(index(<span style="color:#ae81ff">1</span>),pos)=pick<span style="color:#f92672">*</span>v2<span style="color:#f92672">+</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick)<span style="color:#f92672">*</span>v1;
-        chrom(index(<span style="color:#ae81ff">2</span>),pos)=pick<span style="color:#f92672">*</span>v1<span style="color:#f92672">+</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick)<span style="color:#f92672">*</span>v2; <span style="color:#75715e">%交叉结束</span>
-        flag1=test(lenchrom,bound,chrom(index(<span style="color:#ae81ff">1</span>),:));  <span style="color:#75715e">%检验染色体1的可行性</span>
-        flag2=test(lenchrom,bound,chrom(index(<span style="color:#ae81ff">2</span>),:));  <span style="color:#75715e">%检验染色体2的可行性</span>
-        <span style="color:#66d9ef">if</span>   flag1<span style="color:#f92672">*</span>flag2<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-            flag=<span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">else</span> flag=<span style="color:#ae81ff">1</span>;
-        <span style="color:#66d9ef">end</span>    <span style="color:#75715e">%如果两个染色体不是都可行，则重新交叉</span>
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-ret=chrom;
-
-</code></pre></div><p>变异算子如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#66d9ef">function</span> ret=<span style="color:#a6e22e">Mutation</span>(pmutation,lenchrom,chrom,sizepop,pop,bound)
-<span style="color:#75715e">% 本函数完成变异操作</span>
-<span style="color:#75715e">% pcorss                input  : 变异概率</span>
-<span style="color:#75715e">% lenchrom              input  : 染色体长度</span>
-<span style="color:#75715e">% chrom                 input  : 染色体群</span>
-<span style="color:#75715e">% sizepop               input  : 种群规模</span>
-<span style="color:#75715e">% pop                   input  : 当前种群的进化代数和最大的进化代数信息</span>
-<span style="color:#75715e">% ret                   output : 变异后的染色体</span>
-<span style="color:#75715e">%pm,l       enchrom,GApop,popsize,[i maxgen],bound</span>
-<span style="color:#75715e">%pmutation,lenchrom,chrom,sizepop,pop,      bound</span>
-<span style="color:#75715e">%pmutation = pm,lenchrom = lenchrom,chrom= GApop,sizepop=popsize,pop=[1 maxgen]</span>
-<span style="color:#66d9ef">for</span> i=<span style="color:#ae81ff">1</span>:sizepop  
-    <span style="color:#75715e">% 随机选择一个染色体进行变异</span>
-    pick=rand;
-    <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-        pick=rand;
-    <span style="color:#66d9ef">end</span>
-    index=ceil(pick<span style="color:#f92672">*</span>sizepop);
-    <span style="color:#75715e">% 变异概率决定该轮循环是否进行变异</span>
-    pick=rand;
-    <span style="color:#66d9ef">if</span> pick<span style="color:#f92672">&gt;</span>pmutation
-        <span style="color:#66d9ef">continue</span>;
-    <span style="color:#66d9ef">end</span>
-    flag=<span style="color:#ae81ff">0</span>;
-    <span style="color:#66d9ef">while</span> flag<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-        <span style="color:#75715e">% 变异位置</span>
-        pick=rand;
-        <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
-            pick=rand;
-        <span style="color:#66d9ef">end</span>
-        pos=ceil(pick<span style="color:#f92672">*</span>sum(lenchrom));  <span style="color:#75715e">%随机选择了染色体变异的位置，即选择了第pos个变量进行变异</span>
-        v=chrom(i,pos); <span style="color:#75715e">%选择第i个染色体的第pos位置的基因（即第pos个变量）</span>
-        v1=v<span style="color:#f92672">-</span>bound(pos,<span style="color:#ae81ff">1</span>); <span style="color:#75715e">% 计算该基因距离所处变量下界的长度</span>
-        v2=bound(pos,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>v;<span style="color:#75715e">% 计算该基因距离所处变量上界的长度</span>
-        pick=rand; <span style="color:#75715e">%变异开始-- 应该用的是高斯变异</span>
-        <span style="color:#66d9ef">if</span> pick<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0.5</span>
-            delta=v2<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick^((<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pop(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>pop(<span style="color:#ae81ff">2</span>))^<span style="color:#ae81ff">2</span>));
-            chrom(i,pos)=v<span style="color:#f92672">+</span>delta;
-        <span style="color:#66d9ef">else</span>
-            delta=v1<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick^((<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pop(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>pop(<span style="color:#ae81ff">2</span>))^<span style="color:#ae81ff">2</span>));
-            chrom(i,pos)=v<span style="color:#f92672">-</span>delta;
-        <span style="color:#66d9ef">end</span>   <span style="color:#75715e">%变异结束</span>
-        flag=test(lenchrom,bound,chrom(i,:));     <span style="color:#75715e">%检验染色体的可行性</span>
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-ret=chrom;
-</code></pre></div><p>算法程序链接（二进制与实数编码）：<a href="/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95matlab.zip">遗传算法</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%%%%% 不用遗传算法工具箱，手写</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 清空所有</span>
+</span></span><span style="display:flex;"><span>clc
+</span></span><span style="display:flex;"><span>clear all
+</span></span><span style="display:flex;"><span>close all
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 定义目标函数值--用向量的形式定义方便以后调用</span>
+</span></span><span style="display:flex;"><span>ObjFun = @(X)<span style="color:#f92672">-</span>(<span style="color:#ae81ff">21.5</span><span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">+</span>X(:,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.*</span>sin(<span style="color:#ae81ff">20</span><span style="color:#f92672">*</span>pi<span style="color:#f92672">.*</span>X(:,<span style="color:#ae81ff">2</span>)));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% GA </span>
+</span></span><span style="display:flex;"><span>popsize =<span style="color:#ae81ff">100</span>; <span style="color:#75715e">% 种群规模</span>
+</span></span><span style="display:flex;"><span>lenchrom =<span style="color:#ae81ff">3</span>  ;<span style="color:#75715e">% 变量字符串长度</span>
+</span></span><span style="display:flex;"><span>pc = <span style="color:#ae81ff">0.7</span>;  <span style="color:#75715e">% 交叉概率</span>
+</span></span><span style="display:flex;"><span>pm = <span style="color:#ae81ff">0.3</span>;<span style="color:#75715e">% 变异概率</span>
+</span></span><span style="display:flex;"><span>maxgen = <span style="color:#ae81ff">100</span>; <span style="color:#75715e">%进化次数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 变量的取值范围</span>
+</span></span><span style="display:flex;"><span>popmax =<span style="color:#ae81ff">12</span>;
+</span></span><span style="display:flex;"><span>popmin =<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>bound = [popmin popmax;popmin popmax;popmin popmax];
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 产生初始种群</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:popsize
+</span></span><span style="display:flex;"><span>    GApop(i,:) = Code(lenchrom,bound);<span style="color:#75715e">%随机产生一个染色体--采用实数编码</span>
+</span></span><span style="display:flex;"><span>    fitness(i) = ObjFun(GApop(i,:));<span style="color:#75715e">% 计算该染色体的适应度</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 找到初始种群中最好的染色体和对应的适应度值，并且设置当前的最好染色体和适应度值为全局最好</span>
+</span></span><span style="display:flex;"><span>gbest = GApop;  <span style="color:#75715e">%当前种群所有的染色体为个体最佳</span>
+</span></span><span style="display:flex;"><span>fitnessgbest=fitness;<span style="color:#75715e">% 当前种群中所有染色体的适应度值为个体最佳适应度</span>
+</span></span><span style="display:flex;"><span>[bestfitness,bestindex] = min(fitness);
+</span></span><span style="display:flex;"><span>zbest =GApop(bestindex,:);<span style="color:#75715e">% 当前最好的染色体为全局最佳染色体</span>
+</span></span><span style="display:flex;"><span>fitnesszbest=bestfitness;<span style="color:#75715e">% 当前最好的染色体对应的适应度值为全局最佳染色体适应度值</span>
+</span></span><span style="display:flex;"><span>yy(<span style="color:#ae81ff">1</span>) = fitnesszbest;  <span style="color:#75715e">% 存储每一代的最优适应度值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 迭代寻优</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:maxgen
+</span></span><span style="display:flex;"><span>    GApop = Select(GApop,fitness,popsize);<span style="color:#75715e">% 选择</span>
+</span></span><span style="display:flex;"><span>    GApop=Cross(pc,lenchrom,GApop,popsize,bound);<span style="color:#75715e">% 交叉操作 GA </span>
+</span></span><span style="display:flex;"><span>    GApop=Mutation(pm,lenchrom,GApop,popsize,[i maxgen],bound);<span style="color:#75715e">% 变异操作 GA</span>
+</span></span><span style="display:flex;"><span>    pop=GApop;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j = <span style="color:#ae81ff">1</span>:popsize
+</span></span><span style="display:flex;"><span>        fitness(j)= ObjFun(pop(j,:));
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 个体最有值更新</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> fitness(j)<span style="color:#f92672">&lt;</span>fitnessgbest(j)
+</span></span><span style="display:flex;"><span>            gbest(j,:) = pop(j,:);
+</span></span><span style="display:flex;"><span>            fitnessgbest(j) = fitness(j);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 群体最有值更新</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> fitness(j) <span style="color:#f92672">&lt;</span>fitnesszbest
+</span></span><span style="display:flex;"><span>            zbest= pop(j,:);
+</span></span><span style="display:flex;"><span>            fitnesszbest = fitness(j);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    yy(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) = fitnesszbest;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 输出结果</span>
+</span></span><span style="display:flex;"><span>disp(<span style="color:#e6db74">&#39;最优值：&#39;</span>)
+</span></span><span style="display:flex;"><span>zbest
+</span></span><span style="display:flex;"><span>disp(<span style="color:#e6db74">&#39;最优适应度：&#39;</span>)
+</span></span><span style="display:flex;"><span>fitnesszbest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 画图 -- 进化次数与适应度之间的关系图（折线图）</span>
+</span></span><span style="display:flex;"><span>figure(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plot(yy,<span style="color:#e6db74">&#39;linewidth&#39;</span>,<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>title([<span style="color:#e6db74">&#39;适应度曲线&#39;</span> ,<span style="color:#e6db74">&#39;终止代数=&#39;</span>,num2str(maxgen)]);
+</span></span><span style="display:flex;"><span>xlabel(<span style="color:#e6db74">&#39;进化代数&#39;</span>);ylabel(<span style="color:#e6db74">&#39;适应度&#39;</span>);
+</span></span><span style="display:flex;"><span>grid on ;
+</span></span></code></pre></div><p>染色体编码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> ret = <span style="color:#a6e22e">Code</span>(lenchrom,bound)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 本函数将变量编码成染色体，用于随机初始化一个种群</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% lenchrom  input : 染色体长度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% bound     input ： 变量的取值范围</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ret       output : 染色体的编码值</span>
+</span></span><span style="display:flex;"><span>flag = <span style="color:#ae81ff">0</span> ;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> flag <span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    pick = rand(<span style="color:#ae81ff">1</span>,lenchrom);
+</span></span><span style="display:flex;"><span>    ret = bound(:,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">&#39;+</span>(bound(:,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>bound(:,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">&#39;.*</span>pick;<span style="color:#75715e">%线性插值,bound(:,1)表示变量的下界。</span>
+</span></span><span style="display:flex;"><span>    flag = test(lenchrom,bound,ret);<span style="color:#75715e">%染色体可行性检查</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>染色体可行性检查(若有多的约束自己加，也可以加到目标函数中)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> flag = <span style="color:#a6e22e">test</span>(lenchrom,bound,code)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% lenchrom input : 染色体长度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% bound    input : 变量的取值范围</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% code  output: 染色体的编码值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 初始变量 </span>
+</span></span><span style="display:flex;"><span>flag =<span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>[n,m] = size(code);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> code(i)<span style="color:#f92672">&lt;</span>bound(i,<span style="color:#ae81ff">1</span>) <span style="color:#f92672">||</span> code(i)<span style="color:#f92672">&gt;</span>bound(i,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        flag =<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>选择算子如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> ret=<span style="color:#a6e22e">Select</span>(individuals,fitness,sizepop)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 本函数对每一代种群中的染色体进行选择，以进行后面的交叉和变异 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% individuals input : 种群信息</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% fitness input : 适应度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% sizepop input : 种群规模</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ret   output : 经过选择后的种群</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sumf = cumsum(fitness<span style="color:#f92672">./</span>sum(fitness));<span style="color:#75715e">%累计概率</span>
+</span></span><span style="display:flex;"><span>index = [];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:sizepop
+</span></span><span style="display:flex;"><span>    pick = rand ; <span style="color:#75715e">% 产生随机数</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j = <span style="color:#ae81ff">1</span>:sizepop
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> pick <span style="color:#f92672">&lt;</span>= sumf(j)
+</span></span><span style="display:flex;"><span>            index =[index j];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>individuals = individuals(index,:);
+</span></span><span style="display:flex;"><span>fitness=fitness(index);
+</span></span><span style="display:flex;"><span>ret = individuals;
+</span></span></code></pre></div><p>交叉算子如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> ret=<span style="color:#a6e22e">Cross</span>(pcross,lenchrom,chrom,sizepop,bound)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%本函数完成交叉操作</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% pcorss                input  : 交叉概率</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% lenchrom              input  : 染色体的长度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% chrom                 input  : 染色体群</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% sizepop               input  : 种群规模</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ret                   output : 交叉后的染色体</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i=<span style="color:#ae81ff">1</span>:sizepop 
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">% 随机选择两个染色体进行交叉</span>
+</span></span><span style="display:flex;"><span>    pick=rand(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> prod(pick)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#75715e">%检查产生的两个随机数是否存在0 </span>
+</span></span><span style="display:flex;"><span>        pick=rand(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    index=ceil(pick<span style="color:#f92672">.*</span>sizepop);<span style="color:#75715e">% ceil  向上取整</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">% 交叉概率决定是否进行交叉</span>
+</span></span><span style="display:flex;"><span>    pick=rand;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        pick=rand;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pick<span style="color:#f92672">&gt;</span>pcross
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    flag=<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> flag<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 随机选择交叉位置</span>
+</span></span><span style="display:flex;"><span>        pick=rand;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            pick=rand;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        pos=ceil(pick<span style="color:#f92672">.*</span>sum(lenchrom)); <span style="color:#75715e">%随机选择进行交叉的位置，即选择第几个变量进行交叉，</span>
+</span></span><span style="display:flex;"><span>        							   <span style="color:#75715e">% 注意：两个染色体交叉的位置相同</span>
+</span></span><span style="display:flex;"><span>        pick=rand; <span style="color:#75715e">%交叉开始</span>
+</span></span><span style="display:flex;"><span>        v1=chrom(index(<span style="color:#ae81ff">1</span>),pos); 
+</span></span><span style="display:flex;"><span>        v2=chrom(index(<span style="color:#ae81ff">2</span>),pos);
+</span></span><span style="display:flex;"><span>        chrom(index(<span style="color:#ae81ff">1</span>),pos)=pick<span style="color:#f92672">*</span>v2<span style="color:#f92672">+</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick)<span style="color:#f92672">*</span>v1;
+</span></span><span style="display:flex;"><span>        chrom(index(<span style="color:#ae81ff">2</span>),pos)=pick<span style="color:#f92672">*</span>v1<span style="color:#f92672">+</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick)<span style="color:#f92672">*</span>v2; <span style="color:#75715e">%交叉结束</span>
+</span></span><span style="display:flex;"><span>        flag1=test(lenchrom,bound,chrom(index(<span style="color:#ae81ff">1</span>),:));  <span style="color:#75715e">%检验染色体1的可行性</span>
+</span></span><span style="display:flex;"><span>        flag2=test(lenchrom,bound,chrom(index(<span style="color:#ae81ff">2</span>),:));  <span style="color:#75715e">%检验染色体2的可行性</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>   flag1<span style="color:#f92672">*</span>flag2<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            flag=<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> flag=<span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>    <span style="color:#75715e">%如果两个染色体不是都可行，则重新交叉</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>ret=chrom;
+</span></span></code></pre></div><p>变异算子如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> ret=<span style="color:#a6e22e">Mutation</span>(pmutation,lenchrom,chrom,sizepop,pop,bound)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 本函数完成变异操作</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% pcorss                input  : 变异概率</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% lenchrom              input  : 染色体长度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% chrom                 input  : 染色体群</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% sizepop               input  : 种群规模</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% pop                   input  : 当前种群的进化代数和最大的进化代数信息</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% ret                   output : 变异后的染色体</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%pm,l       enchrom,GApop,popsize,[i maxgen],bound</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%pmutation,lenchrom,chrom,sizepop,pop,      bound</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%pmutation = pm,lenchrom = lenchrom,chrom= GApop,sizepop=popsize,pop=[1 maxgen]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i=<span style="color:#ae81ff">1</span>:sizepop  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">% 随机选择一个染色体进行变异</span>
+</span></span><span style="display:flex;"><span>    pick=rand;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        pick=rand;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    index=ceil(pick<span style="color:#f92672">*</span>sizepop);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">% 变异概率决定该轮循环是否进行变异</span>
+</span></span><span style="display:flex;"><span>    pick=rand;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pick<span style="color:#f92672">&gt;</span>pmutation
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    flag=<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> flag<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 变异位置</span>
+</span></span><span style="display:flex;"><span>        pick=rand;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> pick<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            pick=rand;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        pos=ceil(pick<span style="color:#f92672">*</span>sum(lenchrom));  <span style="color:#75715e">%随机选择了染色体变异的位置，即选择了第pos个变量进行变异</span>
+</span></span><span style="display:flex;"><span>        v=chrom(i,pos); <span style="color:#75715e">%选择第i个染色体的第pos位置的基因（即第pos个变量）</span>
+</span></span><span style="display:flex;"><span>        v1=v<span style="color:#f92672">-</span>bound(pos,<span style="color:#ae81ff">1</span>); <span style="color:#75715e">% 计算该基因距离所处变量下界的长度</span>
+</span></span><span style="display:flex;"><span>        v2=bound(pos,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">-</span>v;<span style="color:#75715e">% 计算该基因距离所处变量上界的长度</span>
+</span></span><span style="display:flex;"><span>        pick=rand; <span style="color:#75715e">%变异开始-- 应该用的是高斯变异</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> pick<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>            delta=v2<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick^((<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pop(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>pop(<span style="color:#ae81ff">2</span>))^<span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>            chrom(i,pos)=v<span style="color:#f92672">+</span>delta;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            delta=v1<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pick^((<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>pop(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>pop(<span style="color:#ae81ff">2</span>))^<span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>            chrom(i,pos)=v<span style="color:#f92672">-</span>delta;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>   <span style="color:#75715e">%变异结束</span>
+</span></span><span style="display:flex;"><span>        flag=test(lenchrom,bound,chrom(i,:));     <span style="color:#75715e">%检验染色体的可行性</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>ret=chrom;
+</span></span></code></pre></div><p>算法程序链接（二进制与实数编码）：<a href="/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95matlab.zip">遗传算法</a></p>
 
         </section>
     </div>
@@ -892,7 +887,7 @@ ret=chrom;
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

@@ -280,12 +280,10 @@ corrcoef(A(:),B(:)) % 等价 corrcoef(A,B）
 <p>方法：返回输入矩阵X和Y中每对列之间的成对相关系数矩阵。</p>
 <p>返回一个$m1*m2$的矩阵，其中第i行第j列元素代表X的第i列与Y第j列的相关系数</p>
 <h3 id="rhopval--corr___namevalue">[rho,pval] = corr(___,Name,Value)</h3>
-<pre tabindex="0"><code>R = corr(X,'Type','Pearson')
-R = corr(X,Y,'Type','Pearson')
-R = corr(X,Y,'Type','Kendall')
-R = corr(X,Y,'Type','Spearman')
-
-
+<pre tabindex="0"><code>R = corr(X,&#39;Type&#39;,&#39;Pearson&#39;)
+R = corr(X,Y,&#39;Type&#39;,&#39;Pearson&#39;)
+R = corr(X,Y,&#39;Type&#39;,&#39;Kendall&#39;)
+R = corr(X,Y,&#39;Type&#39;,&#39;Spearman&#39;)
 </code></pre>
         </section>
     </div>
@@ -481,7 +479,7 @@ R = corr(X,Y,'Type','Spearman')
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

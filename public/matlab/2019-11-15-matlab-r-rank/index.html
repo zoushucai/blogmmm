@@ -243,40 +243,40 @@
         <section id="content">
             <h2 id="matlab-与-r-在排序上的区别">MATLAB 与 R 在排序上的区别</h2>
 <h3 id="r-中的-rank--返回一个向量的秩">R 中的 rank , 返回一个向量的秩</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">R语言排序有几个基本函数： <span style="color:#a6e22e">sort</span>()；<span style="color:#a6e22e">rank</span>()；<span style="color:#a6e22e">order</span>()
-sort（）是对向量进行从小到大的排序
-rank（）返回的是对向量中每个数值对应的秩
-order（）返回的值表示位置，依次对应的是向量的最小值、次小值、第三小值......最大值
-<span style="color:#f92672">&gt;</span> data<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">9</span>)
-<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sort</span>(data)
-[1] <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">9</span>
-<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">rank</span>(data) % 秩,即排序后的位置,比如 data 中的第一个元素 <span style="color:#ae81ff">5</span>,在升序排序中是占第 <span style="color:#ae81ff">3</span> 个位置,所以返回 <span style="color:#ae81ff">3</span>. 
-[1] <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">6</span>
-<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">order</span>(data)
-[1] <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">6</span>
-</code></pre></div><h3 id="matlab">MATLAB</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">[y , index]  = sort(x);
-y 把 x 排列升序后的结果 <span style="color:#75715e">% 类似 R 中的 sort</span>
-index 为 x 的秩   <span style="color:#75715e">% 类似 R 中的 order</span>
- tiedrank(data)  <span style="color:#75715e">% 类似 R 中的 rank, 返回平均秩,</span>
-ans =
-     <span style="color:#ae81ff">3</span>     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">6</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab"><span style="color:#f92672">&gt;&gt;</span> data=[<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">9</span>];
-[y, index] =sort(data)
-y =
-     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">6</span>     <span style="color:#ae81ff">8</span>     <span style="color:#ae81ff">9</span>
-index =
-     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">3</span>     <span style="color:#ae81ff">6</span>
- 有 y <span style="color:#f92672">==</span>  data(index)
- <span style="color:#f92672">&gt;&gt;</span> tiedrank(data)
-ans =
-     <span style="color:#ae81ff">3</span>     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">6</span>
- tiedrank([<span style="color:#ae81ff">10</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">20</span>]) <span style="color:#75715e">% 返回平均秩</span>
- ans =
-    <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">2.5</span>    <span style="color:#ae81ff">4</span>    <span style="color:#ae81ff">5</span>    <span style="color:#ae81ff">2</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">sortrow(A,<span style="color:#ae81ff">2</span>)
-把矩阵 A 按照第 <span style="color:#ae81ff">2</span> 列进行升序排序, 默认为第一列,类似 excel 中的表排序
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>R语言排序有几个基本函数： <span style="color:#a6e22e">sort</span>()；<span style="color:#a6e22e">rank</span>()；<span style="color:#a6e22e">order</span>()
+</span></span><span style="display:flex;"><span>sort（）是对向量进行从小到大的排序
+</span></span><span style="display:flex;"><span>rank（）返回的是对向量中每个数值对应的秩
+</span></span><span style="display:flex;"><span>order（）返回的值表示位置，依次对应的是向量的最小值、次小值、第三小值......最大值
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> data<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">9</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sort</span>(data)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">rank</span>(data) % 秩,即排序后的位置,比如 data 中的第一个元素 <span style="color:#ae81ff">5</span>,在升序排序中是占第 <span style="color:#ae81ff">3</span> 个位置,所以返回 <span style="color:#ae81ff">3</span>. 
+</span></span><span style="display:flex;"><span>[1] <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">order</span>(data)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">6</span>
+</span></span></code></pre></div><h3 id="matlab">MATLAB</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>[y , index]  = sort(x);
+</span></span><span style="display:flex;"><span>y 把 x 排列升序后的结果 <span style="color:#75715e">% 类似 R 中的 sort</span>
+</span></span><span style="display:flex;"><span>index 为 x 的秩   <span style="color:#75715e">% 类似 R 中的 order</span>
+</span></span><span style="display:flex;"><span> tiedrank(data)  <span style="color:#75715e">% 类似 R 中的 rank, 返回平均秩,</span>
+</span></span><span style="display:flex;"><span>ans =
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">3</span>     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">6</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;</span> data=[<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">9</span>];
+</span></span><span style="display:flex;"><span>[y, index] =sort(data)
+</span></span><span style="display:flex;"><span>y =
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">6</span>     <span style="color:#ae81ff">8</span>     <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>index =
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">3</span>     <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span> 有 y <span style="color:#f92672">==</span>  data(index)
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&gt;&gt;</span> tiedrank(data)
+</span></span><span style="display:flex;"><span>ans =
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">3</span>     <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">5</span>     <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">2</span>     <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span> tiedrank([<span style="color:#ae81ff">10</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">20</span>]) <span style="color:#75715e">% 返回平均秩</span>
+</span></span><span style="display:flex;"><span> ans =
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">2.5</span>    <span style="color:#ae81ff">4</span>    <span style="color:#ae81ff">5</span>    <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>sortrow(A,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>把矩阵 A 按照第 <span style="color:#ae81ff">2</span> 列进行升序排序, 默认为第一列,类似 excel 中的表排序
+</span></span></code></pre></div>
         </section>
     </div>
     <br>
@@ -469,7 +469,7 @@ ans =
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

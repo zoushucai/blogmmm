@@ -201,8 +201,8 @@
 <h1 id="1数据的读写">1、数据的读写</h1>
 <h3 id="11数据读入fread">1.1数据读入－－fread</h3>
 <p>选其常用的参数如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">fread</span>(input,na.strings<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NA&#34;</span>, file, stringsAsFactors<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unknown&#34;</span>, <span style="color:#66d9ef">...</span>)
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">fread</span>(input,na.strings<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NA&#34;</span>, file, stringsAsFactors<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unknown&#34;</span>, <span style="color:#66d9ef">...</span>)
+</span></span></code></pre></div><ul>
 <li>input 入的文件对象，<code>fread</code>函数可以自动判断分隔符类型，自动判断首行是否是列标题，同时默认读入时字符型变量不会变为因子型。也可也从网页读取数据</li>
 <li>na.strings,对NA的解释；</li>
 <li>file文件路径，再确保没有执行shell命令时很有用，也可以在input参数输入;</li>
@@ -213,8 +213,8 @@
 <li>quote  对带双引号的字符添加转义,在R中正常显示,但是输出时,可能会引起成倍的双引号,因此建议使用<code>fwrite</code>时,设置该参数<code>quote = FALSE</code></li>
 </ul>
 <h3 id="12数据写入fwrite">1.2数据写入－－fwrite</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">fwrite</span>(x, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, append <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, na <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, col.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,logicalAsInt <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, <span style="color:#66d9ef">...</span>)
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">fwrite</span>(x, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, append <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, na <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, col.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,logicalAsInt <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, <span style="color:#66d9ef">...</span>)
+</span></span></code></pre></div><ul>
 <li>x,比如data.frame和data.table等R的对象；</li>
 <li>file，输出文件名,&ldquo;&ldquo;意味着直接输出到操作台；</li>
 <li>append，如果TRUE,在原文件的后面添加；默认删除原来文件的数据，重新存储。</li>
@@ -247,7 +247,7 @@ setDT(mtcars)  # 不需要赋值,这是引用转换, mtcars这个数据集已经
 #直接采用逻辑语句（慢）
 mtcars_dt[cyl==8 ]
 mtcars_dt[cyl==8 &amp; carb==4]
-mtcars_dt[cyl %in% c(&quot;8&quot;,&quot;6&quot;)]# 等价 mtcars_dt[cyl %in% c(8,6)]
+mtcars_dt[cyl %in% c(&#34;8&#34;,&#34;6&#34;)]# 等价 mtcars_dt[cyl %in% c(8,6)]
 </code></pre><h2 id="22-设置获取使用主键适中">2.2 设置/获取/使用主键(适中)</h2>
 <table>
 <thead>
@@ -293,7 +293,7 @@ mtcars_dt #可以看出已经排序了
 tables()              # 查看内存中所有data.table 的详细信息,包括key键
 iris_dt = data.table(iris)
 tables()              # 
-setkeyv(mtcars_dt,c(&quot;cyl&quot;,&quot;carb&quot;))#先设置的cyl,carb列为主键
+setkeyv(mtcars_dt,c(&#34;cyl&#34;,&#34;carb&#34;))#先设置的cyl,carb列为主键
 mtcars_dt[.(8,4)]     # 等价 mtcars_dt[cyl==8 &amp; carb==4]
 tables()              # 查看内存中所有data.table 的详细信息
 </code></pre><h2 id="23-二级索引indices快">2.3 二级索引<code>(indices)</code>（快）</h2>
@@ -333,14 +333,12 @@ tables()              # 查看内存中所有data.table 的详细信息
 </table>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}"># 设置和获取二级索引
 mtcars_dt &lt;- data.table(mtcars) 
-setindex(mtcars_dt,cyl,carb) # 等价于 setindexv(mtcars_dt,c(&quot;cyl&quot;,&quot;carb&quot;))
+setindex(mtcars_dt,cyl,carb) # 等价于 setindexv(mtcars_dt,c(&#34;cyl&#34;,&#34;carb&#34;))
 names(attributes(mtcars_dt)) # 查询data.table 的属性
 indices(mtcars_dt)
 mtcars_dt #  注意并没有对数据进行重新排序, 而setkey会对数据进行重新排序
-setindexv(mtcars_dt,c(&quot;vs&quot;, &quot;am&quot;, &quot;gear&quot;,&quot;carb&quot;))
+setindexv(mtcars_dt,c(&#34;vs&#34;, &#34;am&#34;, &#34;gear&#34;,&#34;carb&#34;))
 indices(mtcars_dt)
-
-
 </code></pre><h4 id="b为什么使用二级索引">b)为什么使用二级索引</h4>
 <p>原因是对一个data.table重新排序成本太高, 除非你要进行大量选子集的操作,建议使用setkey 来提取子集.
 我们想快速地提取子集(subset)同时又不必重新排序,此时二级索引就派上用处了.</p>
@@ -354,73 +352,72 @@ indices(mtcars_dt)
 <li>注意参数on也可以用来指定主键。事实上，为了更佳的可读性，我们鼓励在参数on里面指定主键。</li>
 <li>参数<code>on</code>它不会把这个二级索引自动创建为data.table的一个属性。需要额外设置参数才可以(设<code>verbose = TRUE</code>).</li>
 </ul>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">mtcars_dt[.(1),on=&quot;am&quot;]#同时满足cyl=8,gear=4的行
-## 等价的备选方案 -- mtcars_dt[list(1), on = &quot;am&quot;]
-## 注意 on=&quot;am&quot;表明我们要基于am这一列进行过滤,过滤的条件是am == 1, 1必须放置.()里面
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">mtcars_dt[.(1),on=&#34;am&#34;]#同时满足cyl=8,gear=4的行
+## 等价的备选方案 -- mtcars_dt[list(1), on = &#34;am&#34;]
+## 注意 on=&#34;am&#34;表明我们要基于am这一列进行过滤,过滤的条件是am == 1, 1必须放置.()里面
 ## 原因是 am是numeric类型,如果不是numeric类型,就不用这样做
 
 iris_dt = data.table(iris)
-iris_dt[&quot;setosa&quot;,on=&quot;Species&quot;]  
+iris_dt[&#34;setosa&#34;,on=&#34;Species&#34;]  
 #等价的备选方案
-iris_dt[.(&quot;setosa&quot;),on=&quot;Species&quot;] 
-iris_dt[list(&quot;setosa&quot;),on=&quot;Species&quot;] 
+iris_dt[.(&#34;setosa&#34;),on=&#34;Species&#34;] 
+iris_dt[list(&#34;setosa&#34;),on=&#34;Species&#34;] 
 
 # 选择 Species =setosa 或者 Species =virginica
-iris_dt[.(c(&quot;setosa&quot;,&quot;virginica&quot;)) ,on=&quot;Species&quot;] 
-iris_dt[.(c(&quot;setosa&quot;,&quot;virginica&quot;),c(3.0)) ,on=c(&quot;Species&quot;,&quot;Sepal.Width&quot;)] 
+iris_dt[.(c(&#34;setosa&#34;,&#34;virginica&#34;)) ,on=&#34;Species&#34;] 
+iris_dt[.(c(&#34;setosa&#34;,&#34;virginica&#34;),c(3.0)) ,on=c(&#34;Species&#34;,&#34;Sepal.Width&#34;)] 
 
 # 注意小心有NA行,原因在于Petal.Length列没有等于5.1的值
-iris_dt[.(c(&quot;setosa&quot;,&quot;virginica&quot;),c(5.1)) ,on=c(&quot;Species&quot;,&quot;Petal.Length&quot;)] 
+iris_dt[.(c(&#34;setosa&#34;,&#34;virginica&#34;),c(5.1)) ,on=c(&#34;Species&#34;,&#34;Petal.Length&#34;)] 
 
 
 #### on参数也可以像j那样直接使用列名 ,无需加引号
-mtcars_dt[.(8,4),on=c(&quot;cyl&quot;,&quot;carb&quot;)]#同时满足cyl=8,gear=4的行
+mtcars_dt[.(8,4),on=c(&#34;cyl&#34;,&#34;carb&#34;)]#同时满足cyl=8,gear=4的行
 mtcars_dt[.(8,4),on=.(cyl,carb)]# 等价同上,
-
 </code></pre><h2 id="25-自动索引-----只支持操作符--和-in">2.5 自动索引 &mdash; 只支持操作符 == 和 %in%</h2>
 <p>回顾一下，我们先学习如何通过主键使用快速二分法搜索进行subset。接着，我们学习了使用二级索引，它带来更好的效果，而且语法也更简洁。</p>
 <p>等等，有没有更好的方法？</p>
 <p>有！优化R的原生语法，使用内置的索引。这样我们毋需使用新的语法，就能得到同样的效果。这就是自动索引。
 目前，<strong>它只支持操作符 == 和 %in% 。而且只对一列起作用</strong>。某一列会被自动创建为索引，并且作为data.table的属性保存起来。这跟参数on不同，参数on会每次创建一个临时索引，所以才会被叫做“二级索引”。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">iris_dt[Petal.Length <span style="color:#f92672">==</span> <span style="color:#ae81ff">5.1</span>, ] 
-iris_dt[Petal.Length <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5.1</span>,<span style="color:#ae81ff">5.2</span>), ] 
-</code></pre></div><p><strong>注意, 以上都是针对<code>i</code>参数设置,因此可以同<code>j</code>参数, <code>by</code>参数同时使用</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>iris_dt[Petal.Length <span style="color:#f92672">==</span> <span style="color:#ae81ff">5.1</span>, ] 
+</span></span><span style="display:flex;"><span>iris_dt[Petal.Length <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5.1</span>,<span style="color:#ae81ff">5.2</span>), ] 
+</span></span></code></pre></div><p><strong>注意, 以上都是针对<code>i</code>参数设置,因此可以同<code>j</code>参数, <code>by</code>参数同时使用</strong></p>
 <p><strong>还有, 在进行行筛选时,尽量打个逗号,区分<code>i</code>和<code>j</code></strong></p>
 <h1 id="3--列筛选---j参数">3  列筛选：&ndash; j参数</h1>
 <h2 id="31-格式--等价list">3.1 <code>.()</code>格式 == 等价list()</h2>
 <p><strong>用<code>.()</code>来包围列名，和<code>list()</code> 等价</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e"># 列筛选 --方法一, 直接输入列名</span>
-mtcars_dt[, .(mpg, cyl, hp)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>()
-mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>)]<span style="color:#75715e"># 返回的都是data.table</span>
-mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span>F]
-
-<span style="color:#75715e"># 列筛选 --方法二 如果没用list()或者.()包围列名 ，则返回的是向量（这不是我们想要的结果），如下</span>
-mtcars_dt[, <span style="color:#a6e22e">c</span>(mpg, cyl, hp)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>()
-
-<span style="color:#75715e"># 列筛选 --方法三, 可以把列名改写成对应的数字列,但返回的是data.table类型</span>
-mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>()
-mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">class</span>()
-
-<span style="color:#75715e"># 列筛选-- 方法四, 如果列名已经存储到一个变量里面了, 怎么根据它来选择列</span>
-<span style="color:#a6e22e">library</span>(data.table)
-mtcars_dt <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.data.table</span>(mtcars)
-a <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>)
-b <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>)
-mtcars_dt[,..a] <span style="color:#75715e"># 在变量名前加两个点,  如果这样输入: mtcars_dt[,a], 则报错</span>
-mtcars_dt[,..b]<span style="color:#75715e"># 在变量名前加两个点,  如果这样输入: mtcars_dt[,b], 则报错</span>
-
-
-<span style="color:#75715e"># 列筛选 --方法五, 要排除列名怎么办，可以用数字</span>
-mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
-mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>) <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>]  <span style="color:#75715e"># 等价</span>
-mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
-mtcars_dt[, <span style="color:#f92672">!</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
-
-<span style="color:#75715e"># 下面只能用冒号(:)链接，不然会报错</span>
-mtcars_dt[, <span style="color:#f92672">-</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 删除第2:4列变量</span>
-mtcars_dt[, mpg<span style="color:#f92672">:</span>disp, with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
-mtcars_dt[,<span style="color:#f92672">-</span>(mpg<span style="color:#f92672">:</span>disp), with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
-</code></pre></div><h2 id="32-在j参数上可以进行计算">3.2 在j参数上可以进行计算：</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># 列筛选 --方法一, 直接输入列名</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, .(mpg, cyl, hp)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>()
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>)]<span style="color:#75715e"># 返回的都是data.table</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span>F]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 列筛选 --方法二 如果没用list()或者.()包围列名 ，则返回的是向量（这不是我们想要的结果），如下</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">c</span>(mpg, cyl, hp)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 列筛选 --方法三, 可以把列名改写成对应的数字列,但返回的是data.table类型</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>()
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">class</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 列筛选-- 方法四, 如果列名已经存储到一个变量里面了, 怎么根据它来选择列</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(data.table)
+</span></span><span style="display:flex;"><span>mtcars_dt <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.data.table</span>(mtcars)
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>)
+</span></span><span style="display:flex;"><span>mtcars_dt[,..a] <span style="color:#75715e"># 在变量名前加两个点,  如果这样输入: mtcars_dt[,a], 则报错</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[,..b]<span style="color:#75715e"># 在变量名前加两个点,  如果这样输入: mtcars_dt[,b], 则报错</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 列筛选 --方法五, 要排除列名怎么办，可以用数字</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>) <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>]  <span style="color:#75715e"># 等价</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#f92672">!</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 下面只能用冒号(:)链接，不然会报错</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#f92672">-</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>)] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 删除第2:4列变量</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, mpg<span style="color:#f92672">:</span>disp, with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[,<span style="color:#f92672">-</span>(mpg<span style="color:#f92672">:</span>disp), with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
+</span></span></code></pre></div><h2 id="32-在j参数上可以进行计算">3.2 在j参数上可以进行计算：</h2>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}"># 返回按列计算的值
 mtcars_dt[,.(sum(mpg),mean(cyl))]
 
@@ -435,51 +432,49 @@ mtcars_dt[,{print(mpg);plot(disp)}]
 mtcars_dt[,.(x = cyl^2 +1, y = cyl^2 +2)] %&gt;% head() # 这样cyl^2计算了两次,这样效率慢
 
 mtcars_dt[,{temp = cyl^2; .(x = temp+1,y=temp+2)}] %&gt;% head() 
-
 </code></pre><p><strong>关键词<code>.SD</code> 和<code>.SDcol</code> 的作用</strong> , 后面会讲解</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-<span style="color:#75715e">## 对data.table的每一列进行计算</span>
-mtcars_dt[,<span style="color:#a6e22e">sapply</span>(.SD, <span style="color:#a6e22e">function</span>(x){<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">is.na</span>(x))<span style="color:#f92672">/</span>.N})]
-
-<span style="color:#75715e">## 也可以指定列进行计算</span>
-mtcars_dt[,<span style="color:#a6e22e">sapply</span>(.SD, <span style="color:#a6e22e">function</span>(x){<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">is.na</span>(x))<span style="color:#f92672">/</span>.N}),.SDcol <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>)]
-
-iris_dt <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.table</span>(iris)
-col_names <span style="color:#f92672">=</span> <span style="color:#a6e22e">colnames</span>(iris_dt)
-
-<span style="color:#75715e">## 计算所有数值变量的均值, 可以先对变量名进行筛选</span>
-num_col <span style="color:#f92672">=</span> <span style="color:#a6e22e">sapply</span>(iris_dt, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">class</span>(x) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;numeric&#34;</span> )
-iris_dt[, <span style="color:#a6e22e">lapply</span>(.SD, mean), .SDcols <span style="color:#f92672">=</span> num_col]
-
-<span style="color:#75715e">#####  在数据框中把指定的列转换为因子列</span>
-<span style="color:#75715e">## 方法一   ---- 这种方法已被弃用 with=F, 推荐使用方法2 </span>
-<span style="color:#75715e"># col_names 为一个字符向量</span>
-<span style="color:#75715e"># iris_dt[, col_names := lapply(.SD, function(x)as.factor(x)),.SDcols = col_names,with=F]</span>
-iris_dt[,col_names,with<span style="color:#f92672">=</span>F]  <span style="color:#75715e"># 选择以col_names变量的内容的列</span>
-
-
-<span style="color:#75715e">## 方法二</span>
-<span style="color:#75715e">## (col_names):=  代表的是字符串向量，如果只使用col_names则表示列名为col_names的变量</span>
-iris_dt[, (col_names) <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lapply</span>(.SD, <span style="color:#a6e22e">function</span>(x)<span style="color:#a6e22e">as.factor</span>(x)) , .SDcols <span style="color:#f92672">=</span> col_names]
-
-iris_dt[,(<span style="color:#e6db74">&#34;Sepal.Length&#34;</span>)<span style="color:#f92672">:=</span><span style="color:#a6e22e">as.factor</span>(Sepal.Length)] <span style="color:#75715e">#同上</span>
-
-                                
-<span style="color:#75715e">## 如果左边用数字并打上() 代表第几列，指定第几列的操作</span>
-iris_dt[,(<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>)<span style="color:#f92672">:=</span>Species] <span style="color:#75715e"># 把第2：3列的值进行更新，即第2:3列都为Species列</span>
-
-<span style="color:#75715e">### 用函数对列名进行筛选后,然后对这些列进行统一处理</span>
-<span style="color:#75715e">#eg: 列名以S结尾的列全部转为因子,    </span>
-iris_dt[, <span style="color:#a6e22e">lapply</span>(.SD, <span style="color:#a6e22e">function</span>(x)<span style="color:#a6e22e">as.factor</span>(x)) , .SDcols <span style="color:#f92672">=</span> <span style="color:#a6e22e">endsWith</span>(<span style="color:#a6e22e">names</span>(iris_dt), <span style="color:#e6db74">&#34;S&#34;</span>)]
-<span style="color:#75715e"># startsWith(names(iris_dt), &#34;S&#34;) # 表示以S开头的筛选变量方式</span>
-                 
-                 
-
-</code></pre></div><h2 id="33-选取子集">3.3 选取子集</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 对data.table的每一列进行计算</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[,<span style="color:#a6e22e">sapply</span>(.SD, <span style="color:#a6e22e">function</span>(x){<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">is.na</span>(x))<span style="color:#f92672">/</span>.N})]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 也可以指定列进行计算</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[,<span style="color:#a6e22e">sapply</span>(.SD, <span style="color:#a6e22e">function</span>(x){<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">is.na</span>(x))<span style="color:#f92672">/</span>.N}),.SDcol <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>iris_dt <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.table</span>(iris)
+</span></span><span style="display:flex;"><span>col_names <span style="color:#f92672">=</span> <span style="color:#a6e22e">colnames</span>(iris_dt)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 计算所有数值变量的均值, 可以先对变量名进行筛选</span>
+</span></span><span style="display:flex;"><span>num_col <span style="color:#f92672">=</span> <span style="color:#a6e22e">sapply</span>(iris_dt, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">class</span>(x) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;numeric&#34;</span> )
+</span></span><span style="display:flex;"><span>iris_dt[, <span style="color:#a6e22e">lapply</span>(.SD, mean), .SDcols <span style="color:#f92672">=</span> num_col]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#####  在数据框中把指定的列转换为因子列</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 方法一   ---- 这种方法已被弃用 with=F, 推荐使用方法2 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># col_names 为一个字符向量</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># iris_dt[, col_names := lapply(.SD, function(x)as.factor(x)),.SDcols = col_names,with=F]</span>
+</span></span><span style="display:flex;"><span>iris_dt[,col_names,with<span style="color:#f92672">=</span>F]  <span style="color:#75715e"># 选择以col_names变量的内容的列</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 方法二</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## (col_names):=  代表的是字符串向量，如果只使用col_names则表示列名为col_names的变量</span>
+</span></span><span style="display:flex;"><span>iris_dt[, (col_names) <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lapply</span>(.SD, <span style="color:#a6e22e">function</span>(x)<span style="color:#a6e22e">as.factor</span>(x)) , .SDcols <span style="color:#f92672">=</span> col_names]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>iris_dt[,(<span style="color:#e6db74">&#34;Sepal.Length&#34;</span>)<span style="color:#f92672">:=</span><span style="color:#a6e22e">as.factor</span>(Sepal.Length)] <span style="color:#75715e">#同上</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                                
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 如果左边用数字并打上() 代表第几列，指定第几列的操作</span>
+</span></span><span style="display:flex;"><span>iris_dt[,(<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>)<span style="color:#f92672">:=</span>Species] <span style="color:#75715e"># 把第2：3列的值进行更新，即第2:3列都为Species列</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### 用函数对列名进行筛选后,然后对这些列进行统一处理</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#eg: 列名以S结尾的列全部转为因子,    </span>
+</span></span><span style="display:flex;"><span>iris_dt[, <span style="color:#a6e22e">lapply</span>(.SD, <span style="color:#a6e22e">function</span>(x)<span style="color:#a6e22e">as.factor</span>(x)) , .SDcols <span style="color:#f92672">=</span> <span style="color:#a6e22e">endsWith</span>(<span style="color:#a6e22e">names</span>(iris_dt), <span style="color:#e6db74">&#34;S&#34;</span>)]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># startsWith(names(iris_dt), &#34;S&#34;) # 表示以S开头的筛选变量方式</span>
+</span></span><span style="display:flex;"><span>                 
+</span></span><span style="display:flex;"><span>                 
+</span></span></code></pre></div><h2 id="33-选取子集">3.3 选取子集</h2>
 <p>选取子集仍然采用<code>subeset</code>函数，语法格式为：<code>subset(x, subset, select)</code>，x是data.table对象，subset是行满足条件，select是列满足条件</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}"># 用 .() 来包围列名，和list() 等价，都返回data.table数据类型,只要参数 j 返回一个list，这个list的每一个元素都会被转换成结果data.table的一列
 
-subset(mtcars_dt,cyl==8,select =c('mpg','cyl','disp'))
+subset(mtcars_dt,cyl==8,select =c(&#39;mpg&#39;,&#39;cyl&#39;,&#39;disp&#39;))
 # 等价
 mtcars_dt[cyl==8,.(mpg,cyl,disp)]
 # 等价
@@ -492,47 +487,46 @@ mtcars_dt[,c(mpg,cyl,hp)]
 <li>排序采用<code>setorder</code>函数，输入待排序的列名，默认升序，降序列名前加<code>-</code></li>
 <li>注意：升序，降序都是按assic 值的大学排序</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">setorder</span>(mtcars_dt,mpg,<span style="color:#f92672">-</span>hp) <span style="color:#75715e">#注意，这里直接对原数据进行了重排序，这点和R很多函数不一样，</span>
-<span style="color:#75715e">#几乎等价</span>
-mtcars_dt<span style="color:#a6e22e">[order</span>(cyl,<span style="color:#f92672">-</span>hp)] <span style="color:#75715e">#这个就基本符合R语言规律，不改变原数据。</span>
-
-<span style="color:#75715e"># 还可以使用key键排序,这样会改变原数据</span>
-</code></pre></div><h2 id="35-对列进行增删变量">3.5 对列进行增删变量</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">setorder</span>(mtcars_dt,mpg,<span style="color:#f92672">-</span>hp) <span style="color:#75715e">#注意，这里直接对原数据进行了重排序，这点和R很多函数不一样，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#几乎等价</span>
+</span></span><span style="display:flex;"><span>mtcars_dt<span style="color:#a6e22e">[order</span>(cyl,<span style="color:#f92672">-</span>hp)] <span style="color:#75715e">#这个就基本符合R语言规律，不改变原数据。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 还可以使用key键排序,这样会改变原数据</span>
+</span></span></code></pre></div><h2 id="35-对列进行增删变量">3.5 对列进行增删变量</h2>
 <p><strong>都是直接对原数据进行修改，无需重复赋值</strong></p>
 <h3 id="351-添加变量有三种语法格式">3.5.1 添加变量有三种语法格式：</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">DT[i, LHS<span style="color:#f92672">:=</span>RHS, by<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>] <span style="color:#75715e">#适用单变量添加，等号（＝）前面为新的变量名,没有写明变量名，自动为V+  </span>
-DT[i, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;LHS1&#34;</span>,<span style="color:#e6db74">&#34;LHS2&#34;</span>) <span style="color:#f92672">:=</span> <span style="color:#a6e22e">list</span>(RHS1, RHS2), by<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>] <span style="color:#75715e">#双变量添加  </span>
-DT[i, <span style="color:#a6e22e">`:=`</span>(LHS1<span style="color:#f92672">=</span>RHS1,LHS2<span style="color:#f92672">=</span>RHS2, <span style="color:#66d9ef">...</span>), by<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>] <span style="color:#75715e">#多变量添加，注意`:=`  </span>
-
-<span style="color:#75715e"># 有条件的添加变量</span>
-mtcars_dt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.table</span>(mtcars) 
-mtcars_dt[, cyl1<span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span>(cyl <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">6</span>)]
-mtcars_dt[, cyl2<span style="color:#f92672">:=</span> <span style="color:#a6e22e">ifelse</span>(cyl <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>)]
-mtcars_dt[, cyl_mpg<span style="color:#f92672">:=</span> <span style="color:#a6e22e">ifelse</span>(cyl <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">6</span>, mpg,cyl)]<span style="color:#75715e"># 当cyl小于6时,则用mpg的数据,大于6时,则用cyl值保持不变</span>
-</code></pre></div><h3 id="352-删除变量-----变量null">3.5.2 删除变量 &mdash; <code>变量:=NULL</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-<span style="color:#75715e"># 这里发现一个bug，数据集被改动了,但是rstudio中的变量的维度没变，但是数据集确实改变了</span>
-mtcars_dt[,<span style="color:#a6e22e">`:=`</span>(mpg1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>mpg,new<span style="color:#f92672">=</span>cyl<span style="color:#f92672">+</span>gear)]<span style="color:#75715e">#增加变量mpg1 与new变量</span>
-mtcars_dt[,mpg1<span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>] <span style="color:#75715e">#删除变量mpg1  也可以mtcars_dt[,`:=`(mpg1=NULL,new=NULL)],也可以用 mtcars_dt[, c(&#34;mpg&#34;) :=NULL] </span>
-
-<span style="color:#75715e"># 如果要删除多列时，可用以下方法,</span>
-mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>) <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>]  <span style="color:#75715e"># 注意用 :=  会直接更改原数据</span>
-mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F]  <span style="color:#75715e"># 这个会产生一个副本（或者叫拷贝）</span>
-mtcars_dt[, <span style="color:#f92672">!</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F] <span style="color:#75715e"># 同上，产生拷贝</span>
-mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)]     <span style="color:#75715e">#  同上，产生拷贝</span>
-
-<span style="color:#75715e"># 删除多列</span>
-col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>)
-mtcars_dt[, col <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>]  <span style="color:#75715e"># 这个只能删除列名为col的变量</span>
-
-mtcars_dt[, (col) <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>] <span style="color:#75715e"># 能删除以col为变量的内容作为mtcars的列名，</span>
-<span style="color:#75715e"># 上面等价mtcars_dt[, c(&#34;mpg&#34;, &#34;cyl&#34;, &#34;hp&#34;) :=NULL] </span>
-
-<span style="color:#75715e"># 下面只能有冒号(:)链接，不然会报错</span>
-mtcars_dt[, mpg<span style="color:#f92672">:</span>disp, with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
-mtcars_dt[,<span style="color:#f92672">-</span>(mpg<span style="color:#f92672">:</span>disp), with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
-
-</code></pre></div><p><strong>理解数据存储以及变量名</strong> 。比如：数字，字符串 ，矩阵的内容，都会直接存在内存中，把数字3赋值给变量a,就相当于a指向数字3，改变a不会对内存进行修改，只是指针发生了改变，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>DT[i, LHS<span style="color:#f92672">:=</span>RHS, by<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>] <span style="color:#75715e">#适用单变量添加，等号（＝）前面为新的变量名,没有写明变量名，自动为V+  </span>
+</span></span><span style="display:flex;"><span>DT[i, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;LHS1&#34;</span>,<span style="color:#e6db74">&#34;LHS2&#34;</span>) <span style="color:#f92672">:=</span> <span style="color:#a6e22e">list</span>(RHS1, RHS2), by<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>] <span style="color:#75715e">#双变量添加  </span>
+</span></span><span style="display:flex;"><span>DT[i, <span style="color:#a6e22e">`:=`</span>(LHS1<span style="color:#f92672">=</span>RHS1,LHS2<span style="color:#f92672">=</span>RHS2, <span style="color:#66d9ef">...</span>), by<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>] <span style="color:#75715e">#多变量添加，注意`:=`  </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 有条件的添加变量</span>
+</span></span><span style="display:flex;"><span>mtcars_dt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.table</span>(mtcars) 
+</span></span><span style="display:flex;"><span>mtcars_dt[, cyl1<span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span>(cyl <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">6</span>)]
+</span></span><span style="display:flex;"><span>mtcars_dt[, cyl2<span style="color:#f92672">:=</span> <span style="color:#a6e22e">ifelse</span>(cyl <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>)]
+</span></span><span style="display:flex;"><span>mtcars_dt[, cyl_mpg<span style="color:#f92672">:=</span> <span style="color:#a6e22e">ifelse</span>(cyl <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">6</span>, mpg,cyl)]<span style="color:#75715e"># 当cyl小于6时,则用mpg的数据,大于6时,则用cyl值保持不变</span>
+</span></span></code></pre></div><h3 id="352-删除变量-----变量null">3.5.2 删除变量 &mdash; <code>变量:=NULL</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这里发现一个bug，数据集被改动了,但是rstudio中的变量的维度没变，但是数据集确实改变了</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[,<span style="color:#a6e22e">`:=`</span>(mpg1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>mpg,new<span style="color:#f92672">=</span>cyl<span style="color:#f92672">+</span>gear)]<span style="color:#75715e">#增加变量mpg1 与new变量</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[,mpg1<span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>] <span style="color:#75715e">#删除变量mpg1  也可以mtcars_dt[,`:=`(mpg1=NULL,new=NULL)],也可以用 mtcars_dt[, c(&#34;mpg&#34;) :=NULL] </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 如果要删除多列时，可用以下方法,</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>) <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>]  <span style="color:#75715e"># 注意用 :=  会直接更改原数据</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F]  <span style="color:#75715e"># 这个会产生一个副本（或者叫拷贝）</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#f92672">!</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>), with <span style="color:#f92672">=</span> F] <span style="color:#75715e"># 同上，产生拷贝</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)]     <span style="color:#75715e">#  同上，产生拷贝</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 删除多列</span>
+</span></span><span style="display:flex;"><span>col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>)
+</span></span><span style="display:flex;"><span>mtcars_dt[, col <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>]  <span style="color:#75715e"># 这个只能删除列名为col的变量</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, (col) <span style="color:#f92672">:=</span><span style="color:#66d9ef">NULL</span>] <span style="color:#75715e"># 能删除以col为变量的内容作为mtcars的列名，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 上面等价mtcars_dt[, c(&#34;mpg&#34;, &#34;cyl&#34;, &#34;hp&#34;) :=NULL] </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 下面只能有冒号(:)链接，不然会报错</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, mpg<span style="color:#f92672">:</span>disp, with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[,<span style="color:#f92672">-</span>(mpg<span style="color:#f92672">:</span>disp), with <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>() <span style="color:#75715e"># 等价</span>
+</span></span></code></pre></div><p><strong>理解数据存储以及变量名</strong> 。比如：数字，字符串 ，矩阵的内容，都会直接存在内存中，把数字3赋值给变量a,就相当于a指向数字3，改变a不会对内存进行修改，只是指针发生了改变，</p>
 <p><strong>操作符“:=”会更新原数据</strong>。操作符“:=”对输入的数据进行浅度复制，只是一份指向列的指针向量的复制，在内存里，数据不是真的被复制了。他会随着指针指向的对象变化而变化，</p>
 <p>**不更新原数据用函数 copy()。**函数 copy() 对输入参数进行深度复制，因此对副本做的所有更新操作，都不会对原数据生效。简单理解：就是在内存中创建了一个和原来一模一样的数据.</p>
 <h1 id="4-分组汇总by参数">4. 分组汇总－－by参数</h1>
@@ -580,7 +574,7 @@ mtcars_dt[,lapply(.SD, sum),by=.(cyl)]
 mtcars_dt[, lapply(.SD, mean)]
 
 #只对某些特定的列 结合.SDcols参数
-mtcars_dt[, lapply(.SD, mean), .SDcols = c(&quot;cyl&quot;, &quot;vs&quot;)]#只对cyl, vs列进行计算
+mtcars_dt[, lapply(.SD, mean), .SDcols = c(&#34;cyl&#34;, &#34;vs&#34;)]#只对cyl, vs列进行计算
 
 # 对多个变量实现多个统计指标计算
 mtcars_dt[, sapply(.SD, function(x) c(mean=mean(x), median=median(x)))]
@@ -602,15 +596,14 @@ mtcars_dt[, .(mean_mpg = mean(mpg),.N), keyby=.(cyl,vs)]# 注意这里keyby里�
 
 # 等价
 mtcars_dt[,.(mean_mpg = mean(mpg),.N),by=.(cyl,vs)][order(cyl,vs)]
-
 </code></pre><h1 id="6-chaining表达式">6. chaining表达式</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">我们可以一个接一个地添加表达式，做一系列操作，就像这样：
-   <span style="color:#ae81ff">1</span>，DT[...][...][...]。
-   <span style="color:#ae81ff">2</span>，DT[...
-	         ][...
- 	         ][...
- 		        ]
-</code></pre></div><p>比如要提取前面几行就可以<code>DT[...][1:5]</code>,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>我们可以一个接一个地添加表达式，做一系列操作，就像这样：
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>，DT[...][...][...]。
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span>，DT[...
+</span></span><span style="display:flex;"><span>	         ][...
+</span></span><span style="display:flex;"><span> 	         ][...
+</span></span><span style="display:flex;"><span> 		        ]
+</span></span></code></pre></div><p>比如要提取前面几行就可以<code>DT[...][1:5]</code>,</p>
 <ul>
 <li>大多数情况下没有问题, 有些时候可以在最后面加个空, eg: <code>DT[...][1:5][]</code> , 这样可以保证返回<code>data.table</code> 数据格式</li>
 <li>发生这种原因,大多数和 <code>:=</code> 有关系, 如下</li>
@@ -629,20 +622,20 @@ a = iris_dt[1:3, 1:4][, id := 1:3][]  # 直接正常显示,打印
 我们可以通过参数i做更多的事，得到更快速的选取和连结。
 </code></pre><p>指定参数j：</p>
 <pre tabindex="0"><code>* 以data.table的形式选取列：DT[, .(colA, colB)]。
-* 以data.frame的形式选取列：DT[, c(&quot;colA&quot;, &quot;colB&quot;), with=FALSE]。
+* 以data.frame的形式选取列：DT[, c(&#34;colA&#34;, &#34;colB&#34;), with=FALSE]。
 * 按列进行计算：DT[, .(sum(colA), mean(colB))]。
 * 如果需要：DT[, .(sA =sum(colA), mB = mean(colB))]。
 * 和i共同使用：DT[colA &gt; value, sum(colB)]。
 </code></pre><p>指定参数by：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#f92672">*</span> 通过by，我们可以指定列或表达式，进行分组。参数j可以很灵活地配置参数i和by实现强大的功能。
-<span style="color:#f92672">*</span> by可以指定多个列，也可以指定表达式。
-<span style="color:#f92672">*</span> 我们可以用 keyby，对分组的结果自动排序。
-<span style="color:#f92672">*</span> 我们可以在参数j中指定 .SD 和 .SDcols，对复数的列进行操作。例如：   
-  <span style="color:#ae81ff">1</span>.把函数fun 应用到所有 .SDcols指定的列上，同时对参数by指定的列进行分组：
-  							DT[, <span style="color:#a6e22e">lapply</span>(.SD, fun), by<span style="color:#f92672">=</span>., .SDcols<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>]。 
-  <span style="color:#ae81ff">2</span>.返回每组册前两行：DT[, <span style="color:#a6e22e">head</span>(.SD, <span style="color:#ae81ff">2</span>), by<span style="color:#f92672">=</span>.]。
-  <span style="color:#ae81ff">3</span>.三个参数联合使用：DT[col <span style="color:#f92672">&gt;</span> val, <span style="color:#a6e22e">head</span>(.SD, <span style="color:#ae81ff">1</span>), by<span style="color:#f92672">=</span>.]。
-</code></pre></div><p>小提示：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">*</span> 通过by，我们可以指定列或表达式，进行分组。参数j可以很灵活地配置参数i和by实现强大的功能。
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span> by可以指定多个列，也可以指定表达式。
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span> 我们可以用 keyby，对分组的结果自动排序。
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span> 我们可以在参数j中指定 .SD 和 .SDcols，对复数的列进行操作。例如：   
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>.把函数fun 应用到所有 .SDcols指定的列上，同时对参数by指定的列进行分组：
+</span></span><span style="display:flex;"><span>  							DT[, <span style="color:#a6e22e">lapply</span>(.SD, fun), by<span style="color:#f92672">=</span>., .SDcols<span style="color:#f92672">=</span><span style="color:#66d9ef">...</span>]。 
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>.返回每组册前两行：DT[, <span style="color:#a6e22e">head</span>(.SD, <span style="color:#ae81ff">2</span>), by<span style="color:#f92672">=</span>.]。
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span>.三个参数联合使用：DT[col <span style="color:#f92672">&gt;</span> val, <span style="color:#a6e22e">head</span>(.SD, <span style="color:#ae81ff">1</span>), by<span style="color:#f92672">=</span>.]。
+</span></span></code></pre></div><p>小提示：
 只要j返回一个list，这个list的每个元素都会是结果data.table的一列。</p>
 <p><a href="https://youngspring1.github.io/2016/2016-03-13-datatable1/">https://youngspring1.github.io/2016/2016-03-13-datatable1/</a></p>
 <p><a href="https://youngspring1.github.io/2016/2016-03-21-datatable2/">https://youngspring1.github.io/2016/2016-03-21-datatable2/</a></p>
@@ -844,7 +837,7 @@ a = iris_dt[1:3, 1:4][, id := 1:3][]  # 直接正常显示,打印
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

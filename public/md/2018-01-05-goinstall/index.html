@@ -233,20 +233,19 @@ set PKG_CONFIG=pkg-config
 <pre tabindex="0"><code>// week1 project main.go
 package main
 
-import &quot;fmt&quot;
+import &#34;fmt&#34;
 
 func createMessage(name string) string {
 	if len(name) == 0 {
-		return &quot;Hello world&quot;
+		return &#34;Hello world&#34;
 	} else {
-		return &quot;Hello &quot; + name
+		return &#34;Hello &#34; + name
 	}
 }
 func main() {
-	fmt.Println(createMessage(&quot;Tom&quot;))
-	fmt.Println(createMessage(&quot;&quot;))
+	fmt.Println(createMessage(&#34;Tom&#34;))
+	fmt.Println(createMessage(&#34;&#34;))
 }
-
 </code></pre><p>先编译（ctrl+B）&mdash;在运行(ctrl+alt+R)，就能看到结果：（和c的运行一样）</p>
 <p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-5.png" alt="go1-5"></p>
 <p>对静态语言不熟悉，几乎小白，见谅！</p>
@@ -445,7 +444,7 @@ func main() {
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>

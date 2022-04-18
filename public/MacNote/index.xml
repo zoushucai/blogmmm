@@ -6,19 +6,7 @@
     <description>Recent content in Macnotes on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/macnote/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>zotero 设置</title>
-      <link>/macnote/20201008zoteroset/</link>
-      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/macnote/20201008zoteroset/</guid>
-      <description>zotero 设置 发现wolai这个软件不错，比这个方便多了
-参考：https://www.wolai.com/ojv74ziTho3c13ui8uxuRf
-备用连接： https://www.wolai.com/zsccy/6Qyx3yCvvqYyHwM9feHzXF?theme=light
-      [auth:lower][year][veryshorttitle:lower]           Collections pane: Show/hide –&amp;gt; CMD+1 Item pane: Show/hide –&amp;gt; CMD+2   </description>
-    </item>
-    
+    <lastBuildDate>Wed, 07 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/macnote/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>sublime text3 使用方法以及相关插件</title>
       <link>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</link>
@@ -41,9 +29,9 @@ https://packagecontrol.io/packages/Theme%20-%20Spacegray  Preferences &amp;gt; c
       <guid>/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</guid>
       <description>mac 软件安装 利用homebrew安装,官网:https://brew.sh/
 在终端运行
-$ /bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&amp;#34; 如果能运行成功,则下一步进行安装.
+ $ /bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&amp;#34; 如果能运行成功,则下一步进行安装.
 更换国内源(终端直接运行) &amp;ndash; 建议去官网
-git -C &amp;#34;$(brew --repo)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git git -C &amp;#34;$(brew --repo homebrew/core)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git git -C &amp;#34;$(brew --repo homebrew/cask)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles source ~/.bash_profile brew update # 更新 更新 Homebrew 自己, brew upgrade # 更新所有的包 ### 最后查看是否配置成功 brew config 参考:
+git -C &amp;#34;$(brew --repo)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git git -C &amp;#34;$(brew --repo homebrew/core)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git git -C &amp;#34;$(brew --repo homebrew/cask)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git  export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles source ~/.bash_profile brew update # 更新 更新 Homebrew 自己, brew upgrade # 更新所有的包 ### 最后查看是否配置成功 brew config 参考:
 2019-11-20-mac常用软件
 https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
 https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue_xia_zai_man_wen_ti/
@@ -58,7 +46,7 @@ https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue
       <guid>/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</guid>
       <description>mac 系统的设置 新系统, 首先我们要安装一些必要的软件,和做一些基本的设置.
 本文做一些基本的设置
-更改终端的颜色 和主机名 sudo echo &amp;#34;export CLICOLOR=1&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export LSCOLORS=gxfxcxdxbxegedabagacad&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export PS1=&amp;#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &amp;#39;&amp;#34;&amp;gt;&amp;gt; ~/.bash_profile source ~/.bash_profile 参考: 2019-11-19mac终端样式PS1
+更改终端的颜色 和主机名 sudo echo &amp;#34;export CLICOLOR=1&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export LSCOLORS=gxfxcxdxbxegedabagacad&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export PS1=&amp;#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &amp;#39;&amp;#34;&amp;gt;&amp;gt; ~/.bash_profile  source ~/.bash_profile 参考: 2019-11-19mac终端样式PS1
 命令行更改主机名
 scutil --set HostName lucky # 重启终端 hostname #查看主机名  备注： 还有在mac中使用vim, 可以有更好的方法 使用sublime  vim a.txt # 可以用  subl a.txt open a.txt 以下看情况设置  如果不能用则设置  设置网络的DNS. 打开&amp;ndash;wifi &amp;mdash;&amp;raquo; 高级&amp;mdash;&amp;gt; 设置 DNS ,
 添加
@@ -93,7 +81,7 @@ https://jingyan.baidu.com/article/4d58d54155bd079dd5e9c043.html
       
       <guid>/macnote/20201003%E8%B5%B7%E5%9B%A0/</guid>
       <description>起因 不知道latex最近抽什么风&amp;hellip; 导入eps文件出问题,报错如下:
-gpl ghostscript 9.50: can&#39;t find initialization file gs_init.ps. gpl ghostscript 9.53.2: unrecoverable error, exit code 1 心想不管了. 后又发现, 自己的毕业论文不能运行了? 心想我干脆更新了mactex(手贱)吧, 更新以后,有发现毕业论文还是报错, 以及以前的一些latex文稿都不能运行了. 我怀疑mactex 坏了, 于是卸载了, 重新安装&amp;hellip;&amp;hellip;..,来回试了几遍,咦,咋回事,都不行??? 开始着急了. 心想该不是我把重要的文件删了吧? (巧在我这个时候, 利用了一个清理软件&amp;mdash;&amp;ndash;且输入了密码&amp;hellip;) 于是开始了重装系统的想法&amp;hellip;&amp;hellip;
+gpl ghostscript 9.50: can&amp;#39;t find initialization file gs_init.ps. gpl ghostscript 9.53.2: unrecoverable error, exit code 1 心想不管了. 后又发现, 自己的毕业论文不能运行了? 心想我干脆更新了mactex(手贱)吧, 更新以后,有发现毕业论文还是报错, 以及以前的一些latex文稿都不能运行了. 我怀疑mactex 坏了, 于是卸载了, 重新安装&amp;hellip;&amp;hellip;..,来回试了几遍,咦,咋回事,都不行??? 开始着急了. 心想该不是我把重要的文件删了吧? (巧在我这个时候, 利用了一个清理软件&amp;mdash;&amp;ndash;且输入了密码&amp;hellip;) 于是开始了重装系统的想法&amp;hellip;&amp;hellip;
 加上以前制作了U盘的mac系统.顺便尝试一下&amp;hellip;&amp;hellip;.
 由于我设置的是时间作为顺序,因此更改一下时间,看起来有序</description>
     </item>
@@ -125,10 +113,10 @@ xattr -d com.apple.FinderInfo * </description>
       
       <guid>/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
       <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 2. homebrew 主页: https://brew.sh/ 2.1安装 把DSN 设置为8.8.8.8和8.8.4.4 这样才不会报错
-/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 卸载(未试过) 方法一: 网上找的,
+/usr/bin/ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34; 2.2 卸载(未试过) 方法一: 网上找的,
 可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
 方法 2: 官方版本
-ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;quot; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
+ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;#34; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
 https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
 2.3 安装包 和卸载包 brew install &amp;lt;packageName&amp;gt; % 这个安装的是只有命令行的工具 brew cask install google-chrome % 注意 brew cask install 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew cask uninstall &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 brew cask reinstall qq % 推荐，直接重新安装 ########文本文件预览 brew cask install qlcolorcode # 预览使得文本具有颜色,即给代码上色 brew cask install qlstephen # 语法高亮 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package quicklookase qlvideo brew cask install suspicious-package quicklookase qlvideo 超级右键 macApp 安装 软件更新 brew cask outdated # 可以查看cask安装的软件是否存在着需要更新的版本； brew cask upgrade xxx #进行软件更新； brew tap buo/cask-upgrade # 安装 brew-cask-upgrade brew cu # 更新所有过时应用： brew cu [CASK] # 更新指定应用： 软件清理 brew cleanup --prune 0 cleanup [options] [formula|cask] Remove stale lock files and outdated downloads for all formulae and casks, and remove old versions of installed formulae.</description>
     </item>

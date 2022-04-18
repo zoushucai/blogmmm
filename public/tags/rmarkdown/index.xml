@@ -15,9 +15,9 @@
       <guid>/md/2018-03-10-rmd%E4%B8%AD%E6%96%87/</guid>
       <description>方法一： 生成pdf中文 后文有与之对应的方法。
 需要安装完整版的CTeX_2.92套装（有没有感觉文件很大，文章最后教大家一个简单的安装版本），还要自己新建一个文本文件命名为header.tex,其内容为\usepackage{ctex} ,把这个文件和运行的rmarkdown文件保存在同级目录中，然后把rmarkdown的头文件yaml改写为如下情况：
---- title: &#39;Untitled&#39; author: &#39;zsc&#39; date: &amp;quot;`r Sys.Date()`&amp;quot; output: pdf_document: includes: in_header: header.tex keep_tex: yes latex_engine: xelatex --- 这样就可以生成中文的pdf了
+--- title: &amp;#39;Untitled&amp;#39; author: &amp;#39;zsc&amp;#39; date: &amp;#34;`r Sys.Date()`&amp;#34; output: pdf_document: includes: in_header: header.tex keep_tex: yes latex_engine: xelatex --- 这样就可以生成中文的pdf了
 于是我仿照上面的步骤，写了一个函数rmarkdown_pdf 保存为rmarkdown_pdf.R
-rmarkdown_pdf=function(file_name,new_filename=file_name){ cat(&amp;quot;\\usepackage{ctex}\n&amp;quot;, file = &amp;quot;header.tex&amp;quot;) txt=&amp;quot;--- title: &#39;Untitled&#39; author: &#39;zsc&#39; date: \&amp;quot;`r Sys.Date()`\&amp;quot; output:\n pdf_document:\n includes:\n in_header: header.tex\n keep_tex: yes\n latex_engine: xelatex --- &amp;quot; x=readLines(file_name,n=-1,encoding = &amp;quot;UTF-8&amp;quot;) la=max(which(x==&amp;quot;---&amp;quot;)[1:2]) cat(c(txt,x[(la+1):length(x)]),sep = &amp;quot;\n&amp;quot;,file = new_filename,append = F) rm(list = ls()) } 在把这个函数加载到自定义环境中，
+rmarkdown_pdf=function(file_name,new_filename=file_name){ cat(&amp;#34;\\usepackage{ctex}\n&amp;#34;, file = &amp;#34;header.tex&amp;#34;) txt=&amp;#34;--- title: &amp;#39;Untitled&amp;#39; author: &amp;#39;zsc&amp;#39; date: \&amp;#34;`r Sys.Date()`\&amp;#34; output:\n pdf_document:\n includes:\n in_header: header.tex\n keep_tex: yes\n latex_engine: xelatex --- &amp;#34; x=readLines(file_name,n=-1,encoding = &amp;#34;UTF-8&amp;#34;) la=max(which(x==&amp;#34;---&amp;#34;)[1:2]) cat(c(txt,x[(la+1):length(x)]),sep = &amp;#34;\n&amp;#34;,file = new_filename,append = F) rm(list = ls()) } 在把这个函数加载到自定义环境中，
   第一步：安装目录找到Rprofile.site这个文件，我的是在“D:\R\etc”这个目录；
   第二步：用文本文件打开Rprofile.</description>
     </item>

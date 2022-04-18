@@ -226,7 +226,7 @@ echo $0       # 方法二
 <h3 id="22-zsh-配置方法">2.2 zsh 配置方法</h3>
 <p>要自定义各种配置 我们就要修改默认shell 改用zsh，据说zsh比bash更强大（都是浮云 读者自行查找为啥强大吧），oh my zsh是开源的 a delightful &amp; open source framework for Z-Shell，也就是说我们用它 配置zsh更容易</p>
 <p>直接去官网https://ohmyz.sh/ 找到如下命令复制到终端即可（如果遇到提示则输入Yes和回车即可）：</p>
-<pre tabindex="0"><code>$ sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+<pre tabindex="0"><code>$ sh -c &#34;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;
 </code></pre><p>下载完毕后打开终端 样式已经变成zsh的默认样式robbyrussell了</p>
 <h3 id="23-切换主题">2.3 切换主题</h3>
 <p>如果不喜欢oh my zsh的自带主题，可以通过修改配置文件 修改主题</p>
@@ -235,7 +235,7 @@ echo $0       # 方法二
 <p>打开配置文件</p>
 <pre tabindex="0"><code>vim ~/.zshrc
 </code></pre><p>找到ZSH_THEME，按‘ <strong>i</strong> ’编辑修改主题，编辑完毕后按键盘ese退出并输入&quot;:wq&quot;保存</p>
-<pre tabindex="0"><code>ZSH_THEME=&quot;cloud&quot;
+<pre tabindex="0"><code>ZSH_THEME=&#34;cloud&#34;
 </code></pre><p>双引号的内容就是你想修改成的主题名，我修改成的 就是cloud主题 还蛮可爱的</p>
 <p>然后重启终端就能发现样式起作用啦，或者不重启，使用命令更新配置</p>
 <pre tabindex="0"><code>source  ~/.zshrc
@@ -254,15 +254,14 @@ echo $0       # 方法二
 <p>把一下内容追加到 <code>~/.bash_profile</code>这个文件中保存并退出</p>
 <pre tabindex="0"><code>export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
-export PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '
+export PS1=&#39;\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &#39;
 </code></pre><pre tabindex="0"><code>$ vim ~/.bash_profile  % 把上述文件追加到这个文件末尾
 $ source ~/.bash_profile  % 使配置文件生效
-
 </code></pre><p>以一个颜色开始直到遇到另一个颜色命令结束</p>
 <p>上述有一个问题,就是当输入字符过多以后,不会自动换行,会导致字符重叠,建议后改为后面的这个</p>
 <pre tabindex="0"><code>export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
-export PS1='\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '
+export PS1=&#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &#39;
 </code></pre><p>参考: https://my.oschina.net/6tao/blog/1587040?p=1</p>
 <h3 id="32-ps1-参数解释">3.2 PS1 参数解释</h3>
 <p>在mac下 一般用下面的结构来表示终端</p>
@@ -327,18 +326,18 @@ export PS1='\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;3
 <p>参考 <a href="https://blog.csdn.net/xchenhao/article/details/90648636">https://blog.csdn.net/xchenhao/article/details/90648636</a></p>
 <p>注意，如果使用mac &ndash;默认使用的是bash，因此推荐使用bash，这样能够保证mac 系统有些配置能正常运行，不然可能需要重新去配置zsh。</p>
 <h3 id="linux-更改终端颜色">linux 更改终端颜色</h3>
-<pre tabindex="0"><code>echo &quot;PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '&quot; &gt;&gt; ~/.bashrc 
+<pre tabindex="0"><code>echo &#34;PS1=&#39;\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &#39;&#34; &gt;&gt; ~/.bashrc 
 
 # 记得重新运行
 $ source ~/.bashrc  % 使配置文件生效
 </code></pre><h2 id="mac中终端中添加显示分支情况">mac中终端中添加显示分支情况</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">parse_git_branch<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    git branch 2&gt; /dev/null | sed -e <span style="color:#e6db74">&#39;/^[^*]/d&#39;</span> -e <span style="color:#e6db74">&#39;s/* \(.*\)/ (\1)/&#39;</span>
-<span style="color:#f92672">}</span>
-export CLICOLOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-export LSCOLORS<span style="color:#f92672">=</span>gxfxcxdxbxegedabagacad
-export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w\[\e[01;34m\]$(parse_git_branch) \[\e[01;32m\]\$ &#39;</span>
-</code></pre></div><p><img src="https://i0.hdslb.com/bfs/album/fe8c7995aa5a9840dab4c0645fef56098e52cf35.png" alt="04"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>parse_git_branch<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    git branch 2&gt; /dev/null | sed -e <span style="color:#e6db74">&#39;/^[^*]/d&#39;</span> -e <span style="color:#e6db74">&#39;s/* \(.*\)/ (\1)/&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>export CLICOLOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>export LSCOLORS<span style="color:#f92672">=</span>gxfxcxdxbxegedabagacad
+</span></span><span style="display:flex;"><span>export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w\[\e[01;34m\]$(parse_git_branch) \[\e[01;32m\]\$ &#39;</span>
+</span></span></code></pre></div><p><img src="https://i0.hdslb.com/bfs/album/fe8c7995aa5a9840dab4c0645fef56098e52cf35.png" alt="04"></p>
 
         </section>
     </div>
@@ -532,7 +531,7 @@ export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\
 <br>
 <footer>
     <p style="float:right;margin-right: 5%;margin-top: 0%;">
-        &copy; 2021 <a href="https://github.com/zoushucai">zsc</a>
+        &copy; 2022 <a href="https://github.com/zoushucai">zsc</a>
       </p>
 </footer>
 <br>
