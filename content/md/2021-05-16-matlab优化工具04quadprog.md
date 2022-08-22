@@ -5,7 +5,6 @@ date: "2021-05-16"
 tags:
   - matlab
 toc: true
-markup: mmark
 ---
 
 # matlab优化工具04二次规划之quadprog
@@ -18,18 +17,16 @@ markup: mmark
 
 $$
 \begin{aligned}
-& \min \quad  f^T x + \frac{1}{2}x^T \textbf{H} x \\
-& \text {s.t.} \begin{cases}
-\textbf{A} \cdot x \leq b \\
-\textbf{Aeq} \cdot x=beq \\
-l b \leq x \leq u b
-\end{cases}\\ \\
-&  x, b, beq是向量, f^T 为一次项的系数,  \\
-& \textbf{A}是矩阵,\textbf{H}是矩阵 \\ 
-& \textbf{H}是矩阵,即二次项系数,用以描述x_i^2 以及 x_i x_j项\\
-&\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\
+ \min \quad & f^T x + \frac{1}{2}x^T \textbf{H} x \\
+ \text {s.t.} \quad & \textbf{A} \cdot x \leq b \\
+ & \textbf{Aeq} \cdot x=beq \\
+& l b \leq x \leq ub
 \end{aligned}
 $$
+
+其中: $x, b, beq$是向量, $f^T$ 为一次项的系数,  $\textbf{A}$是矩阵,$\textbf{H}$是矩阵,  $\textbf{H}$是矩阵,即二次项系数,用以描述$x_i^2$ 以及 $x_i x_j$项.  $\textbf{A}$线性不等式,$\textbf{Aeq}$线性等式,
+
+
 
 当然,二次规划的目标函数中的二次项还可以用元素的形式表达,即
 $$
@@ -229,11 +226,12 @@ x1 =
 
 **线性模型中的运输问题**
 
-![image-20210516105838325](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161058image-20210516105838325.png)
+![image-20210516105838325](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161058image-20210516105838325.png)
+
 
 **双下标二次规划的一个改进版本**
+![image-20210516164342083](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161643image-20210516164342083.png)
 
-![image-20210516164342083](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161643image-20210516164342083.png)
 
 
 
@@ -305,3 +303,8 @@ X0 =
     0.0000   12.0000    0.0000    0.0000
 ```
 
+参考: 
+
+-   matlab函数官网
+
+-   \<<薛定宇教授大讲堂卷5  MATLAB最优化计算>\>\_含目录py.pdf

@@ -253,7 +253,7 @@
 <p>常用这些函数， 写个笔记</p>
 <h2 id="matlab-优化工具箱函数">matlab 优化工具箱函数</h2>
 <h3 id="基本函数">基本函数</h3>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105160936image-20210516093622862.png" alt="image-20210516093622862"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105160936image-20210516093622862.png" alt="image-20210516093622862"></p>
 <h3 id="全局优化函数">全局优化函数</h3>
 <ul>
 <li>遗传算法 ga() , 推荐, 可以处理带有约束问题的优化, 还可以求解混合整数规划</li>
@@ -288,7 +288,7 @@
 </span></span><span style="display:flex;"><span>options = optimset(<span style="color:#e6db74">&#39;fmincon&#39;</span>) <span style="color:#75715e">% 省略结果</span>
 </span></span><span style="display:flex;"><span>options =optimset(options, <span style="color:#e6db74">&#39;Display&#39;</span> , <span style="color:#e6db74">&#39;iter&#39;</span>) <span style="color:#75715e">%修改 Display 属性值为iter</span>
 </span></span><span style="display:flex;"><span>val = optimget(options,<span style="color:#e6db74">&#39;Display&#39;</span>) <span style="color:#75715e">% 重新获取fmincon 函数的 Display属性值</span>
-</span></span></code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161025image-20210516102520466.png" alt="image-20210516102520466"></p>
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161025image-20210516102520466.png" alt="image-20210516102520466"></p>
 <h2 id="线性规划的标准型">线性规划的标准型</h2>
 <p>$$
 \begin{aligned}
@@ -370,7 +370,7 @@ $$</p>
 </li>
 <li>
 <p>有些时候书写比较麻烦,比如运输问题, 则可以编写函数使其自动化</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161058image-20210516105838325.png" alt="image-20210516105838325"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161058image-20210516105838325.png" alt="image-20210516105838325"></p>
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> [x,f0, flag] = <span style="color:#a6e22e">transport_linprog</span>(C,s,d,indkey)
@@ -409,7 +409,7 @@ $$</p>
 </span></span><span style="display:flex;"><span>f0 =
 </span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">152535</span>
 </span></span></code></pre></div><h4 id="特殊的运输问题------指派问题">特殊的运输问题  &mdash; 指派问题</h4>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161110image-20210516111020291.png" alt="image-20210516111020291"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161110image-20210516111020291.png" alt="image-20210516111020291"></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>C= [<span style="color:#ae81ff">15</span>,<span style="color:#ae81ff">18</span>,<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">24</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">19</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">22</span>,<span style="color:#ae81ff">18</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">26</span>,<span style="color:#ae81ff">17</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">19</span>;

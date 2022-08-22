@@ -244,9 +244,9 @@
 <p>使用环境: <code>MacTeX 2018 + texstudio</code>, texstudio编译器改为xelatex</p>
 <h2 id="0-什么是bib-文件">0. 什么是<code>*.bib</code> 文件</h2>
 <p>注意: 后面三种,都将涉及bib文件, 如何生成bib文件, 我们可以建立一个后缀名为<code>.bib</code>的文件,这里我建立一个bib文件, 如<code>text.bib</code>,  去google学术或百度学术找一篇文献,这里我随便找了一篇文献如下:</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111644929.png" alt="image-20200809111644929"></p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111700803.png" alt="image-20200809111700803"></p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809111722093.png" alt="image-20200809111722093"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081513image-20200809111644929.png" alt="image-20200809111644929"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081513image-20200809111700803.png" alt="image-20200809111700803"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081513image-20200809111722093.png" alt="image-20200809111722093"></p>
 <p>把上图的内容复制到我们所创建的<code>test.bib</code>文件中即可.</p>
 <p><strong>注意: 生成参考文献的好坏,80% 都看你的bib数据文件</strong></p>
 <h2 id="1-使用-thebibliography-环境---手动书写">1. 使用 <code>thebibliography</code> 环境&ndash; 手动书写</h2>
@@ -300,7 +300,7 @@ apalike，美国心理学学会期刊样式.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{document}
 </span></span></code></pre></div><p>生成的pdf截图如下:</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809112144024.png" alt="image-20200809112144024"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081513image-20200809112144024.png" alt="image-20200809112144024"></p>
 <p>比如我要使用<code>/usr/local/texlive/2018/texmf-dist/bibtex/bst/elsarticle/elsarticle-num-names.bst  </code> 这个参考文献样式, 只需直接替换使用即可,如下,</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\documentclass</span>{article}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{ctex}<span style="color:#75715e">%加载ctex宏包，中文支持
@@ -327,7 +327,7 @@ apalike，美国心理学学会期刊样式.
 <li>方法一: 可以使用 像<code>Zotero, Mendeley</code> 软件支持, 但是不能像<code>bst</code>文件那样使用,只能手动粘贴.参考文献数量多了,自然不方便</li>
 <li>方法二: 借助 <a href="https://www.pandoc.org/">pandoc</a> , 该软件提供了大量命令参数, 感兴趣的可以去探索,  而xieyihui 通过使用<code>*.Rmd</code>文件进行了封装(前提要安装并了解<code>R + Rstudio</code>),  个人在巨人的肩上, 进行了简单封装,提供了一个R包<a href="https://github.com/zoushucai/journalabbr">journalabbr</a>提供了一个本地app 和一个<a href="https://zoushucai.shinyapps.io/shiny_cankaowenxian/">在线app</a>, 该app提供期刊缩写, 美化bib数据库文件以及提供类似<code>bst</code>文件那样批量生成一个完整的 <code>thebibliography</code> 环境. app截图如下:</li>
 </ul>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081513image-20200809120534362.png" alt="image-20200809120534362"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081513image-20200809120534362.png" alt="image-20200809120534362"></p>
 <h2 id="4-使用biblatex----未来的版本">4. 使用biblatex &ndash; 未来的版本</h2>
 <p>这里仅以国标gb7714为例子</p>
 <p>首先把texstudio编译器改为xelatex, 并把bibtex 后端改为 biber. , 提供一个案例如下</p>
@@ -347,10 +347,10 @@ apalike，美国心理学学会期刊样式.
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{document}
 </span></span></code></pre></div><p>更多,可参考
 <a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
-<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%92%8C%E5%BC%95%E7%94%A8%E6%A0%B7%E5%BC%8Fcaspervector.pdf">biblatex参考文献和引用样式caspervector.pdf</a></p>
-<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-zh-cn.pdf">biblatex-zh-cn</a></p>
-<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-solution-to-latex-bibliography.pdf">biblatex-solution-to-latex-bibliography</a></p>
-<p><a href="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020072916biblatex-gb7714-2015.pdf">biblatex-gb7714-2015</a></p>
+<p><a href="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020072916biblatex%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%92%8C%E5%BC%95%E7%94%A8%E6%A0%B7%E5%BC%8Fcaspervector.pdf">biblatex参考文献和引用样式caspervector.pdf</a></p>
+<p><a href="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020072916biblatex-zh-cn.pdf">biblatex-zh-cn</a></p>
+<p><a href="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020072916biblatex-solution-to-latex-bibliography.pdf">biblatex-solution-to-latex-bibliography</a></p>
+<p><a href="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020072916biblatex-gb7714-2015.pdf">biblatex-gb7714-2015</a></p>
 <p>关于 国标gb7714 我们后面在进一步介绍.</p>
 
         </section>

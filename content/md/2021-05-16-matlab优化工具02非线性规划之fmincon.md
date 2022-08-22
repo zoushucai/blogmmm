@@ -79,11 +79,11 @@ options = optimoptions('fmincon','Display','iter','PlotFcn','optimplotfval');
 
 
 
-![image-20210515121746768](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151217image-20210515121746768.png)
+![image-20210515121746768](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105151217image-20210515121746768.png)
 
-![image-20210515121800630](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151218image-20210515121800630.png)
+![image-20210515121800630](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105151218image-20210515121800630.png)
 
-![image-20210515121820017](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161223image-20210515121820017.png)
+![image-20210515121820017](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161223image-20210515121820017.png)
 
 #### 例1: 具体例子
 
@@ -184,7 +184,7 @@ end
 end
 ```
 
-![image-20210515115110873](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105151151image-20210515115110873.png)
+![image-20210515115110873](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105151151image-20210515115110873.png)
 
 
 

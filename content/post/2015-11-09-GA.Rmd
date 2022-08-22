@@ -137,7 +137,7 @@ monitor = function(obj) {
 # GA = ga(type = "real-valued", fitness = f, lower = -10, upper = 10, monitor = monitor)
 ```
 
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-9-.gif)
+![](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091421unnamed-chunk-9-.gif)
 
 
 
@@ -299,7 +299,7 @@ sum(w * GA@solution)
 
 考虑一个简单的例子，现在共有A、B、C、D四个城市。
 
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-21-1.png)
+![](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091421unnamed-chunk-21-1.png)
 
 ```R
 为了将图中关系数据化，可用如下规则来描述：  
@@ -359,7 +359,7 @@ j=ggplot(data=re_city,aes(x=X1,y=X2))+geom_point(shape=19,size=4,col="red")+them
 j 
 ```
 
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091421unnamed-chunk-26-1.png)
+![](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091421unnamed-chunk-26-1.png)
 
 ```{r}
 sessionInfo()

@@ -242,10 +242,10 @@ rm(list = ls())
 source(&#34;函数rmarkdown_pdf.R存放的路径&#34;)路径为1111/22/33 
 }
 </code></pre><p>这种设置，会产生很多的中间文件（系统并未自己删除），亲测成功：</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf1.png" alt="pdf1"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/pdf1.png" alt="pdf1"></p>
 <h1 id="方法二-生成pdf中文--用rticles包的模板">方法二： 生成pdf中文&ndash;用rticles包的模板</h1>
 <p>很久就知道谢意辉早就把rmarkdown可以转换为中文pdf的方案，一直没有尝试，今天尝试一下，结果失败了，我的电脑是win10 ，R的版本为3.4.3 ，安装了CTeX_2.92套装，我用的是rticles包中的模板文件，想测试一下中文pdf能否生成，结果报错如下（英文生成pdf没有问题）</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf3.png" alt="pdf3"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/pdf3.png" alt="pdf3"></p>
 <p>重点！重点！重点！来了</p>
 <h2 id="ctex的版安装问题">CteX的版安装问题</h2>
 <p>原来是CteX的版本的问题 &mdash;-解决方案如下</p>
@@ -260,14 +260,14 @@ source(&#34;函数rmarkdown_pdf.R存放的路径&#34;)路径为1111/22/33
 <p>(3)	安装以后,直接在Rstudio中点击knitr生成中文的pdf，系统会自动调用MiKTek里面的文件，并弹出对话框将要安装下列的包，安装包的时候注意选择更新源（一般选择离自己较近的下载源（我选清华）） ，会自动安装很多的包，</p>
 </li>
 </ul>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf4.png" alt="pdf4"></p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf5.png" alt="pdf5"></p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf6.png" alt="pdf6"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/pdf4.png" alt="pdf4"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/pdf5.png" alt="pdf5"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/pdf6.png" alt="pdf6"></p>
 <p>​	点击install就好了（每安装一个文件都要弹出对话框并让你点击安装，这样很麻烦，可以把always前面的√取消掉），直到rmarkdown可以生成中文为止。</p>
 <ul>
 <li>（4）这种安装的方法也实用与方法一也适合,如果卸载CteX的时候没卸载干净，后面卸载basic-miktex-2.9.6615的时候，总是报错，总之是不能卸载的，所以我每次卸载的时候都是直接删除安装的目录（为何要卸载，测试软件啊！！！！！），大功告成！！！</li>
 </ul>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/pdf2.png" alt="pdf2"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/pdf2.png" alt="pdf2"></p>
 <p>​</p>
 <p>所用以上操作&ndash;我是翻墙操作的，毕竟下载软件的时候比较快</p>
 <h2 id="补充"><strong>补充：</strong></h2>
@@ -275,7 +275,7 @@ source(&#34;函数rmarkdown_pdf.R存放的路径&#34;)路径为1111/22/33
 <ol>
 <li>
 <p>如果没有用上述模板（rticles模板），想要Rmd 文件生成对应的中文，直接knitr是行不通的，会报以下错误，当然想要正常显示用模板方便很多啊！</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong01.png" alt="buchong01"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong01.png" alt="buchong01"></p>
 <pre tabindex="0"><code>output file: test.knit.md
 
 ! Package inputenc Error: Unicode character 浣?(U+4F60)
@@ -292,19 +292,19 @@ In grepl(&#34;==&gt; Fatal error occurred&#34;, x[i], fixed = TRUE) :
 <pre tabindex="0"><code>output:
    pdf_document:
        latex_engine: xelatex
-</code></pre><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong02.png" alt=""></p>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong02.png" alt=""></p>
 <ol start="3">
 <li>方法二：如果想让中文显示，需要如下设置，这都是基于rticles模板的或者基于Latex的（由谢易辉的提供的案列进行总结的）</li>
 </ol>
 <p>方法一：</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong03.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong03.png" alt=""></p>
 <p>直接在YAML格式中添加参数即可：</p>
 <pre tabindex="0"><code></code></pre><ol start="4">
 <li>方法三： 首先在你的Rmd文件开始部分加入：</li>
 </ol>
 </li>
 </ol>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/buchong04.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong04.png" alt=""></p>
 <pre tabindex="0"><code>---
 output:
     pdf_document:

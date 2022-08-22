@@ -39,19 +39,19 @@ set PKG_CONFIG=pkg-config
 
 好像这后面的可以不用管，去电脑的环境变量里面新增
 
-![go1-2](https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-2.png)
+![go1-2](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/go1-2.png)
 
 解压下载好的liteide，把解压后的目录放在go安装的目录中（我的安装go目录为F：\go\）进入F:\go\liteide\bin目录找到liteide.exe 文件，双击进入
 
 接着配置liteide工具，点击【工具】--【选择环境】--【win64】 ，，再次进入【工具】--【编辑当前环境】
 
-![go1-3](https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-3.png)
+![go1-3](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/go1-3.png)
 
 好像就成功了
 
  再次检查一下，进入cmd 输入 go env 与go version，go的版本1.9.2，成功
 
-![go1-4](https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-4.png)
+![go1-4](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/go1-4.png)
 
 进入LiteIDE测试
 
@@ -79,6 +79,6 @@ func main() {
 
 先编译（ctrl+B）---在运行(ctrl+alt+R)，就能看到结果：（和c的运行一样）
 
-![go1-5](https://gitee.com/zscqsmy/blogimg/raw/master/img/go1-5.png)
+![go1-5](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/go1-5.png)
 
 对静态语言不熟悉，几乎小白，见谅！

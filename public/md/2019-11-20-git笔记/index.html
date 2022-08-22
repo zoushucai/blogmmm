@@ -212,7 +212,7 @@
 </span></span><span style="display:flex;"><span>$ pwd       <span style="color:#75715e"># 查看当前所在的目录</span>
 </span></span><span style="display:flex;"><span>$ clear     <span style="color:#75715e"># 清屏(终端)</span>
 </span></span></code></pre></div><h2 id="2--创建本地仓库">2 . 创建本地仓库</h2>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git01.png" alt="git01"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git01.png" alt="git01"></p>
 <h3 id="21-创建版本库--即初始化一个空仓库-这个目录下的所有路径都称作工作区">2.1 创建版本库  (即初始化一个空仓库, 这个目录下的所有路径都称作工作区)</h3>
 <p>版本库又名仓库(<strong>repository</strong>)，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git init    <span style="color:#75715e"># 该命令会在当前目录下创建了隐藏目录.git(与 git有关的信息都存储在这个文件夹里面)</span>
@@ -231,7 +231,7 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git log       <span style="color:#75715e"># 可以查看提交历史，以便确定要回退到哪个版本。 (可用于穿梭历史),</span>
 </span></span><span style="display:flex;"><span>$ git reflog    <span style="color:#75715e"># 查看命令历史，以便确定要回到未来的哪个版本。 (可用于穿梭未来,包含历史的回滚),</span>
 </span></span></code></pre></div><h3 id="25--退回某个commit-id-版本">2.5  退回某个commit id 版本</h3>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git02.png" alt="git02"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git02.png" alt="git02"></p>
 <p>可以用于回滚(即可以回到历史版本,也可回到未来版本(zhu)) ,</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$ git reset --hard ****   <span style="color:#75715e">#可以指定回到某个提交的历史版本, **** 为 commit id,id可以不写全</span>
 </span></span></code></pre></div><p>从工作区提交到暂存区,从暂存区提交到历史区: 是把内容复制一份传过去的,本区域依然存在这些信息(只有这样才能对比出那些文件是否进行了修增改删)</p>
@@ -306,7 +306,7 @@
 </span></span></code></pre></div><h2 id="4-分支">4 分支</h2>
 <h3 id="41-分支的功能">4.1 分支的功能</h3>
 <p>分支的作用: 用于为项目增加新功能或修复Bug时使用。</p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git03.png" alt="git03"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git03.png" alt="git03"></p>
 <p>假设当前节点处于 id03 , 一般默认处于 master 分支上, 现在要</p>
 <pre tabindex="0"><code>创建分支:  git branch dev
 查看分支:  git branch     # 分支前面有一个* 号,代表处于当前分支
@@ -321,7 +321,7 @@
 
 查看未合并的分支(切换到master):  git branch --no-merged
 查看已经合并的分支(切换到master) : git branch --merged
-</code></pre><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git04.png" alt="git04"></p>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git04.png" alt="git04"></p>
 <h3 id="42-合并分支可能会产生冲突">4.2 合并分支可能会产生冲突</h3>
 <h4 id="421--git-分支冲突">4.2.1  git 分支冲突</h4>
 <p>产生原因: 不同分支修改同一个文件或不同开发者修改同一个分支文件都可能造成冲突，造成无法提交代码。</p>
@@ -368,12 +368,12 @@
 <pre tabindex="0"><code>方法一: git archive --format zip --output &#34;./output.zip&#34; master -0
 方法二: git archive --format zip --output dump.zip master
 </code></pre><h3 id="46-移动分支的基础点-产生干净的合并记录---rebase">4.6 移动分支的基础点, 产生干净的合并记录 &ndash;rebase</h3>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git05.png" alt="git05"></p>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/git06-20200525194419221.png" alt="git06"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git05.png" alt="git05"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git06-20200525194419221.png" alt="git06"></p>
 <h3 id="47-git-压缩提交记录次数">4.7 git 压缩提交记录次数</h3>
 <p>发现自己提交次数有点多，想来合并以前的一些提交记录，减少提交次数，命令如下:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git rebase -i HEAD~n  //n代表你要查看的提交记录条数
-</span></span></code></pre></div><p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/image-20200528104231661.png" alt="image-20200528104231661"></p>
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/image-20200528104231661.png" alt="image-20200528104231661"></p>
 <p><a href="https://blog.csdn.net/xiaowu_zhu/article/details/83345313">https://blog.csdn.net/xiaowu_zhu/article/details/83345313</a></p>
 <h2 id="5-git-别名-alias">5. git 别名 alias</h2>
 <pre tabindex="0"><code># 方式一: 命令设置别名,  a == add .   # 即 git a  == git add .

@@ -163,7 +163,26 @@
             </p>
             
             <div id="divtocTableOfContents">
-            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-y--fx-的函数图像">1. $y = f(x)$ 的函数图像</a>
+      <ul>
+        <li><a href="#方法一-curve画函数图像">方法一: <code>curve()</code>画函数图像</a></li>
+        <li><a href="#方法二-ggplot2">方法二: ggplot2</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-函数图像具有参数方程">2. 函数图像具有参数方程</a>
+      <ul>
+        <li><a href="#21-画x2y2--4的函数图像">2.1 画$x^2+y^2 = 4$的函数图像</a></li>
+        <li><a href="#22-椭圆">2.2 椭圆</a></li>
+        <li><a href="#23-抛物线">2.3 抛物线</a></li>
+        <li><a href="#24-双曲线">2.4 双曲线</a></li>
+        <li><a href="#24-lissajous-曲线利萨如曲线">2.4 Lissajous 曲线(利萨如曲线)</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-隐函数">3 .隐函数</a></li>
+  </ul>
+</nav>
             </div>
     </div>
 </div>
@@ -232,299 +251,220 @@
     
         
         <section id="content">
-            
-据我了解, 计算机软件中画的函数图像大概有两种方法:
-
--   方法一: 该图像有一系列密集点组成, 已达到欺骗人们的眼睛.感觉认为是连续的.
--   方法二: 为了解决方法一种的问题,把每两个点之间用直线连接已达到连续的状态
-
-在本文中我们将利用R语言来画函数图像---- 重点以`ggplot2`来展示
-
-## 1. $y = f(x)$ 的函数图像
-
-比如: 
-
-$$
-\begin{aligned}y &= sin(x),\\
-y &= cos(x), \\
-y &= \dfrac{1}{1+e^{(-x)}},\\
-y &= x^2 .
+            <p>据我了解, 计算机软件中画的函数图像大概有两种方法:</p>
+<ul>
+<li>方法一: 该图像有一系列密集点组成, 已达到欺骗人们的眼睛.感觉认为是连续的.</li>
+<li>方法二: 为了解决方法一种的问题,把每两个点之间用直线连接已达到连续的状态</li>
+</ul>
+<p>在本文中我们将利用R语言来画函数图像&mdash;- 重点以<code>ggplot2</code>来展示</p>
+<h2 id="1-y--fx-的函数图像">1. $y = f(x)$ 的函数图像</h2>
+<p>比如:</p>
+<p>$$
+\begin{aligned}
+y &amp;= sin(x),\
+y &amp;= cos(x), \
+y &amp;= \dfrac{1}{1+e^{(-x)}},\
+y &amp;= x^2 .
 \end{aligned}
-$$
-
-这是我们中学最常见的函数.
-
-### 方法一: `curve()`画函数图像
-
-所用函数调用格式
-
-``` r
-curve(expr, from = NULL, to = NULL, n = 101, add = FALSE,
-      type = "l", xname = "x", xlab = xname, ylab = NULL,
-      log = NULL, xlim = NULL, ...)
-# expr：函数名称或一个关于变量x的函数表达式；
-# from，to：表示绘图的起止范围；
-# n：一个整数值，表示x取值的数量；
-# add：是一个逻辑值，当为TRUE时，表示将绘图添加到已存在的绘图中；
-# type：与plot函数中type含义相同
-```
-
-``` r
-#定义公式
-sigmoid <- function(x) 1/(1+exp(-x))
-
-#画sigmid图像
-curve(sigmoid,-10,10)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-1-1.png)
-
-``` r
-#画sin(x)函数图像
-curve(sin,-10,10)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-1-2.png)
-
-``` r
-# 画y=x^2的图像
-curve(x^2,-10,10)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-1-3.png)
-
-### 方法二: ggplot2
-
-首先介绍两个映射
-
--   `geom_path()` 按照观测值在数据中出现的顺序连接观测值(如果画函数图,推荐此映射,原因后面知晓)。
--   `geom_line()`按变量在x轴上的顺序连接它们。
-
-``` r
-library(ggplot2)
-
-# 定义函数
-sigmoid <- function(x) 1/(1+exp(-x))
-
-# 创建数据点
-x<-seq(-5, 5, by=0.01)
-y<-sigmoid(x)
-df<-data.frame(x, y)
-
-# 用ggplot2来画图
-g <- ggplot(df, aes(x,y))
-g <- g + geom_path(col='red') ## 用geom_line 替代也是可以的,但不推荐
-g <- g + geom_hline(yintercept = 0.5) + geom_vline(xintercept = 0) #坐标轴
-g <- g +  labs(title="sigmoid", x="x", y="y")
-g <- g +theme(plot.title = element_text(hjust = 0.5))  #标题居中
-g
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-2-1.png)
-
-## 2. 函数图像具有参数方程
-
-例如: 圆, 椭圆, 抛物线, 双曲线 方程.
-
-### 2.1 画$x^2+y^2 = 4$的函数图像
-
-这里我们只以`ggplot2`为例,
-
-思路一: 可以利用分段函数的思想画,先把原函数解出显示的表达式 $y = -\sqrt{4-x}$ 或者$y = \sqrt{4-x}$, 然后分段画, 这里不讲解
-
-思路二: 像上面这些函数,都能表示成参数方程的形式, 利用参数方程来画该函数图像
-
-首先写出圆的参数方程一般形式: $$
+$$</p>
+<p>这是我们中学最常见的函数.</p>
+<h3 id="方法一-curve画函数图像">方法一: <code>curve()</code>画函数图像</h3>
+<p>所用函数调用格式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">curve</span>(expr, from <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, to <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, n <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>, add <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>      type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;l&#34;</span>, xname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, xlab <span style="color:#f92672">=</span> xname, ylab <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>      log <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, xlim <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># expr：函数名称或一个关于变量x的函数表达式；</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># from，to：表示绘图的起止范围；</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># n：一个整数值，表示x取值的数量；</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add：是一个逻辑值，当为TRUE时，表示将绘图添加到已存在的绘图中；</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># type：与plot函数中type含义相同</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#定义公式</span>
+</span></span><span style="display:flex;"><span>sigmoid <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x) <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#a6e22e">exp</span>(<span style="color:#f92672">-</span>x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#画sigmid图像</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">curve</span>(sigmoid,<span style="color:#ae81ff">-10</span>,<span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-1-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#画sin(x)函数图像</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">curve</span>(sin,<span style="color:#ae81ff">-10</span>,<span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-1-2.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 画y=x^2的图像</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">curve</span>(x^2,<span style="color:#ae81ff">-10</span>,<span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-1-3.png" alt=""></p>
+<h3 id="方法二-ggplot2">方法二: ggplot2</h3>
+<p>首先介绍两个映射</p>
+<ul>
+<li><code>geom_path()</code> 按照观测值在数据中出现的顺序连接观测值(如果画函数图,推荐此映射,原因后面知晓)。</li>
+<li><code>geom_line()</code>按变量在x轴上的顺序连接它们。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 定义函数</span>
+</span></span><span style="display:flex;"><span>sigmoid <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x) <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#a6e22e">exp</span>(<span style="color:#f92672">-</span>x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建数据点</span>
+</span></span><span style="display:flex;"><span>x<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>, <span style="color:#ae81ff">5</span>, by<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>)
+</span></span><span style="display:flex;"><span>y<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">sigmoid</span>(x)
+</span></span><span style="display:flex;"><span>df<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">data.frame</span>(x, y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 用ggplot2来画图</span>
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x,y))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e">## 用geom_line 替代也是可以的,但不推荐</span>
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_hline</span>(yintercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_vline</span>(xintercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">#坐标轴</span>
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span>  <span style="color:#a6e22e">labs</span>(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sigmoid&#34;</span>, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>)
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span><span style="color:#a6e22e">theme</span>(plot.title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>))  <span style="color:#75715e">#标题居中</span>
+</span></span><span style="display:flex;"><span>g
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-2-1.png" alt=""></p>
+<h2 id="2-函数图像具有参数方程">2. 函数图像具有参数方程</h2>
+<p>例如: 圆, 椭圆, 抛物线, 双曲线 方程.</p>
+<h3 id="21-画x2y2--4的函数图像">2.1 画$x^2+y^2 = 4$的函数图像</h3>
+<p>这里我们只以<code>ggplot2</code>为例,</p>
+<p>思路一: 可以利用分段函数的思想画,先把原函数解出显示的表达式 $y = -\sqrt{4-x}$ 或者$y = \sqrt{4-x}$, 然后分段画, 这里不讲解</p>
+<p>思路二: 像上面这些函数,都能表示成参数方程的形式, 利用参数方程来画该函数图像</p>
+<p>首先写出圆的参数方程一般形式:</p>
+<p>$$
 \begin{cases}
-x = rcos\theta,\\
+x = rcos\theta,\
 y = rsin\theta
 \end{cases}
-$$
-
-``` r
-library(ggplot2)
-r = 2
-theta=seq(0, 2*pi, by=0.001)
-x = r*cos(theta)
-y = r*sin(theta) 
-df <- data.frame(x, y, theta,frame = 1:length(theta))
-g <- ggplot(df, aes(x,y))
-g <- g + geom_path(col='red')
-g
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-3-1.png)
-
-``` r
-###################
-####让上面的图动起来
-library(gganimate)
-library(transformr)
-temp = g + transition_reveal(along = frame)
-
-animate(temp,
-        nframes=100,#总帧数(默认)
-        duration=10 #总时长，单位为秒，默认为10秒
-        )
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-3-1.gif)
-
-### 2.2 椭圆
-
-椭圆的参数方程 $$
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>theta<span style="color:#f92672">=</span><span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#66d9ef">pi</span>, by<span style="color:#f92672">=</span><span style="color:#ae81ff">0.001</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> r<span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(theta)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> r<span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(theta) 
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x, y, theta,frame <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(theta))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x,y))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>g
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-3-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">###################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">####让上面的图动起来</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(gganimate)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(transformr)
+</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">animate</span>(temp,
+</span></span><span style="display:flex;"><span>        nframes<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>,<span style="color:#75715e">#总帧数(默认)</span>
+</span></span><span style="display:flex;"><span>        duration<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> <span style="color:#75715e">#总时长，单位为秒，默认为10秒</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-3-1.gif" alt=""></p>
+<h3 id="22-椭圆">2.2 椭圆</h3>
+<p>椭圆的参数方程</p>
+<p>$$
 \begin{cases}
-x = acos\theta,\\
+x = acos\theta,\
 y = bsin\theta
 \end{cases}
-$$
-
-``` r
-library(ggplot2)
-a = 2
-b = 3
-theta=seq(0, 2*pi, by=0.001)
-x = a*cos(theta)
-y = b*sin(theta) 
-df <- data.frame(x, y, theta,frame = 1:length(theta))
-g <- ggplot(df, aes(x,y))
-g <- g + geom_path(col='red')
-## 让图动起来
-temp = g + transition_reveal(along = frame)
-
-animate(temp)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-4-1.gif)
-
-### 2.3 抛物线
-
-抛物线参数方程 $$
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>theta<span style="color:#f92672">=</span><span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#66d9ef">pi</span>, by<span style="color:#f92672">=</span><span style="color:#ae81ff">0.001</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(theta)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> b<span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(theta) 
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x, y, theta,frame <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(theta))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x,y))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 让图动起来</span>
+</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">animate</span>(temp)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-4-1.gif" alt=""></p>
+<h3 id="23-抛物线">2.3 抛物线</h3>
+<p>抛物线参数方程</p>
+<p>$$
 \begin{cases}
-x = 2pt^2, \\
+x = 2pt^2, \
 y = 2pt
 \end{cases} (t为参数, t \in R)
-$$
-
-``` r
-p = 4
-t = seq(3,-3,-0.2)
-x = 2*p*t^2
-y = 2*p*t 
-df <- data.frame(x, y, t,frame = 1:length(t))
-g <- ggplot(df, aes(x,y))
-g <- g + geom_path(col='red')
-## 让图动起来
-temp = g + transition_reveal(along = frame)
-
-animate(temp)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-5-1.gif)
-
-### 2.4 双曲线
-
-在ggplot中没有找到好的画法
-
-``` r
-a = 3
-b = 1
-theta=round(seq(0,2*pi,0.2),2)
-
-x = a/cos(theta)
-y = b*tan(theta) 
-df <- data.frame(x, y, theta,frame = 1:length(theta))
-g <- ggplot(df, aes(x,y))
-g <- g + geom_path(col='red')
-g
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-6-1.png)
-
-``` r
-# 以分段的思想来画双曲线
-
-
-x <- seq(1,3,length = 100)
-y1 <- sqrt(x^2 - 1);y2 <- -sqrt(x^2 - 1)
-
-xx1 = c(rev(x),x); yy1 = c(rev(y2),y1)
-
-xx2 = c(rev(-x),-x);yy2 = c(rev(y2),y1)
-
-df <- data.frame(xx1,yy1,xx2,yy2, frame = 1:length(xx1))
-g <- ggplot(df) + geom_path(aes(xx1,yy1),col='red') 
-g <- g + geom_path(aes(xx2,yy2),col='blue')
-g 
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-7-1.png)
-
-``` r
-temp = g + transition_reveal(along = frame)
-
-animate(temp)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-7-1.gif)
-
-### 2.4 Lissajous 曲线(利萨如曲线)
-
-参数方程: $$
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">-3</span>,<span style="color:#ae81ff">-0.2</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>p<span style="color:#f92672">*</span>t^2
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>p<span style="color:#f92672">*</span>t 
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x, y, t,frame <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(t))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x,y))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 让图动起来</span>
+</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">animate</span>(temp)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-5-1.gif" alt=""></p>
+<h3 id="24-双曲线">2.4 双曲线</h3>
+<p>在ggplot中没有找到好的画法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>theta<span style="color:#f92672">=</span><span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#66d9ef">pi</span>,<span style="color:#ae81ff">0.2</span>),<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> a<span style="color:#f92672">/</span><span style="color:#a6e22e">cos</span>(theta)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> b<span style="color:#f92672">*</span><span style="color:#a6e22e">tan</span>(theta) 
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x, y, theta,frame <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(theta))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x,y))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>g
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-6-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 以分段的思想来画双曲线</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,length <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sqrt</span>(x^2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);y2 <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">sqrt</span>(x^2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xx1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rev</span>(x),x); yy1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rev</span>(y2),y1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xx2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rev</span>(<span style="color:#f92672">-</span>x),<span style="color:#f92672">-</span>x);yy2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rev</span>(y2),y1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(xx1,yy1,xx2,yy2, frame <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(xx1))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df) <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(<span style="color:#a6e22e">aes</span>(xx1,yy1),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) 
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(<span style="color:#a6e22e">aes</span>(xx2,yy2),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>)
+</span></span><span style="display:flex;"><span>g 
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-7-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">animate</span>(temp)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-7-1.gif" alt=""></p>
+<h3 id="24-lissajous-曲线利萨如曲线">2.4 Lissajous 曲线(利萨如曲线)</h3>
+<p>参数方程:</p>
+<p>$$
 \begin{cases}
-x = asin(p\theta),\\
+x = asin(p\theta),\
 y = 2sin(q\theta+\varphi)
 \end{cases}
-$$
-
-``` r
-a = 1
-b = 1
-phi = 0
-p = 1
-q = 2
-t = seq(0, 2 * pi, by = 0.001)
-x = a * sin(p * t)
-y = b * sin(q * t + phi)
-df <- data.frame(x, y, t, frame = 1:length(x))
-g <- ggplot(df, aes(x, y))
-g <- g + geom_path(col = 'red')
-
-temp = g + transition_reveal(along = frame)
-
-animate(temp)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-8-1.gif)
-
-``` r
-a = 3
-b = 12
-phi = 0
-p = 13
-q = 18
-t = seq(0, 2 * pi, by = 0.001)
-x = a * sin(p * t)
-y = b * sin(q * t + phi)
-df <- data.frame(x, y, t, frame = 1:length(t))
-g <- ggplot(df, aes(x, y))
-g <- g + geom_path(col = 'red')
-g
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/img/2020081512unnamed-chunk-9-1.png)
-
-``` r
-temp = g + transition_reveal(along = frame)
-
-animate(temp)
-```
-
-![](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020101108yasuohou.gif)
-
-## 3 .隐函数
-
-这个暂时不知道, 且不常见,建议找MATLAB这种专业软件画.
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">pi</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> <span style="color:#a6e22e">sin</span>(p <span style="color:#f92672">*</span> t)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> b <span style="color:#f92672">*</span> <span style="color:#a6e22e">sin</span>(q <span style="color:#f92672">*</span> t <span style="color:#f92672">+</span> phi)
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x, y, t, frame <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(x))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x, y))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">animate</span>(temp)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-8-1.gif" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">pi</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> <span style="color:#a6e22e">sin</span>(p <span style="color:#f92672">*</span> t)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> b <span style="color:#f92672">*</span> <span style="color:#a6e22e">sin</span>(q <span style="color:#f92672">*</span> t <span style="color:#f92672">+</span> phi)
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x, y, t, frame <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(t))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x, y))
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">&lt;-</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_path</span>(col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>g
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512unnamed-chunk-9-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> g <span style="color:#f92672">+</span> <span style="color:#a6e22e">transition_reveal</span>(along <span style="color:#f92672">=</span> frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">animate</span>(temp)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/2020101108yasuohou.gif" alt=""></p>
+<h2 id="3-隐函数">3 .隐函数</h2>
+<p>这个暂时不知道, 且不常见,建议找MATLAB这种专业软件画或者ggb也行.</p>
 
         </section>
     </div>
@@ -656,10 +596,11 @@ animate(temp)
 
 
 
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-LJ2FmexL77rmGm6SIpxq7y+XA6bkLzGZEgCywzKOZG/ws4va9fUVu2neMjvc3zdv" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
-    onload="renderMathInElement(document.querySelector('.single'));"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
@@ -672,6 +613,7 @@ animate(temp)
             });
         });
     </script>
+
 
 
 

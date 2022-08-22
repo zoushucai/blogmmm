@@ -13,7 +13,7 @@
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019-04-01plottwoaxis/</guid>
-      <description>0.1 使用plotrix包 0.2 twoord.plot() 参数解释   0.1 使用plotrix包 #png(&amp;quot;2y_1.png&amp;quot;) rm(list = ls()) library(plotrix) library(dplyr) ## ## 载入程辑包：&amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union new_iris = arrange(iris,Sepal.Length)# 按照花瓣的长度进行排序 --- 为了后面好看 head(new_iris,10) ## Sepal.Length Sepal.Width Petal.Length Petal.Width Species ## 1 4.3 3.0 1.1 0.1 setosa ## 2 4.4 2.</description>
+      <description>0.1 使用plotrix包 0.2 twoord.plot() 参数解释 0.1 使用plotrix包 #png(&amp;quot;2y_1.png&amp;quot;) rm(list = ls()) library(plotrix) library(dplyr) ## ## 载入程辑包：&amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union new_iris = arrange(iris,Sepal.Length)# 按照花瓣的长度进行排序 --- 为了后面好看 head(new_iris,10) ## Sepal.Length Sepal.Width Petal.Length Petal.Width Species ## 1 4.3 3.0 1.1 0.1 setosa ## 2 4.4 2.9 1.4 0.2 setosa ## 3 4.</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>/md/2017-01-30-r%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
-      <description>R可视化  静态图形 动态图形  静态图形  基础统计图 grDevice Lattile Grid ggplot2 地图 ggmap ggplot2 maptools maps sp 网络 igraph linkcomm statmet 特殊图形 基因组的(ggbio……)  动态图形  非浏览器平台 rgl rggobi(ggobi) animation(animation) RGtk2 iplots  动态图形  浏览器平台 ggvis rCharts(http://ramnathv.github.io/rCharts/) recharts (https://recharts.cosx.org/) plotly(https://plotly-r.com/, https://plot.ly/r/) googlevis Remap(https://github.com/Lchiffon/REmap) htmlwidgets 框架  leaflet(地图) dygraphs (时间序列) diagrammeR(diagram) – 化学结构 network3D (网格) DT (表格) threeJS (3D数据展示)    </description>
+      <description>R可视化 静态图形 动态图形 静态图形 基础统计图 grDevice Lattile Grid ggplot2 地图 ggmap ggplot2 maptools maps sp 网络 igraph linkcomm statmet 特殊图形 基因组的(ggbio……) 动态图形 非浏览器平台 rgl rggobi(ggobi) animation(animation) RGtk2 iplots 动态图形 浏览器平台 ggvis rCharts(http://ramnathv.github.io/rCharts/) recharts (https://recharts.cosx.org/) plotly(https://plotly-r.com/, https://plot.ly/r/) googlevis Remap(https://github.com/Lchiffon/REmap) htmlwidgets 框架 leaflet(地图) dygraphs (时间序列) diagrammeR(diagram) – 化学结构 network3D (网格) DT (表格) threeJS (3D数据展示) </description>
     </item>
     
   </channel>

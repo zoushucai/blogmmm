@@ -278,30 +278,30 @@ text.panel 和 diag.panel 选项控制着主对角线元素类型。
 <pre><code>library(corrgram)
 corrgram(cor(mtcars)) 
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-1.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-1.png" alt=""></p>
 <pre><code>corrgram(mtcars)
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-2.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-2.png" alt=""></p>
 <pre><code>corrgram(iris)
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-1-3.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-3.png" alt=""></p>
 <h4 id="设置排序处理">设置排序处理</h4>
 <pre><code>corrgram(mtcars,order = T) # 等价 corrgram(mtcars,order = &quot;PCA&quot;)
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-2-1.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-2-1.png" alt=""></p>
 <h4 id="设置上下三角面板形状">设置上下三角面板形状</h4>
 <pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = panel.pie)
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-3-1.png" alt="">
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-3-1.png" alt="">
 #### 只显示下三角部分图</p>
 <pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = NULL)
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
 <h4 id="调整版面颜色">调整版面颜色</h4>
 <pre><code>corrgram(mtcars,order = T,lower.panel = panel.shade,upper.panel = panel.pie,
          col.regions = colorRampPalette(c(&quot;darkgoldenrod4&quot;, &quot;burlywood1&quot;,&quot;white&quot;,&quot;darkkhaki&quot;, &quot;darkgreen&quot;)))
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-5-1.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-5-1.png" alt=""></p>
 <pre><code>corrgram(mtcars,order=TRUE,
          lower.panel=panel.ellipse,
          upper.panel=panel.pts,
@@ -309,7 +309,7 @@ corrgram(cor(mtcars))
          diag.panel=panel.minmax,
          main=&quot;Correlogram of Mtcars intercorrelations&quot; )
 </code></pre>
-<p><img src="https://gitee.com/zscqsmy/blogimg/raw/master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
 
         </section>
     </div>

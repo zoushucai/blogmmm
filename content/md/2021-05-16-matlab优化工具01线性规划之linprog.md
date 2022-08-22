@@ -16,7 +16,7 @@ markup: mmark
 
 ### 基本函数
 
-![image-20210516093622862](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105160936image-20210516093622862.png)
+![image-20210516093622862](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105160936image-20210516093622862.png)
 
 ### 全局优化函数
 
@@ -57,7 +57,7 @@ options =optimset(options, 'Display' , 'iter') %修改 Display 属性值为iter
 val = optimget(options,'Display') % 重新获取fmincon 函数的 Display属性值
 ```
 
-![image-20210516102520466](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161025image-20210516102520466.png)
+![image-20210516102520466](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161025image-20210516102520466.png)
 
 ## 线性规划的标准型
 
@@ -153,7 +153,7 @@ x0 =
 
 -   有些时候书写比较麻烦,比如运输问题, 则可以编写函数使其自动化
 
-    ![image-20210516105838325](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161058image-20210516105838325.png)
+    ![image-20210516105838325](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161058image-20210516105838325.png)
 
 ``` matlab
 function [x,f0, flag] = transport_linprog(C,s,d,indkey)
@@ -198,7 +198,7 @@ f0 =
 
 #### 特殊的运输问题  --- 指派问题
 
-![image-20210516111020291](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/202105161110image-20210516111020291.png)
+![image-20210516111020291](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/202105161110image-20210516111020291.png)
 
 ``` matlab
 C= [15,18,21,24;

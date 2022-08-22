@@ -14,7 +14,7 @@
       
       <guid>/md/2018-11-06-githubdesktop%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>很久没上传文章到github了，
- Error Authentication failed. You may not have permission to access the repository or the repository may have been archived. Open options and verify that you&amp;#39;re signed in with an account that has permission to access this repository. 网上百度了一下，发现有两种解决办法：
+Error Authentication failed. You may not have permission to access the repository or the repository may have been archived. Open options and verify that you&amp;#39;re signed in with an account that has permission to access this repository. 网上百度了一下，发现有两种解决办法：
 1.退出后重新登录
 2.设置项目repository settings改为https的远程url地址
 经过测试，发现这两种方式都没有起到作用

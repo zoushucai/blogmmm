@@ -13,7 +13,13 @@
       <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>/md/2020-08-15-%E7%94%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8Fr%E8%AF%AD%E8%A8%80/</guid>
-      <description>据我了解, 计算机软件中画的函数图像大概有两种方法: - 方法一: 该图像有一系列密集点组成, 已达到欺骗人们的眼睛.感觉认为是连续的. - 方法二: 为了解决方法一种的问题,把每两个点之间用直线连接已达到连续的状态 在本文中我们将利用R语言来画函数图像---- 重点以`ggplot2`来展示 ## 1. $y = f(x)$ 的函数图像 比如: $$ \begin{aligned}y &amp;= sin(x),\\ y &amp;= cos(x), \\ y &amp;= \dfrac{1}{1+e^{(-x)}},\\ y &amp;= x^2 . \end{aligned} $$ 这是我们中学最常见的函数. ### 方法一: `curve()`画函数图像 所用函数调用格式 ``` r curve(expr, from = NULL, to = NULL, n = 101, add = FALSE, type = &#34;l&#34;, xname = &#34;x&#34;, xlab = xname, ylab = NULL, log = NULL, xlim = NULL, .</description>
+      <description>据我了解, 计算机软件中画的函数图像大概有两种方法:
+方法一: 该图像有一系列密集点组成, 已达到欺骗人们的眼睛.感觉认为是连续的. 方法二: 为了解决方法一种的问题,把每两个点之间用直线连接已达到连续的状态 在本文中我们将利用R语言来画函数图像&amp;mdash;- 重点以ggplot2来展示
+1. $y = f(x)$ 的函数图像 比如:
+$$ \begin{aligned} y &amp;amp;= sin(x),\ y &amp;amp;= cos(x), \ y &amp;amp;= \dfrac{1}{1+e^{(-x)}},\ y &amp;amp;= x^2 . \end{aligned} $$
+这是我们中学最常见的函数.
+方法一: curve()画函数图像 所用函数调用格式
+curve(expr, from = NULL, to = NULL, n = 101, add = FALSE, type = &amp;#34;l&amp;#34;, xname = &amp;#34;x&amp;#34;, xlab = xname, ylab = NULL, log = NULL, xlim = NULL, ...) # expr：函数名称或一个关于变量x的函数表达式； # from，to：表示绘图的起止范围； # n：一个整数值，表示x取值的数量； # add：是一个逻辑值，当为TRUE时，表示将绘图添加到已存在的绘图中； # type：与plot函数中type含义相同 #定义公式 sigmoid &amp;lt;- function(x) 1/(1+exp(-x)) #画sigmid图像 curve(sigmoid,-10,10) #画sin(x)函数图像 curve(sin,-10,10) # 画y=x^2的图像 curve(x^2,-10,10) 方法二: ggplot2 首先介绍两个映射</description>
     </item>
     
   </channel>

@@ -20,7 +20,7 @@
 参见：
 4、网站图片引入居中设置 方法一：嵌入html标签
 &amp;lt;img src=&amp;#34;./xxx.png&amp;#34; width = &amp;#34;300&amp;#34; height = &amp;#34;200&amp;#34; alt=&amp;#34;图片名称&amp;#34; align=center /&amp;gt; 方法二：
-	&amp;lt;div align=&amp;#34;center&amp;#34;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
+&amp;lt;div align=&amp;#34;center&amp;#34;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
 解决方法： 这是由于rmd的文件名中有中文，写成英文即可。
 疑问： rmd文章短的时候可以用中文名。但是中文长的时候就不能用中文
 6、 hogo生成动态网页 不显示图片 比如 DT包 、plotly包、dygraph、等

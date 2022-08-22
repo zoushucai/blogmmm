@@ -26,7 +26,8 @@
 下载链接: zscbeautiful
 下载下来后, 把css和html 分别放在对应的目录中替换即可
 Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/library/prettydoc/ , 只需把下载下来的文件进行替换即可
-创建模板的步骤: 新建文件&amp;mdash;&amp;gt; R mardown&amp;mdash;&amp;gt; From Template如图:
+创建模板的步骤: 新建文件 &amp;mdash;&amp;gt; R mardown &amp;mdash;&amp;gt; From Template
+如图:
 参考: https://cosx.org/2019/10/prettydoc-internals-ljj/</description>
     </item>
     

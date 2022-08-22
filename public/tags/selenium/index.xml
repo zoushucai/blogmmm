@@ -16,7 +16,7 @@
       <description>1 创建一个srcapy项目： （项目名为：jingdong)，会生成一系列文件夹，命令如下(cmd下运行)：
 scrapy startproject jingdong 2 创建爬虫文件 在刚刚生成的jingdong文件夹下面找到spiders文件夹,在spider文件下创建一个爬虫文件（名字叫jd）&amp;ndash; 用来解析网页的，命令如下(cmd下运行)：
 scarpy genspider jd &amp;#34;list.jd.com&amp;#34; # 创建一个jd.py的爬虫文件，爬虫名为jd ，以及指定爬虫允许爬取的范围：只能在jd.com下. 3 编写items.py文件 创建爬虫目标（明确需要提取的数据），如下：
-import scrapy class JingdongItem(scrapy.Item):  # define the fields for your item here like:  # 所有商品的名称、链接、价格、销售店铺、评论数的信  # 商品名称  name = scrapy.Field()  # 商品的简介  abstract = scrapy.Field()  # 商品的链接  link = scrapy.Field()  # 商品的价格  price = scrapy.Field()  # 店铺名  shop_name = scrapy.</description>
+import scrapy class JingdongItem(scrapy.Item): # define the fields for your item here like: # 所有商品的名称、链接、价格、销售店铺、评论数的信 # 商品名称 name = scrapy.Field() # 商品的简介 abstract = scrapy.Field() # 商品的链接 link = scrapy.Field() # 商品的价格 price = scrapy.Field() # 店铺名 shop_name = scrapy.Field() # 评论数 commet = scrapy.Field() 4 设置setting文件，开启管道 ITEM_PIPELINES = { &amp;#39;jingdong.</description>
     </item>
     
     <item>
@@ -25,7 +25,7 @@ import scrapy class JingdongItem(scrapy.Item):  # define the fields for your ite
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/md/2018-07-15-%E7%8C%AB%E7%9C%BC%E7%94%B5%E5%BD%B1%E6%8A%93%E5%8F%96/</guid>
-      <description>猫眼电影票房抓取 基本设置 library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver(  browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置）  remoteServerAddr = &amp;#34;localhost&amp;#34;,  port = 4444L)  remDr$open() # 打开浏览器  #&amp;gt; [1] &amp;#34;Connecting to remote server&amp;#34; #&amp;gt; $applicationCacheEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $rotatable #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $mobileEmulationEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $networkConnectionEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $chrome #&amp;gt; $chrome$chromedriverVersion #&amp;gt; [1] &amp;#34;2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7)&amp;#34; #&amp;gt;  #&amp;gt; $chrome$userDataDir #&amp;gt; [1] &amp;#34;C:\\Users\\zsc\\AppData\\Local\\Temp\\scoped_dir10136_5944&amp;#34; #&amp;gt;  #&amp;gt;  #&amp;gt; $takesHeapSnapshot #&amp;gt; [1] TRUE #&amp;gt;  #&amp;gt; $pageLoadStrategy #&amp;gt; [1] &amp;#34;normal&amp;#34; #&amp;gt;  #&amp;gt; $databaseEnabled #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $handlesAlerts #&amp;gt; [1] TRUE #&amp;gt;  #&amp;gt; $hasTouchScreen #&amp;gt; [1] FALSE #&amp;gt;  #&amp;gt; $version #&amp;gt; [1] &amp;#34;67.</description>
+      <description>猫眼电影票房抓取 基本设置 library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) remDr$open() # 打开浏览器 #&amp;gt; [1] &amp;#34;Connecting to remote server&amp;#34; #&amp;gt; $applicationCacheEnabled #&amp;gt; [1] FALSE #&amp;gt; #&amp;gt; $rotatable #&amp;gt; [1] FALSE #&amp;gt; #&amp;gt; $mobileEmulationEnabled #&amp;gt; [1] FALSE #&amp;gt; #&amp;gt; $networkConnectionEnabled #&amp;gt; [1] FALSE #&amp;gt; #&amp;gt; $chrome #&amp;gt; $chrome$chromedriverVersion #&amp;gt; [1] &amp;#34;2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7)&amp;#34; #&amp;gt; #&amp;gt; $chrome$userDataDir #&amp;gt; [1] &amp;#34;C:\\Users\\zsc\\AppData\\Local\\Temp\\scoped_dir10136_5944&amp;#34; #&amp;gt; #&amp;gt; #&amp;gt; $takesHeapSnapshot #&amp;gt; [1] TRUE #&amp;gt; #&amp;gt; $pageLoadStrategy #&amp;gt; [1] &amp;#34;normal&amp;#34; #&amp;gt; #&amp;gt; $databaseEnabled #&amp;gt; [1] FALSE #&amp;gt; #&amp;gt; $handlesAlerts #&amp;gt; [1] TRUE #&amp;gt; #&amp;gt; $hasTouchScreen #&amp;gt; [1] FALSE #&amp;gt; #&amp;gt; $version #&amp;gt; [1] &amp;#34;67.</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@ import scrapy class JingdongItem(scrapy.Item):  # define the fields for your ite
       <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/md/2018-04-07-rselenium%E5%BA%94%E7%94%A8%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81/</guid>
-      <description>library(RSelenium) library(stringr) setwd(&amp;#34;E:\\rwork\\Rselenium&amp;#34;)  ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver(  browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置）  remoteServerAddr = &amp;#34;localhost&amp;#34;,  port = 4444L) # 默认情况下，Selenium Server侦听端口为4444  remDr$open() # 打开浏览器   # remDr$getStatus() ## 使用该status方法查询远程服务器的状态。 url=&amp;#34;https://www.baidu.com/&amp;#34; remDr$navigate(url) # navigate方法打开网页，url一定要完整 ## remDr$getCurrentUrl() # 获取当前页面的url  ###########################进行搜索关键词 ##### 按属性--属性值搜索 ,可以是css,xpath ,id ,属性等 对应值 webElem &amp;lt;- remDr$findElement(using = &amp;#39;css&amp;#39;, &amp;#34;#kw&amp;#34;) # 找到这个元素--进行搜索关键词 webElem$sendKeysToElement(list(&amp;#34;京东&amp;#34;,key=&amp;#34;enter&amp;#34;)) #### 获取当前页面的所有标题，每个链接的标题都包含在&amp;lt;h3 class = &amp;#34;t&amp;#34;&amp;gt;标签中。我们将h3首先访问标题 #### 注意 findElements和 findElement方法是获取一个或者多个的区别 webElems &amp;lt;- remDr$findElements(using = &amp;#39;css&amp;#39;, &amp;#34;h3.</description>
+      <description>library(RSelenium) library(stringr) setwd(&amp;#34;E:\\rwork\\Rselenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) # 默认情况下，Selenium Server侦听端口为4444 remDr$open() # 打开浏览器 # remDr$getStatus() ## 使用该status方法查询远程服务器的状态。 url=&amp;#34;https://www.baidu.com/&amp;#34; remDr$navigate(url) # navigate方法打开网页，url一定要完整 ## remDr$getCurrentUrl() # 获取当前页面的url ###########################进行搜索关键词 ##### 按属性--属性值搜索 ,可以是css,xpath ,id ,属性等 对应值 webElem &amp;lt;- remDr$findElement(using = &amp;#39;css&amp;#39;, &amp;#34;#kw&amp;#34;) # 找到这个元素--进行搜索关键词 webElem$sendKeysToElement(list(&amp;#34;京东&amp;#34;,key=&amp;#34;enter&amp;#34;)) #### 获取当前页面的所有标题，每个链接的标题都包含在&amp;lt;h3 class = &amp;#34;t&amp;#34;&amp;gt;标签中。我们将h3首先访问标题 #### 注意 findElements和 findElement方法是获取一个或者多个的区别 webElems &amp;lt;- remDr$findElements(using = &amp;#39;css&amp;#39;, &amp;#34;h3.t&amp;#34;) resHeaders &amp;lt;- unlist(lapply(webElems, function(x){x$getElementText()})) # resHeaders ######################## 鼠标点击事件 webElem&amp;lt;-remDr$findElement(using = &amp;#34;css&amp;#34;,&amp;#34;#w-f80518 &amp;gt; div &amp;gt; h2 &amp;gt; a.</description>
     </item>
     
     <item>
@@ -51,19 +51,19 @@ import scrapy class JingdongItem(scrapy.Item):  # define the fields for your ite
 1、Chrome驱动 下载,注意chrome驱动一定要和chrome浏览器对应 ,比如我的浏览器 65.0.3325.181 ，对应表放在文章最后,或者点击这里,,怎么查看浏览器版本，点击谷歌浏览器右上【&amp;hellip;】&amp;mdash;【帮助】&amp;ndash;【关于Google Chrome】就可以看到浏览器版本了。
 2、Selenium Standalone Server下载 我用的是 selenium-server-standalone-3.11.0.jar
 3、PhantomJS下载 ,无头浏览器。(这个个人需要的话就下载，我用Google浏览器就够了)
-2、安装流程： 使用前的基本配置   首先，安装JAVA JDK 1.8。
-  然后，安装Chrome（最新版本）。
-  之后，把解压后的ChromeDriver.exe（最新版本）放在Chrome的安装路径下。一定要和chrome.exe放在同一个目录下面。例如
-  把chromedriver.exe所在目录的路径(建议放在和chrome.exe)放入环境变量中即可,
-  基本配置基本完成
-  3、RSelenium使用与实例 3.1、使用前的基础步骤 1、首先 ，打开cmd ，切换到 selenium-server-standalone-3.0.1.jar文件所在的位置，我的都在C:\RSelenium这个目录下 ，切换以后 ，运行
+2、安装流程： 使用前的基本配置 首先，安装JAVA JDK 1.8。
+然后，安装Chrome（最新版本）。
+之后，把解压后的ChromeDriver.exe（最新版本）放在Chrome的安装路径下。一定要和chrome.exe放在同一个目录下面。例如
+把chromedriver.exe所在目录的路径(建议放在和chrome.exe)放入环境变量中即可,
+基本配置基本完成
+3、RSelenium使用与实例 3.1、使用前的基础步骤 1、首先 ，打开cmd ，切换到 selenium-server-standalone-3.0.1.jar文件所在的位置，我的都在C:\RSelenium这个目录下 ，切换以后 ，运行
 java -jar selenium-server-standalone-3.11.0.jar
 显示 ：
 或者直接在Rstudio中运行system(&#39;java -jar &amp;quot;C:/RSelenium/selenium-server-standalone-3.11.0.jar&amp;quot;&#39;,wait = FALSE)代码即可。
 2、运行后，最小化，不要关闭，在打开Rstudio,
 3、通过R调用Selenium Server并打开网页，对页面进行点击，选取相应条件。通过RSelenium与rvest共同爬取数据。通过 一步一步解读Rcode来解释这一过程。
 3.2、案例1 浏览器的基本操作
-library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;)   ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver(  browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置）  remoteServerAddr = &amp;#34;localhost&amp;#34;,  port = 4444L)  remDr$open() # 打开浏览器   remDr$getStatus()# 使用该status方法查询远程服务器的状态。 # 关闭浏览器  # remDr$quit() # 直接退出  # remDr$close() # close用于关闭当前会话，也可以用作关闭浏览器  **访问DOM中的元素 **</description>
+library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) ######## 初始化浏览器#### remDr &amp;lt;- remoteDriver( browserName = &amp;#34;chrome&amp;#34;, # 浏览器可以自己设置firefox、chrome、phantomjs（要配置） remoteServerAddr = &amp;#34;localhost&amp;#34;, port = 4444L) remDr$open() # 打开浏览器 remDr$getStatus()# 使用该status方法查询远程服务器的状态。 # 关闭浏览器 # remDr$quit() # 直接退出 # remDr$close() # close用于关闭当前会话，也可以用作关闭浏览器 **访问DOM中的元素 **</description>
     </item>
     
   </channel>

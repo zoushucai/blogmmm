@@ -16,7 +16,7 @@
       <description>安装旧版本的 hugo 最近发现自己更新了 hugo 软件导致了主题的某些功能失效了, 于是需要退回旧版本的 hugo(0.55.5),
 方法一: https://gohugo.io/getting-started/installing/ 文章中的Install Hugo from Tarball 这一部分(个人电脑是 mac)
 方法二: 直接从 Rstduio 进行更新
- 前提是: 必须保证 R 以及 R 包是最新的 使用如下命令  blogdown::install_hugo(version = &amp;#34;0.55.5&amp;#34;, use_brew = F, force = T, extended = TRUE) </description>
+前提是: 必须保证 R 以及 R 包是最新的 使用如下命令 blogdown::install_hugo(version = &amp;#34;0.55.5&amp;#34;, use_brew = F, force = T, extended = TRUE) </description>
     </item>
     
     <item>
@@ -25,21 +25,25 @@
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/md/2018-01-07-%E4%BD%BF%E7%94%A8r%E8%BD%AF%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
-      <description>1、读取数据编码问题   读取csv文件出现中文乱码方案，增加编码格式参数
-read.csv(trainPath,header=TRUE,stringsAsFactors=TRUE,encoding = &amp;#34;UTF-8&amp;#34;)   保存csv文件中出现乱码，编码格式参数
-write.csv(outp, file = path, quote = F, fileEncoding = &amp;#34;UTF-8&amp;#34;) #存储utf-8也乱码，我的电脑有时会发疯，有时又不会   source 加载R脚本中文乱码
-source(&amp;#34;core.R&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;)   RStudio中脚本中文乱码，编码格式设置：tools -&amp;gt; global option&amp;hellip;., 设置为UTF-8，最后，在打开文件的时候，选择File -&amp;gt; Reopen with encoding菜单，选择我们使用UTF-8编码打开文件，这样子就可以正确地显示中文了。
-  R语言环境的显示问题
-sessionInfo() Sys.getlocale() Sys.setlocale(category = &amp;#34;LC_ALL&amp;#34;,local=&amp;#34;us&amp;#34;) Sys.setlocale(category = &amp;#34;LC_ALL&amp;#34;,local=&amp;#34;chinese&amp;#34;)   2、保存数据编码问题(win中) 由于用Rstudio设置了保存的编码都用UTF-8，所以在保存文件时（特别是csv文件），经常遇到乱码的现象，比如使用data.table:::fwrite()、自带的write.csv()、readr:::write_csv()都乱码
+      <description>1、读取数据编码问题 读取csv文件出现中文乱码方案，增加编码格式参数
+read.csv(trainPath,header=TRUE,stringsAsFactors=TRUE,encoding = &amp;#34;UTF-8&amp;#34;) 保存csv文件中出现乱码，编码格式参数
+write.csv(outp, file = path, quote = F, fileEncoding = &amp;#34;UTF-8&amp;#34;) #存储utf-8也乱码，我的电脑有时会发疯，有时又不会 source 加载R脚本中文乱码
+source(&amp;#34;core.R&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) RStudio中脚本中文乱码，编码格式设置：tools -&amp;gt; global option&amp;hellip;., 设置为UTF-8，最后，在打开文件的时候，选择File -&amp;gt; Reopen with encoding菜单，选择我们使用UTF-8编码打开文件，这样子就可以正确地显示中文了。
+R语言环境的显示问题
+sessionInfo() Sys.getlocale() Sys.setlocale(category = &amp;#34;LC_ALL&amp;#34;,local=&amp;#34;us&amp;#34;) Sys.setlocale(category = &amp;#34;LC_ALL&amp;#34;,local=&amp;#34;chinese&amp;#34;) 2、保存数据编码问题(win中) 由于用Rstudio设置了保存的编码都用UTF-8，所以在保存文件时（特别是csv文件），经常遇到乱码的现象，比如使用data.table:::fwrite()、自带的write.csv()、readr:::write_csv()都乱码
 产生的原因：
 因为excel打开文件时默认使用unicode的编码方式（还有的网友说是默认以ANSI编码方式打开，待考）。在Unicode基本多文种平面定义的字符（无论是拉丁字母、汉字或其他文字或符号），一律使用2字节储存。恰恰utf-8是1字节的存储方式，所以excel直接打开时会出现乱码。
 解决办法：
-  **方法1、数据导入&amp;ndash;**不建议
+**方法1、数据导入&amp;ndash;**不建议
 打开 Excel，执行“数据”-&amp;gt;“自文本”，选择 CSV 文件，出现文本导入向导，选择“分隔符号”，下一步，勾选“逗号”，去掉“ Tab 键”，下一步，完成，在“导入数据”对话框里，直接点确定。导入之后，所有汉字显示正常，乱码问题解决。
 万一这个文本里面的有逗号，巧好分割时候是逗号（csv文件是以逗号进行存储的）,这就会对不齐了，产生新的问题
-  方法2、先另存再打开
+方法2、先另存再打开
 使用记事本打开CSV文件，“文件”-&amp;gt;“另存为”，编码方式选择ANSI，保存完毕后，用EXCEL打开这个文件就不会出现乱码的情况。
-不会乱码以后选择另存为excel</description>
+不会乱码以后选择另存为excel
+方法3、用readr:::write_excel_csv()函数解决
+直接用write_excel_csv()这个函数就可以解决上述问题
+3、加载java问题 首先下载java ，把java加入环境变量，测试是否安装成功，在cmd命名下输入: java -version,返回
+C:\Users\zsc&amp;gt;java -version java version &amp;#34;1.8.0_151&amp;#34; Java(TM) SE Runtime Environment (build 1.</description>
     </item>
     
     <item>
@@ -50,10 +54,10 @@ sessionInfo() Sys.getlocale() Sys.setlocale(category = &amp;#34;LC_ALL&amp;#34;,
       <guid>/md/2017-12-30-hugo---blogdown%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95/</guid>
       <description>1、先介绍一下有hugo生成的目录 站点下面的目录和必须的文件由hugo自己生成。一般它是这样的： archetypes/ : 全局原型，也就是内容模板。 |____default.md : 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板 content/ ：内容，存放“XXX.md”/&amp;#34;XXX&amp;gt;Rmd&amp;#34;文件，文件名可以用中文 data/ ：存放数据文件 layouts/ ：和archetypes一起将被我们的主题覆盖掉 public/ ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。 static/ ：静态目录，完全复制到public。比如图片、js、php脚本 themes/ ：主题目录，一个站可有多个主题，就像换衣服 |____aaa ：主题aaa，可以有很多个 |____bbb ：主题bbb |____archetypes : 主题的内容模板 |____layouts ：布局，就是html模板 |____static ：静态的，放主题的js，css文件 |____LICENSE.md ：这个，呵呵，不说大家也知道 |____theme.toml ：主题的信息配置 config.toml ：站点配置文件，可以配置站点名字等等很多信息 主题部分并未全部介绍，这个将在主题部分详细讲解。
 2、静态文件 不需要hugo处理的文件叫做静态文件。存放在 站点的static 目录是个好主意。
- static目录下的文件将会原封不动的复制到public下面，比如您建立了个img的目录存图片，在md文件中将直接使用”img/aaa.jpg”来引用图片，
+static目录下的文件将会原封不动的复制到public下面，比如您建立了个img的目录存图片，在md文件中将直接使用”img/aaa.jpg”来引用图片，
 特别的，如果您的站点有php等脚本运用，和一些其他的文件，比如各搜索引擎的验证文件等，也可以放在这里。不建议直接将文件存放于public目录，因为我习惯不高兴就删了全来！相信你也会有不高兴的时候的。（后面比如要上传的google网站分析的html文件）
- 3、站点配置文件 站点根目录下有一个”config.toml“就是配置文件 E:\test_blog下的config.toml
-信息存在的地，hugo有三个地方可以放信息，  一个是站点的配置文件“config.toml”， 一个是我们文章文件md文件的头部（默认的用三个“&amp;mdash;”号开始和结束，也可以用三个“+++”号 最后一个是“data”数据目录。  congfig.toml该文件默认支持的全部参数：可以用键值对，也可以用赋值语句
+3、站点配置文件 站点根目录下有一个”config.toml“就是配置文件 E:\test_blog下的config.toml
+信息存在的地，hugo有三个地方可以放信息， 一个是站点的配置文件“config.toml”， 一个是我们文章文件md文件的头部（默认的用三个“&amp;mdash;”号开始和结束，也可以用三个“+++”号 最后一个是“data”数据目录。 congfig.toml该文件默认支持的全部参数：可以用键值对，也可以用赋值语句
 以 hugo-lithium-theme主题为例
 介绍几个后面可能会用的参数
 baseurl = &amp;#34;http://qaz.netlify.com&amp;#34; # 基础路径,当自己有网站的时候就写自己的 relativeurls = true #使用想对路径方便本地浏览 languageCode = &amp;#34;zh-cn&amp;#34; #编码 title = &amp;#34;A Hugo website&amp;#34;	#网站的title theme = &amp;#34;hugo-lithium-theme&amp;#34; googleAnalytics = &amp;#34;&amp;#34; #谷歌网站分析添加自己的id，形如：UA-XXXXXX-X disqusShortname = &amp;#34;http-qaz-netlify-com&amp;#34; # disqusShortname 的名字，一定要找准 ignoreFiles = [&amp;#34;\\.</description>
@@ -66,7 +70,7 @@ baseurl = &amp;#34;http://qaz.netlify.com&amp;#34; # 基础路径,当自己有�
       
       <guid>/md/2017-12-30-hugo---%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E6%B7%BB%E5%8A%A0/</guid>
       <description>分类标签添加 找到single.html的页面 添加，从 http://fontawesome.io 下载文件 解压暂时只需要css/font-awesome.min.css 和fontawesome-webfont.woff2 引入到head.html中，
-把下面的代码添加到single.html  {{ with .Params.tags }} {{ if ge (len .) 1 }} &amp;lt;div class=&amp;quot;article-headline&amp;quot;&amp;gt; &amp;lt;i class=&amp;quot;fa fa-tags&amp;quot;&amp;gt; &amp;lt;/i&amp;gt;&amp;lt;!-- end--&amp;gt; {{ range . }} &amp;lt;a href=&amp;quot;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&amp;quot;&amp;gt;{{ . }}&amp;lt;/a&amp;gt; {{ end }} &amp;lt;/div&amp;gt; {{ end }} {{ end}}  下面对content\下文件夹的引入以及添加相关信息  &amp;lt;!-- 这个是content\下的post文件夹 --&amp;gt; {{ if eq .Section &amp;quot;post&amp;quot; }} &amp;lt;div class=&amp;quot;article-date&amp;quot;&amp;gt;{{ with .Params.Author }} {{.}} &amp;amp;middot; {{ end }} 字数共{{ .</description>
+把下面的代码添加到single.html {{ with .Params.tags }} {{ if ge (len .) 1 }} &amp;lt;div class=&amp;quot;article-headline&amp;quot;&amp;gt; &amp;lt;i class=&amp;quot;fa fa-tags&amp;quot;&amp;gt; &amp;lt;/i&amp;gt;&amp;lt;!-- end--&amp;gt; {{ range . }} &amp;lt;a href=&amp;quot;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&amp;quot;&amp;gt;{{ . }}&amp;lt;/a&amp;gt; {{ end }} &amp;lt;/div&amp;gt; {{ end }} {{ end}} 下面对content\下文件夹的引入以及添加相关信息 &amp;lt;!-- 这个是content\下的post文件夹 --&amp;gt; {{ if eq .Section &amp;quot;post&amp;quot; }} &amp;lt;div class=&amp;quot;article-date&amp;quot;&amp;gt;{{ with .Params.Author }} {{.}} &amp;amp;middot; {{ end }} 字数共{{ .</description>
     </item>
     
     <item>
@@ -87,9 +91,9 @@ baseurl = &amp;#34;http://qaz.netlify.com&amp;#34; # 基础路径,当自己有�
       <guid>/md/2017-12-28-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
       <description>1、下载安装、配置好R与Rstudio 2、打开Rstudio&amp;mdash;-下载blogdown包 if(!require(devtools)) install.packages(&amp;#39;devtools&amp;#39;) devtools::install_github(&amp;#39;rstudio/blogdown&amp;#39;) 等待安装，缺什么安装什么，
 3、在rstudio中安装hugo软件,只需运行下面函数即可 blogdown::install_hugo() 注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中
-4、创建测试网站  可用命令blogdown::new_site(), 在rstudio中的左上角点击【file】&amp;ndash;【New Project】&amp;mdash;【Website using blogdown】  适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，
+4、创建测试网站 可用命令blogdown::new_site(), 在rstudio中的左上角点击【file】&amp;ndash;【New Project】&amp;mdash;【Website using blogdown】 适当选择自己的要求即可，点击【Create Project】创建完成，此时已经自动创建好了博客，
 5、创建完成 在刚刚所在目录【E:\test_blog】下面有很多文件，其他的可以不用管，可以找到一个config.tom配置文件，更改与你相关的信息，添加relativeurls =true保存(意思是引用想对路径)，也可以不用暂时不用管这个，毕竟我们只是了解创建博客步骤，但是还是请你留意两个文件content\ 和public\ ，content\ 用来写文章的文件，暂时还没有public\文件夹,这个是把content\ 文件夹下面的文章转变为html博客文章
-6、运行blogdown:::serve_site() 博客创建完成.  也可以点击【adds】&amp;ndash;【serve_site】，rstudio右边会有本地浏览  7、发布到网上  创建github和netlify网站的账号，下载git客服端，以及github客服端，可能有相关配置，配置好即可 打开github客服端，点击【file】&amp;ndash;【Create a new repository】添加仓库地址即我们刚刚的创建博客的地址，选择E\test_blog ，选择子目录和父目录都不可以，只能选择他，填写相关Name 和 Description完成即可，可以勾选 &amp;hellip;..a README,创建完成 初次可以看到History里面有我们刚刚的文件 ，点击Publish repository，弹出对话框，有一个Name，这个是要上传给github仓库的名字，它自动创建为test_blog,也有描述内容，注意他勾选了一个Keep this code private ，这个要点取消，最后一步点击【Publish repository】,等待完成 上github官网，查看你的仓库，已经有一个test_blog仓库 进入netlify官网 ,点击【New site from Git】&amp;mdash;【github】（取消勾选下面的LImit Github&amp;hellip;&amp;hellip;..）&amp;ndash;选择刚刚的test_blog仓库&amp;mdash;在显示Publish directory 的地方如数public&amp;mdash;最后点击部署，等待完成 找到部署完成以后会有个绿色的网站，我的是：https://thirsty-hawking-274891.netlify.com,点击进入，就是我们部署的博客了， 网站名太难记，可以改名，改为自己喜欢的民资，只能改netlify的前面的地方,我改为：qaz.netlify.com  8、发布新帖  方法一：将原有的.md或 .Rmd拷贝粘贴，改一下标题和内容即可； 方法二：在RSudio代码窗口点击 Addins- New Post， 按提示填写即可。  写完以后，保存，运行建站函数blogdown::build_site() 。这样文件发生变化，github客服端自动检测，只需要你填写【Change】下面的summary和Description，点击提交给master，再次同步到github（点击Fetch origin） 完成，netlify自动同步github的内容 进入你的博客网站可以看到有了新变化    9、添加disqus评论功能(科学上网)   注册登录disqus ,点击头像 &amp;ndash;settings &amp;mdash;Add Disqus To site&amp;ndash;[GET STARTED]&amp;mdash;&amp;ndash;I want to install Disqus on my site &amp;mdash;&amp;mdash;输入刚刚的网站 ：qaz.</description>
+6、运行blogdown:::serve_site() 博客创建完成. 也可以点击【adds】&amp;ndash;【serve_site】，rstudio右边会有本地浏览 7、发布到网上 创建github和netlify网站的账号，下载git客服端，以及github客服端，可能有相关配置，配置好即可 打开github客服端，点击【file】&amp;ndash;【Create a new repository】添加仓库地址即我们刚刚的创建博客的地址，选择E\test_blog ，选择子目录和父目录都不可以，只能选择他，填写相关Name 和 Description完成即可，可以勾选 &amp;hellip;..a README,创建完成 初次可以看到History里面有我们刚刚的文件 ，点击Publish repository，弹出对话框，有一个Name，这个是要上传给github仓库的名字，它自动创建为test_blog,也有描述内容，注意他勾选了一个Keep this code private ，这个要点取消，最后一步点击【Publish repository】,等待完成 上github官网，查看你的仓库，已经有一个test_blog仓库 进入netlify官网 ,点击【New site from Git】&amp;mdash;【github】（取消勾选下面的LImit Github&amp;hellip;&amp;hellip;..）&amp;ndash;选择刚刚的test_blog仓库&amp;mdash;在显示Publish directory 的地方如数public&amp;mdash;最后点击部署，等待完成 找到部署完成以后会有个绿色的网站，我的是：https://thirsty-hawking-274891.netlify.com,点击进入，就是我们部署的博客了， 网站名太难记，可以改名，改为自己喜欢的民资，只能改netlify的前面的地方,我改为：qaz.netlify.com 8、发布新帖 方法一：将原有的.md或 .Rmd拷贝粘贴，改一下标题和内容即可； 方法二：在RSudio代码窗口点击 Addins- New Post， 按提示填写即可。 写完以后，保存，运行建站函数blogdown::build_site() 。这样文件发生变化，github客服端自动检测，只需要你填写【Change】下面的summary和Description，点击提交给master，再次同步到github（点击Fetch origin） 完成，netlify自动同步github的内容 进入你的博客网站可以看到有了新变化 9、添加disqus评论功能(科学上网) 注册登录disqus ,点击头像 &amp;ndash;settings &amp;mdash;Add Disqus To site&amp;ndash;[GET STARTED]&amp;mdash;&amp;ndash;I want to install Disqus on my site &amp;mdash;&amp;mdash;输入刚刚的网站 ：qaz.</description>
     </item>
     
     <item>
@@ -105,7 +109,7 @@ baseurl = &amp;#34;http://qaz.netlify.com&amp;#34; # 基础路径,当自己有�
 参见：
 4、网站图片引入居中设置 方法一：嵌入html标签
 &amp;lt;img src=&amp;#34;./xxx.png&amp;#34; width = &amp;#34;300&amp;#34; height = &amp;#34;200&amp;#34; alt=&amp;#34;图片名称&amp;#34; align=center /&amp;gt; 方法二：
-	&amp;lt;div align=&amp;#34;center&amp;#34;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
+&amp;lt;div align=&amp;#34;center&amp;#34;&amp;gt; ![New Project](/img/NewProject.png) &amp;lt;/div&amp;gt; 注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾） 所以，&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;前面都有缩进 5、遇到：转换文件名时出了问题&amp;mdash;名字太长? 在发布博客文章是，用rmd生成文章遇到
 解决方法： 这是由于rmd的文件名中有中文，写成英文即可。
 疑问： rmd文章短的时候可以用中文名。但是中文长的时候就不能用中文
 6、 hogo生成动态网页 不显示图片 比如 DT包 、plotly包、dygraph、等

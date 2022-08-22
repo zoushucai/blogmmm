@@ -18,8 +18,9 @@
 --- title: &amp;#39;Untitled&amp;#39; author: &amp;#39;zsc&amp;#39; date: &amp;#34;`r Sys.Date()`&amp;#34; output: pdf_document: includes: in_header: header.tex keep_tex: yes latex_engine: xelatex --- 这样就可以生成中文的pdf了
 于是我仿照上面的步骤，写了一个函数rmarkdown_pdf 保存为rmarkdown_pdf.R
 rmarkdown_pdf=function(file_name,new_filename=file_name){ cat(&amp;#34;\\usepackage{ctex}\n&amp;#34;, file = &amp;#34;header.tex&amp;#34;) txt=&amp;#34;--- title: &amp;#39;Untitled&amp;#39; author: &amp;#39;zsc&amp;#39; date: \&amp;#34;`r Sys.Date()`\&amp;#34; output:\n pdf_document:\n includes:\n in_header: header.tex\n keep_tex: yes\n latex_engine: xelatex --- &amp;#34; x=readLines(file_name,n=-1,encoding = &amp;#34;UTF-8&amp;#34;) la=max(which(x==&amp;#34;---&amp;#34;)[1:2]) cat(c(txt,x[(la+1):length(x)]),sep = &amp;#34;\n&amp;#34;,file = new_filename,append = F) rm(list = ls()) } 在把这个函数加载到自定义环境中，
-  第一步：安装目录找到Rprofile.site这个文件，我的是在“D:\R\etc”这个目录；
-  第二步：用文本文件打开Rprofile.</description>
+第一步：安装目录找到Rprofile.site这个文件，我的是在“D:\R\etc”这个目录；
+第二步：用文本文件打开Rprofile.site，配置文件里按照R语言自定义函数的格式自定义一个函数保存即可。
+.First&amp;lt;-function(){ # 也可以加载包library(data.</description>
     </item>
     
   </channel>

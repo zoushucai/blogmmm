@@ -102,13 +102,13 @@ https://packagecontrol.io/packages/Theme%20-%20Spacegray
 
 - Color Highlight:  css中使得颜色直接在sublime中展示,(注意网上有很多人推荐Color Hightlighter插件,试了一下,此软件我的mac电脑不行),  Color Highlight 插件直接下载即可用 
 
-	![image-20200520150836677](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020100616image-20200520150836677.png)
+	![image-20200520150836677](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/2020100616image-20200520150836677.png)
 
 - ColorPicker(调色板): CSS 中直接使用快捷键即可调出调色板,更改颜色.据说默认的快捷键有冲突,建议更改
 
 	打开`Sublime Text --> Preferences --> Browse Packages`找到`ColorPicker`文件夹并进入（注意此处进入文件夹的方式），分别有`linux` `mac`和`windows`的快捷键设置文件，根据你的操作系统，打开相应文件即可设置, 如图
 
-	![image-20200520151522130](https://gitee.com/zscqsmy/blogimg/raw/master/uPic/2020100616image-20200520151522130.png)
+	![image-20200520151522130](https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/uPic/2020100616image-20200520151522130.png)
 
 
 ### 3.3 格式化代码
