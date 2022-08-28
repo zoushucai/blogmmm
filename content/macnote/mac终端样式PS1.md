@@ -1,5 +1,5 @@
 ---
-title: mac 终端样式配置
+title: mac终端样式PS1
 author: zsc
 date: "2019-11-19"
 categories: ["mac系统设置"]
@@ -11,7 +11,11 @@ keywords:
 ---
 
 
-# mac 终端样式配置
+
+
+
+
+# mac终端样式PS1
 
 首先，弄明白bash 和zsh....
 
@@ -23,13 +27,13 @@ unix核的系统如linux、macos的shell 默认都是bash
 
 ### 1.1 查看安装了哪些shell ：
 
-```
+```bash
 cat /etc/shells
 ```
 
 ### 1.2 查看当前使用的shell
 
-```
+```bash
 echo $SHELL   # 方法一
 echo $0       # 方法二
 ```
@@ -38,13 +42,13 @@ echo $0       # 方法二
 
 **切换到bash**
 
-```undefined
+```bash
 chsh -s /bin/bash
 ```
 
 **切换到zsh**
 
-```undefined
+```bash
 chsh -s /bin/zsh
 ```
 
@@ -67,7 +71,7 @@ chsh -s /bin/zsh
 
 直接去官网https://ohmyz.sh/ 找到如下命令复制到终端即可（如果遇到提示则输入Yes和回车即可）：
 
-```
+```bash
 $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
@@ -83,13 +87,13 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 
 打开配置文件
 
-```
+```bash
 vim ~/.zshrc
 ```
 
 找到ZSH_THEME，按‘ **i** ’编辑修改主题，编辑完毕后按键盘ese退出并输入":wq"保存
 
-```
+```bash
 ZSH_THEME="cloud"
 ```
 
@@ -97,7 +101,7 @@ ZSH_THEME="cloud"
 
 然后重启终端就能发现样式起作用啦，或者不重启，使用命令更新配置
 
-```
+```bash
 source  ~/.zshrc
 ```
 
@@ -105,7 +109,7 @@ source  ~/.zshrc
 
 必须在处于zsh环境下才能卸载zsh, 它讲默认还原为系统指定的环境（mac则还原为 bash）,卸载命令如下.
 
-```
+```bash
 uninstall_oh_my_zsh
 ```
 
@@ -121,13 +125,13 @@ uninstall_oh_my_zsh
 
 ### 在osx系统下prompt的表示成
 
-```
+```bash
 [\u@\h: ] \w \$
 ```
 
 示例：
 
-```
+```bash
 [elmman@192: ] ~ $
 ```
 
@@ -135,13 +139,13 @@ uninstall_oh_my_zsh
 
 把一下内容追加到 ` ~/.bash_profile `这个文件中保存并退出
 
-```
+```bash
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '
 ```
 
-```
+```bash
 $ vim ~/.bash_profile  % 把上述文件追加到这个文件末尾
 $ source ~/.bash_profile  % 使配置文件生效
 
@@ -151,7 +155,7 @@ $ source ~/.bash_profile  % 使配置文件生效
 
 上述有一个问题,就是当输入字符过多以后,不会自动换行,会导致字符重叠,建议后改为后面的这个
 
-```
+```bash
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export PS1='\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '
@@ -163,13 +167,13 @@ export PS1='\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;3
 
 在mac下 一般用下面的结构来表示终端
 
-```
+```bash
 [\u@\h: ] \w \$
 ```
 
 实例：
 
-```
+```bash
 [zsc@zscdeMacBook-Air:] ~ $ 
 ```
 
@@ -211,7 +215,7 @@ export PS1='\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;3
 
 ###  linux 更改终端颜色
 
-```
+```bash
 echo "PS1='\[\e[01;33m\][\[\e[01;32m\]\u\[\e[01;33m\]@\[\e[01;35m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ '" >> ~/.bashrc 
 
 # 记得重新运行

@@ -1,5 +1,5 @@
 ---
-title:  mac 系统的设置
+title: mac重装系统3系统设置
 author: zsc
 date: "2020-10-05"
 categories: ["mac系统设置"]
@@ -9,6 +9,9 @@ tags:
 keywords:
   - mac
 ---
+
+
+
 
 # mac 系统的设置
 
@@ -60,7 +63,7 @@ open a.txt
 
 添加
 
-```
+```bash
 114.114.114.114
 8.8.8.8
 ```

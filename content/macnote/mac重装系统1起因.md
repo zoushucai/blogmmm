@@ -1,5 +1,5 @@
 ---
-title:  起因
+title: mac重装系统1起因
 author: zsc
 date: "2020-10-03"
 categories: ["mac系统设置"]
@@ -10,14 +10,13 @@ keywords:
   - mac
 ---
 
-# 起因
+
+
 
 不知道latex最近抽什么风... 导入eps文件出问题,报错如下:
 
-```
+```bash
 gpl ghostscript 9.50: can't find initialization file gs_init.ps.
-
-
 
 gpl ghostscript 9.53.2: unrecoverable error, exit code 1
 

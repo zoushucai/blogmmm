@@ -10,18 +10,23 @@ keywords:
   - mac
 ---
 
+
+
+
+
+
 # macOS tcping 检测IP端口
 
 ##  安装tcping
 
-```
+```bash
 $ brew install tcping
 $ which tcping
 ```
 
 ## 2，检测IP端口是否被屏蔽
 
-```
+```bash
 $ tcping 14.215.177.39 80
 ```
 

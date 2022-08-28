@@ -6,14 +6,24 @@
     <description>Recent content in mac on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 07 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/mac/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>sublime text3 使用方法以及相关插件</title>
-      <link>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</link>
+      <title>mac重装系统6抹掉所有内容和设置</title>
+      <link>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F6%E9%87%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sun, 28 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F6%E9%87%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F/</guid>
+      <description>完美的解决方案: 针对 mac Monterey 以后的版本:
+使用“系统偏好设置”中的“抹掉所有内容和设置”功能, 参考: https://support.apple.com/zh-cn/HT212749</description>
+    </item>
+    
+    <item>
+      <title>mac重装系统5sublime配置</title>
+      <link>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F5sublime%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/20201007sublime-text3%E4%BD%BF%E7%94%A8/</guid>
-      <description>sublime text3 使用方法以及相关插件 1. 软件的下载 1, 官网下载地址: http://www.sublimetext.com/
+      <guid>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F5sublime%E9%85%8D%E7%BD%AE/</guid>
+      <description>1. 软件的下载 1, 官网下载地址: http://www.sublimetext.com/
 2, 如果不安装插件,那还不如不装 sublime, 参考: https://packagecontrol.io/installation
 2. 插件的安装 2.1 安装Package Control 现在sublime 4 已出，自带这个功能啦 （2021年11月更新） 2.2 使用Package Control组件安装插件 mac: Cmd+Shift+P（Win：Ctrl+Shift+P），输入 install 选中 Install Package 并回车，输入或选择你需要的插件回车就安装了（注意左下角的小文字变化，会提示安装成功），安装其它插件也类似.
 3. 插件推荐 3.1 软件风格 风格包网站: https://packagecontrol.io](https://packagecontrol.io/)
@@ -23,28 +33,28 @@ https://packagecontrol.io/packages/Theme%20-%20Spacegray Preferences &amp;gt; co
     </item>
     
     <item>
-      <title>mac 软件安装</title>
-      <link>/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</link>
+      <title>mac重装系统4软件安装</title>
+      <link>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F4%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</link>
       <pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/20201006mac-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</guid>
-      <description>mac 软件安装 利用homebrew安装,官网:https://brew.sh/
-在终端运行
-$ /bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&amp;#34; 如果能运行成功,则下一步进行安装.
-更换国内源(终端直接运行) &amp;ndash; 建议去官网
-git -C &amp;#34;$(brew --repo)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git git -C &amp;#34;$(brew --repo homebrew/core)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git git -C &amp;#34;$(brew --repo homebrew/cask)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles source ~/.bash_profile brew update # 更新 更新 Homebrew 自己, brew upgrade # 更新所有的包 ### 最后查看是否配置成功 brew config 参考:
-2019-11-20-mac常用软件
-https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
-https://blog.cnrainbird.com/index.php/2020/05/19/osx_geng_huan_brew_yuan_jie_jue_xia_zai_man_wen_ti/
-常用软件安装 brew cask install google-chrome # Google浏览器 brew cask install typora brew cask install sublime-text	brew cask install github brew cask install mathpix-snipping-tool brew cask install tencent-lemon # 腾讯柠檬清理软件 brew cask install contexts brew cask install firefox brew cask install the-unarchiver # 解压工具 brew cask install keka # 解压缩工具 # 可以购买myzip专业版,这个软件具有上述两个软件的常用功能,解压缩 brew cask install qq	brew cask install iina brew cask install mounty # U盘挂在软件 ## mounty开源的.</description>
+      <guid>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F4%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</guid>
+      <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 此文章于2022-08-28 修改, 因为不适合最新的m1/m2了
+2. homebrew 安装 2.1 安装 官网主页: https://brew.sh/
+国内加速安装: https://gitee.com/cunkai/HomebrewCN
+2.2 卸载(未试过) 方法一: 网上找的,
+可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
+方法 2: 官方版本
+ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;#34; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
+https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
+2.3 通过 brew 安装软件和卸载软件 brew install &amp;lt;packageName&amp;gt; # 这个安装的是只有命令行的工具 brew install --cask google-chrome # 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew uninstall --cask &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 2.</description>
     </item>
     
     <item>
-      <title>mac 系统的设置</title>
-      <link>/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</link>
+      <title>mac重装系统3系统设置</title>
+      <link>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F3%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/20201005mac-%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E7%BD%AE/</guid>
+      <guid>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F3%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/</guid>
       <description>mac 系统的设置 新系统, 首先我们要安装一些必要的软件,和做一些基本的设置.
 本文做一些基本的设置
 更改终端的颜色 和主机名 sudo echo &amp;#34;export CLICOLOR=1&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export LSCOLORS=gxfxcxdxbxegedabagacad&amp;#34; &amp;gt;&amp;gt; ~/.bash_profile sudo echo &amp;#34;export PS1=&amp;#39;\[\e[01;33m\][\[\e[01;35m\]\u\[\e[01;33m\]@\[\e[01;34m\]\h:\[\e[01;33m\]] \[\e[01;36m\]\w \[\e[01;32m\]\$ &amp;#39;&amp;#34;&amp;gt;&amp;gt; ~/.bash_profile source ~/.bash_profile 参考: 2019-11-19mac终端样式PS1
@@ -56,12 +66,12 @@ scutil --set HostName lucky # 重启终端 hostname #查看主机名 备注： �
     </item>
     
     <item>
-      <title>Mac 系统盘的制作与安装</title>
-      <link>/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</link>
+      <title>mac重装系统2系统制作与安装</title>
+      <link>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F2%E7%B3%BB%E7%BB%9F%E5%88%B6%E4%BD%9C%E4%B8%8E%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/20201004mac-%E7%B3%BB%E7%BB%9F%E7%9B%98%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
-      <description>Mac 系统盘的制作与安装 参考https://www.iplaysoft.com/macos-usb-install-drive.html 这篇文章制作U盘系统盘
+      <guid>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F2%E7%B3%BB%E7%BB%9F%E5%88%B6%E4%BD%9C%E4%B8%8E%E5%AE%89%E8%A3%85/</guid>
+      <description>参考https://www.iplaysoft.com/macos-usb-install-drive.html 这篇文章制作U盘系统盘
 我个人推荐使用DiskMaker X 启动盘制作.官网: https://diskmakerx.com/
 如何进入系统盘 关机重启, 长按Option 即可选择进入U盘, 先利用磁盘工具,格式化主磁盘,然后,退出,在安装.
 注意: 也可以在线安装&amp;hellip;
@@ -77,12 +87,12 @@ https://jingyan.baidu.com/article/4d58d54155bd079dd5e9c043.html
     </item>
     
     <item>
-      <title>起因</title>
-      <link>/macnote/20201003%E8%B5%B7%E5%9B%A0/</link>
+      <title>mac重装系统1起因</title>
+      <link>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F1%E8%B5%B7%E5%9B%A0/</link>
       <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/20201003%E8%B5%B7%E5%9B%A0/</guid>
-      <description>起因 不知道latex最近抽什么风&amp;hellip; 导入eps文件出问题,报错如下:
+      <guid>/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F1%E8%B5%B7%E5%9B%A0/</guid>
+      <description>不知道latex最近抽什么风&amp;hellip; 导入eps文件出问题,报错如下:
 gpl ghostscript 9.50: can&amp;#39;t find initialization file gs_init.ps. gpl ghostscript 9.53.2: unrecoverable error, exit code 1 心想不管了. 后又发现, 自己的毕业论文不能运行了? 心想我干脆更新了mactex(手贱)吧, 更新以后,有发现毕业论文还是报错, 以及以前的一些latex文稿都不能运行了. 我怀疑mactex 坏了, 于是卸载了, 重新安装&amp;hellip;&amp;hellip;..,来回试了几遍,咦,咋回事,都不行??? 开始着急了. 心想该不是我把重要的文件删了吧? (巧在我这个时候, 利用了一个清理软件&amp;mdash;&amp;ndash;且输入了密码&amp;hellip;) 于是开始了重装系统的想法&amp;hellip;&amp;hellip;
 加上以前制作了U盘的mac系统.顺便尝试一下&amp;hellip;&amp;hellip;.
 由于我设置的是时间作为顺序,因此更改一下时间,看起来有序</description>
@@ -99,19 +109,19 @@ gpl ghostscript 9.50: can&amp;#39;t find initialization file gs_init.ps. gpl gho
     
     <item>
       <title>macOS tcping 检测IP端口</title>
-      <link>/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</link>
+      <link>/macnote/tcping%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</link>
       <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</guid>
+      <guid>/macnote/tcping%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/</guid>
       <description>macOS tcping 检测IP端口 安装tcping $ brew install tcping $ which tcping 2，检测IP端口是否被屏蔽 $ tcping 14.215.177.39 80 </description>
     </item>
     
     <item>
-      <title>mac 挂载NTFS出现灰色文件</title>
-      <link>/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</link>
+      <title>mac硬盘文件变灰色</title>
+      <link>/macnote/mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</link>
       <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</guid>
+      <guid>/macnote/mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/</guid>
       <description>Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法 Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法，即文件出现灰色的现象。 或者使用付费的Tuxera 软件都会出现灰色文件,
 解决办法(在终端的灰色文件目录下面的命令即可)
 xattr -d com.apple.FinderInfo * </description>
@@ -147,34 +157,20 @@ https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
     </item>
     
     <item>
-      <title>mac常用软件安装</title>
-      <link>/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link>
-      <pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
-      <description>1, xcode命令工具(一下 以都是在 终端下运行 ,%为注释) xcode-select --install 2. homebrew 主页: https://brew.sh/ 2.1安装 把DSN 设置为8.8.8.8和8.8.4.4 这样才不会报错
-/usr/bin/ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34; 2.2 卸载(未试过) 方法一: 网上找的,
-可参考: https://blog.csdn.net/qq_41234116/article/details/79366454
-方法 2: 官方版本
-ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;#34; https://github.com/Homebrew/brew/blob/master/docs/FAQ.md
-https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew
-2.3 安装包 和卸载包 brew install &amp;lt;packageName&amp;gt; % 这个安装的是只有命令行的工具 brew cask install google-chrome % 注意 brew cask install 安装的是有图像界面的 app brew uninstall &amp;lt;packageName&amp;gt; brew cask uninstall &amp;lt;packageName&amp;gt; brew list % 已安装列表 brew update % 注意每次使用这个是 都很慢, 可进行源的更新 brew cask search &amp;lt;packageName&amp;gt; %查询&amp;lt;packageName&amp;gt; brew cask info &amp;lt;packageName&amp;gt; % 查看版本信息 brew config %查看brew配置 brew outdated % 查看那些包（软件）可以更新 brew upgrade # 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留 brew upgrade $FORMULA # 更新指定的包 brew cleanup # 清理所有包的旧版本，将旧有的软件安装包进行清理 brew cleanup $FORMULA # 清理指定包的旧版本 brew cleanup -n # 查看可清理的旧版本包，不执行实际操作 brew cask reinstall qq % 推荐，直接重新安装 ########文本文件预览 brew cask install qlcolorcode # 预览使得文本具有颜色,即给代码上色 brew cask install qlstephen # 语法高亮 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package quicklookase qlvideo brew cask install suspicious-package quicklookase qlvideo 超级右键 macApp 安装 软件更新 brew cask outdated # 可以查看cask安装的软件是否存在着需要更新的版本； brew cask upgrade xxx #进行软件更新； brew tap buo/cask-upgrade # 安装 brew-cask-upgrade brew cu # 更新所有过时应用： brew cu [CASK] # 更新指定应用： 软件清理 brew cleanup --prune 0 cleanup [options] [formula|cask] Remove stale lock files and outdated downloads for all formulae and casks, and remove old versions of installed formulae.</description>
-    </item>
-    
-    <item>
-      <title>mac 终端样式配置</title>
-      <link>/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</link>
+      <title>mac终端样式PS1</title>
+      <link>/macnote/mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</link>
       <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/macnote/2019-11-19mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</guid>
-      <description>mac 终端样式配置 首先，弄明白bash 和zsh&amp;hellip;.
+      <guid>/macnote/mac%E7%BB%88%E7%AB%AF%E6%A0%B7%E5%BC%8Fps1/</guid>
+      <description>mac终端样式PS1 首先，弄明白bash 和zsh&amp;hellip;.
 1 mac shell一览 unix核的系统如linux、macos的shell 默认都是bash
 就如第一张图查询所示，mac有6个shell，默认是/bin/bash
 1.1 查看安装了哪些shell ： cat /etc/shells 1.2 查看当前使用的shell echo $SHELL # 方法一 echo $0 # 方法二 1.3 bash和zsh切换 切换到bash
 chsh -s /bin/bash 切换到zsh
 chsh -s /bin/zsh 记得输入切换命令后，要重新打开终端terminal才生效哦！
 2、终端美化 &amp;mdash;iterm2 + zsh配置方法 2.1 安装iterm2 -官网 我不能确定zsh是否需要iterm2作为基础，因此我安装了iterm2
-官网下载安装： https://www.iterm2.com/ brew 安装，$ brew cask install iterm2 2.2 zsh 配置方法 要自定义各种配置 我们就要修改默认shell 改用zsh，据说zsh比bash更强大（都是浮云 读者自行查找为啥强大吧），oh my zsh是开源的 a delightful &amp;amp; open source framework for Z-Shell，也就是说我们用它 配置zsh更容易</description>
+官网下载安装： https://www.iterm2.com/ brew 安装，$ brew cask install iterm2 2.2 zsh 配置方法 要自定义各种配置 我们就要修改默认shell 改用zsh，据说zsh比bash更强大（都是浮云 读者自行查找为啥强大吧），oh my zsh是开源的 a delightful &amp;amp; open source framework for Z-Shell，也就是说我们用它 配置zsh更容易
+直接去官网https://ohmyz.sh/ 找到如下命令复制到终端即可（如果遇到提示则输入Yes和回车即可）：</description>
     </item>
     
     <item>

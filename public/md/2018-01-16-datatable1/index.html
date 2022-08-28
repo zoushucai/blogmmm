@@ -615,8 +615,8 @@ mtcars_dt[,.(mean_mpg = mean(mpg),.N),by=.(cyl,vs)][order(cyl,vs)]
 </span></span></code></pre></div><p><strong>以上就是data.table的基本操作,后续更新一些本报的一些基本概念和其他函数</strong></p>
 <h1 id="7总结">7总结</h1>
 <p>data.table的语法形式是：</p>
-<pre tabindex="0"><code>DT[i, j, by]
-</code></pre><p>指定参数i：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>DT[i, j, by]
+</span></span></code></pre></div><p>指定参数i：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">*</span> 类似于data.frame，我们可以subset行，除非不需要重复地使用 DT<span style="color:#f92672">$</span>，既然我们能将列当做变量来引用。 
 </span></span><span style="display:flex;"><span><span style="color:#f92672">*</span> 我们可以使用<span style="color:#a6e22e">order</span>()排序。为了得到更快速的效果，<span style="color:#a6e22e">order</span>()函数内部使用了data.table的快速排序。 
 </span></span><span style="display:flex;"><span>我们可以通过参数i做更多的事，得到更快速的选取和连结。

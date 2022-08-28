@@ -1,5 +1,5 @@
 ---
-title:  sublime text3 使用方法以及相关插件
+title: mac重装系统5sublime配置
 author: zsc
 date: "2020-10-07"
 categories: ["mac系统设置"]
@@ -10,7 +10,6 @@ keywords:
   - mac
 ---
 
-# sublime text3 使用方法以及相关插件
 
 ## 1. 软件的下载
 

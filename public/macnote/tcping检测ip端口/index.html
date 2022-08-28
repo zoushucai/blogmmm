@@ -12,7 +12,7 @@
     
 
     
-    <title>mac 挂载NTFS出现灰色文件</title>
+    <title>macOS tcping 检测IP端口</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     
     
@@ -166,7 +166,7 @@
         
                 <div>
             <h2 align="center" id = "singe-h2">
-                mac 挂载NTFS出现灰色文件
+                macOS tcping 检测IP端口
                 <time>
                     <br>
                     <span> 
@@ -176,7 +176,7 @@
                     &nbsp 
                     <span>                 
                         <i class="fa fa-calendar-alt" style="color:#888;font-size: 80%;"></i>
-                        2019-11-21 
+                        2019-11-22 
                     </span>
                 </time>
                 
@@ -200,12 +200,13 @@
     
         
         <section id="content">
-            <h1 id="mac下使用mounty挂载ntfs出现了文件不能拷贝的解决办法">Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法</h1>
-<p>Mac下使用Mounty挂载NTFS出现了文件不能拷贝的解决办法，即文件出现灰色的现象。
-或者使用付费的<code>Tuxera</code> 软件都会出现灰色文件,</p>
-<p>解决办法(在终端的灰色文件目录下面的命令即可)</p>
-<pre tabindex="0"><code>xattr -d com.apple.FinderInfo *
-</code></pre>
+            <h1 id="macos-tcping-检测ip端口">macOS tcping 检测IP端口</h1>
+<h2 id="安装tcping">安装tcping</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ brew install tcping
+</span></span><span style="display:flex;"><span>$ which tcping
+</span></span></code></pre></div><h2 id="2检测ip端口是否被屏蔽">2，检测IP端口是否被屏蔽</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ tcping 14.215.177.39 <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div>
         </section>
     </div>
     <br>
@@ -215,7 +216,7 @@
 
 
 
-<span id="/macnote/2019-11-21mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/" class="leancloud_visitors" data-flag-title="mac 挂载NTFS出现灰色文件">
+<span id="/macnote/tcping%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/" class="leancloud_visitors" data-flag-title="macOS tcping 检测IP端口">
   <span class="post-meta-item-text">文章总阅读量 </span>
   <span class="leancloud-visitors-count"><i class="leancloud-visitors-count"></i></span>次;
   <p></p>
@@ -238,12 +239,12 @@
     <hr>
     <li style="float:left;list-style:none">
         
-        <a class="previous" href="/macnote/2019-11-20mac%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"> 上一篇: mac常用软件安装</a>
+        <a class="previous" href="/macnote/mac%E7%A1%AC%E7%9B%98%E6%96%87%E4%BB%B6%E5%8F%98%E7%81%B0%E8%89%B2/"> 上一篇: mac硬盘文件变灰色</a>
         
     </li>
     <li style="float:right;list-style:none">
         
-        <a class="next" href="/macnote/2019-11-22macos-tcping-%E6%A3%80%E6%B5%8Bip%E7%AB%AF%E5%8F%A3/"> 下一篇: macOS tcping 检测IP端口</a>
+        <a class="next" href="/macnote/mac%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F1%E8%B5%B7%E5%9B%A0/"> 下一篇: mac重装系统1起因</a>
         
     </li>
      
@@ -290,7 +291,7 @@
       
       <script>
               document.getElementById("edit-button").addEventListener("click", function () {
-                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/macnote\/2019-11-21mac硬盘文件变灰色.md");
+                  var editWindow = window.open("https:\/\/github.com\/zoushucai\/blogmmm/edit/master/content/macnote\/tcping检测IP端口.md");
               });</script>
       
           

@@ -1,5 +1,5 @@
 ---
-title:   Mac 系统盘的制作与安装
+title: mac重装系统2系统制作与安装
 author: zsc
 date: "2020-10-04"
 categories: ["mac系统设置"]
@@ -10,7 +10,6 @@ keywords:
   - mac
 ---
 
-# Mac 系统盘的制作与安装
 
 参考https://www.iplaysoft.com/macos-usb-install-drive.html 这篇文章制作U盘系统盘
 
