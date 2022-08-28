@@ -257,13 +257,13 @@ iris_1[1:5, lapply(.SD, function(x)x*100 ),.SDcols = -(c(1,5))]
 iris_1[1:5, lapply(.SD, function(x)x*100 ),.SDcols = !(c(&#34;Sepal.Length&#34;,&#34;Species&#34;))]
 </code></pre><h3 id="42-对列进行有匹配的筛选">4.2 对列进行有匹配的筛选</h3>
 <p>只用<code>data.table</code> 包</p>
-<pre tabindex="0"><code>iris_dt = data.table(iris[1:5,])
-# 筛选列名中包含&#34;Sep&#34;字符串的列,这类似于shell中的grep命令,或者基本R中的grepl命令
-iris_dt[,names(iris_dt) %like% &#34;Sep&#34;, with=FALSE]
-
-# 筛选列名中包含&#34;Length&#34;字符串的列
-iris_dt[,names(iris_dt) %like% &#34;Length&#34;, with=FALSE]
-</code></pre><p>也可以引进<code>dplyr包</code>进行结合使用，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>iris_dt <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.table</span>(iris[1<span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>,])
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 筛选列名中包含&#34;Sep&#34;字符串的列,这类似于shell中的grep命令,或者基本R中的grepl命令</span>
+</span></span><span style="display:flex;"><span>iris_dt[,<span style="color:#a6e22e">names</span>(iris_dt) <span style="color:#f92672">%like%</span> <span style="color:#e6db74">&#34;Sep&#34;</span>, with<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 筛选列名中包含&#34;Length&#34;字符串的列</span>
+</span></span><span style="display:flex;"><span>iris_dt[,<span style="color:#a6e22e">names</span>(iris_dt) <span style="color:#f92672">%like%</span> <span style="color:#e6db74">&#34;Length&#34;</span>, with<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>]
+</span></span></code></pre></div><p>也可以引进<code>dplyr包</code>进行结合使用，</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(data.table)
 iris_1 = data.table(iris[1:5,])
 library(dplyr)

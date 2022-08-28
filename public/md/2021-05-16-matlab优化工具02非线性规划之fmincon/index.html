@@ -494,65 +494,65 @@ $$</p>
 </span></span><span style="display:flex;"><span>flag =
 </span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1</span>
 </span></span></code></pre></div><h5 id="fmincon-函数的全局优化">fmincon 函数的全局优化</h5>
-<pre tabindex="0"><code>%% fmincon 函数的全局优化
-% 由于 fmincon 函数求解，依靠初始值， 
-% 该全局优化函数，主要采用循环结构， 产生多个随机数赋值给fmincon函数作为初始值，
-% 依次调用fmincon函数求解原始问题， 并比较每次得出的目标函数值，并记录最小的目标函数值
-% 这样，就可能得出原始问题的全局最优解。
-
-function [x,f0,flag] = fmincon_global(f,a,b,n,N,varargin)
-%% 参数解释：
-% f 可以是结构体变量，也可以是目标函数的函数句柄
-% a 与b为决策变量所在的区间， 即 自变量x的上下限，可以是向量
-% n 为决策变量的个数， 即自变量的个数
-% N 产生多少个初值， 一般5~10个就好了
-% varargin 一些其他参数，应该包含描述约束的参数，与fmincon()函数完全一致
-% 即，fmincon 函数调用中除了 f与x0之外所有的后续变元
-%% 返回值： 
-% x 很有可能是问题的全局最优解
-% f0 为最优目标函数
-%% 函数调用格式：
-% x = fmincon(problem,a,b,n,N)
-% x = fmincon(f,a,b,n,N,A,b,Aeq,beq)
-% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub)
-% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub,nonlcon)
-% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub,nonlcon,options)
-% x = fmincon(problem)
-% [x,fval] = fmincon(___)
-% [x,fval,exitflag,output] = fmincon(___)
-% [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___)
-%%
-x0 = rand(n,1);
-k0 = 0;
-% 处理结构体
-if strcmp(class(f),&#39;struct&#39;)
-    k0=1;
-end
-if k0==1
-    f.x0 = x0;
-    [x,f0,flag] = fmincon(f); %结构体描述的问题直接求解
-else
-    [x,f0,flag] = fmincon(f,x0,varargin{:}); %非结构体描述的问题直接求解
-end
-
-if flag == 0
-    f0 = 1e10;
-end
-for i = 1:N
-    x0 = a(:) + (b(:) - a(:)).* rand(n,1);% 用循环结构尝试不同的随机搜索初值
-    if k0 ==1
-        f.x0 = x0;
-        [x1,f1,flag] = fmincon(f); %结构体描述的问题直接求解
-    else
-        [x1,f1,flag] = fmincon(f,x0,varargin{:}); %非结构体描述的问题直接求解
-    end
-    if flag &gt; 0 &amp; f1 &lt; f0
-        % 如果找到更改的解，则保存
-        x = x1;
-        f0 = f1;
-    end
-end
-</code></pre><p>求解上述问题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%% fmincon 函数的全局优化</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 由于 fmincon 函数求解，依靠初始值， </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 该全局优化函数，主要采用循环结构， 产生多个随机数赋值给fmincon函数作为初始值，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 依次调用fmincon函数求解原始问题， 并比较每次得出的目标函数值，并记录最小的目标函数值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 这样，就可能得出原始问题的全局最优解。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> [x,f0,flag] = <span style="color:#a6e22e">fmincon_global</span>(f,a,b,n,N,varargin)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 参数解释：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% f 可以是结构体变量，也可以是目标函数的函数句柄</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% a 与b为决策变量所在的区间， 即 自变量x的上下限，可以是向量</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% n 为决策变量的个数， 即自变量的个数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% N 产生多少个初值， 一般5~10个就好了</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% varargin 一些其他参数，应该包含描述约束的参数，与fmincon()函数完全一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 即，fmincon 函数调用中除了 f与x0之外所有的后续变元</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 返回值： </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x 很有可能是问题的全局最优解</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% f0 为最优目标函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 函数调用格式：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x = fmincon(problem,a,b,n,N)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x = fmincon(f,a,b,n,N,A,b,Aeq,beq)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub,nonlcon)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x = fmincon(f,a,b,n,N,A,b,Aeq,beq,lb,ub,nonlcon,options)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% x = fmincon(problem)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% [x,fval] = fmincon(___)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% [x,fval,exitflag,output] = fmincon(___)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% [x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%%</span>
+</span></span><span style="display:flex;"><span>x0 = rand(n,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>k0 = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 处理结构体</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> strcmp(class(f),<span style="color:#e6db74">&#39;struct&#39;</span>)
+</span></span><span style="display:flex;"><span>    k0=<span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> k0<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    f.x0 = x0;
+</span></span><span style="display:flex;"><span>    [x,f0,flag] = fmincon(f); <span style="color:#75715e">%结构体描述的问题直接求解</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    [x,f0,flag] = fmincon(f,x0,varargin{:}); <span style="color:#75715e">%非结构体描述的问题直接求解</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> flag <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    f0 = <span style="color:#ae81ff">1e10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:N
+</span></span><span style="display:flex;"><span>    x0 = a(:) <span style="color:#f92672">+</span> (b(:) <span style="color:#f92672">-</span> a(:))<span style="color:#f92672">.*</span> rand(n,<span style="color:#ae81ff">1</span>);<span style="color:#75715e">% 用循环结构尝试不同的随机搜索初值</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> k0 <span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        f.x0 = x0;
+</span></span><span style="display:flex;"><span>        [x1,f1,flag] = fmincon(f); <span style="color:#75715e">%结构体描述的问题直接求解</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        [x1,f1,flag] = fmincon(f,x0,varargin{:}); <span style="color:#75715e">%非结构体描述的问题直接求解</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> flag <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;</span> f1 <span style="color:#f92672">&lt;</span> f0
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 如果找到更改的解，则保存</span>
+</span></span><span style="display:flex;"><span>        x = x1;
+</span></span><span style="display:flex;"><span>        f0 = f1;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>求解上述问题</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>clc,clear all;
 </span></span><span style="display:flex;"><span>A = [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.25</span>;
 </span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.25</span>;

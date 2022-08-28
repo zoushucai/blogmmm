@@ -211,12 +211,12 @@
 </span></span><span style="display:flex;"><span>along.with：表示生成的向量为现有一向量元素的索引
 </span></span></code></pre></div><p>主要介绍<code>seq_along(along.with)  </code>和<code>seq_len(length.out)</code>函数，应用于循环中</p>
 <p>比如:</p>
-<pre tabindex="0"><code># 要循环某个向量长度的次数,比如向量a，其长度未知
-for(i in seq_along(a)){...}  代替 for(i in 1:length(a)){...}   ## 经常犯这样的错误，不美观
-
-# 循环中，循环1:10可以用一下方法
-for(i in seq_len(10)){...}  代替 for(i in 1:10){...} 
-</code></pre><p><code>head(x,5) </code> : 取向量的前5个元素，向量 ，数据框 ，list都适用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># 要循环某个向量长度的次数,比如向量a，其长度未知</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(i in <span style="color:#a6e22e">seq_along</span>(a)){<span style="color:#66d9ef">...</span>}  代替 <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(a)){<span style="color:#66d9ef">...</span>}   <span style="color:#75715e">## 经常犯这样的错误，不美观</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 循环中，循环1:10可以用一下方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(i in <span style="color:#a6e22e">seq_len</span>(<span style="color:#ae81ff">10</span>)){<span style="color:#66d9ef">...</span>}  代替 <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>){<span style="color:#66d9ef">...</span>} 
+</span></span></code></pre></div><p><code>head(x,5) </code> : 取向量的前5个元素，向量 ，数据框 ，list都适用</p>
 <p><code>tail(x,5)</code>: 取向量的后5个元素，等价 <code>x[-(1:(length(x)-5))]</code>   等价 <code>x[(length(n-4):length(n)] </code></p>
 
         </section>

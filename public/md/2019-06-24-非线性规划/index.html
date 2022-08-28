@@ -259,20 +259,20 @@
 \end{aligned}
 $$</p>
 <p>其中, $f(x),g(x),h(x)$ 都是光滑函数,</p>
-<pre tabindex="0"><code> solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL, 
-     ineqUB = NULL, LB = NULL, UB = NULL, control = list(), ...)
-  # 参数解释
-  pars  :  初始值(向量), 
-  fun   :  最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的f(x)
-  eqfun :  (可选) 等式约束(左边) ，等价与上述问题的 g(x)
-  egB : (可选) 等式约束右边值，等价上述问题g(x) = 0 的0 
-  ineqfun : (可选) 不等式约束，等价上述问题的 h(x)
-  ineqLB :(可选) 不等式约束的下限 ，等价于上述问题的 lh
-  ineqUB :(可选) 不等式约束的上限 ，等价于上述问题的 uh
-  LB :(可选) 参变量的下限 ，等价于上述问题的lx
-  UB: (可选) 参变量的上限 ，等价于上述问题的ux 
-  control :(可选) 优化参数控制表。
-</code></pre><p>例子：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span> <span style="color:#a6e22e">solnp</span>(pars, fun, eqfun <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, eqB <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, ineqfun <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, ineqLB <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, 
+</span></span><span style="display:flex;"><span>     ineqUB <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, LB <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, UB <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, control <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(), <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 参数解释</span>
+</span></span><span style="display:flex;"><span>  pars  <span style="color:#f92672">:</span>  初始值(向量), 
+</span></span><span style="display:flex;"><span>  fun   <span style="color:#f92672">:</span>  最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的<span style="color:#a6e22e">f</span>(x)
+</span></span><span style="display:flex;"><span>  eqfun <span style="color:#f92672">:</span>  (可选) 等式约束(左边) ，等价与上述问题的 <span style="color:#a6e22e">g</span>(x)
+</span></span><span style="display:flex;"><span>  egB <span style="color:#f92672">:</span> (可选) 等式约束右边值，等价上述问题<span style="color:#a6e22e">g</span>(x) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> 的<span style="color:#ae81ff">0</span> 
+</span></span><span style="display:flex;"><span>  ineqfun <span style="color:#f92672">:</span> (可选) 不等式约束，等价上述问题的 <span style="color:#a6e22e">h</span>(x)
+</span></span><span style="display:flex;"><span>  ineqLB <span style="color:#f92672">:</span>(可选) 不等式约束的下限 ，等价于上述问题的 lh
+</span></span><span style="display:flex;"><span>  ineqUB <span style="color:#f92672">:</span>(可选) 不等式约束的上限 ，等价于上述问题的 uh
+</span></span><span style="display:flex;"><span>  LB <span style="color:#f92672">:</span>(可选) 参变量的下限 ，等价于上述问题的lx
+</span></span><span style="display:flex;"><span>  UB<span style="color:#f92672">:</span> (可选) 参变量的上限 ，等价于上述问题的ux 
+</span></span><span style="display:flex;"><span>  control <span style="color:#f92672">:</span>(可选) 优化参数控制表。
+</span></span></code></pre></div><p>例子：
 $$
 \begin{aligned}
 \min  &amp; \quad exp({\prod_{i=1}^{5}x_i}) \
@@ -300,8 +300,8 @@ powell=solnp(x0, fun = fn1, eqfun = eqn1, eqB = c(10, 0, -1))
 </code></pre><p>具体参考:https://cran.r-project.org/web/packages/Rsolnp/index.html</p>
 <h2 id="rdonlp2">Rdonlp2</h2>
 <p>这个包有一定的问题，我在运行的时候第一次几乎都正常，能得到正确结果，第二次直接系统崩溃。</p>
-<pre tabindex="0"><code>if(!require(&#39;Rdonlp2&#39;)) install.packages(&#34;Rdonlp2&#34;, repos=&#34;http://R-Forge.R-project.org&#34;)
-</code></pre><p>模型格式如下：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;Rdonlp2&#39;</span>)) <span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;Rdonlp2&#34;</span>, repos<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://R-Forge.R-project.org&#34;</span>)
+</span></span></code></pre></div><p>模型格式如下：
 $$
 \begin{array}{l}{\min z=f(\mathbf{x})} \ {\qquad \begin{array}{l}{\mathrm{x}<em>{1} \leqslant \mathrm{x} \leqslant \mathrm{x}</em>{\mathrm{u}}} \ {\mathrm{b}<em>{1} \leqslant \mathrm{Ax} \leqslant \mathrm{b}</em>{\mathrm{u}}} \ {\mathrm{c}<em>{1} \leqslant \mathrm{c}(\mathrm{x}) \leqslant \mathrm{c}</em>{\mathrm{u}}}\end{array}}\end{array}
 $$

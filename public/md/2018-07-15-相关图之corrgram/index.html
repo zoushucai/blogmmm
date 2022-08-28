@@ -288,19 +288,19 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars,order <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PCA&#34;</span>,lower.panel <span style="color:#f92672">=</span> panel.shade,upper.panel <span style="color:#f92672">=</span> panel.pie)
 </span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-3-1.png" alt=""></p>
 <p>只显示下三角部分图</p>
-<pre tabindex="0"><code>corrgram(mtcars,order = &#34;PCA&#34;,lower.panel = panel.shade,upper.panel = NULL)
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars,order <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PCA&#34;</span>,lower.panel <span style="color:#f92672">=</span> panel.shade,upper.panel <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
 <h4 id="调整版面颜色">调整版面颜色</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars,order <span style="color:#f92672">=</span> T,lower.panel <span style="color:#f92672">=</span> panel.shade,upper.panel <span style="color:#f92672">=</span> panel.pie,
 </span></span><span style="display:flex;"><span>            col.regions <span style="color:#f92672">=</span> <span style="color:#a6e22e">colorRampPalette</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;darkgoldenrod4&#34;</span>, <span style="color:#e6db74">&#34;burlywood1&#34;</span>,<span style="color:#e6db74">&#34;white&#34;</span>,<span style="color:#e6db74">&#34;darkkhaki&#34;</span>, <span style="color:#e6db74">&#34;darkgreen&#34;</span>)))
 </span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-5-1.png" alt=""></p>
-<pre tabindex="0"><code>corrgram(mtcars,order=TRUE,
-            lower.panel=panel.ellipse,
-            upper.panel=panel.pts,
-            text.panel=panel.txt,
-            diag.panel=panel.minmax,
-            main=&#34;Correlogram of Mtcars intercorrelations&#34; )
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars,order<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>            lower.panel<span style="color:#f92672">=</span>panel.ellipse,
+</span></span><span style="display:flex;"><span>            upper.panel<span style="color:#f92672">=</span>panel.pts,
+</span></span><span style="display:flex;"><span>            text.panel<span style="color:#f92672">=</span>panel.txt,
+</span></span><span style="display:flex;"><span>            diag.panel<span style="color:#f92672">=</span>panel.minmax,
+</span></span><span style="display:flex;"><span>            main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Correlogram of Mtcars intercorrelations&#34;</span> )
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
 
         </section>
     </div>

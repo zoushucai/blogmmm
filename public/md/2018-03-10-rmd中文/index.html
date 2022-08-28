@@ -236,12 +236,12 @@
 <p>第二步：用文本文件打开Rprofile.site，配置文件里按照R语言自定义函数的格式自定义一个函数保存即可。</p>
 </li>
 </ul>
-<pre tabindex="0"><code>.First&lt;-function(){
-# 也可以加载包library(data.table)
-# 加载函数
-source(&#34;函数rmarkdown_pdf.R存放的路径&#34;)路径为1111/22/33 
-}
-</code></pre><p>这种设置，会产生很多的中间文件（系统并未自己删除），亲测成功：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>.First<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(){
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 也可以加载包library(data.table)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加载函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;函数rmarkdown_pdf.R存放的路径&#34;</span>)路径为<span style="color:#ae81ff">1111</span><span style="color:#f92672">/</span><span style="color:#ae81ff">22</span><span style="color:#f92672">/</span><span style="color:#ae81ff">33</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这种设置，会产生很多的中间文件（系统并未自己删除），亲测成功：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/pdf1.png" alt="pdf1"></p>
 <h1 id="方法二-生成pdf中文--用rticles包的模板">方法二： 生成pdf中文&ndash;用rticles包的模板</h1>
 <p>很久就知道谢意辉早就把rmarkdown可以转换为中文pdf的方案，一直没有尝试，今天尝试一下，结果失败了，我的电脑是win10 ，R的版本为3.4.3 ，安装了CTeX_2.92套装，我用的是rticles包中的模板文件，想测试一下中文pdf能否生成，结果报错如下（英文生成pdf没有问题）</p>
@@ -276,48 +276,49 @@ source(&#34;函数rmarkdown_pdf.R存放的路径&#34;)路径为1111/22/33
 <li>
 <p>如果没有用上述模板（rticles模板），想要Rmd 文件生成对应的中文，直接knitr是行不通的，会报以下错误，当然想要正常显示用模板方便很多啊！</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong01.png" alt="buchong01"></p>
-<pre tabindex="0"><code>output file: test.knit.md
-
-! Package inputenc Error: Unicode character 浣?(U+4F60)
-(inputenc)                not set up for use with LaTeX.
-
-错误: Failed to compile test.tex. See test.log for more info.
-此外: Warning message:
-In grepl(&#34;==&gt; Fatal error occurred&#34;, x[i], fixed = TRUE) :
-  输入的字符串1不适用于此语言环境
-停止执行
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>output file<span style="color:#f92672">:</span> test.knit.md
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">!</span> Package inputenc Error<span style="color:#f92672">:</span> Unicode character 浣<span style="color:#f92672">?</span>(U<span style="color:#ae81ff">+4</span>F60)
+</span></span><span style="display:flex;"><span>(inputenc)                not set up for use with LaTeX.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>错误<span style="color:#f92672">:</span> Failed to compile test.tex. See test.log for more info.
+</span></span><span style="display:flex;"><span>此外<span style="color:#f92672">:</span> Warning message<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>In <span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;==&gt; Fatal error occurred&#34;</span>, x[i], fixed <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  输入的字符串<span style="color:#ae81ff">1</span>不适用于此语言环境
+</span></span><span style="display:flex;"><span>停止执行
+</span></span></code></pre></div></li>
 <li>
 <p>方法一：如果Rmd中有中文，你想要正常显示，可以忽视中文，让中文显示空白，这时，只需设置YAML选项，</p>
-<pre tabindex="0"><code>output:
-   pdf_document:
-       latex_engine: xelatex
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong02.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>output<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>   pdf_document<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>       latex_engine<span style="color:#f92672">:</span> xelatex
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong02.png" alt=""></p>
 <ol start="3">
 <li>方法二：如果想让中文显示，需要如下设置，这都是基于rticles模板的或者基于Latex的（由谢易辉的提供的案列进行总结的）</li>
 </ol>
 <p>方法一：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong03.png" alt=""></p>
 <p>直接在YAML格式中添加参数即可：</p>
-<pre tabindex="0"><code></code></pre><ol start="4">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">如图</span>
+</span></span></code></pre></div><ol start="4">
 <li>方法三： 首先在你的Rmd文件开始部分加入：</li>
 </ol>
 </li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/buchong04.png" alt=""></p>
-<pre tabindex="0"><code>---
-output:
-    pdf_document:
-        includes:
-            in_header: header.tex
----
-</code></pre><p>然后，建立一个新文件 header.tex，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">---</span>
+</span></span><span style="display:flex;"><span>output<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    pdf_document<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        includes<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            in_header<span style="color:#f92672">:</span> header.tex
+</span></span><span style="display:flex;"><span><span style="color:#f92672">---</span>
+</span></span></code></pre></div><p>然后，建立一个新文件 header.tex，</p>
 <p>内容如下：</p>
-<pre tabindex="0"><code>\usepackage{ctex} 
-%\setCJKmainfont{Adobe 宋体 Std}      % 中文缺省字体，
-%\setCJKsansfont{Adobe 黑体 Std}      % 中文无衬线字体，   调用命令： \sffamily
-%\setCJKmonofont{Adobe 仿宋 Std}     % 中文打字机（等宽）字体， 调用命令： \ttfamily
-</code></pre><p>去掉注释，更改你自己定义的字体。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{ctex} 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%\setCJKmainfont{Adobe 宋体 Std}      % 中文缺省字体，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">%\setCJKsansfont{Adobe 黑体 Std}      % 中文无衬线字体，   调用命令： \sffamily
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">%\setCJKmonofont{Adobe 仿宋 Std}     % 中文打字机（等宽）字体， 调用命令： \ttfamily
+</span></span></span></code></pre></div><p>去掉注释，更改你自己定义的字体。</p>
 <p>然后利用rmarkdown包正常编译Rmd文件就可以了。</p>
 <p><strong>本机环境</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sessionInfo</span>()

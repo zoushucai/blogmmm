@@ -10,7 +10,7 @@ toc: true
 
 很久没上传文章到github了，
 
-```
+```gfm
 
 Error
 

@@ -372,81 +372,81 @@
 <p><strong>3.1 字符串拼接函数</strong></p>
 <p><strong>3.1.1 str_c，字符串拼接操作，与str_join完全相同，与paste()行为不完全一致。</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_c(..., sep = &#34;&#34;, collapse = NULL)
-str_join(..., sep = &#34;&#34;, collapse = NULL)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_c</span>(<span style="color:#66d9ef">...</span>, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, collapse <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_join</span>(<span style="color:#66d9ef">...</span>, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, collapse <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>…: 多参数的输入</li>
 <li>sep: 把多个字符串拼接为一个大的字符串，用于字符串的分割符。</li>
 <li>collapse: 把多个向量参数拼接为一个大的字符串，用于字符串的分割符。</li>
 </ul>
 <p>把多个字符串拼接为一个大的字符串。</p>
-<pre tabindex="0"><code>&gt; str_c(&#39;a&#39;,&#39;b&#39;)
-[1] &#34;ab&#34;
-&gt; str_c(&#39;a&#39;,&#39;b&#39;,sep=&#39;-&#39;)
-[1] &#34;a-b&#34;
-&gt; str_c(c(&#39;a&#39;,&#39;a1&#39;),c(&#39;b&#39;,&#39;b1&#39;),sep=&#39;-&#39;)
-[1] &#34;a-b&#34;   &#34;a1-b1&#34;
-</code></pre><p>把多个向量参数拼接为一个大的字符串。</p>
-<pre tabindex="0"><code>&gt; str_c(head(letters), collapse = &#34;&#34;)
-[1] &#34;abcdef&#34;
-&gt; str_c(head(letters), collapse = &#34;, &#34;)
-[1] &#34;a, b, c, d, e, f&#34;
-
-# collapse参数，对多个字符串无效
-&gt; str_c(&#39;a&#39;,&#39;b&#39;,collapse = &#34;-&#34;)   
-[1] &#34;ab&#34;
-&gt; str_c(c(&#39;a&#39;,&#39;a1&#39;),c(&#39;b&#39;,&#39;b1&#39;),collapse=&#39;-&#39;)
-[1] &#34;ab-a1b1&#34;
-</code></pre><p>拼接有NA值的字符串向量时，NA还是NA</p>
-<pre tabindex="0"><code>&gt; str_c(c(&#34;a&#34;, NA, &#34;b&#34;), &#34;-d&#34;)
-[1] &#34;a-d&#34; NA    &#34;b-d&#34;
-</code></pre><p>对比str_c()函数和paste()函数之间的不同点。</p>
-<pre tabindex="0"><code># 多字符串拼接，默认的sep参数行为不一致
-&gt; str_c(&#39;a&#39;,&#39;b&#39;)
-[1] &#34;ab&#34;
-&gt; paste(&#39;a&#39;,&#39;b&#39;)
-[1] &#34;a b&#34;
-
-# 向量拼接字符串，collapse参数的行为一致
-&gt; str_c(head(letters), collapse = &#34;&#34;)
-[1] &#34;abcdef&#34;
-&gt; paste(head(letters), collapse = &#34;&#34;)
-[1] &#34;abcdef&#34;
- 
-#拼接有NA值的字符串向量，对NA的处理行为不一致
-&gt; str_c(c(&#34;a&#34;, NA, &#34;b&#34;), &#34;-d&#34;)
-[1] &#34;a-d&#34; NA    &#34;b-d&#34;
-&gt; paste(c(&#34;a&#34;, NA, &#34;b&#34;), &#34;-d&#34;)
-[1] &#34;a -d&#34;  &#34;NA -d&#34; &#34;b -d&#34; 
-</code></pre><p><strong>3.1.2 str_trim:去掉字符串的空格和TAB(\t)</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;ab&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;a-b&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;a1&#39;</span>),<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;b1&#39;</span>),sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;a-b&#34;</span>   <span style="color:#e6db74">&#34;a1-b1&#34;</span>
+</span></span></code></pre></div><p>把多个向量参数拼接为一个大的字符串。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">head</span>(<span style="color:#66d9ef">letters</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abcdef&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">head</span>(<span style="color:#66d9ef">letters</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;, &#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;a, b, c, d, e, f&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># collapse参数，对多个字符串无效</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;-&#34;</span>)   
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;ab&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;a1&#39;</span>),<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;b1&#39;</span>),collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;ab-a1b1&#34;</span>
+</span></span></code></pre></div><p>拼接有NA值的字符串向量时，NA还是NA</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#e6db74">&#34;b&#34;</span>), <span style="color:#e6db74">&#34;-d&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;a-d&#34;</span> <span style="color:#66d9ef">NA</span>    <span style="color:#e6db74">&#34;b-d&#34;</span>
+</span></span></code></pre></div><p>对比str_c()函数和paste()函数之间的不同点。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># 多字符串拼接，默认的sep参数行为不一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;ab&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;a b&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 向量拼接字符串，collapse参数的行为一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">head</span>(<span style="color:#66d9ef">letters</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abcdef&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">head</span>(<span style="color:#66d9ef">letters</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abcdef&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#拼接有NA值的字符串向量，对NA的处理行为不一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#e6db74">&#34;b&#34;</span>), <span style="color:#e6db74">&#34;-d&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;a-d&#34;</span> <span style="color:#66d9ef">NA</span>    <span style="color:#e6db74">&#34;b-d&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#e6db74">&#34;b&#34;</span>), <span style="color:#e6db74">&#34;-d&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;a -d&#34;</span>  <span style="color:#e6db74">&#34;NA -d&#34;</span> <span style="color:#e6db74">&#34;b -d&#34;</span> 
+</span></span></code></pre></div><p><strong>3.1.2 str_trim:去掉字符串的空格和TAB(\t)</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_trim(string, side = c(&#34;both&#34;, &#34;left&#34;, &#34;right&#34;))
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_trim</span>(string, side <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;both&#34;</span>, <span style="color:#e6db74">&#34;left&#34;</span>, <span style="color:#e6db74">&#34;right&#34;</span>))
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>side: 过滤方式，both两边都过滤，left左边过滤，right右边过滤</li>
 </ul>
 <p>去掉字符串的空格和TAB(\t)</p>
-<pre tabindex="0"><code>#只过滤左边的空格
-&gt; str_trim(&#34;  left space\t\n&#34;,side=&#39;left&#39;) 
-[1] &#34;left space\t\n&#34;
-
-#只过滤右边的空格
-&gt; str_trim(&#34;  left space\t\n&#34;,side=&#39;right&#39;)
-[1] &#34;  left space&#34;
-
-#过滤两边的空格
-&gt; str_trim(&#34;  left space\t\n&#34;,side=&#39;both&#39;)
-[1] &#34;left space&#34;
-
-#过滤两边的空格
-&gt; str_trim(&#34;\nno space\n\t&#34;)
-[1] &#34;no space&#34;
-</code></pre><p><strong>3.1.3 str_pad:补充字符串的长度</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e">#只过滤左边的空格</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_trim</span>(<span style="color:#e6db74">&#34;  left space\t\n&#34;</span>,side<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;left&#39;</span>) 
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;left space\t\n&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#只过滤右边的空格</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_trim</span>(<span style="color:#e6db74">&#34;  left space\t\n&#34;</span>,side<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;right&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;  left space&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#过滤两边的空格</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_trim</span>(<span style="color:#e6db74">&#34;  left space\t\n&#34;</span>,side<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;both&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;left space&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#过滤两边的空格</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_trim</span>(<span style="color:#e6db74">&#34;\nno space\n\t&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;no space&#34;</span>
+</span></span></code></pre></div><p><strong>3.1.3 str_pad:补充字符串的长度</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_pad(string, width, side = c(&#34;left&#34;, &#34;right&#34;, &#34;both&#34;), pad = &#34; &#34;)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_pad</span>(string, width, side <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;left&#34;</span>, <span style="color:#e6db74">&#34;right&#34;</span>, <span style="color:#e6db74">&#34;both&#34;</span>), pad <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>width: 字符串填充后的长度</li>
@@ -454,181 +454,181 @@ str_join(..., sep = &#34;&#34;, collapse = NULL)
 <li>pad: 用于填充的字符</li>
 </ul>
 <p>补充字符串的长度。</p>
-<pre tabindex="0"><code># 从左边补充空格，直到字符串长度为20
-&gt; str_pad(&#34;conan&#34;, 20, &#34;left&#34;)
-[1] &#34;               conan&#34;
-
-# 从右边补充空格，直到字符串长度为20
-&gt; str_pad(&#34;conan&#34;, 20, &#34;right&#34;)
-[1] &#34;conan               &#34;
-
-# 从左右两边各补充空格，直到字符串长度为20
-&gt; str_pad(&#34;conan&#34;, 20, &#34;both&#34;)
-[1] &#34;       conan        &#34;
-
-# 从左右两边各补充x字符，直到字符串长度为20
-&gt; str_pad(&#34;conan&#34;, 20, &#34;both&#34;,&#39;x&#39;)
-[1] &#34;xxxxxxxconanxxxxxxxx&#34;
-</code></pre><p><strong>3.1.4 str_dup: 复制字符串</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># 从左边补充空格，直到字符串长度为20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_pad</span>(<span style="color:#e6db74">&#34;conan&#34;</span>, <span style="color:#ae81ff">20</span>, <span style="color:#e6db74">&#34;left&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;               conan&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 从右边补充空格，直到字符串长度为20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_pad</span>(<span style="color:#e6db74">&#34;conan&#34;</span>, <span style="color:#ae81ff">20</span>, <span style="color:#e6db74">&#34;right&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;conan               &#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 从左右两边各补充空格，直到字符串长度为20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_pad</span>(<span style="color:#e6db74">&#34;conan&#34;</span>, <span style="color:#ae81ff">20</span>, <span style="color:#e6db74">&#34;both&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;       conan        &#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 从左右两边各补充x字符，直到字符串长度为20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_pad</span>(<span style="color:#e6db74">&#34;conan&#34;</span>, <span style="color:#ae81ff">20</span>, <span style="color:#e6db74">&#34;both&#34;</span>,<span style="color:#e6db74">&#39;x&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;xxxxxxxconanxxxxxxxx&#34;</span>
+</span></span></code></pre></div><p><strong>3.1.4 str_dup: 复制字符串</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_dup(string, times)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_dup</span>(string, times)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>times: 复制数量</li>
 </ul>
 <p>复制一个字符串向量。</p>
-<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abca4&#34;, 123, &#34;cba2&#34;)
-
-# 复制2次
-&gt; str_dup(val, 2)
-[1] &#34;abca4abca4&#34; &#34;123123&#34;     &#34;cba2cba2&#34;  
-
-# 按位置复制
-&gt; str_dup(val, 1:3)
-[1] &#34;abca4&#34;        &#34;123123&#34;       &#34;cba2cba2cba2&#34;
-</code></pre><p><strong>3.1.5 str_wrap，控制字符串输出格式</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;abca4&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;cba2&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 复制2次</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_dup</span>(val, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abca4abca4&#34;</span> <span style="color:#e6db74">&#34;123123&#34;</span>     <span style="color:#e6db74">&#34;cba2cba2&#34;</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 按位置复制</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_dup</span>(val, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abca4&#34;</span>        <span style="color:#e6db74">&#34;123123&#34;</span>       <span style="color:#e6db74">&#34;cba2cba2cba2&#34;</span>
+</span></span></code></pre></div><p><strong>3.1.5 str_wrap，控制字符串输出格式</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_wrap(string, width = 80, indent = 0, exdent = 0)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_wrap</span>(string, width <span style="color:#f92672">=</span> <span style="color:#ae81ff">80</span>, indent <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, exdent <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>width: 设置一行所占的宽度。</li>
 <li>indent: 段落首行的缩进值</li>
 <li>exdent: 段落非首行的缩进值</li>
 </ul>
-<pre tabindex="0"><code> txt&lt;-&#39;R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。&#39;
-
-# 设置宽度为40个字符
-&gt; cat(str_wrap(txt, width = 40), &#34;\n&#34;)
-R语言作为统计学一门语言，一直在小众领域
-闪耀着光芒。直到大数据的爆发，R语言变成
-了一门炙手可热的数据分析的利器。随着越来
-越多的工程背景的人的加入，R语言的社区在
-迅速扩大成长。现在已不仅仅是统计领域，教
-育，银行，电商，互联网….都在使用R语言。 
-
-# 设置宽度为60字符，首行缩进2字符
-&gt; cat(str_wrap(txt, width = 60, indent = 2), &#34;\n&#34;)
-  R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数
-据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来
-越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已
-不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。 
-
-# 设置宽度为10字符，非首行缩进4字符
-&gt; cat(str_wrap(txt, width = 10, exdent = 4), &#34;\n&#34;)
-R语言作为
-    统计学一
-    门语言，
-    一直在小
-    众领域闪
-    耀着光芒。
-    直到大数据
-    的爆发，R
-    语言变成了
-    一门炙手可
-    热的数据分
-    析的利器。
-    随着越来
-    越多的工程
-    背景的人的
-    加入，R语
-    言的社区在
-    迅速扩大成
-    长。现在已
-    不仅仅是统
-    计领域，教
-    育，银行，
-    电商，互联
-    网….都在使
-    用R语言。 
-</code></pre><p><strong>3.1.6 str_sub,截取字符串</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span> txt<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#39;R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置宽度为40个字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">str_wrap</span>(txt, width <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>), <span style="color:#e6db74">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span>R语言作为统计学一门语言，一直在小众领域
+</span></span><span style="display:flex;"><span>闪耀着光芒。直到大数据的爆发，R语言变成
+</span></span><span style="display:flex;"><span>了一门炙手可热的数据分析的利器。随着越来
+</span></span><span style="display:flex;"><span>越多的工程背景的人的加入，R语言的社区在
+</span></span><span style="display:flex;"><span>迅速扩大成长。现在已不仅仅是统计领域，教
+</span></span><span style="display:flex;"><span>育，银行，电商，互联网….都在使用R语言。 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置宽度为60字符，首行缩进2字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">str_wrap</span>(txt, width <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span>, indent <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>), <span style="color:#e6db74">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span>  R语言作为统计学一门语言，一直在小众领域闪耀着光芒。直到大数
+</span></span><span style="display:flex;"><span>据的爆发，R语言变成了一门炙手可热的数据分析的利器。随着越来
+</span></span><span style="display:flex;"><span>越多的工程背景的人的加入，R语言的社区在迅速扩大成长。现在已
+</span></span><span style="display:flex;"><span>不仅仅是统计领域，教育，银行，电商，互联网….都在使用R语言。 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置宽度为10字符，非首行缩进4字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">str_wrap</span>(txt, width <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, exdent <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>), <span style="color:#e6db74">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span>R语言作为
+</span></span><span style="display:flex;"><span>    统计学一
+</span></span><span style="display:flex;"><span>    门语言，
+</span></span><span style="display:flex;"><span>    一直在小
+</span></span><span style="display:flex;"><span>    众领域闪
+</span></span><span style="display:flex;"><span>    耀着光芒。
+</span></span><span style="display:flex;"><span>    直到大数据
+</span></span><span style="display:flex;"><span>    的爆发，R
+</span></span><span style="display:flex;"><span>    语言变成了
+</span></span><span style="display:flex;"><span>    一门炙手可
+</span></span><span style="display:flex;"><span>    热的数据分
+</span></span><span style="display:flex;"><span>    析的利器。
+</span></span><span style="display:flex;"><span>    随着越来
+</span></span><span style="display:flex;"><span>    越多的工程
+</span></span><span style="display:flex;"><span>    背景的人的
+</span></span><span style="display:flex;"><span>    加入，R语
+</span></span><span style="display:flex;"><span>    言的社区在
+</span></span><span style="display:flex;"><span>    迅速扩大成
+</span></span><span style="display:flex;"><span>    长。现在已
+</span></span><span style="display:flex;"><span>    不仅仅是统
+</span></span><span style="display:flex;"><span>    计领域，教
+</span></span><span style="display:flex;"><span>    育，银行，
+</span></span><span style="display:flex;"><span>    电商，互联
+</span></span><span style="display:flex;"><span>    网….都在使
+</span></span><span style="display:flex;"><span>    用R语言。 
+</span></span></code></pre></div><p><strong>3.1.6 str_sub,截取字符串</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_sub(string, start = 1L, end = -1L)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_sub</span>(string, start <span style="color:#f92672">=</span> <span style="color:#ae81ff">1L</span>, end <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1L</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>start : 开始位置</li>
 <li>end : 结束位置</li>
 </ul>
 <p>截取字符串。</p>
-<pre tabindex="0"><code>&gt; txt &lt;- &#34;I am Conan.&#34;
-
-# 截取1-4的索引位置的字符串
-&gt; str_sub(txt, 1, 4)
-[1] &#34;I am&#34;
-
-# 截取1-6的索引位置的字符串
-&gt; str_sub(txt, end=6)
-[1] &#34;I am C&#34;
-
-# 截取6到结束的索引位置的字符串
-&gt; str_sub(txt, 6)
-[1] &#34;Conan.&#34;
-
-# 分2段截取字符串
-&gt; str_sub(txt, c(1, 4), c(6, 8))
-[1] &#34;I am C&#34; &#34;m Con&#34; 
-
-# 通过负坐标截取字符串
-&gt; str_sub(txt, -3)
-[1] &#34;an.&#34;
-&gt; str_sub(txt, end = -3)
-[1] &#34;I am Cona&#34;
-</code></pre><p>对截取的字符串进行赋值。</p>
-<pre tabindex="0"><code>&gt; x &lt;- &#34;AAABBBCCC&#34;
-
-# 在字符串的1的位置赋值为1
-&gt; str_sub(x, 1, 1) &lt;- 1; x
-[1] &#34;1AABBBCCC&#34;
-
-# 在字符串从2到-2的位置赋值为2345
-&gt; str_sub(x, 2, -2) &lt;- &#34;2345&#34;; x
-[1] &#34;12345C&#34;
-</code></pre><p><strong>3.2 字符串计算函数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> txt <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;I am Conan.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 截取1-4的索引位置的字符串</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(txt, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;I am&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 截取1-6的索引位置的字符串</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(txt, end<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;I am C&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 截取6到结束的索引位置的字符串</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(txt, <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;Conan.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 分2段截取字符串</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(txt, <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>), <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;I am C&#34;</span> <span style="color:#e6db74">&#34;m Con&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 通过负坐标截取字符串</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(txt, <span style="color:#ae81ff">-3</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;an.&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(txt, end <span style="color:#f92672">=</span> <span style="color:#ae81ff">-3</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;I am Cona&#34;</span>
+</span></span></code></pre></div><p>对截取的字符串进行赋值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> x <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;AAABBBCCC&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在字符串的1的位置赋值为1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span>; x
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;1AABBBCCC&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在字符串从2到-2的位置赋值为2345</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sub</span>(x, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">-2</span>) <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;2345&#34;</span>; x
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;12345C&#34;</span>
+</span></span></code></pre></div><p><strong>3.2 字符串计算函数</strong></p>
 <p><strong>3.2.1 str_count, 字符串计数</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_count(string, pattern = &#34;&#34;)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_count</span>(string, pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配的字符。</li>
 </ul>
 <p>对字符串中匹配的字符计数</p>
-<pre tabindex="0"><code>&gt; str_count(&#39;aaa444sssddd&#39;, &#34;a&#34;)
-[1] 3
-</code></pre><p>对字符串向量中匹配的字符计数</p>
-<pre tabindex="0"><code>&gt; fruit &lt;- c(&#34;apple&#34;, &#34;banana&#34;, &#34;pear&#34;, &#34;pineapple&#34;)
-&gt; str_count(fruit, &#34;a&#34;)
-[1] 1 3 1 1
-&gt; str_count(fruit, &#34;p&#34;)
-[1] 2 0 1 3
-</code></pre><p>对字符串中的&rsquo;.&lsquo;字符计数，由于.是正则表达式的匹配符，直接判断计数的结果是不对的。</p>
-<pre tabindex="0"><code>&gt; str_count(c(&#34;a.&#34;, &#34;.&#34;, &#34;.a.&#34;,NA), &#34;.&#34;)
-[1]  2  1  3 NA
-
-# 用fixed匹配字符
-&gt; str_count(c(&#34;a.&#34;, &#34;.&#34;, &#34;.a.&#34;,NA), fixed(&#34;.&#34;))
-[1]  1  1  2 NA
-
-# 用\\匹配字符
-&gt; str_count(c(&#34;a.&#34;, &#34;.&#34;, &#34;.a.&#34;,NA), &#34;\\.&#34;)
-[1]  1  1  2 NA
-</code></pre><p><strong>3.2.2 str_length,字符串长度</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_count</span>(<span style="color:#e6db74">&#39;aaa444sssddd&#39;</span>, <span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p>对字符串向量中匹配的字符计数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> fruit <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#e6db74">&#34;pear&#34;</span>, <span style="color:#e6db74">&#34;pineapple&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_count</span>(fruit, <span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_count</span>(fruit, <span style="color:#e6db74">&#34;p&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p>对字符串中的&rsquo;.&lsquo;字符计数，由于.是正则表达式的匹配符，直接判断计数的结果是不对的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_count</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a.&#34;</span>, <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;.a.&#34;</span>,<span style="color:#66d9ef">NA</span>), <span style="color:#e6db74">&#34;.&#34;</span>)
+</span></span><span style="display:flex;"><span>[1]  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span> <span style="color:#66d9ef">NA</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 用fixed匹配字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_count</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a.&#34;</span>, <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;.a.&#34;</span>,<span style="color:#66d9ef">NA</span>), <span style="color:#a6e22e">fixed</span>(<span style="color:#e6db74">&#34;.&#34;</span>))
+</span></span><span style="display:flex;"><span>[1]  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">NA</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 用\\匹配字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_count</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a.&#34;</span>, <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;.a.&#34;</span>,<span style="color:#66d9ef">NA</span>), <span style="color:#e6db74">&#34;\\.&#34;</span>)
+</span></span><span style="display:flex;"><span>[1]  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">NA</span>
+</span></span></code></pre></div><p><strong>3.2.2 str_length,字符串长度</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_length(string)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_length</span>(string)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 </ul>
 <p>计算字符串的长度:</p>
-<pre tabindex="0"><code>&gt; str_length(c(&#34;I&#34;, &#34;am&#34;, &#34;张丹&#34;, NA))
-[1]  1  2  2 NA
-</code></pre><p><strong>3.2.3 str_sort, 字符串值排序，同str_order索引排序</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_length</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;I&#34;</span>, <span style="color:#e6db74">&#34;am&#34;</span>, <span style="color:#e6db74">&#34;张丹&#34;</span>, <span style="color:#66d9ef">NA</span>))
+</span></span><span style="display:flex;"><span>[1]  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">NA</span>
+</span></span></code></pre></div><p><strong>3.2.3 str_sort, 字符串值排序，同str_order索引排序</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_sort(x, decreasing = FALSE, na_last = TRUE, locale = &#34;&#34;, ...)
-str_order(x, decreasing = FALSE, na_last = TRUE, locale = &#34;&#34;, ...)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_sort</span>(x, decreasing <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, na_last <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_order</span>(x, decreasing <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, na_last <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#66d9ef">...</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>x: 字符串，字符串向量。</li>
 <li>decreasing: 排序方向。</li>
@@ -636,116 +636,116 @@ str_order(x, decreasing = FALSE, na_last = TRUE, locale = &#34;&#34;, ...)
 <li>locale:按哪种语言习惯排序</li>
 </ul>
 <p>对字符串值进行排序。</p>
-<pre tabindex="0"><code># 按ASCII字母排序
-&gt; str_sort(c(&#39;a&#39;,1,2,&#39;11&#39;), locale = &#34;en&#34;)  
-[1] &#34;1&#34;  &#34;11&#34; &#34;2&#34;  &#34;a&#34; 
-
-# 倒序排序
-&gt; str_sort(letters,decreasing=TRUE)         
- [1] &#34;z&#34; &#34;y&#34; &#34;x&#34; &#34;w&#34; &#34;v&#34; &#34;u&#34; &#34;t&#34; &#34;s&#34; &#34;r&#34; &#34;q&#34; &#34;p&#34; &#34;o&#34; &#34;n&#34; &#34;m&#34; &#34;l&#34; &#34;k&#34; &#34;j&#34; &#34;i&#34; &#34;h&#34;
-[20] &#34;g&#34; &#34;f&#34; &#34;e&#34; &#34;d&#34; &#34;c&#34; &#34;b&#34; &#34;a&#34;
-
-# 按拼音排序
-&gt; str_sort(c(&#39;你&#39;,&#39;好&#39;,&#39;粉&#39;,&#39;丝&#39;,&#39;日&#39;,&#39;志&#39;),locale = &#34;zh&#34;)  
-[1] &#34;粉&#34; &#34;好&#34; &#34;你&#34; &#34;日&#34; &#34;丝&#34; &#34;志&#34;
-</code></pre><p>对NA值的排序处理</p>
-<pre tabindex="0"><code> #把NA放最后面
-&gt; str_sort(c(NA,&#39;1&#39;,NA),na_last=TRUE) 
-[1] &#34;1&#34; NA  NA
- 
-#把NA放最前面
-&gt; str_sort(c(NA,&#39;1&#39;,NA),na_last=FALSE) 
-[1] NA  NA  &#34;1&#34;
-
-#去掉NA值 
-&gt; str_sort(c(NA,&#39;1&#39;,NA),na_last=NA)    
-[1] &#34;1&#34;
-</code></pre><p><strong>3.3 字符串匹配函数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># 按ASCII字母排序</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sort</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;11&#39;</span>), locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;en&#34;</span>)  
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;1&#34;</span>  <span style="color:#e6db74">&#34;11&#34;</span> <span style="color:#e6db74">&#34;2&#34;</span>  <span style="color:#e6db74">&#34;a&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 倒序排序</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sort</span>(<span style="color:#66d9ef">letters</span>,decreasing<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)         
+</span></span><span style="display:flex;"><span> [1] <span style="color:#e6db74">&#34;z&#34;</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#e6db74">&#34;x&#34;</span> <span style="color:#e6db74">&#34;w&#34;</span> <span style="color:#e6db74">&#34;v&#34;</span> <span style="color:#e6db74">&#34;u&#34;</span> <span style="color:#e6db74">&#34;t&#34;</span> <span style="color:#e6db74">&#34;s&#34;</span> <span style="color:#e6db74">&#34;r&#34;</span> <span style="color:#e6db74">&#34;q&#34;</span> <span style="color:#e6db74">&#34;p&#34;</span> <span style="color:#e6db74">&#34;o&#34;</span> <span style="color:#e6db74">&#34;n&#34;</span> <span style="color:#e6db74">&#34;m&#34;</span> <span style="color:#e6db74">&#34;l&#34;</span> <span style="color:#e6db74">&#34;k&#34;</span> <span style="color:#e6db74">&#34;j&#34;</span> <span style="color:#e6db74">&#34;i&#34;</span> <span style="color:#e6db74">&#34;h&#34;</span>
+</span></span><span style="display:flex;"><span>[20] <span style="color:#e6db74">&#34;g&#34;</span> <span style="color:#e6db74">&#34;f&#34;</span> <span style="color:#e6db74">&#34;e&#34;</span> <span style="color:#e6db74">&#34;d&#34;</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#e6db74">&#34;a&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 按拼音排序</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sort</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;你&#39;</span>,<span style="color:#e6db74">&#39;好&#39;</span>,<span style="color:#e6db74">&#39;粉&#39;</span>,<span style="color:#e6db74">&#39;丝&#39;</span>,<span style="color:#e6db74">&#39;日&#39;</span>,<span style="color:#e6db74">&#39;志&#39;</span>),locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zh&#34;</span>)  
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;粉&#34;</span> <span style="color:#e6db74">&#34;好&#34;</span> <span style="color:#e6db74">&#34;你&#34;</span> <span style="color:#e6db74">&#34;日&#34;</span> <span style="color:#e6db74">&#34;丝&#34;</span> <span style="color:#e6db74">&#34;志&#34;</span>
+</span></span></code></pre></div><p>对NA值的排序处理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span> <span style="color:#75715e">#把NA放最后面</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sort</span>(<span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#66d9ef">NA</span>),na_last<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>) 
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#66d9ef">NA</span>  <span style="color:#66d9ef">NA</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#把NA放最前面</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sort</span>(<span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#66d9ef">NA</span>),na_last<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>[1] <span style="color:#66d9ef">NA</span>  <span style="color:#66d9ef">NA</span>  <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#去掉NA值 </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_sort</span>(<span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#66d9ef">NA</span>),na_last<span style="color:#f92672">=</span><span style="color:#66d9ef">NA</span>)    
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span></code></pre></div><p><strong>3.3 字符串匹配函数</strong></p>
 <p><strong>3.3.1 str_split,字符串分割，同str_split_fixed</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_split(string, pattern, n = Inf)
-str_split_fixed(string, pattern, n)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_split</span>(string, pattern, n <span style="color:#f92672">=</span> <span style="color:#66d9ef">Inf</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_split_fixed</span>(string, pattern, n)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配的字符。</li>
 <li>n: 分割个数</li>
 </ul>
 <p>对字符串进行分割。</p>
-<pre tabindex="0"><code>&gt; val &lt;- &#34;abc,123,234,iuuu&#34;
-
-# 以,进行分割
-&gt; s1&lt;-str_split(val, &#34;,&#34;);s1
-[[1]]
-[1] &#34;abc&#34;  &#34;123&#34;  &#34;234&#34;  &#34;iuuu&#34;
-
-# 以,进行分割，保留2块
-&gt; s2&lt;-str_split(val, &#34;,&#34;,2);s2
-[[1]]
-[1] &#34;abc&#34;          &#34;123,234,iuuu&#34;
-
-# 查看str_split()函数操作的结果类型list
-&gt; class(s1)
-[1] &#34;list&#34;
-
-# 用str_split_fixed()函数分割，结果类型是matrix
-&gt; s3&lt;-str_split_fixed(val, &#34;,&#34;,2);s3
-     [,1]  [,2]          
-[1,] &#34;abc&#34; &#34;123,234,iuuu&#34;
-
-&gt; class(s3)
-[1] &#34;matrix&#34;
-</code></pre><p><strong>3.3.2 str_subset:返回的匹配字符串</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;abc,123,234,iuuu&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 以,进行分割</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> s1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">str_split</span>(val, <span style="color:#e6db74">&#34;,&#34;</span>);s1
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abc&#34;</span>  <span style="color:#e6db74">&#34;123&#34;</span>  <span style="color:#e6db74">&#34;234&#34;</span>  <span style="color:#e6db74">&#34;iuuu&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 以,进行分割，保留2块</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> s2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">str_split</span>(val, <span style="color:#e6db74">&#34;,&#34;</span>,<span style="color:#ae81ff">2</span>);s2
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abc&#34;</span>          <span style="color:#e6db74">&#34;123,234,iuuu&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看str_split()函数操作的结果类型list</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">class</span>(s1)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;list&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 用str_split_fixed()函数分割，结果类型是matrix</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> s3<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">str_split_fixed</span>(val, <span style="color:#e6db74">&#34;,&#34;</span>,<span style="color:#ae81ff">2</span>);s3
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]  [,<span style="color:#ae81ff">2</span>]          
+</span></span><span style="display:flex;"><span>[1,] <span style="color:#e6db74">&#34;abc&#34;</span> <span style="color:#e6db74">&#34;123,234,iuuu&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">class</span>(s3)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;matrix&#34;</span>
+</span></span></code></pre></div><p><strong>3.3.2 str_subset:返回的匹配字符串</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_subset(string, pattern)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_subset</span>(string, pattern)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配的字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abc&#34;, 123, &#34;cba&#34;)
-
-# 全文匹配
-&gt; str_subset(val, &#34;a&#34;)
-[1] &#34;abc&#34; &#34;cba&#34;
-
-# 开头匹配
-&gt; str_subset(val, &#34;^a&#34;)
-[1] &#34;abc&#34;
-
-# 结尾匹配
-&gt; str_subset(val, &#34;a$&#34;)
-[1] &#34;cba&#34;
-</code></pre><p><strong>3.3.3 word, 从文本中提取单词</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;abc&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;cba&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全文匹配</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_subset</span>(val, <span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abc&#34;</span> <span style="color:#e6db74">&#34;cba&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 开头匹配</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_subset</span>(val, <span style="color:#e6db74">&#34;^a&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abc&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 结尾匹配</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_subset</span>(val, <span style="color:#e6db74">&#34;a$&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;cba&#34;</span>
+</span></span></code></pre></div><p><strong>3.3.3 word, 从文本中提取单词</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>word(string, start = 1L, end = start, sep = fixed(&#34; &#34;))
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">word</span>(string, start <span style="color:#f92672">=</span> <span style="color:#ae81ff">1L</span>, end <span style="color:#f92672">=</span> start, sep <span style="color:#f92672">=</span> <span style="color:#a6e22e">fixed</span>(<span style="color:#e6db74">&#34; &#34;</span>))
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>start: 开始位置。</li>
 <li>end: 结束位置。</li>
 <li>sep: 匹配字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&#34;I am Conan.&#34;, &#34;http://fens.me, ok&#34;)
-
-# 默认以空格分割，取第一个位置的字符串
-&gt; word(val, 1)
-[1] &#34;I&#34;               &#34;http://fens.me,&#34;
-&gt; word(val, -1)
-[1] &#34;Conan.&#34; &#34;ok&#34;    
-&gt; word(val, 2, -1)
-[1] &#34;am Conan.&#34; &#34;ok&#34;       
-
-# 以,分割，取第一个位置的字符串 
-&gt; val&lt;-&#39;111,222,333,444&#39;
-&gt; word(val, 1, sep = fixed(&#39;,&#39;))
-[1] &#34;111&#34;
-&gt; word(val, 3, sep = fixed(&#39;,&#39;))
-[1] &#34;333&#34;
-</code></pre><p><strong>3.3.4 str_detect匹配字符串的字符</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;I am Conan.&#34;</span>, <span style="color:#e6db74">&#34;http://fens.me, ok&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 默认以空格分割，取第一个位置的字符串</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">word</span>(val, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;I&#34;</span>               <span style="color:#e6db74">&#34;http://fens.me,&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">word</span>(val, <span style="color:#ae81ff">-1</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;Conan.&#34;</span> <span style="color:#e6db74">&#34;ok&#34;</span>    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">word</span>(val, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">-1</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;am Conan.&#34;</span> <span style="color:#e6db74">&#34;ok&#34;</span>       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 以,分割，取第一个位置的字符串 </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#39;111,222,333,444&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">word</span>(val, <span style="color:#ae81ff">1</span>, sep <span style="color:#f92672">=</span> <span style="color:#a6e22e">fixed</span>(<span style="color:#e6db74">&#39;,&#39;</span>))
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;111&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">word</span>(val, <span style="color:#ae81ff">3</span>, sep <span style="color:#f92672">=</span> <span style="color:#a6e22e">fixed</span>(<span style="color:#e6db74">&#39;,&#39;</span>))
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;333&#34;</span>
+</span></span></code></pre></div><p><strong>3.3.4 str_detect匹配字符串的字符</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_detect(string, pattern)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_detect</span>(string, pattern)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
@@ -765,248 +765,248 @@ str_split_fixed(string, pattern, n)
 [1] FALSE FALSE FALSE
 </code></pre><p><strong>3.3.6 str_match,从字符串中提取匹配组</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_match(string, pattern)
-str_match_all(string, pattern)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_match</span>(string, pattern)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_match_all</span>(string, pattern)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
 </ul>
 <p>从字符串中提取匹配组</p>
-<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abc&#34;, 123, &#34;cba&#34;)
-
-# 匹配字符a，并返回对应的字符
-&gt; str_match(val, &#34;a&#34;)
-     [,1]
-[1,] &#34;a&#34; 
-[2,] NA  
-[3,] &#34;a&#34; 
-
-# 匹配字符0-9，限1个，并返回对应的字符
-&gt; str_match(val, &#34;[0-9]&#34;)
-     [,1]
-[1,] NA  
-[2,] &#34;1&#34; 
-[3,] NA  
-
-# 匹配字符0-9，不限数量，并返回对应的字符
-&gt; str_match(val, &#34;[0-9]*&#34;)
-     [,1] 
-[1,] &#34;&#34;   
-[2,] &#34;123&#34;
-[3,] &#34;&#34;  
-</code></pre><p>从字符串中提取匹配组，以字符串matrix格式返回</p>
-<pre tabindex="0"><code>&gt; str_match_all(val, &#34;a&#34;)
-[[1]]
-     [,1]
-[1,] &#34;a&#34; 
-
-[[2]]
-     [,1]
-
-[[3]]
-     [,1]
-[1,] &#34;a&#34; 
-
-&gt; str_match_all(val, &#34;[0-9]&#34;)
-[[1]]
-     [,1]
-
-[[2]]
-     [,1]
-[1,] &#34;1&#34; 
-[2,] &#34;2&#34; 
-[3,] &#34;3&#34; 
-
-[[3]]
-     [,1]
-</code></pre><p><strong>3.3.7 str_replace，字符串替换</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;abc&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;cba&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 匹配字符a，并返回对应的字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_match</span>(val, <span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>[1,] <span style="color:#e6db74">&#34;a&#34;</span> 
+</span></span><span style="display:flex;"><span>[2,] <span style="color:#66d9ef">NA</span>  
+</span></span><span style="display:flex;"><span>[3,] <span style="color:#e6db74">&#34;a&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 匹配字符0-9，限1个，并返回对应的字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_match</span>(val, <span style="color:#e6db74">&#34;[0-9]&#34;</span>)
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>[1,] <span style="color:#66d9ef">NA</span>  
+</span></span><span style="display:flex;"><span>[2,] <span style="color:#e6db74">&#34;1&#34;</span> 
+</span></span><span style="display:flex;"><span>[3,] <span style="color:#66d9ef">NA</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 匹配字符0-9，不限数量，并返回对应的字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_match</span>(val, <span style="color:#e6db74">&#34;[0-9]*&#34;</span>)
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>] 
+</span></span><span style="display:flex;"><span>[1,] <span style="color:#e6db74">&#34;&#34;</span>   
+</span></span><span style="display:flex;"><span>[2,] <span style="color:#e6db74">&#34;123&#34;</span>
+</span></span><span style="display:flex;"><span>[3,] <span style="color:#e6db74">&#34;&#34;</span>  
+</span></span></code></pre></div><p>从字符串中提取匹配组，以字符串matrix格式返回</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_match_all</span>(val, <span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>[1,] <span style="color:#e6db74">&#34;a&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[2]]
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[3]]
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>[1,] <span style="color:#e6db74">&#34;a&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_match_all</span>(val, <span style="color:#e6db74">&#34;[0-9]&#34;</span>)
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[2]]
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>[1,] <span style="color:#e6db74">&#34;1&#34;</span> 
+</span></span><span style="display:flex;"><span>[2,] <span style="color:#e6db74">&#34;2&#34;</span> 
+</span></span><span style="display:flex;"><span>[3,] <span style="color:#e6db74">&#34;3&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[3]]
+</span></span><span style="display:flex;"><span>     [,<span style="color:#ae81ff">1</span>]
+</span></span></code></pre></div><p><strong>3.3.7 str_replace，字符串替换</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_replace(string, pattern, replacement)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_replace</span>(string, pattern, replacement)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
 <li>replacement: 用于替换的字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abc&#34;, 123, &#34;cba&#34;)
-
-# 把目标字符串第一个出现的a或b，替换为-
-&gt; str_replace(val, &#34;[ab]&#34;, &#34;-&#34;)
-[1] &#34;-bc&#34; &#34;123&#34; &#34;c-a&#34;
-
-# 把目标字符串所有出现的a或b，替换为-
-&gt; str_replace_all(val, &#34;[ab]&#34;, &#34;-&#34;)
-[1] &#34;--c&#34; &#34;123&#34; &#34;c--&#34;
-
-# 把目标字符串所有出现的a，替换为被转义的字符
-&gt; str_replace_all(val, &#34;[a]&#34;, &#34;\1\1&#34;)
-[1] &#34;\001\001bc&#34; &#34;123&#34;        &#34;cb\001\001&#34;
-</code></pre><p><strong>3.3.8 str_replace_na把NA替换为NA字符串</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;abc&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;cba&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 把目标字符串第一个出现的a或b，替换为-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_replace</span>(val, <span style="color:#e6db74">&#34;[ab]&#34;</span>, <span style="color:#e6db74">&#34;-&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;-bc&#34;</span> <span style="color:#e6db74">&#34;123&#34;</span> <span style="color:#e6db74">&#34;c-a&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 把目标字符串所有出现的a或b，替换为-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_replace_all</span>(val, <span style="color:#e6db74">&#34;[ab]&#34;</span>, <span style="color:#e6db74">&#34;-&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;--c&#34;</span> <span style="color:#e6db74">&#34;123&#34;</span> <span style="color:#e6db74">&#34;c--&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 把目标字符串所有出现的a，替换为被转义的字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_replace_all</span>(val, <span style="color:#e6db74">&#34;[a]&#34;</span>, <span style="color:#e6db74">&#34;\1\1&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;\001\001bc&#34;</span> <span style="color:#e6db74">&#34;123&#34;</span>        <span style="color:#e6db74">&#34;cb\001\001&#34;</span>
+</span></span></code></pre></div><p><strong>3.3.8 str_replace_na把NA替换为NA字符串</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_replace_na(string, replacement = &#34;NA&#34;)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_replace_na</span>(string, replacement <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;NA&#34;</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>replacement : 用于替换的字符。</li>
 </ul>
 <p>把NA替换为字符串</p>
-<pre tabindex="0"><code>&gt; str_replace_na(c(NA,&#39;NA&#39;,&#34;abc&#34;),&#39;x&#39;)
-[1] &#34;x&#34;   &#34;NA&#34;  &#34;abc&#34;
-</code></pre><p><strong>3.3.9 str_locate，找到的模式在字符串中的位置。</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_replace_na</span>(<span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>,<span style="color:#e6db74">&#39;NA&#39;</span>,<span style="color:#e6db74">&#34;abc&#34;</span>),<span style="color:#e6db74">&#39;x&#39;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;x&#34;</span>   <span style="color:#e6db74">&#34;NA&#34;</span>  <span style="color:#e6db74">&#34;abc&#34;</span>
+</span></span></code></pre></div><p><strong>3.3.9 str_locate，找到的模式在字符串中的位置。</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_locate(string, pattern)
-str_locate_all(string, pattern)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_locate</span>(string, pattern)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_locate_all</span>(string, pattern)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abca&#34;, 123, &#34;cba&#34;)
-
-# 匹配a在字符串中的位置
-&gt; str_locate(val, &#34;a&#34;)
-     start end
-[1,]     1   1
-[2,]    NA  NA
-[3,]     3   3
-
-# 用向量匹配
-&gt; str_locate(val, c(&#34;a&#34;, 12, &#34;b&#34;))
-     start end
-[1,]     1   1
-[2,]     1   2
-[3,]     2   2
-
-# 以字符串matrix格式返回
-&gt; str_locate_all(val, &#34;a&#34;)
-[[1]]
-     start end
-[1,]     1   1
-[2,]     4   4
-
-[[2]]
-     start end
-
-[[3]]
-     start end
-[1,]     3   3
-
-# 匹配a或b字符，以字符串matrix格式返回
-&gt; str_locate_all(val, &#34;[ab]&#34;)
-[[1]]
-     start end
-[1,]     1   1
-[2,]     2   2
-[3,]     4   4
-
-[[2]]
-     start end
-
-[[3]]
-     start end
-[1,]     2   2
-[2,]     3   3
-</code></pre><p><strong>3.3.10 str_extract从字符串中提取匹配模式</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;abca&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;cba&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 匹配a在字符串中的位置</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_locate</span>(val, <span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>[1,]     <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>[2,]    <span style="color:#66d9ef">NA</span>  <span style="color:#66d9ef">NA</span>
+</span></span><span style="display:flex;"><span>[3,]     <span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 用向量匹配</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_locate</span>(val, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#ae81ff">12</span>, <span style="color:#e6db74">&#34;b&#34;</span>))
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>[1,]     <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>[2,]     <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>[3,]     <span style="color:#ae81ff">2</span>   <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 以字符串matrix格式返回</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_locate_all</span>(val, <span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>[1,]     <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>[2,]     <span style="color:#ae81ff">4</span>   <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[2]]
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[3]]
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>[1,]     <span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 匹配a或b字符，以字符串matrix格式返回</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_locate_all</span>(val, <span style="color:#e6db74">&#34;[ab]&#34;</span>)
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>[1,]     <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>[2,]     <span style="color:#ae81ff">2</span>   <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>[3,]     <span style="color:#ae81ff">4</span>   <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[2]]
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[3]]
+</span></span><span style="display:flex;"><span>     start end
+</span></span><span style="display:flex;"><span>[1,]     <span style="color:#ae81ff">2</span>   <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>[2,]     <span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p><strong>3.3.10 str_extract从字符串中提取匹配模式</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_extract(string, pattern)
-str_extract_all(string, pattern, simplify = FALSE)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_extract</span>(string, pattern)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_extract_all</span>(string, pattern, simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>pattern: 匹配字符。</li>
 <li>simplify: 返回值，TRUE返回matrix，FALSE返回字符串向量</li>
 </ul>
-<pre tabindex="0"><code>&gt; val &lt;- c(&#34;abca4&#34;, 123, &#34;cba2&#34;)
-
-# 返回匹配的数字
-&gt; str_extract(val, &#34;\\d&#34;)
-[1] &#34;4&#34; &#34;1&#34; &#34;2&#34;
-
-# 返回匹配的字符
-&gt; str_extract(val, &#34;[a-z]+&#34;)
-[1] &#34;abca&#34; NA     &#34;cba&#34; 
-
-
-&gt; val &lt;- c(&#34;abca4&#34;, 123, &#34;cba2&#34;)
-&gt; str_extract_all(val, &#34;\\d&#34;)
-[[1]]
-[1] &#34;4&#34;
-
-[[2]]
-[1] &#34;1&#34; &#34;2&#34; &#34;3&#34;
-
-[[3]]
-[1] &#34;2&#34;
-
-&gt; str_extract_all(val, &#34;[a-z]+&#34;)
-[[1]]
-[1] &#34;abca&#34;
-
-[[2]]
-character(0)
-
-[[3]]
-[1] &#34;cba&#34;
-</code></pre><p><strong>3.4 字符串变换函数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;abca4&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;cba2&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 返回匹配的数字</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_extract</span>(val, <span style="color:#e6db74">&#34;\\d&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#e6db74">&#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 返回匹配的字符</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_extract</span>(val, <span style="color:#e6db74">&#34;[a-z]+&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abca&#34;</span> <span style="color:#66d9ef">NA</span>     <span style="color:#e6db74">&#34;cba&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;abca4&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;cba2&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_extract_all</span>(val, <span style="color:#e6db74">&#34;\\d&#34;</span>)
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;4&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[2]]
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#e6db74">&#34;3&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[3]]
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_extract_all</span>(val, <span style="color:#e6db74">&#34;[a-z]+&#34;</span>)
+</span></span><span style="display:flex;"><span>[[1]]
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;abca&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[2]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">character</span>(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[3]]
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;cba&#34;</span>
+</span></span></code></pre></div><p><strong>3.4 字符串变换函数</strong></p>
 <p><strong>3.4.1 str_conv:字符编码转换</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_conv(string, encoding)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_conv</span>(string, encoding)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串，字符串向量。</li>
 <li>encoding: 编码名。</li>
 </ul>
 <p>对中文进行转码处理。</p>
-<pre tabindex="0"><code># 把中文字符字节化
-&gt; x &lt;- charToRaw(&#39;你好&#39;);x
-[1] c4 e3 ba c3
-
-# 默认win系统字符集为GBK，GB2312为GBK字集，转码正常
-&gt; str_conv(x, &#34;GBK&#34;)
-[1] &#34;你好&#34;
-&gt; str_conv(x, &#34;GB2312&#34;)
-[1] &#34;你好&#34;
-
-# 转UTF-8失败
-&gt; str_conv(x, &#34;UTF-8&#34;)
-[1] &#34;���&#34;
-Warning messages:
-1: In stri_conv(string, encoding, &#34;UTF-8&#34;) :
-  input data \xffffffc4 in current source encoding could not be converted to Unicode
-2: In stri_conv(string, encoding, &#34;UTF-8&#34;) :
-  input data \xffffffe3\xffffffba in current source encoding could not be converted to Unicode
-3: In stri_conv(string, encoding, &#34;UTF-8&#34;) :
-  input data \xffffffc3 in current source encoding could not be converted to Unicode
-</code></pre><p>把unicode转UTF-8</p>
-<pre tabindex="0"><code>&gt; x1 &lt;- &#34;\u5317\u4eac&#34;
-&gt; str_conv(x1, &#34;UTF-8&#34;)
-[1] &#34;北京&#34;
-</code></pre><p><strong>3.4.2 str_to_upper,字符串大写转换。</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># 把中文字符字节化</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">charToRaw</span>(<span style="color:#e6db74">&#39;你好&#39;</span>);x
+</span></span><span style="display:flex;"><span>[1] c4 e3 ba c3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 默认win系统字符集为GBK，GB2312为GBK字集，转码正常</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_conv</span>(x, <span style="color:#e6db74">&#34;GBK&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;你好&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_conv</span>(x, <span style="color:#e6db74">&#34;GB2312&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;你好&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 转UTF-8失败</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_conv</span>(x, <span style="color:#e6db74">&#34;UTF-8&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;���&#34;</span>
+</span></span><span style="display:flex;"><span>Warning messages<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> In <span style="color:#a6e22e">stri_conv</span>(string, encoding, <span style="color:#e6db74">&#34;UTF-8&#34;</span>) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  input data \xffffffc4 in current source encoding could not be converted to Unicode
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span> In <span style="color:#a6e22e">stri_conv</span>(string, encoding, <span style="color:#e6db74">&#34;UTF-8&#34;</span>) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  input data \xffffffe3\xffffffba in current source encoding could not be converted to Unicode
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span><span style="color:#f92672">:</span> In <span style="color:#a6e22e">stri_conv</span>(string, encoding, <span style="color:#e6db74">&#34;UTF-8&#34;</span>) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  input data \xffffffc3 in current source encoding could not be converted to Unicode
+</span></span></code></pre></div><p>把unicode转UTF-8</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> x1 <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;\u5317\u4eac&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_conv</span>(x1, <span style="color:#e6db74">&#34;UTF-8&#34;</span>)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;北京&#34;</span>
+</span></span></code></pre></div><p><strong>3.4.2 str_to_upper,字符串大写转换。</strong></p>
 <p>函数定义：</p>
-<pre tabindex="0"><code>str_to_upper(string, locale = &#34;&#34;)
-str_to_lower(string, locale = &#34;&#34;)
-str_to_title(string, locale = &#34;&#34;)
-</code></pre><p>参数列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">str_to_upper</span>(string, locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_to_lower</span>(string, locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str_to_title</span>(string, locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span></code></pre></div><p>参数列表：</p>
 <ul>
 <li>string: 字符串。</li>
 <li>locale:按哪种语言习惯排序</li>
 </ul>
 <p>字符串大写转换:</p>
-<pre tabindex="0"><code>&gt; val &lt;- &#34;I am conan. Welcome to my blog! http://fens.me&#34;
-
-# 全大写
-&gt; str_to_upper(val)
-[1] &#34;I AM CONAN. WELCOME TO MY BLOG! HTTP://FENS.ME&#34;
-
-# 全小写
-&gt; str_to_lower(val)
-[1] &#34;i am conan. welcome to my blog! http://fens.me&#34;
-
-# 首字母大写
-&gt; str_to_title(val)
-[1] &#34;I Am Conan. Welcome To My Blog! Http://Fens.Me&#34;
-</code></pre><p>字符串在平常的数据处理中经常用过，需要对字符串进行分割、连接、转换等操作，本篇中通过介绍stringr，灵活的字符串处理库，可以有效地提高代码的编写效率。有了好的工具，在用R语言处理字符串就顺手了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> val <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;I am conan. Welcome to my blog! http://fens.me&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全大写</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_to_upper</span>(val)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;I AM CONAN. WELCOME TO MY BLOG! HTTP://FENS.ME&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全小写</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_to_lower</span>(val)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;i am conan. welcome to my blog! http://fens.me&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 首字母大写</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">str_to_title</span>(val)
+</span></span><span style="display:flex;"><span>[1] <span style="color:#e6db74">&#34;I Am Conan. Welcome To My Blog! Http://Fens.Me&#34;</span>
+</span></span></code></pre></div><p>字符串在平常的数据处理中经常用过，需要对字符串进行分割、连接、转换等操作，本篇中通过介绍stringr，灵活的字符串处理库，可以有效地提高代码的编写效率。有了好的工具，在用R语言处理字符串就顺手了。</p>
 <p>本文转载张丹的粉丝日志，链接：<a href="http://blog.fens.me/r-stringr/">http://blog.fens.me/r-stringr/</a>，</p>
 
         </section>

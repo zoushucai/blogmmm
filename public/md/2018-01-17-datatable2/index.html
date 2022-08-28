@@ -285,13 +285,13 @@ mtcars_dt[.(6,3),on=c(&#34;cyl&#34;,&#34;gear&#34;)]#同时满足cyl=6,gear=3的
 <p>对于每次查询指定所有符合条件的行都被返回，若只返回第一行／最后一行设置为“first”或“last”。</p>
 <h5 id="b参数nomatch-默认为na">b)参数nomatch 默认为NA</h5>
 <p>指定在没有找到符合条件的数据的情况下，是返回NA。设置 nomatch = 0L 跳过哪些不存在的数据</p>
-<pre tabindex="0"><code>library(data.table)
-library(magrittr)
-iris_dt = data.table(iris) 
-iris_dt[.(5.1), on=&#39;Sepal.Length&#39;] %&gt;% head(3)
-iris_dt[.(100), on=&#39;Sepal.Length&#39;] # 没有找到Sepal.Length==100 的行,则返回NA
-iris_dt[.(100), on=&#39;Sepal.Length&#39;, nomatch = 0]
-</code></pre><h2 id="4数据融合">4、数据融合</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(data.table)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(magrittr)
+</span></span><span style="display:flex;"><span>iris_dt <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.table</span>(iris) 
+</span></span><span style="display:flex;"><span>iris_dt<span style="color:#a6e22e">[.</span>(<span style="color:#ae81ff">5.1</span>), on<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Sepal.Length&#39;</span>] <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>iris_dt<span style="color:#a6e22e">[.</span>(<span style="color:#ae81ff">100</span>), on<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Sepal.Length&#39;</span>] <span style="color:#75715e"># 没有找到Sepal.Length==100 的行,则返回NA</span>
+</span></span><span style="display:flex;"><span>iris_dt<span style="color:#a6e22e">[.</span>(<span style="color:#ae81ff">100</span>), on<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Sepal.Length&#39;</span>, nomatch <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>]
+</span></span></code></pre></div><h2 id="4数据融合">4、数据融合</h2>
 <h4 id="a-函数melt拆数据">a) 函数melt－－拆数据</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">melt</span>(data, id.vars, measure.vars, 
 </span></span><span style="display:flex;"><span>    variable.name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;variable&#34;</span>, value.name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;value&#34;</span>, 
@@ -451,18 +451,18 @@ DT[ , Y1 := shift(A, 2, type=&#34;lead&#34;)]
 DT
 </code></pre><h3 id="63--i--返回匹配的行号">6.3  <code>.I()</code>  返回匹配的行号</h3>
 <p>由于data.table 没有行号,因此<code>.I()</code>一般不单独使用</p>
-<pre tabindex="0"><code>mtcars_dt &lt;- data.table(mtcars) 
-mtcars_dt[, .I[cyl==6]] # 返回 cyl ==6 所在的行号
-## 等价于
-mtcars_dt[, which(cyl==6)]
-</code></pre><h3 id="64-sd--是经过i和by处理之后剩下的那部分数据集">6.4 <code>.SD </code> 是经过<code>i</code> 和<code>by</code> 处理之后剩下的那部分数据集</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>mtcars_dt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.table</span>(mtcars) 
+</span></span><span style="display:flex;"><span>mtcars_dt[, .I[cyl<span style="color:#f92672">==</span><span style="color:#ae81ff">6</span>]] <span style="color:#75715e"># 返回 cyl ==6 所在的行号</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 等价于</span>
+</span></span><span style="display:flex;"><span>mtcars_dt[, <span style="color:#a6e22e">which</span>(cyl<span style="color:#f92672">==</span><span style="color:#ae81ff">6</span>)]
+</span></span></code></pre></div><h3 id="64-sd--是经过i和by处理之后剩下的那部分数据集">6.4 <code>.SD </code> 是经过<code>i</code> 和<code>by</code> 处理之后剩下的那部分数据集</h3>
 <p><strong><code>.SD</code>代表行经过<code>i</code> 筛选后, 列除了<code>by</code>参数指定的列以外的所有列组成的新的data.table, 是原数据的子集</strong></p>
-<pre tabindex="0"><code>library(data.table)
-mtcars_dt = data.table::as.data.table(mtcars)
-mtcars_dt[, .SD, by=cyl]
-output &lt;- mtcars_dt[, lapply(.SD[, 1:10, with=F], mean), by=cyl]
-output
-</code></pre><h2 id="7--set-函数可以加快循环">7  set() 函数可以加快循环</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(data.table)
+</span></span><span style="display:flex;"><span>mtcars_dt <span style="color:#f92672">=</span> data.table<span style="color:#f92672">::</span><span style="color:#a6e22e">as.data.table</span>(mtcars)
+</span></span><span style="display:flex;"><span>mtcars_dt[, .SD, by<span style="color:#f92672">=</span>cyl]
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">&lt;-</span> mtcars_dt[, <span style="color:#a6e22e">lapply</span>(.SD[, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, with<span style="color:#f92672">=</span>F], mean), by<span style="color:#f92672">=</span>cyl]
+</span></span><span style="display:flex;"><span>output
+</span></span></code></pre></div><h2 id="7--set-函数可以加快循环">7  set() 函数可以加快循环</h2>
 <p><code>set(x, i = NULL, j, value)</code></p>
 <p>作用:  将value 值快速分配给i行j列元素, <code>i</code> , <code>j</code> 使用整数<code>10L</code> 而不是<code>10</code>, j参数不能省</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">m = matrix(1,nrow=3,ncol=4)

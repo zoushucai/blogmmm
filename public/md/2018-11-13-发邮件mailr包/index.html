@@ -319,8 +319,8 @@
 </span></span><span style="display:flex;"><span>          authenticate <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
 </span></span><span style="display:flex;"><span>          send <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span></code></pre></div><p>报错：其中的信息：（表示发送的邮件过多）</p>
-<pre tabindex="0"><code>Caused by: com.sun.mail.smtp.SMTPSendFailedException: 554 DT:SPM 163 smtp2,DNGowAA3E32d1ONbg+8oAA--.78S2 1541657766,please see http://mail.163.com/help/help_spam_16.htm?ip=182.88.95.17&amp;hostid=smtp2&amp;time=1541657766
-</code></pre><h2 id="qq-邮箱">QQ 邮箱:</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Caused by: com.sun.mail.smtp.SMTPSendFailedException: <span style="color:#ae81ff">554</span> DT:SPM <span style="color:#ae81ff">163</span> smtp2,DNGowAA3E32d1ONbg+8oAA--.78S2 1541657766,please see http://mail.163.com/help/help_spam_16.htm?ip<span style="color:#f92672">=</span>182.88.95.17&amp;hostid<span style="color:#f92672">=</span>smtp2&amp;time<span style="color:#f92672">=</span><span style="color:#ae81ff">1541657766</span>
+</span></span></code></pre></div><h2 id="qq-邮箱">QQ 邮箱:</h2>
 <p>QQ邮箱好像不存在发多了被封号的问题，我猜如果发到一定量，也应该会出现上述问题吧</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>sender <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;******@qq.com&#34;</span>
 </span></span><span style="display:flex;"><span>recipients <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;*******@163.com&#34;</span>,<span style="color:#e6db74">&#34;*******@qq.com&#34;</span>) 

@@ -308,20 +308,20 @@
 <p>分支的作用: 用于为项目增加新功能或修复Bug时使用。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git03.png" alt="git03"></p>
 <p>假设当前节点处于 id03 , 一般默认处于 master 分支上, 现在要</p>
-<pre tabindex="0"><code>创建分支:  git branch dev
-查看分支:  git branch     # 分支前面有一个* 号,代表处于当前分支
-切换分支:  git checkout dev
-创建并切换分支:  git checkout -b dev
-合并dev分支到 master : 
-		git checkout master  % 先切换分支,然后再合并
-		git merge dev
-删除分支:  git branch -d dev
-删除没有合并的分支: git branch -D dev
-删除远程分支:  git push origin :dev
-
-查看未合并的分支(切换到master):  git branch --no-merged
-查看已经合并的分支(切换到master) : git branch --merged
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git04.png" alt="git04"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>创建分支:  git branch dev
+</span></span><span style="display:flex;"><span>查看分支:  git branch     <span style="color:#75715e"># 分支前面有一个* 号,代表处于当前分支</span>
+</span></span><span style="display:flex;"><span>切换分支:  git checkout dev
+</span></span><span style="display:flex;"><span>创建并切换分支:  git checkout -b dev
+</span></span><span style="display:flex;"><span>合并dev分支到 master : 
+</span></span><span style="display:flex;"><span>		git checkout master  % 先切换分支,然后再合并
+</span></span><span style="display:flex;"><span>		git merge dev
+</span></span><span style="display:flex;"><span>删除分支:  git branch -d dev
+</span></span><span style="display:flex;"><span>删除没有合并的分支: git branch -D dev
+</span></span><span style="display:flex;"><span>删除远程分支:  git push origin :dev
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>查看未合并的分支<span style="color:#f92672">(</span>切换到master<span style="color:#f92672">)</span>:  git branch --no-merged
+</span></span><span style="display:flex;"><span>查看已经合并的分支<span style="color:#f92672">(</span>切换到master<span style="color:#f92672">)</span> : git branch --merged
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git04.png" alt="git04"></p>
 <h3 id="42-合并分支可能会产生冲突">4.2 合并分支可能会产生冲突</h3>
 <h4 id="421--git-分支冲突">4.2.1  git 分支冲突</h4>
 <p>产生原因: 不同分支修改同一个文件或不同开发者修改同一个分支文件都可能造成冲突，造成无法提交代码。</p>
