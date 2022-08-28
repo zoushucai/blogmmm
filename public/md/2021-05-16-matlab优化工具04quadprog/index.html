@@ -262,16 +262,16 @@ $$</p>
 <p><strong>定理:</strong> 如果$\textbf{H}$ 矩阵为正定矩阵, 则二次规划问题是凸问题. 即它的求解与初始值无关,只要有可行解,则一定是全局最优解.</p>
 <p>如果二次规划问题非凸,则该函数不能得出原始问题的全局最优解,甚至可能不能得出可行解.</p>
 <h4 id="matlab-函数---quadprog">matlab 函数— —  quadprog</h4>
-<pre tabindex="0"><code>%% 语法
-x = quadprog(H,f,A,b,Aeq,beq,lb,ub)
-x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0)
-x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0,options)
-x = quadprog(problem)
-[x,fval,exitflag,output,lambda] = quadprog(___)
-
-%% 不解释了, 看前面的fmincon函数
-x0 初始值
-</code></pre><h4 id="例1">例1</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Matlab" data-lang="Matlab"><span style="display:flex;"><span><span style="color:#75715e">%% 语法</span>
+</span></span><span style="display:flex;"><span>x = quadprog(H,f,A,b,Aeq,beq,lb,ub)
+</span></span><span style="display:flex;"><span>x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0)
+</span></span><span style="display:flex;"><span>x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0,options)
+</span></span><span style="display:flex;"><span>x = quadprog(problem)
+</span></span><span style="display:flex;"><span>[x,fval,exitflag,output,lambda] = quadprog(___)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 不解释了, 看前面的fmincon函数</span>
+</span></span><span style="display:flex;"><span>x0 初始值
+</span></span></code></pre></div><h4 id="例1">例1</h4>
 <p>$$
 \begin{aligned}
 min  &amp; \quad \left(x_{1}-1\right)^{2}+\left(x_{2}-2\right)^{2}+\left(x_{3}-3\right)^{2}+\left(x_{4}-4\right)^{2} \

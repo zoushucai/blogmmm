@@ -198,26 +198,26 @@
         
         <section id="content">
             <h2 id="1-数据输入和输出">1. 数据输入和输出</h2>
-<pre tabindex="0"><code>WOW()：查看Weka函数的参数。
-Weka_control()：设置Weka函数的参数。
-read.arff()：读(ARFF)格式的数据。一般的数据需要用这两个函数（先写再读）进行转换成（arff）格式的数据
-write.arff()：将数据写入Weka Attribute-Relation File Format (ARFF)格式的文件。
-</code></pre><h2 id="2-数据预处理">2. 数据预处理</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">WOW</span>()：查看Weka函数的参数。
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Weka_control</span>()：设置Weka函数的参数。
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">read.arff</span>()：读(ARFF)格式的数据。一般的数据需要用这两个函数（先写再读）进行转换成（arff）格式的数据
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.arff</span>()：将数据写入Weka Attribute<span style="color:#f92672">-</span>Relation File <span style="color:#a6e22e">Format </span>(ARFF)格式的文件。
+</span></span></code></pre></div><h2 id="2-数据预处理">2. 数据预处理</h2>
 <ul>
 <li>
-<p>Normalize()：无监督的标准化连续性数据,即min-max标准化。对于字符、逻辑、因子变量跳过，只对连续数据标准化</p>
+<p><code>Normalize()</code>：无监督的标准化连续性数据,即min-max标准化。对于字符、逻辑、因子变量跳过，只对连续数据标准化</p>
 </li>
 <li>
-<p>Discretize()：用MDL(最小描述长度)方法，有监督的离散化连续性数值数据。感觉用处不大，把连续的数据全离散成“all”字符</p>
+<p><code>Discretize()</code>：用MDL(最小描述长度)方法，有监督的离散化连续性数值数据。感觉用处不大，把连续的数据全离散成“all”字符</p>
 </li>
 </ul>
 <h2 id="3-分类和回归">3. 分类和回归</h2>
 <ul>
 <li>
-<p>IBk()：k最近邻分类，用法和LBR一样</p>
+<p><code>IBk()</code>：k最近邻分类，用法和LBR一样</p>
 </li>
 <li>
-<p>LBR()：naive Bayes法分类</p>
+<p><code>LBR()</code>：naive Bayes法分类</p>
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>   RWeka包中的IBK函数实现knn算法

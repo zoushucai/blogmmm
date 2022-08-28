@@ -269,179 +269,179 @@
 <li><code>eig_max</code>：  求矩阵的最大特征值</li>
 <li><code>veig_max(int n,int k =10000)</code>: 求k个n阶的最大特征值，返回一个向量。</li>
 </ul>
-<pre tabindex="0"><code>// [[Rcpp::depends(RcppArmadillo)]]
-#include &lt;RcppArmadillo.h&gt;
-#include &lt;Rcpp.h&gt;
-using namespace Rcpp;
-using namespace arma;
-
-
-// [[Rcpp::export]]
-mat sample_mat(int n)
-{
-  // 第一步： 随机构造n阶正互反判断矩阵
-  vec  P = {1,2,3,4,5,6,7,8,9,1/2.0,1/3.0,1/4.0,1/5.0,1/6.0,1/7.0,1/8.0,1/9.0};
-  vec  v = randu&lt;vec&gt;(0.5*n*(n-1)); //声明一个向量，并赋予随机值
-  v *= 17;
-  v = floor(v);
-  
-  
-  mat A(n,n); // 声明一个n*n的矩阵
-  int i = 0,j = 0,k=0,temp = 0;
-  
-  for(i = 0; i&lt;n;i++){
-    for(j =0; j&lt;n;j++){
-      if( i &gt;j){
-        temp =  static_cast&lt;int&gt;(v(k++));
-        A(i,j) = P(temp);
-        A(j,i) = 1/ P(temp);
-      }else{
-        A(i,j) =1;
-      }
-    }
-  }
-  return(A);
-}
-
-
-// [[Rcpp::export]]
-double eig_max(mat A)
-{
-  // 第二步：求矩阵的最大特征值
-  cx_vec eigval = eig_gen(A);
-  return max(real(eigval));
-}
-
-// [[Rcpp::export]]
-NumericVector veig_max(int n,int k =10000){
-  int m = 0;
-  mat A;
-  NumericVector res(k);
-  for(m = 0; m&lt;k;m++){
-    A = sample_mat(n);
-    res(m) = eig_max(A);
-  }
-  return res;
-}
-</code></pre><h2 id="22-利用c-openmp并行">2.2 利用c++ openMP并行</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// [[Rcpp::depends(RcppArmadillo)]]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;RcppArmadillo.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Rcpp.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> Rcpp;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> arma;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// [[Rcpp::export]]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>mat <span style="color:#a6e22e">sample_mat</span>(<span style="color:#66d9ef">int</span> n)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 第一步： 随机构造n阶正互反判断矩阵
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  vec  P <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">6.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">8.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9.0</span>};
+</span></span><span style="display:flex;"><span>  vec  v <span style="color:#f92672">=</span> randu<span style="color:#f92672">&lt;</span>vec<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>n<span style="color:#f92672">*</span>(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)); <span style="color:#75715e">//声明一个向量，并赋予随机值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  v <span style="color:#f92672">*=</span> <span style="color:#ae81ff">17</span>;
+</span></span><span style="display:flex;"><span>  v <span style="color:#f92672">=</span> floor(v);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  mat A(n,n); <span style="color:#75715e">// 声明一个n*n的矩阵
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,temp <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>n;j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>( i <span style="color:#f92672">&gt;</span>j){
+</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span>  <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(v(k<span style="color:#f92672">++</span>));
+</span></span><span style="display:flex;"><span>        A(i,j) <span style="color:#f92672">=</span> P(temp);
+</span></span><span style="display:flex;"><span>        A(j,i) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span> P(temp);
+</span></span><span style="display:flex;"><span>      }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        A(i,j) <span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>(A);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// [[Rcpp::export]]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">eig_max</span>(mat A)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 第二步：求矩阵的最大特征值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  cx_vec eigval <span style="color:#f92672">=</span> eig_gen(A);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> max(real(eigval));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// [[Rcpp::export]]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>NumericVector <span style="color:#a6e22e">veig_max</span>(<span style="color:#66d9ef">int</span> n,<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  mat A;
+</span></span><span style="display:flex;"><span>  NumericVector res(k);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(m <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; m<span style="color:#f92672">&lt;</span>k;m<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>    A <span style="color:#f92672">=</span> sample_mat(n);
+</span></span><span style="display:flex;"><span>    res(m) <span style="color:#f92672">=</span> eig_max(A);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="22-利用c-openmp并行">2.2 利用c++ openMP并行</h2>
 <p>同理，把下面代码保存为<code>veig_max_mp.cpp</code>, 运行	<code> Rcpp::sourceCpp('veig_max_mp.cpp')</code>,只输出一个<code>veig_max_mp</code>函数，</p>
 <p>由于c++中利用了并行，所R中不能再进行并行了，这样会报错。</p>
-<pre tabindex="0"><code>// [[Rcpp::plugins(openmp)]]
-// [[Rcpp::depends(RcppArmadillo)]]
-#include &lt;RcppArmadillo.h&gt;
-#include &lt;Rcpp.h&gt;
-#include &lt;omp.h&gt;
-using namespace Rcpp;
-using namespace arma;
-
-double CI(int n)
-{
-  vec  P = {1,2,3,4,5,6,7,8,9,1/2.0,1/3.0,1/4.0,1/5.0,1/6.0,1/7.0,1/8.0,1/9.0};
-  vec  v = randu&lt;vec&gt;(0.5*n*(n-1)); //声明一个向量，并赋予随机值
-  v *= 17;
-  v = floor(v);
-  
-  mat A(n,n); // 声明一个n*n的矩阵
-  int i = 0,j= 0,k=0,temp =0;
-  for(i = 0; i&lt;n;i++){
-    for(j =0; j&lt;n;j++){
-      if( i &gt;j){
-        temp =  static_cast&lt;int&gt;(v(k++));
-        A(i,j) = P(temp);
-        A(j,i) = 1/ P(temp);
-      }else{
-        A(i,j) =1;
-      }
-      
-    }
-  }
-  cx_vec eigval;
-  
-  eig_gen(eigval,A);
-  // cout&lt;&lt; omp_get_max_threads() &lt;&lt; endl;
-  return max(real(eigval));
-}
-
-// [[Rcpp::export]]
-NumericVector veig_max_mp(int n,int k =10000){
-  int ii = omp_get_max_threads();
-  omp_set_num_threads(ii-1);
-  int m = 0;
-  NumericVector res(k);
-  #pragma omp parallel for
-  for(m =0; m&lt;k;m++){
-    res(m) = CI(n);
-  }
-  return res;
-}
-</code></pre><h2 id="23运行对比">2.3运行对比</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// [[Rcpp::plugins(openmp)]]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// [[Rcpp::depends(RcppArmadillo)]]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;RcppArmadillo.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Rcpp.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;omp.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> Rcpp;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> arma;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">CI</span>(<span style="color:#66d9ef">int</span> n)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  vec  P <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">6.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">7.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">8.0</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">9.0</span>};
+</span></span><span style="display:flex;"><span>  vec  v <span style="color:#f92672">=</span> randu<span style="color:#f92672">&lt;</span>vec<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>n<span style="color:#f92672">*</span>(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)); <span style="color:#75715e">//声明一个向量，并赋予随机值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  v <span style="color:#f92672">*=</span> <span style="color:#ae81ff">17</span>;
+</span></span><span style="display:flex;"><span>  v <span style="color:#f92672">=</span> floor(v);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  mat A(n,n); <span style="color:#75715e">// 声明一个n*n的矩阵
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,j<span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,temp <span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>n;j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>( i <span style="color:#f92672">&gt;</span>j){
+</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span>  <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(v(k<span style="color:#f92672">++</span>));
+</span></span><span style="display:flex;"><span>        A(i,j) <span style="color:#f92672">=</span> P(temp);
+</span></span><span style="display:flex;"><span>        A(j,i) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span> P(temp);
+</span></span><span style="display:flex;"><span>      }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        A(i,j) <span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  cx_vec eigval;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  eig_gen(eigval,A);
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// cout&lt;&lt; omp_get_max_threads() &lt;&lt; endl;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> max(real(eigval));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// [[Rcpp::export]]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>NumericVector <span style="color:#a6e22e">veig_max_mp</span>(<span style="color:#66d9ef">int</span> n,<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> ii <span style="color:#f92672">=</span> omp_get_max_threads();
+</span></span><span style="display:flex;"><span>  omp_set_num_threads(ii<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  NumericVector res(k);
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#pragma omp parallel for
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span>(m <span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; m<span style="color:#f92672">&lt;</span>k;m<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>    res(m) <span style="color:#f92672">=</span> CI(n);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="23运行对比">2.3运行对比</h2>
 <p>利用上面的函数，在R中运行进行对比(在24核32G的服务器上)</p>
-<pre tabindex="0"><code>system.time({
-  d = lapply(3:20,veig_max_mp, k=1000000)
-})
-
-library(future.apply)
-plan(multicore)
-system.time({
-    b = future_lapply(3:20,veig_max,k=1000000)
-})
-
-
-system.time({
-    b = lapply(3:20,veig_max,k=1000000)
-})
-</code></pre><p>时间如下：</p>
-<pre tabindex="0"><code>&gt; system.time({
-+   d = lapply(3:20,veig_max_mp, k=1000000)
-+ })
-    user   system  elapsed 
-1991.430    0.731  199.972 
-&gt; 
-&gt; library(future.apply)
-Loading required package: future
-&gt; plan(multicore)
-&gt; system.time(
-+   {
-+     b = future_lapply(3:20,veig_max,k=1000000)
-+   }
-+ )
-    user   system  elapsed 
-1321.397    4.237  204.492 
-&gt; system.time(
-+   {
-+     b = lapply(3:20,veig_max,k=1000000)
-+   }
-+ )
-    user   system  elapsed 
-1514.744    0.805 1515.093 
-&gt; sessionInfo()
-R version 3.5.2 (2018-12-20)
-Platform: x86_64-redhat-linux-gnu (64-bit)
-Running under: CentOS Linux 7 (Core)
-
-Matrix products: default
-BLAS/LAPACK: /usr/lib64/R/lib/libRblas.so_
-
-locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
-[1] future.apply_1.2.0 future_1.12.0     
-
-loaded via a namespace (and not attached):
- [1] compiler_3.5.2            parallel_3.5.2            tools_3.5.2              
- [4] RcppArmadillo_0.9.300.2.0 listenv_0.7.0             yaml_2.2.0               
- [7] Rcpp_1.0.1                codetools_0.2-16          digest_0.6.18            
-[10] globals_0.12.4  
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">system.time</span>({
+</span></span><span style="display:flex;"><span>  d <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>,veig_max_mp, k<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(future.apply)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plan</span>(multicore)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system.time</span>({
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> <span style="color:#a6e22e">future_lapply</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>,veig_max,k<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system.time</span>({
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>,veig_max,k<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>时间如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">system.time</span>({
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>   d <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>,veig_max_mp, k<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span> })
+</span></span><span style="display:flex;"><span>    user   system  elapsed 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1991.430</span>    <span style="color:#ae81ff">0.731</span>  <span style="color:#ae81ff">199.972</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">library</span>(future.apply)
+</span></span><span style="display:flex;"><span>Loading required package<span style="color:#f92672">:</span> future
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">plan</span>(multicore)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">system.time</span>(
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>   {
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>     b <span style="color:#f92672">=</span> <span style="color:#a6e22e">future_lapply</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>,veig_max,k<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>   }
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span> )
+</span></span><span style="display:flex;"><span>    user   system  elapsed 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1321.397</span>    <span style="color:#ae81ff">4.237</span>  <span style="color:#ae81ff">204.492</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">system.time</span>(
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>   {
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>     b <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>,veig_max,k<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>   }
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span> )
+</span></span><span style="display:flex;"><span>    user   system  elapsed 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1514.744</span>    <span style="color:#ae81ff">0.805</span> <span style="color:#ae81ff">1515.093</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">sessionInfo</span>()
+</span></span><span style="display:flex;"><span>R version <span style="color:#ae81ff">3.5.2</span> (<span style="color:#ae81ff">2018-12-20</span>)
+</span></span><span style="display:flex;"><span>Platform<span style="color:#f92672">:</span> x86_64<span style="color:#f92672">-</span>redhat<span style="color:#f92672">-</span>linux<span style="color:#f92672">-</span><span style="color:#a6e22e">gnu </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
+</span></span><span style="display:flex;"><span>Running under<span style="color:#f92672">:</span> CentOS Linux <span style="color:#ae81ff">7</span> (Core)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Matrix products<span style="color:#f92672">:</span> default
+</span></span><span style="display:flex;"><span>BLAS<span style="color:#f92672">/</span>LAPACK<span style="color:#f92672">:</span> <span style="color:#f92672">/</span>usr<span style="color:#f92672">/</span>lib64<span style="color:#f92672">/</span>R<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>libRblas.so_
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>locale<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> [1] LC_CTYPE<span style="color:#f92672">=</span>en_US.UTF<span style="color:#ae81ff">-8</span>       LC_NUMERIC<span style="color:#f92672">=</span>C              
+</span></span><span style="display:flex;"><span> [3] LC_TIME<span style="color:#f92672">=</span>en_US.UTF<span style="color:#ae81ff">-8</span>        LC_COLLATE<span style="color:#f92672">=</span>en_US.UTF<span style="color:#ae81ff">-8</span>    
+</span></span><span style="display:flex;"><span> [5] LC_MONETARY<span style="color:#f92672">=</span>en_US.UTF<span style="color:#ae81ff">-8</span>    LC_MESSAGES<span style="color:#f92672">=</span>en_US.UTF<span style="color:#ae81ff">-8</span>   
+</span></span><span style="display:flex;"><span> [7] LC_PAPER<span style="color:#f92672">=</span>en_US.UTF<span style="color:#ae81ff">-8</span>       LC_NAME<span style="color:#f92672">=</span>C                 
+</span></span><span style="display:flex;"><span> [9] LC_ADDRESS<span style="color:#f92672">=</span>C               LC_TELEPHONE<span style="color:#f92672">=</span>C            
+</span></span><span style="display:flex;"><span>[11] LC_MEASUREMENT<span style="color:#f92672">=</span>en_US.UTF<span style="color:#ae81ff">-8</span> LC_IDENTIFICATION<span style="color:#f92672">=</span>C       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>attached base packages<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>[1] stats     graphics  grDevices utils     datasets  methods   base     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>other attached packages<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>[1] future.apply_1.2.0 future_1.12.0     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loaded via a <span style="color:#a6e22e">namespace </span>(and not attached)<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> [1] compiler_3.5.2            parallel_3.5.2            tools_3.5.2              
+</span></span><span style="display:flex;"><span> [4] RcppArmadillo_0.9.300.2.0 listenv_0.7.0             yaml_2.2.0               
+</span></span><span style="display:flex;"><span> [7] Rcpp_1.0.1                codetools_0.2<span style="color:#ae81ff">-16</span>          digest_0.6.18            
+</span></span><span style="display:flex;"><span>[10] globals_0.12.4  
+</span></span></code></pre></div>
         </section>
     </div>
     <br>

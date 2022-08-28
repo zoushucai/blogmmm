@@ -113,13 +113,9 @@ Tip: 我的mac路径为/Library/Frameworks/R.framework/Versions/4.0/Resources/li
       
       <guid>/md/2019-06-24-%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</guid>
       <description>Rsolnp 非线性规划问题
-$$ \begin{align} \min \quad &amp;amp; f(x)\ \text { s.t. } &amp;amp; \begin{cases} {g(x)=0} \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}} \end{cases} \end{align}
-$$
+$$ \begin{aligned} \min \quad &amp;amp; f(x)\ \text { s.t. } &amp;amp; \begin{cases} {g(x)=0} \{l_{h} \leq h(x) \leq u_{h}} \ {l_{x} \leq x \leq u_{x}} \end{cases} \end{aligned} $$
 其中, $f(x),g(x),h(x)$ 都是光滑函数,
-solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL, ineqUB = NULL, LB = NULL, UB = NULL, control = list(), &amp;hellip;)
-pars : 初始值(向量),
-fun : 最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的f(x)
-eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x)</description>
+solnp(pars, fun, eqfun = NULL, eqB = NULL, ineqfun = NULL, ineqLB = NULL, ineqUB = NULL, LB = NULL, UB = NULL, control = list(), ...) # 参数解释 pars : 初始值(向量), fun : 最小化的目标函数值，输入为pars参数，输出为一个单一值,等价上述问题的f(x) eqfun : (可选) 等式约束(左边) ，等价与上述问题的 g(x) egB : (可选) 等式约束右边值，等价上述问题g(x) = 0 的0 ineqfun : (可选) 不等式约束，等价上述问题的 h(x) ineqLB :(可选) 不等式约束的下限 ，等价于上述问题的 lh ineqUB :(可选) 不等式约束的上限 ，等价于上述问题的 uh LB :(可选) 参变量的下限 ，等价于上述问题的lx UB: (可选) 参变量的上限 ，等价于上述问题的ux control :(可选) 优化参数控制表。 例子： $$ \begin{aligned} \min &amp;amp; \quad exp({\prod_{i=1}^{5}x_i}) \ \text {s.</description>
     </item>
     
     <item>
@@ -448,9 +444,7 @@ DGM_U = function(...){ ####### 第一部分是对参数的检查 ###############
       
       <guid>/md/2018-11-17-%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E6%A8%A1%E5%9E%8Btest/</guid>
       <description>线性规划的一般模型 :
-$$ \min \quad z = c_1x_1+c_2x_2+ \cdots + c_nx_n \ s.t.\left{ \begin{aligned}
-a_{11}x_1+a_{12}x_2+ \cdots + a_{1n}x_n \leq b_1 \ a_{21}x_1+a_{22}x_2+ \cdots + a_{2n}x_n \leq b_2 \
-\quad \cdots \qquad \cdots \qquad \cdots \ a_{m1}x_1+a_{m2}x_2+ \cdots + a_{mn}x_n \leq b_m \ x_1,x_2,x_3,\cdots,x_n \geq 0 \end{aligned} \right. $$</description>
+$$ \begin{aligned} \min \quad z &amp;amp;= c_1x_1+c_2x_2+ \cdots + c_nx_n \ s.t. \quad &amp;amp; \begin{cases} &amp;amp; a_{11}x_1+a_{12}x_2+ \cdots + a_{1n}x_n \leq b_1 \ &amp;amp; a_{21}x_1+a_{22}x_2+ \cdots + a_{2n}x_n \leq b_2 \ &amp;amp; \quad \cdots \qquad \cdots \qquad \cdots \ &amp;amp; a_{m1}x_1+a_{m2}x_2+ \cdots + a_{mn}x_n \leq b_m \ &amp;amp; x_1,x_2,x_3,\cdots,x_n \geq 0 \end{cases} \end{aligned} $$</description>
     </item>
     
     <item>
@@ -558,7 +552,7 @@ require(ggplot2) require(grid) #####现将图画好，并且赋值变量，储�
       <description>相关图： 所谓相关图是基于变量间的相关系数大小，通过可视化方法反应不同变量组合间相关关系的差异图形。可以把相关图分为相关矩阵图、相关层次图
 相关矩阵图 R语言中，绘制相关矩阵图的包主要有两个：corrgram::corrgram和corrplot::corrplot
 此处都以mtcars数据集为例，说明这两个函数的使用
-相关矩阵图一—–corrgram corrgram::corrgram()函数 corrgram(x, type = NULL, order = FALSE, labels, panel = panel.shade, lower.panel = panel, upper.panel = panel, diag.panel = NULL, text.panel = textPanel, label.pos = c(0.5, 0.5), label.srt = 0, cex.labels = NULL, font.labels = 1, row1attop = TRUE, dir = &amp;quot;&amp;quot;, gap = 0, abs = FALSE, col.regions = colorRampPalette(c(&amp;quot;red&amp;quot;, &amp;quot;salmon&amp;quot;, &amp;quot;white&amp;quot;, &amp;quot;royalblue&amp;quot;, &amp;quot;navy&amp;quot;)), cor.method = &amp;quot;pearson&amp;quot;, outer.labels = NULL, ...) 参数解释： x: 数据框或者相关矩阵,输入数据框时，会自动识别数值型列进行计算相关矩阵，然后再绘图 order: 是否让变量按主成分分析相关矩阵排列.</description>
+相关矩阵图 &amp;mdash; &amp;mdash; corrgram corrgram::corrgram()函数 corrgram(x, type = NULL, order = FALSE, labels, panel = panel.shade, lower.panel = panel, upper.panel = panel, diag.panel = NULL, text.panel = textPanel, label.pos = c(0.5, 0.5), label.srt = 0, cex.labels = NULL, font.labels = 1, row1attop = TRUE, dir = &amp;#34;&amp;#34;, gap = 0, abs = FALSE, col.regions = colorRampPalette(c(&amp;#34;red&amp;#34;, &amp;#34;salmon&amp;#34;, &amp;#34;white&amp;#34;, &amp;#34;royalblue&amp;#34;, &amp;#34;navy&amp;#34;)), cor.method = &amp;#34;pearson&amp;#34;, outer.labels = NULL, .</description>
     </item>
     
     <item>
@@ -609,7 +603,9 @@ ggcorr(mtcars)# 默认接受数据框，矩阵 ## 可接受相关系数矩阵 ##
       <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/md/2018-07-14-kaggle-%E6%B3%B0%E5%9D%A6/</guid>
-      <description>options(width = 300) knitr::opts_chunk$set(message = F,warning = F,comment = &amp;#34;#&amp;gt;&amp;#34;,collapse = TRUE) 读入数据 library(data.table) train=fread(&amp;quot;data/train.csv&amp;quot;,na.strings = c(&amp;quot;&amp;quot;,NA)) test=fread(&amp;quot;data/test.csv&amp;quot;,na.strings = c(&amp;quot;&amp;quot;,NA)) #把两个合并起来进行数据处理--两个data.table的合并 combine =rbindlist(list(train,test),fill=TRUE) #### 其实个人不建议这样操作，因为不能把测试集和训练集一起处理，应该分开处理 数据处理 # 统计每一列的缺失率 combine[,lapply(.SD, function(x)sum(is.na(x)))] #&amp;gt; PassengerId Survived Pclass Name Sex Age SibSp Parch Ticket Fare Cabin Embarked #&amp;gt; 1: 0 418 0 0 0 263 0 0 0 1 1014 2 # 可以看出 我们需要对缺失列进行处理，以及一些特征衍生工作 library(zoo) library(purrr) combine[,Age := na.spline(Age)] # age变量进行处理，进行样条插补 combine[,Fare := na.spline(Fare)] # Fare变量进行处理，进行样条插补 由于Cabin 变量丢失数据太多，于是可以删除这个变量</description>
+      <description>options(width = 300) knitr::opts_chunk$set(message = F,warning = F,comment = &amp;#34;#&amp;gt;&amp;#34;,collapse = TRUE) 读入数据
+library(data.table) train=fread(&amp;#34;data/train.csv&amp;#34;,na.strings = c(&amp;#34;&amp;#34;,NA)) test=fread(&amp;#34;data/test.csv&amp;#34;,na.strings = c(&amp;#34;&amp;#34;,NA)) #把两个合并起来进行数据处理--两个data.table的合并 combine =rbindlist(list(train,test),fill=TRUE) #### 其实个人不建议这样操作，因为不能把测试集和训练集一起处理，应该分开处理 数据处理
+# 统计每一列的缺失率 combine[,lapply(.SD, function(x)sum(is.na(x)))] #&amp;gt; PassengerId Survived Pclass Name Sex Age SibSp Parch Ticket Fare Cabin Embarked #&amp;gt; 1: 0 418 0 0 0 263 0 0 0 1 1014 2 # 可以看出 我们需要对缺失列进行处理，以及一些特征衍生工作 library(zoo) library(purrr) combine[,Age := na.spline(Age)] # age变量进行处理，进行样条插补 combine[,Fare := na.spline(Fare)] # Fare变量进行处理，进行样条插补 由于Cabin 变量丢失数据太多，于是可以删除这个变量</description>
     </item>
     
     <item>
@@ -630,7 +626,14 @@ tail(x,5): 取向量的后5个元素，等价 x[-(1:(length(x)-5))] 等价 x[(le
       <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/md/2018-05-19-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9A%E7%94%A8/</guid>
-      <description>正则表达式&amp;ndash;表格 注意： 由于每个软件的正则表达式的转义字符是不一样的，比如R中一般用\\.来代表匹配小数点. 表格中的\ ，但在软件中可能需要\\才能表达出来，eg:\d 匹配任意一个数字， 可能需要使用\\d 1. 基本的元字符 元字符 说明 . 匹配任意单个字符，字母、数字甚至是.字符本身 | 逻辑或操作符 [ ] 匹配该字符集合中的一个字符（各个字符之间是or关系） **注意: ** [.] 只匹配点本身,不是特殊字符,不用转义. [^ ] 对字符集合求非就是排除该字符集合[^0-9] ： 匹配任何不适数字的字符 - 定义一个区间,[A-Za-z09]: 匹配(大小)字母和数字-只有出现在[]之间才是元字符-出现在其他地方，则表示一个普通字符 \ 对下一个字符进行转义 2. 数量元字符 元字符 说明 * 匹配前一个字符(或字符集合或子表达式)的零次或多次重复 + 匹配前一个字符(或字符集合或子表达式)的一次或多次重复 ? 匹配前一个字符(或字符集合或子表达式)的零次或一次重复 *? * 的懒惰型版本 +? +的懒惰型版本 {n} 匹配前一个字符(或字符集合或子表达式)的n次重复 {m,n} 匹配前一个字符(或字符集合或子表达式)至少m次且至多n次重复 {n, } 匹配前一个字符(或字符集合或子表达式)n次重复或更多次重复（至少n次） {n, }? {n, }的懒惰型版本 3. 位置元字符 元字符 说明 ^ 匹配字符串的开头 $ 匹配字符串的结束 \A 匹配字符串的开头（大多数语言不支持, 类似^） \Z 匹配字符串的结束（大多数语言不支持, 类似$） \&amp;lt; 匹配单词的开头（是\b的更细粒度控制，支持的语言并不多见） \&amp;gt; 匹配单词的结束（是\b的更细粒度控制，支持的语言并不多见） \b 匹配单词的边界（开头或结束）eg: \bcap\b: 表示匹配cap这个完整单词.</description>
+      <description>正则表达式&amp;ndash;表格 注意： 由于每个软件的正则表达式的转义字符是不一样的，比如R中一般用\\.来代表匹配小数点. 表格中的\ ，但在软件中可能需要\\才能表达出来，eg:\d 匹配任意一个数字， 可能需要使用\\d 1. 基本的元字符 元字符 说明 . 匹配任意单个字符，字母、数字甚至是.字符本身 | 逻辑或操作符 [ ] 匹配该字符集合中的一个字符
+（各个字符之间是or关系）
+**注意: ** [.] 只匹配点本身,不是特殊字符,不用转义. [^ ] 对字符集合求非
+就是排除该字符集合
+[^0-9] ： 匹配任何不适数字的字符 - 定义一个区间,
+[A-Za-z09]: 匹配(大小)字母和数字
+-只有出现在[]之间才是元字符
+-出现在其他地方，则表示一个普通字符 \ 对下一个字符进行转义 2. 数量元字符 元字符 说明 * 匹配前一个字符(或字符集合或子表达式)的零次或多次重复 + 匹配前一个字符(或字符集合或子表达式)的一次或多次重复 ? 匹配前一个字符(或字符集合或子表达式)的零次或一次重复 *? * 的懒惰型版本 +? +的懒惰型版本 {n} 匹配前一个字符(或字符集合或子表达式)的n次重复 {m,n} 匹配前一个字符(或字符集合或子表达式)至少m次且至多n次重复 {n, } 匹配前一个字符(或字符集合或子表达式)n次重复或更多次重复（至少n次） {n, }? {n, }的懒惰型版本 3. 位置元字符 元字符 说明 ^ 匹配字符串的开头 $ 匹配字符串的结束 \A 匹配字符串的开头（大多数语言不支持, 类似^） \Z 匹配字符串的结束（大多数语言不支持, 类似$） \&amp;lt; 匹配单词的开头（是\b的更细粒度控制，支持的语言并不多见） \&amp;gt; 匹配单词的结束（是\b的更细粒度控制，支持的语言并不多见） \b 匹配单词的边界（开头或结束）</description>
     </item>
     
     <item>
@@ -640,14 +643,19 @@ tail(x,5): 取向量的后5个元素，等价 x[-(1:(length(x)-5))] 等价 x[(le
       
       <guid>/md/2018-04-14-r%E4%B8%AD%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%A6%82%E5%BF%B5/</guid>
       <description>基本类型介绍 在R中，所有有关时间和日期的类(包),都可以处理日历时间(eg:2018年4月13日)，只有某些特定的类才能处理日期时间类型(eg:2018年4月13日 下午6:45)
-类 处理类型 说明 强制转换 R所在包 Date类 日历日期 实际存储的为数字，是从1970年1月1日算起到该时间以天计算的一个数值.eg: &amp;ldquo;2018-04-13&amp;rdquo; as.Date() 基本函数 POSIXct类 日期时间 实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;个人建议使用这个，存储数据 as.POSIXct() 基本函数 POSIXlt类 日期时间 实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;存储非结构化数据 as.POSIXlt() 基本函数 Date类 日历日期 同上 as_date() lubridate包 POSIXct类 日期时间 同上 as_datetime() lubridate包 difftime类 时间 实际存储的为数字，是从当天00:00:00算起到该时间以秒计算的一个数值.eg:&amp;ldquo;00:01:25&amp;rdquo; hms::as.hms(85) lubridate包 在实际工作中，只要满足要求，尽量适用比较简单的类型，先考虑Date ，在考虑POSIXct
+类 处理类型 说明 强制转换 R所在包 Date类 日历日期 实际存储的为数字，是从1970年1月1日算起到该时间以天计算的一个数值.
+eg: &amp;ldquo;2018-04-13&amp;rdquo; as.Date() 基本函数 POSIXct类 日期时间 实际存储的为数字，是从1970年1月1日算起到该时间以秒计算的一个数值.
+eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;
+个人建议使用这个，存储数据 as.POSIXct() 基本函数 POSIXlt类 日期时间 实际存储为含有9个元素的列表,其中包括年、月、日、小时、分钟、秒。
+eg: &amp;ldquo;2018-04-13 19:47:18 CST&amp;rdquo;
+存储非结构化数据 as.POSIXlt() 基本函数 Date类 日历日期 同上 as_date() lubridate包 POSIXct类 日期时间 同上 as_datetime() lubridate包 difftime类 时间 实际存储的为数字，是从当天00:00:00算起到该时间以秒计算的一个数值.
+eg:&amp;ldquo;00:01:25&amp;rdquo; hms::as.hms(85) lubridate包 在实际工作中，只要满足要求，尽量适用比较简单的类型，先考虑Date ，在考虑POSIXct
 R中处理时间序列的包： chron ： 常用于计量经济学和时间序列分析中
 lubridate： 推荐,特别适用于处理日期时间算法
 mondate: 特别适用于处理以月为单位的日期，（会计和精算工作中常用）
 timeDate： 很强大，对时间精度要求高的话，可以考虑
 时间的基本用法 字符串转换为日期： as.Date(x ,format=&amp;quot;%m/%d/%y&amp;quot;) ,建议format参数不能省，否则有时会出错
-日期转化为字符串: as.characher() 或者 format()
-把日期（Date类和POSIXct类）转换为整数 ： unclass(x)或者 as.integer(x)</description>
+日期转化为字符串: as.characher() 或者 format()</description>
     </item>
     
     <item>
@@ -707,7 +715,17 @@ library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) #####
       <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/md/2018-04-05-r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86---%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</guid>
-      <description>R语言字符处理&amp;mdash;基本函数 函数 说明 Encoding(x) Encoding(x) &amp;lt;- value enc2native(x) enc2utf8(x) 读取或设置字符向量的编码常结合iconv(x, from = &amp;ldquo;&amp;rdquo;, to = &amp;ldquo;&amp;quot;)函数使用注意：Encoding(x) &amp;lt;- value 这是一种赋值函数 nchar(x, type = &amp;ldquo;chars&amp;rdquo;, allowNA = FALSE, keepNA = NA)nzchar(x, keepNA = FALSE) nchar()返回字符长度nzchar()判断是否空字符keepNA为真是NA保留，不计入计数对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。对于NULL，nchar和nzchar函数会忽略掉。 substr(x, start, stop)substring(text, first, last = 1000000L)substr(x, start, stop) &amp;lt;- valuesubstring(text, first, last = 1000000L) &amp;lt;- value 提取或替换字符向量的子字段，substring同substr功能一样 strtrim(x, width) 按显示宽度截断字符串 paste (&amp;hellip;, sep = &amp;quot; &amp;ldquo;, collapse = NULL)paste0(&amp;hellip;, collapse = NULL) 通过sep连接间隔连接对象,返回字符串向量设定collapse的话，会通过collapse连接间隔将上一步的字符串向量连接成一个字符串 strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE) 基于split子句分割字符向量xfixed为TRUE的话，完全匹配split；否则，基于正则表达式。可以使用split=NULL来分割每个字符。 chartr(old, new, x) 将x中的字符old变换为字符new注意替换的是单个对应的字符，而非字符串 tolower(x)toupper(x) 大小写转换 sprintf(fmt, &amp;hellip;) 系统C库函数sprintf封装器，格式化输出函数 正则表达式&amp;mdash;&amp;ndash;字符串匹配函数 函数 说明 grep(pattern, x, ignore.</description>
+      <description>R语言字符处理&amp;mdash;基本函数 函数 说明 Encoding(x) Encoding(x) &amp;lt;- value enc2native(x) enc2utf8(x) 读取或设置字符向量的编码
+常结合iconv(x, from = &amp;ldquo;&amp;rdquo;, to = &amp;ldquo;&amp;quot;)函数使用
+注意：Encoding(x) &amp;lt;- value 这是一种赋值函数 nchar(x, type = &amp;ldquo;chars&amp;rdquo;, allowNA = FALSE, keepNA = NA)
+nzchar(x, keepNA = FALSE) nchar()返回字符长度
+nzchar()判断是否空字符
+keepNA为真是NA保留，不计入计数
+对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。
+对于NULL，nchar和nzchar函数会忽略掉。 substr(x, start, stop)
+substring(text, first, last = 1000000L)
+substr(x, start, stop) &amp;lt;- value
+substring(text, first, last = 1000000L) &amp;lt;- value 提取或替换字符向量的子字段，substring同substr功能一样 strtrim(x, width) 按显示宽度截断字符串 paste (&amp;hellip;, sep = &amp;quot; &amp;ldquo;, collapse = NULL)</description>
     </item>
     
     <item>
@@ -719,7 +737,18 @@ library(RSelenium) library(stringr) setwd(&amp;#34;C:\\RSelenium&amp;#34;) #####
       <description>1.stringr介绍 stringr包被定义为一致的、简单易用的字符串工具集。所有的函数和参数定义都具有一致性，比如，用相同的方法进行NA处理和0长度的向量处理。
 字符串处理虽然不是R语言中最主要的功能，却也是必不可少的，数据清洗、可视化等的操作都会用到。对于R语言本身的base包提供的字符串基础函数，随着时间的积累，已经变得很多地方不一致，不规范的命名，不标准的参数定义，很难看一眼就上手使用。字符串处理在其他语言中都是非常方便的事情，R语言在这方面确实落后了。stringr包就是为了解决这个问题，让字符串处理变得简单易用，提供友好的字符串操作接口。
 2.stringr的API介绍 stringr包常用的字符串的处理以str_开头来命名，方便更直观理解函数的定义。我们可以根据使用习惯对函数进行分类：
-字符串拼接函数 函数 说明 R Base中对应函数 str_c()str_join() 同str_c() 字符串拼接 paste(),paste0() str_trim()) 去掉字符串的空格和TAB(\t) str_pad() 用pad参数填充字符串的长度，长度自己设定 str_dup() 复制字符串 str_wrap() 控制字符串输出格式 strtrim() str_sub()str_sub() &amp;lt;- value 截取字符串抽取或替换正则表达式匹配子串 regmatches()regmatches() &amp;lt;- value 字符串计算函数 函数 说明 R Base中对应函数 str_count() 字符串计数，返回指定匹配出现的次数 str_length() 返回字符的长度 nchar() str_sort() 对字符值进行排序 str_order() 字符串索引排序， 字符串匹配函数 函数 说明 R Base中对应函数 str_split()str_split_fixed() 同上 按照模式分割字符串 strsplit() str_match()str_match_all() 从字符串中提取首个匹配组 str_replacestr_replace_all 替换首个匹配模式 sub()gsub() str_replace_na() 把NA替换为NA字符串 str_locate()str_locate_all() 返回首个匹配模式的字符的位置 regexpr()gregexpr() str_extract()str_extract_all() 提取首个匹配模式的字符 str_subset() 返回匹配的字符串 str_detect() 检测字符是否存在某些指定模式 grepl() word() 从文本中提取单词 字符串变换函数 函数 说明 R Base中对应函数 str_conv() 字符编码转换,基本函数中的比较好用 iconv(x, from = &amp;ldquo;&amp;rdquo;, to = &amp;ldquo;&amp;rdquo;) str_to_upper()str_to_lower() 字符串转成大写/小写 tolower(x)toupper(x) str_to_title()同大小写转换 字符串转成首字母大写 参数控制函数， 仅用于构造功能的参数，不能独立使用。</description>
+字符串拼接函数 函数 说明 R Base中对应函数 str_c()
+str_join() 同str_c() 字符串拼接 paste(),paste0() str_trim()) 去掉字符串的空格和TAB(\t) str_pad() 用pad参数填充字符串的长度，长度自己设定 str_dup() 复制字符串 str_wrap() 控制字符串输出格式 strtrim() str_sub()
+str_sub() &amp;lt;- value 截取字符串
+抽取或替换正则表达式匹配子串 regmatches()
+regmatches() &amp;lt;- value 字符串计算函数 函数 说明 R Base中对应函数 str_count() 字符串计数，返回指定匹配出现的次数 str_length() 返回字符的长度 nchar() str_sort() 对字符值进行排序 str_order() 字符串索引排序， 字符串匹配函数 函数 说明 R Base中对应函数 str_split()
+str_split_fixed() 同上 按照模式分割字符串 strsplit() str_match()
+str_match_all() 从字符串中提取首个匹配组
+str_replace
+str_replace_all 替换首个匹配模式
+sub()
+gsub() str_replace_na() 把NA替换为NA字符串 str_locate()
+str_locate_all() 返回首个匹配模式的字符的位置</description>
     </item>
     
     <item>

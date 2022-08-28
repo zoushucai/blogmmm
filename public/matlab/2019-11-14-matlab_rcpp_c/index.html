@@ -254,9 +254,9 @@
 </thead>
 <tbody>
 <tr>
-<td>A,B,C代表矩阵<!-- raw HTML omitted -->a,b,c 代表向量</td>
-<td>vec x(10);<!-- raw HTML omitted -->vec y = zeros<!-- raw HTML omitted -->(10);<!-- raw HTML omitted -->rowvec x(10); <!-- raw HTML omitted -->rowvec y = zeros<!-- raw HTML omitted -->(10); <!-- raw HTML omitted -->rowvec a = {1,2,3,4};<!-- raw HTML omitted -->vec b = {1,2,3,4};<!-- raw HTML omitted -->mat    A = randu<!-- raw HTML omitted -->(10,10);</td>
-<td>C++中要声明向量类型<!-- raw HTML omitted -->(这里都是 double 类型)<!-- raw HTML omitted -->vec 默认 colvec(等价),是列向量</td>
+<td>A,B,C代表矩阵<br>a,b,c 代表向量</td>
+<td>vec x(10);<br>vec y = zeros<vec>(10);<br>rowvec x(10); <br>rowvec y = zeros<rowvec>(10); <br>rowvec a = {1,2,3,4};<br/>vec b = {1,2,3,4};<br>mat    A = randu<mat>(10,10);</td>
+<td>C++中要声明向量类型<br>(这里都是 double 类型)<br>vec 默认 colvec(等价),是列向量</td>
 </tr>
 <tr>
 <td>A(1,1)</td>
@@ -289,7 +289,7 @@
 <td>这里 Q 是一个三维数组</td>
 </tr>
 <tr>
-<td>numel(A)<!-- raw HTML omitted -->length(A(:))</td>
+<td>numel(A)<br>length(A(:))</td>
 <td>A.n_elem</td>
 <td>矩阵 A 中所有元素的个数,行数$\times$ 列数</td>
 </tr>
@@ -320,7 +320,7 @@
 </tr>
 <tr>
 <td>A(p:q, r:s)</td>
-<td>A( span(p,q), span(r,s) ) <!-- raw HTML omitted -->A.submat(p, r, q, s)</td>
+<td>A( span(p,q), span(r,s) ) <br>A.submat(p, r, q, s)</td>
 <td></td>
 </tr>
 <tr>
@@ -350,13 +350,13 @@
 </tr>
 <tr>
 <td>A'</td>
-<td>A.t() <!-- raw HTML omitted -->trans(A)</td>
+<td>A.t() <br>trans(A)</td>
 <td></td>
 </tr>
 <tr>
 <td>A^(-1)</td>
 <td>inv(A)</td>
-<td>求 A 的逆<!-- raw HTML omitted -->R 中是: solve(A)</td>
+<td>求 A 的逆<br>R 中是: solve(A)</td>
 </tr>
 <tr>
 <td></td>
@@ -375,12 +375,12 @@
 </tr>
 <tr>
 <td>A = zeros(k)</td>
-<td>A = zeros<!-- raw HTML omitted -->(k,k)</td>
+<td>A = zeros<mat>(k,k)</td>
 <td>创建一个$k \times k$ 的 0 矩阵,并赋值给 A</td>
 </tr>
 <tr>
 <td>A = ones(k)</td>
-<td>A = ones<!-- raw HTML omitted -->(k,k)</td>
+<td>A = ones<mat>(k,k)</td>
 <td></td>
 </tr>
 <tr>
@@ -415,12 +415,12 @@
 </tr>
 <tr>
 <td>A \ B</td>
-<td>solve(A,B)<!-- raw HTML omitted -->inv(A)*B</td>
+<td>solve(A,B)<br>inv(A)*B</td>
 <td></td>
 </tr>
 <tr>
 <td>A / B</td>
-<td>无<!-- raw HTML omitted -->A*inv(B)</td>
+<td>无<br>A*inv(B)</td>
 <td></td>
 </tr>
 <tr>
@@ -431,7 +431,7 @@
 <tr>
 <td>A ./ a</td>
 <td>A.each_row() / a</td>
-<td>a为行向量 ,C++中不能是列除以行<!-- raw HTML omitted -->注意和 MATLAB 的区别</td>
+<td>a为行向量 ,C++中不能是列除以行<br>注意和 MATLAB 的区别</td>
 </tr>
 <tr>
 <td>A ./ b</td>
@@ -491,7 +491,7 @@
 <tr>
 <td></td>
 <td>向量的^ 也可以用 pow计算</td>
-<td>注意,Rcpp 并不提供^运算, <!-- raw HTML omitted -->支持向量的 <code>+</code> <code>-</code> <code>*</code> <code>/</code> <!-- raw HTML omitted -->以及 <code>==</code> <code>! =</code> <code>&lt;</code> <code>&gt;</code> <code>&gt; =</code> <code>&lt;=</code></td>
+<td>注意,Rcpp 并不提供^运算, <br>支持向量的 <code>+</code> <code>-</code> <code>*</code> <code>/</code> <br>以及 <code>==</code> <code>! =</code> <code>&lt;</code> <code>&gt;</code> <code>&gt; =</code> <code>&lt;=</code></td>
 </tr>
 <tr>
 <td></td>
@@ -501,7 +501,7 @@
 <tr>
 <td>x = A(:)</td>
 <td>vec  x = vectorise(A)</td>
-<td>把矩阵转变为列向量(即按内存排序), <!-- raw HTML omitted -->C++ 中不能是行向量</td>
+<td>把矩阵转变为列向量(即按内存排序), <br>C++ 中不能是行向量</td>
 </tr>
 <tr>
 <td>X = [ A  B ]</td>
@@ -525,8 +525,8 @@
 </tr>
 <tr>
 <td>A = randi(2,4)</td>
-<td>mat A = randi(2,4)<!-- raw HTML omitted -->mat A = randi(2,4,distr_param(3,8))</td>
-<td>以$2\times 4 $的随机整数,0 到正无穷<!-- raw HTML omitted -->产生 $2 \times 4$ 的随机矩阵,范围 [3,8]之间的整数</td>
+<td>mat A = randi(2,4)<br>mat A = randi(2,4,distr_param(3,8))</td>
+<td>以$2\times 4 $的随机整数,0 到正无穷<br>产生 $2 \times 4$ 的随机矩阵,范围 [3,8]之间的整数</td>
 </tr>
 <tr>
 <td>A = randu(2,4)</td>
@@ -540,7 +540,7 @@
 </tr>
 <tr>
 <td>a *  b</td>
-<td>a % b <!-- raw HTML omitted -->A.row(i)%A.row(i)<!-- raw HTML omitted -->A.col(i) %A.col(i)</td>
+<td>a % b <br>A.row(i)%A.row(i)<br>A.col(i) %A.col(i)</td>
 <td>a ,b 为列向量 , 向量对应元素相乘</td>
 </tr>
 <tr>
@@ -549,8 +549,8 @@
 <td></td>
 </tr>
 <tr>
-<td>sum(A,1)<!-- raw HTML omitted -->sum(A)</td>
-<td>rowvec a = sum(A, 0)<!-- raw HTML omitted -->rowvec a = sum(A)</td>
+<td>sum(A,1)<br>sum(A)</td>
+<td>rowvec a = sum(A, 0)<br>rowvec a = sum(A)</td>
 <td>C++. 中 0 代表列 ,1 代表行</td>
 </tr>
 <tr>
@@ -569,8 +569,8 @@
 <td>与 sum 函数类似</td>
 </tr>
 <tr>
-<td>max(A)<!-- raw HTML omitted -->max(A,1)<!-- raw HTML omitted -->max(A,2)</td>
-<td>rowvec a = max(M);<!-- raw HTML omitted -->rowvec b = max(M,0);<!-- raw HTML omitted -->colvec c = max(M,1);</td>
+<td>max(A)<br>max(A,1)<br>max(A,2)</td>
+<td>rowvec a = max(M);<br>rowvec b = max(M,0);<br>colvec c = max(M,1);</td>
 <td>与 sum 函数类似(还有 min 之类的)</td>
 </tr>
 <tr>
@@ -648,8 +648,8 @@
 <tr>
 <td>String</td>
 <td><code>character</code></td>
-<td><code>CharacterVector</code><!-- raw HTML omitted -->(<code>StringVector</code>)</td>
-<td><code>CharacterMatrix</code><!-- raw HTML omitted -->(<code>StringMatrix</code>)</td>
+<td><code>CharacterVector</code><br>(<code>StringVector</code>)</td>
+<td><code>CharacterMatrix</code><br>(<code>StringMatrix</code>)</td>
 <td><code>String</code></td>
 <td><code>string</code></td>
 </tr>
@@ -721,7 +721,7 @@
 <td>Rcerr</td>
 <td>std::cerr</td>
 <td></td>
-<td>注意这里的四个函数都只能<!-- raw HTML omitted -->打印一些信息并输出到屏幕,<!-- raw HTML omitted -->并不能中止程序</td>
+<td>注意这里的四个函数都只能<br>打印一些信息并输出到屏幕,<br>并不能中止程序</td>
 </tr>
 <tr>
 <td>Rprintf( format, variables)</td>
@@ -745,7 +745,7 @@
 <td>stop(&ldquo;范围提示信息&rdquo;)</td>
 <td></td>
 <td>error(&lsquo;信息&rsquo;)</td>
-<td>这要遇到这种情况,后面的程序不再运行<!-- raw HTML omitted -->直接打印错误信息</td>
+<td>这要遇到这种情况,后面的程序不再运行<br>直接打印错误信息</td>
 </tr>
 <tr>
 <td></td>

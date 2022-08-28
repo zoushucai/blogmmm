@@ -367,7 +367,7 @@ nd
 <tbody>
 <tr>
 <td><code>%between%</code></td>
-<td>快速查找某一区间：<!-- raw HTML omitted --><code> mtcars_dt[disp %between% c(150,200)]# 150&lt;= disp &lt;= 200之间</code><!-- raw HTML omitted --><code> DT[c %between% list(a,b)]#a列 &lt;= c &lt;=b 列之间(向量版本)</code></td>
+<td>快速查找某一区间：<br><code> mtcars_dt[disp %between% c(150,200)]# 150&lt;= disp &lt;= 200之间</code><br><code> DT[c %between% list(a,b)]#a列 &lt;= c &lt;=b 列之间(向量版本)</code></td>
 </tr>
 <tr>
 <td><code>%chin%</code></td>
@@ -375,7 +375,7 @@ nd
 </tr>
 <tr>
 <td><code>%inrange%</code></td>
-<td>快速查找某一区间：<!-- raw HTML omitted --> <code>dft[V1 %inrange% c(50,60)]</code>  即选择<code>50 &lt;= V1 &lt;=60</code>所有的行<!-- raw HTML omitted --><code>dft[V1 %inrange% list(V2,V3)]</code> 即选择 <code>V2 &lt;= V1 &lt;= V3</code>的所有行</td>
+<td>快速查找某一区间：<br> <code>dft[V1 %inrange% c(50,60)]</code>  即选择<code>50 &lt;= V1 &lt;=60</code>所有的行<br><code>dft[V1 %inrange% list(V2,V3)]</code> 即选择 <code>V2 &lt;= V1 &lt;= V3</code>的所有行</td>
 </tr>
 <tr>
 <td><code>A %like% B</code></td>
@@ -383,7 +383,7 @@ nd
 </tr>
 <tr>
 <td><code>.I</code></td>
-<td>表示（分组后）每一行在原数据框中是第几行  dft[,.I[2],by=accept]<!-- raw HTML omitted -->.I是一个整数向量，等于seq_len(nrow(x)), While grouping, it holds for each item in the group, its row location in x. This is useful to subset in j; <!-- raw HTML omitted -->e.g.<code> DT[, .I[which.max(somecol)], by=grp].</code>  结合by,提取子集时,非常有用</td>
+<td>表示（分组后）每一行在原数据框中是第几行  dft[,.I[2],by=accept]<br>.I是一个整数向量，等于seq_len(nrow(x)), While grouping, it holds for each item in the group, its row location in x. This is useful to subset in j; <br>e.g.<code> DT[, .I[which.max(somecol)], by=grp].</code>  结合by,提取子集时,非常有用</td>
 </tr>
 <tr>
 <td><code>.N</code></td>

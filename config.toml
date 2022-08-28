@@ -6,12 +6,15 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
 
 # 设置 markdown 类型  默认为: goldmark , 显示公式有一定问题,但是目录可以显示
 # 设置为 mmark, 能更好的显示公式,但是目录不行了
-
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark.renderer]
+    unsafe = true
 [params]
   # single = false # 单页面的 home 去除
   googleAnalytics = "UA-111691389-1" # 谷歌统计gtag
-  katexmath = true
-  mathJax = false
+  katexmath = true 
+  mathJax = false 
   mathjax2version = false
   highlight = "github"  #"atom-one-dark" # 默认样式 `github`
   langs = ["r", "yaml","latex","matlab","mathematica","julia","julia-repl","powershell","bash","shell",'python'] 

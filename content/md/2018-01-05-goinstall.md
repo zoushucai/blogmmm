@@ -13,7 +13,7 @@ tags: ["go"]
 
 在cmd 命令中输入 ：go env  显示
 
-```
+```bash
 set GOARCH=amd64                			  #    cpu架构   
 set GOBIN=                              	# 工作目录下的bin文件夹  
 set GOEXE=.exe                    			 # 生成可执行文件的后缀  
@@ -57,7 +57,7 @@ set PKG_CONFIG=pkg-config
 
 点击【文件】--新建---GO1 command Project   即可，输入go程序，
 
-```
+```go
 // week1 project main.go
 package main
 

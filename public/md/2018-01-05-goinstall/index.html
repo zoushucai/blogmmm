@@ -199,28 +199,28 @@
         <section id="content">
             <p>先下载 <a href="https://sourceforge.net/projects/liteide/?source=typ_redirect">liteide</a> 和<a href="https://www.golangtc.com/download">go</a> 安装包， 由于我的是win10 ，直接下载win的，直接点击下一步就可以安装go语言了，他会自动安装到C：\go 我设置为F :\go</p>
 <p>在cmd 命令中输入 ：go env  显示</p>
-<pre tabindex="0"><code>set GOARCH=amd64                			  #    cpu架构   
-set GOBIN=                              	# 工作目录下的bin文件夹  
-set GOEXE=.exe                    			 # 生成可执行文件的后缀  
-set GOHOSTARCH=amd64           	  	  		#交叉编译参数  
-set GOHOSTOS=windows          			  	#交叉编译参数   
-set GOOS=windows          				  #当前系统名称  
-set GOPATH=C:\Users\zsc\go    			 # 我的工作目录  
-set GORACE=                           			  #  
-set GOROOT=F:\go		                   	 #go的安装目录  
-set GOTOOLDIR=F:\go\pkg\tool\windows_amd64   #   
-set GCCGO=gccgo  
-set CC=gcc  
-set GOGCCFLAGS=-m64 -mthreads -fmessage-length=0 -fdebug-prefix-map=C:\Users\zsc\AppData\Local\Temp\go-build974907835=/tmp/go-build -gno-record-gcc-switches
-set CXX=g++  
-set CGO_ENABLED=1   
-set CGO_CFLAGS=-g -O2  
-set CGO_CPPFLAGS=  
-set CGO_CXXFLAGS=-g -O2  
-set CGO_FFLAGS=-g -O2  
-set CGO_LDFLAGS=-g -O2  
-set PKG_CONFIG=pkg-config  
-</code></pre><p>好像这后面的可以不用管，去电脑的环境变量里面新增</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>set GOARCH<span style="color:#f92672">=</span>amd64                			  <span style="color:#75715e">#    cpu架构   </span>
+</span></span><span style="display:flex;"><span>set GOBIN<span style="color:#f92672">=</span>                              	<span style="color:#75715e"># 工作目录下的bin文件夹  </span>
+</span></span><span style="display:flex;"><span>set GOEXE<span style="color:#f92672">=</span>.exe                    			 <span style="color:#75715e"># 生成可执行文件的后缀  </span>
+</span></span><span style="display:flex;"><span>set GOHOSTARCH<span style="color:#f92672">=</span>amd64           	  	  		<span style="color:#75715e">#交叉编译参数  </span>
+</span></span><span style="display:flex;"><span>set GOHOSTOS<span style="color:#f92672">=</span>windows          			  	<span style="color:#75715e">#交叉编译参数   </span>
+</span></span><span style="display:flex;"><span>set GOOS<span style="color:#f92672">=</span>windows          				  <span style="color:#75715e">#当前系统名称  </span>
+</span></span><span style="display:flex;"><span>set GOPATH<span style="color:#f92672">=</span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>sc<span style="color:#ae81ff">\g</span>o    			 <span style="color:#75715e"># 我的工作目录  </span>
+</span></span><span style="display:flex;"><span>set GORACE<span style="color:#f92672">=</span>                           			  <span style="color:#75715e">#  </span>
+</span></span><span style="display:flex;"><span>set GOROOT<span style="color:#f92672">=</span>F:<span style="color:#ae81ff">\g</span>o		                   	 <span style="color:#75715e">#go的安装目录  </span>
+</span></span><span style="display:flex;"><span>set GOTOOLDIR<span style="color:#f92672">=</span>F:<span style="color:#ae81ff">\g</span>o<span style="color:#ae81ff">\p</span>kg<span style="color:#ae81ff">\t</span>ool<span style="color:#ae81ff">\w</span>indows_amd64   <span style="color:#75715e">#   </span>
+</span></span><span style="display:flex;"><span>set GCCGO<span style="color:#f92672">=</span>gccgo  
+</span></span><span style="display:flex;"><span>set CC<span style="color:#f92672">=</span>gcc  
+</span></span><span style="display:flex;"><span>set GOGCCFLAGS<span style="color:#f92672">=</span>-m64 -mthreads -fmessage-length<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> -fdebug-prefix-map<span style="color:#f92672">=</span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>sc<span style="color:#ae81ff">\A</span>ppData<span style="color:#ae81ff">\L</span>ocal<span style="color:#ae81ff">\T</span>emp<span style="color:#ae81ff">\g</span>o-build974907835<span style="color:#f92672">=</span>/tmp/go-build -gno-record-gcc-switches
+</span></span><span style="display:flex;"><span>set CXX<span style="color:#f92672">=</span>g++  
+</span></span><span style="display:flex;"><span>set CGO_ENABLED<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>   
+</span></span><span style="display:flex;"><span>set CGO_CFLAGS<span style="color:#f92672">=</span>-g -O2  
+</span></span><span style="display:flex;"><span>set CGO_CPPFLAGS<span style="color:#f92672">=</span>  
+</span></span><span style="display:flex;"><span>set CGO_CXXFLAGS<span style="color:#f92672">=</span>-g -O2  
+</span></span><span style="display:flex;"><span>set CGO_FFLAGS<span style="color:#f92672">=</span>-g -O2  
+</span></span><span style="display:flex;"><span>set CGO_LDFLAGS<span style="color:#f92672">=</span>-g -O2  
+</span></span><span style="display:flex;"><span>set PKG_CONFIG<span style="color:#f92672">=</span>pkg-config  
+</span></span></code></pre></div><p>好像这后面的可以不用管，去电脑的环境变量里面新增</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/go1-2.png" alt="go1-2"></p>
 <p>解压下载好的liteide，把解压后的目录放在go安装的目录中（我的安装go目录为F：\go\）进入F:\go\liteide\bin目录找到liteide.exe 文件，双击进入</p>
 <p>接着配置liteide工具，点击【工具】&ndash;【选择环境】&ndash;【win64】 ，，再次进入【工具】&ndash;【编辑当前环境】</p>
@@ -230,23 +230,23 @@ set PKG_CONFIG=pkg-config
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/go1-4.png" alt="go1-4"></p>
 <p>进入LiteIDE测试</p>
 <p>点击【文件】&ndash;新建&mdash;GO1 command Project   即可，输入go程序，</p>
-<pre tabindex="0"><code>// week1 project main.go
-package main
-
-import &#34;fmt&#34;
-
-func createMessage(name string) string {
-	if len(name) == 0 {
-		return &#34;Hello world&#34;
-	} else {
-		return &#34;Hello &#34; + name
-	}
-}
-func main() {
-	fmt.Println(createMessage(&#34;Tom&#34;))
-	fmt.Println(createMessage(&#34;&#34;))
-}
-</code></pre><p>先编译（ctrl+B）&mdash;在运行(ctrl+alt+R)，就能看到结果：（和c的运行一样）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// week1 project main.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createMessage</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">name</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello world&#34;</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">createMessage</span>(<span style="color:#e6db74">&#34;Tom&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">createMessage</span>(<span style="color:#e6db74">&#34;&#34;</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>先编译（ctrl+B）&mdash;在运行(ctrl+alt+R)，就能看到结果：（和c的运行一样）</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/go1-5.png" alt="go1-5"></p>
 <p>对静态语言不熟悉，几乎小白，见谅！</p>
 

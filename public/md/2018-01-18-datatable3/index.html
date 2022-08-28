@@ -329,7 +329,7 @@ iris_1
 <tbody>
 <tr>
 <td>Inner</td>
-<td>X[Y,nomatch=0] 或者<!-- raw HTML omitted -->Y[X,nomatch=0]</td>
+<td>X[Y,nomatch=0] 或者<br>Y[X,nomatch=0]</td>
 <td>merge(X,Y,all=F)</td>
 </tr>
 <tr>
@@ -388,20 +388,20 @@ group[group[, .I[which.max(pt)], by=Subject]$V1,]# 方法一: 很快
 group[, .SD[which.max(pt)], by=Subject]# 方法二: 较慢
 </code></pre><p><a href="https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group">https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group</a></p>
 <h2 id="8-按照a列分组后找出b列的第2大的值">8. 按照A列分组后,找出B列的第2大的值</h2>
-<pre tabindex="0"><code>
-group[group[,.I[order(-pt)[2]],by=.(Subject)]$V1,]
-
-
-group[,.SD[order(-pt)[2]], by = Subject]
-</code></pre><pre tabindex="0"><code>  ## 方法一:
-  dtf_t = dt[dt[, .I[order(-count_dot,abbr_len)[1]], by=journal_lower]$V1,]
-
-  ## 方法二:
-  dtf = dt[dt[, .I[{
-    temp = which(count_dot == max(count_dot))
-    ifelse(length(temp) == 1, temp, which.min(abbr_len))
-  }], by = journal_lower]$V1,]
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>group[group[,.I<span style="color:#a6e22e">[order</span>(<span style="color:#f92672">-</span>pt)[2]],by<span style="color:#f92672">=</span>.(Subject)]<span style="color:#f92672">$</span>V1,]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>group[,.SD<span style="color:#a6e22e">[order</span>(<span style="color:#f92672">-</span>pt)[2]], by <span style="color:#f92672">=</span> Subject]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>  <span style="color:#75715e">## 方法一:</span>
+</span></span><span style="display:flex;"><span>  dtf_t <span style="color:#f92672">=</span> dt[dt[, .I<span style="color:#a6e22e">[order</span>(<span style="color:#f92672">-</span>count_dot,abbr_len)[1]], by<span style="color:#f92672">=</span>journal_lower]<span style="color:#f92672">$</span>V1,]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">## 方法二:</span>
+</span></span><span style="display:flex;"><span>  dtf <span style="color:#f92672">=</span> dt[dt[, .I[{
+</span></span><span style="display:flex;"><span>    temp <span style="color:#f92672">=</span> <span style="color:#a6e22e">which</span>(count_dot <span style="color:#f92672">==</span> <span style="color:#a6e22e">max</span>(count_dot))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ifelse</span>(<span style="color:#a6e22e">length</span>(temp) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>, temp, <span style="color:#a6e22e">which.min</span>(abbr_len))
+</span></span><span style="display:flex;"><span>  }], by <span style="color:#f92672">=</span> journal_lower]<span style="color:#f92672">$</span>V1,]
+</span></span></code></pre></div>
         </section>
     </div>
     <br>

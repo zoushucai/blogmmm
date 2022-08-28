@@ -256,14 +256,14 @@
 <p>参见：</p>
 <h3 id="4网站图片引入居中设置">4、网站图片引入居中设置</h3>
 <p>方法一：嵌入html标签</p>
-<pre tabindex="0"><code>&lt;img src=&#34;./xxx.png&#34; width = &#34;300&#34; height = &#34;200&#34; alt=&#34;图片名称&#34; align=center /&gt;
-</code></pre><p>方法二：</p>
-<pre tabindex="0"><code>	&lt;div align=&#34;center&#34;&gt;
-		![New Project](/img/NewProject.png)
-	&lt;/div&gt;
-注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）
-所以，&lt;div&gt;&lt;/div&gt;前面都有缩进
-</code></pre><h3 id="5遇到转换文件名时出了问题---名字太长">5、遇到：转换文件名时出了问题&mdash;名字太长?</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./xxx.png&#34;</span> <span style="color:#a6e22e">width </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;300&#34;</span> <span style="color:#a6e22e">height </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;200&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;图片名称&#34;</span> <span style="color:#a6e22e">align</span><span style="color:#f92672">=</span><span style="color:#e6db74">center</span> /&gt;
+</span></span></code></pre></div><p>方法二：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>	&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">align</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>		![New Project](/img/NewProject.png)
+</span></span><span style="display:flex;"><span>	&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>注意：一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）
+</span></span><span style="display:flex;"><span>所以，&lt;<span style="color:#f92672">div</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;前面都有缩进
+</span></span></code></pre></div><h3 id="5遇到转换文件名时出了问题---名字太长">5、遇到：转换文件名时出了问题&mdash;名字太长?</h3>
 <p>在发布博客文章是，用rmd生成文章遇到</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2018091301item01-20200527144459191.png" alt="2018091301item01"></p>
 <p>解决方法：   这是由于rmd的文件名中有中文，写成英文即可。</p>
@@ -271,13 +271,13 @@
 <h3 id="6--hogo生成动态网页-不显示图片">6、  hogo生成动态网页 不显示图片</h3>
 <p>比如 DT包 、plotly包、dygraph、等</p>
 <p>建议引用widgetframe包 如下 （并且rmd文件不能有中文名，不然不能识别，文章的标题可以是中文）</p>
-<pre tabindex="0"><code>library(dygraphs)
-library(widgetframe)
-## 载入需要的程辑包：htmlwidgets
-## Loading required package: htmlwidgets
-ts &lt;- dygraph(nhtemp, main = &#34;New Haven Temperatures&#34;)
-frameWidget(ts, height = 350, width = &#39;95%&#39;)
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dygraphs)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(widgetframe)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 载入需要的程辑包：htmlwidgets</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Loading required package: htmlwidgets</span>
+</span></span><span style="display:flex;"><span>ts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dygraph</span>(nhtemp, main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;New Haven Temperatures&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">frameWidget</span>(ts, height <span style="color:#f92672">=</span> <span style="color:#ae81ff">350</span>, width <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;95%&#39;</span>)
+</span></span></code></pre></div>
         </section>
     </div>
     <br>

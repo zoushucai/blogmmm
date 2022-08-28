@@ -15,7 +15,7 @@ description: Where you should come to find my homepage updates and stuff圣诞�
 
 #### 1、先介绍一下有hugo生成的目录
 
-```
+```R
 站点下面的目录和必须的文件由hugo自己生成。一般它是这样的：
 
 archetypes/                 : 全局原型，也就是内容模板。
@@ -62,7 +62,7 @@ congfig.toml该文件默认支持的[全部参数](http://www.zimustudio.com/hug
 
 介绍几个后面可能会用的参数
 
-```
+```toml
 baseurl = "http://qaz.netlify.com"    # 基础路径,当自己有网站的时候就写自己的
 relativeurls = true                    #使用想对路径方便本地浏览
 languageCode = "zh-cn"                #编码
@@ -80,7 +80,7 @@ hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统�
 
 下面是本站的目录的自定义信息：
 
-```
+```toml
 [permalinks]
     post = "/:year/:month/:day/:slug/"
 

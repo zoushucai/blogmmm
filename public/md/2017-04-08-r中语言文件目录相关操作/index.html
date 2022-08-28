@@ -202,47 +202,47 @@
 <h2 id="2-目录操作">2. 目录操作</h2>
 <p><strong>2.1 查看目录</strong></p>
 <p>查看当前目录下的子目录。</p>
-<pre tabindex="0"><code> setwd()               #设定某个目录为当前目录
- getwd()               # 当前的目录
- list.dirs()           # 查看当前目录的子目录  参数详见dir()
- 
- dir()                 #查看当前目录的子目录和文件。
- dir(path=&#34;C:/windows&#34;)#查看指定目录的子目录和文件
- dir(path=&#34;C:/windows&#34;,all.files=TRUE)# 列出目录下所有的目录和文件，包括隐藏文件
- dir(path=&#34;C:/windows&#34;,pattern=&#39;^R&#39;)#只列出以字母R开头的子目录或文件
- 
- file.info(&#34;.&#34;)         # 查看当前目录权限
-</code></pre><p><strong>2.2 创建目录</strong></p>
-<pre tabindex="0"><code>dir.create(&#34;your dir&#34;)        # 在当前目录下，新建一个目录
-dir.create(path=&#34;a1/b2/c3&#34;,recursive = TRUE)  #递归创建一个3级子目录./a1/b2/c3，直接创建会出错
-</code></pre><p><strong>2.3 检查目录是否存在</strong></p>
-<pre tabindex="0"><code>system(&#34;tree&#34;)                      # 通过系统命令查看目录结构
-file.exists(&#34;./a1&#34;)             # 查看某个目录是否存在,可以多层次调用目录
-</code></pre><p><strong>2.4 检查目录的权限</strong></p>
-<pre tabindex="0"><code>df&lt;-dir(full.names = TRUE)         #获取当前目录的所有目录(不含子目录)和文件名（含后缀）
-file.access(df, model=0) == 0      # 检查文件或目录是否存在，mode=0
-         						  # 检查文件或目录是否可执行，mode=1，目录为可以执行
-         						  # 检查文件或目录是否可写，mode=2
-          						 # 检查文件或目录是否可读，mode=4
-</code></pre><p><strong>2.5修改目录权限。</strong></p>
-<pre tabindex="0"><code> Sys.chmod(&#34;./create&#34;, mode = &#34;0555&#34;, use_umask = TRUE)  # 修改目录权限，所有用户只读
- 
-</code></pre><p><strong>2.6 对目录重名</strong></p>
-<pre tabindex="0"><code>file.rename(&#34;create&#34;, &#34;newcreate&#34;)            # 对tcreate目录重命名为newcreate
-unlink(&#34;newcreate&#34;, recursive = TRUE)         # 删除newcreate目录   递归删除
-</code></pre><p><strong>2.7 其他功能函数</strong></p>
-<pre tabindex="0"><code>file.path(&#34;p1&#34;,&#34;p2&#34;,&#34;p3&#34;)                  # 拼接目录字符串
-dirname(path=&#34;&#34;)                           #获得某个路径的目录名
-basename(path=&#34;&#34;)                          #获得某个目录的最底层目录或者文件名
-normalizePath(c(R.home(), tempdir()))      #获取目录的绝对路径
-</code></pre><h2 id="3-文件操作">3. 文件操作</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span> <span style="color:#a6e22e">setwd</span>()               <span style="color:#75715e">#设定某个目录为当前目录</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">getwd</span>()               <span style="color:#75715e"># 当前的目录</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">list.dirs</span>()           <span style="color:#75715e"># 查看当前目录的子目录  参数详见dir()</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">dir</span>()                 <span style="color:#75715e">#查看当前目录的子目录和文件。</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">dir</span>(path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C:/windows&#34;</span>)<span style="color:#75715e">#查看指定目录的子目录和文件</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">dir</span>(path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C:/windows&#34;</span>,all.files<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)<span style="color:#75715e"># 列出目录下所有的目录和文件，包括隐藏文件</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">dir</span>(path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C:/windows&#34;</span>,pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;^R&#39;</span>)<span style="color:#75715e">#只列出以字母R开头的子目录或文件</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">file.info</span>(<span style="color:#e6db74">&#34;.&#34;</span>)         <span style="color:#75715e"># 查看当前目录权限</span>
+</span></span></code></pre></div><p><strong>2.2 创建目录</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">dir.create</span>(<span style="color:#e6db74">&#34;your dir&#34;</span>)        <span style="color:#75715e"># 在当前目录下，新建一个目录</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dir.create</span>(path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;a1/b2/c3&#34;</span>,recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)  <span style="color:#75715e">#递归创建一个3级子目录./a1/b2/c3，直接创建会出错</span>
+</span></span></code></pre></div><p><strong>2.3 检查目录是否存在</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;tree&#34;</span>)                      <span style="color:#75715e"># 通过系统命令查看目录结构</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">file.exists</span>(<span style="color:#e6db74">&#34;./a1&#34;</span>)             <span style="color:#75715e"># 查看某个目录是否存在,可以多层次调用目录</span>
+</span></span></code></pre></div><p><strong>2.4 检查目录的权限</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>df<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">dir</span>(full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)         <span style="color:#75715e">#获取当前目录的所有目录(不含子目录)和文件名（含后缀）</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">file.access</span>(df, model<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>      <span style="color:#75715e"># 检查文件或目录是否存在，mode=0</span>
+</span></span><span style="display:flex;"><span>         						  <span style="color:#75715e"># 检查文件或目录是否可执行，mode=1，目录为可以执行</span>
+</span></span><span style="display:flex;"><span>         						  <span style="color:#75715e"># 检查文件或目录是否可写，mode=2</span>
+</span></span><span style="display:flex;"><span>          						 <span style="color:#75715e"># 检查文件或目录是否可读，mode=4</span>
+</span></span></code></pre></div><p><strong>2.5修改目录权限。</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span> <span style="color:#a6e22e">Sys.chmod</span>(<span style="color:#e6db74">&#34;./create&#34;</span>, mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0555&#34;</span>, use_umask <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)  <span style="color:#75715e"># 修改目录权限，所有用户只读</span>
+</span></span><span style="display:flex;"><span> 
+</span></span></code></pre></div><p><strong>2.6 对目录重名</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">file.rename</span>(<span style="color:#e6db74">&#34;create&#34;</span>, <span style="color:#e6db74">&#34;newcreate&#34;</span>)            <span style="color:#75715e"># 对tcreate目录重命名为newcreate</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">unlink</span>(<span style="color:#e6db74">&#34;newcreate&#34;</span>, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)         <span style="color:#75715e"># 删除newcreate目录   递归删除</span>
+</span></span></code></pre></div><p><strong>2.7 其他功能函数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;p1&#34;</span>,<span style="color:#e6db74">&#34;p2&#34;</span>,<span style="color:#e6db74">&#34;p3&#34;</span>)                  <span style="color:#75715e"># 拼接目录字符串</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dirname</span>(path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)                           <span style="color:#75715e">#获得某个路径的目录名</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">basename</span>(path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)                          <span style="color:#75715e">#获得某个目录的最底层目录或者文件名</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">normalizePath</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">R.home</span>(), <span style="color:#a6e22e">tempdir</span>()))      <span style="color:#75715e">#获取目录的绝对路径</span>
+</span></span></code></pre></div><h2 id="3-文件操作">3. 文件操作</h2>
 <p><strong>3.1 查看文件</strong></p>
-<pre tabindex="0"><code>file.exists(&#34;readme.txt&#34;)         # 检查文件是否存在
-file.info(&#34;readme.txt&#34;)            # 查看文件完整信息
-file.access(&#34;readme.txt&#34;,0)        # 查看文件访问权限，存在详情见2.4
-file_test(&#34;-d&#34;, &#34;readme.txt&#34;)      #判断是文件还是目录。-d ,是目录返回ture
-file_test(&#34;-f&#34;, &#34;readme.txt&#34;)      # 判断是否是文件 .  -f 是文件但会ture
-</code></pre><p><strong>3.2 创建文件</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">file.exists</span>(<span style="color:#e6db74">&#34;readme.txt&#34;</span>)         <span style="color:#75715e"># 检查文件是否存在</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">file.info</span>(<span style="color:#e6db74">&#34;readme.txt&#34;</span>)            <span style="color:#75715e"># 查看文件完整信息</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">file.access</span>(<span style="color:#e6db74">&#34;readme.txt&#34;</span>,<span style="color:#ae81ff">0</span>)        <span style="color:#75715e"># 查看文件访问权限，存在详情见2.4</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">file_test</span>(<span style="color:#e6db74">&#34;-d&#34;</span>, <span style="color:#e6db74">&#34;readme.txt&#34;</span>)      <span style="color:#75715e">#判断是文件还是目录。-d ,是目录返回ture</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">file_test</span>(<span style="color:#e6db74">&#34;-f&#34;</span>, <span style="color:#e6db74">&#34;readme.txt&#34;</span>)      <span style="color:#75715e"># 判断是否是文件 .  -f 是文件但会ture</span>
+</span></span></code></pre></div><p><strong>3.2 创建文件</strong></p>
 <pre tabindex="0"><code>file.create(&#34;A.txt&#34;)            # 创建一个空文件 A.txt
 cat(&#34;file B\n&#34;, file = &#34;B.txt&#34;) # 把相关的内容写入B.txt文件中，没有这个文件则创建文件并写入内容 
 
@@ -250,22 +250,22 @@ readLines(&#34;A.txt&#34;)         # 读取A.txt并打印
 file.append(&#34;A.txt&#34;, rep(&#34;B.txt&#34;, 10))   # 合并文件,把文件B.txt的内容，合并到 A.txt。
 file.copy(&#34;A.txt&#34;, &#34;C.txt&#34;)    #把文件A.txt复制到文件C.txt ,文件复制
 </code></pre><p><strong>3.3 修改文件权限</strong></p>
-<pre tabindex="0"><code># 修改文件权限，创建者可读可写可执行，其他人无权限
-Sys.chmod(&#34;A.txt&#34;, mode = &#34;0700&#34;, use_umask = TRUE)
-</code></pre><p><strong>3.4 文件重命名</strong></p>
-<pre tabindex="0"><code>file.rename(&#34;A.txt&#34;,&#34;AA.txt&#34;)     # 给文件A.txt重命名为AA.txt
-</code></pre><p><strong>3.5 删除文件</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># 修改文件权限，创建者可读可写可执行，其他人无权限</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Sys.chmod</span>(<span style="color:#e6db74">&#34;A.txt&#34;</span>, mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0700&#34;</span>, use_umask <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span></code></pre></div><p><strong>3.4 文件重命名</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">file.rename</span>(<span style="color:#e6db74">&#34;A.txt&#34;</span>,<span style="color:#e6db74">&#34;AA.txt&#34;</span>)     <span style="color:#75715e"># 给文件A.txt重命名为AA.txt</span>
+</span></span></code></pre></div><p><strong>3.5 删除文件</strong></p>
 <p>有两个函数可以使用file.remove和unlink，其中unlink函数使用同删除目录操作是一样的。</p>
-<pre tabindex="0"><code>file.remove(&#34;A.txt&#34;, &#34;B.txt&#34;, &#34;C.txt&#34;)      # 删除文件
-unlink(&#34;readme.txt&#34;)                   # 删除文件
-system(&#34;ls -l&#34;)            # 查看目录文件
-</code></pre><h2 id="4-几个特殊的目录">4. 几个特殊的目录</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">file.remove</span>(<span style="color:#e6db74">&#34;A.txt&#34;</span>, <span style="color:#e6db74">&#34;B.txt&#34;</span>, <span style="color:#e6db74">&#34;C.txt&#34;</span>)      <span style="color:#75715e"># 删除文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">unlink</span>(<span style="color:#e6db74">&#34;readme.txt&#34;</span>)                   <span style="color:#75715e"># 删除文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;ls -l&#34;</span>)            <span style="color:#75715e"># 查看目录文件</span>
+</span></span></code></pre></div><h2 id="4-几个特殊的目录">4. 几个特殊的目录</h2>
 <ul>
-<li>R.home() 查看R软件的相关目录</li>
-<li>.Library 查看R核心包的目录</li>
-<li>.Library.site 查看R核心包的目录和root用户安装包目录</li>
-<li>.libPaths() 查看R所有包的存放目录</li>
-<li>system.file() 查看指定包所在的目录</li>
+<li><code>R.home()</code> 查看R软件的相关目录</li>
+<li><code>.Library</code> 查看R核心包的目录</li>
+<li><code>.Library.site</code> 查看R核心包的目录和root用户安装包目录</li>
+<li><code>.libPaths()</code> 查看R所有包的存放目录</li>
+<li><code>system.file()</code> 查看指定包所在的目录</li>
 </ul>
 <p>参考：<a href="http://blog.fens.me/r-file-folder/">http://blog.fens.me/r-file-folder/</a></p>
 

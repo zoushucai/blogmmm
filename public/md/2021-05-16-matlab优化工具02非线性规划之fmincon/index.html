@@ -254,14 +254,10 @@
 c(x) \leq 0 \
 \operatorname{ceq}(x)=0 \
 l b \leq x \leq u b
-\end{cases}\ \
-&amp; f(x)是目标函数, x, b, beq是向量, \
-&amp; \textbf{A}, \textbf{Aeq}是矩阵,\
-&amp; c(x) 和 ceq(x) 是向量函數 \
-&amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
-&amp;c(x) 非线性不等式, ceq(x)非线性等式  \
+\end{cases}
 \end{aligned}
 $$</p>
+<p>其中 $f(x)$是目标函数, $x, b, beq$ 是向量, $\textbf{A}, \textbf{Aeq}$是矩阵,$c(x)$ 和 $ceq(x)$ 是向量函數, $\textbf{A}$线性不等式,$\textbf{Aeq}$线性等式, $c(x)$ 非线性不等式, $ceq(x)$非线性等式</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-MATLAB" data-lang="MATLAB"><span style="display:flex;"><span><span style="color:#75715e">% 2.基本语法</span>
 </span></span><span style="display:flex;"><span>[x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
 </span></span><span style="display:flex;"><span>[x,fval,exitflag,output,lambda,grad,hessian] = fmincon(___)
@@ -294,7 +290,7 @@ $$</p>
 <tbody>
 <tr>
 <td>Algorithm</td>
-<td>优化算法:<!-- raw HTML omitted --> <code>'interior-point'</code> (default)<!-- raw HTML omitted --><code>'trust-region-reflective'</code><!-- raw HTML omitted --><code> 'sqp'</code><!-- raw HTML omitted --><code>'sqp-legacy' (optimoptions only)'</code><!-- raw HTML omitted --><code>active-set'</code></td>
+<td>优化算法:<br> <code>'interior-point'</code> (default)<br><code>'trust-region-reflective'</code><br><code> 'sqp'</code><br><code>'sqp-legacy' (optimoptions only)'</code><br><code>active-set'</code></td>
 </tr>
 <tr>
 <td>Display</td>
@@ -330,7 +326,7 @@ $$</p>
 </tr>
 <tr>
 <td>PlotFcn</td>
-<td>算法执行时,绘制各种度量值,默认[];<!-- raw HTML omitted -->&lsquo;optimplotx&rsquo;   画当前点<!-- raw HTML omitted -->&lsquo;optimplotfunccount&rsquo;  画函数计数<!-- raw HTML omitted -->&lsquo;optimplotfval&rsquo;   绘制函数值<!-- raw HTML omitted -->&lsquo;optimplotfvalconstr&rsquo;  以直线的形式绘制最佳可行目标函数值。该图显示不可行点为红色，可行点为蓝色，可行性公差为1e-6。<!-- raw HTML omitted -->&lsquo;optimplotconstruplication&rsquo;  绘制最大约束冲突<!-- raw HTML omitted -->&lsquo;optimplotstepsize&rsquo;  画步长<!-- raw HTML omitted -->&lsquo;optimplotfirstorderopt&rsquo;   绘制一阶最优性度量</td>
+<td>算法执行时,绘制各种度量值,默认[];<br>&lsquo;optimplotx&rsquo;   画当前点<br>&lsquo;optimplotfunccount&rsquo;  画函数计数<br/>&lsquo;optimplotfval&rsquo;   绘制函数值<br/>&lsquo;optimplotfvalconstr&rsquo;  以直线的形式绘制最佳可行目标函数值。该图显示不可行点为红色，可行点为蓝色，可行性公差为1e-6。<br/>&lsquo;optimplotconstruplication&rsquo;  绘制最大约束冲突<br/>&lsquo;optimplotstepsize&rsquo;  画步长<br/>&lsquo;optimplotfirstorderopt&rsquo;   绘制一阶最优性度量</td>
 </tr>
 <tr>
 <td>FunctionTolerance</td>

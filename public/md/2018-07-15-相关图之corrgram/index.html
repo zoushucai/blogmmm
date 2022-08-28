@@ -166,9 +166,9 @@
             <nav id="TableOfContents">
   <ul>
     <li><a href="#相关矩阵图">相关矩阵图</a></li>
-    <li><a href="#相关矩阵图一corrgram">相关矩阵图一—–corrgram</a>
+    <li><a href="#相关矩阵图---------corrgram">相关矩阵图 &mdash; &mdash; corrgram</a>
       <ul>
-        <li><a href="#corrgramcorrgram函数"><code>corrgram::corrgram()</code>函数</a></li>
+        <li></li>
       </ul>
     </li>
   </ul>
@@ -246,70 +246,61 @@
 <h2 id="相关矩阵图">相关矩阵图</h2>
 <p>R语言中，绘制相关矩阵图的包主要有两个：<code>corrgram::corrgram</code>和<code>corrplot::corrplot</code><br>
 此处都以<code>mtcars</code>数据集为例，说明这两个函数的使用</p>
-<h2 id="相关矩阵图一corrgram">相关矩阵图一—–corrgram</h2>
-<h3 id="corrgramcorrgram函数"><code>corrgram::corrgram()</code>函数</h3>
-<pre><code>corrgram(x, type = NULL, order = FALSE, labels, panel = panel.shade,
-  lower.panel = panel, upper.panel = panel, diag.panel = NULL,
-  text.panel = textPanel, label.pos = c(0.5, 0.5), label.srt = 0,
-  cex.labels = NULL, font.labels = 1, row1attop = TRUE, dir = &quot;&quot;,
-  gap = 0, abs = FALSE, col.regions = colorRampPalette(c(&quot;red&quot;, &quot;salmon&quot;,
-  &quot;white&quot;, &quot;royalblue&quot;, &quot;navy&quot;)), cor.method = &quot;pearson&quot;,
-  outer.labels = NULL, ...)
-
-
-参数解释：  
-x: 数据框或者相关矩阵,输入数据框时，会自动识别数值型列进行计算相关矩阵，然后再绘图
-order: 是否让变量按主成分分析相关矩阵排列.可以设置为TRUE或&quot;PCA&quot;,默认FALSE
-panel : 设置非对角线的面板形状,默认为阴影图
-lower.panel: 设置相关矩阵下三角矩阵面板形状
-upper.panel： 设置相关矩阵上三角矩阵面板形状
-  面板形状设置参数： 
-    panel.pie   用饼图的填充比例来表示相关性大小
-        panel.shade 用阴影的深度来表示相关性
-        panel.ellipse   绘制置信椭圆和平滑拟合曲线
-        panel.pts   绘制散点图
-  
-text.panel 和 diag.panel 选项控制着主对角线元素类型。 
-    textPanel    输出变量的名字（默认）
-    panel.minmax    输出变量的最大最小值
-        panel.txt      输出的变量名字          
-</code></pre>
-<p>画出相关矩阵图</p>
-<pre><code>library(corrgram)
-corrgram(cor(mtcars)) 
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-1.png" alt=""></p>
-<pre><code>corrgram(mtcars)
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-2.png" alt=""></p>
-<pre><code>corrgram(iris)
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-3.png" alt=""></p>
+<h2 id="相关矩阵图---------corrgram">相关矩阵图 &mdash; &mdash; corrgram</h2>
+<h4 id="corrgramcorrgram函数"><code>corrgram::corrgram()</code>函数</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(x, type <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, order <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, labels, panel <span style="color:#f92672">=</span> panel.shade,
+</span></span><span style="display:flex;"><span>    lower.panel <span style="color:#f92672">=</span> panel, upper.panel <span style="color:#f92672">=</span> panel, diag.panel <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    text.panel <span style="color:#f92672">=</span> textPanel, label.pos <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>), label.srt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    cex.labels <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, font.labels <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, row1attop <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, dir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>    gap <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, abs <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, col.regions <span style="color:#f92672">=</span> <span style="color:#a6e22e">colorRampPalette</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;salmon&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;white&#34;</span>, <span style="color:#e6db74">&#34;royalblue&#34;</span>, <span style="color:#e6db74">&#34;navy&#34;</span>)), cor.method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pearson&#34;</span>,
+</span></span><span style="display:flex;"><span>    outer.labels <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>参数解释：  
+</span></span><span style="display:flex;"><span>x<span style="color:#f92672">:</span> 数据框或者相关矩阵,输入数据框时，会自动识别数值型列进行计算相关矩阵，然后再绘图
+</span></span><span style="display:flex;"><span>order<span style="color:#f92672">:</span> 是否让变量按主成分分析相关矩阵排列.可以设置为TRUE或<span style="color:#e6db74">&#34;PCA&#34;</span>,默认<span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>panel <span style="color:#f92672">:</span> 设置非对角线的面板形状,默认为阴影图
+</span></span><span style="display:flex;"><span>lower.panel<span style="color:#f92672">:</span> 设置相关矩阵下三角矩阵面板形状
+</span></span><span style="display:flex;"><span>upper.panel： 设置相关矩阵上三角矩阵面板形状
+</span></span><span style="display:flex;"><span>    面板形状设置参数： 
+</span></span><span style="display:flex;"><span>    panel.pie   用饼图的填充比例来表示相关性大小
+</span></span><span style="display:flex;"><span>        panel.shade 用阴影的深度来表示相关性
+</span></span><span style="display:flex;"><span>        panel.ellipse   绘制置信椭圆和平滑拟合曲线
+</span></span><span style="display:flex;"><span>        panel.pts   绘制散点图
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>text.panel 和 diag.panel 选项控制着主对角线元素类型。 
+</span></span><span style="display:flex;"><span>    textPanel    输出变量的名字（默认）
+</span></span><span style="display:flex;"><span>    panel.minmax    输出变量的最大最小值
+</span></span><span style="display:flex;"><span>        panel.txt      输出的变量名字          
+</span></span></code></pre></div><p>画出相关矩阵图</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(corrgram)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(<span style="color:#a6e22e">cor</span>(mtcars)) 
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-2.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(iris)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-1-3.png" alt=""></p>
 <h4 id="设置排序处理">设置排序处理</h4>
-<pre><code>corrgram(mtcars,order = T) # 等价 corrgram(mtcars,order = &quot;PCA&quot;)
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-2-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars,order <span style="color:#f92672">=</span> T) <span style="color:#75715e"># 等价 corrgram(mtcars,order = &#34;PCA&#34;)</span>
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-2-1.png" alt=""></p>
 <h4 id="设置上下三角面板形状">设置上下三角面板形状</h4>
-<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = panel.pie)
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-3-1.png" alt="">
-#### 只显示下三角部分图</p>
-<pre><code>corrgram(mtcars,order = &quot;PCA&quot;,lower.panel = panel.shade,upper.panel = NULL)
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars,order <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PCA&#34;</span>,lower.panel <span style="color:#f92672">=</span> panel.shade,upper.panel <span style="color:#f92672">=</span> panel.pie)
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-3-1.png" alt=""></p>
+<p>只显示下三角部分图</p>
+<pre tabindex="0"><code>corrgram(mtcars,order = &#34;PCA&#34;,lower.panel = panel.shade,upper.panel = NULL)
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-4-1.png" alt=""></p>
 <h4 id="调整版面颜色">调整版面颜色</h4>
-<pre><code>corrgram(mtcars,order = T,lower.panel = panel.shade,upper.panel = panel.pie,
-         col.regions = colorRampPalette(c(&quot;darkgoldenrod4&quot;, &quot;burlywood1&quot;,&quot;white&quot;,&quot;darkkhaki&quot;, &quot;darkgreen&quot;)))
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-5-1.png" alt=""></p>
-<pre><code>corrgram(mtcars,order=TRUE,
-         lower.panel=panel.ellipse,
-         upper.panel=panel.pts,
-         text.panel=panel.txt,
-         diag.panel=panel.minmax,
-         main=&quot;Correlogram of Mtcars intercorrelations&quot; )
-</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">corrgram</span>(mtcars,order <span style="color:#f92672">=</span> T,lower.panel <span style="color:#f92672">=</span> panel.shade,upper.panel <span style="color:#f92672">=</span> panel.pie,
+</span></span><span style="display:flex;"><span>            col.regions <span style="color:#f92672">=</span> <span style="color:#a6e22e">colorRampPalette</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;darkgoldenrod4&#34;</span>, <span style="color:#e6db74">&#34;burlywood1&#34;</span>,<span style="color:#e6db74">&#34;white&#34;</span>,<span style="color:#e6db74">&#34;darkkhaki&#34;</span>, <span style="color:#e6db74">&#34;darkgreen&#34;</span>)))
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-5-1.png" alt=""></p>
+<pre tabindex="0"><code>corrgram(mtcars,order=TRUE,
+            lower.panel=panel.ellipse,
+            upper.panel=panel.pts,
+            text.panel=panel.txt,
+            diag.panel=panel.minmax,
+            main=&#34;Correlogram of Mtcars intercorrelations&#34; )
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091417unnamed-chunk-6-1.png" alt=""></p>
 
         </section>
     </div>

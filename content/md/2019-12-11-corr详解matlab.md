@@ -23,7 +23,7 @@ toc: true
 
 返回： 一个相关系数矩阵R，
 
-```
+```matlab
 A = randn(n,m); % A是一个n*m的矩阵
 corrcoef(A) % 返回一个m*m的对称矩阵
 ```
@@ -38,7 +38,7 @@ corrcoef(A) % 返回一个m*m的对称矩阵
 
 如果A, B 均为矩阵，则先把A，B转变为列向量，然后再计算皮尔逊相关系数，即等价于如下形式
 
-```
+```matlab
 A = randn(n,m); % A是一个n*m的矩阵
 B = randn(n,m); % B是一个n*m的矩阵,
 %% 注意A，B矩阵的个数一定要一样
@@ -66,12 +66,10 @@ corrcoef(A(:),B(:)) % 等价 corrcoef(A,B）
 
 ### [rho,pval] = corr(___,Name,Value)
 
-```
+```matlab
 R = corr(X,'Type','Pearson')
 R = corr(X,Y,'Type','Pearson')
 R = corr(X,Y,'Type','Kendall')
 R = corr(X,Y,'Type','Spearman')
-
-
 ```
 

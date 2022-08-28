@@ -253,7 +253,7 @@
 <li>注意： 由于每个软件的正则表达式的转义字符是不一样的，比如R中一般用<code>\\.</code>来代表匹配小数点<code>.</code></li>
 <li>表格中的<code>\ </code> ，但在软件中可能需要<code>\\</code>才能表达出来，eg:<code>\d</code> 匹配任意一个数字， 可能需要使用<code>\\d</code></li>
 </ul>
-<!-- raw HTML omitted -->
+<br>
 <h3 id="1-基本的元字符">1. 基本的元字符</h3>
 <table>
 <thead>
@@ -273,15 +273,15 @@
 </tr>
 <tr>
 <td><code>[ ]</code></td>
-<td>匹配该字符集合中的一个字符<!-- raw HTML omitted -->（各个字符之间是or关系）<!-- raw HTML omitted --> **注意: **  <code>[.]</code>  <strong>只匹配点本身,不是特殊字符,不用转义.</strong></td>
+<td>匹配该字符集合中的一个字符<br>（各个字符之间是or关系）<br> **注意: **  <code>[.]</code>  <strong>只匹配点本身,不是特殊字符,不用转义.</strong></td>
 </tr>
 <tr>
 <td><code>[^ ]</code></td>
-<td>对字符集合求非<!-- raw HTML omitted -->就是排除该字符集合<!-- raw HTML omitted --><code>[^0-9] </code> ： 匹配任何不适数字的字符</td>
+<td>对字符集合求非<br>就是排除该字符集合<br><code>[^0-9] </code> ： 匹配任何不适数字的字符</td>
 </tr>
 <tr>
 <td><code>-</code></td>
-<td>定义一个区间,<!-- raw HTML omitted --><code>[A-Za-z09]</code>: 匹配(大小)字母和数字<!-- raw HTML omitted --><code>-</code>只有出现在<code>[]</code>之间才是元字符<!-- raw HTML omitted --><code>-</code>出现在其他地方，则表示一个普通字符</td>
+<td>定义一个区间,<br><code>[A-Za-z09]</code>: 匹配(大小)字母和数字<br><code>-</code>只有出现在<code>[]</code>之间才是元字符<br><code>-</code>出现在其他地方，则表示一个普通字符</td>
 </tr>
 <tr>
 <td><code>\</code></td>
@@ -289,7 +289,7 @@
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br>
 <h3 id="2-数量元字符">2. 数量元字符</h3>
 <table>
 <thead>
@@ -337,7 +337,7 @@
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br>
 <h3 id="3-位置元字符">3. 位置元字符</h3>
 <table>
 <thead>
@@ -373,7 +373,7 @@
 </tr>
 <tr>
 <td><code>\b</code></td>
-<td>匹配单词的边界（开头或结束）<!-- raw HTML omitted -->eg: <code>\bcap\b</code>: 表示匹配<code>cap</code>这个完整单词. 因为<code>\b</code>是边界，<!-- raw HTML omitted -->且匹配到的字符串长度为3个字符，而不是5个字符<!-- raw HTML omitted -->简单的说, <code>\b</code>匹配的是一个这样的位置，<!-- raw HTML omitted -->一边是单词（能够被<code>\w</code>匹配的字母、数字、和下划线,<!-- raw HTML omitted -->另一边是其他内容（能够被<code>\W</code>相匹配的字符)</td>
+<td>匹配单词的边界（开头或结束）<br>eg: <code>\bcap\b</code>: 表示匹配<code>cap</code>这个完整单词. 因为<code>\b</code>是边界，<br>且匹配到的字符串长度为3个字符，而不是5个字符<br>简单的说, <code>\b</code>匹配的是一个这样的位置，<br>一边是单词（能够被<code>\w</code>匹配的字母、数字、和下划线,<br>另一边是其他内容（能够被<code>\W</code>相匹配的字符)</td>
 </tr>
 <tr>
 <td><code>\B</code></td>
@@ -381,7 +381,7 @@
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br>
 <h3 id="4-特殊字符元字符">4. 特殊字符元字符</h3>
 <table>
 <thead>
@@ -453,7 +453,7 @@
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br>
 <h3 id="5-posix字符类">5. POSIX字符类</h3>
 <ul>
 <li>但并不是所用的语言都支持，JavaScript不支持</li>
@@ -516,7 +516,7 @@
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020081512image-20200713131134821.png" alt="image-20200713131134821"></p>
 <h3 id="6-回溯引用和环视">6. 回溯引用和环视</h3>
 <ul>
@@ -532,11 +532,11 @@
 <tbody>
 <tr>
 <td><code>( )</code></td>
-<td>定义一个子表达式<!-- raw HTML omitted -->`( ()</td>
+<td>定义一个子表达式<br>`( ()</td>
 </tr>
 <tr>
 <td><code>\1</code></td>
-<td>对前面的子表达式进行回溯引用，并且<strong>只能用于匹配括号里面的子表达式</strong><!-- raw HTML omitted -->eg: 匹配第1个子表达式；\2代表第2个子表达式：以此类推<!-- raw HTML omitted -->有些语言用的是 <code>$1, $2, ....</code><!-- raw HTML omitted --><strong>可以理解为变量</strong></td>
+<td>对前面的子表达式进行回溯引用，并且<strong>只能用于匹配括号里面的子表达式</strong><br>eg: 匹配第1个子表达式；\2代表第2个子表达式：以此类推<br>有些语言用的是 <code>$1, $2, ....</code><br><strong>可以理解为变量</strong></td>
 </tr>
 <tr>
 <td><code>(?=)</code></td>
@@ -556,15 +556,15 @@
 </tr>
 <tr>
 <td><code>(?(&lt;条件&gt;)ture)</code></td>
-<td>嵌入条件（if   then）  <!-- raw HTML omitted -->eg：<code>(?(backference)ture-regex)</code>在条件里使用回溯引用，可以不进行转义?(\1)等价?(1)</td>
+<td>嵌入条件（if   then）  <br>eg：<code>(?(backference)ture-regex)</code>在条件里使用回溯引用，可以不进行转义?(\1)等价?(1)</td>
 </tr>
 <tr>
 <td><code>(?(&lt;条件&gt;)ture|false )</code></td>
-<td>嵌入条件（if   then  else）<!-- raw HTML omitted -->语法：<code>(?(backference)ture-regex|false-regex)</code></td>
+<td>嵌入条件（if   then  else）<br>语法：<code>(?(backference)ture-regex|false-regex)</code></td>
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br>
 <h3 id="7-大小写转换">7. 大小写转换</h3>
 <table>
 <thead>
@@ -596,7 +596,7 @@
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br>
 <h3 id="8-多行匹配模式">8. 多行匹配模式</h3>
 <table>
 <thead>
@@ -608,11 +608,11 @@
 <tbody>
 <tr>
 <td><code>(?m)</code></td>
-<td>多行匹配模式（许多语言不支持）<!-- raw HTML omitted -->将换行符视为字符串分隔符</td>
+<td>多行匹配模式（许多语言不支持）<br>将换行符视为字符串分隔符</td>
 </tr>
 <tr>
 <td></td>
-<td>在多行匹配模式下，<code>^</code>即可以匹配字符串的开头，也可以匹配行换行符之后的起始位置(新行)<!-- raw HTML omitted --><code>$</code>不仅能匹配字符串结尾，还能匹配换行符之后的结束位置。</td>
+<td>在多行匹配模式下，<code>^</code>即可以匹配字符串的开头，也可以匹配行换行符之后的起始位置(新行)<br><code>$</code>不仅能匹配字符串结尾，还能匹配换行符之后的结束位置。</td>
 </tr>
 <tr>
 <td></td>

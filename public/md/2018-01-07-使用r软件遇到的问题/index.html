@@ -201,27 +201,27 @@
 <ul>
 <li>
 <p>读取csv文件出现中文乱码方案，增加编码格式参数</p>
-<pre tabindex="0"><code>read.csv(trainPath,header=TRUE,stringsAsFactors=TRUE,encoding = &#34;UTF-8&#34;)
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">read.csv</span>(trainPath,header<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>,stringsAsFactors<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>,encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span>)
+</span></span></code></pre></div></li>
 <li>
 <p>保存csv文件中出现乱码，编码格式参数</p>
-<pre tabindex="0"><code>write.csv(outp, file = path, quote = F, fileEncoding = &#34;UTF-8&#34;)
-#存储utf-8也乱码，我的电脑有时会发疯，有时又不会
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(outp, file <span style="color:#f92672">=</span> path, quote <span style="color:#f92672">=</span> F, fileEncoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#存储utf-8也乱码，我的电脑有时会发疯，有时又不会</span>
+</span></span></code></pre></div></li>
 <li>
 <p>source 加载R脚本中文乱码</p>
-<pre tabindex="0"><code>source(&#34;core.R&#34;,encoding=&#34;utf-8&#34;)
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;core.R&#34;</span>,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span></code></pre></div></li>
 <li>
 <p>RStudio中脚本中文乱码，编码格式设置：tools -&gt; global option&hellip;., 设置为UTF-8，最后，在打开文件的时候，选择File -&gt; Reopen with encoding菜单，选择我们使用UTF-8编码打开文件，这样子就可以正确地显示中文了。</p>
 </li>
 <li>
 <p>R语言环境的显示问题</p>
-<pre tabindex="0"><code>sessionInfo()
-Sys.getlocale()
-Sys.setlocale(category = &#34;LC_ALL&#34;,local=&#34;us&#34;)
-Sys.setlocale(category = &#34;LC_ALL&#34;,local=&#34;chinese&#34;)
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">sessionInfo</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Sys.getlocale</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Sys.setlocale</span>(category <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;LC_ALL&#34;</span>,local<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;us&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Sys.setlocale</span>(category <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;LC_ALL&#34;</span>,local<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chinese&#34;</span>)
+</span></span></code></pre></div></li>
 </ul>
 <h2 id="2保存数据编码问题win中">2、保存数据编码问题(win中)</h2>
 <p>由于用Rstudio设置了保存的编码都用UTF-8，所以在保存文件时（特别是csv文件），经常遇到乱码的现象，比如使用data.table:::fwrite()、自带的write.csv()、readr:::write_csv()都乱码</p>
@@ -248,24 +248,24 @@ Sys.setlocale(category = &#34;LC_ALL&#34;,local=&#34;chinese&#34;)
 <ol>
 <li>
 <p>首先下载java ，把java加入环境变量，测试是否安装成功，在cmd命名下输入: java -version,返回</p>
-<pre tabindex="0"><code>C:\Users\zsc&gt;java -version
-java version &#34;1.8.0_151&#34;
-Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>sc&gt;java -version
+</span></span><span style="display:flex;"><span>java version <span style="color:#e6db74">&#34;1.8.0_151&#34;</span>
+</span></span><span style="display:flex;"><span>Java<span style="color:#f92672">(</span>TM<span style="color:#f92672">)</span> SE Runtime Environment <span style="color:#f92672">(</span>build 1.8.0_151-b12<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Java HotSpot<span style="color:#f92672">(</span>TM<span style="color:#f92672">)</span> 64-Bit Server VM <span style="color:#f92672">(</span>build 25.151-b12, mixed mode<span style="color:#f92672">)</span>
+</span></span></code></pre></div></li>
 <li>
 <p>如果上述都没问题，在R中运行rjava还是报错怎么办？比如，导入包library(xlsx)的时候，出错：</p>
 </li>
 </ol>
-<pre tabindex="0"><code>&gt; library(xlsx)
-载入需要的程辑包：rJava
-Error: package or namespace load failed for ‘rJava’:
- loadNamespace()里算&#39;rJava&#39;时.onLoad失败了，详细内容：
-  调用: inDL(x, as.logical(local), as.logical(now), ...)
-  错误: unable to load shared object &#39;D:/Program Files (x86)/R/R-3.4.2/library/rJava/libs/x64/rJava.dll&#39;:
-  LoadLibrary failure:  找不到指定的模块。
-Error: 无法载入程辑包‘rJava’
-</code></pre><p>解决方法：因为在运行R的过程中，通常会需要调用rJava.dll来运行虚拟环境。这种情况，一般是系统中装了JAVA环境后安装其他软件的时候再次装了JAVA的类库rJava.dll，R的运行环境无法调用确认项。找到自己安装的JAVA环境，去配置R的系统环境中的rJava.dll：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">library</span>(xlsx)
+</span></span><span style="display:flex;"><span>载入需要的程辑包：rJava
+</span></span><span style="display:flex;"><span>Error<span style="color:#f92672">:</span> package or namespace load failed for ‘rJava’<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">loadNamespace</span>()里算<span style="color:#e6db74">&#39;rJava&#39;</span>时.onLoad失败了，详细内容：
+</span></span><span style="display:flex;"><span>  调用<span style="color:#f92672">:</span> <span style="color:#a6e22e">inDL</span>(x, <span style="color:#a6e22e">as.logical</span>(local), <span style="color:#a6e22e">as.logical</span>(now), <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>  错误<span style="color:#f92672">:</span> unable to load shared object <span style="color:#e6db74">&#39;D:/Program Files (x86)/R/R-3.4.2/library/rJava/libs/x64/rJava.dll&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  LoadLibrary failure<span style="color:#f92672">:</span>  找不到指定的模块。
+</span></span><span style="display:flex;"><span>Error<span style="color:#f92672">:</span> 无法载入程辑包‘rJava’
+</span></span></code></pre></div><p>解决方法：因为在运行R的过程中，通常会需要调用rJava.dll来运行虚拟环境。这种情况，一般是系统中装了JAVA环境后安装其他软件的时候再次装了JAVA的类库rJava.dll，R的运行环境无法调用确认项。找到自己安装的JAVA环境，去配置R的系统环境中的rJava.dll：</p>
 <p>​			<code>Sys.setenv(JAVA_HOME='D:/Program Files (x86)/Java/jdk1.8.0_144/jre')</code></p>
 <p>再次运行library(xlsx),就可以了！(不过每次都要设置，可以在R的配置文件中更改哦！)</p>
 <h2 id="4ggplot2作图标题无法居中">4、ggplot2作图标题无法居中</h2>
@@ -274,9 +274,9 @@ Error: 无法载入程辑包‘rJava’
 <p>这行就好了</p>
 <h2 id="5r更新">5、R更新</h2>
 <p>Windows系统中使⽤installr 套件的方式来更新R。建议在R终端机（termianl）中操作。</p>
-<pre tabindex="0"><code>install.packages(&#34;installr&#34;) # 安装installr
-installr::updateR() # 未来要更新的R的时候，只要执行这行即可​
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;installr&#34;</span>) <span style="color:#75715e"># 安装installr</span>
+</span></span><span style="display:flex;"><span>installr<span style="color:#f92672">::</span><span style="color:#a6e22e">updateR</span>() <span style="color:#75715e"># 未来要更新的R的时候，只要执行这行即可​</span>
+</span></span></code></pre></div>
         </section>
     </div>
     <br>

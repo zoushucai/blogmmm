@@ -271,24 +271,24 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{document}
 </span></span></code></pre></div><h4 id="方法二">方法二:</h4>
 <p>也可以下载单个的<code>bst</code>文件, 放在<code>.tex</code>所在的目录下,这样使用</p>
-<pre tabindex="0"><code>\documentclass{article}
-\usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用
-\usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接
-
-\usepackage[super,sort&amp;compress,square]{natbib}
-\bibliographystyle{gbt7714-numerical}
-\begin{document}
-正文
-\cite{herrera2004some}
-\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
-\cite{xu2014weak,xu2018methods}
-\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
-\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究}
-
-\bibliography{test}
-
-\end{document}
-</code></pre><h3 id="12--修改默认样式">1.2.  修改默认样式</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\documentclass</span>{article}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[UTF8]</span>{ctex} <span style="color:#75715e">% 中文包,如果含有公式也适用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[colorlinks,linkcolor=red]</span>{hyperref} <span style="color:#75715e">% 超链接
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[super,sort&amp;compress,square]</span>{natbib}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\bibliographystyle</span>{gbt7714-numerical}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{document}
+</span></span><span style="display:flex;"><span>正文
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{herrera2004some}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{xu2014weak,xu2018methods}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\bibliography</span>{test}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{document}
+</span></span></code></pre></div><h3 id="12--修改默认样式">1.2.  修改默认样式</h3>
 <p>在 bst 文件开始处的 load.config 函数中，有一组配置参数用来控制样 式，下表列出了每一项的默认值和功能。若变量被设为<code>#1</code>则表示该项被启用， 设为<code>#0</code>则不启用。默认的值是严格遵循国标的配置。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/2020091514image-20200825124849683.png" alt="image-20200825124849683"></p>
 <h2 id="2-biblatex-格式">2. biblatex 格式</h2>
@@ -297,27 +297,27 @@
 <p>最简单的方法是从本项目源码中下载 gb7714-2015.bbx, gb7714-2015ay.bbx, gb7714-2015.cbx, gb7714-2015ay.cbx 四个文件放到你要编译的主文档所在目录，如果需要使用gbk编码，则还需复制 gb7714-2015-gbk.def 文件。对于已经安装的用户需要更新到最新版，也可以下载这些文件替换系统已经安装的文件。</p>
 </blockquote>
 <p>首先,把后端改为<code>biber</code>, 然后使用<code>biblatex</code>格式来生成参考文献.</p>
-<pre tabindex="0"><code>\documentclass{article}
-\usepackage[UTF8]{ctex} % 中文包,如果含有公式也适用
-\usepackage[colorlinks,linkcolor=red]{hyperref} % 超链接
-
-\usepackage[backend = biber, style=gb7714-2015, gbnamefmt =  lowercase, gbbiblabel=bracket]{biblatex}
-\addbibresource[location=local]{test.bib}
-\renewcommand{\bibfont}{\zihao{5}\songti}%设置参考文献的字体和字号
-\setlength{\bibitemsep}{2pt}%设置各条参考文献之间的间距为2pt
-
-\begin{document}
-。。。正文。。。。。x
-\cite{herrera2004some}
-\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
-\cite{xu2014weak,xu2018methods}
-\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
-\cite{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究}
-
-\printbibliography[heading=bibliography,title=参考文献]
-
-\end{document}
-</code></pre><p>更多详细信息,可参考:<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\documentclass</span>{article}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[UTF8]</span>{ctex} <span style="color:#75715e">% 中文包,如果含有公式也适用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[colorlinks,linkcolor=red]</span>{hyperref} <span style="color:#75715e">% 超链接
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span><span style="color:#a6e22e">[backend = biber, style=gb7714-2015, gbnamefmt =  lowercase, gbbiblabel=bracket]</span>{biblatex}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\addbibresource</span><span style="color:#a6e22e">[location=local]</span>{test.bib}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\renewcommand</span>{<span style="color:#66d9ef">\bibfont</span>}{<span style="color:#66d9ef">\zihao</span>{5}<span style="color:#66d9ef">\songti</span>}<span style="color:#75715e">%设置参考文献的字体和字号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\setlength</span>{<span style="color:#66d9ef">\bibitemsep</span>}{2pt}<span style="color:#75715e">%设置各条参考文献之间的间距为2pt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{document}
+</span></span><span style="display:flex;"><span>。。。正文。。。。。x
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{herrera2004some}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{xu2014weak,xu2018methods}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\cite</span>{刘祖林2018基于近似一致性模糊数判断矩阵的决策模型研究,张吉军2000模糊层次分析法,邓雪2012层次分析法权重计算方法分析及其应用研究}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\printbibliography</span><span style="color:#a6e22e">[heading=bibliography,title=参考文献]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{document}
+</span></span></code></pre></div><p>更多详细信息,可参考:<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
 <p>参考:</p>
 <p>更多详细信息,可参考:<a href="https://github.com/hushidong/biblatex-gb7714-2015">biblatex-gb7714-2015</a></p>
 <p>参考:</p>

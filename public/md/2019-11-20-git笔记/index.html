@@ -355,7 +355,7 @@
 <li>删除储藏 `git stash drop stash@{0}     其中stash@{0} 表示存储的标识.</li>
 <li>应用并删除储藏 <code>git stash pop</code></li>
 </ol>
-<h3 id="44tag">4.4Tag</h3>
+<h3 id="44-tag">4.4 Tag</h3>
 <p>Git 也可以对某一时间点上的版本打上标签 ，用于发布软件版本如 v1.0</p>
 <ol>
 <li>添加标签 <code>git tag v1.0</code></li>
@@ -365,9 +365,9 @@
 <li>删除远程标签 <code>git push origin :v1.0.1</code></li>
 </ol>
 <h3 id="45-生成zip压缩包">4.5 生成zip压缩包</h3>
-<pre tabindex="0"><code>方法一: git archive --format zip --output &#34;./output.zip&#34; master -0
-方法二: git archive --format zip --output dump.zip master
-</code></pre><h3 id="46-移动分支的基础点-产生干净的合并记录---rebase">4.6 移动分支的基础点, 产生干净的合并记录 &ndash;rebase</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>方法一: git archive --format zip --output <span style="color:#e6db74">&#34;./output.zip&#34;</span> master -0
+</span></span><span style="display:flex;"><span>方法二: git archive --format zip --output dump.zip master
+</span></span></code></pre></div><h3 id="46-移动分支的基础点-产生干净的合并记录---rebase">4.6 移动分支的基础点, 产生干净的合并记录 &ndash;rebase</h3>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git05.png" alt="git05"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/git06-20200525194419221.png" alt="git06"></p>
 <h3 id="47-git-压缩提交记录次数">4.7 git 压缩提交记录次数</h3>
@@ -376,14 +376,14 @@
 </span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/image-20200528104231661.png" alt="image-20200528104231661"></p>
 <p><a href="https://blog.csdn.net/xiaowu_zhu/article/details/83345313">https://blog.csdn.net/xiaowu_zhu/article/details/83345313</a></p>
 <h2 id="5-git-别名-alias">5. git 别名 alias</h2>
-<pre tabindex="0"><code># 方式一: 命令设置别名,  a == add .   # 即 git a  == git add .
-$ git config --global alias.a add . 
-$ git config --global alias.c commit
-
-# 方式二: 直接修改配置文件
-$ subl ~/.gitconfig   #用sublime 打开git的配置文件, 注意该配置文件的地址
-# mac 一般在~目录下, win一般也在用户目录下
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 方式一: 命令设置别名,  a == add .   # 即 git a  == git add .</span>
+</span></span><span style="display:flex;"><span>$ git config --global alias.a add . 
+</span></span><span style="display:flex;"><span>$ git config --global alias.c commit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 方式二: 直接修改配置文件</span>
+</span></span><span style="display:flex;"><span>$ subl ~/.gitconfig   <span style="color:#75715e">#用sublime 打开git的配置文件, 注意该配置文件的地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mac 一般在~目录下, win一般也在用户目录下</span>
+</span></span></code></pre></div>
         </section>
     </div>
     <br>

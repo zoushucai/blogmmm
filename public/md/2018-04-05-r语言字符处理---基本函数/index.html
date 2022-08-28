@@ -207,15 +207,15 @@
 </thead>
 <tbody>
 <tr>
-<td>Encoding(x)        <!-- raw HTML omitted -->Encoding(x) &lt;- value  <!-- raw HTML omitted -->enc2native(x)  <!-- raw HTML omitted -->enc2utf8(x)</td>
-<td>读取或设置字符向量的编码<!-- raw HTML omitted -->常结合iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)函数使用<!-- raw HTML omitted -->注意：Encoding(x) &lt;- value 这是一种赋值函数</td>
+<td>Encoding(x)        <br>Encoding(x) &lt;- value  <br>enc2native(x)  <br>enc2utf8(x)</td>
+<td>读取或设置字符向量的编码<br>常结合iconv(x, from = &ldquo;&rdquo;, to = &ldquo;&quot;)函数使用<br>注意：Encoding(x) &lt;- value 这是一种赋值函数</td>
 </tr>
 <tr>
-<td>nchar(x, type = &ldquo;chars&rdquo;, allowNA = FALSE, keepNA = NA)<!-- raw HTML omitted -->nzchar(x, keepNA = FALSE)</td>
-<td>nchar()返回字符长度<!-- raw HTML omitted -->nzchar()判断是否空字符<!-- raw HTML omitted -->keepNA为真是NA保留，不计入计数<!-- raw HTML omitted -->对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。<!-- raw HTML omitted -->对于NULL，nchar和nzchar函数会忽略掉。</td>
+<td>nchar(x, type = &ldquo;chars&rdquo;, allowNA = FALSE, keepNA = NA)<br>nzchar(x, keepNA = FALSE)</td>
+<td>nchar()返回字符长度<br>nzchar()判断是否空字符<br>keepNA为真是NA保留，不计入计数<br>对于缺失值NA，nchar和nzchar函数默认是字符数为2的字符串。<br>对于NULL，nchar和nzchar函数会忽略掉。</td>
 </tr>
 <tr>
-<td>substr(x, start, stop)<!-- raw HTML omitted -->substring(text, first, last = 1000000L)<!-- raw HTML omitted -->substr(x, start, stop) &lt;- value<!-- raw HTML omitted -->substring(text, first, last = 1000000L) &lt;- value</td>
+<td>substr(x, start, stop)<br>substring(text, first, last = 1000000L)<br>substr(x, start, stop) &lt;- value<br>substring(text, first, last = 1000000L) &lt;- value</td>
 <td>提取或替换字符向量的子字段，substring同substr功能一样</td>
 </tr>
 <tr>
@@ -223,19 +223,19 @@
 <td>按显示宽度截断字符串</td>
 </tr>
 <tr>
-<td>paste (&hellip;, sep = &quot; &ldquo;, collapse = NULL)<!-- raw HTML omitted -->paste0(&hellip;, collapse = NULL)</td>
-<td>通过sep连接间隔连接对象,返回字符串向量<!-- raw HTML omitted -->设定collapse的话，会通过collapse连接间隔将上一步的字符串向量连接成一个字符串</td>
+<td>paste (&hellip;, sep = &quot; &ldquo;, collapse = NULL)<br>paste0(&hellip;, collapse = NULL)</td>
+<td>通过sep连接间隔连接对象,返回字符串向量<br>设定collapse的话，会通过collapse连接间隔将上一步的字符串向量连接成一个字符串</td>
 </tr>
 <tr>
 <td>strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE)</td>
-<td>基于split子句分割字符向量x<!-- raw HTML omitted -->fixed为TRUE的话，完全匹配split；否则，基于正则表达式。<!-- raw HTML omitted -->可以使用split=NULL来分割每个字符。</td>
+<td>基于split子句分割字符向量x<br>fixed为TRUE的话，完全匹配split；否则，基于正则表达式。<br>可以使用split=NULL来分割每个字符。</td>
 </tr>
 <tr>
 <td>chartr(old, new, x)</td>
-<td>将x中的字符old变换为字符new<!-- raw HTML omitted -->注意替换的是单个对应的字符，而非字符串</td>
+<td>将x中的字符old变换为字符new<br>注意替换的是单个对应的字符，而非字符串</td>
 </tr>
 <tr>
-<td>tolower(x)<!-- raw HTML omitted -->toupper(x)</td>
+<td>tolower(x)<br>toupper(x)</td>
 <td>大小写转换</td>
 </tr>
 <tr>
@@ -259,7 +259,7 @@
 <tbody>
 <tr>
 <td>grep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE,fixed = FALSE, useBytes = FALSE)</td>
-<td>若x为list，则找出和(参数pattern)匹配的序列编号<!-- raw HTML omitted -->若x为字符串，则判别改字符串中是否包含特定的字符,包含返回1，不包含返回integer(0)<!-- raw HTML omitted -->若x为字符向量,同list<!-- raw HTML omitted -->只找到第一个即可</td>
+<td>若x为list，则找出和(参数pattern)匹配的序列编号<br>若x为字符串，则判别改字符串中是否包含特定的字符,包含返回1，不包含返回integer(0)<br>若x为字符向量,同list<br>只找到第一个即可</td>
 </tr>
 <tr>
 <td>grepl(pattern, x, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
@@ -275,7 +275,7 @@
 </tr>
 <tr>
 <td>regexpr(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
-<td>返回第一个和(参数pattern)匹配的起始位置(或下标)和匹配长度(pattern的长度，若为正则，则是匹配字符串的实际长度)<!-- raw HTML omitted -->若没有则返回: -1</td>
+<td>返回第一个和(参数pattern)匹配的起始位置(或下标)和匹配长度(pattern的长度，若为正则，则是匹配字符串的实际长度)<br>若没有则返回: -1</td>
 </tr>
 <tr>
 <td>gregexpr(pattern, text, ignore.case = FALSE, perl = FALSE,fixed = FALSE, useBytes = FALSE)</td>
@@ -287,11 +287,11 @@
 </tr>
 <tr>
 <td></td>
-<td>共同参数解析：<!-- raw HTML omitted -->   1、fixed = TRUE: 使用精确匹配<!-- raw HTML omitted -->   2、perl = TRUE: 使用Perl风格正则表达式<!-- raw HTML omitted -->   3、fixed = FALSE且perl = FALSE: 使用POSIX 1003.2扩展正则表达式<!-- raw HTML omitted -->   4、 useBytes = TRUE时逐字节匹配，否则逐字符匹配</td>
+<td>共同参数解析：<br>   1、fixed = TRUE: 使用精确匹配<br>   2、perl = TRUE: 使用Perl风格正则表达式<br>   3、fixed = FALSE且perl = FALSE: 使用POSIX 1003.2扩展正则表达式<br>   4、 useBytes = TRUE时逐字节匹配，否则逐字符匹配</td>
 </tr>
 <tr>
-<td>regmatches(x, m, invert = FALSE)<!-- raw HTML omitted -->regmatches(x, m, invert = FALSE) &lt;- value</td>
-<td>抽取或替换正则表达式匹配子串<!-- raw HTML omitted --> invert = TRUE则抽取或替换不匹配子串<!-- raw HTML omitted --> str&lt;-c(&ldquo;Now is &ldquo;,&ldquo;the&rdquo;,&rdquo; time &ldquo;) <!-- raw HTML omitted -->m&lt;-regexpr(&rdquo; +&quot;,str)<!-- raw HTML omitted -->regmatches(str,m)&lt;- &ldquo;9999&rdquo;<!-- raw HTML omitted -->str</td>
+<td>regmatches(x, m, invert = FALSE)<br>regmatches(x, m, invert = FALSE) &lt;- value</td>
+<td>抽取或替换正则表达式匹配子串<br> invert = TRUE则抽取或替换不匹配子串<br> str&lt;-c(&ldquo;Now is &ldquo;,&ldquo;the&rdquo;,&rdquo; time &ldquo;) <br>m&lt;-regexpr(&rdquo; +&quot;,str)<br>regmatches(str,m)&lt;- &ldquo;9999&rdquo;<br>str</td>
 </tr>
 <tr>
 <td>glob2rx(pattern, trim.head = FALSE, trim.tail = TRUE)</td>

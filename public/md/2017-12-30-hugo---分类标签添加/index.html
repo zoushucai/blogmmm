@@ -200,64 +200,60 @@
             <h3 id="分类标签添加">分类标签添加</h3>
 <p>找到single.html的页面 添加，从 <a href="http://fontawesome.io">http://fontawesome.io</a> 下载文件 解压暂时只需要<code>css/font-awesome.min.css</code> 和<code>fontawesome-webfont.woff2</code> 引入到head.html中，</p>
 <h5 id="把下面的代码添加到singlehtml">把下面的代码添加到single.html</h5>
-<pre><code> {{ with .Params.tags }} {{ if ge (len .) 1 }}
-    &lt;div class=&quot;article-headline&quot;&gt;
-      &lt;i class=&quot;fa fa-tags&quot;&gt; &lt;/i&gt;&lt;!-- end--&gt;
-             {{ range . }}
-            &lt;a href=&quot;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&quot;&gt;{{ . }}&lt;/a&gt; {{ end }}
-        &lt;/div&gt;
-        {{ end }} {{ end}}
-</code></pre>
-<h5 id="下面对content下文件夹的引入以及添加相关信息">下面对content\下文件夹的引入以及添加相关信息</h5>
-<pre><code>    &lt;!-- 这个是content\下的post文件夹 --&gt;
-   {{ if eq .Section &quot;post&quot; }}
-    &lt;div class=&quot;article-date&quot;&gt;{{ with .Params.Author }} {{.}} &amp;middot; {{ end }} 字数共{{ .WordCount }} &amp;minus;&amp;minus;{{ .Date.Format &quot;2006/01/02&quot; }} &lt;/div&gt;
-    {{ end }}
-    &lt;!-- 结束 --&gt;
-	
-	
-	&lt;!-- 这个是content\下的test文件夹--&gt;
-    {{ if eq .Section &quot;test&quot; }}
-    &lt;div class=&quot;article-date&quot;&gt;{{ with .Params.Author }} {{.}} &amp;middot; {{ end }} 字数共{{ .WordCount }} &amp;minus;&amp;minus;{{ .Date.Format &quot;2006/01/02&quot; }} &lt;/div&gt;
-    {{ end }}
-    &lt;!-- 结束 --&gt;
-</code></pre>
-<h3 id="2也可以在导航栏添加一个分类汇总页面">2、也可以在导航栏添加一个分类汇总页面</h3>
-<pre><code>[[menu.main]]
-name = &quot;Tag&quot;
-url = &quot;/tags/&quot;
-</code></pre>
-<p>把terms.html文件拷贝到\layouts\ _default下</p>
-<pre tabindex="0"><code>&lt;meta charset=&#34;utf-8&#34;&gt; {{ partial &#34;header.html&#34; . }}
-&lt;main class=&#34;content&#34; role=&#34;main&#34;&gt;
-     &lt;article class=&#34;article&#34;&gt;
-    &lt;div class=&#34;tags0&#34;&gt;
-        &lt;h1 class=&#34;tags1&#34;&gt;分类标签有{{ len .Data.Terms }}个&lt;/h1&gt;
-
-        {{ $data := .Data }} {{ range .Data.Terms.ByCount }} {{ $termLink := printf &#34;/%s/%s/&#34; $data.Plural .Term | urlize }}
-        &lt;h2 class=&#34;tags2&#34;&gt;
-            &lt;a href=&#34;{{ $termLink }}&#34;&gt;{{ .Term }}&lt;/a&gt; 有{{ .Count }}篇
-        &lt;/h2&gt;
-        &lt;div class=&#34;tags3&#34;&gt;
-            &lt;ul&gt;
-            {{ range .Pages | first 5 }}
-            &lt;li&gt;&lt;a href=&#34;{{ .Permalink }}&#34; class=&#34;tags4&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/li&gt;
-            {{ end }} {{ if gt (len .Pages) 5 }}
-            &lt;li&gt;&lt;a href=&#34;{{ $termLink }}&#34; class=&#34;tags4&#34;&gt;……&lt;/a&gt;&lt;/li&gt;
-            {{ end }}
-             &lt;/ul&gt;
-        &lt;/div&gt;
-
-        {{ end }}
-    &lt;/div&gt;
-      &lt;/article&gt;
-&lt;/main&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;{{ &#34;css/fonts.css&#34; | relURL }}&#34; media=&#34;all&#34;&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;{{ &#34;css/main.css&#34; | relURL }}&#34; media=&#34;all&#34;&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;{{ &#34;css/font-awesome.min.css&#34; | relURL }}&#34; media=&#34;all&#34;&gt;
-{{ partial &#34;footer.html&#34; . }}
-</code></pre><p>然后设置自己想要的css样式即可</p>
-<h3 id="heading"></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ with .Params.tags }} {{ if ge (len .) 1 }}
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article-headline&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fa fa-tags&#34;</span>&gt; &lt;/<span style="color:#f92672">i</span>&gt;<span style="color:#75715e">&lt;!-- end--&gt;</span>
+</span></span><span style="display:flex;"><span>            {{ range . }}
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ $.Site.BaseURL }}tags/{{ . | urlize }}&#34;</span>&gt;{{ . }}&lt;/<span style="color:#f92672">a</span>&gt; {{ end }}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ end }} {{ end}}
+</span></span></code></pre></div><h5 id="下面对content下文件夹的引入以及添加相关信息">下面对content\下文件夹的引入以及添加相关信息</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 这个是content\下的post文件夹 --&gt;</span>
+</span></span><span style="display:flex;"><span>{{ if eq .Section &#34;post&#34; }}
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article-date&#34;</span>&gt;{{ with .Params.Author }} {{.}} &amp;middot; {{ end }} 字数共{{ .WordCount }} &amp;minus;&amp;minus;{{ .Date.Format &#34;2006/01/02&#34; }} &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 结束 --&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 这个是content\下的test文件夹--&gt;</span>
+</span></span><span style="display:flex;"><span>{{ if eq .Section &#34;test&#34; }}
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article-date&#34;</span>&gt;{{ with .Params.Author }} {{.}} &amp;middot; {{ end }} 字数共{{ .WordCount }} &amp;minus;&amp;minus;{{ .Date.Format &#34;2006/01/02&#34; }} &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 结束 --&gt;</span>
+</span></span></code></pre></div><h3 id="2也可以在导航栏添加一个分类汇总页面">2、也可以在导航栏添加一个分类汇总页面</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;Tag&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/tags/&#34;</span>
+</span></span></code></pre></div><p>把terms.html文件拷贝到\layouts\ _default下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt; {{ partial &#34;header.html&#34; . }}
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">main</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content&#34;</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;<span style="color:#f92672">article</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags0&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags1&#34;</span>&gt;分类标签有{{ len .Data.Terms }}个&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        {{ $data := .Data }} {{ range .Data.Terms.ByCount }} {{ $termLink := printf &#34;/%s/%s/&#34; $data.Plural .Term | urlize }}
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags2&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ $termLink }}&#34;</span>&gt;{{ .Term }}&lt;/<span style="color:#f92672">a</span>&gt; 有{{ .Count }}篇
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">h2</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags3&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>            {{ range .Pages | first 5 }}
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Permalink }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags4&#34;</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>            {{ end }} {{ if gt (len .Pages) 5 }}
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ $termLink }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags4&#34;</span>&gt;……&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>            {{ end }}
+</span></span><span style="display:flex;"><span>             &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        {{ end }}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">article</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">main</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ &#34;</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">fonts</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">relURL</span> <span style="color:#960050;background-color:#1e0010">}}&#34;</span> <span style="color:#a6e22e">media</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;all&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ &#34;</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">main</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">relURL</span> <span style="color:#960050;background-color:#1e0010">}}&#34;</span> <span style="color:#a6e22e">media</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;all&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ &#34;</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">font-awesome</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">min</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">relURL</span> <span style="color:#960050;background-color:#1e0010">}}&#34;</span> <span style="color:#a6e22e">media</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;all&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>{{ partial &#34;footer.html&#34; . }}
+</span></span></code></pre></div><p>然后设置自己想要的css样式即可</p>
 
         </section>
     </div>

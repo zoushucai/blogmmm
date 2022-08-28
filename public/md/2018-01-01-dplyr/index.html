@@ -259,11 +259,9 @@
 </li>
 <li>
 <p><strong><code>dplyr::%&gt;%</code>：</strong> 将左边的对象作为第一个参数（或参数 .）传递到右边的函数中。利用%&gt;%进行“Piping”管道操作增强了代码的可读性，</p>
-<blockquote>
-<pre tabindex="0"><code>   x %&gt;% f(y) 相当于  f(x, y)
-   y %&gt;% f(x, ., z) 相当于  f(x, y, z )
-</code></pre></blockquote>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>x <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">f</span>(y) 相当于  <span style="color:#a6e22e">f</span>(x, y)    
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">f</span>(x, ., z) 相当于  <span style="color:#a6e22e">f</span>(x, y, z )
+</span></span></code></pre></div></li>
 </ul>
 <h2 id="1filter-行过滤">1、filter 行过滤</h2>
 <ul>
@@ -275,17 +273,17 @@
 <li>**<code>top_n(storms, 2, date) </code>：**选取并排列前n条数据记录 （若为分组数据则按组排序）</li>
 </ul>
 <h2 id="2select-列过滤">2、select 列过滤</h2>
-<pre tabindex="0"><code>rename(.data, ...)
-rename_all(.tbl, .funs = list(), ...)
-rename_if(.tbl, .predicate, .funs = list(), ...)
-rename_at(.tbl, .vars, .funs = list(), ...)
-
-
-select(.data, ...)
-select_all(.tbl, .funs = list(), ...)
-select_if(.tbl, .predicate, .funs = list(), ...)
-select_at(.tbl, .vars, .funs = list(), ...)
-</code></pre><h3 id="arguments">Arguments</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">rename</span>(.data, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rename_all</span>(.tbl, .funs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(), <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rename_if</span>(.tbl, .predicate, .funs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(), <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rename_at</span>(.tbl, .vars, .funs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(), <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">select</span>(.data, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">select_all</span>(.tbl, .funs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(), <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">select_if</span>(.tbl, .predicate, .funs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(), <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">select_at</span>(.tbl, .vars, .funs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(), <span style="color:#66d9ef">...</span>)
+</span></span></code></pre></div><h3 id="arguments">Arguments</h3>
 <table>
 <thead>
 <tr>
@@ -300,15 +298,15 @@ select_at(.tbl, .vars, .funs = list(), ...)
 </tr>
 <tr>
 <td><code>...</code></td>
-<td>Additional arguments for the function calls in <code>.funs</code>. These are evaluated only once, with <a href="http://127.0.0.1:31926/help/library/rlang/html/tidy-dots.html">tidy dots</a> support. <!-- raw HTML omitted -->注意: .funs一般是一个函数列表,处理自变量之外,一般不知道额外参数,要指定额外参数,此时需要在这里特别指定.</td>
+<td>Additional arguments for the function calls in <code>.funs</code>. These are evaluated only once, with <a href="http://127.0.0.1:31926/help/library/rlang/html/tidy-dots.html">tidy dots</a> support. <br>注意: .funs一般是一个函数列表,处理自变量之外,一般不知道额外参数,要指定额外参数,此时需要在这里特别指定.</td>
 </tr>
 <tr>
 <td><code>.predicate</code></td>
-<td>A predicate function to be applied to the columns or a logical vector. The variables for which <code>.predicate</code> is or returns <code>TRUE</code>are selected. This argument is passed to<code>rlang::as_function()</code> and thus supports quosure-style lambda functions and strings representing function names.<!-- raw HTML omitted -->直译过来,指的是谓词函数, 必须是返回<code>ture</code> or <code>false</code> 的逻辑函数. 像<code>is.character,all,is.null</code>等等.</td>
+<td>A predicate function to be applied to the columns or a logical vector. The variables for which <code>.predicate</code> is or returns <code>TRUE</code>are selected. This argument is passed to<code>rlang::as_function()</code> and thus supports quosure-style lambda functions and strings representing function names.<br>直译过来,指的是谓词函数, 必须是返回<code>ture</code> or <code>false</code> 的逻辑函数. 像<code>is.character,all,is.null</code>等等.</td>
 </tr>
 <tr>
 <td><code>.vars</code></td>
-<td>A list of columns generated by <code>vars()</code>, a character vector of column names, a numeric vector of column positions, or <code>NULL</code>.<!-- raw HTML omitted --> 可以用字符串 或者列索引(数字) 组成的列,匹配列名用</td>
+<td>A list of columns generated by <code>vars()</code>, a character vector of column names, a numeric vector of column positions, or <code>NULL</code>.<br> 可以用字符串 或者列索引(数字) 组成的列,匹配列名用</td>
 </tr>
 </tbody>
 </table>

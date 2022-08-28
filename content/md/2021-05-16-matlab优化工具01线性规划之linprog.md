@@ -68,12 +68,11 @@ $$
 \textbf{A} \cdot x \leq b \\
 \textbf{Aeq} \cdot x=beq \\
 lb \leq x \leq ub
-\end{cases}\\ \\
-& f^T, x, b, beq是向量, \\
-& \textbf{A}, \textbf{Aeq}是矩阵,\\
-&\textbf{A}线性不等式,\textbf{Aeq}线性等式,\\
+\end{cases}
 \end{aligned}
 $$
+其中 $f^T, x, b, beq$ 是向量, $\textbf{A}, \textbf{Aeq}$是矩阵,$\textbf{A}$ 线性不等式, $\textbf{Aeq}$ 线性等式,
+
 
 ### matlab 实现线性规划 --- linprog
 
@@ -88,6 +87,7 @@ x = linprog(problem)
 ### 例1 线性规划
 
 $$
+\begin{aligned}
 min \quad f(x) = -5x_1 - 4x_2 - 6x_3 \\
 s.t. \begin{cases}
 x_1 - x_2 + x_3 \leq 20\\
@@ -95,6 +95,7 @@ x_1 - x_2 + x_3 \leq 20\\
 3x_1+2x_2 \leq 30\\
 x_1,x_2,x_3 \geq 0
 \end{cases}
+\end{aligned}
 $$
 
 ``` matlab

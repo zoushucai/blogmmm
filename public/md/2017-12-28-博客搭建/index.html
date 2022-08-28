@@ -202,12 +202,12 @@
         <section id="content">
             <h4 id="1下载安装配置好r与rstudio">1、下载安装、配置好R与Rstudio</h4>
 <h4 id="2打开rstudio----下载blogdown包">2、打开Rstudio&mdash;-下载blogdown包</h4>
-<pre tabindex="0"><code>if(!require(devtools)) install.packages(&#39;devtools&#39;)
-devtools::install_github(&#39;rstudio/blogdown&#39;)
-</code></pre><p>等待安装，缺什么安装什么，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">require</span>(devtools)) <span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;devtools&#39;</span>)
+</span></span><span style="display:flex;"><span>devtools<span style="color:#f92672">::</span><span style="color:#a6e22e">install_github</span>(<span style="color:#e6db74">&#39;rstudio/blogdown&#39;</span>)
+</span></span></code></pre></div><p>等待安装，缺什么安装什么，</p>
 <h4 id="3在rstudio中安装hugo软件只需运行下面函数即可">3、在rstudio中安装hugo软件,只需运行下面函数即可</h4>
-<pre tabindex="0"><code>blogdown::install_hugo()
-</code></pre><p>注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>blogdown<span style="color:#f92672">::</span><span style="color:#a6e22e">install_hugo</span>()
+</span></span></code></pre></div><p>注意：他会自动安装hugo软件，不过很小，10m一下，找到下载的hugo.exe文件路径，把他添加到电脑的环境变量中，不然后面会出错，软件可以随便放位置，切记加入环境变量中</p>
 <h4 id="4创建测试网站">4、创建测试网站</h4>
 <ul>
 <li>可用命令blogdown::new_site(),</li>

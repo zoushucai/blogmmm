@@ -22,7 +22,14 @@
       <pubDate>Thu, 14 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>/matlab/2019-11-14-matlab_rcpp_c/</guid>
-      <description>*Armadillo + Rcpp VS MATLAB/octave http://arma.sourceforge.net/docs.html 1. Armadillo VS matlab Matlab/Octave Armadillo Notes A,B,C代表矩阵a,b,c 代表向量 vec x(10);vec y = zeros(10);rowvec x(10); rowvec y = zeros(10); rowvec a = {1,2,3,4};vec b = {1,2,3,4};mat A = randu(10,10); C++中要声明向量类型(这里都是 double 类型)vec 默认 colvec(等价),是列向量 A(1,1) A(0,0) C++ 索引从 0 开始 A(k,k) A(k-1,k-1) size(A,1) A.n_rows C++ 中直接利用对象的属性 size(A,2) A.n_cols size(Q,3) Q.n_slices 这里 Q 是一个三维数组 numel(A)length(A(:)) A.n_elem 矩阵 A 中所有元素的个数,行数$\times$ 列数 A(:, k) A.col(k) 注意这里的索引问题,为了方便 这里不做转换 A(k, :) A.</description>
+      <description>*Armadillo + Rcpp VS MATLAB/octave http://arma.sourceforge.net/docs.html 1. Armadillo VS matlab Matlab/Octave Armadillo Notes A,B,C代表矩阵
+a,b,c 代表向量 vec x(10);
+vec y = zeros(10);
+rowvec x(10); rowvec y = zeros(10); rowvec a = {1,2,3,4};vec b = {1,2,3,4};
+mat A = randu(10,10); C++中要声明向量类型
+(这里都是 double 类型)
+vec 默认 colvec(等价),是列向量 A(1,1) A(0,0) C++ 索引从 0 开始 A(k,k) A(k-1,k-1) size(A,1) A.n_rows C++ 中直接利用对象的属性 size(A,2) A.n_cols size(Q,3) Q.n_slices 这里 Q 是一个三维数组 numel(A)
+length(A(:)) A.n_elem 矩阵 A 中所有元素的个数,行数$\times$ 列数 A(:, k) A.</description>
     </item>
     
     <item>

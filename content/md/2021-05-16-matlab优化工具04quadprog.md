@@ -42,7 +42,7 @@ $$
 
 #### matlab 函数— —  quadprog
 
-```
+```Matlab
 %% 语法
 x = quadprog(H,f,A,b,Aeq,beq,lb,ub)
 x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0)

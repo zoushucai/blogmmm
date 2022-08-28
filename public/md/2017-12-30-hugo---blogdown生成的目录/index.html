@@ -198,25 +198,25 @@
         
         <section id="content">
             <h4 id="1先介绍一下有hugo生成的目录">1、先介绍一下有hugo生成的目录</h4>
-<pre tabindex="0"><code>站点下面的目录和必须的文件由hugo自己生成。一般它是这样的：
-
-archetypes/                 : 全局原型，也就是内容模板。
-|____default.md             : 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板
-content/                    ：内容，存放“XXX.md”/&#34;XXX&gt;Rmd&#34;文件，文件名可以用中文
-data/                       ：存放数据文件
-layouts/                    ：和archetypes一起将被我们的主题覆盖掉
-public/                     ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。
-static/                     ：静态目录，完全复制到public。比如图片、js、php脚本
-themes/                     ：主题目录，一个站可有多个主题，就像换衣服
-|____aaa                    ：主题aaa，可以有很多个
-|____bbb                    ：主题bbb
-     |____archetypes        : 主题的内容模板
-     |____layouts           ：布局，就是html模板
-     |____static            ：静态的，放主题的js，css文件
-     |____LICENSE.md        ：这个，呵呵，不说大家也知道
-     |____theme.toml        ：主题的信息配置
-config.toml                 ：站点配置文件，可以配置站点名字等等很多信息
-</code></pre><p>主题部分并未全部介绍，这个将在主题部分详细讲解。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>站点下面的目录和必须的文件由hugo自己生成。一般它是这样的：
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>archetypes<span style="color:#f92672">/</span>                 <span style="color:#f92672">:</span> 全局原型，也就是内容模板。
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span>____default.md             <span style="color:#f92672">:</span> 默认的内容模板，你可以设置好文件头部分，或者为不同的类型设置模板
+</span></span><span style="display:flex;"><span>content<span style="color:#f92672">/</span>                    ：内容，存放“XXX.md”<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;XXX&gt;Rmd&#34;</span>文件，文件名可以用中文
+</span></span><span style="display:flex;"><span>data<span style="color:#f92672">/</span>                       ：存放数据文件
+</span></span><span style="display:flex;"><span>layouts<span style="color:#f92672">/</span>                    ：和archetypes一起将被我们的主题覆盖掉
+</span></span><span style="display:flex;"><span>public<span style="color:#f92672">/</span>                     ：生成目录，所有的静态页面都在这里，上传服务器仅传这个就行。
+</span></span><span style="display:flex;"><span>static<span style="color:#f92672">/</span>                     ：静态目录，完全复制到public。比如图片、js、php脚本
+</span></span><span style="display:flex;"><span>themes<span style="color:#f92672">/</span>                     ：主题目录，一个站可有多个主题，就像换衣服
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span>____aaa                    ：主题aaa，可以有很多个
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span>____bbb                    ：主题bbb
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">|</span>____archetypes        <span style="color:#f92672">:</span> 主题的内容模板
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">|</span>____layouts           ：布局，就是html模板
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">|</span>____static            ：静态的，放主题的js，css文件
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">|</span>____LICENSE.md        ：这个，呵呵，不说大家也知道
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">|</span>____theme.toml        ：主题的信息配置
+</span></span><span style="display:flex;"><span>config.toml                 ：站点配置文件，可以配置站点名字等等很多信息
+</span></span></code></pre></div><p>主题部分并未全部介绍，这个将在主题部分详细讲解。</p>
 <h4 id="2静态文件">2、静态文件</h4>
 <p>不需要hugo处理的文件叫做静态文件。存放在 <strong>站点的static</strong> 目录是个好主意。</p>
 <blockquote>
@@ -234,49 +234,49 @@ config.toml                 ：站点配置文件，可以配置站点名字等�
 <p>congfig.toml该文件默认支持的<a href="http://www.zimustudio.com/hugo/hugopeizhi.html">全部参数</a>：可以用键值对，也可以用赋值语句</p>
 <p>以 hugo-lithium-theme主题为例</p>
 <p>介绍几个后面可能会用的参数</p>
-<pre tabindex="0"><code>baseurl = &#34;http://qaz.netlify.com&#34;    # 基础路径,当自己有网站的时候就写自己的
-relativeurls = true                    #使用想对路径方便本地浏览
-languageCode = &#34;zh-cn&#34;                #编码
-title = &#34;A Hugo website&#34;			#网站的title
-theme = &#34;hugo-lithium-theme&#34;
-googleAnalytics = &#34;&#34;                 #谷歌网站分析添加自己的id，形如：UA-XXXXXX-X
-disqusShortname = &#34;http-qaz-netlify-com&#34;  # disqusShortname 的名字，一定要找准
-ignoreFiles = [&#34;\\.Rmd$&#34;, &#34;\\.Rmarkdown$&#34;, &#34;_files$&#34;, &#34;_cache$&#34;] 
-hasCJKLanguage = true         #若要统计中文字数设置为ture,默认统计英文
-</code></pre><h4 id="4自定义信息">4、自定义信息</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseurl</span> = <span style="color:#e6db74">&#34;http://qaz.netlify.com&#34;</span>    <span style="color:#75715e"># 基础路径,当自己有网站的时候就写自己的</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">relativeurls</span> = <span style="color:#66d9ef">true</span>                    <span style="color:#75715e">#使用想对路径方便本地浏览</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#34;zh-cn&#34;</span>                <span style="color:#75715e">#编码</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;A Hugo website&#34;</span>			<span style="color:#75715e">#网站的title</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;hugo-lithium-theme&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">googleAnalytics</span> = <span style="color:#e6db74">&#34;&#34;</span>                 <span style="color:#75715e">#谷歌网站分析添加自己的id，形如：UA-XXXXXX-X</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">disqusShortname</span> = <span style="color:#e6db74">&#34;http-qaz-netlify-com&#34;</span>  <span style="color:#75715e"># disqusShortname 的名字，一定要找准</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ignoreFiles</span> = [<span style="color:#e6db74">&#34;\\.Rmd$&#34;</span>, <span style="color:#e6db74">&#34;\\.Rmarkdown$&#34;</span>, <span style="color:#e6db74">&#34;_files$&#34;</span>, <span style="color:#e6db74">&#34;_cache$&#34;</span>] 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hasCJKLanguage</span> = <span style="color:#66d9ef">true</span>         <span style="color:#75715e">#若要统计中文字数设置为ture,默认统计英文</span>
+</span></span></code></pre></div><h4 id="4自定义信息">4、自定义信息</h4>
 <p>站点配置文件并不是只能存放默认的配置项目的，它一样可以存放自定义的数据，并且在模版中被调用。</p>
 <p>下面是本站的目录的自定义信息：</p>
-<pre tabindex="0"><code>[permalinks]
-    post = &#34;/:year/:month/:day/:slug/&#34;
-
-[[menu.main]]
-    name = &#34;About&#34;
-    url = &#34;/about/&#34;
-[[menu.main]]
-    name = &#34;GitHub&#34;
-    url = &#34;https://github.com/rstudio/blogdown&#34;
-[[menu.main]]
-    name = &#34;Twitter&#34;
-    url = &#34;https://twitter.com/rstudio&#34;
-
-[params]
-    description = &#34;A website built through Hugo and blogdown.&#34;
-
-    # options for highlight.js (version, additional languages, and theme)
-    highlightjsVersion = &#34;9.11.0&#34;
-    highlightjsCDN = &#34;//cdn.bootcss.com&#34;
-    highlightjsLang = [&#34;r&#34;, &#34;yaml&#34;]
-    highlightjsTheme = &#34;github&#34;
-
-    MathJaxCDN = &#34;//cdn.bootcss.com&#34;
-    MathJaxVersion = &#34;2.7.1&#34;
-
-    [params.logo]
-    url = &#34;logo.png&#34;
-    width = 50
-    height = 50
-    alt = &#34;Logo&#34;
-</code></pre><p>找到<code>E:\test_blog\themes\hugo-lithium-theme\layouts\</code> 下面有两个文件夹</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">permalinks</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">post</span> = <span style="color:#e6db74">&#34;/:year/:month/:day/:slug/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;About&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about/&#34;</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;GitHub&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;https://github.com/rstudio/blogdown&#34;</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;Twitter&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;https://twitter.com/rstudio&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;A website built through Hugo and blogdown.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># options for highlight.js (version, additional languages, and theme)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">highlightjsVersion</span> = <span style="color:#e6db74">&#34;9.11.0&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">highlightjsCDN</span> = <span style="color:#e6db74">&#34;//cdn.bootcss.com&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">highlightjsLang</span> = [<span style="color:#e6db74">&#34;r&#34;</span>, <span style="color:#e6db74">&#34;yaml&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">highlightjsTheme</span> = <span style="color:#e6db74">&#34;github&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">MathJaxCDN</span> = <span style="color:#e6db74">&#34;//cdn.bootcss.com&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">MathJaxVersion</span> = <span style="color:#e6db74">&#34;2.7.1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">logo</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;logo.png&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">width</span> = <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">height</span> = <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">alt</span> = <span style="color:#e6db74">&#34;Logo&#34;</span>
+</span></span></code></pre></div><p>找到<code>E:\test_blog\themes\hugo-lithium-theme\layouts\</code> 下面有两个文件夹</p>
 <p>一个<code>_default/</code> <code> partials/</code></p>
 
         </section>

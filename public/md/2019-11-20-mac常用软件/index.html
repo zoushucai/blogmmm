@@ -201,89 +201,74 @@
 <pre tabindex="0"><code>xcode-select --install
 </code></pre><h2 id="2-homebrew-主页--httpsbrewsh">2.<code> homebrew</code> 主页:  <a href="https://brew.sh/">https://brew.sh/</a></h2>
 <h3 id="21安装">2.1安装</h3>
-<pre tabindex="0"><code>/usr/bin/ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;
-</code></pre><h3 id="22-卸载未试过">2.2 卸载(未试过)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/bin/ruby -e <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><h3 id="22-卸载未试过">2.2 卸载(未试过)</h3>
 <p>方法一: 网上找的,</p>
 <p>可参考: <a href="https://blog.csdn.net/qq_41234116/article/details/79366454">https://blog.csdn.net/qq_41234116/article/details/79366454</a></p>
 <p>方法 2: 官方版本</p>
-<pre tabindex="0"><code>ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&#34;
-</code></pre><p><a href="https://github.com/Homebrew/brew/blob/master/docs/FAQ.md">https://github.com/Homebrew/brew/blob/master/docs/FAQ.md</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ruby -e <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p><a href="https://github.com/Homebrew/brew/blob/master/docs/FAQ.md">https://github.com/Homebrew/brew/blob/master/docs/FAQ.md</a></p>
 <p><a href="https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew">https://stackoverflow.com/questions/23251665/how-to-uninstall-homebrew</a></p>
 <h3 id="23-安装包-和卸载包">2.3 安装包 和卸载包</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install &lt;packageName&gt;     % 这个安装的是只有命令行的工具
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew cask install google-chrome   % 注意 brew cask install  安装的是有图像界面的 app
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew uninstall &lt;packageName&gt;
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew cask uninstall &lt;packageName&gt;
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew list    % 已安装列表
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew update   % 注意每次使用这个是 都很慢, 可进行源的更新
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew cask search &lt;packageName&gt;  %查询&lt;packageName&gt;
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew cask info &lt;packageName&gt;   % 查看版本信息
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew config             %查看brew配置
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew outdated   % 查看那些包（软件）可以更新
 </span></span><span style="display:flex;"><span>brew upgrade             <span style="color:#75715e"># 更新所有的包，Homebrew 会安装新版本的包，但旧版本仍然会保留</span>
 </span></span><span style="display:flex;"><span>brew upgrade $FORMULA    <span style="color:#75715e"># 更新指定的包</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew cleanup             <span style="color:#75715e"># 清理所有包的旧版本，将旧有的软件安装包进行清理</span>
 </span></span><span style="display:flex;"><span>brew cleanup $FORMULA    <span style="color:#75715e"># 清理指定包的旧版本</span>
 </span></span><span style="display:flex;"><span>brew cleanup -n          <span style="color:#75715e"># 查看可清理的旧版本包，不执行实际操作</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>brew cask install qlcolorcode  <span style="color:#75715e"># 预览使得文本具有颜色,即给代码上色</span>
 </span></span><span style="display:flex;"><span>brew cask install qlstephen  <span style="color:#75715e"># 语法高亮</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">### 更新brew cask 安装过的软件...</span>
 </span></span><span style="display:flex;"><span>brew cask outdated <span style="color:#75715e"># 查看过时的软件</span>
 </span></span><span style="display:flex;"><span>brew cask upgrade  <span style="color:#75715e"># 更新所有过时的软件</span>
 </span></span><span style="display:flex;"><span>brew cask upgrade *** <span style="color:#75715e"># 更新指定软件</span>
-</span></span><span style="display:flex;"><span>brew cask reinstall qq         % 推荐，直接重新安装
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>brew cask reinstall qq         <span style="color:#75715e">#推荐，直接重新安装</span>
 </span></span><span style="display:flex;"><span>超级右键   macApp 安装
 </span></span></code></pre></div><h3 id="24-homebrew-的清华更新源">2.4 homebrew 的清华更新源</h3>
 <p>清华镜像官网:</p>
 <p><a href="https://mirror.tuna.tsinghua.edu.cn/help/homebrew/">https://mirror.tuna.tsinghua.edu.cn/help/homebrew/</a></p>
 <p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/">https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/</a></p>
 <p>下面给出清华镜像官网链接(注意在 终端下直接运行下面的<strong>四句命令</strong>即可), ,<strong>一般情况下,替换镜像的命令镜像网站会给出,所以以后要进行更新源的操作,直接去相应的镜像网站找更新命令</strong></p>
-<pre tabindex="0"><code>git -C &#34;$(brew --repo)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
-
-git -C &#34;$(brew --repo homebrew/core)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
-
-git -C &#34;$(brew --repo homebrew/cask)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
-
-brew update
-</code></pre><p>复原</p>
-<pre tabindex="0"><code>git -C &#34;$(brew --repo)&#34; remote set-url origin https://github.com/Homebrew/brew.git
-
-git -C &#34;$(brew --repo homebrew/core)&#34; remote set-url origin https://github.com/Homebrew/homebrew-core.git
-
-git -C &#34;$(brew --repo homebrew/cask)&#34; remote set-url origin https://github.com/Homebrew/homebrew-cask.git
-
-brew update
-</code></pre><p>还可以参考::https://www.cnblogs.com/DjangoBlogs/p/10762310.html</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>brew update
+</span></span></code></pre></div><p>复原</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/brew.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/homebrew-core.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/homebrew-cask.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>brew update
+</span></span></code></pre></div><p>还可以参考::https://www.cnblogs.com/DjangoBlogs/p/10762310.html</p>
 <h3 id="25homebrew-bottles-镜像使用帮助">2.5Homebrew-bottles 镜像使用帮助</h3>
 <p><strong>注:该镜像是 Homebrew 二进制预编译包的镜像。本镜像站同时提供 Homebrew 的 formula 索引的镜像（即 brew update 时所更新内容），请参考Homebrew 镜像使用帮助。</strong></p>
 <h4 id="251临时替换">2.5.1临时替换</h4>
-<pre tabindex="0"><code>export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
-</code></pre><h4 id="252长期替换">2.5.2长期替换</h4>
-<pre tabindex="0"><code>echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre><p>注意: 个人理解  Homebrew-bottles 安装的是 类似安装包的形式,即编译好的包.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export HOMEBREW_BOTTLE_DOMAIN<span style="color:#f92672">=</span>https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+</span></span></code></pre></div><h4 id="252长期替换">2.5.2长期替换</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#39;</span> &gt;&gt; ~/.bash_profile
+</span></span><span style="display:flex;"><span>source ~/.bash_profile
+</span></span></code></pre></div><p>注意: 个人理解  Homebrew-bottles 安装的是 类似安装包的形式,即编译好的包.</p>
 <h3 id="26-homebrew-关闭自动更新">2.6 Homebrew 关闭自动更新</h3>
 <h4 id="251临时关闭">2.5.1临时关闭</h4>
-<pre tabindex="0"><code>export HOMEBREW_NO_AUTO_UPDATE=true
-</code></pre><h4 id="252长期关闭">2.5.2长期关闭</h4>
-<pre tabindex="0"><code>echo &#39;export HOMEBREW_NO_AUTO_UPDATE=true&#39; &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre><h3 id="27-mac-linux命令解释">2.7 mac Linux命令解释</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export HOMEBREW_NO_AUTO_UPDATE<span style="color:#f92672">=</span>true
+</span></span></code></pre></div><h4 id="252长期关闭">2.5.2长期关闭</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;export HOMEBREW_NO_AUTO_UPDATE=true&#39;</span> &gt;&gt; ~/.bash_profile
+</span></span><span style="display:flex;"><span>source ~/.bash_profile
+</span></span></code></pre></div><h3 id="27-mac-linux命令解释">2.7 mac Linux命令解释</h3>
 <ul>
 <li>
 <p><code>export A = B</code> 把 B 写入 A中,不过重启后无效, 还可以设置环境变量,不过 mac 一般会自动配置,不怎么用这个,用的较多的是<code>~/.bash_profile</code>文件来管理环境变量.</p>
@@ -344,34 +329,34 @@ source ~/.bash_profile
 </li>
 <li>
 <p>baidunetdisk %百度网盘</p>
-<pre tabindex="0"><code>brew cask install google-chrome
-brew cask install typora
-brew cask install sublime-text	 
-brew cask install github
-brew cask install mathpix-snipping-tool
-brew cask install tencent-lemon
-brew cask install contexts
-brew cask install firefox
-brew cask install the-unarchiver 
-brew cask install keka
-		brew cask install qq
-					brew cask install iina 
-brew cask install mounty 
-			brew cask install baidunetdisk 
-</code></pre><pre tabindex="0"><code></code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew cask install google-chrome
+</span></span><span style="display:flex;"><span>brew cask install typora
+</span></span><span style="display:flex;"><span>brew cask install sublime-text	 
+</span></span><span style="display:flex;"><span>brew cask install github
+</span></span><span style="display:flex;"><span>brew cask install mathpix-snipping-tool
+</span></span><span style="display:flex;"><span>brew cask install tencent-lemon
+</span></span><span style="display:flex;"><span>brew cask install contexts
+</span></span><span style="display:flex;"><span>brew cask install firefox
+</span></span><span style="display:flex;"><span>brew cask install the-unarchiver 
+</span></span><span style="display:flex;"><span>brew cask install keka
+</span></span><span style="display:flex;"><span>		brew cask install qq
+</span></span><span style="display:flex;"><span>					brew cask install iina 
+</span></span><span style="display:flex;"><span>brew cask install mounty 
+</span></span><span style="display:flex;"><span>			brew cask install baidunetdisk 
+</span></span></code></pre></div><pre tabindex="0"><code></code></pre></li>
 <li>
 <p>loopback: 收费软件,需要找到破解版,不建议用这个安装,结合 mac 自带的录屏软件,可以录制有声音的视频,不管是系统声音还是软件声音都行.</p>
-<pre tabindex="0"><code>brew cask install loopback
-</code></pre><pre tabindex="0"><code></code></pre></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew cask install loopback
+</span></span></code></pre></div><pre tabindex="0"><code></code></pre></li>
 <li>
 <p>java 的安装,个人建议还是从官网下载安装对应的版本,我记得第一次试的时候,好像没有配置成功</p>
-<pre tabindex="0"><code>% 先安装 r 以及 rstudio 在安装java, 看能否配置成功
-		brew cask install r
-			brew cask install rstudio
-
-brew cask install java   %将会安装jdk的最新版本，jdk内嵌jre
-brew cask install java8  %安装jdk8的最新版本
-</code></pre><p>``</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>% 先安装 r 以及 rstudio 在安装java, 看能否配置成功
+</span></span><span style="display:flex;"><span>		brew cask install r
+</span></span><span style="display:flex;"><span>			brew cask install rstudio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>brew cask install java   %将会安装jdk的最新版本，jdk内嵌jre
+</span></span><span style="display:flex;"><span>brew cask install java8  %安装jdk8的最新版本
+</span></span></code></pre></div><p>``</p>
 </li>
 <li>
 <p>grammarly : 语法安装软件, 个人不推荐,因为有浏览器插件就够了</p>
@@ -392,12 +377,13 @@ brew cask install java8  %安装jdk8的最新版本
 <p>jabref  % 建议安装开发版本,这个默认是稳定版本</p>
 </li>
 </ul>
-<pre tabindex="0"><code>brew cask install grammarly	
-brew cask install cajviewer	
-brew cask install zotero
-brew cask install mendeley
-brew cask install jabref     % 建议安装开发版本,这个默认是稳定版本s
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew cask install grammarly	
+</span></span><span style="display:flex;"><span>brew cask install cajviewer	
+</span></span><span style="display:flex;"><span>brew cask install zotero
+</span></span><span style="display:flex;"><span>brew cask install mendeley
+</span></span><span style="display:flex;"><span>brew cask install jabref     
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 建议安装开发版本,这个默认是稳定版本s</span>
+</span></span></code></pre></div>
         </section>
     </div>
     <br>

@@ -297,12 +297,10 @@
 \textbf{A} \cdot x \leq b \
 \textbf{Aeq} \cdot x=beq \
 lb \leq x \leq ub
-\end{cases}\ \
-&amp; f^T, x, b, beq是向量, \
-&amp; \textbf{A}, \textbf{Aeq}是矩阵,\
-&amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
+\end{cases}
 \end{aligned}
-$$</p>
+$$
+其中 $f^T, x, b, beq$ 是向量, $\textbf{A}, \textbf{Aeq}$是矩阵,$\textbf{A}$ 线性不等式, $\textbf{Aeq}$ 线性等式,</p>
 <h3 id="matlab-实现线性规划-----linprog">matlab 实现线性规划 &mdash; linprog</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">% 语法</span>
 </span></span><span style="display:flex;"><span>x = linprog(f,A,b,Aeq,beq,lb,ub,options)
@@ -311,6 +309,7 @@ $$</p>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">%% 如果不存在某个约束或变量,设置为空即可</span>
 </span></span></code></pre></div><h3 id="例1-线性规划">例1 线性规划</h3>
 <p>$$
+\begin{aligned}
 min \quad f(x) = -5x_1 - 4x_2 - 6x_3 \
 s.t. \begin{cases}
 x_1 - x_2 + x_3 \leq 20\
@@ -318,6 +317,7 @@ x_1 - x_2 + x_3 \leq 20\
 3x_1+2x_2 \leq 30\
 x_1,x_2,x_3 \geq 0
 \end{cases}
+\end{aligned}
 $$</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#75715e">%% matlab 实现 --- 方法一</span>
 </span></span><span style="display:flex;"><span>clc, clear all;

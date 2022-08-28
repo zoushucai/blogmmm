@@ -199,10 +199,9 @@
         <section id="content">
             <h3 id="1随机采样sample---例iris数据">1.随机采样sample()&mdash;例：iris数据</h3>
 <blockquote>
-<p><!-- raw HTML omitted --> sample(x, size, replace = FALSE, prob = NULL) <!-- raw HTML omitted --></p>
+<p><font color='blue'> sample(x, size, replace = FALSE, prob = NULL) </font></p>
 </blockquote>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">
-Index = sample(nrow(iris),size = nrow(iris)*0.8)
+<pre tabindex="0"><code class="language-{r}" data-lang="{r}">Index = sample(nrow(iris),size = nrow(iris)*0.8)
 trian_data = iris[Index,]  #作为训练集
 test_data = iris[-Index,]   #作为测试集
 </code></pre><p>类似的还有dplyr包中的<code>sample_n</code>函数</p>
@@ -211,7 +210,7 @@ test_data = iris[-Index,]   #作为测试集
 </blockquote>
 <h3 id="2-carte包--createdatepartition-来进行分区抽样">2. carte包&ndash;createDatePartition 来进行分区抽样</h3>
 <blockquote>
-<p><!-- raw HTML omitted -->inTrain =createDataPartition(响应变量y ,p=0.8,list=FALSE)<!-- raw HTML omitted --></p>
+<p><font color="blue">inTrain =createDataPartition(响应变量y ,p=0.8,list=FALSE)</font></p>
 </blockquote>
 <ul>
 <li><strong>inTrain</strong> :  产生对应数据集行的索引</li>

@@ -255,14 +255,10 @@
 c(x) \leq 0 \
 \operatorname{ceq}(x)=0 \
 l b \leq x \leq u b
-\end{cases}\ \
-&amp; f(x)是目标函数, x, b, beq是向量, \
-&amp; \textbf{A}, \textbf{Aeq}是矩阵,\
-&amp; c(x) 和 ceq(x) 是向量函數 \
-&amp;\textbf{A}线性不等式,\textbf{Aeq}线性等式,\
-&amp;c(x) 非线性不等式, ceq(x)非线性等式  \
+\end{cases}
 \end{aligned}
 $$</p>
+<p>其中 $f(x)$是目标函数, $x, b, beq$ 是向量, $\textbf{A}, \textbf{Aeq}$是矩阵,$c(x)$ 和 $ceq(x)$ 是向量函數, $\textbf{A}$线性不等式,$\textbf{Aeq}$线性等式, $c(x)$ 非线性不等式, $ceq(x)$非线性等式</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>(求解最小值)语法:
 </span></span><span style="display:flex;"><span>x = ga(fun,nvars,A,b,[],[],lb,ub,nonlcon,IntCon,options)
 </span></span><span style="display:flex;"><span>[x,fval,exitflag,output,population,scores] = ga(___)
@@ -303,7 +299,7 @@ $$</p>
 <tbody>
 <tr>
 <td><code>ConstraintTolerance</code></td>
-<td>用以确定非线性约束的可行性,<!-- raw HTML omitted -->对于选项结构，请使用TolCon。</td>
+<td>用以确定非线性约束的可行性,<br>对于选项结构，请使用TolCon。</td>
 <td>Positive scalar | <code>{1e-3}</code></td>
 </tr>
 <tr>
@@ -339,7 +335,7 @@ $$</p>
 <tr>
 <td><code>FitnessLimit</code></td>
 <td><strong>NM</strong>, 如果适应度函数的值达到 FitnessLmit 的值，则算法停止</td>
-<td>Scalar | <code>{-Inf}</code> <!-- raw HTML omitted -->即为一个实数，默认值 为 -lnf</td>
+<td>Scalar | <code>{-Inf}</code> <br>即为一个实数，默认值 为 -lnf</td>
 </tr>
 <tr>
 <td>FitnessScalingFcn</td>
@@ -358,7 +354,7 @@ $$</p>
 </tr>
 <tr>
 <td><code>InitialPopulationMatrix</code></td>
-<td>初始种群.<!-- raw HTML omitted -->For an options structure, use InitialPopulation.</td>
+<td>初始种群.<br>For an options structure, use InitialPopulation.</td>
 <td>为一个矩阵，默认值为 [ ]</td>
 </tr>
 <tr>
@@ -379,7 +375,7 @@ $$</p>
 <tr>
 <td>MaxStallGenerations</td>
 <td>适应度停滞限制.当目标函数在 <code>StallTimeLimit </code>代后没有改 善， 则算法停止，</td>
-<td><code>{50}</code> for <code>ga</code>,<!-- raw HTML omitted --> <code>{100}</code> for <code>gamultiobj</code></td>
+<td><code>{50}</code> for <code>ga</code>,<br> <code>{100}</code> for <code>gamultiobj</code></td>
 </tr>
 <tr>
 <td>MaxStallTime</td>
@@ -409,7 +405,7 @@ $$</p>
 <tr>
 <td><code>MutationFcn</code></td>
 <td>产生变异子代的函数句柄</td>
-<td><code>{'mutationgaussian'}</code> for <code>ga</code>,  <!-- raw HTML omitted --><code>{'mutationadaptfeasible'}*</code> for<code>gamultiobj</code></td>
+<td><code>{'mutationgaussian'}</code> for <code>ga</code>,  <br><code>{'mutationadaptfeasible'}*</code> for<code>gamultiobj</code></td>
 </tr>
 <tr>
 <td><code>NonlinearConstraintAlgorithm</code></td>
@@ -453,7 +449,7 @@ $$</p>
 </tr>
 <tr>
 <td>UseVectorized</td>
-<td>指定函数是否向量化,<!-- raw HTML omitted -->For an options structure, use <code>Vectorized</code> with the values <code>'on'</code> or <code>'off'</code>.</td>
+<td>指定函数是否向量化,<br>For an options structure, use <code>Vectorized</code> with the values <code>'on'</code> or <code>'off'</code>.</td>
 <td>true| <code>{false}</code></td>
 </tr>
 </tbody>

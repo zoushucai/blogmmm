@@ -401,44 +401,40 @@
 </span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>browser<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#39;window.stop()&#39;</span>)
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> HtmlResponse(url<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>url,status<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>,request <span style="color:#f92672">=</span> request)
 </span></span></code></pre></div><h2 id="8---设置下载中间件">8   设置下载中间件</h2>
-<pre tabindex="0"><code>DOWNLOADER_MIDDLEWARES = {
-     &#39;jingdong.middlewares.JingdongSpiderMiddleware&#39;: 543,
-}
-</code></pre><h2 id="9--最后的settingspy设置文件">9  最后的settings.py(设置文件)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>DOWNLOADER_MIDDLEWARES <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>     <span style="color:#e6db74">&#39;jingdong.middlewares.JingdongSpiderMiddleware&#39;</span>: <span style="color:#ae81ff">543</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="9--最后的settingspy设置文件">9  最后的settings.py(设置文件)</h2>
 <p>由于爬虫有时候网站不让你爬 。有一个robots协议，我们不管这个，需要在setting.py设置，把ROBOTSTXT_OBEY = False即可</p>
 <p>最后我的setting.py 如下:</p>
-<pre tabindex="0"><code>BOT_NAME = &#39;jingdong&#39;
-
-SPIDER_MODULES = [&#39;jingdong.spiders&#39;]
-NEWSPIDER_MODULE = &#39;jingdong.spiders&#39;
-########################### 以上全自动生成
-#以下为 手动改写
-ROBOTSTXT_OBEY = False 
-DOWNLOADER_MIDDLEWARES = {
-     &#39;jingdong.middlewares.JingdongSpiderMiddleware&#39;: 543,
-}
-ITEM_PIPELINES = {
-    &#39;jingdong.pipelines.JingdongPipeline&#39;
-    : 300,
-}
-
-## 解释： &#39;jingdong.pipelines.JingdongPipeline&#39; ## 注意这里的字典 键要对应前面的类，
-#####  jingdong 为爬虫项目名，
-#####  pipelines为爬虫下面的pipelines.py文件的文件名，
-#####  JingdongPipeline为pipelines.py中的类名
-</code></pre><h2 id="10--最后执行爬虫文件">10  最后执行爬虫文件：</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>BOT_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;jingdong&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SPIDER_MODULES <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;jingdong.spiders&#39;</span>]
+</span></span><span style="display:flex;"><span>NEWSPIDER_MODULE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;jingdong.spiders&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">########################### 以上全自动生成</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#以下为 手动改写</span>
+</span></span><span style="display:flex;"><span>ROBOTSTXT_OBEY <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span> 
+</span></span><span style="display:flex;"><span>DOWNLOADER_MIDDLEWARES <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>     <span style="color:#e6db74">&#39;jingdong.middlewares.JingdongSpiderMiddleware&#39;</span>: <span style="color:#ae81ff">543</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>ITEM_PIPELINES <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;jingdong.pipelines.JingdongPipeline&#39;</span>
+</span></span><span style="display:flex;"><span>    : <span style="color:#ae81ff">300</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 解释： &#39;jingdong.pipelines.JingdongPipeline&#39; ## 注意这里的字典 键要对应前面的类，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#####  jingdong 为爬虫项目名，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#####  pipelines为爬虫下面的pipelines.py文件的文件名，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#####  JingdongPipeline为pipelines.py中的类名</span>
+</span></span></code></pre></div><h2 id="10--最后执行爬虫文件">10  最后执行爬虫文件：</h2>
 <p>cmd下执行：</p>
-<pre tabindex="0"><code>scrapy crawl jd
-# 注意：jd为 spiders/jd.py文件中name的值  即（name = &#34;jd&#34;）
-# 也可以执行  scrapy crawl jd  -o  jd_xiangji.csv  
-#### 即存为 json  又有保存了csv文件  ，生成的文件都在当前目录下（我们可以在爬虫的项目的文件下创建一个data文件夹，在这个文件夹下执行爬虫文件，就可以把代码和数据分开了。
-######################
-#  在cmd下运行的命令 只要在爬虫项目文件下运行都可以执行，
-</code></pre><h2 id="11--结果展示">11  结果展示</h2>
-<pre><code>&lt;div  align=&quot;center&quot;&gt;
-	![scrapyjingdong](20180810scrapyjingdong.png)
-</code></pre>
-<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scrapy crawl jd
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 注意：jd为 spiders/jd.py文件中name的值  即（name = &#34;jd&#34;）</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 也可以执行  scrapy crawl jd  -o  jd_xiangji.csv  </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#### 即存为 json  又有保存了csv文件  ，生成的文件都在当前目录下（我们可以在爬虫的项目的文件下创建一个data文件夹，在这个文件夹下执行爬虫文件，就可以把代码和数据分开了。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">######################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  在cmd下运行的命令 只要在爬虫项目文件下运行都可以执行，</span>
+</span></span></code></pre></div><h2 id="11--结果展示">11  结果展示</h2>
 <p><img src="https://cdn.jsdelivr.net/gh/zscmmm/imgs2208save@master/img/20180810scrapyjingdong.png" alt="20180810scrapyjingdong"></p>
 <p>一共 7192 条信息  =  120* 60  （最后一页没有60个商品）</p>
 <p>可以看出速度很快（大概20分钟左右）就抓取玩了</p>

@@ -259,18 +259,18 @@
 <p>输入：一个矩阵A，</p>
 <p>方法：计算矩阵A的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。</p>
 <p>返回： 一个相关系数矩阵R，</p>
-<pre tabindex="0"><code>A = randn(n,m); % A是一个n*m的矩阵
-corrcoef(A) % 返回一个m*m的对称矩阵
-</code></pre><h3 id="r--corrcoefab">R = corrcoef(A,B)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>A = randn(n,m); <span style="color:#75715e">% A是一个n*m的矩阵</span>
+</span></span><span style="display:flex;"><span>corrcoef(A) <span style="color:#75715e">% 返回一个m*m的对称矩阵</span>
+</span></span></code></pre></div><h3 id="r--corrcoefab">R = corrcoef(A,B)</h3>
 <p>输入： 两个向量，A，B均为列向量</p>
 <p>返回：一个2*2 对称的相关系数矩阵</p>
 <p>如果A, B 均为矩阵，则先把A，B转变为列向量，然后再计算皮尔逊相关系数，即等价于如下形式</p>
-<pre tabindex="0"><code>A = randn(n,m); % A是一个n*m的矩阵
-B = randn(n,m); % B是一个n*m的矩阵,
-%% 注意A，B矩阵的个数一定要一样
-corrcoef(A,B）       % 返回一个2*2的对称矩阵
-corrcoef(A(:),B(:)) % 等价 corrcoef(A,B）
-</code></pre><h2 id="2corr">2、corr</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>A = randn(n,m); <span style="color:#75715e">% A是一个n*m的矩阵</span>
+</span></span><span style="display:flex;"><span>B = randn(n,m); <span style="color:#75715e">% B是一个n*m的矩阵,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">%% 注意A，B矩阵的个数一定要一样</span>
+</span></span><span style="display:flex;"><span>corrcoef(A,B）       <span style="color:#75715e">% 返回一个2*2的对称矩阵</span>
+</span></span><span style="display:flex;"><span>corrcoef(A(:),B(:)) <span style="color:#75715e">% 等价 corrcoef(A,B）</span>
+</span></span></code></pre></div><h2 id="2corr">2、corr</h2>
 <h3 id="rho--corrx">rho = corr(X)</h3>
 <p>输入：一个矩阵X</p>
 <p>方法: 计算矩阵X的每一列与每一列之间的皮尔逊相关系数，得到一个对称的相关系数矩阵。</p>
@@ -280,11 +280,11 @@ corrcoef(A(:),B(:)) % 等价 corrcoef(A,B）
 <p>方法：返回输入矩阵X和Y中每对列之间的成对相关系数矩阵。</p>
 <p>返回一个$m1*m2$的矩阵，其中第i行第j列元素代表X的第i列与Y第j列的相关系数</p>
 <h3 id="rhopval--corr___namevalue">[rho,pval] = corr(___,Name,Value)</h3>
-<pre tabindex="0"><code>R = corr(X,&#39;Type&#39;,&#39;Pearson&#39;)
-R = corr(X,Y,&#39;Type&#39;,&#39;Pearson&#39;)
-R = corr(X,Y,&#39;Type&#39;,&#39;Kendall&#39;)
-R = corr(X,Y,&#39;Type&#39;,&#39;Spearman&#39;)
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>R = corr(X,<span style="color:#e6db74">&#39;Type&#39;</span>,<span style="color:#e6db74">&#39;Pearson&#39;</span>)
+</span></span><span style="display:flex;"><span>R = corr(X,Y,<span style="color:#e6db74">&#39;Type&#39;</span>,<span style="color:#e6db74">&#39;Pearson&#39;</span>)
+</span></span><span style="display:flex;"><span>R = corr(X,Y,<span style="color:#e6db74">&#39;Type&#39;</span>,<span style="color:#e6db74">&#39;Kendall&#39;</span>)
+</span></span><span style="display:flex;"><span>R = corr(X,Y,<span style="color:#e6db74">&#39;Type&#39;</span>,<span style="color:#e6db74">&#39;Spearman&#39;</span>)
+</span></span></code></pre></div>
         </section>
     </div>
     <br>
