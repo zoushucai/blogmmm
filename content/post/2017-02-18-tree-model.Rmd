@@ -127,8 +127,8 @@ mean(abs(rep(5.87,length(wine_test$quality))-wine_test$quality))#平均值的MAE
 M5‘算法在R中通过Rweka包和M5P()函数可以得到
 
 
-```{r}
-library(RWeka)#调用的时候需要联网
+```{r,eval=FALSE}
+library(RWeka)#调用的时候需要联网,还要安装该软件
 ##############
 ####  make_Weka_package_loader("lazyBayesianRules") #加载weka相关的包
 ####  list_Weka_interfaces()  #列出weka中可以调用的函数，不够的话可以下载
@@ -158,7 +158,7 @@ m.m5p
 注意的是，估计的影响只适用于到达该节点的葡萄酒案例。在这个模型树中一共建立了36个线性回归模型，每一个模型对于固定的酸度和其他10个特征的影响都有不同的估计
 
 对于预测数据来说：
-```{r}
+```{r,eval=FALSE}
 # 生成模型的预测
 p.m5p <- predict(m.m5p, wine_test)
 

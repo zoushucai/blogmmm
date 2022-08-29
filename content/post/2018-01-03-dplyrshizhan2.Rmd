@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+knitr::opts_chunk$set(message=FALSE, warning=FALSE,eval = F)
 ```
 
 把前两天的两篇文章合并，解决方法：名字还是不能太长，在content目录下新建test目录，把它放在content目录下的test目录，不放在post目录，我的test目录只有两篇文章
@@ -20,15 +20,15 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE)
 
 安装`nycflights13`包，该软件包中的飞机航班数据将用于本文中`dplyr`包各个函数的演示
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval = TRUE}
 library(dplyr)
 library(nycflights13)
 ```
 
-函数`tbl_df()`将过长过大的数据集转换为显示更友好的 tbl_df 类型:
+函数`tibble::as_tibble()`将过长过大的数据集转换为显示更友好的`tbl_df` 类型:
 
-```{r}
-flights <- tbl_df(flights)
+```{r, eval = TRUE}
+flights <- tibble::as_tibble(flights)
 head(flights) #有336,776 x 19
 filter(flights,origin == "JFK",month == 6L) #－ 获取六月份所有从”JFK”机场起飞的航班
 slice(flights,1:2) #选取前面的1:2行
@@ -40,7 +40,7 @@ flights %>% top_n(4,dep_time)
 
 若要对选择的列进行处理用mutate函数，这里只能对列名进行处理.
 
-```{r}
+```{r, eval = TRUE}
 ans <- flights %>% select(dep_time,arr_time)
 head(ans)
 
@@ -49,16 +49,16 @@ head(ans)
 ```
 
 
-```{r}
+```{r, eval = TRUE}
 #选择整数列,若要对选择的列进行处理用mutate函数，这里只能对列名进行处理，比如
-ans <- flights %>% head() %>% select_if(is.integer,toupper)
+ans <- flights %>% head() %>% select(where(is.integer))
 ans
 ```
 
 
-```{r}
+```{r, eval = TRUE}
 #选择是字符串的列
-ans <- flights %>% head() %>% select_if(is.character)
+ans <- flights %>% head() %>% select(where(function(x)is.character(x) ))
 ans
 
 
@@ -66,39 +66,35 @@ ans
 
 选择数值列并且以某个字符开始的列
 
-```{r}
-select_if(iris,is.numeric) %>% select(starts_with("s")) %>% head()
+```{r, eval = TRUE}
+select(iris,where(is.numeric)) %>% select(starts_with("s")) %>% head()
 ```
 
 选择非数值列
-```{r}
+```{r, eval = TRUE,warning=FALSE}
 # 选择非数值列
-## 利用purrr包中的negate函数
 library(purrr)
-iris %>% select_if(negate(is.numeric)) %>% head()
-iris %>% select_if(~!is.numeric(.x)) %>% head()
-iris %>% select_if(funs(!is.numeric(.))) %>% head()
-iris %>% select_if(~ is.factor(.x)|is.numeric(.x))
+iris %>% select(!where( is.numeric )) %>% head()
+iris %>% select(where(is.factor)) %>% head()
 
 ```
 
 行同时选择——子集
 
-```{r}
+```{r, eval = TRUE}
 filter(flights,origin == "JFK",month == 6L) %>%select(day:arr_delay)
 ```
 
 ### 1.3、排序`arrange()`
-```{r}
+```{r, eval = TRUE}
 ans <- arrange(flights,origin,desc(dest))  #对列名加 desc() 进行倒序: 与基本函数order()类似
 head(ans)
 ```
 
 ### 1.4、添加新变量`mutate`
 
-在引用函数是 `.funs()` 的格式为` funs(mean(.))`    e.g.`transmute_if(df,is.integer,funs(as.character(.))) `
 
-```{r}
+```{r, eval = TRUE}
 # 添加新变量(可以多列) 
 flights %>% mutate(yanwu=arr_delay + dep_delay) %>% head()
 
@@ -109,13 +105,12 @@ flights %>% transmute(yanwu=arr_delay + dep_delay) %>% head()
 
 有多少航班完全没有延误
 
-```{r}
+
+```{r, eval = TRUE}
 #有多少航班完全没有延误
 flights %>% mutate(yanwu=arr_delay + dep_delay) %>% filter(yanwu<0) %>% head()
 
 
-flights %>%head() %>%  transmute_if(is.integer,funs(as.character(.)))  #把整数类型的列转换为字符串  
-flights 
 # 可以在同一语句中对刚新增加的列进行操作:
 transmute(flights, 
        gain = arr_delay + dep_delay, 
@@ -127,19 +122,22 @@ transmute(flights,
 对数据框调用其它函数进行汇总操作, 返回一维的结果:先用一个简单的数据集iris
 
 
-```{r}
-iris %>% group_by(Species) %>% summarise(mean(Sepal.Length,na.rm = T))
-iris %>% group_by(Species) %>% summarise_each(funs(mean))
-iris %>% group_by(Species) %>% summarise_each(funs(min(.),max(.)))
+```{r, eval = TRUE}
+iris %>% group_by(Species) %>% summarise(m = mean(Sepal.Length,na.rm = T))
+iris %>% group_by(Species) %>% summarise(across(where(is.numeric),list(mean=mean)))
+iris %>% group_by(Species) %>% summarise(across(starts_with("Sepal"), list(min = min,max = max)))
 ```
 
-```{r}
-iris %>% group_by(Sepal.Width) %>% summarise(f_count=n()) %>% arrange(desc(f_count)) 
-#上述等价iris %>% group_by(Sepal.Width) %>% tally(sort=TRUE)
+```{r,eval = TRUE}
+iris %>% group_by(k = round(Sepal.Width,0) ) %>% 
+  summarise(f_count=n()) %>% arrange(desc(f_count)) 
+#上述等价 
+iris %>% group_by(k = round(Sepal.Width,0)) %>% tally(sort=TRUE)
+
+
 #tally可以一步完成上述工作，group_by()以后第一次使用tally进行n()操作,再一次就是sum(n) sort=TRUE对结果排序,当等于TRUE是降序
 #再次使用tally()就是sum()
-iris %>% group_by(Sepal.Width) %>% tally(sort=TRUE)
-iris %>% group_by(Sepal.Width) %>% tally(sort=TRUE)%>%tally()
+iris %>% group_by(k = round(Sepal.Width,0)) %>% tally(sort=TRUE)%>%tally()
 
 ```
 
@@ -149,16 +147,19 @@ iris %>% group_by(Sepal.Width) %>% tally(sort=TRUE)%>%tally()
 
 例如: 对飞机航班数据按飞机编号 (tailnum) 进行分组, 计算该飞机航班的次数 (count = n()), 平均飞行距离 (dist = mean(distance, na.rm = TRUE)) 和 延时 (delay = mean(arr_delay, na.rm = TRUE))
 
-```{r}
+```{r,eval = TRUE}
 ans=flights %>%
 		group_by(tailnum) %>%
-			summarise(count=n(),dist=mean(distance,na.rm = T),delay=mean(arr_delay,na.rm = T))
+			summarise(count=n(),
+			          dist=mean(distance,na.rm = T),
+			          delay=mean(arr_delay,na.rm = T))
+
 ans %>% head()
 
-ans %>% filter(count>20,dist<2000)
+ans = ans %>% filter(count>20 & dist<2000 & delay >0 )
 #用 ggplot2 包作个图观察一下, 发现飞机延时不延时跟飞行距离没太大相关性:
 library(ggplot2)
-ggplot(ans, aes(dist, delay)) + geom_point(aes(size = count), alpha = 1/2) + geom_smooth() + scale_size_area()
+ggplot(ans, aes(dist, delay)) + geom_point(aes(size = count), alpha = 1/2) + geom_smooth(method = 'gam',formula = y ~ s(x, bs = "cs")) + scale_size_area()
 
 ```
 

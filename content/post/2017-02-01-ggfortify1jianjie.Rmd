@@ -9,7 +9,7 @@ keywords:
 ---
 
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE}
 knitr::opts_chunk$set(message=FALSE, warning=FALSE)
 ```
 
@@ -73,7 +73,7 @@ frame = TRUE                    ： 可以把每个类圈出来。图中没有�
 
 
 
-```{r}
+```{r,message=FALSE,warning=FALSE}
 library(ggfortify)
 df <- iris[c(1, 2, 3, 4)]
 autoplot(prcomp(df))#等价autoplot(prcomp(iris[-5]), data = iris)
@@ -81,26 +81,26 @@ autoplot(prcomp(df))#等价autoplot(prcomp(iris[-5]), data = iris)
 ```
 
 你还可以选择数据中的一列来给画出的点按类别自动分颜色。输入help(autoplot.prcomp) 可以了解到更多的其他选择。
-```{r}
+```{r,message=FALSE,warning=FALSE}
 autoplot(prcomp(df), data = iris, colour = 'Species')
 ```
 
 比如说给定label = TRUE 可以给每个点加上标识（以rownames为标准），也可以调整标识的大小。
-```{r}
+```{r,message=FALSE,warning=FALSE}
 autoplot(prcomp(df), data = iris, colour = 'Species', label = TRUE,label.size = 3)
 ```
 
 给定 shape = FALSE 可以让所有的点消失，只留下标识，这样可以让图更清晰，辨识度更大。
-```{r}
+```{r,message=FALSE,warning=FALSE}
 autoplot(prcomp(df), data = iris, colour = 'Species', shape =14,label.size = 3,label = TRUE)
 ```
 给定 loadings = TRUE 可以很快地画出特征向量。
-```{r}
+```{r,message=FALSE,warning=FALSE}
 autoplot(prcomp(df), data = iris, colour = 'Species', loadings = TRUE)
 ```
 
 同样的，你也可以显示特征向量的标识以及调整他们的大小，更多选择请参考帮助文件。
-```{r}
+```{r,message=FALSE,warning=FALSE}
 autoplot(prcomp(df), data = iris, colour = 'Species',
          loadings = TRUE, loadings.colour = 'blue',
          loadings.label = TRUE, loadings.label.size = 3)
@@ -181,7 +181,7 @@ autoplot(model, data = iris, frame = TRUE, frame.colour = 'Species')
 
 ## 4.1、ts对象
 
-```{r}
+```{r,message=FALSE,warning=FALSE}
 library(ggfortify)
 class(AirPassengers)#时间序列的对象为ts
 AirPassengers
@@ -197,7 +197,7 @@ autoplot(AirPassengers, ts.colour = 'red', ts.linetype = 'dashed')+xlab("时间"
 
 ##### 4.1.1、多变量时间序列
 
-```{r}
+```{r,message=FALSE,warning=FALSE}
 library(vars)
 data(Canada)
 class(Canada)
@@ -223,7 +223,7 @@ autoplot(as.xts(AirPassengers),ts.colour = 'green')#好像出问题
 
 #### 4.3 timSeries对象
 
-```{r}
+```{r,message=FALSE,warning=FALSE}
 library(timeSeries)
 autoplot(as.timeSeries(AirPassengers), ts.colour = ('dodgerblue3'))
 

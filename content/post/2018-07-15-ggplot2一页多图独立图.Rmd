@@ -80,7 +80,7 @@ p1 + plot_spacer() + p2
 
 拼凑提供的一个非常有用的功能是它使用户能够创建“子图”
 ```{r}
-p3 <- ggplot(mtcars) + geom_smooth(aes(disp, qsec))
+p3 <- ggplot(mtcars) + geom_smooth(aes(disp, qsec), method = 'loess',formula= y ~ x)
 p4 <- ggplot(mtcars) + geom_bar(aes(carb))
 
 p4 + {

@@ -15,7 +15,6 @@ simpletoc: yes
 knitr::opts_chunk$set(message=FALSE, warning=FALSE)
 ```
 
-# (一)R 计算微积分
 
 ### 1.1差分
 

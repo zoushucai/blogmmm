@@ -19,7 +19,7 @@ knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
 
 由于`corrgram::corrgram()`函数没有显示相关性的大小度量关系，于是经常用`corrplot::corrplot()`函数来画相关矩阵图，不过此图的缺点是`title`画出来不好看
 
-```
+```R
 corrplot(corr, 
   method = c("circle", "square", "ellipse", "number", "shade","color", "pie"), 
   type = c("full", "lower", "upper"), add = FALSE,

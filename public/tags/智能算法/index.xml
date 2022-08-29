@@ -6,17 +6,7 @@
     <description>Recent content in 智能算法 on zsc</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 21 Feb 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>智能算法测试函数可视化</title>
-      <link>/post/2019-02-21-testfunctionvisualization/</link>
-      <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2019-02-21-testfunctionvisualization/</guid>
-      <description>1 智能算法测试函数可视化(二维) 1.1 1 Sphere 函数 1.2 3 Rosenbrock 函数 1.3 4、Rastrigin 1.4 5 Griewank 函数 1.5 6 Ackley 函数 1.6 7 Noise函数 1 智能算法测试函数可视化(二维) 1.1 1 Sphere 函数 \[f(x) = \sum^n_{i=1}x_i^2\] 全局最优点为\(x =(0,0,\cdots ,0 ),f(x) =0\)
-############################# #### 二维函数 --- 可视化 ############################## ## 1 、 Sphere 函数 f1_Sphere2 = function(x,y){ return(x^2 + y^2) } y = x &amp;lt;- seq(-10, 10, 0.1) z &amp;lt;- outer(x, y, f1_Sphere2) library(plotly) ## 载入需要的程辑包：ggplot2 ## ## 载入程辑包：&amp;#39;plotly&amp;#39; ## The following object is masked from &amp;#39;package:ggplot2&amp;#39;: ## ## last_plot ## The following object is masked from &amp;#39;package:stats&amp;#39;: ## ## filter ## The following object is masked from &amp;#39;package:graphics&amp;#39;: ## ## layout library(widgetframe) ## 载入需要的程辑包：htmlwidgets p = plot_ly() %&amp;gt;% add_surface(x = ~x, y = ~y, z = ~z) frameWidget(p) ## 2 Schwefel 函数 \[f(x) = \sum^n_i|x_i| + \prod^n_i|x_i|\] 全局最优点为\(x =(0,0,\cdots ,0 ),f(x) =0\)</description>
-    </item>
-    
+    <lastBuildDate>Wed, 20 Feb 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>遗传算法（待完善）</title>
       <link>/md/2019-02-20-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</link>

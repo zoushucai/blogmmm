@@ -1,0 +1,237 @@
+---
+title: 相关图之ggplot系列扩展1
+author: zsc
+date: "2018-07-15"
+tags:
+  - R
+keywords:
+  - R
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
+```
+
+由于corrplot包画图存在一些问题，比如图像不美观，以及title显示不出，等等
+
+于是有了ggplot2 的扩展系列
+
+ggcorrplot包 专门画相关系数矩阵图： [https://github.com/kassambara/ggcorrplot](https://github.com/kassambara/ggcorrplot)
+
+GGally 包： 对ggplot2进行了更多的扩展，其中包括相关系数图： [http://ggobi.github.io/ggally/index.html#alterations](https://github.com/kassambara/ggcorrplot)
+
+
+
+## ggcorrplot包
+
+```{r,message = F,warning = F,eval = F}
+library(ggcorrplot)
+library(purrr)
+data(mtcars)
+corr <- round(cor(mtcars), 1)# 相关系数矩阵
+corr %>% head()
+
+# Compute a matrix of correlation p-values
+p.mat <- cor_pmat(mtcars) # 计算矩阵之间的相关性p—值
+p.mat %>% head()
+
+## 相关矩阵可视化
+#ggcorrplot(corr)# #method默认为square
+ggcorrplot(corr, method = "circle")
+
+
+
+## 重新排序相关矩阵
+#### 使用分层聚类
+ggcorrplot(corr, hc.order = TRUE, outline.col = "white")
+
+## 相关图布局的类型
+ggcorrplot(corr, hc.order = TRUE, type = "lower",outline.col = "white")#下三角矩阵图
+ggcorrplot(corr, hc.order = TRUE, type = "upper",outline.col = "white")#上三角矩阵图
+
+## 更改颜色以及主题
+####  colors参数
+ggcorrplot(corr, hc.order = TRUE, type = "lower",
+   outline.col = "white",
+   ggtheme = ggplot2::theme_gray,
+   colors = c("#6D9EC1", "white", "#E46726"))
+
+## 添加相关系数
+#### 设置参数lab = TRUE
+ggcorrplot(corr, hc.order = TRUE, type = "lower",lab = TRUE)#添加相关系数, 设置参数lab = TRUE
+
+## 增加显著性水平，不显著的话就不添加了
+#### 设置参数p.mat
+ggcorrplot(corr, hc.order = TRUE,type = "lower", p.mat = p.mat) # 增加显著性水平,设置参数p.mat
+ggcorrplot(corr, p.mat = p.mat, hc.order=TRUE, type = "lower", insig = "blank")# 将不显著的色块设置成空白
+
+## 可以添加标题，像ggplot2那样添加标题， 这样好看一些
+ggcorrplot(corr)+ggtitle("mtcars的相关矩阵图")+ theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+
+
+## GGally包
+
+### 介绍
+
+该包的`ggcorr`函数是一个可视化函数，用于将相关矩阵绘制为[`ggplot2`](http://ggplot2.org/)对象。它的灵感来自[Stack Overflow问题](http://stackoverflow.com/questions/12196756/significance-level-added-to-matrix-correlation-heatmap-using-ggplot2)。 
+
+### 解释
+
+[相关矩阵](https://en.wikipedia.org/wiki/Correlation_and_dependence#Correlation_matrices)显示了相对大量的连续变量之间的相关系数。然而，虽然R提供了一种通过[`cor`](http://www.rdocumentation.org/packages/stats/function/cor)函数创建这种矩阵的简单方法，但它没有为该函数创建的矩阵提供绘图方法。
+
+该`ggcorr`功能提供了这样的绘图方法，使用[`ggplot2`](http://ggplot2.org/)包中实现的“图形语法” 来渲染绘图。在实践中，其结果在图形上接近[`corrplot`](http://www.rdocumentation.org/packages/arm/functions/corrplot)功能的结果，这是优秀[`arm`](http://www.rdocumentation.org/packages/arm)包装的一部分。
+
+### 安装
+
+```R
+install.packages("GGally")
+# 或者
+source("https://raw.githubusercontent.com/briatte/ggcorr/master/ggcorr.R")
+```
+
+### 依赖
+
+主要的包依赖`ggcorr`是[`ggplot2`](http://ggplot2.org/)用于绘图构造的包。
+
+```{r}
+library(ggplot2)
+```
+
+该[`ggplot2`](http://ggplot2.org/)软件包可以从被安装[CRAN](https://cran.r-project.org/)通过[`install.packages`](http://www.rdocumentation.org/packages/utils/functions/install.packages)。这样做也将安装[`reshape2`](http://www.rdocumentation.org/packages/reshape2)包，内部`ggcorr`用于数据操作。
+
+```{r,warning=TRUE}
+library(GGally)
+ggcorr(mtcars)
+ggcorr(iris) # ggcorr会自动挑选数值型变量进行画图,它还产生一个警告，指示数据集的一列不包含数字数据，因此从相关矩阵中删除。从传递给的数据集中删除列可以避免警告， eg: ggcorr(iris[,-5])
+```
+
+
+注意：当与连续色标一起使用时，`ggcorr`当前也会产生与色彩插值相关的警告。这是一个无害的警告，应该在未来的更新`ggplot2`和`scales`包中消失。此警告隐藏在此小插图的其余部分中。
+
+
+```{r}
+ggcorr(mtcars)# 默认接受数据框，矩阵
+```
+
+```{r}
+##  可接受相关系数矩阵
+## ggcorr支持cor函数提供的所有相关方法。参考cor()函数:
+## cor(x, y = NULL, use = "everything",method = c("pearson", "kendall", "spearman"))
+ggcorr(data = NULL, cor_matrix = cor(mtcars, use = "everything"))
+
+```
+
+### 控制图例的颜色块
+
+默认图例颜色是连续的，
+
+若要把图例颜色分类(离散),则添加`nbreaks=n`参数,把相关系数从`-1`到`+1`分为`nbreaks=n`n等分，如下：
+```{r,fig.height=10,fig.width=10}
+## ggplot独立图像的分面 --devtools::install_github("thomasp85/patchwork")
+library(patchwork)
+p1 = ggcorr(mtcars, nbreaks = 5)
+
+
+## 对色阶(图例)的控制, name控制图例的标题,legend.size控制图例文本大小,legend.position控制图例显示位置
+## 后面两个参数是ggplot2中的参数，由于绘图是一个ggplot2对象，所有其他相关theme和guides方法也适用
+p2 = ggcorr(mtcars, name = expression(rho), legend.position = "bottom", legend.size = 12) +
+        guides(fill = guide_colorbar(barwidth = 18, title.vjust = 0.75)) +
+            theme(legend.title = element_text(size = 14))
+p1 + p2
+```
+
+### 控制调色板
+
+`ggcorr`默认颜色从亮红色到浅灰色到亮蓝色.可以通过被修改`low`,`mid`和`high`参数,其类似于那些的`scale_gradient2`
+
+```{r,fig.height=10,fig.width=10}
+p1 = ggcorr(mtcars)
+p2 = ggcorr(mtcars, low = "steelblue", mid = "white", high = "darkred")
+
+p1 + p2
+```
+
+### 控制图像的形状  
+默认情况下，`ggcorr`使用颜色方块来表示相关系数的强度，与热图表示观察计数的方式类似。
+
+`ggcorr`也可以用圆圈表示相关性的大小。设置`geom="circle"`即可
+
+```{r}
+ggcorr(mtcars, geom = "circle", nbreaks = 5)# 可以通过min_size和max_size参数设置圆的大小
+```
+### 控制系数标签
+
+`ggcorr`通过设置`label=TRUE`，可以在相关矩阵之上显示相关系数： 
+```{r,fig.height=10,fig.width=10}
+p1 = ggcorr(mtcars, label = TRUE) 
+
+p2 = ggcorr(mtcars, nbreaks = 4, palette = "RdGy", label = TRUE, label_size = 3, label_color = "white",label_round=1)# 在label_color和label_size参数允许样式系数标签，label_round设置系数标签中显示的位数，label_alpha=TRUE 设置标签的透明度，则透明度水平将像相关系数一样变化
+
+p3 = ggcorr(mtcars, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE)
+
+p1 + p2 + p3  # patchwork包能把独立的两个图形画在一张面板上
+
+```
+
+
+
+### 控制变量标签（即变量名称的显示问题）
+
+在上面的几个例子中，变量标签的渲染（在相关矩阵的对角线上示出）不一定是最佳的。要修改这些标签的方面，用户所要做的就是将所有支持的参数`geom_text`直接传递给`ggcorr`。下面的示例显示了如何在将标签向左移动并更改颜色时减小标签的大小： 
+
+相关矩阵中的变量标签可能出现的一个问题是它们太长而无法在图的左下方完整显示。下面通过使用`MIN`变量启动相关矩阵来说明此问题，该变量似乎在图的最左下角略微修剪： 
+
+```{r}
+ggcorr(mtcars, hjust = 0.75, size = 5, color = "grey50")
+```
+
+要解决此问题，`ggcorr`可以通过`layout.exp`参数向绘图的水平轴添加一些空白。将任何数值传递给此参数将在图的左侧添加一个或多个“不可见的图块”，这可以帮助显示具有长名称的变量： 
+
+```{r}
+ggcorr(mtcars, hjust = 0.75, size = 5, color = "grey50", layout.exp = 1)
+```
+
+
+
+## 其他控制
+
+### 剪切相关比例
+
+### 设置相关系数的样式
+
+如果设置`geom="text"`，则它将相关系数表示为它们的（有色）值： 
+
+```{r}
+ggcorr(mtcars, geom = "text", nbreaks = 5, palette = "RdYlBu", hjust = 1)
+```
+
+
+
+### 控制内部值
+
+由于`ggcorr`生成[`ggplot2`](http://ggplot2.org/)对象，因此了解如何构造对象以从中获取更具体的图可能很有用。每个`ggcorr`对象都包含以下`data`对象： 
+
+```{r}
+head(ggcorr(mtcars)$data, 5)
+```
+
+于是可以使用不同颜色来区分负系数和正系数：
+
+```{r}
+ggcorr(mtcars, geom = "blank", label = TRUE, hjust = 0.75) +
+  geom_point(size = 10, aes(color = coefficient > 0, alpha = abs(coefficient) > 0.5)) +
+  scale_alpha_manual(values = c("TRUE" = 0.25, "FALSE" = 0)) +
+  guides(color = "none", alpha = "none")
+```
+
+
+## 参考
+
+参考： https://briatte.github.io/ggcorr/
+
+
+```{r}
+sessionInfo()
+```

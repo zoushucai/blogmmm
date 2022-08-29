@@ -115,7 +115,8 @@ acm.disjonctif(iris[,5,drop=F]) %>% head()
 
 ### 独热编码6 
 
-```{r}
+- 好像没有这个`dummies`包了
+```{r,eval=FALSE}
 ###### 独热编码 6  ************
 library(dummies)
 # 全部转换，指定列, 设置all=F  只显示被转换的因子变量

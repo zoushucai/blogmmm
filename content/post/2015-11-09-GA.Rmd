@@ -8,7 +8,7 @@ keywords:
   - R
 toc: true
 ---
-# GA包---遗传算法
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,collapse = T, comment = "#> ")

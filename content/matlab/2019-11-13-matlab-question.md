@@ -243,7 +243,7 @@ mapstd(A1)
 
 Max-min 均值化
 
-```
+```matlab
 mapminmax
 ```
 

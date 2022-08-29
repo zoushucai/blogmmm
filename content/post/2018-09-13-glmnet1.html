@@ -11,37 +11,36 @@ output:
     toc: true
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#介绍">1 介绍</a></li>
-<li><a href="#快速开始">2 快速开始</a></li>
-<li><a href="#线性回归">3 线性回归</a>
+<li><a href="#介绍" id="toc-介绍">1 介绍</a></li>
+<li><a href="#快速开始" id="toc-快速开始">2 快速开始</a></li>
+<li><a href="#线性回归" id="toc-线性回归">3 线性回归</a>
 <ul>
-<li><a href="#高斯簇">3.1 高斯簇</a></li>
-<li><a href="#多响应高斯簇">3.2 多响应高斯簇</a></li>
+<li><a href="#高斯簇" id="toc-高斯簇">3.1 高斯簇</a></li>
+<li><a href="#多响应高斯簇" id="toc-多响应高斯簇">3.2 多响应高斯簇</a></li>
 </ul></li>
-<li><a href="#逻辑回归">4 逻辑回归</a>
+<li><a href="#逻辑回归" id="toc-逻辑回归">4 逻辑回归</a>
 <ul>
-<li><a href="#二项分布逻辑回归">4.1 二项分布逻辑回归</a></li>
-<li><a href="#多分类逻辑回归">4.2 多分类逻辑回归</a></li>
+<li><a href="#二项分布逻辑回归" id="toc-二项分布逻辑回归">4.1 二项分布逻辑回归</a></li>
+<li><a href="#多分类逻辑回归" id="toc-多分类逻辑回归">4.2 多分类逻辑回归</a></li>
 </ul></li>
-<li><a href="#泊松回归">5 泊松回归</a>
+<li><a href="#泊松回归" id="toc-泊松回归">5 泊松回归</a>
 <ul>
-<li><a href="#加载数据集">5.1 加载数据集</a></li>
-<li><a href="#拟合模型-4">5.2 拟合模型</a></li>
-<li><a href="#查看拟合效果-3">5.3 查看拟合效果</a></li>
-<li><a href="#预测-3">5.4 预测</a></li>
+<li><a href="#加载数据集" id="toc-加载数据集">5.1 加载数据集</a></li>
+<li><a href="#拟合模型-4" id="toc-拟合模型-4">5.2 拟合模型</a></li>
+<li><a href="#查看拟合效果-3" id="toc-查看拟合效果-3">5.3 查看拟合效果</a></li>
+<li><a href="#预测-3" id="toc-预测-3">5.4 预测</a></li>
 </ul></li>
-<li><a href="#cox模型">6 Cox模型</a>
+<li><a href="#cox模型" id="toc-cox模型">6 Cox模型</a>
 <ul>
-<li><a href="#载入数据集">6.1 载入数据集</a></li>
-<li><a href="#拟合模型-5">6.2 拟合模型</a></li>
-<li><a href="#查看拟合效果-4">6.3 查看拟合效果</a></li>
-<li><a href="#交叉验证-4">6.4 交叉验证</a></li>
+<li><a href="#载入数据集" id="toc-载入数据集">6.1 载入数据集</a></li>
+<li><a href="#拟合模型-5" id="toc-拟合模型-5">6.2 拟合模型</a></li>
+<li><a href="#查看拟合效果-4" id="toc-查看拟合效果-4">6.3 查看拟合效果</a></li>
+<li><a href="#交叉验证-4" id="toc-交叉验证-4">6.4 交叉验证</a></li>
 </ul></li>
-<li><a href="#稀疏矩阵">7 稀疏矩阵</a></li>
+<li><a href="#稀疏矩阵" id="toc-稀疏矩阵">7 稀疏矩阵</a></li>
 </ul>
 </div>
 
@@ -64,7 +63,9 @@ output:
 </div>
 <div id="准备数据" class="section level4">
 <h4>2.2 准备数据</h4>
-<pre class="r"><code>data(QuickStartExample)#x为100*20的矩阵 ,y为100 * 1的矩阵。</code></pre>
+<pre class="r"><code>data(QuickStartExample)#x为100*20的矩阵 ,y为100 * 1的矩阵。
+x = QuickStartExample$x
+y = QuickStartExample$y</code></pre>
 <p>该命令R数据存档中加载输入矩阵<code>x</code>和响应向量<code>y</code>。 <code>x</code>为<code>100*20</code>的矩阵 ,<code>y</code>为<code>100 * 1</code>的矩阵。</p>
 </div>
 <div id="拟合模型" class="section level4">
@@ -166,7 +167,7 @@ plot(fit,label = T)</code></pre>
 # 参数complete: 逻辑值,表示是否应该返回全系数向量.
 coef(fit,s=0.1,exact=FALSE)
 #&gt; 21 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
-#&gt;                        1
+#&gt;                       s1
 #&gt; (Intercept)  0.150928072
 #&gt; V1           1.320597195
 #&gt; V2           .          
@@ -196,17 +197,17 @@ coef(fit,s=0.1,exact=FALSE)
 <pre class="r"><code>nx = matrix(rnorm(10*20),10,20)
 #predict函数与coef函数相比多了一些参数的设置，参数newx设置待预测的输入数据集，以及tpye参数选项
 predict(fit,newx=nx,s=c(0.1,0.05))
-#&gt;                 1           2
-#&gt;  [1,]  0.87898550  0.96764179
-#&gt;  [2,]  2.29343179  2.44816869
-#&gt;  [3,] -0.08536714  0.01529541
-#&gt;  [4,] -1.09721678 -1.27596245
-#&gt;  [5,]  0.48922414  0.49592697
-#&gt;  [6,] -0.78042430 -0.84473032
-#&gt;  [7,] -1.04741846 -1.00724387
-#&gt;  [8,] -2.54927346 -2.81992948
-#&gt;  [9,] -2.40041719 -2.55525374
-#&gt; [10,]  1.67434591  1.92094822</code></pre>
+#&gt;               s1         s2
+#&gt;  [1,]  4.0881080  4.2144313
+#&gt;  [2,] -4.4988630 -4.8853573
+#&gt;  [3,]  1.5199652  1.5801031
+#&gt;  [4,] -1.8437111 -2.0365863
+#&gt;  [5,]  1.5494285  1.6576629
+#&gt;  [6,]  0.5145085  0.3434229
+#&gt;  [7,]  1.9418225  2.0283235
+#&gt;  [8,]  1.5306893  1.6547417
+#&gt;  [9,] -0.7035821 -0.8524148
+#&gt; [10,] -1.6087121 -1.5877964</code></pre>
 </div>
 <div id="交叉验证" class="section level4">
 <h4>2.7 交叉验证</h4>
@@ -220,43 +221,43 @@ predict(fit,newx=nx,s=c(0.1,0.05))
 <p>从图中可以看到MSE是如何随着lambda的不同取值而变化的。红色的散点为交叉验证的散点图，横轴为logλ，纵轴为均方误差，每个点的标准偏差上界和下界也画出来了。图的顶部字数表示非零系数的个数，第一条垂直线对应的是lambda.min的值，它是交叉验证提取出的最优值，第二条（从左往右看）是lambda.lse属性的值，它对应了距离lambda.min一个标准误差的值，并产生了一个更为正则化的模型 （<code>lambda.1se</code>为离最小均方误差一倍标准差的λ值。 ）</p>
 <p>最优的λ 值可以直接采用如下命令来提取：</p>
 <pre class="r"><code>cvfit$lambda.min
-#&gt; [1] 0.08307327
+#&gt; [1] 0.06896889
 cvfit$lambda.1se
-#&gt; [1] 0.1451729</code></pre>
+#&gt; [1] 0.1593271</code></pre>
 <p>用<code>coef</code>函数来提取回归模型的系数：</p>
 <pre class="r"><code>coef(cvfit, s = &quot;lambda.min&quot;)
 #&gt; 21 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
-#&gt;                       1
-#&gt; (Intercept)  0.14936467
-#&gt; V1           1.32975267
-#&gt; V2           .         
-#&gt; V3           0.69096092
-#&gt; V4           .         
-#&gt; V5          -0.83122558
-#&gt; V6           0.53669611
-#&gt; V7           0.02005438
-#&gt; V8           0.33193760
-#&gt; V9           .         
-#&gt; V10          .         
-#&gt; V11          0.16239419
-#&gt; V12          .         
-#&gt; V13          .         
-#&gt; V14         -1.07081121
-#&gt; V15          .         
-#&gt; V16          .         
-#&gt; V17          .         
-#&gt; V18          .         
-#&gt; V19          .         
-#&gt; V20         -1.04340741</code></pre>
+#&gt;                       s1
+#&gt; (Intercept)  0.147927056
+#&gt; V1           1.337393911
+#&gt; V2           .          
+#&gt; V3           0.704086481
+#&gt; V4           .          
+#&gt; V5          -0.842853150
+#&gt; V6           0.549403480
+#&gt; V7           0.032703914
+#&gt; V8           0.342430521
+#&gt; V9           .          
+#&gt; V10          0.001206608
+#&gt; V11          0.178995989
+#&gt; V12          .          
+#&gt; V13          .          
+#&gt; V14         -1.079993473
+#&gt; V15          .          
+#&gt; V16          .          
+#&gt; V17          .          
+#&gt; V18          .          
+#&gt; V19          .          
+#&gt; V20         -1.061382444</code></pre>
 <p>可以看到回归模型的系数是采用稀疏矩阵的形式来存储的。由于计算出的模型系数经常是稀疏的，这时采用稀疏矩阵的方式来存储和计算更有效率。如果你不习惯稀疏矩阵的输出形式，可以用<code>as.matrix()</code>将其转化为传统的矩阵形式。</p>
 <p>预测同<code>glmnet</code>，直接采用<code>predict</code>泛型函数即可：</p>
 <pre class="r"><code>predict(cvfit, newx = x[1:5,], s = &quot;lambda.min&quot;)
-#&gt;               1
-#&gt; [1,] -1.3647490
-#&gt; [2,]  2.5686013
-#&gt; [3,]  0.5705879
-#&gt; [4,]  1.9682289
-#&gt; [5,]  1.4964211</code></pre>
+#&gt;      lambda.min
+#&gt; [1,] -1.3626977
+#&gt; [2,]  2.5736774
+#&gt; [3,]  0.5767335
+#&gt; [4,]  2.0062604
+#&gt; [5,]  1.5410061</code></pre>
 <p>自此，<code>glmnet</code>的入门介绍完了，你可以用来他做一些基本的回归模型了。</p>
 <p>接下来，我们对<code>glmnet</code>包进行更为深入的介绍。</p>
 </div>
@@ -344,14 +345,14 @@ coef.exact = coef(fit, s = 0.5, complete = TRUE)
 coef.apprx = coef(fit, s = 0.5, complete = FALSE)
 cbind2(coef.exact, coef.apprx)
 #&gt; 21 x 2 sparse Matrix of class &quot;dgCMatrix&quot;
-#&gt;                        1            1
+#&gt;                       s1           s1
 #&gt; (Intercept)  0.199098747  0.199098747
 #&gt; V1           1.174650452  1.174650452
 #&gt; V2           .            .          
 #&gt; V3           0.531934651  0.531934651
 #&gt; V4           .            .          
 #&gt; V5          -0.760959480 -0.760959480
-#&gt; V6           0.468209414  0.468209414
+#&gt; V6           0.468209413  0.468209413
 #&gt; V7           0.061926756  0.061926756
 #&gt; V8           0.380301491  0.380301491
 #&gt; V9           .            .          
@@ -363,7 +364,7 @@ cbind2(coef.exact, coef.apprx)
 #&gt; V15          .            .          
 #&gt; V16          .            .          
 #&gt; V17          .            .          
-#&gt; V18          0.009196629  0.009196629
+#&gt; V18          0.009196628  0.009196628
 #&gt; V19          .            .          
 #&gt; V20         -0.863117051 -0.863117051</code></pre>
 <p>结论： 当<code>exact</code>选取不同的参数时，提取的系数也存在一定程度的差异，但差距不大。没有特别要求的话，使用线性插值得到的结果已经够用了。</p>
@@ -379,7 +380,7 @@ cbind2(coef.exact, coef.apprx)
 <li>“nonzero” list对象，存储每个<code>s</code>下非0系数对应的下标</li>
 </ul>
 <pre class="r"><code>predict(fit, newx = x[1:5,], type = &quot;response&quot;, s = 0.05)
-#&gt;               1
+#&gt;              s1
 #&gt; [1,] -0.9802591
 #&gt; [2,]  2.2992453
 #&gt; [3,]  0.6010886
@@ -410,19 +411,19 @@ registerDoMC(cores=2)
 X = matrix(rnorm(1e4 * 200), 1e4, 200)
 Y = rnorm(1e4)
 system.time(cv.glmnet(X, Y))
-#&gt;  用户  系统  流逝 
-#&gt; 3.455 0.334 3.850
+#&gt;    user  system elapsed 
+#&gt;   0.702   0.034   0.735
 system.time(cv.glmnet(X, Y, parallel = TRUE))
-#&gt;  用户  系统  流逝 
-#&gt; 3.525 0.530 2.511</code></pre>
+#&gt;    user  system elapsed 
+#&gt;   0.944   0.254   0.808</code></pre>
 <pre class="r"><code># 看了一下帮助文档 可以改成doParallel 也不能用很奇怪
 library(doParallel)
 # Windows 可以使用的并行包，但在这里也不能进行并行计算，时间不变
 cl&lt;-makeCluster(6)
 registerDoParallel(cl)
 system.time({cvfit = cv.glmnet(x,y,parallel=TRUE)})
-#&gt;  用户  系统  流逝 
-#&gt; 0.074 0.002 5.215
+#&gt;    user  system elapsed 
+#&gt;   0.022   0.005   0.915
 stopCluster(cl)# 时间也没有明显提高</code></pre>
 <p>如上所述，并行计算可以显着加速计算过程，尤其是对于大规模问题。</p>
 </div>
@@ -434,38 +435,38 @@ stopCluster(cl)# 时间也没有明显提高</code></pre>
 <li>“lambda.min”: 达到最小MSE对应的<span class="math inline">\(\lambda\)</span>值（即 交叉验证提取出的最优值）</li>
 </ul>
 <pre class="r"><code>cvfit$lambda.min
-#&gt; [1] 0.07569327
+#&gt; [1] 0.08307327
 coef(cvfit, s = &quot;lambda.min&quot;)
 #&gt; 21 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
-#&gt;                       1
-#&gt; (Intercept)  0.14867414
-#&gt; V1           1.33377821
+#&gt;                      s1
+#&gt; (Intercept)  0.14936467
+#&gt; V1           1.32975267
 #&gt; V2           .         
-#&gt; V3           0.69787701
+#&gt; V3           0.69096092
 #&gt; V4           .         
-#&gt; V5          -0.83726751
-#&gt; V6           0.54334327
-#&gt; V7           0.02668633
-#&gt; V8           0.33741131
+#&gt; V5          -0.83122558
+#&gt; V6           0.53669611
+#&gt; V7           0.02005438
+#&gt; V8           0.33193760
 #&gt; V9           .         
 #&gt; V10          .         
-#&gt; V11          0.17105029
+#&gt; V11          0.16239419
 #&gt; V12          .         
 #&gt; V13          .         
-#&gt; V14         -1.07552680
+#&gt; V14         -1.07081121
 #&gt; V15          .         
 #&gt; V16          .         
 #&gt; V17          .         
 #&gt; V18          .         
 #&gt; V19          .         
-#&gt; V20         -1.05278699
+#&gt; V20         -1.04340741
 predict(cvfit, newx = x[1:5,], s = &quot;lambda.min&quot;)
-#&gt;               1
-#&gt; [1,] -1.3638848
-#&gt; [2,]  2.5713428
-#&gt; [3,]  0.5729785
-#&gt; [4,]  1.9881422
-#&gt; [5,]  1.5179882</code></pre>
+#&gt;      lambda.min
+#&gt; [1,] -1.3647490
+#&gt; [2,]  2.5686013
+#&gt; [3,]  0.5705879
+#&gt; [4,]  1.9682289
+#&gt; [5,]  1.4964211</code></pre>
 </div>
 <div id="数据划分问题" class="section level5">
 <h5>3.1.6.4 数据划分问题</h5>
@@ -542,7 +543,9 @@ axis(4, at=vnat,line=-.5,label=vn,las=1,tick=FALSE, cex.axis=0.5)</code></pre>
 这里的βj是<span class="math inline">\(p\times K\)</span>维的系数矩阵<span class="math inline">\(\beta\)</span>的第j行。</p>
 <div id="载入演示数据" class="section level4">
 <h4>3.2.1 载入演示数据</h4>
-<pre class="r"><code>data(MultiGaussianExample)# 产生x,y两个矩阵，x的维度100*20 ,y的维度100 * 4。</code></pre>
+<pre class="r"><code>data(MultiGaussianExample)# 产生x,y两个矩阵，x的维度100*20 ,y的维度100 * 4。
+x = MultiGaussianExample$x
+y = MultiGaussianExample$y</code></pre>
 </div>
 <div id="拟合模型-1" class="section level4">
 <h4>3.2.2 拟合模型</h4>
@@ -601,10 +604,14 @@ cvmfit$lambda.1se
 <p>逻辑回归是分类问题中最常用的模型之一。如果是一个二分类问题，一般假定响应变量服从二项分布，如果是多分类问题，则假定服从多项式分布。</p>
 <div id="二项分布逻辑回归" class="section level3">
 <h3>4.1 二项分布逻辑回归</h3>
-<p>假定响应变量的取值为 <span class="math inline">\(\mathcal{G}=\{1,2\}\)</span>.定义 <span class="math inline">\(y_i = I(g_i=1)\)</span>.则有
-<span class="math display">\[\mbox{Pr}(G=2|X=x)+\frac{e^{\beta_0+\beta^Tx}}{1+e^{\beta_0+\beta^Tx}},\]</span>
-我们可以两边取对数，改写为如下形式（称为对数似然函数）：
-<span class="math display">\[\log\frac{\mbox{Pr}(G=2|X=x)}{\mbox{Pr}(G=1|X=x)}=\beta_0+\beta^Tx,\]</span></p>
+<p>假定响应变量的取值为 <span class="math inline">\(\mathcal{G}=\{1,2\}\)</span>.定义 <span class="math inline">\(y_i = I(g_i=1)\)</span>.则有</p>
+<p><span class="math display">\[
+\mbox{Pr}(G=2|X=x)+\frac{e^{\beta_0+\beta^Tx}}{1+e^{\beta_0+\beta^Tx}}
+\]</span>
+我们可以两边取对数，改写为如下形式（称为对数似然函数）：</p>
+<p><span class="math display">\[
+\log\frac{\mbox{Pr}(G=2|X=x)}{\mbox{Pr}(G=1|X=x)}=\beta_0+\beta^Tx
+\]</span></p>
 <p>这个带惩罚逻辑回归的目标函数的对数似然如下：
 <span class="math display">\[
 \min_{(\beta_0, \beta) \in \mathbb{R}^{p+1}} -\left[\frac{1}{N} \sum_{i=1}^N y_i \cdot (\beta_0 + x_i^T \beta) - \log (1+e^{(\beta_0+x_i^T \beta)})\right] + \lambda \big[ (1-\alpha)||\beta||_2^2/2 + \alpha||\beta||_1\big].
@@ -612,7 +619,9 @@ cvmfit$lambda.1se
 当 <span class="math inline">\(p &gt; N\)</span> 时，逻辑回归常常伴随着退化的困扰 ，当<span class="math inline">\(N\)</span>接近<span class="math inline">\(p\)</span>时，甚至在表现出野蛮的行为 。弹性网惩罚缓解了这些问题。</p>
 <div id="载入示例数据集" class="section level4">
 <h4>4.1.1 载入示例数据集</h4>
-<pre class="r"><code>data(BinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的int向量（0、1向量）</code></pre>
+<pre class="r"><code>data(BinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的int向量（0、1向量）
+x = BinomialExample$x
+y = BinomialExample$y</code></pre>
 <p>这里的输入x与其他分布簇相同，对于二项Logistic回归，响应变量y应该是具有两个级别的因子，或者是计数或比例的两列矩阵</p>
 </div>
 <div id="拟合模型-2" class="section level4">
@@ -640,7 +649,7 @@ cvmfit$lambda.1se
 <p>对于“二项式”模型，预测结果仅仅是针对响应变量的第二个水平(“link”, “response”, “coefficients”, “nonzero”) (可以用<code>level</code>函数查看第二级别的类)</p>
 </blockquote>
 <pre class="r"><code>predict(fit, newx = x[1:5,], type = &quot;class&quot;, s = c(0.05, 0.01))
-#&gt;      1   2  
+#&gt;      s1  s2 
 #&gt; [1,] &quot;0&quot; &quot;0&quot;
 #&gt; [2,] &quot;1&quot; &quot;1&quot;
 #&gt; [3,] &quot;1&quot; &quot;1&quot;
@@ -669,57 +678,59 @@ cvfit$lambda.1se
 <p><code>coef</code>和<code>predict</code>与高斯簇类似：</p>
 <pre class="r"><code>coef(cvfit, s = &quot;lambda.min&quot;) # 如前所述，此处返回的结果仅适用于响应变量的第二个水平。
 #&gt; 31 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
-#&gt;                        1
-#&gt; (Intercept)  0.219571058
-#&gt; V1           0.127143183
-#&gt; V2           0.773438290
-#&gt; V3          -0.622026676
-#&gt; V4          -1.249153389
+#&gt;                       s1
+#&gt; (Intercept)  0.219571057
+#&gt; V1           0.127143184
+#&gt; V2           0.773438291
+#&gt; V3          -0.622026677
+#&gt; V4          -1.249153390
 #&gt; V5          -0.236036348
-#&gt; V6          -1.086126630
+#&gt; V6          -1.086126631
 #&gt; V7           .          
-#&gt; V8          -0.662605659
-#&gt; V9           0.903895120
-#&gt; V10         -1.662994097
+#&gt; V8          -0.662605660
+#&gt; V9           0.903895121
+#&gt; V10         -1.662994099
 #&gt; V11         -0.069429691
-#&gt; V12         -0.109197704
+#&gt; V12         -0.109197705
 #&gt; V13          .          
 #&gt; V14          .          
 #&gt; V15          .          
-#&gt; V16          0.489302060
+#&gt; V16          0.489302061
 #&gt; V17          .          
 #&gt; V18         -0.123121403
 #&gt; V19         -0.009732698
 #&gt; V20         -0.063913565
 #&gt; V21          .          
-#&gt; V22          0.237278300
-#&gt; V23          0.413516339
+#&gt; V22          0.237278301
+#&gt; V23          0.413516340
 #&gt; V24         -0.040687440
-#&gt; V25          0.746129316
-#&gt; V26         -0.376173274
+#&gt; V25          0.746129317
+#&gt; V26         -0.376173275
 #&gt; V27         -0.168082915
-#&gt; V28          0.312045065
+#&gt; V28          0.312045066
 #&gt; V29         -0.254478998
-#&gt; V30          0.157077462</code></pre>
+#&gt; V30          0.157077463</code></pre>
 <p>As mentioned previously, the results returned here are only for the second level of the factor response.</p>
 <pre class="r"><code>predict(cvfit, newx = x[1:10,], s = &quot;lambda.min&quot;, type = &quot;class&quot;)
-#&gt;       1  
-#&gt;  [1,] &quot;0&quot;
-#&gt;  [2,] &quot;1&quot;
-#&gt;  [3,] &quot;1&quot;
-#&gt;  [4,] &quot;0&quot;
-#&gt;  [5,] &quot;1&quot;
-#&gt;  [6,] &quot;0&quot;
-#&gt;  [7,] &quot;0&quot;
-#&gt;  [8,] &quot;0&quot;
-#&gt;  [9,] &quot;1&quot;
+#&gt;       lambda.min
+#&gt;  [1,] &quot;0&quot;       
+#&gt;  [2,] &quot;1&quot;       
+#&gt;  [3,] &quot;1&quot;       
+#&gt;  [4,] &quot;0&quot;       
+#&gt;  [5,] &quot;1&quot;       
+#&gt;  [6,] &quot;0&quot;       
+#&gt;  [7,] &quot;0&quot;       
+#&gt;  [8,] &quot;0&quot;       
+#&gt;  [9,] &quot;1&quot;       
 #&gt; [10,] &quot;1&quot;</code></pre>
 </div>
 </div>
 <div id="多分类逻辑回归" class="section level3">
 <h3>4.2 多分类逻辑回归</h3>
 <p>多分类逻辑回归假定响应变量服从多项式分布, 假定响应变量有K个水平 <span class="math inline">\({\cal G}=\{1,2,\ldots,K\}\)</span>。则有</p>
-<p><span class="math display">\[\mbox{Pr}(G=k|X=x)=\frac{e^{\beta_{0k}+\beta_k^Tx}}{\sum_{\ell=1}^Ke^{\beta_{0\ell}+\beta_\ell^Tx}}.\]</span></p>
+<p><span class="math display">\[
+\mbox{Pr}(G=k|X=x)=\frac{e^{\beta_{0k}+\beta_k^Tx}}{\sum_{\ell=1}^Ke^{\beta_{0\ell}+\beta_\ell^Tx}}.
+\]</span></p>
 <p><span class="math inline">\({Y}\)</span> 应该是 <span class="math inline">\(N \times K\)</span> 的响应矩阵（把离散变量进行one-hot编码即可） ,那么带弹性网惩罚项的非负对数似然函数如下：
 <span class="math display">\[
 \ell(\{\beta_{0k},\beta_{k}\}_1^K) = -\left[\frac{1}{N} \sum_{i=1}^N \Big(\sum_{k=1}^Ky_{il} (\beta_{0k} + x_i^T \beta_k)- \log \big(\sum_{k=1}^K e^{\beta_{0k}+x_i^T \beta_k}\big)\Big)\right] +\lambda \left[ (1-\alpha)||\beta||_F^2/2 + \alpha\sum_{j=1}^p||\beta_j||_q\right].
@@ -729,7 +740,9 @@ cvfit$lambda.1se
 <div id="载入示例数据集-1" class="section level4">
 <h4>4.2.1 载入示例数据集</h4>
 <p>首先载入数据集：</p>
-<pre class="r"><code>data(MultinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的数字向量（水平1,2,3组成）训练是内部自动转换</code></pre>
+<pre class="r"><code>data(MultinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的数字向量（水平1,2,3组成）训练是内部自动转换
+x = MultinomialExample$x
+y = MultinomialExample$y</code></pre>
 </div>
 <div id="拟合模型-3" class="section level4">
 <h4>4.2.2 拟合模型</h4>
@@ -786,7 +799,9 @@ l(\beta|X, Y) = \sum_{i=1}^N (y_i (\beta_0+\beta&#39; x_i) - e^{\beta_0+\beta^Tx
 \]</span></p>
 <div id="加载数据集" class="section level3">
 <h3>5.1 加载数据集</h3>
-<pre class="r"><code>data(PoissonExample)# 产生名为x维度为500*20的矩阵 ,名为y长度为500的数字向量,全是大于0的数字（泊松函数也是大于0的函数）</code></pre>
+<pre class="r"><code>data(PoissonExample)# 产生名为x维度为500*20的矩阵 ,名为y长度为500的数字向量,全是大于0的数字（泊松函数也是大于0的函数）
+x = PoissonExample$x
+y = PoissonExample$y</code></pre>
 </div>
 <div id="拟合模型-4" class="section level3">
 <h3>5.2 拟合模型</h3>
@@ -809,7 +824,7 @@ l(\beta|X, Y) = \sum_{i=1}^N (y_i (\beta_0+\beta&#39; x_i) - e^{\beta_0+\beta^Tx
 </ul>
 <pre class="r"><code>coef(fit, s = 1)
 #&gt; 21 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
-#&gt;                       1
+#&gt;                      s1
 #&gt; (Intercept)  0.61123371
 #&gt; V1           0.45819758
 #&gt; V2          -0.77060709
@@ -832,7 +847,7 @@ l(\beta|X, Y) = \sum_{i=1}^N (y_i (\beta_0+\beta&#39; x_i) - e^{\beta_0+\beta^Tx
 #&gt; V19          .         
 #&gt; V20          .
 predict(fit, newx = x[1:5,], type = &quot;response&quot;, s = c(0.1,1))
-#&gt;               1          2
+#&gt;              s1         s2
 #&gt; [1,]  2.4944232  4.4263365
 #&gt; [2,] 10.3513120 11.0586174
 #&gt; [3,]  0.1179704  0.1781626
@@ -856,28 +871,28 @@ predict(fit, newx = x[1:5,], type = &quot;response&quot;, s = c(0.1,1))
 <pre class="r"><code>opt.lam = c(cvfit$lambda.min, cvfit$lambda.1se)
 coef(cvfit, s = opt.lam)
 #&gt; 21 x 2 sparse Matrix of class &quot;dgCMatrix&quot;
-#&gt;                        1            2
-#&gt; (Intercept)  0.070584044  0.200007601
+#&gt;                       s1           s2
+#&gt; (Intercept)  0.070584044  0.200007600
 #&gt; V1           0.609229006  0.571833738
 #&gt; V2          -0.972486782 -0.927099773
-#&gt; V3           1.509004735  1.466409189
+#&gt; V3           1.509004735  1.466409190
 #&gt; V4           0.225598648  0.192138902
 #&gt; V5          -0.328715117 -0.301559295
 #&gt; V6           .            .          
 #&gt; V7          -0.005088443  .          
 #&gt; V8           .            .          
 #&gt; V9           .            .          
-#&gt; V10          0.006071218  .          
+#&gt; V10          0.006071219  .          
 #&gt; V11          .            .          
 #&gt; V12          0.029070537  0.025801372
 #&gt; V13         -0.014882186  .          
 #&gt; V14          0.020864442  .          
 #&gt; V15          .            .          
-#&gt; V16          0.008606586  .          
+#&gt; V16          0.008606587  .          
 #&gt; V17          .            .          
 #&gt; V18          .            .          
 #&gt; V19         -0.023621751  .          
-#&gt; V20          0.011789503  0.009436611</code></pre>
+#&gt; V20          0.011789503  0.009436612</code></pre>
 <p>可以使用<code>predict</code>进行预测，方法类似，在重复</p>
 </div>
 </div>
@@ -900,6 +915,8 @@ where <span class="math inline">\(R_i\)</span> is the set of indices <span class
 <h3>6.1 载入数据集</h3>
 <p>同样地，我们加载预先生成好的样本数据和响应变量，但是这里需要注意的是，这里采用了生存分析的分析框架，输入数据略有差别。首先，我们加载数据集：</p>
 <pre class="r"><code>data(CoxExample)# 产生名为x的矩阵，其维度为1000*30 ，名为y的矩阵，其维度为1000*2
+x = CoxExample$x
+y = CoxExample$y
 y[1:5,] # status列表示time列对应下的状态，第一列必须是数值型的时间，第二列参数是逻辑向量，0/1表示死亡与否
 #&gt;            time status
 #&gt; [1,] 1.76877757      1
@@ -1006,16 +1023,15 @@ coef.min
 #&gt; V28  .         
 #&gt; V29  .         
 #&gt; V30  .</code></pre>
-<p><a href="#top">Back to Top</a></p>
-<p><a id="spa"></a></p>
 </div>
 </div>
 <div id="稀疏矩阵" class="section level2">
 <h2>7 稀疏矩阵</h2>
 <p>除了<code>cox</code>模型外，<code>glmnet</code>均支持稀疏矩阵作为输入，它的用法同常规矩阵的用法相同。</p>
 <p>我们加载一个稀疏矩阵示例：</p>
-<p>我们加载一个稀疏矩阵示例：</p>
-<pre class="r"><code>data(SparseExample)</code></pre>
+<pre class="r"><code>data(SparseExample)
+x = SparseExample$x
+y = SparseExample$y</code></pre>
 <p>加载的数据<code>x</code>为100*20的一个稀疏矩阵，<code>y</code>为响应变量(长度为100的向量）。</p>
 <pre class="r"><code>class(x)
 #&gt; [1] &quot;dgCMatrix&quot;
@@ -1034,38 +1050,40 @@ j = sample(1:20, size = 25, replace = TRUE)
 x = rnorm(25)
 nx = sparseMatrix(i = i, j = j, x = x, dims = c(5, 20))
 predict(cvfit, newx = nx, s = &quot;lambda.min&quot;)
-#&gt;               1
+#&gt;      lambda.min
 #&gt; [1,]  0.8286576
 #&gt; [2,] -0.1938951
 #&gt; [3,]  0.7690298
 #&gt; [4,] -0.4358310
 #&gt; [5,] -0.1450590</code></pre>
 <pre class="r"><code>sessionInfo()
-#&gt; R version 4.0.2 (2020-06-22)
-#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)
-#&gt; Running under: macOS Mojave 10.14.5
+#&gt; R version 4.2.1 (2022-06-23)
+#&gt; Platform: aarch64-apple-darwin20 (64-bit)
+#&gt; Running under: macOS Monterey 12.5.1
 #&gt; 
 #&gt; Matrix products: default
-#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
 #&gt; 
 #&gt; locale:
-#&gt; [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
+#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 #&gt; 
 #&gt; attached base packages:
 #&gt; [1] parallel  stats     graphics  grDevices utils     datasets  methods  
 #&gt; [8] base     
 #&gt; 
 #&gt; other attached packages:
-#&gt; [1] doParallel_1.0.15 doMC_1.3.6        iterators_1.0.12  foreach_1.5.0    
-#&gt; [5] glmnet_4.0-2      Matrix_1.2-18    
+#&gt; [1] doParallel_1.0.17 doMC_1.3.8        iterators_1.0.14  foreach_1.5.2    
+#&gt; [5] glmnet_4.1-4      Matrix_1.4-1     
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
-#&gt;  [1] knitr_1.29       magrittr_1.5     splines_4.0.2    lattice_0.20-41 
-#&gt;  [5] rlang_0.4.7      stringr_1.4.0    tools_4.0.2      grid_4.0.2      
-#&gt;  [9] xfun_0.17        htmltools_0.5.0  yaml_2.2.1       survival_3.1-12 
-#&gt; [13] digest_0.6.25    bookdown_0.20    codetools_0.2-16 shape_1.4.5     
-#&gt; [17] evaluate_0.14    rmarkdown_2.3    blogdown_0.20    stringi_1.4.6   
-#&gt; [21] compiler_4.0.2</code></pre>
+#&gt;  [1] Rcpp_1.0.9       bslib_0.4.0      compiler_4.2.1   jquerylib_0.1.4 
+#&gt;  [5] highr_0.9        tools_4.2.1      digest_0.6.29    jsonlite_1.8.0  
+#&gt;  [9] evaluate_0.16    lattice_0.20-45  rlang_1.0.4      cli_3.3.0       
+#&gt; [13] rstudioapi_0.14  yaml_2.3.5       blogdown_1.11    xfun_0.32       
+#&gt; [17] fastmap_1.1.0    stringr_1.4.1    knitr_1.40       sass_0.4.2      
+#&gt; [21] grid_4.2.1       R6_2.5.1         survival_3.4-0   rmarkdown_2.16.1
+#&gt; [25] bookdown_0.28    magrittr_2.0.3   codetools_0.2-18 htmltools_0.5.3 
+#&gt; [29] splines_4.2.1    shape_1.4.6      stringi_1.7.8    cachem_1.0.6</code></pre>
 <p>参考：<a href="https://web.stanford.edu/~hastie/glmnet/glmnet_beta.html" class="uri">https://web.stanford.edu/~hastie/glmnet/glmnet_beta.html</a></p>
 </div>

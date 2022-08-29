@@ -43,6 +43,8 @@ library(glmnet)# 加载glmnet包
 
 ```{r}
 data(QuickStartExample)#x为100*20的矩阵 ,y为100 * 1的矩阵。
+x = QuickStartExample$x
+y = QuickStartExample$y
 ```
 该命令R数据存档中加载输入矩阵`x`和响应向量`y`。 `x`为`100*20`的矩阵 ,`y`为`100 * 1`的矩阵。
 
@@ -385,6 +387,8 @@ $$
 
 ```{r}
 data(MultiGaussianExample)# 产生x,y两个矩阵，x的维度100*20 ,y的维度100 * 4。
+x = MultiGaussianExample$x
+y = MultiGaussianExample$y
 ```
 #### 3.2.2 拟合模型
 
@@ -440,9 +444,15 @@ cvmfit$lambda.1se
 ### 4.1 二项分布逻辑回归
 
 假定响应变量的取值为 $\mathcal{G}=\{1,2\}$.定义 $y_i = I(g_i=1)$.则有
-$$\mbox{Pr}(G=2|X=x)+\frac{e^{\beta_0+\beta^Tx}}{1+e^{\beta_0+\beta^Tx}},$$
+
+$$
+\mbox{Pr}(G=2|X=x)+\frac{e^{\beta_0+\beta^Tx}}{1+e^{\beta_0+\beta^Tx}}
+$$
 我们可以两边取对数，改写为如下形式（称为对数似然函数）：
-$$\log\frac{\mbox{Pr}(G=2|X=x)}{\mbox{Pr}(G=1|X=x)}=\beta_0+\beta^Tx,$$
+
+$$
+\log\frac{\mbox{Pr}(G=2|X=x)}{\mbox{Pr}(G=1|X=x)}=\beta_0+\beta^Tx
+$$
 
 这个带惩罚逻辑回归的目标函数的对数似然如下： 
 $$
@@ -454,6 +464,8 @@ $$
 
 ```{r}
 data(BinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的int向量（0、1向量）
+x = BinomialExample$x
+y = BinomialExample$y
 ```
 这里的输入x与其他分布簇相同，对于二项Logistic回归，响应变量y应该是具有两个级别的因子，或者是计数或比例的两列矩阵  
 
@@ -527,7 +539,9 @@ predict(cvfit, newx = x[1:10,], s = "lambda.min", type = "class")
 
 多分类逻辑回归假定响应变量服从多项式分布, 假定响应变量有K个水平 ${\cal G}=\{1,2,\ldots,K\}$。则有
 
-$$\mbox{Pr}(G=k|X=x)=\frac{e^{\beta_{0k}+\beta_k^Tx}}{\sum_{\ell=1}^Ke^{\beta_{0\ell}+\beta_\ell^Tx}}.$$
+$$
+\mbox{Pr}(G=k|X=x)=\frac{e^{\beta_{0k}+\beta_k^Tx}}{\sum_{\ell=1}^Ke^{\beta_{0\ell}+\beta_\ell^Tx}}.
+$$
 
 ${Y}$ 应该是 $N \times K$ 的响应矩阵（把离散变量进行one-hot编码即可）  ,那么带弹性网惩罚项的非负对数似然函数如下： 
 $$
@@ -543,6 +557,8 @@ $$
 
 ```{r}
 data(MultinomialExample)# 产生名为x维度为100*30的矩阵 ,名为y长度为100的数字向量（水平1,2,3组成）训练是内部自动转换
+x = MultinomialExample$x
+y = MultinomialExample$y
 ```
 #### 4.2.2 拟合模型
 
@@ -607,6 +623,8 @@ $$
 
 ```{r}
 data(PoissonExample)# 产生名为x维度为500*20的矩阵 ,名为y长度为500的数字向量,全是大于0的数字（泊松函数也是大于0的函数）
+x = PoissonExample$x
+y = PoissonExample$y
 ```
 
 ### 5.2 拟合模型
@@ -690,6 +708,8 @@ We penalize the negative log of the partial likelihood, just like the other mode
 
 ```{r}
 data(CoxExample)# 产生名为x的矩阵，其维度为1000*30 ，名为y的矩阵，其维度为1000*2
+x = CoxExample$x
+y = CoxExample$y
 y[1:5,] # status列表示time列对应下的状态，第一列必须是数值型的时间，第二列参数是逻辑向量，0/1表示死亡与否
 ```
 可以看到加载的数据还是包含自变量x以及响应变量y两部分：x是n×p维的矩阵；不同的是y，y为$n \times 1$维的矩阵，其中名为`time`的列是观察时间，名为`status`的列为该观察时间下对应的状态，0表示生成，1表示死亡。 
@@ -743,9 +763,7 @@ index.min
 coef.min
 ```
 
-[Back to Top](#top)
 
-<a id="spa"></a>
 
 ## 7 稀疏矩阵
 
@@ -753,10 +771,11 @@ coef.min
 
 我们加载一个稀疏矩阵示例：
 
-我们加载一个稀疏矩阵示例：
 
 ```{r}
 data(SparseExample)
+x = SparseExample$x
+y = SparseExample$y
 ```
 加载的数据`x`为100*20的一个稀疏矩阵，`y`为响应变量(长度为100的向量）。
 ```{r}

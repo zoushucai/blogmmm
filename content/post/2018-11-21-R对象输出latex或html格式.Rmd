@@ -16,12 +16,12 @@ knitr::opts_chunk$set(message = F,warning = F)
 
 有一些时候，我们想把R对象输出为LaTeX格式或者HTML格式，怎么办呢？
 
-# 简介knitr常用参数
+## 简介knitr常用参数
 
 
-# xtable包
+## xtable包
 
-## 输出为纯HTML格式或者LaTeX格式
+### 输出为纯HTML格式或者LaTeX格式
 
 
 ```{r}
@@ -36,7 +36,7 @@ print(xtable(tt),type="html") # 输出为纯HTML格式
 print(xtable(tt),type="latex") # 输出为纯LaTeX格式
 ```
 
-## 若想在rmarkdown中输出时能正常显示上面的格式怎么办了？
+### 若想在rmarkdown中输出时能正常显示上面的格式怎么办了？
 只需添加参数即可
 
 
@@ -45,25 +45,25 @@ library(xtable)
 print(xtable(tt),type="html") # 输出latex 失效
 ```
 
-# kableExtra包
+## kableExtra包
 这个包在原有的输出上，做出了很大的改进，使得原有输出很丑的表格，瞬间变得高大上。而且不需要设置knit参数。很方便，推荐使用
 ```{r}
 library(knitr)
 library(kableExtra)
 dt <- mtcars[1:5, 1:6]
 ```
-## 基于HTML的table
+### 基于HTML的table
 ```{r}
 kable(dt)
 ```
-## 设置主题
+### 设置主题
 ```{r}
 dt %>%
   kable() %>%
   kable_styling()
 ```
 
-## 表格样式
+### 表格样式
 表格样式1
 ```{r}
 kable(dt) %>%
@@ -84,3 +84,9 @@ sessionInfo()
 
 
 该网站上有对表格输出所有你想要的样式，比如HTML、LaTeX。
+
+## gt 包
+
+可以官网看看
+
+

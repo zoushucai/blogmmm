@@ -10,33 +10,27 @@ output:
     toc: true
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#非标准计算">非标准计算</a>
+<li><a href="#捕获表达式" id="toc-捕获表达式">1. 捕获表达式</a>
 <ul>
-<li><a href="#捕获表达式">1. 捕获表达式</a>
+<li><a href="#quote" id="toc-quote">1.1 quote() :</a></li>
+<li><a href="#substitute" id="toc-substitute">1.2 substitute</a></li>
+<li><a href="#创建函数调用" id="toc-创建函数调用">1. 3. 创建函数调用</a></li>
+<li><a href="#substitute_q-对substituted的补充" id="toc-substitute_q-对substituted的补充">1.4 .substitute_q() 对substituted()的补充</a></li>
+<li><a href="#subs函数" id="toc-subs函数">1.5. subs()函数</a></li>
+</ul></li>
+<li><a href="#对捕获表达式后的处理方式" id="toc-对捕获表达式后的处理方式">2. 对捕获表达式后的处理方式</a>
 <ul>
-<li><a href="#quote">1.1 quote() :</a></li>
-<li><a href="#substitute">1.2 substitute</a></li>
-<li><a href="#创建函数调用">1. 3. 创建函数调用</a></li>
-<li><a href="#substitute_q-对substituted的补充">1.4 .substitute_q() 对substituted()的补充</a></li>
-<li><a href="#subs函数">1.5. subs()函数</a></li>
+<li><a href="#执行表达式-eval" id="toc-执行表达式-eval">2.1. 执行表达式 — — eval()</a></li>
+<li><a href="#eval-函数的用法" id="toc-eval-函数的用法">2.2 eval 函数的用法</a></li>
+<li><a href="#表达式与字符串相互转变" id="toc-表达式与字符串相互转变">2 .3 .表达式与字符串相互转变</a></li>
 </ul></li>
-<li><a href="#对捕获表达式后的处理方式">2. 对捕获表达式后的处理方式</a>
-<ul>
-<li><a href="#执行表达式-eval">2.1. 执行表达式 — — eval()</a></li>
-<li><a href="#eval-函数的用法">2.2 eval 函数的用法</a></li>
-<li><a href="#表达式与字符串相互转变">2 .3 .表达式与字符串相互转变</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
+<li><a href="#参考" id="toc-参考">参考</a></li>
 </ul>
 </div>
 
-<div id="非标准计算" class="section level1">
-<h1>非标准计算</h1>
 <div id="捕获表达式" class="section level2">
 <h2>1. 捕获表达式</h2>
 <p>将表达式捕获转为语言对象，捕获表达式意味着防止表达式被执行，而将其本身存储为变量的形式。具有这个功能的函数有如下几个函数，注意其不同。</p>
@@ -67,7 +61,7 @@ quote(xfun(a = 1:n)) # xfun都么有定义
 <p>eg： <code>rnorm()</code>就是一个可以被调用的函数(可以使用<code>rnorm(5)</code>进行调用,产生5个随机数)，但是<code>quote(rnorm)</code>返回一个符号对象，<code>quote(rnorm(5))</code>返回一个调用的对象，这两者都是语言本身。</p>
 <pre class="r"><code>rm(list  = ls() )
 rnorm(5)
-#&gt; [1] -1.3411512  0.5169571 -0.7042230 -1.0307851  0.3519320
+#&gt; [1] -0.8345853 -0.8515590 -0.6443321  0.0868295 -0.3876787
 x = quote(rnorm)
 typeof(x) # 返回一个符号对象
 #&gt; [1] &quot;symbol&quot;
@@ -100,12 +94,12 @@ class(x1[[2]])
 # 2.可以用is.symbol() / is.name() 和 is.call 分别检查对象是否为符号对象或调用对象
 # 3.可以用is.language()同时检查符号和调用
 # 4. quote不把字面值(这里指的的表达式里使用数值等，而非数值变量。eg：数字、逻辑值、字符串)转变为语言对象，而是使其保持原样。--- 少用</code></pre>
-<p> <strong>常常捕获全局环境中的表达式，函数环境中建议用<code>substitute()</code>，<code>substitute()</code>用于捕获表达式，并且用捕获的表达式替换现有的符号,而<code>quote()</code>不会进行第二步，把表达式替换成现有的符号</strong></p>
+<p><strong>常常捕获全局环境中的表达式，函数环境中建议用<code>substitute()</code>，<code>substitute()</code>用于捕获表达式，并且用捕获的表达式替换现有的符号,而<code>quote()</code>不会进行第二步，把表达式替换成现有的符号</strong></p>
 </div>
 <div id="substitute" class="section level3">
 <h3>1.2 substitute</h3>
-<div id="用来捕获函数参数表达式" class="section level4">
-<h4>1.2.1 用来捕获函数参数表达式</h4>
+<div id="用来捕获函数参数表达式" class="section level5">
+<h5>1.2.1 用来捕获函数参数表达式</h5>
 <p>​ <code>substitute()</code>可以作用任意的用户输入，该函数用于捕获表达式，并且用捕获的表达式替换现有的符号。常常与<code>deparse()</code>连用，出现在函数环境中(对表达式进行替换, 不能替换的则保留下来)。</p>
 <p><code>deparse(substitute())</code>函数以<code>substitute()</code> 的结果(一个表达式)为参数，并把它转变成一个字符串。</p>
 <pre class="r"><code>rm(list  = ls() )
@@ -144,8 +138,8 @@ substitute(a+b+z ,list(&#39;+&#39; =quote(`*`)) )
 <li>以上都没有，则名字原样保留不变</li>
 </ol>
 </div>
-<div id="substitute的缺点" class="section level4">
-<h4>1.2.2. substitute的缺点</h4>
+<div id="substitute的缺点" class="section level5">
+<h5>1.2.2. substitute的缺点</h5>
 <ul>
 <li>如果某个表达式存储在变量中，则它不会对表达式进行替换。这时需要用到pryr::substitute_q()函数。</li>
 <li>如果substitute它在全局环境中运行时(不特殊指定替换)，它从不进行替换，最好用作函数环境中。这时可以用pryr::subs()函数</li>
@@ -231,10 +225,10 @@ call_2 = quote(sin(xx))
 call_2
 #&gt; sin(xx)
 try( eval(call_2) )
-#&gt; Error in eval(call_2) : 找不到对象&#39;xx&#39;
+#&gt; Error in eval(call_2) : object &#39;xx&#39; not found
 
 try( sin(xx) ) # 报错信息和上面的类似
-#&gt; Error in try(sin(xx)) : 找不到对象&#39;xx&#39;
+#&gt; Error in try(sin(xx)) : object &#39;xx&#39; not found
 
 
 # eval()可以允许我们提供一个list来计算给定的表达式，从而可以不需要创建一个变量x
@@ -301,26 +295,28 @@ parse(text = deparse(z))
 # cat(&quot;x &lt;- c(1, 4)\n  x ^ 3 -10 ; outer(1:7, 5:9)\n&quot;, file = &#39;aa.txt&#39;)
 # parse(file = &#39;a.txt&#39;, n = 3)# 把文件中的代码转变为表达式</code></pre>
 <pre class="r"><code>sessionInfo()
-#&gt; R version 4.0.2 (2020-06-22)
-#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)
-#&gt; Running under: macOS Mojave 10.14.5
+#&gt; R version 4.2.1 (2022-06-23)
+#&gt; Platform: aarch64-apple-darwin20 (64-bit)
+#&gt; Running under: macOS Monterey 12.5.1
 #&gt; 
 #&gt; Matrix products: default
-#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
 #&gt; 
 #&gt; locale:
-#&gt; [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
+#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 #&gt; 
 #&gt; attached base packages:
 #&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
-#&gt;  [1] Rcpp_1.0.5       bookdown_0.20    codetools_0.2-16 digest_0.6.25   
-#&gt;  [5] magrittr_1.5     evaluate_0.14    blogdown_0.20    rlang_0.4.7     
-#&gt;  [9] stringi_1.4.6    pryr_0.1.4       rmarkdown_2.3    tools_4.0.2     
-#&gt; [13] stringr_1.4.0    xfun_0.17        yaml_2.2.1       compiler_4.0.2  
-#&gt; [17] htmltools_0.5.0  knitr_1.29</code></pre>
+#&gt;  [1] Rcpp_1.0.9       bookdown_0.28    codetools_0.2-18 digest_0.6.29   
+#&gt;  [5] R6_2.5.1         jsonlite_1.8.0   magrittr_2.0.3   evaluate_0.16   
+#&gt;  [9] blogdown_1.11    stringi_1.7.8    cachem_1.0.6     rlang_1.0.4     
+#&gt; [13] cli_3.3.0        pryr_0.1.5       rstudioapi_0.14  jquerylib_0.1.4 
+#&gt; [17] bslib_0.4.0      rmarkdown_2.16.1 tools_4.2.1      stringr_1.4.1   
+#&gt; [21] xfun_0.32        yaml_2.3.5       fastmap_1.1.0    compiler_4.2.1  
+#&gt; [25] htmltools_0.5.3  knitr_1.40       sass_0.4.2</code></pre>
 </div>
 </div>
 <div id="参考" class="section level2">
@@ -328,5 +324,4 @@ parse(text = deparse(z))
 <p>《高级R语言编程》</p>
 <p>《R语言编程指南》</p>
 <p>《R语言核心编程技巧第二版》</p>
-</div>
 </div>

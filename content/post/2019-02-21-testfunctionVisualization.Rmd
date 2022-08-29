@@ -11,11 +11,14 @@ output:
     number_sections: true
 ---
 
-# 智能算法测试函数可视化(二维)
+## 智能算法测试函数可视化(二维)
 
-## 1  Sphere 函数
+### 1  Sphere 函数
 
-$$f(x) = \sum^n_{i=1}x_i^2$$
+$$
+f(x) = \sum^n_{i=1}x_i^2
+$$
+
 全局最优点为$x =(0,0,\cdots ,0 ),f(x) =0$ 
 ```{r}
 #############################
@@ -36,8 +39,11 @@ library(widgetframe)
 p = plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~z)
 frameWidget(p)
 ```
-## 2  Schwefel 函数
-$$f(x) = \sum^n_i|x_i| + \prod^n_i|x_i|$$
+### 2  Schwefel 函数
+$$
+f(x) = \sum^n_i|x_i| + \prod^n_i|x_i|
+$$
+
 全局最优点为$x =(0,0,\cdots ,0 ),f(x) =0$ 
 ```{r}
 
@@ -55,8 +61,11 @@ p = plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~z)
 frameWidget(p)
 ```
 
-## 3  Rosenbrock 函数
-$$f(x) = \sum^n_{i=1}  \left( 100 ( x_{i+1}- x_i^2 )^2+ (x_i -1)^2 \right)$$
+### 3  Rosenbrock 函数
+$$
+f(x) = \sum^n_{i=1}  \left( 100 ( x_{i+1}- x_i^2 )^2+ (x_i -1)^2 \right)
+$$
+
 全局最优点为$x =(1,1,\cdots ,1 ),f(x) =0$ 
 ```{r}
 ## 3、Rosenbrock 函数
@@ -72,8 +81,11 @@ p = plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~z)
 frameWidget(p)
 ```
 
-## 4、Rastrigin
-$$f(x) = \sum_{i=1}^n \left(  x_i^2 - 10cos(2\pi x_i) +10 \right)$$
+### 4、Rastrigin
+$$
+f(x) = \sum_{i=1}^n \left(  x_i^2 - 10cos(2\pi x_i) +10 \right)
+$$
+
 全局最优点为$x =(0,0,\cdots ,0 ),f(x) =0$ 
 ```{r}
 ## 4、Rastrigin
@@ -89,9 +101,13 @@ p = plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~z)
 frameWidget(p)
 ```
 
-## 5 Griewank 函数
-$$f(x) = \frac{1}{4000}\sum_{i=1}^n x_i^2 -\prod^n_{i=1}cos\left( \frac{x_i}{\sqrt{i}}\right) +1$$
+### 5 Griewank 函数
+$$
+f(x) = \frac{1}{4000}\sum_{i=1}^n x_i^2 -\prod^n_{i=1}cos\left( \frac{x_i}{\sqrt{i}}\right) +1
+$$
+
 全局最优点为$x =(0,0,\cdots ,0 ),f(x) =0$ 
+
 ```{r}
 ## 5/Griewank 函数
 f2_Griewank = function(x,y){
@@ -107,8 +123,11 @@ p = plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~z)
 frameWidget(p)
 ```
 
-## 6 Ackley 函数
-$$f(x) = -20 Exp  \left(-0.2  \times \sqrt{\frac{1}{30} \sum_{i=1}^n x_i^2 } \right) - Exp  \left(\sqrt{\frac{1}{30} \cos(2 \pi x_i) } \right) +20 +e$$
+### 6 Ackley 函数
+$$
+f(x) = -20 Exp  \left(-0.2  \times \sqrt{\frac{1}{30} \sum_{i=1}^n x_i^2 } \right) - Exp  \left(\sqrt{\frac{1}{30} \cos(2 \pi x_i) } \right) +20 +e
+$$
+
 全局最优点为$x =(0,0,\cdots ,0 ),f(x) =0$ 
 
 ```{r}
@@ -126,9 +145,13 @@ p = plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~z)
 frameWidget(p)
 ```
 
-## 7 Noise函数
-$$f(x) = \sum_{i=1}^nix_i^4 + rand[0,1)$$
+### 7 Noise函数
+$$
+f(x) = \sum_{i=1}^nix_i^4 + rand[0,1)
+$$
+
 全局最优点为$x =(0,0,\cdots ,0 ),f(x) =0$ 
+
 ```{r}
 ## 7 、Noise函数
 f2_Niose2 = function(x,y){
@@ -142,9 +165,13 @@ z <- outer(x, y, f2_Niose2)
 p = plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~z)
 frameWidget(p)
 ```
-## 8 shaffer函数
-$$f(x) = \frac{\sin^2(\sqrt{x_i^2 +x_2^2}) - 0.5 }{[1+0.001(x_1+x_2)]^2} - 0.5 $$
+### 8 shaffer函数
+$$
+f(x) = \frac{\sin^2(\sqrt{x_i^2 +x_2^2}) - 0.5 }{[1+0.001(x_1+x_2)]^2} - 0.5
+$$
+
 全局最优点为$x =(0,0,\cdots ,0 ),f(x) = -1$ 
+
 ```{r}
 ## 8/shaffer函数
 f2_shaffer2 = function(x,y){

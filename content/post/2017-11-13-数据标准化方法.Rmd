@@ -13,23 +13,25 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE)
 ```
 
 ##　1、标准化——数据处理
-***
-```
+
+```R
 preProcess(x, method = c("center", "scale"),  
   　　　　　thresh = 0.95, 　pcaComp = NULL, 　na.remove = TRUE, 　k = 5,  
   　　　　　knnSummary = mean, 　outcome = NULL, 　fudge = 0.2, 　numUnique = 3,  
   　　　　　verbose = FALSE, 　freqCut = 95/5,　 uniqueCut = 10, 　cutoff = 0.9, ...)   predict(object, newdata, ...)  
-```
+  　　　　　
+# 解释
+1. x: 为一个矩阵或数据框，对于非数值型变量将被忽略　　
 
-***
-
-1. **x:** 为一个矩阵或数据框，对于非数值型变量将被忽略　　
-
-2. **method:** 指定数据标准化的方法，默认为"center"和"scale"。（必须同时使用这两个，若选一个只能对应中心化或均值化）     
+2. method: 指定数据标准化的方法，默认为"center"和"scale"。（必须同时使用这两个，若选一个只能对应中心化或均值化）  
    - 其中center表示预测变量值减去均值；scale表示预测变量值除以标准差，故默认标准化方法就是$(x-mu)/std$。   
    - 如果使用range方法，则数据标准为[0,1]的范围，即$(x-min)/(max-min)$。  
-
 ```
+
+
+
+
+```R
 ppMethods <- c("BoxCox", "YeoJohnson", "expoTrans", "invHyperbolicSine",
                "center", "scale", "range", 
                "knnImpute", "bagImpute", "medianImpute", 
@@ -64,8 +66,8 @@ ppMethods <- c("BoxCox", "YeoJohnson", "expoTrans", "invHyperbolicSine",
 
 
 
-## 2. iris实例 ————scale（均值方差标准化）
-```{r,message=FALSE}
+## 2. iris实例 ———— scale（均值方差标准化）
+```{r,message=FALSE,warning=FALSE}
 library(caret)
 library(dplyr)
 head(scale(iris[,1:4]))
@@ -77,7 +79,7 @@ all(scale(iris[,1:4])==predict(stand_scale ,iris[,1:4])) #中间存在误差，�
 ```
 
 ## 3. iris实例————max-min(标准化)
-```{r,message=FALSE}
+```{r,message=FALSE,warning=FALSE}
 normalize <- function(x) {
   return ((x - min(x)) / (max(x) - min(x)))
 }
@@ -95,7 +97,7 @@ all(iris_max==iris_max_prePro)# 正常，和我们预期的一样，两个数据
 
 比如: 我们经常对train数据进行标准化，并且用train数据的参数去标准化test数据,R中没有内置的函数。   
 还有：有些模型和数据 存在量纲差异，需要标准化后建模，并预测，预测出来的值是标准化后的数据，此时需要把预测的数据还原成真实数据，此时就需要原始数据的标准化参数了   
-```{r,message=FALSE}
+```{r,message=FALSE,warning=FALSE}
 stand_scale <- preProcess(iris)  #采用(x-mu)/std的标准化方法，与scale()函数效果一样
 iris_scale=predict(stand_scale,iris[,1:4])
 
@@ -109,7 +111,7 @@ head(iris,10)
 
 ## 5. 还原标准化数据-----max-min
 
-```{r,message=FALSE}
+```{r,message=FALSE,warning=FALSE}
 stand_range <- preProcess(iris[1:4],method = "range")
 iris_max_prePro=predict(stand_range ,iris[1:4])
 
@@ -121,14 +123,15 @@ head(iris,10)
 
 ## 6. 还原标准化数据---DMwR::unscale()函数
 
-```
+```R
 unscale(vals, norm.data, col.ids)
 
     vals	: 要还原标准化的数值型矩阵，或者数值型数据框  
     norm.data	 ： 以及标准化后的数据，必须是用scale()函数标准化后的数据  
     col.ids	： 那些列可以不用标准化（默认全部列都有进行)  
 ```
-```{r}
+```{r,eval=FALSE}
+############ 新版本的的R好像没有这个包了
 # 我把iris数据集分为7:3
 library(caret)
 library(dplyr)

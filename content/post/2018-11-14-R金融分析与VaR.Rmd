@@ -15,12 +15,12 @@ output:
 这是一份很久以前一份作业报告.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE,tidy = T)
+knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
 ```
 
-# 第一题
+## 第一题
 
-## 加载工具包
+### 加载工具包
 
 ```{r,warning=FALSE,message=FALSE}
 #加载工具包
@@ -40,7 +40,7 @@ library(dplyr)
 ```
 
 
-## 输入要研究的股票数据代码
+### 输入要研究的股票数据代码
 ```{r}
 
 #######################################
@@ -59,7 +59,7 @@ eDate<-"2018-10-01" #结束日期
 
 ```
 ### 下载数据并保存到本地
-```{r,warning=FALSE,message=FALSE}
+```{r,warning=FALSE,message=FALSE,eval=FALSE}
 
 ## 上面的参数 eval=FALSE 代码这代码块不执行
 download<-function(stock,from=sDate,to=eDate){
@@ -78,7 +78,10 @@ download(stock) # 这个是从网上下载数据，如果只研究一只股票�
 ###  读取本地股票数据
 ```{r}
 #本地读数据
-read<-function(stock){as.xts(read.zoo(file=paste(stock,".csv",sep=""),header = TRUE,sep=",", format="%Y-%m-%d"))}
+read<-function(stock){
+  as.xts(read.csv.zoo(file=paste(stock,".csv",sep=""),header = TRUE,sep=",", format="%Y-%m-%d"))
+}
+
 
 data <- read(stock)
 cdata = data$Close
@@ -87,13 +90,13 @@ cdata = data$Close
 
 ### 删除该文件
 
-```{r}
+```{r,eval=FALSE}
  file.remove(paste0(stock,".csv")) # 删除存储的文件
 ```
 
 
 
-## 计算日、月、年、收益率（按收盘价） 并保存数据 
+### 计算日、月、年、收益率（按收盘价） 并保存数据 
 
 ```{r}
 daily_return=dailyReturn(cdata) # 日收益率
@@ -117,7 +120,7 @@ yearly_return = yearlyReturn(cdata)  # 年收益率
 
 ```
 
-## 计算 日收益率的均值 和波动率
+### 计算 日收益率的均值 和波动率
 
 ```{r}
 
@@ -127,7 +130,7 @@ sprintf(paste(stock,"日收益率的波动率: %f"),sd(daily_return)) #   # 日�
 ```
 
 
-## 计算移动平均值(5,10,20,60期移动平均值) 并保存数据
+### 计算移动平均值(5,10,20,60期移动平均值) 并保存数据
 ```{r}
 #移动平均
 ma<-function(cdata,mas=c(5,10,20,60)){ 
@@ -150,7 +153,7 @@ ldata = ma(cdata , c(5,10,20,30,60))  # 股票的 5 ，10 ，20 ，60 期移动�
 
 ```
 
-## 画出收盘价与5 期 30 期移动平均线
+### 画出收盘价与5 期 30 期移动平均线
 ```{r}
 
 ldata = ma(cdata, c(5,30)) 
@@ -163,7 +166,7 @@ dygraph(ldata)%>%   dyOptions(colors = c("red","blue", "green")) %>%
 ```
 
 
-## 寻找金叉死叉，即买卖点
+### 寻找金叉死叉，即买卖点
 ```{r}
 ma_lag_data=function(ldata){
     SMA5 = embed (ldata[,2],2)  # 5期均线
@@ -275,7 +278,7 @@ drow_plot_2ma(ldata = ldata,
 ```
 
 
-##  画出所用的均线5,10,30,60 图 以及 收盘价 以及 2均线形成（5,30）的金叉死叉
+###  画出所用的均线5,10,30,60 图 以及 收盘价 以及 2均线形成（5,30）的金叉死叉
 ```{r}
 ldata = ma(cdata, c(5,10,30,60)) 
 
@@ -349,7 +352,7 @@ drow_ggplot2_ma(ldata = ldata,upbuytime = as.character(index(UpBuy1)),downsellti
 
 
 
-# 第二题  --VaR
+## 第二题  --VaR
 
 
 
@@ -372,7 +375,7 @@ library(PerformanceAnalytics)
 ```
 
 
-## 输入要研究的股票数据代码
+### 输入要研究的股票数据代码
 ```{r}
 
 #######################################
@@ -393,7 +396,7 @@ eDate<-"2017-12-31" #结束日期
 
 ### 下载数据并保存到本地
 
-```{r}
+```{r,eval=FALSE }
 
 ## 上面的参数 eval=FALSE 代码这代码块不执行
 download<-function(stock,from=sDate,to=eDate){
@@ -420,11 +423,11 @@ cdata = data$Close
 
 ### 删除该文件
 
-```{r}
+```{r,eval=FALSE }
  file.remove(paste0(stock,".csv")) # 删除存储的文件
 ```
 
-##  计算VaR--历史模拟法
+###  计算VaR--历史模拟法
 
 ```{r}
 
@@ -445,7 +448,7 @@ sprintf("收益率超过VaR阈值的次数: %d,3年一共有%d有效天,占%f",V
 ```
 
 
-##   计算VaR--韦伯法
+###   计算VaR--韦伯法
 
 ```{r}
 library(quantmod)
@@ -492,16 +495,16 @@ for(i in 1:m){
     }
     return(kk)
   }
-  xml<-optim(c(1,1),fn,method='BFGS',control=list(fnscale=-1))
-  k<-xml$par[1]
-  lambda<-xml$par[2]
-  wVaR[i]<--log(qweibull(alpha,k,lambda))
-  dre=cdata$re[n-m+i]
+  xml <- optim(c(1,1),fn,method='BFGS',control=list(fnscale=-1))
+  k   <- xml$par[1]
+  lambda <- xml$par[2]
+  wVaR[i] <- -log(qweibull(alpha,k,lambda))
+  dre = cdata$re[n-m+i]
   
-  if(dre< -VaR[i]){d1=d1+1}
-  if(dre< -qVaR[i]){d2=d2+1}
-  if(dre< -zVaR[i]){d3=d3+1}
-  if(dre< -wVaR[i]){d4=d4+1}
+  if(dre < -VaR[i]){d1=d1+1}
+  if(dre < -qVaR[i]){d2=d2+1}
+  if(dre < -zVaR[i]){d3=d3+1}
+  if(dre < -wVaR[i]){d4=d4+1}
 }
 ctv<-qbinom(0.05,m,alpha)
 VR=data.frame(xdate,VaR,qVaR,zVaR,wVaR)

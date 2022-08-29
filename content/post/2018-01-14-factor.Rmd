@@ -14,7 +14,6 @@ keywords:
 knitr::opts_chunk$set(message=FALSE, warning=FALSE)
 ```
 
-# 因子类型
 
 变量可归结为名义型、有序型或连续型变量，
 
@@ -29,7 +28,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE)
 
 **连续型变量**可以呈现为某个范围内的任意值，比如年龄
 
-## 1、基础函数
+### 1、基础函数
 
 针对因子型数据，我们一般需要用到三种变化
 
@@ -128,7 +127,7 @@ table(sex) #返回一个特殊的有元素名的向量
 
 
 
-## 2、forcats包的处理因子函数
+### 2、forcats包的处理因子函数
 
 在分类变量类数较多时，往往需要对因子水平另外排序、合并等， forcats包提供了一些针对因子的方便函数。
 
@@ -179,7 +178,7 @@ table(sex) #返回一个特殊的有元素名的向量
 | lvls_revalue(f, new_levels)         | 整体更改level名称 |
 | lvls_expand(f, new_levels)          | 增加额外的level值 |
 
-## 3、例子
+### 3、例子
 
 1.修改level顺序的函数使用
 
@@ -287,7 +286,7 @@ fct_drop(f) # 默认将没有对应值的level去掉
 
 ```
 
-## 4、forcats包因子总结
+### 4、forcats包因子总结
 
 fct_lump(f, n, prop)： 根据因子水平（levels）的值合并为“other”
 

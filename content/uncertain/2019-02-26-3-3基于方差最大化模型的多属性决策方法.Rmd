@@ -21,7 +21,7 @@ knitr::opts_chunk$set(message = F,warning = F,comment = "#>",collapse = TRUE)
 
 ## 徐泽水《不确定多属性决策方法与应用》84页
 
-```{r}
+```{r,message = F,warning = F}
 ##  3.3 基于方差最大化模型的多属性决策方法---徐泽水《不确定多属性决策方法与应用》84页 --3.3.2 实例分析
 library(data.table)
 library(dplyr)

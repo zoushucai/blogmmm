@@ -8,26 +8,21 @@ keywords:
   - R
 ---
 
-<script src="2017-11-13-数据标准化方法_files/header-attrs/header-attrs.js"></script>
 
 
-<p>##　1、标准化——数据处理
-***</p>
-<pre><code>preProcess(x, method = c(&quot;center&quot;, &quot;scale&quot;),  
+<p>##　1、标准化——数据处理</p>
+<pre class="r"><code>preProcess(x, method = c(&quot;center&quot;, &quot;scale&quot;),  
   　　　　　thresh = 0.95, 　pcaComp = NULL, 　na.remove = TRUE, 　k = 5,  
   　　　　　knnSummary = mean, 　outcome = NULL, 　fudge = 0.2, 　numUnique = 3,  
-  　　　　　verbose = FALSE, 　freqCut = 95/5,　 uniqueCut = 10, 　cutoff = 0.9, ...)   predict(object, newdata, ...)  </code></pre>
-<hr />
-<ol style="list-style-type: decimal">
-<li><p><strong>x:</strong> 为一个矩阵或数据框，对于非数值型变量将被忽略　　</p></li>
-<li><p><strong>method:</strong> 指定数据标准化的方法，默认为“center”和“scale”。（必须同时使用这两个，若选一个只能对应中心化或均值化）</p>
-<ul>
-<li>其中center表示预测变量值减去均值；scale表示预测变量值除以标准差，故默认标准化方法就是<span class="math inline">\((x-mu)/std\)</span>。<br />
-</li>
-<li>如果使用range方法，则数据标准为[0,1]的范围，即<span class="math inline">\((x-min)/(max-min)\)</span>。</li>
-</ul></li>
-</ol>
-<pre><code>ppMethods &lt;- c(&quot;BoxCox&quot;, &quot;YeoJohnson&quot;, &quot;expoTrans&quot;, &quot;invHyperbolicSine&quot;,
+  　　　　　verbose = FALSE, 　freqCut = 95/5,　 uniqueCut = 10, 　cutoff = 0.9, ...)   predict(object, newdata, ...)  
+  　　　　　
+# 解释
+1. x: 为一个矩阵或数据框，对于非数值型变量将被忽略　　
+
+2. method: 指定数据标准化的方法，默认为&quot;center&quot;和&quot;scale&quot;。（必须同时使用这两个，若选一个只能对应中心化或均值化）  
+   - 其中center表示预测变量值减去均值；scale表示预测变量值除以标准差，故默认标准化方法就是$(x-mu)/std$。   
+   - 如果使用range方法，则数据标准为[0,1]的范围，即$(x-min)/(max-min)$。  </code></pre>
+<pre class="r"><code>ppMethods &lt;- c(&quot;BoxCox&quot;, &quot;YeoJohnson&quot;, &quot;expoTrans&quot;, &quot;invHyperbolicSine&quot;,
                &quot;center&quot;, &quot;scale&quot;, &quot;range&quot;, 
                &quot;knnImpute&quot;, &quot;bagImpute&quot;, &quot;medianImpute&quot;, 
                &quot;pca&quot;, &quot;ica&quot;, 
@@ -50,7 +45,7 @@ keywords:
 <li><p><strong>newdata:</strong>指定需要处理的新数据集</p></li>
 </ul>
 <div id="iris实例-scale均值方差标准化" class="section level2">
-<h2>2. iris实例 ————scale（均值方差标准化）</h2>
+<h2>2. iris实例 ———— scale（均值方差标准化）</h2>
 <pre class="r"><code>library(caret)
 library(dplyr)
 head(scale(iris[,1:4]))</code></pre>
@@ -166,12 +161,13 @@ t(apply(iris_max_prePro,1,function(x){x*(stand_range$ranges[2,]-stand_range$rang
 </div>
 <div id="还原标准化数据dmwrunscale函数" class="section level2">
 <h2>6. 还原标准化数据—DMwR::unscale()函数</h2>
-<pre><code>unscale(vals, norm.data, col.ids)
+<pre class="r"><code>unscale(vals, norm.data, col.ids)
 
     vals    : 要还原标准化的数值型矩阵，或者数值型数据框  
     norm.data    ： 以及标准化后的数据，必须是用scale()函数标准化后的数据  
     col.ids ： 那些列可以不用标准化（默认全部列都有进行)  </code></pre>
-<pre class="r"><code># 我把iris数据集分为7:3
+<pre class="r"><code>############ 新版本的的R好像没有这个包了
+# 我把iris数据集分为7:3
 library(caret)
 library(dplyr)
 library(DMwR)
@@ -183,71 +179,55 @@ library(e1071)
 ########## 标准化数据
 # 
 data(algae)
-algae[,4:12] %&gt;% head() # 可以发现数据存在量纲的差异，我们要预测a1（因变量） ,其他为自变量</code></pre>
-<pre><code>##   mxPH mnO2     Cl    NO3     NH4    oPO4     PO4 Chla   a1
-## 1 8.00  9.8 60.800  6.238 578.000 105.000 170.000 50.0  0.0
-## 2 8.35  8.0 57.750  1.288 370.000 428.750 558.750  1.3  1.4
-## 3 8.10 11.4 40.020  5.330 346.667 125.667 187.057 15.6  3.3
-## 4 8.07  4.8 77.364  2.302  98.182  61.182 138.700  1.4  3.1
-## 5 8.06  9.0 55.350 10.416 233.700  58.222  97.580 10.5  9.2
-## 6 8.25 13.1 65.750  9.248 430.000  18.250  56.667 28.4 15.1</code></pre>
-<pre class="r"><code>normData &lt;- scale(algae[,4:12]) # 把train数据进行标准化
+algae[,4:12] %&gt;% head() # 可以发现数据存在量纲的差异，我们要预测a1（因变量） ,其他为自变量
+normData &lt;- scale(algae[,4:12]) # 把train数据进行标准化
 t &lt;- svm(a1 ~ .,normData[1:100,] %&gt;% as.data.frame() ) #决策树模型
 normPs &lt;- predict(t,as.data.frame(normData[101:nrow(normData),])) # 可以发现预测的数据不是最终的数据，需要进行标准化还原
-normPs %&gt;% head() # 预测值 ,预测数据,都在0--1范围</code></pre>
-<pre><code>##          1          2          3          4          5          6 
-## -0.4688077 -0.5577023 -0.5956463 -0.7180639 -0.4260693 -0.2741933</code></pre>
-<pre class="r"><code>algae[101:nrow(normData),&quot;a1&quot;] %&gt;% head()# 真实值</code></pre>
-<pre><code>## [1] 16.5  7.0 58.7  8.7 17.0 12.3</code></pre>
-<pre class="r"><code>unscale(normPs,normData) %&gt;% head()#于是还原预测数据</code></pre>
-<pre><code>##       [,1]
-## 1 7.731243
-## 2 7.678057
-## 3 7.655355
-## 4 7.582112
-## 5 7.756814
-## 6 7.847682</code></pre>
+normPs %&gt;% head() # 预测值 ,预测数据,都在0--1范围
+algae[101:nrow(normData),&quot;a1&quot;] %&gt;% head()# 真实值
+unscale(normPs,normData) %&gt;% head()#于是还原预测数据</code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 4.0.2 (2020-06-22)
-## Platform: x86_64-apple-darwin17.0 (64-bit)
-## Running under: macOS Mojave 10.14.5
+<pre><code>## R version 4.2.1 (2022-06-23)
+## Platform: aarch64-apple-darwin20 (64-bit)
+## Running under: macOS Monterey 12.5.1
 ## 
 ## Matrix products: default
-## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
-## [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] e1071_1.7-3     DMwR_0.4.1      dplyr_1.0.1     caret_6.0-86   
-## [5] ggplot2_3.3.2   lattice_0.20-41
+## [1] dplyr_1.0.9     caret_6.0-93    lattice_0.20-45 ggplot2_3.3.6  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] zoo_1.8-8            tidyselect_1.1.0     xfun_0.17           
-##  [4] purrr_0.3.4          reshape2_1.4.4       splines_4.0.2       
-##  [7] colorspace_1.4-1     vctrs_0.3.2          generics_0.0.2      
-## [10] htmltools_0.5.0      stats4_4.0.2         yaml_2.2.1          
-## [13] survival_3.1-12      prodlim_2019.11.13   rlang_0.4.7         
-## [16] ModelMetrics_1.2.2.2 pillar_1.4.6         glue_1.4.1          
-## [19] withr_2.2.0          TTR_0.24.2           foreach_1.5.0       
-## [22] lifecycle_0.2.0      plyr_1.8.6           quantmod_0.4.17     
-## [25] lava_1.6.7           stringr_1.4.0        timeDate_3043.102   
-## [28] munsell_0.5.0        blogdown_0.20        gtable_0.3.0        
-## [31] recipes_0.1.13       codetools_0.2-16     evaluate_0.14       
-## [34] knitr_1.29           curl_4.3             class_7.3-17        
-## [37] xts_0.12.1           Rcpp_1.0.5           ROCR_1.0-11         
-## [40] scales_1.1.1         ipred_0.9-9          abind_1.4-5         
-## [43] digest_0.6.25        stringi_1.4.6        bookdown_0.20       
-## [46] tools_4.0.2          magrittr_1.5         tibble_3.0.3        
-## [49] crayon_1.3.4         pkgconfig_2.0.3      ellipsis_0.3.1      
-## [52] MASS_7.3-51.6        Matrix_1.2-18        data.table_1.13.0   
-## [55] pROC_1.16.2          lubridate_1.7.9      gower_0.2.2         
-## [58] rmarkdown_2.3        iterators_1.0.12     R6_2.4.1            
-## [61] rpart_4.1-15         nnet_7.3-14          nlme_3.1-148        
-## [64] compiler_4.0.2</code></pre>
+##  [1] Rcpp_1.0.9           lubridate_1.8.0      listenv_0.8.0       
+##  [4] class_7.3-20         assertthat_0.2.1     digest_0.6.29       
+##  [7] ipred_0.9-13         foreach_1.5.2        utf8_1.2.2          
+## [10] parallelly_1.32.1    R6_2.5.1             plyr_1.8.7          
+## [13] stats4_4.2.1         hardhat_1.2.0        evaluate_0.16       
+## [16] blogdown_1.11        pillar_1.8.1         rlang_1.0.4         
+## [19] data.table_1.14.2    rstudioapi_0.14      jquerylib_0.1.4     
+## [22] rpart_4.1.16         Matrix_1.4-1         rmarkdown_2.16.1    
+## [25] splines_4.2.1        gower_1.0.0          stringr_1.4.1       
+## [28] munsell_0.5.0        compiler_4.2.1       xfun_0.32           
+## [31] pkgconfig_2.0.3      globals_0.16.0       htmltools_0.5.3     
+## [34] nnet_7.3-17          tidyselect_1.1.2     tibble_3.1.8        
+## [37] prodlim_2019.11.13   bookdown_0.28        codetools_0.2-18    
+## [40] fansi_1.0.3          future_1.27.0        withr_2.5.0         
+## [43] ModelMetrics_1.2.2.2 MASS_7.3-58.1        recipes_1.0.1       
+## [46] grid_4.2.1           nlme_3.1-159         jsonlite_1.8.0      
+## [49] gtable_0.3.0         lifecycle_1.0.1      DBI_1.1.3           
+## [52] magrittr_2.0.3       pROC_1.18.0          scales_1.2.1        
+## [55] future.apply_1.9.0   cli_3.3.0            stringi_1.7.8       
+## [58] cachem_1.0.6         reshape2_1.4.4       timeDate_4021.104   
+## [61] bslib_0.4.0          generics_0.1.3       vctrs_0.4.1         
+## [64] lava_1.6.10          iterators_1.0.14     tools_4.2.1         
+## [67] glue_1.6.2           purrr_0.3.4          parallel_4.2.1      
+## [70] fastmap_1.1.0        survival_3.4-0       yaml_2.3.5          
+## [73] colorspace_2.0-3     knitr_1.40           sass_0.4.2</code></pre>
 </div>
